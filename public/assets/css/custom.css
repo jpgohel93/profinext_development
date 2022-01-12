@@ -1,0 +1,57 @@
+/*PLACE HERE YOUR OWN CSS CODES */
+
+.menu-link .menu-icon i {
+    font-size: 1.25rem;
+}
+.form-group {
+  margin-bottom: 1.75rem;
+}
+@media (max-width: 600px) {
+  .dropdown-menu {
+    width: 75vw;
+  }
+}
+@media (min-width: 205px) {
+  .dropdown-menu.dropdown-menu-sm {
+    width: 175px;
+  }
+}
+@media (min-width: 280px) {
+  .dropdown-menu.dropdown-menu-md {
+    width: 250px;
+  }
+}
+@media (min-width: 380px) {
+  .dropdown-menu.dropdown-menu-lg {
+    width: 350px;
+  }
+}
+@media (min-width: 430px) {
+  .dropdown-menu.dropdown-menu-xl {
+    width: 400px;
+  }
+}
+@media (min-width: 630px) {
+  .dropdown-menu.dropdown-menu-xxl {
+    width: 600px;
+  }
+}
+.menu-state-bg-light-primary .menu-item button.menu-link:hover:not(.disabled):not(.active), 
+.menu-state-bg-light-primary .menu-item.hover>button.menu-link:not(.disabled):not(.active) {
+    transition: color .2s ease,background-color .2s ease;
+    background-color: #f1faff !important;
+    color: #009ef7;
+}
+.table th:first-child {
+    vertical-align: middle;
+}
+
+th > div, tr > td:first-child {
+  font-weight: 600 !important;  
+}
+
+
+.select2-container--bootstrap5 .select2-selection--single.form-select-solid .select2-selection__rendered, .form-select.form-select-solid {
+  line-height: 30px;
+}
+
