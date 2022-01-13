@@ -1,5 +1,8 @@
 @extends('layout')
+@section("page-title","Roles")
+@section("roles","active")
 @section("content")
+<link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
 	<!--begin::Body-->	
     <!--begin::Main-->
     <!--begin::Root-->

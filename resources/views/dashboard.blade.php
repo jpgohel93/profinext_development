@@ -1,4 +1,6 @@
 @extends('layout')
+@section("page-title","Dashboard")
+@section("dashboard","active")
 @section('content')
 		<!--begin::Main-->
 		<!--begin::Root-->

@@ -1,4 +1,6 @@
 @extends('layout')
+@section("page-title","Clients")
+@section("clients","active")
 @section("content")
 	<!--begin::Body-->	
     <!--begin::Main-->
@@ -181,7 +183,7 @@
                                                                         <span>{{$client->email}}</span>
                                                                     </div> 
                                                                 </td> 
-                                                                <td>(937) 874 6878</td>  
+                                                                <td>{{$client->number}}</td>  
                                                                 <td>2</td> 
                                                                 <td class="text-end">
                                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -193,10 +195,10 @@
                                                                     </a> 
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
                                                                         <div class="menu-item px-3">  
-                                                                            <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#actClientView">View</a>
+                                                                            <a href="javascript:void(0);" data-id='{{$client->id}}' class="menu-link px-3 viewClient">View</a>
                                                                         </div> 
                                                                         <div class="menu-item px-3">
-                                                                            <a href="/dist/ledger.html" target="_blank" class="menu-link px-3">Ledger</a>
+                                                                            <a href="/dist/ledger.html" data-id='{{$client->id}}' target="_blank" class="menu-link px-3">Ledger</a>
                                                                         </div> 
                                                                     </div> 
                                                                 </td> 
@@ -861,7 +863,8 @@
 								<!--begin::Content-->
 								<div class="flex-row-fluid px-lg-15">
 									<!--begin::Form-->
-									<form class="form" novalidate="novalidate" id="kt_modal_create_app_form">
+									<form class="form" novalidate="novalidate" id="kt_modal_create_app_form" action="/clients/add" method="POST">
+                                        @csrf
 										<!--begin::Step 1-->
 										<div class="current" data-kt-stepper-element="content">
 											<div class="w-100">
@@ -873,7 +876,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid" name="client-name" placeholder="" value="" />
+													<input type="text" class="form-control form-control-lg form-control-solid" name="client[name]" placeholder="" value="" />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -885,7 +888,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="tel" class="form-control form-control-lg form-control-solid" name="client-moblie" placeholder="" value="" />
+													<input type="tel" class="form-control form-control-lg form-control-solid" name="client[number]" placeholder="" value="" />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -897,7 +900,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid" name="client-communication" placeholder="" value="" />
+													<input type="text" class="form-control form-control-lg form-control-solid" name="client[communication_with]" placeholder="" value="" />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -907,7 +910,7 @@
 													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
 														<span class="required">WhatsApp No.</span>
 														<div class="form-check form-check-custom form-check-solid small" style="margin-left: auto;">
-														    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+														    <input class="form-check-input" type="checkbox" name="client[wp_number_same]" id="flexCheckDefault"/>
 														    <label class="form-check-label" for="flexCheckDefault">
 														        (Select if WhatsApp No. is same as Mobile No.)
 														    </label>
@@ -915,7 +918,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="tel" class="form-control form-control-lg form-control-solid" name="client-whatsapp" placeholder="" value="" />
+													<input type="tel" class="form-control form-control-lg form-control-solid" name="client[wp_number]" placeholder="" value="" />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -927,7 +930,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<select name="profession" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Profession">
+													<select name="client[profession]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Profession">
 														<option></option>
 														<option value="Business Man">Business Man</option>
 														<option value="Professional">Professional</option>
@@ -960,7 +963,7 @@
 														<!--begin::Input wrapper-->
 														<div class="position-relative">
 															<!--begin::Input-->
-															<select name="profession" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="ST/SG">
+															<select name="demat[st_sg]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="ST/SG">
 																<option></option>
 																<option value="ST">ST</option>
 																<option value="SG">SG</option> 
@@ -979,7 +982,7 @@
 														<!--begin::Input wrapper-->
 														<div class="position-relative">
 															<!--begin::Input-->
-															<input type="text" class="form-control form-control-solid" minlength="8" maxlength="10" placeholder="Serial No" name="serial-no" />
+															<input type="text" name="demat[serial_number]" class="form-control form-control-solid" minlength="8" maxlength="10" placeholder="Serial No" />
 															<!--end::Input--> 
 														</div>
 														<!--end::Input wrapper-->
@@ -1009,7 +1012,7 @@
 															<!--end::Label-->
 															<!--begin::Input-->
 															<span class="form-check form-check-custom form-check-solid">
-																<input class="form-check-input" type="radio" name="prime" checked="checked" value="1" />
+																<input class="form-check-input" type="radio" name="demat[service_type]" checked="checked" value="1" />
 															</span>
 															<!--end::Input-->
 														</label>
@@ -1031,7 +1034,7 @@
 															<!--end::Label-->
 															<!--begin::Input-->
 															<span class="form-check form-check-custom form-check-solid">
-																<input class="form-check-input" type="radio" name="ams" value="2" />
+																<input class="form-check-input" type="radio" name="demat[service_type]" value="2" />
 															</span>
 															<!--end::Input-->
 														</label>
@@ -1048,7 +1051,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid" name="pan-no" placeholder="" value="" />
+													<input type="text" class="form-control form-control-lg form-control-solid" name="demat[pan_number]" placeholder="" value="" />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -1060,7 +1063,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid" name="demat-holdername" placeholder="" value="" />
+													<input type="text" class="form-control form-control-lg form-control-solid" name="demat[holder_name]" placeholder="" value="" />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -1072,7 +1075,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<select name="profession" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Profession">
+													<select name="demat[broker]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Profession">
 														<option></option>
 														<option value="Business Man">Business Man</option>
 														<option value="Professional">Professional</option>
@@ -1094,7 +1097,7 @@
 														</label>
 														<!--end::Label-->
 														<!--begin::Input-->
-														<input type="text" class="form-control form-control-lg form-control-solid" name="user-id" placeholder="" value="" />	
+														<input type="text" class="form-control form-control-lg form-control-solid" name="demat[user_id]" placeholder="" value="" />	
 														<!--end::Input-->
 													</div>
 													<!--end::Col-->
@@ -1106,7 +1109,7 @@
 														</label>
 														<!--end::Label-->
 														<!--begin::Input-->
-														<input type="password" class="form-control form-control-lg form-control-solid" name="user-password" placeholder="" value="" />	
+														<input type="password" class="form-control form-control-lg form-control-solid" name="demat[password]" placeholder="" value="" />	
 														<!--end::Input-->
 													</div>
 													<!--end::Col-->
@@ -1122,7 +1125,7 @@
 														</label>
 														<!--end::Label-->
 														<!--begin::Input-->
-														<input type="password" class="form-control form-control-lg form-control-solid" name="mpin" placeholder="" value="" />	
+														<input type="password" class="form-control form-control-lg form-control-solid" name="demat[mpin]" placeholder="" value="" />	
 														<!--end::Input-->
 													</div>
 													<!--end::Col-->
@@ -1134,7 +1137,7 @@
 														</label>
 														<!--end::Label-->
 														<!--begin::Input-->
-														<input type="text" class="form-control form-control-lg form-control-solid" name="capital" placeholder="" value="" />	
+														<input type="text" class="form-control form-control-lg form-control-solid" name="demat[capital]" placeholder="" value="" />	
 														<!--end::Input-->
 													</div>
 													<!--end::Col-->
@@ -1152,7 +1155,7 @@
 													<label class="required fs-5 fw-bold mb-2">Joining Date</label>
 													<!--end::Label-->
 													<!--begin::Input--> 
-													<input type="text" class="form-control form-control-lg form-control-solid" readonly placeholder="Select date"/>
+													<input type="date" name="payment[joining_date]" class="form-control form-control-lg form-control-solid" placeholder="Select date"/>
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -1175,7 +1178,7 @@
 													<div class="pb-4 border-bottom">
 														<label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
 															<span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Projects</span>
-															<input class="form-check-input" type="checkbox" value="1" checked="checked" />
+															<input class="form-check-input" name="payment[mode]" type="checkbox" value="1" checked="checked" />
 														</label>
 													</div>
 													<!--end::Input group-->
@@ -1183,7 +1186,7 @@
 													<div class="py-4 border-bottom">
 														<label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
 															<span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Targets</span>
-															<input class="form-check-input" type="checkbox" value="1" checked="checked" />
+															<input class="form-check-input" name="payment[mode]" type="checkbox" value="1" checked="checked" />
 														</label>
 													</div>
 													<!--end::Input group-->
@@ -1203,7 +1206,7 @@
 												<!--end::Description-->
 												<!--begin::Illustration-->
 												<div class="text-center px-4 py-15">
-													<img src="/dist/assets/media/illustrations/sketchy-1/9.png" alt="" class="w-100 mh-300px" />
+													<img src="{{asset("assets/media/illustrations/sketchy-1/9.png")}}" alt="" class="w-100 mh-300px" />
 												</div>
 												<!--end::Illustration-->
 											</div>
@@ -1226,7 +1229,7 @@
 											<!--end::Wrapper-->
 											<!--begin::Wrapper-->
 											<div>
-												<button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="submit">
+												<button type="submit" class="btn btn-lg btn-primary" data-kt-stepper-action="submit">
 													<span class="indicator-label">Submit
 													<!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
 													<span class="svg-icon svg-icon-3 ms-2 me-0">
@@ -1268,7 +1271,7 @@
 		</div>
 		<!--end::Modal - Add client--> 
 		<!--begin::Modal - View Client Details--> 
-		<div class="modal fade" id="actClientView" tabindex="-1" aria-hidden="true">
+		<div class="modal fade" id="viewClient" tabindex="-1" aria-hidden="true">
 		    <div class="modal-dialog modal-dialog-centered mw-650px" role="document">
 		        <div class="modal-content">
 		            <div class="modal-header">
@@ -1293,22 +1296,25 @@
 								<div class="form-group row">
 									<label class="col-3 col-form-label">Client</label>
 									<div class="col-9">
-										<input class="form-control" type="text" value="Ethan Black" id="example-text-input" /> </div>
+										<input class="form-control" type="text" value="" id="client_name" readonly />
+                                    </div>
 								</div>
 								<div class="form-group row">
-									<label for="example-email-input" class="col-3 col-form-label">Email</label>
+									<label for="example-email-input" class="col-3 col-form-label">Number</label>
 									<div class="col-9">
-										<input class="form-control" type="email" value="ethan-black@example.com" id="example-email-input" /> </div>
+										<input class="form-control" type="text" value="" id="client_number" readonly /> </div>
 								</div> 
 								<div class="form-group row">
-									<label for="example-tel-input" class="col-3 col-form-label">Telephone</label>
+									<label for="example-tel-input" class="col-3 col-form-label">Profession</label>
 									<div class="col-9">
-										<input class="form-control" type="tel" value="(937) 874 6878" id="example-tel-input" /> </div>
+										<input class="form-control" type="text" value="" id="client_profession"  readonly/>
+                                    </div>
 								</div> 
 								<div class="form-group row mb-0">
-									<label for="no-of-demat" class="col-3 col-form-label">No. of Demat</label>
+									<label for="no-of-demat" class="col-3 col-form-label">Status</label>
 									<div class="col-9">
-										<input class="form-control" type="number" value="2" id="no-of-demat" /> </div>
+										<input class="form-control" type="text" value="" id="client_status"  readonly/>
+                                    </div>
 								</div> 
 							<!-- </div> -->
 							<!--end::Scroll--> 
@@ -1340,4 +1346,29 @@
         </span>
         <!--end::Svg Icon-->
     </div>
+    <script>
+        window.addEventListener("DOMContentLoaded",function(){
+            const name = $("#client_name");
+            const number = $("#client_number");
+            const profession = $("#client_profession");
+            const status = $("#client_status");
+
+            $(document).on("click",".viewClient",function(){
+                $.ajax("/client/view/"+$(this).attr("data-id"),{
+                    type:"GET",
+                    headers: {
+                        'X-CSRF-TOKEN': $("input[name='_token']").val()
+                    }
+                })
+                .done(data=>{
+                    $(name).val(data.name);
+                    $(number).val(data.number);
+                    $(profession).val(data.profession);
+                    $(status).val(((data.status)?"Active":"Inactive"));
+                    $("#viewClient").modal("show");
+                })
+            })
+            $("#viewClient").modal("hide");
+        })
+    </script>
 @endsection

@@ -1,4 +1,5 @@
 @extends('layout')
+@section("page-title","Login")
 @section('content')
     <!--begin::Main-->
     <div class="d-flex flex-column flex-root">

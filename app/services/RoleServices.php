@@ -10,6 +10,20 @@ class RoleServices
 {
     public static function create($request)
     {
+        foreach($request->all() as $module => $permissions){
+            echo $module;
+            if(is_array($permissions)){
+
+                echo "<pre>";
+                print_r($permissions);
+                echo "</pre>";
+                // foreach ($permissions as $permission_type => $permission) {
+                //     echo $permission_type;
+                // }
+            }
+        }
+        dd($request->all());
+        $role = Role::create(['name' => $request->role]);
         return UserServices::activeClients();
     }
 

@@ -11,6 +11,3 @@ a:hover{
     background-color: #d2d4d5;
     transition: .3s ease;
 }
-.chosen-container {
-    width: 100%!important;
-}
