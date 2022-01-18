@@ -19,8 +19,11 @@
                         @csrf
                         <!--begin::Heading-->
                         <div class="text-center mb-10">
+
                             @if(session("error"))
                                 <h4 class="aler alert-danger p-3">{{session("error")}}</h4>
+                            @elseif($errors->any())
+                                <h4 class="aler alert-danger p-3">{{$errors->first()}}</h4>
                             @endif
                             <!--begin::Title-->
                             <h1 class="text-dark mb-3">Sign In to Metronic</h1>

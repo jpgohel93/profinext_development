@@ -71,6 +71,30 @@
 													<tbody role="rowgroup">
 														<tr role="row" class="">
 															<td aria-colindex="1" role="cell" class=""> Client </td>
+															{{-- client permissions from 1 to 4 --}}
+															@for($i=0;$i<=3;$i++)
+																<td aria-colindex="2" role="cell" class="">
+																	<div class="form-check form-check-custom form-check-solid">
+																		<input type="checkbox" class="form-check-input" name='permission[]' value="{{$permissions[$i]->id}}" id="__BVID__675">
+																		<label class="custom-control-label" for="__BVID__675"></label>
+																	</div>
+																</td>
+															@endfor
+														</tr>
+														<tr role="row" class="">
+															{{-- role permissions from 5 to 8 --}}
+															<td aria-colindex="1" role="cell" class=""> Role </td>
+															@for($i=4;$i<=7;$i++)
+																<td aria-colindex="2" role="cell" class="">
+																	<div class="form-check form-check-custom form-check-solid">
+																		<input type="checkbox" class="form-check-input" name='permission[]' value="{{$permissions[$i]->id}}" id="__BVID__675">
+																		<label class="custom-control-label" for="__BVID__675"></label>
+																	</div>
+																</td>
+															@endfor
+														</tr>
+														{{-- <tr role="row" class="">
+															<td aria-colindex="1" role="cell" class=""> Client </td>
 															<td aria-colindex="2" role="cell" class="">
 																<div class="form-check form-check-custom form-check-solid">
 																	<input type="checkbox" class="form-check-input" name="client[read]" value="true" id="__BVID__670">
@@ -122,7 +146,7 @@
 																	<label class="custom-control-label" for="__BVID__673"></label>
 																</div>
 															</td>
-														</tr>
+														</tr> --}}
 														<!---->
 														{{-- <tr role="row" class="">
 															<td aria-colindex="1" role="cell" class=""> Staff </td>

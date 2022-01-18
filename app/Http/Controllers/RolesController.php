@@ -11,14 +11,16 @@ class RolesController extends Controller
         $role = RoleServices::create($request);
         dd($role);
     }
-
+    public static function view(Request $request){
+        return RoleServices::roles($request);
+    }
     public static function roles(Request $request)
     {
-        $roles = RoleServices::roles($request);
-        return view("roles", ["roles" => $roles]);
+        $permissions = RoleServices::roles($request);
+        return view("create-roles", ["permissions" => $permissions]);
     }
     public static function addRolesForm(Request $request){
-        return view("create-roles",["modules"=>RoleServices::roles()]);
+        return RoleServices::permissions();
     }
     public static function createRole(Request $request){
         return RoleServices::create($request);

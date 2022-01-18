@@ -138,9 +138,12 @@
 															</tr>
 														</thead>
 														<tbody class="text-gray-600 fw-bold">
+															@php
+																$i=1;	
+															@endphp
 															@forelse ($roles as $role)
 																<tr> 
-																	<td>1</td>
+																	<td>{{$i++}}</td>
 																	<td class="role-value-td">{{$role->name}}</td> 
 																	<td> 
 																		<div class="form-check form-check-solid form-switch fv-row">

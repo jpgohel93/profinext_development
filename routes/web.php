@@ -5,30 +5,29 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ClientController;
+
 // login
+Route::get("/login",function(){
+    return view("login");
+})->name("login");
 Route::post("/login",[LoginController::class,"login"])->name("login");
-// clients
-Route::get("/clients",[ClientController::class,"all"])->name("clients");
-// create client
-Route::post("/clients/add",[ClientController::class,"create"])->name("clientCreate");
-// read client
-Route::get("/client/view/{client_id}",[ClientController::class,"get"])->name("clientView");
-// roles
-Route::get("/roles",[RolesController::class, "roles"])->name("roles");
-// roles
-Route::get("/roles/add",[RolesController::class, "addRolesForm"])->name("addRoles");
-Route::post("/role/add",[RolesController::class, "createRole"]);
 
+// Auth::routes();
 
-// Route::fallback(function(){
-//     return view("dashboard");
-// });
-// Route::middleware(['validateUser'])->group(function () {
-//     // Route::get('/', function () {
-//     //     // Uses first & second middleware...
-//     // });
-
-//     // Route::get('/user/profile', function () {
-//     //     // Uses first & second middleware...
-//     // });
-// });
+Route::group(['middleware' => ['auth']], function() {
+    // dashboard
+    Route::get("/",function(){
+        return view("dashboard");
+    })->name("dashboard");
+    // clients
+    Route::get("/clients",[ClientController::class,"all"])->name("clients");
+    // create client
+    Route::post("/clients/add",[ClientController::class,"create"])->name("clientCreate");
+    // read client
+    Route::get("/client/view/{client_id}",[ClientController::class,"get"])->name("clientView");
+    // roles
+    Route::get("/roles",[RolesController::class, "view"])->name("roles");
+    // roles
+    Route::get("/roles/add",[RolesController::class, "addRolesForm"])->name("addRoles");
+    Route::post("/role/add",[RolesController::class, "createRole"]);
+});

@@ -10,21 +10,18 @@ class RoleServices
 {
     public static function create($request)
     {
-        foreach($request->all() as $module => $permissions){
-            echo $module;
-            if(is_array($permissions)){
+        $request->validate([
+            'role' => 'required|unique:roles,name',
+            'permission' => 'required',
+        ]);
+        $role = Role::create(['name' => $request->input('role')]);
+        $role->syncPermissions($request->input('permission'));
+        RoleServices::roles($request);
+    }
 
-                echo "<pre>";
-                print_r($permissions);
-                echo "</pre>";
-                // foreach ($permissions as $permission_type => $permission) {
-                //     echo $permission_type;
-                // }
-            }
-        }
-        dd($request->all());
-        $role = Role::create(['name' => $request->role]);
-        return UserServices::activeClients();
+    public static function permissions(){
+        $permissions = Permission::get();
+        return view('create-roles',compact('permissions'));
     }
 
     public static function revoke($request)
@@ -41,7 +38,8 @@ class RoleServices
     {
         return User::where("status", "1")->get();
     }
-    public static function roles(){
-        return Role::all();
+    public static function roles($request){
+        $roles = Role::orderBy('id','DESC')->get();
+        return view('roles',compact('roles'));
     }
 }

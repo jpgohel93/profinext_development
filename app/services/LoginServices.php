@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginServices{
     public static function login($request){
@@ -14,8 +15,8 @@ class LoginServices{
         ]);
         $request->flashExcept(["_token","password"]);
         if(Auth::attempt($credentials)){
-            return true;
+            return redirect()->route('dashboard')->with('success','Login successfully');
         }
-        return false;
+        return redirect()->route('login')->with('error','Login failed');
     }
 }
