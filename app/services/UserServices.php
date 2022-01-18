@@ -17,4 +17,7 @@ class UserServices
     public static function activeClients(){
         return User::where("status","1")->get();
     }
+    public static function all(){
+        return User::get();
+    }
 }

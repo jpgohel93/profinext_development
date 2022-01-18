@@ -21,6 +21,8 @@ Route::group(['middleware' => ['auth']], function() {
     })->name("dashboard");
     // clients
     Route::get("/clients",[ClientController::class,"all"])->name("clients");
+    // clients
+    Route::get("/users",[UserController::class,"all"])->name("users");
     // create client
     Route::post("/clients/add",[ClientController::class,"create"])->name("clientCreate");
     // read client

@@ -12,4 +12,8 @@ class UserController extends Controller
         $clients = UserServices::clients($request);
         return view("client",["clients"=>$clients]);
     }
+    public static function all(){
+        $users = UserServices::all();
+        return view("users.index",["users"=>$users]);
+    }
 }
