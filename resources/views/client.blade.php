@@ -167,6 +167,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
+                                                        @can("client-read")
                                                         @forelse ($clients as $client)
                                                             <tr> 
                                                                 <td>1</td>
@@ -208,6 +209,7 @@
                                                                 <td colspan="6">No Clients Found</td>
                                                             </tr>    
                                                         @endforelse
+                                                        @endcan
                                                         <!--end::Table row-->
                                                     </tbody>
                                                     <!--end::Table body-->
