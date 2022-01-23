@@ -21,8 +21,10 @@ Route::group(['middleware' => ['auth']], function() {
     })->name("dashboard");
     // clients
     Route::get("/clients",[ClientController::class,"all"])->name("clients");
-    // clients
+    // users
     Route::get("/users",[UserController::class,"all"])->name("users");
+    // create user
+    Route::POST("/user/create",[UserController::class,"create"])->name("userCreate");
     // create client
     Route::post("/clients/add",[ClientController::class,"create"])->name("clientCreate");
     // read client
@@ -32,4 +34,9 @@ Route::group(['middleware' => ['auth']], function() {
     // roles
     Route::get("/roles/add",[RolesController::class, "addRolesForm"])->name("addRoles");
     Route::post("/role/add",[RolesController::class, "createRole"]);
+    // logout
+    Route::get("/logout",function(){
+        session()->flush();
+        return redirect("/login");
+    })->name("addRoles");
 });

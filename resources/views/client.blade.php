@@ -778,6 +778,7 @@
 					<!--end::Modal header-->
 					<!--begin::Modal body-->
 					<div class="modal-body py-lg-10 px-lg-10">
+                        @can("client-create")
 						<div data-scroll="true" data-height="300">
 							<!--begin::Stepper-->
 							<div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid" id="kt_modal_create_app_stepper">
@@ -1264,6 +1265,9 @@
 							</div>
 							<!--end::Stepper-->
 						</div>
+                        @else
+                            <h1>Unauthorised</h1>
+                        @endcan
 					</div>
 					<!--end::Modal body-->
 				</div>

@@ -22,6 +22,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        "bank_name",
+        "account_number",
+        "ifsc_code",
+        "account_type",
+        "user_type",
+        "company",
+        "percentage",
+        "salary",
+        "joining_date",
+        "job_description",
+        "role",
     ];
 
     /**

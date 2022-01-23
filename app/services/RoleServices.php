@@ -16,7 +16,7 @@ class RoleServices
         ]);
         $role = Role::create(['name' => $request->input('role')]);
         $role->syncPermissions($request->input('permission'));
-        RoleServices::roles($request);
+        return RoleServices::roles($request);
     }
 
     public static function permissions(){
@@ -38,8 +38,11 @@ class RoleServices
     {
         return User::where("status", "1")->get();
     }
-    public static function roles($request){
+    public static function roles($request=false){
         $roles = Role::orderBy('id','DESC')->get();
         return view('roles',compact('roles'));
+    }
+    public static function all(){
+        return Role::all();
     }
 }

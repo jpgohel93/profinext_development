@@ -8,8 +8,7 @@ use App\Services\RoleServices;
 class RolesController extends Controller
 {
     public function create(Request $request){
-        $role = RoleServices::create($request);
-        dd($role);
+        return $role = RoleServices::create($request);
     }
     public static function view(Request $request){
         return RoleServices::roles($request);

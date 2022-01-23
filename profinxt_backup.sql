@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2022 at 09:32 AM
+-- Generation Time: Jan 22, 2022 at 04:51 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -42,6 +42,13 @@ CREATE TABLE `clients` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `clients`
+--
+
+INSERT INTO `clients` (`id`, `name`, `number`, `communication_with`, `wp_number`, `profession`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'sunny bhatti', '123456789', 'admin', '7874637972', 'Professional', 1, 'Admin', NULL, '2022-01-13 09:54:18', '2022-01-13 09:54:18', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -67,6 +74,13 @@ CREATE TABLE `client_demat` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `client_demat`
+--
+
+INSERT INTO `client_demat` (`id`, `client_id`, `st_sg`, `serial_number`, `service_type`, `pan_number`, `holder_name`, `broker`, `user_id`, `password`, `mpin`, `capital`, `created_at`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 1, 'SG', '12345Abcd', '2', 'pan number', 'sunny bhatti', 'Govt Job', 'sunny', 'admin', '12345', '55000', '2022-01-13 09:54:18', '2022-01-13 09:54:18', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -81,6 +95,14 @@ CREATE TABLE `client_mode` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `client_mode`
+--
+
+INSERT INTO `client_mode` (`id`, `mode`, `created_at`, `deleted_at`, `updated_at`, `updated_by`) VALUES
+(1, 'project', '2022-01-13 15:22:59', '2022-01-13 10:52:38', '2022-01-13 15:22:59', 'admin'),
+(2, 'target', '2022-01-13 15:22:59', '2022-01-13 10:52:38', '2022-01-13 15:22:59', 'admin');
 
 -- --------------------------------------------------------
 
@@ -99,6 +121,13 @@ CREATE TABLE `client_payment` (
   `deleted_at` datetime DEFAULT NULL,
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `client_payment`
+--
+
+INSERT INTO `client_payment` (`id`, `client_id`, `joining_date`, `fees`, `mode`, `created_at`, `updated_at`, `deleted_at`, `updated_by`) VALUES
+(1, 1, '2022-01-07 00:00:00', '55000', 1, '2022-01-13 09:54:18', '2022-01-13 09:54:18', NULL, 'Admin');
 
 -- --------------------------------------------------------
 
@@ -163,15 +192,6 @@ CREATE TABLE `model_has_roles` (
   `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `model_has_roles`
---
-
-INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
-(1, 'App\\Models\\User', 2),
-(1, 'App\\Models\\User', 6),
-(1, 'App\\Models\\User', 8);
-
 -- --------------------------------------------------------
 
 --
@@ -210,7 +230,7 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (5, 'role-read', 'web', NULL, NULL),
 (6, 'role-write', 'web', NULL, NULL),
 (7, 'role-create', 'web', NULL, NULL),
-(8, 'role-delete', 'web', NULL, NULL),
+(8, 'role-delete', 'web', NULL, NULL);
 (9, 'user-read', 'web', NULL, NULL),
 (10, 'user-write', 'web', NULL, NULL),
 (11, 'user-create', 'web', NULL, NULL),
@@ -253,7 +273,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'super-admin', 'web', '2022-01-22 04:35:49', '2022-01-22 04:35:49');
+(1, 'user', 'web', '2022-01-22 10:05:49', '2022-01-22 10:05:49');
 
 -- --------------------------------------------------------
 
@@ -272,17 +292,7 @@ CREATE TABLE `role_has_permissions` (
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
-(5, 1),
-(6, 1),
-(7, 1),
-(8, 1),
-(9, 1),
-(10, 1),
-(11, 1),
-(12, 1);
+(5, 1);
 
 -- --------------------------------------------------------
 
@@ -318,7 +328,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `status`, `bank_name`, `account_number`, `ifsc_code`, `account_type`, `user_type`, `company`, `percentage`, `salary`, `joining_date`, `job_description`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(2, 'admin', 'test@admin.com', NULL, '$2y$10$PosLnPcx9kMIxPmHwIhz2u7cR6/zzqMVWVDO1ezt.SiSkdhCODlRa', 1, 'hdfc', '4353453', 'HDFC01212', 1, 1, 'democompany', '45', NULL, '2022-01-23', 'dfgdfdgdfdfg', 'super-admin', NULL, '2022-01-23 02:59:58', '2022-01-23 02:59:58');
+(1, 'admin', 'admin@gmail.com', NULL, '$2y$10$pD99pW0l7dTbREB0YN8VGO/YVmzAp4mIXvVdPZ1nWmNshR8lCY3NO', 1, '', '', '', 0, 0, '', '', '', '2022-01-18', '', '1', NULL, NULL, NULL),
+(3, 'sunny', 'sunny@demo.com', NULL, '12345', 0, 'hdfc', '789674564', 'HDFC01212', 2, 2, NULL, NULL, '1540000', '2022-01-25', 'programmer', '4', NULL, '2022-01-22 05:11:54', '2022-01-22 05:11:54'),
+(4, 'user', 'user@techbiz.com', NULL, '12345', 0, 'hdfc', '7894567874', 'HDFC01212', 1, 2, NULL, NULL, '15000', '2022-01-22', 'dfdfdf', '2', NULL, '2022-01-22 05:22:13', '2022-01-22 05:22:13'),
+(5, 'shubham', 'admin@tech.in', NULL, '$2y$10$GSZ4npcUO/0zOdFsmkk0len8jHGjZSPMOq5Uh0moN.Z6UhvsG1wJi', 0, 'hdfc', '4234242', 'HDFC01212', 2, 2, NULL, NULL, '3453', '2022-01-22', 'dfgdgdfdf', '3', NULL, '2022-01-22 05:33:12', '2022-01-22 05:33:12');
 
 -- --------------------------------------------------------
 
@@ -341,7 +354,13 @@ CREATE TABLE `user_numbers` (
 --
 
 INSERT INTO `user_numbers` (`id`, `user_id`, `number`, `created_at`, `deleted_at`, `updated_at`, `updated_by`) VALUES
-(1, 2, '255345343', '2022-01-23 08:29:58', NULL, '2022-01-23 08:29:58', NULL);
+(3, 3, '123123123', '2022-01-22 10:41:54', NULL, '2022-01-22 10:41:54', NULL),
+(4, 3, '789789789', '2022-01-22 10:41:54', NULL, '2022-01-22 10:41:54', NULL),
+(5, 4, '6792384629386', '2022-01-22 10:52:13', NULL, '2022-01-22 10:52:13', NULL),
+(6, 4, '789789789', '2022-01-22 10:52:13', NULL, '2022-01-22 10:52:13', NULL),
+(7, 4, '123123123', '2022-01-22 10:52:13', NULL, '2022-01-22 10:52:13', NULL),
+(8, 5, '6792384629386', '2022-01-22 11:03:12', NULL, '2022-01-22 11:03:12', NULL),
+(9, 5, '54456546456', '2022-01-22 11:03:12', NULL, '2022-01-22 11:03:12', NULL);
 
 --
 -- Indexes for dumped tables
@@ -458,25 +477,25 @@ ALTER TABLE `user_numbers`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `client_demat`
 --
 ALTER TABLE `client_demat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `client_mode`
 --
 ALTER TABLE `client_mode`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `client_payment`
 --
 ALTER TABLE `client_payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -494,7 +513,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -512,13 +531,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_numbers`
 --
 ALTER TABLE `user_numbers`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables

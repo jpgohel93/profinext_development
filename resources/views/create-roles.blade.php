@@ -16,6 +16,7 @@
 							<!--begin::Content-->
 							<div class="flex-row-fluid px-lg-15">
 								<!--begin::Form-->
+								@can("role-create")
 								<form class="form" novalidate="novalidate" method="post" action="{{url('/role/add')}}" id="kt_modal_create_app_form">
 									<!--begin::Step 1-->
 									<div class="current d-block card p-7 my-5" data-kt-stepper-element="content">
@@ -37,8 +38,6 @@
 												</div>
 												<!--end::Input group-->
 											</div>
-
-
 											<div class="mb-0 table-responsive">
 												<!--begin::Label-->
 												<label class="d-flex align-items-center fs-5 fw-bold mb-2">
@@ -85,6 +84,18 @@
 															{{-- role permissions from 5 to 8 --}}
 															<td aria-colindex="1" role="cell" class=""> Role </td>
 															@for($i=4;$i<=7;$i++)
+																<td aria-colindex="2" role="cell" class="">
+																	<div class="form-check form-check-custom form-check-solid">
+																		<input type="checkbox" class="form-check-input" name='permission[]' value="{{$permissions[$i]->id}}" id="__BVID__675">
+																		<label class="custom-control-label" for="__BVID__675"></label>
+																	</div>
+																</td>
+															@endfor
+														</tr>
+														<tr role="row" class="">
+															{{-- role permissions from 5 to 8 --}}
+															<td aria-colindex="1" role="cell" class=""> User </td>
+															@for($i=8;$i<12;$i++)
 																<td aria-colindex="2" role="cell" class="">
 																	<div class="form-check form-check-custom form-check-solid">
 																		<input type="checkbox" class="form-check-input" name='permission[]' value="{{$permissions[$i]->id}}" id="__BVID__675">
@@ -312,6 +323,9 @@
 									<!--end::Actions-->
                                     @csrf
 								</form>
+								@else
+									<h1>Unauthorized</h1>
+								@endcan
 								<!--end::Form-->
 							</div>
 							<!--end::Content-->

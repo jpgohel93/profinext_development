@@ -11,6 +11,15 @@
 				<!--begin::Wrapper-->
 				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
 					@include("header")
+					@if ($errors->any())
+						<div class="container error">
+							<h6 class="alert alert-danger">{{$errors->first()}}</h6>
+						</div>
+					@elseif(session("info"))
+						<div class="container info">
+							<h6 class="alert alert-info">{{session("info")}}</h6>
+						</div>
+					@endif
 					<!--begin::Content-->
 					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 						<!--begin::Toolbar-->
@@ -20,22 +29,21 @@
 								<!--begin::Page title-->
 								<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
 									<!--begin::Title-->
-									<h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Add User
-									</h1>
+									<h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Add User</h1>
 									<!--end::Title-->
 								</div>
 								<!--end::Page title-->
-							
 							</div>
 							<!--end::Container-->
 						</div>
 						<!--end::Toolbar-->
 						<div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid" id="kt_modal_create_app_stepper">
-							
 							<!--begin::Content-->
 							<div class="flex-row-fluid px-lg-15">
+								{{-- @can("user-create") --}}
 								<!--begin::Form-->
-								<form class="form" novalidate="novalidate" id="kt_modal_create_app_form">
+								<form class="form" novalidate="novalidate" action="{{url('/user/create')}}" method="POST" id="kt_modal_create_app_form">
+									@csrf
 									<!--begin::Step 1-->
 									<div class="current d-block card p-7 my-5" data-kt-stepper-element="content">
 										<div class="w-100">
@@ -43,8 +51,6 @@
 												<h3 class="stepper-title text-primary">Personal Details</h3>
 											</div>
 											<div class="mb-4">
-												
-
 												<div class="row">
 													<!--begin::Input group-->
 													<div class="col-md-6 mb-5">
@@ -54,7 +60,7 @@
 														</label>
 														<!--end::Label-->
 														<!--begin::Input-->
-														<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="client-name" placeholder="" value="" />
+														<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("name")}}" name="name" placeholder="" value="" />
 														<!--end::Input-->
 													</div>
 													<!--end::Input group-->
@@ -67,7 +73,7 @@
 														</label>
 														<!--end::Label-->
 														<!--begin::Input-->
-														<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="client-communication" placeholder="" value="" />
+														<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("email")}}" name="email" placeholder="" value="" />
 														<!--end::Input-->
 													</div>
 												</div>
@@ -85,7 +91,7 @@
 													<!--end::Label-->
 													<div class="d-flex justify-conetent-end">
 														<!--begin::Input-->
-														<input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc" style="border-radius:5px 0px 0px 5px;" name="client-moblie" placeholder="" value="" style="    display: inline;
+														<input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc" style="border-radius:5px 0px 0px 5px;" name="number[]" placeholder="" value="" style="    display: inline;
 														width: 90%;" />
 														<!--end::Input-->
 															<button type="button" class="btn btn-primary addremwpnum" id="addmoreWhatsapp" style="border-radius: 0px 5px 5px 0px;">
@@ -109,41 +115,6 @@
 												</div>
 												<!--end::Input group-->
 												</div>
-
-												<!-- hidden More Whatsapp -->
-												<div class="d-none" id="hiddenaddmoreWhatsapp">
-													<div class="col-md-6 removableDiv">
-														<!--begin::Label-->
-														<label class="d-flex align-items-center fs-5 fw-bold mb-5">
-															<span class="required">Mobile No <span class="compCount"></span></span>
-														</label>
-														<!--end::Label-->
-														<div class="d-flex justify-conetent-end">
-															<!--begin::Input-->
-															<input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc" style="border-radius:5px 0px 0px 5px;" name="client-moblie" placeholder="" value="" style="    display: inline;
-															width: 90%;" />
-															<!--end::Input-->
-																<button type="button" class="btn btn-primary btn-danger remove-btn" style="border-radius: 0px 5px 5px 0px;">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 172 172"
-                                                                        style=" fill:#000000;">
-                                                                        <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
-                                                                            stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
-                                                                            font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                                                                            <path d="M0,172v-172h172v172z" fill="none"></path>
-                                                                            <g fill="#ffffff">
-                                                                                <path
-                                                                                    d="M28.66667,74.53333c-4.13529,-0.05848 -7.98173,2.11417 -10.06645,5.68601c-2.08471,3.57184 -2.08471,7.98948 0,11.56132c2.08471,3.57184 5.93115,5.74449 10.06645,5.68601h114.66667c4.13529,0.05848 7.98173,-2.11417 10.06645,-5.68601c2.08471,-3.57184 2.08471,-7.98948 0,-11.56132c-2.08471,-3.57184 -5.93115,-5.74449 -10.06645,-5.68601z">
-                                                                                </path>
-                                                                            </g>
-                                                                        </g>
-                                                                    </svg>
-                                                                </button>
-														</div>
-													</div>
-												</div>
-												
-												<!-- hidden More Whatsapp Ends-->
-
                                                 <div id="appendDivWp"></div>
 											</div>
 
@@ -157,7 +128,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="client-name" placeholder="" value="" />
+													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("bank_name")}}" name="bank_name" placeholder="" value="" />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -172,7 +143,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" name="client-name" placeholder="" value="" />
+													<input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("account_number")}}" name="account_number" placeholder="" value="" />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -187,7 +158,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" name="client-name" placeholder="" value="" />
+													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("ifsc_code")}}" name="ifsc_code" placeholder="" value="" />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -200,9 +171,9 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-                                                    <select name="timezone" aria-label="Select a Timezone" data-control="select2" data-placeholder="date_period" class="form-select form-select-sm form-select-solid">
-                                                        <option value="next">Saving Account</option>
-                                                        <option value="last">Current Account</option>
+                                                    <select name="account_type" data-control="select2" class="form-select form-select-sm form-select-solid">
+                                                        <option value="1">Saving Account</option>
+                                                        <option value="2">Current Account</option>
                                                     </select>
 													<!--end::Input-->
 												</div>
@@ -243,7 +214,7 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="radio" name="serviceType" checked="checked" value="1">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" checked="checked" value="1">
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
@@ -269,7 +240,7 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="radio" name="serviceType" value="2">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" value="2">
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
@@ -289,7 +260,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="client-name" placeholder="" value="" />
+													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("company")}}" name="company" placeholder="" value="" />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -302,7 +273,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="client-name" placeholder="" value="" />
+													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="percentage" placeholder="" value="" />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -318,7 +289,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="client-name" placeholder="" value="" />
+													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("salary")}}" name="salary" placeholder="" value="" />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -328,19 +299,12 @@
                                                     <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input--> 
-                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date"/>
+                                                    <input type="text" name="joining_date" value="{{date("Y-m-d",strtotime("now"))}}" readonly class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select date"/>
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
 
                                             </div>
-
-
-
-                            
-
-                            
-
                                             <div class="row">
 												<!--begin::Input group-->
 												<div class="col-md-8 col-sm-12 mb-5">
@@ -350,7 +314,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<textarea class="form-control form-control-lg form-control-solid bdr-ccc" name="client-name" placeholder="" value="" ></textarea>
+													<textarea class="form-control form-control-lg form-control-solid bdr-ccc" name="job_description">{{old("job_description")}}</textarea>
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -363,10 +327,13 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-                                                    <select name="roles" aria-label="Select a role" data-control="select3" data-placeholder="date_period" class="form-select form-select-sm form-select-solid">
-                                                        <option value="admin">Administrator</option>
-                                                        <option value="trader">Trader</option>
-                                                        <option value="analyst">Analyst</option>
+													{{-- <select name="account_type" data-control="select2" class="form-select form-select-sm form-select-solid"> --}}
+                                                    <select name="role" aria-label="Select a role" data-control="select2" class="form-select form-select-sm form-select-solid">
+														@forelse ($roles as $role)
+                                                        	<option value="{{$role->name}}">{{$role->name}}</option>
+														@empty
+															<option>Please Add Role</option>
+														@endforelse
                                                     </select>
 													<!--end::Input-->
 												</div>
@@ -407,7 +374,7 @@
 												<span class="indicator-progress">Please wait...
 												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
 											</button>
-											<button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">Submit
+											<button type="submit" class="btn btn-lg btn-primary" >Submit
 											<!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
 											<span class="svg-icon svg-icon-3 ms-1 me-0">
 												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -422,6 +389,9 @@
 									<!--end::Actions-->
 								</form>
 								<!--end::Form-->
+								{{-- @else
+								<h1>Unauthorised</h1>
+								@endcan --}}
 							</div>
 							<!--end::Content-->
 						</div>
@@ -3591,6 +3561,39 @@
 			</span>
 			<!--end::Svg Icon-->
 		</div>
+		<!-- hidden More Whatsapp -->
+		<div class="d-none" id="hiddenaddmoreWhatsapp">
+			<div class="col-md-6 removableDiv">
+				<!--begin::Label-->
+				<label class="d-flex align-items-center fs-5 fw-bold mb-5">
+					<span class="required">Mobile No <span class="compCount"></span></span>
+				</label>
+				<!--end::Label-->
+				<div class="d-flex justify-conetent-end">
+					<!--begin::Input-->
+					<input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc" style="border-radius:5px 0px 0px 5px;" name="number[]" placeholder="" value="" style="    display: inline;
+					width: 90%;" />
+					<!--end::Input-->
+						<button type="button" class="btn btn-primary btn-danger remove-btn" style="border-radius: 0px 5px 5px 0px;">
+							<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 172 172"
+								style=" fill:#000000;">
+								<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
+									stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+									font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+									<path d="M0,172v-172h172v172z" fill="none"></path>
+									<g fill="#ffffff">
+										<path
+											d="M28.66667,74.53333c-4.13529,-0.05848 -7.98173,2.11417 -10.06645,5.68601c-2.08471,3.57184 -2.08471,7.98948 0,11.56132c2.08471,3.57184 5.93115,5.74449 10.06645,5.68601h114.66667c4.13529,0.05848 7.98173,-2.11417 10.06645,-5.68601c2.08471,-3.57184 2.08471,-7.98948 0,-11.56132c-2.08471,-3.57184 -5.93115,-5.74449 -10.06645,-5.68601z">
+										</path>
+									</g>
+								</g>
+							</svg>
+						</button>
+				</div>
+			</div>
+		</div>
+		
+		<!-- hidden More Whatsapp Ends-->
 		<!--end::Scrolltop-->
 		<!--end::Main-->
 		<script>var hostUrl = "assets/";</script>
@@ -3608,16 +3611,12 @@
 		<script src="assets/js/custom/modals/create-app.js"></script>
 		<script src="assets/js/custom/modals/upgrade-plan.js"></script>
 
-
-
-
-		
 		<!--end::Page Custom Javascript-->
 		<script>
 			$(document).ready(function(){
 				$(document).on("click","#addmoreWhatsapp",function() {
 					var newcomp1 = $('#hiddenaddmoreWhatsapp').html();
-					console.log(newcomp1);
+					// console.log(newcomp1);
 					$('.custom_appendDiv').append(newcomp1);
 					resetCounter();
    		 		});		
@@ -3677,6 +3676,5 @@
                     $(this).closest('#professionalDetails').find('#partnerDiv').hide();
 				}
 			});
-
 		</script>
 @endsection
