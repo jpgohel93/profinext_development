@@ -33,6 +33,8 @@ class User extends Authenticatable
         "joining_date",
         "job_description",
         "role",
+        "created_by",
+        "updated_by",
     ];
 
     /**

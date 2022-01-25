@@ -12,7 +12,7 @@ class ClientController extends Controller
     }
     public static function all(){
         $clients = ClientServices::activeClients();
-        return view("client",["clients"=> $clients]);
+        return view("clients.client",["clients"=> $clients]);
     }
     public static function get($client_id){
         return ClientServices::get($client_id);

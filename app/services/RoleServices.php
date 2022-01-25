@@ -21,7 +21,7 @@ class RoleServices
 
     public static function permissions(){
         $permissions = Permission::get();
-        return view('create-roles',compact('permissions'));
+        return view('roles.add',compact('permissions'));
     }
 
     public static function revoke($request)
@@ -40,7 +40,7 @@ class RoleServices
     }
     public static function roles($request=false){
         $roles = Role::orderBy('id','DESC')->get();
-        return view('roles',compact('roles'));
+        return view('roles.roles',compact('roles'));
     }
     public static function all(){
         return Role::all();

@@ -9,6 +9,7 @@ class ClientServices
 {
     public static function create($request)
     {
+        ClientServices::validate($request);
         $client = $request->client;
 
         $client['created_by'] = "Admin";
@@ -28,7 +29,12 @@ class ClientServices
         
         return ClientServices::activeClients();
     }
-
+    public static function validate($request){
+        dd($request);
+        $request->validate([
+            ""=>""
+        ]);
+    }
     public static function revoke($request)
     {
         return ClientServices::activeClients();

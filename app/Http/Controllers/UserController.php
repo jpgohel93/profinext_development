@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Services\RoleServices;
 use Illuminate\Http\Request;
 use App\Services\UserServices;
-use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -21,5 +20,18 @@ class UserController extends Controller
     public static function create(Request $request){
         $user = UserServices::create($request);
         return redirect()->route("users")->with("info","User Created!");
+    }
+    public static function view(Request $request,$id){
+        $user = UserServices::user($id);
+        return view("users.view",["user"=>$user]);
+    }
+    public static function updateForm($id){
+        $user = UserServices::user($id);
+        $roles = RoleServices::all();
+        return view("users.edit",["user"=>$user,"roles"=>$roles]);
+    }
+    public static function update(Request $request,$id){
+        $user = UserServices::update($request,$id);
+        return redirect()->route("viewUser",$id)->with("info","User Updated!");
     }
 }

@@ -19,4 +19,11 @@ class LoginServices{
         }
         return redirect()->route('login')->with('error','Login failed');
     }
+    public static function logout($request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
 }

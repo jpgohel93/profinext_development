@@ -14,6 +14,7 @@ return [
     */
 
     'accepted' => 'The :attribute must be accepted.',
+    'alpha_spaces'         => 'The :attribute may only contain letters and spaces.',
     'accepted_if' => 'The :attribute must be accepted when :other is :value.',
     'active_url' => 'The :attribute is not a valid URL.',
     'after' => 'The :attribute must be a date after :date.',
@@ -144,6 +145,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'alpha_spaces'         => 'The :attribute may only contain letters and spaces.',
     ],
 
     /*

@@ -3,7 +3,6 @@
 <html lang="en">
 	<!--begin::Head-->
 	<head>
-		<base href="{{url("/")}}">
 		<title>@yield("page-title") | Profinext</title>
 		<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
 		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
@@ -55,15 +54,15 @@
 	@yield("jscript")
     <!--end::Global Javascript Bundle-->
     <!--begin::Page Vendors Javascript(used by this page)-->
-    <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
+    {{-- <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script> --}}
     <!--end::Page Vendors Javascript-->
     <!--begin::Page Custom Javascript(used by this page)-->
-    <script src="{{asset('assets/js/custom/apps/user-management/users/list/table.js')}}"></script>
-    <script src="{{asset('assets/js/custom/apps/user-management/users/list/add.js')}}"></script>
-    <script src="{{asset('assets/js/custom/widgets.js')}}"></script>
+    {{-- <script src="{{asset('assets/js/custom/apps/user-management/users/list/table.js')}}"></script>
+    <script src="{{asset('assets/js/custom/apps/user-management/users/list/add.js')}}"></script> --}}
+    {{-- <script src="{{asset('assets/js/custom/widgets.js')}}"></script>
     <script src="{{asset('assets/js/custom/apps/chat/chat.js')}}"></script>
     <script src="{{asset('assets/js/custom/modals/create-app.js')}}"></script>
-    <script src="{{asset('assets/js/custom/documentation/search.js')}}"></script>
+    <script src="{{asset('assets/js/custom/documentation/search.js')}}"></script> --}}
     <!-- <script src="E:/xampp/htdocs/smart_trader/profinext/dist/assets/js/custom/apps/user-management/users/list/export-users.js"></script> -->
     <script src="{{asset('js/main.js')}}" defer></script>
 </body>

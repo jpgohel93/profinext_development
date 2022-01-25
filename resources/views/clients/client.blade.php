@@ -949,7 +949,7 @@
 										</div>
 										<!--end::Step 1-->
 										<!--begin::Step 2-->
-										<div data-kt-stepper-element="content">
+										<div class="pending" data-kt-stepper-element="content">
 											<div class="w-100">
 												<!--begin::Input group-->
 												<div class="row mb-8">
@@ -1150,7 +1150,7 @@
 										</div>
 										<!--end::Step 2-->
 										<!--begin::Step 3-->
-										<div data-kt-stepper-element="content">
+										<div class="pending" data-kt-stepper-element="content">
 											<div class="w-100">
 												<!--begin::Input group-->
 												<div class="fv-row mb-8">
@@ -1199,7 +1199,7 @@
 										</div>
 										<!--end::Step 3-->
 										<!--begin::Step 4--> 
-										<div data-kt-stepper-element="content">
+										<div class="pending" data-kt-stepper-element="content">
 											<div class="w-100 text-center">
 												<!--begin::Heading-->
 												<h1 class="fw-bolder text-dark mb-3">Release!</h1>
@@ -1377,4 +1377,8 @@
             $("#viewClient").modal("hide");
         })
     </script>
+    @section('jscript')
+        
+		<script src="{{asset('assets/js/custom/modals/create-app.js')}}"></script>
+    @endsection
 @endsection

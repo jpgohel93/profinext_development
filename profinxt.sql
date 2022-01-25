@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2022 at 09:32 AM
+-- Generation Time: Jan 25, 2022 at 08:11 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -169,8 +169,10 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 2),
+(1, 'App\\Models\\User', 3),
 (1, 'App\\Models\\User', 6),
-(1, 'App\\Models\\User', 8);
+(1, 'App\\Models\\User', 8),
+(2, 'App\\Models\\User', 4);
 
 -- --------------------------------------------------------
 
@@ -253,7 +255,8 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'super-admin', 'web', '2022-01-22 04:35:49', '2022-01-22 04:35:49');
+(1, 'super-admin', 'web', '2022-01-22 04:35:49', '2022-01-22 04:35:49'),
+(2, 'user', 'web', '2022-01-25 11:39:56', '2022-01-25 11:39:56');
 
 -- --------------------------------------------------------
 
@@ -272,14 +275,17 @@ CREATE TABLE `role_has_permissions` (
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (1, 1),
+(1, 2),
 (2, 1),
 (3, 1),
 (4, 1),
 (5, 1),
+(5, 2),
 (6, 1),
 (7, 1),
 (8, 1),
 (9, 1),
+(9, 2),
 (10, 1),
 (11, 1),
 (12, 1);
@@ -310,15 +316,19 @@ CREATE TABLE `users` (
   `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `status`, `bank_name`, `account_number`, `ifsc_code`, `account_type`, `user_type`, `company`, `percentage`, `salary`, `joining_date`, `job_description`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(2, 'admin', 'test@admin.com', NULL, '$2y$10$PosLnPcx9kMIxPmHwIhz2u7cR6/zzqMVWVDO1ezt.SiSkdhCODlRa', 1, 'hdfc', '4353453', 'HDFC01212', 1, 1, 'democompany', '45', NULL, '2022-01-23', 'dfgdfdgdfdfg', 'super-admin', NULL, '2022-01-23 02:59:58', '2022-01-23 02:59:58');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `status`, `bank_name`, `account_number`, `ifsc_code`, `account_type`, `user_type`, `company`, `percentage`, `salary`, `joining_date`, `job_description`, `role`, `remember_token`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
+(2, 'admin', 'test@admin.com', NULL, '$2y$10$PosLnPcx9kMIxPmHwIhz2u7cR6/zzqMVWVDO1ezt.SiSkdhCODlRa', 1, 'hdfc', '4353453', 'HDFC01212', 1, 1, 'democompany', '45', NULL, '2022-01-23', 'dfgdfdgdfdfg', 'super-admin', NULL, '2022-01-23 02:59:58', '', '2022-01-23 02:59:58', NULL),
+(3, 'user', 'user@gmail.com', NULL, '$2y$10$HjDyFEBwtU8a2q4mLm7XsOwTAJHh2Un3twkeHF6iDP2KlAUBiZwPy', 1, 'hdfc', '879546412312', 'HDFC01212', 1, 2, 'testcompany', '34', '25000', '2022-01-25', 'demo description', 'super-admin', NULL, '2022-01-25 01:29:12', '2', '2022-01-25 11:22:15', '2'),
+(4, 'demouser', 'demo@admin.com', NULL, '$2y$10$T7ndAkcOQp3fYd4RlOgIduRoLWa6BfUqiiQ7ZrEb/kzcHyhRttcXe', 1, 'hdfc', '38946293846', 'HDFC01212', 1, 2, NULL, NULL, '11000', '2022-01-25', 'testing', 'user', NULL, '2022-01-25 11:40:58', '2', '2022-01-25 11:53:21', '2');
 
 -- --------------------------------------------------------
 
@@ -341,7 +351,31 @@ CREATE TABLE `user_numbers` (
 --
 
 INSERT INTO `user_numbers` (`id`, `user_id`, `number`, `created_at`, `deleted_at`, `updated_at`, `updated_by`) VALUES
-(1, 2, '255345343', '2022-01-23 08:29:58', NULL, '2022-01-23 08:29:58', NULL);
+(1, 2, '255345343', '2022-01-23 08:29:58', NULL, '2022-01-23 08:29:58', NULL),
+(2, 3, '12345456789', '2022-01-25 06:59:12', '2022-01-25 16:33:11', '2022-01-25 16:33:11', NULL),
+(3, 3, '789456123', '2022-01-25 06:59:12', '2022-01-25 16:33:11', '2022-01-25 16:33:11', NULL),
+(4, 3, '789456123', '2022-01-25 16:34:46', '2022-01-25 16:35:48', '2022-01-25 16:35:48', NULL),
+(5, 3, '789456123', '2022-01-25 16:35:48', '2022-01-25 16:41:09', '2022-01-25 16:41:09', NULL),
+(6, 3, '789456123', '2022-01-25 16:41:09', '2022-01-25 16:41:29', '2022-01-25 16:41:29', NULL),
+(7, 3, '789456123', '2022-01-25 16:41:29', '2022-01-25 16:41:49', '2022-01-25 16:41:49', NULL),
+(8, 3, '789456123', '2022-01-25 16:41:49', '2022-01-25 16:42:06', '2022-01-25 16:42:06', NULL),
+(9, 3, '789456123', '2022-01-25 16:42:06', '2022-01-25 16:42:41', '2022-01-25 16:42:41', NULL),
+(10, 3, '789456123', '2022-01-25 16:42:41', '2022-01-25 16:44:35', '2022-01-25 16:44:35', NULL),
+(11, 3, '789456123', '2022-01-25 16:44:35', '2022-01-25 16:45:09', '2022-01-25 16:45:09', NULL),
+(12, 3, '789456123', '2022-01-25 16:45:09', '2022-01-25 16:45:43', '2022-01-25 16:45:43', NULL),
+(13, 3, '789456123', '2022-01-25 16:45:43', '2022-01-25 16:46:24', '2022-01-25 16:46:24', NULL),
+(14, 3, '789456123', '2022-01-25 16:46:24', '2022-01-25 16:48:39', '2022-01-25 16:48:39', NULL),
+(15, 3, '789456123', '2022-01-25 16:48:39', '2022-01-25 16:48:55', '2022-01-25 16:48:55', NULL),
+(16, 3, '789456123', '2022-01-25 16:48:55', '2022-01-25 16:50:14', '2022-01-25 16:50:14', NULL),
+(17, 3, '789456123', '2022-01-25 16:50:14', '2022-01-25 16:50:47', '2022-01-25 16:50:47', NULL),
+(18, 3, '789456123', '2022-01-25 16:50:47', '2022-01-25 16:51:10', '2022-01-25 16:51:10', NULL),
+(19, 3, '789456123', '2022-01-25 16:51:10', '2022-01-25 16:52:15', '2022-01-25 16:52:15', NULL),
+(20, 3, '123456', '2022-01-25 16:51:10', '2022-01-25 16:52:15', '2022-01-25 16:52:15', NULL),
+(21, 3, '789456123', '2022-01-25 16:52:15', NULL, '2022-01-25 16:52:15', NULL),
+(22, 3, '123456', '2022-01-25 16:52:15', NULL, '2022-01-25 16:52:15', NULL),
+(23, 4, '34534535434', '2022-01-25 17:10:58', '2022-01-25 17:20:10', '2022-01-25 17:20:10', NULL),
+(24, 4, '34534535434', '2022-01-25 17:20:10', '2022-01-25 17:23:21', '2022-01-25 17:23:21', NULL),
+(25, 4, '34534535434', '2022-01-25 17:23:21', NULL, '2022-01-25 17:23:21', NULL);
 
 --
 -- Indexes for dumped tables
@@ -506,19 +540,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_numbers`
 --
 ALTER TABLE `user_numbers`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables
