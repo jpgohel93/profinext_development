@@ -22,7 +22,7 @@ class UserServices
         return User::where("status","1")->get();
     }
     public static function all(){
-        return User::get();
+        return User::withTrashed()->get();
     }
     public static function validateUsersData($data){
         $data->validate([
@@ -88,5 +88,9 @@ class UserServices
         $user = User::find($id);
         $user->syncRoles([$request->role]);
         return UserServices::user($id);
+    }
+    public static function delete($id){
+        User::where("id",$id)->delete();
+        return User::withTrashed()->get();
     }
 }

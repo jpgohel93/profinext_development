@@ -1,348 +1,285 @@
 @extends('layout')
-@section("page-title","Users")
-@section("users","active")
+@section("page-title","Add Roles")
+@section("create-roles","active")
 @section("content")
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Page-->
 			<div class="page d-flex flex-row flex-column-fluid">
-				<!--begin::Aside-->
 				@include("sidebar")
-				<!--end::Aside-->
 				<!--begin::Wrapper-->
 				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-					@include("header")
-					@if ($errors->any())
-						<div class="container error">
-							<h6 class="alert alert-danger">{{$errors->first()}}</h6>
-						</div>
-					@elseif(session("info"))
-						<div class="container info">
-							<h6 class="alert alert-info">{{session("info")}}</h6>
-						</div>
-					@endif
-					<!--begin::Content-->
-					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-						<!--begin::Toolbar-->
-						<div class="toolbar" id="kt_toolbar">
-							<!--begin::Container-->
-							<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-								<!--begin::Page title-->
-								<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
-									<!--begin::Title-->
-									<h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Add User</h1>
-									<!--end::Title-->
-								</div>
-								<!--end::Page title-->
-							</div>
-							<!--end::Container-->
-						</div>
+					<!--begin::Header-->
+					 @include("header")
 						<!--end::Toolbar-->
 						<div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid" id="kt_modal_create_app_stepper">
 							<!--begin::Content-->
 							<div class="flex-row-fluid px-lg-15">
-								@can("user-create")
 								<!--begin::Form-->
-								<form class="form" novalidate="novalidate" action="{{route('createUserForm')}}" method="POST" id="kt_modal_create_app_form">
-									@csrf
+								@can("role-create")
+								<form class="form" novalidate="novalidate" method="post" action="{{route('editRole',$role->id)}}" id="kt_modal_create_app_form">
 									<!--begin::Step 1-->
 									<div class="current d-block card p-7 my-5" data-kt-stepper-element="content">
 										<div class="w-100">
+                                            @if(session("info"))
+                                                <div class="container-fluid p-0 m-0 info">
+                                                    <h6 class="alert alert-info">{{session("info")}}</h6>
+                                                </div>
+                                            @endif
 											<div class="stepper-label mt-0" style="margin-top:30px;margin-bottom:20px;">
-												<h3 class="stepper-title text-primary">Personal Details</h3>
+												<h3 class="stepper-title text-primary">Create Role</h3>
 											</div>
-											<div class="mb-4">
-												<div class="row">
-													<!--begin::Input group-->
-													<div class="col-md-6 mb-5">
-														<!--begin::Label-->
-														<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-															<span class="required">Name</span>
-														</label>
-														<!--end::Label-->
-														<!--begin::Input-->
-														<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("name")}}" name="name" placeholder="" value="" />
-														<!--end::Input-->
-													</div>
-													<!--end::Input group-->
-														
-													<!--begin::Input group-->
-													<div class="col-md-6 col-sm-12 mb-5">
-														<!--begin::Label-->
-														<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-															<span class="required">Email ID</span>
-														</label>
-														<!--end::Label-->
-														<!--begin::Input-->
-														<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("email")}}" name="email" placeholder="" value="" />
-														<!--end::Input-->
-													</div>
-												</div>
-												
-												
-
-												<div class="row d-flex align-items-end mb-5 custom_appendDiv">
-													
+											<div class="row">
 												<!--begin::Input group-->
-												<div class="col-md-6 col-sm-12 mb-5">
+												<div class="col-md-6 mb-8">
 													<!--begin::Label-->
 													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">Mobile Number <span class="compCount"></span></span>
+														<span class="required">Role</span>
 													</label>
 													<!--end::Label-->
-													<div class="d-flex justify-conetent-end">
-														<!--begin::Input-->
-														<input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc" style="border-radius:5px 0px 0px 5px;" name="number[]" placeholder="" value="" style="    display: inline;
-														width: 90%;" />
-														<!--end::Input-->
-															<button type="button" class="btn btn-primary addremwpnum" id="addmoreWhatsapp" style="border-radius: 0px 5px 5px 0px;">
-                                                            
-                                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 172 172"
-                                                                    style=" fill:#000000;">
-                                                                    <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
-                                                                        stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
-                                                                        font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                                                                        <path d="M0,172v-172h172v172z" fill="none"></path>
-                                                                        <g fill="#ffffff">
-                                                                            <path
-                                                                                d="M85.83203,17.04323c-6.32845,0.09274 -11.38527,5.2949 -11.2987,11.62344v45.86667h-45.86667c-4.13529,-0.05848 -7.98173,2.11417 -10.06645,5.68601c-2.08471,3.57184 -2.08471,7.98948 0,11.56132c2.08471,3.57184 5.93115,5.74449 10.06645,5.68601h45.86667v45.86667c-0.05848,4.13529 2.11417,7.98173 5.68601,10.06645c3.57184,2.08471 7.98948,2.08471 11.56132,0c3.57184,-2.08471 5.74449,-5.93115 5.68601,-10.06645v-45.86667h45.86667c4.13529,0.05848 7.98173,-2.11417 10.06645,-5.68601c2.08471,-3.57184 2.08471,-7.98948 0,-11.56132c-2.08471,-3.57184 -5.93115,-5.74449 -10.06645,-5.68601h-45.86667v-45.86667c0.04237,-3.09747 -1.17017,-6.08033 -3.36168,-8.26973c-2.1915,-2.18939 -5.17553,-3.39907 -8.27296,-3.35371z">
-                                                                            </path>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-
-                                                            </button>
-													</div>
+													<!--begin::Input-->
+													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="role" placeholder="" value="{{$role->name}}" readonly/>
+													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
-												</div>
-                                                <div id="appendDivWp"></div>
+											</div>
+											<div class="mb-0 table-responsive">
+												<!--begin::Label-->
+												<label class="d-flex align-items-center fs-5 fw-bold mb-2">
+													<span class="required">Permissioins</span>
+												</label>
+												<!-- <h3 class="stepper-title">Permissioins</h4> -->
+												<table role="table" aria-busy="false" aria-colcount="5" class="table b-table table-striped" id="__BVID__660">
+													<!---->
+													<!---->
+													<thead role="rowgroup" class="">
+														<!---->
+														<tr role="row" class="">
+															<th role="columnheader" scope="col" aria-colindex="1" class="">
+																<div class="font-weight-bold">Module</div>
+															</th>
+															<th role="columnheader" scope="col" aria-colindex="2" class="">
+																<div>Read</div>
+															</th>
+															<th role="columnheader" scope="col" aria-colindex="3" class="">
+																<div>Write</div>
+															</th>
+															<th role="columnheader" scope="col" aria-colindex="4" class="">
+																<div>Create</div>
+															</th>
+															<th role="columnheader" scope="col" aria-colindex="5" class="">
+																<div>Delete</div>
+															</th>
+														</tr>
+													</thead>
+													<tbody role="rowgroup">
+														<tr role="row" class="">
+															<td aria-colindex="1" role="cell" class=""> Client </td>
+															{{-- client permissions from 1 to 4 --}}
+															@for($i=0;$i<=3;$i++)
+																<td aria-colindex="2" role="cell" class="">
+																	<div class="form-check form-check-custom form-check-solid">
+																		<input type="checkbox" class="form-check-input" name='permission[]' value="{{$permissions[$i]->name}}" {{(in_array($permissions[$i]->id,$rolePermissions))? 'checked':""}} id="__BVID__675">
+																		<label class="custom-control-label" for="__BVID__675"></label>
+																	</div>
+																</td>
+															@endfor
+														</tr>
+														<tr role="row" class="">
+															{{-- role permissions from 5 to 8 --}}
+															<td aria-colindex="1" role="cell" class=""> Role </td>
+															@for($i=4;$i<=7;$i++)
+																<td aria-colindex="2" role="cell" class="">
+																	<div class="form-check form-check-custom form-check-solid">
+																		<input type="checkbox" class="form-check-input" name='permission[]' value="{{$permissions[$i]->name}}" {{(in_array($permissions[$i]->id,$rolePermissions))? 'checked':""}} id="__BVID__675">
+																		<label class="custom-control-label" for="__BVID__675"></label>
+																	</div>
+																</td>
+															@endfor
+														</tr>
+														<tr role="row" class="">
+															{{-- role permissions from 5 to 8 --}}
+															<td aria-colindex="1" role="cell" class=""> User </td>
+															@for($i=8;$i<12;$i++)
+																<td aria-colindex="2" role="cell" class="">
+																	<div class="form-check form-check-custom form-check-solid">
+																		<input type="checkbox" class="form-check-input" name='permission[]' value="{{$permissions[$i]->name}}" {{(in_array($permissions[$i]->id,$rolePermissions))? 'checked':""}} id="__BVID__675">
+																		<label class="custom-control-label" for="__BVID__675"></label>
+																	</div>
+																</td>
+															@endfor
+														</tr>
+														{{-- <tr role="row" class="">
+															<td aria-colindex="1" role="cell" class=""> Client </td>
+															<td aria-colindex="2" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+																	<input type="checkbox" class="form-check-input" name="client[read]" value="true" id="__BVID__670">
+																	<label class="custom-control-label" for="__BVID__670"></label>
+																</div>
+															</td>
+															<td aria-colindex="3" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+																	<input type="checkbox" class="form-check-input" name="client[write]" value="true" id="__BVID__671">
+																	<label class="custom-control-label" for="__BVID__671"></label>
+																</div>
+															</td>
+															<td aria-colindex="4" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+																	<input type="checkbox" class="form-check-input" name="client[create]" value="true" id="__BVID__672">
+																	<label class="custom-control-label" for="__BVID__672"></label>
+																</div>
+															</td>
+															<td aria-colindex="5" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+																	<input type="checkbox" class="form-check-input" name="client[delete]" value="true" id="__BVID__673">
+																	<label class="custom-control-label" for="__BVID__673"></label>
+																</div>
+															</td>
+														</tr>
+														<tr role="row" class="">
+															<td aria-colindex="1" role="cell" class=""> Role </td>
+															<td aria-colindex="2" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+																	<input type="checkbox" class="form-check-input" name="role[read]" value="true">
+																	<label class="custom-control-label" for="__BVID__670"></label>
+																</div>
+															</td>
+															<td aria-colindex="3" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+																	<input type="checkbox" class="form-check-input" name="role[write]" value="true">
+																	<label class="custom-control-label" for="__BVID__671"></label>
+																</div>
+															</td>
+															<td aria-colindex="4" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+																	<input type="checkbox" class="form-check-input" name="role[create]" value="true">
+																	<label class="custom-control-label" for="__BVID__672"></label>
+																</div>
+															</td>
+															<td aria-colindex="5" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+																	<input type="checkbox" class="form-check-input" name="role[delete]" value="true">
+																	<label class="custom-control-label" for="__BVID__673"></label>
+																</div>
+															</td>
+														</tr> --}}
+														<!---->
+														{{-- <tr role="row" class="">
+															<td aria-colindex="1" role="cell" class=""> Staff </td>
+															<td aria-colindex="2" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__675">
+                                                                    <label class="custom-control-label" for="__BVID__675"></label>
+																</div>
+															</td>
+															<td aria-colindex="3" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__676">
+                                                                    <label class="custom-control-label" for="__BVID__676"></label>
+																</div>
+															</td>
+															<td aria-colindex="4" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__677">
+                                                                    <label class="custom-control-label" for="__BVID__677"></label>
+																</div>
+															</td>
+															<td aria-colindex="5" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__678">
+                                                                    <label class="custom-control-label" for="__BVID__678"></label>
+																</div>
+															</td>
+														</tr>
+														<tr role="row" class="">
+															<td aria-colindex="1" role="cell" class=""> Author </td>
+															<td aria-colindex="2" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__680">
+                                                                    <label class="custom-control-label" for="__BVID__680"></label>
+																</div>
+															</td>
+															<td aria-colindex="3" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__681">
+                                                                    <label class="custom-control-label" for="__BVID__681"></label>
+																</div>
+															</td>
+															<td aria-colindex="4" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__682">
+                                                                    <label class="custom-control-label" for="__BVID__682"></label>
+																</div>
+															</td>
+															<td aria-colindex="5" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__683">
+                                                                    <label class="custom-control-label" for="__BVID__683"></label>
+																</div>
+															</td>
+														</tr>
+														<tr role="row" class="">
+															<td aria-colindex="1" role="cell" class=""> Contributor </td>
+															<td aria-colindex="2" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__685">
+                                                                    <label class="custom-control-label" for="__BVID__685"></label>
+																</div>
+															</td>
+															<td aria-colindex="3" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__686">
+                                                                    <label class="custom-control-label" for="__BVID__686"></label>
+																</div>
+															</td>
+															<td aria-colindex="4" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__687">
+                                                                    <label class="custom-control-label" for="__BVID__687"></label>
+																</div>
+															</td>
+															<td aria-colindex="5" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__688">
+                                                                    <label class="custom-control-label" for="__BVID__688"></label>
+																</div>
+															</td>
+														</tr>
+														<tr role="row" class="">
+															<td aria-colindex="1" role="cell" class=""> User </td>
+															<td aria-colindex="2" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__690">
+                                                                    <label class="custom-control-label" for="__BVID__690"></label>
+																</div>
+															</td>
+															<td aria-colindex="3" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__691">
+                                                                    <label class="custom-control-label" for="__BVID__691"></label>
+																</div>
+															</td>
+															<td aria-colindex="4" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__692">
+                                                                    <label class="custom-control-label" for="__BVID__692"></label>
+																</div>
+															</td>
+															<td aria-colindex="5" role="cell" class="">
+																<div class="form-check form-check-custom form-check-solid">
+                                                                    <input type="checkbox" class="form-check-input" value="true" id="__BVID__693">
+                                                                    <label class="custom-control-label" for="__BVID__693"></label>
+																</div>
+															</td>
+														</tr> --}}
+														<!---->
+														<!---->
+													</tbody>
+													<!---->
+												</table>
 											</div>
 
-
-                                            <div class="row">
-												<!--begin::Input group-->
-												<div class="col-md-6 col-sm-12 mb-5">
-													<!--begin::Label-->
-													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">Bank Name</span>
-													</label>
-													<!--end::Label-->
-													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("bank_name")}}" name="bank_name" placeholder="" value="" />
-													<!--end::Input-->
-												</div>
-												<!--end::Input group-->
-                                            
-
-                            
-												<!--begin::Input group-->
-												<div class="col-md-6 col-sm-12 mb-5">
-													<!--begin::Label-->
-													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">Account Number</span>
-													</label>
-													<!--end::Label-->
-													<!--begin::Input-->
-													<input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("account_number")}}" name="account_number" placeholder="" value="" />
-													<!--end::Input-->
-												</div>
-												<!--end::Input group-->
-                                            </div>
-
-                                            <div class="row">
-												<!--begin::Input group-->
-												<div class="col-md-6 col-sm-12 mb-5">
-													<!--begin::Label-->
-													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">IFSC Code</span>
-													</label>
-													<!--end::Label-->
-													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("ifsc_code")}}" name="ifsc_code" placeholder="" value="" />
-													<!--end::Input-->
-												</div>
-												<!--end::Input group-->
-                                                
-												<!--begin::Input group-->
-												<div class="col-md-6 col-sm-12 mb-5">
-                                                    <!--begin::Label-->
-													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                        <span class="required">Account Type</span>
-													</label>
-													<!--end::Label-->
-													<!--begin::Input-->
-                                                    <select name="account_type" data-control="select2" class="form-select form-select-sm form-select-solid">
-                                                        <option value="1">Saving Account</option>
-                                                        <option value="2">Current Account</option>
-                                                    </select>
-													<!--end::Input-->
-												</div>
-												<!--end::Input group-->
-                                            </div>
-                                        
 										</div>
 									</div>
-									<!--end::Step 1-->
-
-
-                                    <!--begin::Step 2-->
-									<div class="current d-block card p-7 my-5" data-kt-stepper-element="content" id="professionalDetails">
-										<div class="w-100">
-											<div class="stepper-label mt-0" style="margin-top:30px;margin-bottom:20px;">
-												<h3 class="stepper-title text-primary">Professional Details</h3>
-											</div>
-
-
-                                            <div class="row col-md-6 mb-8">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-3">
-                                                    <span class="required">User Type</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Col-->
-                                                <div class="col-md-6 mb-4 fv-row">
-                                                    <!--begin:Option-->
-                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
-                                                        <!--begin::Label-->
-                                                        <span class="d-flex align-items-center me-2"> 
-                                                            <!--begin::Info-->
-                                                            <span class="d-flex flex-column">
-                                                                <span class="fw-bolder fs-6">Partner</span>
-                                                            </span>
-                                                            <!--end::Info-->
-                                                        </span>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" checked="checked" value="1">
-                                                        </span>
-                                                        <!--end::Input-->
-                                                    </label>
-                                                    <!--end::Option-->
-                                                </div>
-
-                                                
-
-                                                <!--end::Col-->
-                                                <div class="col-1"></div>
-                                                <!--begin::Col-->
-                                                <div class="col-md-6 mb-4 fv-row">
-                                                    <!--begin:Option-->
-                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
-                                                        <!--begin::Label-->
-                                                        <span class="d-flex align-items-center me-2"> 
-                                                            <!--begin::Info-->
-                                                            <span class="d-flex flex-column">
-                                                                <span class="fw-bolder fs-6">Employee</span>
-                                                            </span>
-                                                            <!--end::Info-->
-                                                        </span>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" value="2">
-                                                        </span>
-                                                        <!--end::Input-->
-                                                    </label>
-                                                    <!--end::Option--> 
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-
-
-                                            <div class="row" id="partnerDiv" style="display:flex;">
-                                                
-                                                <!--begin::Input group-->
-												<div class="col-md-6 mb-5">
-													<!--begin::Label-->
-													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">Company</span>
-													</label>
-													<!--end::Label-->
-													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("company")}}" name="company" placeholder="" value="" />
-													<!--end::Input-->
-												</div>
-												<!--end::Input group-->
-
-                                                <!--begin::Input group-->
-												<div class="col-md-6 mb-5">
-													<!--begin::Label-->
-													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">Percentage</span>
-													</label>
-													<!--end::Label-->
-													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="percentage" placeholder="" value="" />
-													<!--end::Input-->
-												</div>
-												<!--end::Input group-->
-                                            </div>
-
-                                            <div class="row" id="employeeDiv" style="display:none;">
-                                                
-                                                <!--begin::Input group-->
-												<div class="col-md-6 mb-5">
-													<!--begin::Label-->
-													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">Salary</span>
-													</label>
-													<!--end::Label-->
-													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("salary")}}" name="salary" placeholder="" value="" />
-													<!--end::Input-->
-												</div>
-												<!--end::Input group-->
-
-                                                <div class="col-md-6 mb-4">
-                                                    <!--begin::Label-->
-                                                    <label class="required fs-5 fw-bold mb-2">Joining Date</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input--> 
-                                                    <input type="text" name="joining_date" value="{{date("Y-m-d",strtotime("now"))}}" readonly class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select date"/>
-                                                    <!--end::Input-->
-                                                </div>
-                                                <!--end::Input group-->
-
-                                            </div>
-                                            <div class="row">
-												<!--begin::Input group-->
-												<div class="col-md-8 col-sm-12 mb-5">
-													<!--begin::Label-->
-													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">Job Description</span>
-													</label>
-													<!--end::Label-->
-													<!--begin::Input-->
-													<textarea class="form-control form-control-lg form-control-solid bdr-ccc" name="job_description">{{old("job_description")}}</textarea>
-													<!--end::Input-->
-												</div>
-												<!--end::Input group-->
-                                                
-												<!--begin::Input group-->
-												<div class="col-md-6 col-sm-12 mb-5">
-                                                    <!--begin::Label-->
-													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                        <span class="required">Roles</span>
-													</label>
-													<!--end::Label-->
-													<!--begin::Input-->
-													{{-- <select name="account_type" data-control="select2" class="form-select form-select-sm form-select-solid"> --}}
-                                                    <select name="role" aria-label="Select a role" data-control="select2" class="form-select form-select-sm form-select-solid">
-														@forelse ($roles as $role)
-                                                        	<option value="{{$role->name}}">{{$role->name}}</option>
-														@empty
-															<option>Please Add Role</option>
-														@endforelse
-                                                    </select>
-													<!--end::Input-->
-												</div>
-												<!--end::Input group-->
-                                            </div>
-                                        
-										</div>
-									</div>
-									<!--end::Step 2-->
 
 									<!--begin::Actions-->
 									<div class="d-flex flex-stack pt-10">
@@ -360,7 +297,7 @@
 										</div>
 										<!--end::Wrapper-->
 										<!--begin::Wrapper-->
-										<div>                                            
+										<div>
 											<button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="submit">
 												<span class="indicator-label">Submit
 												<!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
@@ -374,24 +311,26 @@
 												<span class="indicator-progress">Please wait...
 												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
 											</button>
-											<button type="submit" class="btn btn-lg btn-primary" >Submit
-											<!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-											<span class="svg-icon svg-icon-3 ms-1 me-0">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-													<rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="black" />
-													<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="black" />
-												</svg>
-											</span>
-											<!--end::Svg Icon--></button>
+											<button type="submit" class="btn btn-lg btn-primary">Submit
+                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
+                                                <span class="svg-icon svg-icon-3 ms-1 me-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="black" />
+                                                        <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="black" />
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                            </button>
 										</div>
 										<!--end::Wrapper-->
 									</div>
 									<!--end::Actions-->
+                                    @csrf
 								</form>
-								<!--end::Form-->
 								@else
-								<h1>Unauthorised</h1>
+									<h1>Unauthorized</h1>
 								@endcan
+								<!--end::Form-->
 							</div>
 							<!--end::Content-->
 						</div>
@@ -463,7 +402,7 @@
 											<!--end::Info-->
 											<!--begin::User-->
 											<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Nina Nilson">
-												<img src="assets/media/avatars/150-11.jpg" alt="img" />
+												<img src="/assets/media/avatars/150-11.jpg" alt="img" />
 											</div>
 											<!--end::User-->
 										</div>
@@ -486,12 +425,12 @@
 											<div class="symbol-group symbol-hover flex-nowrap flex-grow-1 min-w-100px pe-2">
 												<!--begin::User-->
 												<div class="symbol symbol-circle symbol-25px">
-													<img src="assets/media/avatars/150-3.jpg" alt="img" />
+													<img src="/assets/media/avatars/150-3.jpg" alt="img" />
 												</div>
 												<!--end::User-->
 												<!--begin::User-->
 												<div class="symbol symbol-circle symbol-25px">
-													<img src="assets/media/avatars/150-11.jpg" alt="img" />
+													<img src="/assets/media/avatars/150-11.jpg" alt="img" />
 												</div>
 												<!--end::User-->
 												<!--begin::User-->
@@ -525,7 +464,7 @@
 											<div class="symbol-group symbol-hover flex-nowrap flex-grow-1 min-w-100px">
 												<!--begin::User-->
 												<div class="symbol symbol-circle symbol-25px">
-													<img src="assets/media/avatars/150-5.jpg" alt="img" />
+													<img src="/assets/media/avatars/150-5.jpg" alt="img" />
 												</div>
 												<!--end::User-->
 												<!--begin::User-->
@@ -584,7 +523,7 @@
 											<!--end::Info-->
 											<!--begin::User-->
 											<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Alan Nilson">
-												<img src="assets/media/avatars/150-2.jpg" alt="img" />
+												<img src="/assets/media/avatars/150-2.jpg" alt="img" />
 											</div>
 											<!--end::User-->
 										</div>
@@ -628,7 +567,7 @@
 											<!--end::Info-->
 											<!--begin::User-->
 											<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Jan Hummer">
-												<img src="assets/media/avatars/150-6.jpg" alt="img" />
+												<img src="/assets/media/avatars/150-6.jpg" alt="img" />
 											</div>
 											<!--end::User-->
 										</div>
@@ -641,7 +580,7 @@
 											<!--begin::Item-->
 											<div class="d-flex flex-aligns-center pe-10 pe-lg-20">
 												<!--begin::Icon-->
-												<img alt="" class="w-30px me-3" src="assets/media/svg/files/pdf.svg" />
+												<img alt="" class="w-30px me-3" src="/assets/media/svg/files/pdf.svg" />
 												<!--end::Icon-->
 												<!--begin::Info-->
 												<div class="ms-1 fw-bold">
@@ -658,7 +597,7 @@
 											<!--begin::Item-->
 											<div class="d-flex flex-aligns-center pe-10 pe-lg-20">
 												<!--begin::Icon-->
-												<img alt="" class="w-30px me-3" src="assets/media/svg/files/doc.svg" />
+												<img alt="" class="w-30px me-3" src="/assets/media/svg/files/doc.svg" />
 												<!--end::Icon-->
 												<!--begin::Info-->
 												<div class="ms-1 fw-bold">
@@ -675,7 +614,7 @@
 											<!--begin::Item-->
 											<div class="d-flex flex-aligns-center">
 												<!--begin::Icon-->
-												<img alt="" class="w-30px me-3" src="assets/media/svg/files/css.svg" />
+												<img alt="" class="w-30px me-3" src="/assets/media/svg/files/css.svg" />
 												<!--end::Icon-->
 												<!--begin::Info-->
 												<div class="ms-1 fw-bold">
@@ -731,7 +670,7 @@
 											<!--end::Info-->
 											<!--begin::User-->
 											<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Nina Nilson">
-												<img src="assets/media/avatars/150-11.jpg" alt="img" />
+												<img src="/assets/media/avatars/150-11.jpg" alt="img" />
 											</div>
 											<!--end::User-->
 										</div>
@@ -775,7 +714,7 @@
 											<!--end::Info-->
 											<!--begin::User-->
 											<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Marcus Dotson">
-												<img src="assets/media/avatars/150-3.jpg" alt="img" />
+												<img src="/assets/media/avatars/150-3.jpg" alt="img" />
 											</div>
 											<!--end::User-->
 										</div>
@@ -789,7 +728,7 @@
 											<div class="overlay me-10">
 												<!--begin::Image-->
 												<div class="overlay-wrapper">
-													<img alt="img" class="rounded w-200px" src="assets/media/demos/demo1.png" />
+													<img alt="img" class="rounded w-200px" src="/assets/media/demos/demo1.png" />
 												</div>
 												<!--end::Image-->
 												<!--begin::Link-->
@@ -803,7 +742,7 @@
 											<div class="overlay me-10">
 												<!--begin::Image-->
 												<div class="overlay-wrapper">
-													<img alt="img" class="rounded w-200px" src="assets/media/demos/demo2.png" />
+													<img alt="img" class="rounded w-200px" src="/assets/media/demos/demo2.png" />
 												</div>
 												<!--end::Image-->
 												<!--begin::Link-->
@@ -817,7 +756,7 @@
 											<div class="overlay">
 												<!--begin::Image-->
 												<div class="overlay-wrapper">
-													<img alt="img" class="rounded w-200px" src="assets/media/demos/demo3.png" />
+													<img alt="img" class="rounded w-200px" src="/assets/media/demos/demo3.png" />
 												</div>
 												<!--end::Image-->
 												<!--begin::Link-->
@@ -914,7 +853,7 @@
 											<!--end::Info-->
 											<!--begin::User-->
 											<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Robert Rich">
-												<img src="assets/media/avatars/150-14.jpg" alt="img" />
+												<img src="/assets/media/avatars/150-14.jpg" alt="img" />
 											</div>
 											<!--end::User-->
 										</div>
@@ -1132,7 +1071,7 @@
 								<div class="d-flex align-items-center mb-2">
 									<!--begin::Avatar-->
 									<div class="symbol symbol-35px symbol-circle">
-										<img alt="Pic" src="assets/media/avatars/150-15.jpg" />
+										<img alt="Pic" src="/assets/media/avatars/150-15.jpg" />
 									</div>
 									<!--end::Avatar-->
 									<!--begin::Details-->
@@ -1164,7 +1103,7 @@
 									<!--end::Details-->
 									<!--begin::Avatar-->
 									<div class="symbol symbol-35px symbol-circle">
-										<img alt="Pic" src="assets/media/avatars/150-26.jpg" />
+										<img alt="Pic" src="/assets/media/avatars/150-26.jpg" />
 									</div>
 									<!--end::Avatar-->
 								</div>
@@ -1184,7 +1123,7 @@
 								<div class="d-flex align-items-center mb-2">
 									<!--begin::Avatar-->
 									<div class="symbol symbol-35px symbol-circle">
-										<img alt="Pic" src="assets/media/avatars/150-15.jpg" />
+										<img alt="Pic" src="/assets/media/avatars/150-15.jpg" />
 									</div>
 									<!--end::Avatar-->
 									<!--begin::Details-->
@@ -1216,7 +1155,7 @@
 									<!--end::Details-->
 									<!--begin::Avatar-->
 									<div class="symbol symbol-35px symbol-circle">
-										<img alt="Pic" src="assets/media/avatars/150-26.jpg" />
+										<img alt="Pic" src="/assets/media/avatars/150-26.jpg" />
 									</div>
 									<!--end::Avatar-->
 								</div>
@@ -1236,7 +1175,7 @@
 								<div class="d-flex align-items-center mb-2">
 									<!--begin::Avatar-->
 									<div class="symbol symbol-35px symbol-circle">
-										<img alt="Pic" src="assets/media/avatars/150-15.jpg" />
+										<img alt="Pic" src="/assets/media/avatars/150-15.jpg" />
 									</div>
 									<!--end::Avatar-->
 									<!--begin::Details-->
@@ -1269,7 +1208,7 @@
 									<!--end::Details-->
 									<!--begin::Avatar-->
 									<div class="symbol symbol-35px symbol-circle">
-										<img alt="Pic" src="assets/media/avatars/150-26.jpg" />
+										<img alt="Pic" src="/assets/media/avatars/150-26.jpg" />
 									</div>
 									<!--end::Avatar-->
 								</div>
@@ -1289,7 +1228,7 @@
 								<div class="d-flex align-items-center mb-2">
 									<!--begin::Avatar-->
 									<div class="symbol symbol-35px symbol-circle">
-										<img alt="Pic" src="assets/media/avatars/150-15.jpg" />
+										<img alt="Pic" src="/assets/media/avatars/150-15.jpg" />
 									</div>
 									<!--end::Avatar-->
 									<!--begin::Details-->
@@ -1321,7 +1260,7 @@
 									<!--end::Details-->
 									<!--begin::Avatar-->
 									<div class="symbol symbol-35px symbol-circle">
-										<img alt="Pic" src="assets/media/avatars/150-26.jpg" />
+										<img alt="Pic" src="/assets/media/avatars/150-26.jpg" />
 									</div>
 									<!--end::Avatar-->
 								</div>
@@ -1341,7 +1280,7 @@
 								<div class="d-flex align-items-center mb-2">
 									<!--begin::Avatar-->
 									<div class="symbol symbol-35px symbol-circle">
-										<img alt="Pic" src="assets/media/avatars/150-15.jpg" />
+										<img alt="Pic" src="/assets/media/avatars/150-15.jpg" />
 									</div>
 									<!--end::Avatar-->
 									<!--begin::Details-->
@@ -1493,7 +1432,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-success rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo1.png" alt="demo" class="w-100" />
+												<img src="/assets/media/demos/demo1.png" alt="demo" class="w-100" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<a href="https://preview.keenthemes.com/metronic8/demo1" class="btn btn-sm btn-success shadow">Demo 1</a>
@@ -1507,7 +1446,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo2.png" alt="demo" class="w-100" />
+												<img src="/assets/media/demos/demo2.png" alt="demo" class="w-100" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<a href="https://preview.keenthemes.com/metronic8/demo2" class="btn btn-sm btn-success shadow">Demo 2</a>
@@ -1521,7 +1460,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo3.png" alt="demo" class="w-100" />
+												<img src="/assets/media/demos/demo3.png" alt="demo" class="w-100" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<a href="https://preview.keenthemes.com/metronic8/demo3" class="btn btn-sm btn-success shadow">Demo 3</a>
@@ -1535,7 +1474,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo4.png" alt="demo" class="w-100" />
+												<img src="/assets/media/demos/demo4.png" alt="demo" class="w-100" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<a href="https://preview.keenthemes.com/metronic8/demo4" class="btn btn-sm btn-success shadow">Demo 4</a>
@@ -1549,7 +1488,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo5.png" alt="demo" class="w-100" />
+												<img src="/assets/media/demos/demo5.png" alt="demo" class="w-100" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<a href="https://preview.keenthemes.com/metronic8/demo5" class="btn btn-sm btn-success shadow">Demo 5</a>
@@ -1563,7 +1502,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo6.png" alt="demo" class="w-100" />
+												<img src="/assets/media/demos/demo6.png" alt="demo" class="w-100" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<a href="https://preview.keenthemes.com/metronic8/demo6" class="btn btn-sm btn-success shadow">Demo 6</a>
@@ -1577,7 +1516,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo7.png" alt="demo" class="w-100" />
+												<img src="/assets/media/demos/demo7.png" alt="demo" class="w-100" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<a href="https://preview.keenthemes.com/metronic8/demo7" class="btn btn-sm btn-success shadow">Demo 7</a>
@@ -1591,7 +1530,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo8.png" alt="demo" class="w-100" />
+												<img src="/assets/media/demos/demo8.png" alt="demo" class="w-100" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<a href="https://preview.keenthemes.com/metronic8/demo8" class="btn btn-sm btn-success shadow">Demo 8</a>
@@ -1605,7 +1544,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo9.png" alt="demo" class="w-100" />
+												<img src="/assets/media/demos/demo9.png" alt="demo" class="w-100" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<a href="https://preview.keenthemes.com/metronic8/demo9" class="btn btn-sm btn-success shadow">Demo 9</a>
@@ -1619,7 +1558,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo10.png" alt="demo" class="w-100 opacity-25" />
+												<img src="/assets/media/demos/demo10.png" alt="demo" class="w-100 opacity-25" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<div class="badge badge-white px-6 py-4 fw-bold fs-base shadow">Coming soon</div>
@@ -1633,7 +1572,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo11.png" alt="demo" class="w-100" />
+												<img src="/assets/media/demos/demo11.png" alt="demo" class="w-100" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<a href="https://preview.keenthemes.com/metronic8/demo11" class="btn btn-sm btn-success shadow">Demo 11</a>
@@ -1647,7 +1586,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo12.png" alt="demo" class="w-100 opacity-25" />
+												<img src="/assets/media/demos/demo12.png" alt="demo" class="w-100 opacity-25" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<div class="badge badge-white px-6 py-4 fw-bold fs-base shadow">Coming soon</div>
@@ -1661,7 +1600,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo13.png" alt="demo" class="w-100" />
+												<img src="/assets/media/demos/demo13.png" alt="demo" class="w-100" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<a href="https://preview.keenthemes.com/metronic8/demo13" class="btn btn-sm btn-success shadow">Demo 13</a>
@@ -1675,7 +1614,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo14.png" alt="demo" class="w-100 opacity-25" />
+												<img src="/assets/media/demos/demo14.png" alt="demo" class="w-100 opacity-25" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<div class="badge badge-white px-6 py-4 fw-bold fs-base shadow">Coming soon</div>
@@ -1689,7 +1628,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo15.png" alt="demo" class="w-100 opacity-25" />
+												<img src="/assets/media/demos/demo15.png" alt="demo" class="w-100 opacity-25" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<div class="badge badge-white px-6 py-4 fw-bold fs-base shadow">Coming soon</div>
@@ -1703,7 +1642,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo16.png" alt="demo" class="w-100 opacity-25" />
+												<img src="/assets/media/demos/demo16.png" alt="demo" class="w-100 opacity-25" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<div class="badge badge-white px-6 py-4 fw-bold fs-base shadow">Coming soon</div>
@@ -1717,7 +1656,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo17.png" alt="demo" class="w-100 opacity-25" />
+												<img src="/assets/media/demos/demo17.png" alt="demo" class="w-100 opacity-25" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<div class="badge badge-white px-6 py-4 fw-bold fs-base shadow">Coming soon</div>
@@ -1731,7 +1670,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo18.png" alt="demo" class="w-100 opacity-25" />
+												<img src="/assets/media/demos/demo18.png" alt="demo" class="w-100 opacity-25" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<div class="badge badge-white px-6 py-4 fw-bold fs-base shadow">Coming soon</div>
@@ -1745,7 +1684,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo19.png" alt="demo" class="w-100 opacity-25" />
+												<img src="/assets/media/demos/demo19.png" alt="demo" class="w-100 opacity-25" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<div class="badge badge-white px-6 py-4 fw-bold fs-base shadow">Coming soon</div>
@@ -1759,7 +1698,7 @@
 										<!--begin::Demo-->
 										<div class="overlay overflow-hidden position-relative border border-4 border-gray-200 rounded">
 											<div class="overlay-wrapper">
-												<img src="assets/media/demos/demo20.png" alt="demo" class="w-100 opacity-25" />
+												<img src="/assets/media/demos/demo20.png" alt="demo" class="w-100 opacity-25" />
 											</div>
 											<div class="overlay-layer bg-dark bg-opacity-10">
 												<div class="badge badge-white px-6 py-4 fw-bold fs-base shadow">Coming soon</div>
@@ -1821,7 +1760,7 @@
 						<!--end::Heading-->
 						<!--begin::Google Contacts Invite-->
 						<div class="btn btn-light-primary fw-bolder w-100 mb-8">
-						<img alt="Logo" src="assets/media/svg/brand-logos/google-icon.svg" class="h-20px me-3" />Invite Gmail Contacts</div>
+						<img alt="Logo" src="{{asset("assets/media/svg/brand-logos/google-icon.svg")}}" class="h-20px me-3" />Invite Gmail Contacts</div>
 						<!--end::Google Contacts Invite-->
 						<!--begin::Separator-->
 						<div class="separator d-flex flex-center mb-8">
@@ -1844,7 +1783,7 @@
 									<div class="d-flex align-items-center">
 										<!--begin::Avatar-->
 										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-1.jpg" />
+											<img alt="Pic" src="{{asset("assets/media/avatars/150-1.jpg")}}" />
 										</div>
 										<!--end::Avatar-->
 										<!--begin::Details-->
@@ -1900,7 +1839,7 @@
 									<div class="d-flex align-items-center">
 										<!--begin::Avatar-->
 										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-26.jpg" />
+											<img alt="Pic" src="/assets/media/avatars/150-26.jpg" />
 										</div>
 										<!--end::Avatar-->
 										<!--begin::Details-->
@@ -1928,7 +1867,7 @@
 									<div class="d-flex align-items-center">
 										<!--begin::Avatar-->
 										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-4.jpg" />
+											<img alt="Pic" src="/assets/media/avatars/150-4.jpg" />
 										</div>
 										<!--end::Avatar-->
 										<!--begin::Details-->
@@ -1956,7 +1895,7 @@
 									<div class="d-flex align-items-center">
 										<!--begin::Avatar-->
 										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-15.jpg" />
+											<img alt="Pic" src="/assets/media/avatars/150-15.jpg" />
 										</div>
 										<!--end::Avatar-->
 										<!--begin::Details-->
@@ -2012,7 +1951,7 @@
 									<div class="d-flex align-items-center">
 										<!--begin::Avatar-->
 										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-8.jpg" />
+											<img alt="Pic" src="/assets/media/avatars/150-8.jpg" />
 										</div>
 										<!--end::Avatar-->
 										<!--begin::Details-->
@@ -2096,7 +2035,7 @@
 									<div class="d-flex align-items-center">
 										<!--begin::Avatar-->
 										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-6.jpg" />
+											<img alt="Pic" src="/assets/media/avatars/150-6.jpg" />
 										</div>
 										<!--end::Avatar-->
 										<!--begin::Details-->
@@ -2152,7 +2091,7 @@
 									<div class="d-flex align-items-center">
 										<!--begin::Avatar-->
 										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-7.jpg" />
+											<img alt="Pic" src="/assets/media/avatars/150-7.jpg" />
 										</div>
 										<!--end::Avatar-->
 										<!--begin::Details-->
@@ -2208,7 +2147,7 @@
 									<div class="d-flex align-items-center">
 										<!--begin::Avatar-->
 										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-17.jpg" />
+											<img alt="Pic" src="/assets/media/avatars/150-17.jpg" />
 										</div>
 										<!--end::Avatar-->
 										<!--begin::Details-->
@@ -2264,7 +2203,7 @@
 									<div class="d-flex align-items-center">
 										<!--begin::Avatar-->
 										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-10.jpg" />
+											<img alt="Pic" src="/assets/media/avatars/150-10.jpg" />
 										</div>
 										<!--end::Avatar-->
 										<!--begin::Details-->
@@ -2292,7 +2231,7 @@
 									<div class="d-flex align-items-center">
 										<!--begin::Avatar-->
 										<div class="symbol symbol-35px symbol-circle">
-											<img alt="Pic" src="assets/media/avatars/150-17.jpg" />
+											<img alt="Pic" src="/assets/media/avatars/150-17.jpg" />
 										</div>
 										<!--end::Avatar-->
 										<!--begin::Details-->
@@ -2864,9 +2803,9 @@
 													<!--end::Input-->
 													<!--begin::Card logos-->
 													<div class="position-absolute translate-middle-y top-50 end-0 me-5">
-														<img src="assets/media/svg/card-logos/visa.svg" alt="" class="h-25px" />
-														<img src="assets/media/svg/card-logos/mastercard.svg" alt="" class="h-25px" />
-														<img src="assets/media/svg/card-logos/american-express.svg" alt="" class="h-25px" />
+														<img src="/assets/media/svg/card-logos/visa.svg" alt="" class="h-25px" />
+														<img src="/assets/media/svg/card-logos/mastercard.svg" alt="" class="h-25px" />
+														<img src="/assets/media/svg/card-logos/american-express.svg" alt="" class="h-25px" />
 													</div>
 													<!--end::Card logos-->
 												</div>
@@ -2984,7 +2923,7 @@
 											<!--end::Description-->
 											<!--begin::Illustration-->
 											<div class="text-center px-4 py-15">
-												<img src="assets/media/illustrations/sketchy-1/9.png" alt="" class="w-100 mh-300px" />
+												<img src="/assets/media/illustrations/sketchy-1/9.png" alt="" class="w-100 mh-300px" />
 											</div>
 											<!--end::Illustration-->
 										</div>
@@ -3561,83 +3500,31 @@
 			</span>
 			<!--end::Svg Icon-->
 		</div>
-		<!-- hidden More Whatsapp -->
-		<div class="d-none" id="hiddenaddmoreWhatsapp">
-			<div class="col-md-6 removableDiv">
-				<!--begin::Label-->
-				<label class="d-flex align-items-center fs-5 fw-bold mb-5">
-					<span class="required">Mobile No <span class="compCount"></span></span>
-				</label>
-				<!--end::Label-->
-				<div class="d-flex justify-conetent-end">
-					<!--begin::Input-->
-					<input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc" style="border-radius:5px 0px 0px 5px;" name="number[]" placeholder="" value="" style="    display: inline;
-					width: 90%;" />
-					<!--end::Input-->
-						<button type="button" class="btn btn-primary btn-danger remove-btn" style="border-radius: 0px 5px 5px 0px;">
-							<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 172 172"
-								style=" fill:#000000;">
-								<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
-									stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
-									font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-									<path d="M0,172v-172h172v172z" fill="none"></path>
-									<g fill="#ffffff">
-										<path
-											d="M28.66667,74.53333c-4.13529,-0.05848 -7.98173,2.11417 -10.06645,5.68601c-2.08471,3.57184 -2.08471,7.98948 0,11.56132c2.08471,3.57184 5.93115,5.74449 10.06645,5.68601h114.66667c4.13529,0.05848 7.98173,-2.11417 10.06645,-5.68601c2.08471,-3.57184 2.08471,-7.98948 0,-11.56132c-2.08471,-3.57184 -5.93115,-5.74449 -10.06645,-5.68601z">
-										</path>
-									</g>
-								</g>
-							</svg>
-						</button>
-				</div>
-			</div>
-		</div>
-		
-		<!-- hidden More Whatsapp Ends-->
-		<!--end::Scrolltop-->
-		<!--end::Main-->
-		<script>var hostUrl = "assets/";</script>
-		<!--begin::Javascript-->
-		<!--begin::Global Javascript Bundle(used by all pages)-->
-		<script src="assets/plugins/global/plugins.bundle.js"></script>
-		<script src="assets/js/scripts.bundle.js"></script>
-		<!--end::Global Javascript Bundle-->
-		<!--begin::Page Vendors Javascript(used by this page)-->
-		<script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
-		<!--end::Page Vendors Javascript-->
-		<!--begin::Page Custom Javascript(used by this page)-->
-		<script src="assets/js/custom/widgets.js"></script>
-		<script src="assets/js/custom/apps/chat/chat.js"></script>
-		<script src="assets/js/custom/modals/create-app.js"></script>
-		<script src="assets/js/custom/modals/upgrade-plan.js"></script>
-
-		<!--end::Page Custom Javascript-->
+		@section('jscript')
 		<script>
 			$(document).ready(function(){
-				$(document).on("click","#addmoreWhatsapp",function() {
-					var newcomp1 = $('#hiddenaddmoreWhatsapp').html();
-					// console.log(newcomp1);
-					$('.custom_appendDiv').append(newcomp1);
+				$(document).on("click","#addmore",function() {
+					// var newcomp1 = $('#hiddenaddmore').html();
+
+					var clone = $('.cloningSec').last().clone();
+					var rem = clone.find('#addmore');
+					$(rem).removeAttr('id');
+					$(rem).addClass('btn-pink remove-btn');
+					$(rem).text('Remove');
+					$('#appendDiv1').append(clone);
 					resetCounter();
    		 		});		
 
 				$(document).on("click",".remove-btn",function() {
-					$(this).closest(".removableDiv").remove();
+					$(this).closest(".cloningSec").remove();
 					resetCounter();
 				})
 
+				// myFunction();				  
 			});
 
-			function resetCounter() {
-				counter = 2;
-				$('#appendDivWp').find('.compCount').each(function() {
-					$(this).text(counter);
-					counter++;
-				})
-			}
-
-
-            // current date
+			
+			// current date
 
 			function getCurrentDate(){
 				today_date = new Date();
@@ -3648,12 +3535,12 @@
 				}
 			
 				$(function() {
-					$(".c-date").datepicker({
-					dateFormat: "dd-mm-yy",
-					numberOfMonths:[1,2],
-					minDate: new Date(),
-					// gotoCurrent: true
-					});
+					// $(".c-date").datepicker({
+					// dateFormat: "dd-mm-yy",
+					// numberOfMonths:[1,2],
+					// minDate: new Date(),
+					// // gotoCurrent: true
+					// });
 				});
 				$(function() {
 					var date = new Date(); // replace with your date
@@ -3662,19 +3549,101 @@
 
 			// current date end
 
+			function resetCounter() {
+				counter = 1;
+				$('#appendDiv1').find('.compCount').each(function() {
+					$(this).text(counter);
+					counter++;
+				})
+			}
 
 
-			$(document).on('click', '.toggleUserType', function() {
+			const targetDiv = document.getElementById("PaymentSection");
+			// const btn = document.getElementById("togglePaymentMode");
+			
+			// btn.addEventListener("click", myFunction);
+			$(document).on('click', '#togglePaymentMode', function() {
+				var self = $(this);
+				myFunction(self);
+			});
+			
+			function myFunction(self)   
+			{
+				if (self.is(":checked")) {
+					self.closest('.payment_details').find('.joining_date').show();
+					// targetDiv.style.display = "block";
+				} else {
+					self.closest('.payment_details').find('.joining_date').hide();
+					// targetDiv.style.display = "none";
+				}
+			}
+
+
+
+
+			// const btn11 = document.getElementsByClassName("PendingMark");
+			
+			// btn11.addEventListener("click", myFunctionPending);
+
+			
+			$(document).on('click', '.PendingMark', function() {
 				// alert("Hello");
-
-				if($('.toggleUserType:checked').val() == 1) {
-					$(this).closest('#professionalDetails').find('#partnerDiv').show();
-                    $(this).closest('#professionalDetails').find('#employeeDiv').hide();
+				// var self = $(this);
+				// myFunctionPending(self);
+				if($(this).is(":checked")) {
+					console.log('checked');
+					$(this).closest('.payment_details').find('.hideonpending').hide();
 				} else {
 					console.log('not checked');
-					$(this).closest('#professionalDetails').find('#employeeDiv').show();
-                    $(this).closest('#professionalDetails').find('#partnerDiv').hide();
+					$(this).closest('.payment_details').find('.hideonpending').show();cloningSec
 				}
 			});
+			
+			// function myFunctionPending(self)   
+			// {
+			// 	if (self.is(":checked")) {
+			// 		console.log('checked');
+			// 		self.closest('.payment_details').find('.hideonpending').hide();
+			// 	} else {
+			// 		console.log('not checked');
+			// 		self.closest('.payment_details').find('.hideonpending').show();
+			// 	}
+			// }
+			$(document).on("input",".wpsameascontact",function() {
+				if ($(this).is(':checked')) {					
+					var $cm = $('.client-mobile');
+					var $wp = $('.wp');
+					function onChange() {
+						$wp.val($cm.val());
+					};
+					$('.client-mobile')
+						.change(onChange)
+						.keyup(onChange);
+
+                }
+                else {
+					$(".wp").val(null);
+                }
+            });
 		</script>
+		@endsection
 @endsection
+		{{-- <!--end::Scrolltop-->
+		<!--end::Main-->
+		<script>var hostUrl = "/assets/";</script>
+		<!--begin::Javascript-->
+		<!--begin::Global Javascript Bundle(used by all pages)-->
+		<script src="{{asset("assets/plugins/global/plugins.bundle.js")}}"></script>
+		<script src="{{asset("assets/js/scripts.bundle.js")}}"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Page Vendors Javascript(used by this page)-->
+		<script src="{{asset("assets/plugins/custom/fullcalendar/fullcalendar.bundle.js")}}"></script>
+		<!--end::Page Vendors Javascript-->
+		<!--begin::Page Custom Javascript(used by this page)-->
+		<script src="{{asset("assets/js/custom/widgets.js")}}"></script>
+		<script src="{{asset("assets/js/custom/apps/chat/chat.js")}}"></script>
+		<script src="{{asset("assets/js/custom/modals/create-app.js")}}"></script>
+		<script src="{{asset("assets/js/custom/modals/upgrade-plan.js")}}"></script> --}}
+	</body>
+	<!--end::Body-->
+</html>

@@ -20,8 +20,8 @@ class RoleServices
     }
 
     public static function permissions(){
-        $permissions = Permission::get();
-        return view('roles.add',compact('permissions'));
+        return Permission::get();
+        // return view('roles.add',compact('permissions'));
     }
 
     public static function revoke($request)
@@ -38,11 +38,28 @@ class RoleServices
     {
         return User::where("status", "1")->get();
     }
-    public static function roles($request=false){
+    public static function roles(){
         $roles = Role::orderBy('id','DESC')->get();
         return view('roles.roles',compact('roles'));
     }
     public static function all(){
         return Role::all();
+    }
+    public static function get($id){
+        return Role::where("id",$id)->first();
+    }
+    public static function permissionsByRole($id){
+        $role = Role::where("id",$id)->first();
+        return $role->permissions->pluck("id")->toArray();
+    }
+    public static function update($request,$id){
+        $role = RoleServices::get($id);
+        // revoke permissions
+        $role->revokePermissionTo($role->permissions);
+        // grant permissions
+        foreach($request->permission as $perm){
+            $role->givePermissionTo($perm);
+        }
+        return true;
     }
 }

@@ -30,19 +30,24 @@ Route::group(['middleware' => ['auth']], function() {
     // users
     Route::get("/users",[UserController::class,"all"])->name("users");
     // view users
-    Route::get("/user/{id}",[UserController::class,"view"])->name("viewUser");
+    Route::get("/user/view/{id}",[UserController::class,"view"])->name("viewUser");
     // create user
-    Route::POST("/user/create",[UserController::class,"create"])->name("createUser");
+    Route::get("/user/create/",[UserController::class,"createForm"])->name("createUserForm");
+    Route::POST("/user/create/",[UserController::class,"create"])->name("createUser");
     // edit user
     Route::get("/user/edit/{id}",[UserController::class,"updateForm"]);
     Route::POST("/user/update/{id}",[UserController::class,"update"])->name("updateUser");
+    // remove user
+    Route::get("/user/delete/{id}",[UserController::class,"delete"])->name("deleteUser");
 
     // list roles
     Route::get("/roles",[RolesController::class, "view"])->name("roles");
     // create role
     Route::get("/roles/add",[RolesController::class, "addRolesForm"])->name("addRoles");
     Route::post("/role/add",[RolesController::class, "createRole"]);
-
+    // edit role
+    Route::get("/role/edit/{id}",[RolesController::class, "editRoleForm"])->name("editRoleForm");
+    Route::post("/role/edit/{id}",[RolesController::class, "editRole"])->name("editRole");
     // logout
     Route::get("/logout",[LoginController::class,"logout"])->name("logout");
 });
