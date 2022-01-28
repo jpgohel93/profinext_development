@@ -47,17 +47,19 @@
                             </div>
                             <!--end::Page title-->
                             <!--begin::Actions-->
-                            <div class="d-flex align-items-center py-1"> 
-                                <!--begin::Button-->
-                                <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">
-                                    <span class="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <rect x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                                            <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
-                                        </svg>
-                                    </span>Add Client
-                                </a> 
-                            </div>
+                            @can("client-create")
+                                <div class="d-flex align-items-center py-1"> 
+                                    <!--begin::Button-->
+                                    <a href="{{route('createClientForm')}}" class="btn btn-sm btn-primary" >
+                                        <span class="svg-icon svg-icon-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <rect x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
+                                                <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
+                                            </svg>
+                                        </span>Add Client
+                                    </a> 
+                                </div>
+                            @endcan
                             <!--end::Actions--> 
                         </div>
                         <!--end::Container-->

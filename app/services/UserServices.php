@@ -54,7 +54,7 @@ class UserServices
         ]);
         UserServices::validateUsersData($request);
         $user_data = $request->all();
-        $user_data['password'] = Hash::make("123456");
+        $user_data['password'] = Hash::make($request->password);
         $user_data['created_by'] = Auth::id();
         $user = User::create($user_data);
         $user->assignRole($request->role);
@@ -65,7 +65,7 @@ class UserServices
         return $user->id;
     }
     public static function user($id){
-        $user = User::where("id",$id)->first();
+        $user = User::where("id",$id)->withTrashed()->first();
         $user['numbers'] = UserNumbers::where("user_id",$id)->pluck("number");
         return $user;
     }

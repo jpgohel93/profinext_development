@@ -7,22 +7,17 @@ use App\Services\RoleServices;
 
 class RolesController extends Controller
 {
-    public function create(Request $request){
-        return $role = RoleServices::create($request);
-    }
     public function view(Request $request){
-        return RoleServices::roles($request);
-    }
-    public function roles(Request $request)
-    {
-        $permissions = RoleServices::roles($request);
-        return view("create-roles", ["permissions" => $permissions]);
+        $roles = RoleServices::roles($request);
+        return view('roles.roles',compact('roles'));
     }
     public function addRolesForm(Request $request){
-        return RoleServices::permissions();
+        $permissions = RoleServices::permissions();
+        return view('roles.add',compact('permissions'));
     }
     public function createRole(Request $request){
-        return RoleServices::create($request);
+        RoleServices::create($request);
+        return redirect()->route('roles')->with("info","Role created successfully");
     }
     public static function editRoleForm(Request $request,$id){
         $role = RoleServices::get($id);
@@ -30,8 +25,11 @@ class RolesController extends Controller
         return view("roles.edit", ["role" => $role,"rolePermissions" => $permissions,"permissions"=>RoleServices::permissions()]);
     }
     public function editRole(Request $request,$id){
-        $role = RoleServices::update($request,$id);
-        $request->session()->flash("info","Role updated successfully");
-        return RolesController::editRoleForm($request,$id);
+        RoleServices::update($request,$id);
+        return redirect()->route('editRoleForm',$id)->with("info","Role updated successfully");
+    }
+    public function removeRole(Request $request,$id){
+        RoleServices::remove($id);
+        return redirect()->route("roles")->with("info","Role removed successfully");
     }
 }

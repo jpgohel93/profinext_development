@@ -15,7 +15,7 @@
 							<!--begin::Content-->
 							<div class="flex-row-fluid px-lg-15">
 								<!--begin::Form-->
-								@can("role-create")
+								@can("role-write")
 								<form class="form" novalidate="novalidate" method="post" action="{{route('editRole',$role->id)}}" id="kt_modal_create_app_form">
 									<!--begin::Step 1-->
 									<div class="current d-block card p-7 my-5" data-kt-stepper-element="content">

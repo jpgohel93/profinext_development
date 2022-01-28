@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function() {
     // read client
     Route::get("/client/view/{client_id}",[ClientController::class,"get"])->name("clientView");
     // create client
+    Route::get("/client/add",[ClientController::class,"createClientForm"])->name("createClientForm");
     Route::post("/clients/add",[ClientController::class,"create"])->name("clientCreate");
 
     // users
@@ -44,10 +45,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/roles",[RolesController::class, "view"])->name("roles");
     // create role
     Route::get("/roles/add",[RolesController::class, "addRolesForm"])->name("addRoles");
-    Route::post("/role/add",[RolesController::class, "createRole"]);
+    Route::post("/role/add",[RolesController::class, "createRole"])->name("createRole");
     // edit role
     Route::get("/role/edit/{id}",[RolesController::class, "editRoleForm"])->name("editRoleForm");
     Route::post("/role/edit/{id}",[RolesController::class, "editRole"])->name("editRole");
+    // remove role
+    Route::get("/role/remove/{id}",[RolesController::class, "removeRole"])->name("removeRole");
+
     // logout
     Route::get("/logout",[LoginController::class,"logout"])->name("logout");
 });

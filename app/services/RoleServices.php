@@ -15,32 +15,19 @@ class RoleServices
             'permission' => 'required',
         ]);
         $role = Role::create(['name' => $request->input('role')]);
-        $role->syncPermissions($request->input('permission'));
-        return RoleServices::roles($request);
+        return $role->syncPermissions($request->permission);
     }
 
     public static function permissions(){
         return Permission::get();
-        // return view('roles.add',compact('permissions'));
     }
 
-    public static function revoke($request)
+    public static function remove($id)
     {
-        return UserServices::activeClients();
-    }
-
-    public static function assign()
-    {
-        return User::where("status", "1")->get();
-    }
-
-    public static function remove()
-    {
-        return User::where("status", "1")->get();
+        return Role::where("id", $id)->forcedelete();
     }
     public static function roles(){
-        $roles = Role::orderBy('id','DESC')->get();
-        return view('roles.roles',compact('roles'));
+        return Role::orderBy('id','DESC')->get();
     }
     public static function all(){
         return Role::all();

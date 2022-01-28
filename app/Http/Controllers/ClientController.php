@@ -7,14 +7,15 @@ use App\Services\ClientServices;
 
 class ClientController extends Controller
 {
-    public static function create(Request $request){
-        return ClientServices::create($request);
+    public function all(){
+        $clients = ClientServices::all();
+        return view("clients.client",compact('clients'));
     }
-    public static function all(){
-        $clients = ClientServices::activeClients();
-        return view("clients.client",["clients"=> $clients]);
+    public function createClientForm(){
+        return view("clients.add");
     }
-    public static function get($client_id){
-        return ClientServices::get($client_id);
+    public function create(Request $request){
+        $clients = ClientServices::create($request);
+        return redirect()->route("clients")->with("info","Clients have been created");
     }
 }
