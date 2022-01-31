@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2022 at 04:46 AM
+-- Generation Time: Jan 31, 2022 at 05:51 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -38,7 +38,7 @@ CREATE TABLE `clients` (
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -51,18 +51,18 @@ CREATE TABLE `clients` (
 CREATE TABLE `client_demat` (
   `id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
-  `st_sg` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `serial_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `service_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pan_number` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `holder_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `broker` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mpin` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `capital` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `st_sg` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `serial_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `service_type` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pan_number` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `holder_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `broker` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mpin` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `capital` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -91,11 +91,14 @@ CREATE TABLE `client_mode` (
 CREATE TABLE `client_payment` (
   `id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
-  `joining_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `fees` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mode` int(11) NOT NULL,
+  `bank` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `joining_date` datetime DEFAULT NULL,
+  `fees` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mode` int(11) DEFAULT NULL,
+  `pending_payment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `screenshots` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL,
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -303,23 +306,23 @@ CREATE TABLE `users` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '12345' COMMENT 'default:123456',
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
-  `bank_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `account_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ifsc_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `account_type` int(10) NOT NULL,
-  `user_type` int(10) NOT NULL,
+  `bank_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `account_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ifsc_code` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `account_type` int(10) DEFAULT NULL,
+  `user_type` int(10) DEFAULT NULL,
   `company` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `percentage` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `salary` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `joining_date` date NOT NULL DEFAULT current_timestamp(),
-  `job_description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `job_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -329,11 +332,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `status`, `bank_name`, `account_number`, `ifsc_code`, `account_type`, `user_type`, `company`, `percentage`, `salary`, `joining_date`, `job_description`, `role`, `remember_token`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(2, 'admin', 'test@admin.com', NULL, '$2y$10$PosLnPcx9kMIxPmHwIhz2u7cR6/zzqMVWVDO1ezt.SiSkdhCODlRa', 1, 'hdfc', '4353453', 'HDFC01212', 1, 1, 'helloWorld', '90', NULL, '2022-01-27', 'dfgdfdgdfdfg', 'super-admin', NULL, '2022-01-23 02:59:58', '', '2022-01-27 14:45:10', '2', NULL),
-(3, 'user', 'user@gmail.com', NULL, '$2y$10$HjDyFEBwtU8a2q4mLm7XsOwTAJHh2Un3twkeHF6iDP2KlAUBiZwPy', 1, 'hdfc', '879546412312', 'HDFC01212', 1, 2, 'testcompany', '34', '25000', '2022-01-25', 'demo description', 'super-admin', NULL, '2022-01-25 01:29:12', '2', '2022-01-27 14:39:06', '2', '2022-01-27 20:09:06'),
-(4, 'demouser', 'demo@admin.com', NULL, '$2y$10$T7ndAkcOQp3fYd4RlOgIduRoLWa6BfUqiiQ7ZrEb/kzcHyhRttcXe', 1, 'hdfc', '38946293846', 'HDFC01212', 1, 2, NULL, NULL, '11000', '2022-01-28', 'testing', 'user', NULL, '2022-01-25 11:40:58', '2', '2022-01-27 21:40:44', '2', NULL),
-(5, 'hello', 'hello@yahoo.com', NULL, '$2y$10$tZNRM6wM0jMXBPZ4WJQJUuVNQk5AN1sM0Uival0yFu66EFR60M5Du', 1, 'demo', '3462389476', 'HDFC01212', 1, 1, 'demo', '5', NULL, '2022-01-27', 'hgfgfghfg', 'user', NULL, '2022-01-27 14:44:10', '2', '2022-01-27 14:44:23', NULL, '2022-01-27 20:14:23'),
-(6, 'demouser', 'demo@test.com', NULL, '$2y$10$MTbw6Ag0MVOc6wlcYVq3.uD/kzMwk5KXbUS3bUX5spoPGEHgq/qRi', 1, 'demo', '543534534534', 'HDFC01212', 2, 2, NULL, NULL, '55000', '2022-01-28', 'dfxgdfgdfgdf', 'user', NULL, '2022-01-27 19:31:48', '2', '2022-01-27 19:31:48', NULL, NULL);
+(2, 'admin', 'test@admin.com', NULL, '$2y$10$PosLnPcx9kMIxPmHwIhz2u7cR6/zzqMVWVDO1ezt.SiSkdhCODlRa', 1, 'hdfc', '4353453', 'HDFC01212', 1, 1, 'helloWorld', '90', NULL, '2022-01-27', 'dfgdfdgdfdfg', 'super-admin', NULL, '2022-01-23 02:59:58', '', '2022-01-27 20:15:10', '2', NULL),
+(3, 'user', 'user@gmail.com', NULL, '$2y$10$HjDyFEBwtU8a2q4mLm7XsOwTAJHh2Un3twkeHF6iDP2KlAUBiZwPy', 1, 'hdfc', '879546412312', 'HDFC01212', 1, 2, 'testcompany', '34', '25000', '2022-01-25', 'demo description', 'super-admin', NULL, '2022-01-25 01:29:12', '2', '2022-01-27 20:09:06', '2', '2022-01-27 20:09:06'),
+(4, 'demouser', 'demo@admin.com', NULL, '$2y$10$T7ndAkcOQp3fYd4RlOgIduRoLWa6BfUqiiQ7ZrEb/kzcHyhRttcXe', 1, 'hdfc', '38946293846', 'HDFC01212', 1, 2, NULL, NULL, '11000', '2022-01-28', 'testing', 'user', NULL, '2022-01-25 11:40:58', '2', '2022-01-28 03:10:44', '2', NULL),
+(5, 'hello', 'hello@yahoo.com', NULL, '$2y$10$tZNRM6wM0jMXBPZ4WJQJUuVNQk5AN1sM0Uival0yFu66EFR60M5Du', 1, 'demo', '3462389476', 'HDFC01212', 1, 1, 'demo', '5', NULL, '2022-01-27', 'hgfgfghfg', 'user', NULL, '2022-01-27 14:44:10', '2', '2022-01-27 20:14:23', NULL, '2022-01-27 20:14:23'),
+(6, 'demouser', 'demo@test.com', NULL, '$2y$10$MTbw6Ag0MVOc6wlcYVq3.uD/kzMwk5KXbUS3bUX5spoPGEHgq/qRi', 1, 'demo', '543534534534', 'HDFC01212', 2, 2, NULL, NULL, '55000', '2022-01-28', 'dfxgdfgdfgdf', 'user', NULL, '2022-01-27 19:31:48', '2', '2022-01-28 01:01:48', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -556,7 +559,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user_numbers`
@@ -572,14 +575,13 @@ ALTER TABLE `user_numbers`
 -- Constraints for table `client_demat`
 --
 ALTER TABLE `client_demat`
-  ADD CONSTRAINT `client_demat_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`);
+  ADD CONSTRAINT `client_demat_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `client_payment`
 --
 ALTER TABLE `client_payment`
-  ADD CONSTRAINT `client_payment_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
-  ADD CONSTRAINT `client_payment_ibfk_2` FOREIGN KEY (`mode`) REFERENCES `client_mode` (`id`);
+  ADD CONSTRAINT `client_payment_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `model_has_permissions`
