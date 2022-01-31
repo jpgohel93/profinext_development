@@ -15,7 +15,7 @@
                 <!--begin::Wrapper-->
                 <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                     <!--begin::Form-->
-                    <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="/login/" method="POST">
+                    <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="{{route('loginUser')}}" method="POST">
                         @csrf
                         <!--begin::Heading-->
                         <div class="text-center mb-10">
@@ -24,10 +24,18 @@
                                 <h4 class="aler alert-danger p-3">{{session("error")}}</h4>
                             @elseif($errors->any())
                                 <h4 class="aler alert-danger p-3">{{$errors->first()}}</h4>
+                            @elseif(session("success"))
+                                <h4 class="aler alert-info p-3">{{session("success")}}</h4>
                             @endif
                             <!--begin::Title-->
                             <h1 class="text-dark mb-3">Sign In to Metronic</h1>
                             <!--end::Title--> 
+                            <!--begin::Link-->
+                            <div class="text-gray-400 fw-bold fs-4">
+                                Don't have an account?
+                                <a href="{{route('register')}}" class="link-primary fw-bolder">Sign up here</a>
+                            </div>
+                            <!--end::Link-->
                         </div>
                         <!--begin::Heading-->
                         <!--begin::Input group-->
@@ -48,7 +56,7 @@
                                 <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
                                 <!--end::Label-->
                                 <!--begin::Link-->
-                                <a href="../../Smart trader/dist/authentication/flows/basic/password-reset.html" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
+                                <a href="{{route("resetPassword")}}" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
                                 <!--end::Link-->
                             </div>
                             <!--end::Wrapper-->

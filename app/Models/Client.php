@@ -11,4 +11,14 @@ class Client extends Model
     use HasFactory,SoftDeletes;
     protected $table = "clients";
     protected $fillable = ["name","number","communication_with","wp_number","profession","updated_by","created_by"];
+
+    public function clientDemat()
+    {
+        return $this->hasMany(ClientDemat::class);
+    }
+
+    public function clientPayment()
+    {
+        return $this->hasMany(ClientPayment::class);
+    }
 }

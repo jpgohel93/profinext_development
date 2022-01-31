@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\LoginServices;
-use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     public static function login(Request $request)   {
-        return LoginServices::login($request);
+        $login = LoginServices::login($request);
+        if($login){
+            return redirect()->route('dashboard')->with('success','Login successfully');
+        }
+        return redirect()->route('login')->with('error','Login failed');
     }
     public function logout(Request $request)
     {

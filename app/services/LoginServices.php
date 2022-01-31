@@ -14,10 +14,7 @@ class LoginServices{
             "password"=>"required"
         ]);
         $request->flashExcept(["_token","password"]);
-        if(Auth::attempt($credentials)){
-            return redirect()->route('dashboard')->with('success','Login successfully');
-        }
-        return redirect()->route('login')->with('error','Login failed');
+        return Auth::attempt($credentials);
     }
     public static function logout($request)
     {

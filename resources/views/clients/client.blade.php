@@ -15,6 +15,15 @@
                 @include("header")
                 <!--begin::Content-->
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                    @if($errors->any())
+                        <div class="container">
+                            <h5 class="alert alert-danger">{{$errors->first()}}</h5>
+                        </div>
+                    @elseif(session("info"))
+                        <div class="container">
+                            <h5 class="alert alert-info">{{session("info")}}</h5>
+                        </div>
+                    @endif
                     <!--begin::Toolbar-->
                     <div class="toolbar" id="kt_toolbar">
                         <!--begin::Container-->
@@ -170,9 +179,12 @@
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
                                                         @can("client-read")
+                                                        @php
+                                                            $i=0;
+                                                        @endphp
                                                         @forelse ($clients as $client)
                                                             <tr> 
-                                                                <td>1</td>
+                                                                <td>{{$i+=1}}</td>
                                                                 <td class="d-flex align-items-center"> 
                                                                     <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                                         <a href="#">
@@ -187,7 +199,7 @@
                                                                     </div> 
                                                                 </td> 
                                                                 <td>{{$client->number}}</td>  
-                                                                <td>2</td> 
+                                                                <td>{{ $client->clientDemat->count()}}</td> 
                                                                 <td class="text-end">
                                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                         <span class="svg-icon svg-icon-5 m-0">
@@ -197,12 +209,19 @@
                                                                         </span> 
                                                                     </a> 
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
+                                                                        @can("client-read")
                                                                         <div class="menu-item px-3">  
-                                                                            <a href="javascript:void(0);" data-id='{{$client->id}}' class="menu-link px-3 viewClient">View</a>
+                                                                            <a href="{{route('clientView',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">View</a>
                                                                         </div> 
+                                                                        @endcan
                                                                         <div class="menu-item px-3">
                                                                             <a href="/dist/ledger.html" data-id='{{$client->id}}' target="_blank" class="menu-link px-3">Ledger</a>
                                                                         </div> 
+                                                                        @can("client-delete")
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Remove</a>
+                                                                        </div> 
+                                                                        @endcan
                                                                     </div> 
                                                                 </td> 
                                                             </tr>
@@ -1381,6 +1400,5 @@
     </script>
     @section('jscript')
         
-		<script src="{{asset('assets/js/custom/modals/create-app.js')}}"></script>
     @endsection
 @endsection

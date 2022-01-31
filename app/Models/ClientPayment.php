@@ -10,5 +10,5 @@ class ClientPayment extends Model
     use HasFactory;
     protected $table = "client_payment";
     protected $hidden = ["client_id"];
-    protected $fillable = ["client_id", "joining_date", "fees", "mode", "updated_by"];
+    protected $fillable = ["client_id", "bank","joining_date", "fees", "mode", "pending_payment","screenshots","updated_by"];
 }
