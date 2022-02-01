@@ -46,4 +46,9 @@ class ClientController extends Controller
         $client =  ClientServices::remove($id);
         return redirect()->route("clients")->with("info","Client Removed");
     }
+    // remove client
+    public function removePaymentScreenshot(Request $request,$client,$ss_id){
+        ClientServices::removePaymentScreenshot($ss_id);
+        return redirect()->route("updateClientForm",$client)->with("info","Screenshot Removed");
+    }
 }

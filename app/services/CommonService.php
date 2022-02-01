@@ -185,13 +185,14 @@ class CommonService
     {
         if($type == 'screenshots') {
             
-            $screenshots = DB::table("client_payment")->where("id",$id)->first(["screenshots"]);
+            $screenshots = DB::table("tbl_screenshots")->where("id",$id)->first(['file','mime_type']);
             
             if(empty($screenshots)) {
                 return self::ajaxResponse(false, [], 'File not found.');
             }
             $response = [
-                'filename' => $screenshots->screenshots
+                'filename' => $screenshots->file,
+                'mime_type' => $screenshots->mime_type,
             ];
 
             return self::ajaxResponse(true, $response, 'Success');

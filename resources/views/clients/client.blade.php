@@ -214,6 +214,11 @@
                                                                             <a href="{{route('clientView',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">View</a>
                                                                         </div> 
                                                                         @endcan
+                                                                        @can("client-write")
+                                                                        <div class="menu-item px-3">  
+                                                                            <a href="{{route('updateClientForm',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Edit</a>
+                                                                        </div> 
+                                                                        @endcan
                                                                         <div class="menu-item px-3">
                                                                             <a href="/dist/ledger.html" data-id='{{$client->id}}' target="_blank" class="menu-link px-3">Ledger</a>
                                                                         </div> 

@@ -42,6 +42,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/client/update/{id}",[ClientController::class,"update"])->name("updateClient");
     // remove client
     Route::get("/client/remove/{id}",[ClientController::class,"remove"])->name("removeClient");
+    // remove client
+    Route::get("'/client/edit/{client_id}/remove/screenshot/{screenshot_id}",[ClientController::class,"removePaymentScreenshot"])->name("removePaymentScreenshot");
+
 
     // users
     Route::get("/users",[UserController::class,"all"])->name("users");

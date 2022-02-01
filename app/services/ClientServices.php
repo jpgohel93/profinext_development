@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Client;
 use App\Models\ClientDemat;
 use App\Models\ClientPayment;
+use App\Models\Screenshots;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Services\CommonService;
@@ -75,26 +76,29 @@ class ClientServices
         
         foreach($request->mode as $key => $mode){
             $newName=["data"=>["filename"=>null]];
-            // file upload
-            if($request->mode[$key]=="2" && $request->pending_payment[$key]!="1" && isset($request->screenshot[$key])){
-                $file = $request->screenshot[$key];
-                $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.SCREENSHOTS'));
-            }
             if($request->mode[$key]=="2"){
-                ClientPayment::create([
+                $payment = ClientPayment::create([
                     "bank"=>$request->bank[$key],
                     "joining_date"=>$request->joining_date[$key],
                     "fees"=>$request->fees[$key],
                     "mode"=>$request->mode[$key],
                     "pending_payment"=>$request->pending_payment[$key],
-                    "screenshots"=>$newName['data']['filename'],
                     "client_id"=>$user->id
                 ]);
             }else{
-                ClientPayment::create([
+                $payment = ClientPayment::create([
                     "mode"=>$request->mode[$key],
                     "client_id"=>$user->id
                 ]);
+            }
+            // file upload
+            if($request->mode[$key]=="2" && $request->pending_payment[$key]!="1" && isset($request->screenshot[$key]) && !empty($request->screenshot[$key])){
+                foreach($request->screenshot[$key] as $index => $file){
+                    $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.SCREENSHOTS'));
+                    if($newName['status']){
+                        Screenshots::create(["payment_id"=>$payment->id,"file"=>$newName['data']['filename'],"mime_type"=>$newName['data']['mimeType']]);
+                    }
+                }
             }
         }
         return $user->id;
@@ -103,10 +107,10 @@ class ClientServices
         return Client::with('clientDemat')->get();
     }
     public static function get($id){
-        return Client::with(['clientDemat','clientPayment'])->where("id",$id)->first();
+        return Client::with(['clientDemat','clientPayment','clientPayment.Screenshots'])->where("id",$id)->first();
     }
     public static function update($request,$id){
-
+        // dd($request);
         $client = $request->validate([
             "name"=>"required|alpha_spaces",
             "number"=>"required",
@@ -166,7 +170,7 @@ class ClientServices
         }
         foreach($request->mode as $key => $mode){
             if($request->mode[$key]=="2"){
-                ClientPayment::create([
+                $payment = ClientPayment::create([
                     "bank"=>$request->bank[$key],
                     "joining_date"=>$request->joining_date[$key],
                     "fees"=>$request->fees[$key],
@@ -176,17 +180,29 @@ class ClientServices
                     "client_id"=>$id
                 ]);
             }else{
-                ClientPayment::create([
+                $payment = ClientPayment::create([
                     "mode"=>$request->mode[$key],
                     "updated_by"=>Auth::id(),
                     'updated_at'=>date("Y-m-d H:i:s"),
                     "client_id"=>$id
                 ]);
             }
+            // file upload
+            if($request->mode[$key]=="2" && $request->pending_payment[$key]!="1" && isset($request->screenshot[$key]) && !empty($request->screenshot[$key])){
+                foreach($request->screenshot[$key] as $index => $file){
+                    $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.SCREENSHOTS'));
+                    if($newName['status']){
+                        Screenshots::create(["client_payment_id"=>$payment->id,"file"=>$newName['data']['filename'],"mime_type"=>$newName['data']['mimeType']]);
+                    }
+                }
+            }
         }
-        return Client::with(['clientDemat','clientPayment'])->where("id",$id)->first();
+        return Client::with(['clientDemat','clientPayment',"clientPayment.Screenshots"])->where("id",$id)->first();
     }
     public static function remove($id){
         return client::where("id",$id)->delete();
+    }
+    public static function removePaymentScreenshot($ss){
+        return Screenshots::where("id",$ss)->delete();
     }
 }

@@ -428,7 +428,7 @@
                                                         <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input--> 
-                                                        <input type="file" name="screenshot[]" class="form-control form-control-lg form-control-solid bdr-ccc" readonly placeholder="Upload ScreenShot"/>
+                                                        <input type="file" name="screenshot[0][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -769,7 +769,7 @@
                                                         <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input--> 
-                                                        <input type="file" name="screenshot[1]" class="form-control form-control-lg form-control-solid bdr-ccc" readonly placeholder="Upload ScreenShot"/>
+                                                        <input type="file" name="screenshot[2][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -866,8 +866,8 @@
                     counter = 1;
                     $.each($('#appendDiv1 .cloningSec'),(i,v)=> {
                         let elem = $(v)[0];
-                        $(elem).find("[type='file']").first().attr("name","screenshot["+counter+"]")
-                        $(elem).find("[type='file']").first().attr("name","screenshot["+counter+"]")
+                        $(elem).find("[type='file']").first().attr("name","screenshot["+counter+"][]")
+                        $(elem).find("[type='file']").first().attr("name","screenshot["+counter+"][]")
                         counter++;
                     })
                 }

@@ -394,7 +394,8 @@
                                                                 <!--end::Label-->
                                                                 <!--begin::Input--> 
                                                                 {{-- <input type="file" name="screenshot[]" class="form-control form-control-lg form-control-solid bdr-ccc" readonly placeholder="Upload ScreenShot"/> --}}
-                                                                <img src="{{url('screenshots/'.$client->clientPayment[$key]->screenshots)}}" style="width: 200px" class="d-block">
+                                                                {{-- <img src="{{url('screenshots/'.$client->clientPayment[$key]->screenshots)}}" style="width: 200px" class="d-block"> --}}
+                                                                
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Input group-->
@@ -415,6 +416,11 @@
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Input group-->
+                                                        </div>
+                                                        <div class="row">
+                                                            @foreach($client->clientPayment[$key]->Screenshots as $ss)
+                                                                <img style="height: 100px;width:auto" loading="lazy" class="m-3" src="{{url('common/displayFile/'.Crypt::encryptString($ss->id).'/'.Crypt::encryptString('screenshots').'/'.$ss->file)}}" >
+                                                            @endforeach
                                                         </div>
                                                     </div>
                                                 </div>

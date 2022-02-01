@@ -30,7 +30,7 @@ class CommonController extends Controller
             return redirect()->back()->with('error', $response['message']);
         }
 
-        // $img = file_get_contents(public_path('screenshots').$response['data']['filename']));
-        // return response($img)->header('Content-type',$response['data']['mime_type']);
+        $img = file_get_contents(public_path('screenshots/').$response['data']['filename']);
+        return response($img)->header('Content-type',$response['data']['mime_type']);
     }
 }
