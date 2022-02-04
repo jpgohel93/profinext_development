@@ -355,7 +355,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" readonly placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />	
+                                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />	
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
@@ -687,7 +687,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" readonly placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />	
+                                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />	
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
