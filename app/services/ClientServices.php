@@ -15,6 +15,7 @@ class ClientServices
 {
     public static function create($request)
     {
+        $request->session()->put("password", $request->password);
         $client = $request->validate([
             "name"=>"required|alpha_spaces",
             "number"=>"required",
@@ -32,27 +33,41 @@ class ClientServices
         
         $client['created_by'] = Auth::id();
 
-        $user = Client::create($client);
+        $client = Client::create($client);
 
         $demat = $request->validate([
-            "st_sg"=>"required|array",
-            "serial_number"=>"required|array",
-            "service_type"=>"required|array",
-            "pan_number"=>"required|array",
-            "holder_name"=>"required|array",
-            "broker"=>"required|array",
-            "user_id"=>"required|array",
-            "password"=>"required|array",
-            "mpin"=>"required|array",
-            "capital"=>"required|array",
-        ]);
+            "st_sg.*"=>"required|alpha_spaces",
+            "serial_number.*"=>"required",
+            "service_type.*"=>"required|numeric",
+            "pan_number.*"=>"required",
+            "holder_name.*"=>"required|alpha_spaces",
+            "broker.*"=>"required|alpha_spaces",
+            "user_id.*"=>"required",
+            "password.*"=>"required",
+            "mpin.*"=>"required",
+            "capital.*"=>"required",
+        ],
+        [
+            "st_sg.*.required"=>"Smart ID is required",
+            "serial_number.*.required"=>"Serial Number is required",
+            "service_type.*.required"=>"Service Type is required",
+            "pan_number.*.required"=>"PAN Number is required",
+            "holder_name.*.required"=>"Demat Holder's Name is required",
+            "holder_name.*.alpha_spaces"=>"Demat Holder's Name Shold contain alphabate and spaces only",
+            "broker.*.required"=>"Broker is required",
+            "user_id.*.required"=>"User ID is required",
+            "password.*.required"=>"Password is required",
+            "mpin.*.required"=>"Mpin is required",
+            "capital.*.required"=>"Capital is required",
+        ]
+        );
         $demat['client_id'] = array();
 
         // hash all passwords
         foreach($request->password as $key => $password){
             $demat["password"][$key] = Hash::make($password);
             $demat["mpin"][$key] = Hash::make($request->mpin[$key]);
-            array_push($demat['client_id'],$user->id);
+            array_push($demat['client_id'],$client->id);
         }
 
         // insert one by one
@@ -73,35 +88,59 @@ class ClientServices
             ClientDemat::insert($array);
         }
 
-        
         foreach($request->mode as $key => $mode){
-            $newName=["data"=>["filename"=>null]];
             if($request->mode[$key]=="2"){
-                $payment = ClientPayment::create([
-                    "bank"=>$request->bank[$key],
-                    "joining_date"=>$request->joining_date[$key],
-                    "fees"=>$request->fees[$key],
-                    "mode"=>$request->mode[$key],
-                    "pending_payment"=>$request->pending_payment[$key],
-                    "client_id"=>$user->id
+                $request->validate([
+                    "bank.*"=>"required|alpha_spaces",
+                    "mode.*"=>"required|numeric",
+                    "joining_date"=>"required",
+                    "pending_payment.*"=>"required|numeric",
+                ],
+                [
+                    "bank.*.alpha_spaces"=>"Invalid Bank",
+                    "joining_date.required"=>"Joining Date is Required",
+                    "pending_payment.*.numeric"=>"Invalid Pending Payment Mark",
                 ]);
+                if($request->pending_payment[$key]=="0"){
+                    $request->validate([
+                        "fees"=>"required",
+                    ],
+                    [
+                        "fees.required"=>"Fees is required",
+                    ]); 
+                }
+                $payment['joining_date']=$request->joining_date[$key];
+                $payment['bank']=$request->bank[$key];
+                $payment['fees']=$request->fees[$key];
+                $payment['mode']=$request->mode[$key];
+                $payment['pending_payment']=$request->pending_payment[$key];
+                $payment['updated_by']=Auth::id();
+                $payment['updated_at']=date("Y-m-d H:i:s");
+                $payment['client_id']=$client->id;
+                $payment_id = ClientPayment::create($payment);
+                // $payment = ClientPayment::create($payment);
             }else{
-                $payment = ClientPayment::create([
-                    "mode"=>$request->mode[$key],
-                    "client_id"=>$user->id
+                $request->validate([
+                    "mode.*"=>"required|numeric",
                 ]);
+                $payment['mode']=$request->mode[$key];
+                $payment['updated_by']=Auth::id();
+                $payment['updated_at']=date("Y-m-d H:i:s");
+                $payment['client_id']=$client->id;
+                $payment_id = ClientPayment::create($payment);
             }
+
             // file upload
             if($request->mode[$key]=="2" && $request->pending_payment[$key]!="1" && isset($request->screenshot[$key]) && !empty($request->screenshot[$key])){
                 foreach($request->screenshot[$key] as $index => $file){
                     $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.SCREENSHOTS'));
                     if($newName['status']){
-                        Screenshots::create(["payment_id"=>$payment->id,"file"=>$newName['data']['filename'],"mime_type"=>$newName['data']['mimeType']]);
+                        Screenshots::create(["client_payment_id"=>$payment_id->id,"file"=>$newName['data']['filename'],"mime_type"=>$newName['data']['mimeType']]);
                     }
                 }
             }
         }
-        return $user->id;
+        return $client->id;
     }
     public static function all(){
         return Client::with('clientDemat')->get();
@@ -110,7 +149,7 @@ class ClientServices
         return Client::with(['clientDemat','clientPayment','clientPayment.Screenshots'])->where("id",$id)->first();
     }
     public static function update($request,$id){
-        // dd($request);
+        $request->session()->put("password", $request->password);
         $client = $request->validate([
             "name"=>"required|alpha_spaces",
             "number"=>"required",
@@ -130,17 +169,31 @@ class ClientServices
         $user = Client::where("id",$id)->update($client);
 
         $demat = $request->validate([
-            "st_sg"=>"required|array",
-            "serial_number"=>"required|array",
-            "service_type"=>"required|array",
-            "pan_number"=>"required|array",
-            "holder_name"=>"required|array",
-            "broker"=>"required|array",
-            "user_id"=>"required|array",
-            "password"=>"required|array",
-            "mpin"=>"required|array",
-            "capital"=>"required|array",
-        ]);
+            "st_sg.*"=>"required|alpha_spaces",
+            "serial_number.*"=>"required",
+            "service_type.*"=>"required|numeric",
+            "pan_number.*"=>"required",
+            "holder_name.*"=>"required|alpha_spaces",
+            "broker.*"=>"required|alpha_spaces",
+            "user_id.*"=>"required",
+            "password.*"=>"required",
+            "mpin.*"=>"required",
+            "capital.*"=>"required",
+        ],
+        [
+            "st_sg.*.required"=>"Smart ID is required",
+            "serial_number.*.required"=>"Serial Number is required",
+            "service_type.*.required"=>"Service Type is required",
+            "pan_number.*.required"=>"PAN Number is required",
+            "holder_name.*.required"=>"Demat Holder's Name is required",
+            "holder_name.*.alpha_spaces"=>"Demat Holder's Name Shold contain alphabate and spaces only",
+            "broker.*.required"=>"Broker is required",
+            "user_id.*.required"=>"User ID is required",
+            "password.*.required"=>"Password is required",
+            "mpin.*.required"=>"Mpin is required",
+            "capital.*.required"=>"Capital is required",
+        ]
+        );
         $demat['client_id'] = array();
 
         // remove all existing accounts
@@ -170,29 +223,51 @@ class ClientServices
         }
         foreach($request->mode as $key => $mode){
             if($request->mode[$key]=="2"){
-                $payment = ClientPayment::create([
-                    "bank"=>$request->bank[$key],
-                    "joining_date"=>$request->joining_date[$key],
-                    "fees"=>$request->fees[$key],
-                    "mode"=>$request->mode[$key],
-                    "pending_payment"=>$request->pending_payment[$key],
-                    "updated_by"=>Auth::id(),
-                    "client_id"=>$id
+                $request->validate([
+                    "bank.*"=>"required|alpha_spaces",
+                    "mode.*"=>"required|numeric",
+                    "joining_date"=>"required",
+                    "pending_payment.*"=>"required|numeric",
+                ],
+                [
+                    "bank.*.alpha_spaces"=>"Invalid Bank",
+                    "joining_date.required"=>"Joining Date is Required",
+                    "pending_payment.*.numeric"=>"Invalid Pending Payment Mark",
                 ]);
+                if($request->pending_payment[$key]=="0"){
+                    $request->validate([
+                        "fees"=>"required",
+                    ],
+                    [
+                        "fees.required"=>"Fees is required",
+                    ]); 
+                }
+                $payment['joining_date']=$request->joining_date[$key];
+                $payment['bank']=$request->bank[$key];
+                $payment['fees']=$request->fees[$key];
+                $payment['mode']=$request->mode[$key];
+                $payment['pending_payment']=$request->pending_payment[$key];
+                $payment['updated_by']=Auth::id();
+                $payment['updated_at']=date("Y-m-d H:i:s");
+                $payment['client_id']=$id;
+                $payment_id = ClientPayment::create($payment);
             }else{
-                $payment = ClientPayment::create([
-                    "mode"=>$request->mode[$key],
-                    "updated_by"=>Auth::id(),
-                    'updated_at'=>date("Y-m-d H:i:s"),
-                    "client_id"=>$id
+                $request->validate([
+                    "mode.*"=>"required|numeric",
                 ]);
+                $payment['mode']=$request->mode[$key];
+                $payment['updated_by']=Auth::id();
+                $payment['updated_at']=date("Y-m-d H:i:s");
+                $payment['client_id']=$id;
+                $payment_id = ClientPayment::create($payment);
             }
+
             // file upload
             if($request->mode[$key]=="2" && $request->pending_payment[$key]!="1" && isset($request->screenshot[$key]) && !empty($request->screenshot[$key])){
                 foreach($request->screenshot[$key] as $index => $file){
                     $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.SCREENSHOTS'));
                     if($newName['status']){
-                        Screenshots::create(["client_payment_id"=>$payment->id,"file"=>$newName['data']['filename'],"mime_type"=>$newName['data']['mimeType']]);
+                        Screenshots::create(["client_payment_id"=>$payment_id->id,"file"=>$newName['data']['filename'],"mime_type"=>$newName['data']['mimeType']]);
                     }
                 }
             }

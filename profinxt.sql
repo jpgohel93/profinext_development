@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2022 at 07:07 PM
+-- Generation Time: Feb 04, 2022 at 03:57 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -311,6 +311,14 @@ CREATE TABLE `tbl_screenshots` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `tbl_screenshots`
+--
+
+INSERT INTO `tbl_screenshots` (`id`, `client_payment_id`, `file`, `mime_type`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(2, 21, '8ICYBbckDGDXT6YqTBtNVGJn6pSj1tLukNsUDS6f.jpg', 'image/jpeg', '2022-02-04 20:22:06', '2022-02-04 20:22:06', NULL),
+(3, 21, 'M0gEvZXlmnU2AoLBfJ1BmA24kIJlSaACCjK8csHV.jpg', 'image/jpeg', '2022-02-04 20:22:06', '2022-02-04 20:22:06', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -582,7 +590,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `tbl_screenshots`
 --
 ALTER TABLE `tbl_screenshots`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
