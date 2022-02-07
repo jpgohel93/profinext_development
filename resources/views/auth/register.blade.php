@@ -37,7 +37,9 @@
 							<!--end::Heading-->
 							<!--begin::Action-->
 							<button type="button" class="btn btn-light-primary fw-bolder w-100 mb-10">
-							<img alt="Logo" src="{{asset('assets/media/svg/brand-logos/google-icon.svg')}}" class="h-20px me-3" />Sign in with Google</button>
+								<img alt="Logo" src="{{asset('assets/media/svg/brand-logos/google-icon.svg')}}" class="h-20px me-3" />
+								Sign in with Google
+							</button>
 							<!--end::Action-->
 							<!--begin::Separator-->
 							<div class="d-flex align-items-center mb-10">
