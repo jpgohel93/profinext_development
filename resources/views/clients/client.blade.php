@@ -174,6 +174,7 @@
                                                             <th class="min-w-125px">Client Name</th>
                                                             <th class="min-w-125px">Contact Number</th>
                                                             <th class="min-w-75px">No. of Demat</th>
+                                                            <th class="min-w-75px">Status</th>
                                                             <th class="text-end min-w-100px">Actions</th>
                                                         </tr>
                                                     </thead>
@@ -200,6 +201,7 @@
                                                                 </td> 
                                                                 <td>{{$client->number}}</td>  
                                                                 <td>{{ $client->clientDemat->count()}}</td> 
+                                                                <td>{{ ($client->status)?"Verified":"unverified"}}</td> 
                                                                 <td class="text-end">
                                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                         <span class="svg-icon svg-icon-5 m-0">

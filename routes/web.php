@@ -6,6 +6,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\AnalystController;
+use App\Http\Controllers\CallController;
 
 // login
 Route::get("/login",function(){
@@ -58,7 +60,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/user/update/{id}",[UserController::class,"update"])->name("updateUser");
     // remove user
     Route::get("/user/delete/{id}",[UserController::class,"delete"])->name("deleteUser");
-
+    
     // list roles
     Route::get("/roles",[RolesController::class, "view"])->name("roles");
     // create role
@@ -69,6 +71,21 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post("/role/edit/{id}",[RolesController::class, "editRole"])->name("editRole");
     // remove role
     Route::get("/role/remove/{id}",[RolesController::class, "removeRole"])->name("removeRole");
+    
+    // list analyst
+    Route::get("/analyst", [AnalystController::class, "view"])->name("analysts");
+    // create analyst
+    Route::get("/analyst/create/",[AnalystController::class,"createForm"])->name("createAnalystForm");
+    Route::POST("/analyst/create/",[AnalystController::class,"create"])->name("createAnalyst");
+    // get analyst
+    Route::get("/analyst/{id}", [AnalystController::class, "getAnalyst"])->name("getAnalysts");
+    // edit analyst
+    Route::POST("/analyst/edit",[AnalystController::class, "editAnalyst"])->name("editAnalyst");
+    
+    // list calls
+    Route::get("/calls",[CallController::class, "view"])->name('calls');
+    // create call
+    Route::POST("/call/create/",[CallController::class,"create"])->name("createCall");
 
     // logout
     Route::get("/logout",[LoginController::class,"logout"])->name("logout");

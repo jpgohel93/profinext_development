@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2022 at 03:57 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.25
+-- Generation Time: Feb 08, 2022 at 02:40 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,101 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `analysts`
+--
+
+CREATE TABLE `analysts` (
+  `id` bigint(20) NOT NULL,
+  `analyst` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `telegram_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `youtube` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `website` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Active,Experiment,Paper Trade,Terminated',
+  `total_calls` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `accuracy` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `trading_capacity` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `analysts`
+--
+
+INSERT INTO `analysts` (`id`, `analyst`, `telegram_id`, `youtube`, `website`, `status`, `total_calls`, `accuracy`, `trading_capacity`, `created_by`, `created_at`, `updated_at`, `deleted_at`, `deleted_by`, `updated_by`) VALUES
+(1, 'helloTrading', 'helloTrading123', 'https://youtube.com/helloTrading123', 'helloTrading.com', 'Experiment', '8', '60%', '88', '2', '2022-02-08 12:07:08', '2022-02-08 16:32:50', '2022-02-08 07:32:04', NULL, NULL),
+(2, 'analyst', 'analystWorld', 'analystWorldYT', NULL, 'Terminated', '8', '90%', '98', '2', '2022-02-08 13:10:38', '2022-02-08 16:30:15', NULL, NULL, NULL),
+(3, 'analyst', 'analystWorld', 'analystWorldYT', NULL, 'Experiment', NULL, NULL, NULL, '2', '2022-02-08 13:11:04', '2022-02-08 13:11:04', NULL, NULL, NULL),
+(4, 'analyst', 'analystWorld', 'analystWorldYT', NULL, 'Experiment', NULL, NULL, NULL, '2', '2022-02-08 13:16:22', '2022-02-08 13:16:22', NULL, NULL, NULL),
+(5, 'demo', 'adasd', 'asdasd', NULL, 'Active', '9', '90%', '100', '2', '2022-02-08 13:20:04', '2022-02-08 16:07:23', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `analyst_numbers`
+--
+
+CREATE TABLE `analyst_numbers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `analyst_id` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `analyst_numbers`
+--
+
+INSERT INTO `analyst_numbers` (`id`, `number`, `analyst_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, '123456789', 1, '2022-02-08 07:37:17', '2022-02-08 12:07:36', NULL),
+(2, '987789987', 1, '2022-02-08 07:37:17', '2022-02-08 12:07:36', NULL),
+(3, '123456789', 3, NULL, '2022-02-08 13:11:04', '2022-02-08 13:11:04'),
+(4, '555444555', 3, NULL, '2022-02-08 13:11:04', '2022-02-08 13:11:04'),
+(5, '666444666', 3, NULL, '2022-02-08 13:11:04', '2022-02-08 13:11:04'),
+(6, '123456789', 4, NULL, '2022-02-08 13:16:22', '2022-02-08 13:16:22'),
+(7, '555444555', 4, NULL, '2022-02-08 13:16:22', '2022-02-08 13:16:22'),
+(8, '666444666', 4, NULL, '2022-02-08 13:16:22', '2022-02-08 13:16:22'),
+(9, NULL, 5, NULL, '2022-02-08 13:20:04', '2022-02-08 13:20:04');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `calls`
+--
+
+CREATE TABLE `calls` (
+  `id` bigint(20) NOT NULL,
+  `analyst_id` bigint(20) NOT NULL,
+  `due_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `script_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lot_size` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `entry_price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `target_price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stop_loss` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `margin_value` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` datetime DEFAULT NULL,
+  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `calls`
+--
+
+INSERT INTO `calls` (`id`, `analyst_id`, `due_date`, `script_name`, `lot_size`, `entry_price`, `target_price`, `stop_loss`, `margin_value`, `created_at`, `updated_at`, `deleted_at`, `created_by`) VALUES
+(1, 1, '2022-02-08', 'Tata TCS', '55', '1350', '1445', '1230', '400', '2022-02-08 16:58:41', '2022-02-08 18:18:18', NULL, '2'),
+(2, 1, '2022-02-08', 'tata tcs', '5544', '1500', '1550', '1440', '50', '2022-02-08 18:44:41', '2022-02-08 19:08:11', '2022-02-09 19:08:08', '2');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `clients`
 --
 
@@ -34,13 +129,20 @@ CREATE TABLE `clients` (
   `communication_with` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `wp_number` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `profession` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `clients`
+--
+
+INSERT INTO `clients` (`id`, `name`, `number`, `communication_with`, `wp_number`, `profession`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'demouser', '123123123', 'Admin', '123123123', 'Business Man', 0, '2', NULL, '2022-02-08 11:32:47', '2022-02-08 11:33:06', NULL);
 
 -- --------------------------------------------------------
 
@@ -66,6 +168,13 @@ CREATE TABLE `client_demat` (
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `client_demat`
+--
+
+INSERT INTO `client_demat` (`id`, `client_id`, `st_sg`, `serial_number`, `service_type`, `pan_number`, `holder_name`, `broker`, `user_id`, `password`, `mpin`, `capital`, `created_at`, `updated_at`, `updated_by`, `deleted_at`) VALUES
+(1, 1, 'ST', 'serial 1', '1', 'pan 1', 'Shani', 'Business Man', 'shani', '$2y$10$3yE27q7XjpCM8jC8gSpwwe6Cb3Gb8k.DZeQSlxSOdTiwgMexJH/Mi', '$2y$10$9Tlr57V0U.rulPZPiJCcou6ZXP2mPSePjLl1ZXTzkbfh6wXciFOpO', '55000', '2022-02-08 11:32:47', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -102,6 +211,13 @@ CREATE TABLE `client_payment` (
   `deleted_at` datetime DEFAULT NULL,
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `client_payment`
+--
+
+INSERT INTO `client_payment` (`id`, `client_id`, `bank`, `joining_date`, `fees`, `mode`, `pending_payment`, `screenshots`, `created_at`, `updated_at`, `deleted_at`, `updated_by`) VALUES
+(1, 1, 'ICICI', '2022-02-08 00:00:00', '25,000', 2, '1', NULL, '2022-02-08 11:32:47', '2022-02-08 11:32:47', NULL, '2');
 
 -- --------------------------------------------------------
 
@@ -219,7 +335,15 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (9, 'user-read', 'web', NULL, NULL),
 (10, 'user-write', 'web', NULL, NULL),
 (11, 'user-create', 'web', NULL, NULL),
-(12, 'user-delete', 'web', NULL, NULL);
+(12, 'user-delete', 'web', NULL, NULL),
+(13, 'analyst-read', 'web', NULL, NULL),
+(14, 'analyst-write', 'web', NULL, NULL),
+(15, 'analyst-create', 'web', NULL, NULL),
+(16, 'analyst-delete', 'web', NULL, NULL),
+(17, 'calls-read', 'web', NULL, NULL),
+(18, 'calls-write', 'web', NULL, NULL),
+(19, 'calls-create', 'web', NULL, NULL),
+(20, 'calls-delete', 'web', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -293,7 +417,15 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (10, 1),
 (10, 6),
 (11, 1),
-(12, 1);
+(12, 1),
+(13, 1),
+(14, 1),
+(15, 1),
+(16, 1),
+(17, 1),
+(18, 1),
+(19, 1),
+(20, 1);
 
 -- --------------------------------------------------------
 
@@ -419,6 +551,26 @@ INSERT INTO `user_numbers` (`id`, `user_id`, `number`, `created_at`, `deleted_at
 --
 
 --
+-- Indexes for table `analysts`
+--
+ALTER TABLE `analysts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `analyst_numbers`
+--
+ALTER TABLE `analyst_numbers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `analyst_id` (`analyst_id`);
+
+--
+-- Indexes for table `calls`
+--
+ALTER TABLE `calls`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `analyst` (`analyst_id`);
+
+--
 -- Indexes for table `clients`
 --
 ALTER TABLE `clients`
@@ -533,16 +685,34 @@ ALTER TABLE `user_numbers`
 --
 
 --
+-- AUTO_INCREMENT for table `analysts`
+--
+ALTER TABLE `analysts`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `analyst_numbers`
+--
+ALTER TABLE `analyst_numbers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `calls`
+--
+ALTER TABLE `calls`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `client_demat`
 --
 ALTER TABLE `client_demat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `client_mode`
@@ -554,7 +724,7 @@ ALTER TABLE `client_mode`
 -- AUTO_INCREMENT for table `client_payment`
 --
 ALTER TABLE `client_payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -572,7 +742,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -609,6 +779,18 @@ ALTER TABLE `user_numbers`
 --
 
 --
+-- Constraints for table `analyst_numbers`
+--
+ALTER TABLE `analyst_numbers`
+  ADD CONSTRAINT `analyst_numbers_ibfk_1` FOREIGN KEY (`analyst_id`) REFERENCES `analysts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `calls`
+--
+ALTER TABLE `calls`
+  ADD CONSTRAINT `calls_ibfk_1` FOREIGN KEY (`analyst_id`) REFERENCES `analysts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `client_demat`
 --
 ALTER TABLE `client_demat`
@@ -638,12 +820,6 @@ ALTER TABLE `model_has_roles`
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `tbl_screenshots`
---
-ALTER TABLE `tbl_screenshots`
-  ADD CONSTRAINT `tbl_screenshots_ibfk_1` FOREIGN KEY (`client_payment_id`) REFERENCES `client_payment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_numbers`
