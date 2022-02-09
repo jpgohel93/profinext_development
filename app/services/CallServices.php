@@ -30,4 +30,24 @@ class CallServices
         $call['created_by']= Auth::id();
         return Calls::create($call);
     }
+    public static function remove($request){
+        return Calls::where("id", $request->id)->delete();
+    }
+    public static function get($id){
+        return Calls::with(["analyst:id,analyst"])->where("id", $id)->first(['analyst_id', "script_name", "entry_price", "target_price", "stop_loss"]);
+    }
+    public static function edit($request){
+        $call = $request->validate([
+            "analyst_id"=>"required|exists:analysts,id|numeric",
+            "script_name"=>"required",
+            "entry_price"=>"required",
+            "target_price"=>"required",
+            "stop_loss"=>"required",
+        ],
+        [
+            "analyst_id.exists" => "Invalid analyst",
+            "analyst_id.numeric" => "Invalid analyst",
+        ]);
+        Calls::where("id",$request->call_id)->update($call);
+    }
 }

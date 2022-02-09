@@ -206,7 +206,7 @@
                                                                 <th class="text-center min-w-100px">Actions</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody class="text-gray-600 fw-bold">
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
                                                             @foreach($calls['active'] as $call)
                                                             <tr>
                                                                 <td>{{$call->id}}</td>
@@ -223,18 +223,18 @@
                                                                 <td class="">
                                                                     <div class="d-flex justify-content-center">
                                                                         <div class="menu-item">
-                                                                            <a href="#" class="menu-link  call_modal_view p-1" data-bs-toggle="modal" data-bs-target="#call_modal_view">
-                                                                                <img style="height:18px" src="data:image/png;base64,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"/>
+                                                                            <a href="javascript:void(0)" class="menu-link p-1 call_modal_view" data-id="{{$call->id}}">
+                                                                                <i class="fa fa-eye text-dark fa-2x"></i>
                                                                             </a>
                                                                         </div>
                                                                         <div class="menu-item">
-                                                                            <a href="javascript:void(0);" class="menu-link p-1" data-bs-toggle="modal" data-bs-target="#confirmDelete">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#e74c3c"><path d="M107.33488,86l46.8872,-70.3308c0.70176,-1.05608 0.77056,-2.41144 0.172,-3.52944c-0.59856,-1.118 -1.76472,-1.81976 -3.03408,-1.81976h-25.2496c-1.12488,0 -2.18096,0.5504 -2.82424,1.47576l-37.28616,53.56424l-37.2896,-53.56424c-0.64328,-0.92536 -1.69592,-1.47576 -2.8208,-1.47576h-25.2496c-1.26936,0 -2.43552,0.69832 -3.03408,1.81632c-0.59856,1.118 -0.52976,2.4768 0.172,3.52944l46.8872,70.33424l-46.8872,70.3308c-0.70176,1.05608 -0.77056,2.41144 -0.172,3.52944c0.59856,1.118 1.76472,1.81976 3.03408,1.81976h25.2496c1.12488,0 2.18096,-0.5504 2.82424,-1.47576l37.28616,-53.56424l37.2896,53.56424c0.64328,0.92536 1.69592,1.47576 2.8208,1.47576h25.2496c1.26936,0 2.43552,-0.69832 3.03408,-1.81632c0.59856,-1.118 0.52976,-2.4768 -0.172,-3.52944z"></path></g></g></svg>
+                                                                            <a href="javascript:void(0);" class="menu-link p-1">
+                                                                                <i class="fa fa-times text-danger fa-2x deleteCall" data-id="{{$call->id}}"></i>
                                                                             </a>
                                                                         </div>
                                                                         <div class="menu-item">
-                                                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm p-0" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="14" height="14" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#000000"><g><path d="M86,64.5c-11.85367,0 -21.5,9.64633 -21.5,21.5c0,11.85367 9.64633,21.5 21.5,21.5c11.85367,0 21.5,-9.64633 21.5,-21.5c0,-11.85367 -9.64633,-21.5 -21.5,-21.5z"></path><path d="M86,0c-11.85367,0 -21.5,9.64633 -21.5,21.5c0,11.85367 9.64633,21.5 21.5,21.5c11.85367,0 21.5,-9.64633 21.5,-21.5c0,-11.85367 -9.64633,-21.5 -21.5,-21.5z"></path><path d="M86,129c-11.85367,0 -21.5,9.64633 -21.5,21.5c0,11.85367 9.64633,21.5 21.5,21.5c11.85367,0 21.5,-9.64633 21.5,-21.5c0,-11.85367 -9.64633,-21.5 -21.5,-21.5z"></path></g><path d="M86,64.5c-11.85367,0 -21.5,9.64633 -21.5,21.5c0,11.85367 9.64633,21.5 21.5,21.5z"></path><path d="M86,0c-11.85367,0 -21.5,9.64633 -21.5,21.5c0,11.85367 9.64633,21.5 21.5,21.5z"></path><path d="M86,129c-11.85367,0 -21.5,9.64633 -21.5,21.5c0,11.85367 9.64633,21.5 21.5,21.5z"></path></g></g></svg>
+                                                                            <a href="javascript:void(0);" class="menu-link p-1" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                                                                <i class="fa fa-ellipsis-v text-dark fa-2x"></i>
                                                                             </a>
                                                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
                                                                                 <div class="menu-item ">
@@ -251,7 +251,7 @@
                                                             @endforeach
                                                         </tbody>
                                                     @else
-                                                        <h3>there's no closed call exists.</h3>
+                                                        <h3>there's no Active call exists.</h3>
                                                     @endif
                                                     <!--end::Table body-->
                                                 </table>
@@ -371,7 +371,7 @@
                                                                 <th class="text-end min-w-100px">Actions</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody class="text-gray-600 fw-bold">
+                                                        <tbody class="text-gray-600 fw-bold" id="closedCallTable">
                                                             @foreach($calls['closed'] as $call)
                                                             <tr>
                                                                 <td>{{$call->id}}</td>
@@ -388,18 +388,18 @@
                                                                 <td class="">
                                                                     <div class="d-flex justify-content-center">
                                                                         <div class="menu-item">
-                                                                            <a href="#" class="menu-link  call_modal_view p-1" data-bs-toggle="modal" data-bs-target="#call_modal_view">
-                                                                                <img style="height:18px" src="data:image/png;base64,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"/>
+                                                                            <a href="javascript:void(0)" class="menu-link call_modal_view p-1" data-id="{{$call->id}}">
+                                                                                <i class="fa fa-eye text-dark fa-2x"></i>
                                                                             </a>
                                                                         </div>
                                                                         <div class="menu-item">
-                                                                            <a href="javascript:void(0);" class="menu-link p-1 deleteCall" data-bs-toggle="modal" data-bs-target="#confirmDelete">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#e74c3c"><path d="M107.33488,86l46.8872,-70.3308c0.70176,-1.05608 0.77056,-2.41144 0.172,-3.52944c-0.59856,-1.118 -1.76472,-1.81976 -3.03408,-1.81976h-25.2496c-1.12488,0 -2.18096,0.5504 -2.82424,1.47576l-37.28616,53.56424l-37.2896,-53.56424c-0.64328,-0.92536 -1.69592,-1.47576 -2.8208,-1.47576h-25.2496c-1.26936,0 -2.43552,0.69832 -3.03408,1.81632c-0.59856,1.118 -0.52976,2.4768 0.172,3.52944l46.8872,70.33424l-46.8872,70.3308c-0.70176,1.05608 -0.77056,2.41144 -0.172,3.52944c0.59856,1.118 1.76472,1.81976 3.03408,1.81976h25.2496c1.12488,0 2.18096,-0.5504 2.82424,-1.47576l37.28616,-53.56424l37.2896,53.56424c0.64328,0.92536 1.69592,1.47576 2.8208,1.47576h25.2496c1.26936,0 2.43552,-0.69832 3.03408,-1.81632c0.59856,-1.118 0.52976,-2.4768 -0.172,-3.52944z"></path></g></g></svg>
+                                                                            <a href="javascript:void(0);" class="menu-link p-1">
+                                                                                <i class="fa fa-times text-danger fa-2x deleteCall" data-id="{{$call->id}}"></i>
                                                                             </a>
                                                                         </div>
                                                                         <div class="menu-item">
-                                                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm p-0" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="14" height="14" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#000000"><g><path d="M86,64.5c-11.85367,0 -21.5,9.64633 -21.5,21.5c0,11.85367 9.64633,21.5 21.5,21.5c11.85367,0 21.5,-9.64633 21.5,-21.5c0,-11.85367 -9.64633,-21.5 -21.5,-21.5z"></path><path d="M86,0c-11.85367,0 -21.5,9.64633 -21.5,21.5c0,11.85367 9.64633,21.5 21.5,21.5c11.85367,0 21.5,-9.64633 21.5,-21.5c0,-11.85367 -9.64633,-21.5 -21.5,-21.5z"></path><path d="M86,129c-11.85367,0 -21.5,9.64633 -21.5,21.5c0,11.85367 9.64633,21.5 21.5,21.5c11.85367,0 21.5,-9.64633 21.5,-21.5c0,-11.85367 -9.64633,-21.5 -21.5,-21.5z"></path></g><path d="M86,64.5c-11.85367,0 -21.5,9.64633 -21.5,21.5c0,11.85367 9.64633,21.5 21.5,21.5z"></path><path d="M86,0c-11.85367,0 -21.5,9.64633 -21.5,21.5c0,11.85367 9.64633,21.5 21.5,21.5z"></path><path d="M86,129c-11.85367,0 -21.5,9.64633 -21.5,21.5c0,11.85367 9.64633,21.5 21.5,21.5z"></path></g></g></svg>
+                                                                            <a href="javascript:void(0);" class="menu-link p-1" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                                                                <i class="fa fa-ellipsis-v text-dark fa-2x"></i>
                                                                             </a>
                                                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
                                                                                 <div class="menu-item ">
@@ -474,11 +474,7 @@
             <!--end::Modal body-->
             <div class="modal-footer text-center">
                 <!-- <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button> -->
-                <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit" data-bs-dismiss="modal">
-                    <span class="indicator-label">Yes</span>
-                    <span class="indicator-progress">Please wait...
-                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                </button>
+                <button type="submit" class="btn btn-primary" id="confirmDeleteCallBtn">Yes</button>
                 <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit" data-bs-dismiss="modal">
                     <span class="indicator-label">No</span>
                     <span class="indicator-progress">Please wait...
@@ -490,83 +486,91 @@
 </div>
 <!--end::Modals-->
 <div class="modal fade" id="call_modal_view" tabindex="-1" aria-hidden="true">
-		    <div class="modal-dialog modal-dialog-centered mw-650px" role="document">
-		        <div class="modal-content">
-		            <div class="modal-header">
-						<h2 class="fw-bolder">View Call Details</h2>
-						<button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
-							<span class="svg-icon svg-icon-1">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-									<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-									<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-								</svg>
-							</span>
-						</button>
-					</div>
+    <div class="modal-dialog modal-dialog-centered mw-650px" role="document">
+        <div class="modal-content">
+            <form id="editCallForm" class="form" method="POST" action="{{route('editCall')}}">
+                <div id="editId"></div>
+                @csrf
+                <div class="modal-header">
+                    <h2 class="fw-bolder">View Call Details</h2>
+                    <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                            </svg>
+                        </span>
+                    </button>
+                </div>
 
-					<!--begin::Modal body-->
-					<div class="modal-body mx-md-10">
-						<!--begin::Form-->
-						<form id="" class="form" action="#">
-							<!--begin::Scroll-->
-							<!-- <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px"> -->
-								<div class="form-group row">
-									<label class="col-3 col-form-label">Analyst Name</label>
-									<div class="col-9">
-										<input class="form-control" type="text" value="Ethan Black" id="example-text-input" /> </div>
-								</div>
-								<div class="form-group row">
-									<label for="example-email-input" class="col-3 col-form-label">Position</label>
-									<div class="col-9">
-										<input class="form-control" type="text" value="Put" id="example-email-input" /> </div>
-								</div> 
-								<div class="form-group row">
-									<label for="example-tel-input" class="col-3 col-form-label">Script Name</label>
-									<div class="col-9">
-										<input class="form-control" type="text" value="R Power" id="example-tel-input" /> </div>
-								</div> 
-								<div class="form-group row">
-									<label for="no-of-demat" class="col-3 col-form-label">Entry Price</label>
-									<div class="col-9">
-										<input class="form-control" type="text" value="2314" id="no-of-demat" /> </div>
-								</div> 
-								<div class="form-group row">
-									<label for="no-of-demat" class="col-3 col-form-label">Target</label>
-									<div class="col-9">
-										<input class="form-control" type="text" value="2450" id="no-of-demat" /> </div>
-								</div> 
-								<div class="form-group row">
-									<label for="no-of-demat" class="col-3 col-form-label">Stoploss</label>
-									<div class="col-9">
-										<input class="form-control" type="text" value="2300" id="no-of-demat" /> </div>
-								</div> 
-							<!-- </div> -->
-							<!--end::Scroll--> 
-						</form>
-						<!--end::Form-->
-					</div>
-					<!--end::Modal body-->
-					<div class="modal-footer text-center">
-						<!-- <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button> -->
-						<button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-							<span class="indicator-label">Edit</span>
-							<span class="indicator-progress">Please wait...
-							<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-						</button> 
-						<button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-							<span class="indicator-label">Add</span>
-							<span class="indicator-progress">Please wait...
-							<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-						</button> 
-						<button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-							<span class="indicator-label">Sqaure Off</span>
-							<span class="indicator-progress">Please wait...
-							<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-						</button> 
-					</div>
-		        </div>
-		    </div>
-		</div>
+                <!--begin::Modal body-->
+                <div class="modal-body mx-md-10">
+                    <div class="form-group row">
+                        <label class="col-3 col-form-label">Analyst Name</label>
+                        <div class="col-9">
+                            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a analyst" name="analyst_id" id="analyst_id">
+                                @forelse ($calls['analysts'] as $key => $analyst)
+                                    <option value='{{$analyst->id}}' {{(old('analyst')==$analyst->id)?"selected":($key==0?"selected":"")}}>{{$analyst->analyst}}</option>
+                                @empty
+                                    <option value="">Select Analyst...</option>
+                                @endforelse
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-email-input" class="col-3 col-form-label">Position</label>
+                        <div class="col-9">
+                            <input class="form-control" type="text" value="Put" id="example-email-input" />
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="example-tel-input" class="col-3 col-form-label">Script Name</label>
+                        <div class="col-9">
+                            <input class="form-control" type="text" value="{{old('script_name')}}" name="script_name" id="script_name" />
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="no-of-demat" class="col-3 col-form-label">Entry Price</label>
+                        <div class="col-9">
+                            <input class="form-control" type="text" value="{{old('entry_price')}}" name="entry_price" id="entry_price" />
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="no-of-demat" class="col-3 col-form-label">Target</label>
+                        <div class="col-9">
+                            <input class="form-control" type="text" value="{{old('target_price')}}" name="target_price" id="target_price" />
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="no-of-demat" class="col-3 col-form-label">Stoploss</label>
+                        <div class="col-9">
+                            <input class="form-control" type="text" value="{{old('stop_loss')}}" name="stop_loss" id="stop_loss" />
+                        </div>
+                    </div>
+                </div>
+                <!--end::Modal body-->
+                <div class="modal-footer text-center">
+                    <!-- <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button> -->
+                    <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                        <span class="indicator-label">Edit</span>
+                        <span class="indicator-progress">Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button> 
+                    <button type="button" class="btn btn-primary" data-kt-users-modal-action="submit">
+                        <span class="indicator-label">Add</span>
+                        <span class="indicator-progress">Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button> 
+                    <button type="button" class="btn btn-primary" data-kt-users-modal-action="submit">
+                        <span class="indicator-label">Sqaure Off</span>
+                        <span class="indicator-progress">Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button> 
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!--begin::Modal - Call Modal-->
 <div class="modal fade" id="call_modal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
@@ -766,6 +770,7 @@
 @endif)
 <script>
     window.addEventListener("DOMContentLoaded", function () {
+        // cache create fields
         const analyst = $("#analyst");
         const total_colls = $("#total_colls");
         const accuracy = $("#accuracy");
@@ -774,31 +779,78 @@
         const editAnalystId = $("#editAnalystId");
         const editAnalyst = $("#editAnalyst");
 
-        $(document).on("click", ".viewAnalyst", function () {
-            $.ajax("/analyst/" + $(this).attr("data-id"), {
-                    type: "GET",
-                    headers: {
-                        'X-CSRF-TOKEN': $("input[name='_token']").val()
+        // cache edit fields
+        const analyst_id = $("#analyst_id");
+        const script_name = $("#script_name");
+        const entry_price = $("#entry_price");
+        const target_price = $("#target_price");
+        const stop_loss = $("#stop_loss");
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $("input[name='_token']").val()
+            }
+        })
+        $(document).on("click", ".call_modal_view", function () {
+            const id = $(this).attr("data-id");
+            $.ajax("{!! route('getCall') !!}", {
+                    type: "POST",
+                    data:{
+                        id:id
                     }
                 })
                 .done(data => {
-                    $(analyst).val(data.analyst);
-                    $(total_colls).val(data.total_calls);
-                    $(accuracy).val(data.accuracy);
-                    $(trading_capacity).val(data.trading_capacity);
-                    $(analyst_status).val(data.status);
-                    $(analyst_status).trigger("change");
-                    $(editAnalyst).val(data.id);
-                    $(editAnalystId).val(data.id);
-                    $("#viewAnalyst").modal("show");
+                    $(analyst_id).val(data.analyst.id);
+                    $(analyst_id).trigger("change");
+                    $(script_name).val(data.script_name);
+                    $(entry_price).val(data.entry_price);
+                    $(target_price).val(data.target_price);
+                    $(stop_loss).val(data.stop_loss);
+                    $("#editId").html(`<input type='hidden' value='${id}' name='call_id' />`);
+                    $("#call_modal_view").modal("show");
                 })
         })
         $("#viewAnalyst").modal("hide");
+        // $("#confirmDelete").modal("hide");
         $("#closeModel").on("click", function () {
             $("#viewAnalyst").modal("hide");
         })
         $(document).on("click",".deleteCall",function(e){
-            console.log($(e.target));
+            const id = e.target.getAttribute("data-id");
+            if(id){
+                $("#confirmDeleteCallBtn").attr("data-id",id);
+                $("#confirmDelete").modal("show");
+
+            }else{
+                window.alert("Unable to close this call");
+            }
+        })
+        $("#confirmDeleteCallBtn").on("click", function(e){
+            const id = e.target.getAttribute("data-id");
+            if(id){
+                $.ajax('{!! route("deleteCall") !!}',{
+                    type:"POST",
+                    data:{
+                        id:id
+                    }
+                })
+                .done(data=>{
+                    if(data){
+                        const html = `<div class="container" id='tempMsgContainer'><h5 class="alert alert-info">Call Closed</h5></div>`
+                        $("#kt_content").prepend(html);
+                        $("#confirmDelete").modal("hide");
+                        const tr = $("[data-id='"+id+"'][class*='deleteCall']")[0].closest("tr");
+                        const call = $(tr).html();
+                        $("[data-id='"+id+"'][class*='deleteCall']")[0].closest("tr").remove();
+                        $("#closedCallTable").append(call);
+                        setTimeout(() => {
+                            $("#tempMsgContainer").remove();
+                        }, 3000);
+                    }
+                })
+            }else{
+                window.alert("Unable to close this call");
+            }
         })
     })
 

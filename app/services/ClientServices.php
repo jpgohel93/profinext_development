@@ -165,7 +165,13 @@ class ClientServices
             $client['wp_number']=$client['number'];
         }
         $client['updated_by'] = Auth::id();
-
+        $client['status'] = 0;
+        if(isset($request->payment_verified) && $request->payment_verified=="1"){
+            $auth_user = Auth::user();
+            if($auth_user->hasRole([8,1])){
+                $client['status']=1;
+            }
+        }
         $user = Client::where("id",$id)->update($client);
 
         $demat = $request->validate([

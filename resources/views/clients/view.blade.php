@@ -430,6 +430,16 @@
                                     @empty
                                         <h1>No Accounts</h1>
                                     @endforelse
+                                    @if (isset($client))
+                                        @hasanyrole('super-admin|Accountant')
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <input class="form-check-input" type="checkbox" value="{{$client->status==1?"1":"0"}}" {{$client->status==1?"checked":""}} disabled />
+                                                    <label class="h3">is payment Verified?</label>
+                                                </div>
+                                            </div>
+                                        @endhasanyrole
+                                    @endif
                                 </div>
                                 <!--end::Content-->
                             </div>

@@ -15,4 +15,16 @@ class CallController extends Controller
         CallServices::create($request);
         return Redirect::route('calls')->with("info","Call has been created");
     }
+    public function remove(Request $request){
+        CallServices::remove($request);
+        return response(true)->header('Content-type', "application/json");
+    }
+    public function edit(Request $request){
+        CallServices::edit($request);
+        return Redirect::route('calls')->with("info", "Call has been updated");
+    }
+    public function get(Request $request){
+        $call = CallServices::get($request->id);
+        return response($call)->header('Content-type', "application/json");
+    }
 }

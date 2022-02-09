@@ -86,6 +86,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/calls",[CallController::class, "view"])->name('calls');
     // create call
     Route::POST("/call/create/",[CallController::class,"create"])->name("createCall");
+    // remove call
+    Route::POST("/call/remove/",[CallController::class,"remove"])->name("deleteCall");
+    // get calls
+    Route::POST("/call/view/",[CallController::class, "get"])->name('getCall');
+    // edit call
+    Route::POST("/call/edit/",[CallController::class,"edit"])->name("editCall");
+
 
     // logout
     Route::get("/logout",[LoginController::class,"logout"])->name("logout");

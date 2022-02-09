@@ -832,6 +832,14 @@
                                         <div id="appendDiv1"></div>
                                         <!--begin::Wrapper-->
                                         <div>
+                                            @hasanyrole('super-admin|Accountant')
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <input class="form-check-input" type="checkbox" value="{{$client->status==1?"1":"0"}}" onclick="this.value = (this.value==1?0:1)" {{$client->status==1?"checked":""}} name="payment_verified" id="paymentVerified"/>
+                                                        <label for="paymentVerified" class="h3">is payment Verified?</label>
+                                                    </div>
+                                                </div>
+                                            @endhasanyrole
                                             <button type="submit" class="btn btn-lg btn-primary">
                                                 <span class="indicator-label">Submit
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
