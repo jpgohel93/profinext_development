@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2022 at 02:40 PM
+-- Generation Time: Feb 09, 2022 at 02:40 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -113,8 +113,8 @@ CREATE TABLE `calls` (
 --
 
 INSERT INTO `calls` (`id`, `analyst_id`, `due_date`, `script_name`, `lot_size`, `entry_price`, `target_price`, `stop_loss`, `margin_value`, `created_at`, `updated_at`, `deleted_at`, `created_by`) VALUES
-(1, 1, '2022-02-08', 'Tata TCS', '55', '1350', '1445', '1230', '400', '2022-02-08 16:58:41', '2022-02-08 18:18:18', NULL, '2'),
-(2, 1, '2022-02-08', 'tata tcs', '5544', '1500', '1550', '1440', '50', '2022-02-08 18:44:41', '2022-02-08 19:08:11', '2022-02-09 19:08:08', '2');
+(1, 1, '2022-02-08', 'Tata TCS', '55', '1350', '1445', '1230', '400', '2022-02-08 16:58:41', '2022-02-09 11:17:05', '2022-02-09 11:17:05', '2'),
+(2, 5, '2022-02-08', 'tata tcs', '5544', '1500', '1600', '1440', '50', '2022-02-08 18:44:41', '2022-02-09 14:48:31', '2022-02-09 14:48:31', '2');
 
 -- --------------------------------------------------------
 
@@ -142,7 +142,37 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `name`, `number`, `communication_with`, `wp_number`, `profession`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'demouser', '123123123', 'Admin', '123123123', 'Business Man', 0, '2', NULL, '2022-02-08 11:32:47', '2022-02-08 11:33:06', NULL);
+(1, 'demouser', '123123123', 'Admin', '123123123', 'Business Man', 1, '2', '9', '2022-02-08 11:32:47', '2022-02-09 15:23:17', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client_banks`
+--
+
+CREATE TABLE `client_banks` (
+  `id` int(11) NOT NULL,
+  `bank` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client_brokers`
+--
+
+CREATE TABLE `client_brokers` (
+  `id` int(11) NOT NULL,
+  `broker` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` datetime DEFAULT NULL,
+  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -174,7 +204,7 @@ CREATE TABLE `client_demat` (
 --
 
 INSERT INTO `client_demat` (`id`, `client_id`, `st_sg`, `serial_number`, `service_type`, `pan_number`, `holder_name`, `broker`, `user_id`, `password`, `mpin`, `capital`, `created_at`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(1, 1, 'ST', 'serial 1', '1', 'pan 1', 'Shani', 'Business Man', 'shani', '$2y$10$3yE27q7XjpCM8jC8gSpwwe6Cb3Gb8k.DZeQSlxSOdTiwgMexJH/Mi', '$2y$10$9Tlr57V0U.rulPZPiJCcou6ZXP2mPSePjLl1ZXTzkbfh6wXciFOpO', '55000', '2022-02-08 11:32:47', NULL, NULL, NULL);
+(8, 1, 'ST', 'serial 1', '1', 'pan 1', 'Shani', 'Business Man', 'shani', '$2y$10$3yE27q7XjpCM8jC8gSpwwe6Cb3Gb8k.DZeQSlxSOdTiwgMexJH/Mi', '$2y$10$9Tlr57V0U.rulPZPiJCcou6ZXP2mPSePjLl1ZXTzkbfh6wXciFOpO', '55000', '2022-02-09 15:23:17', '2022-02-09 15:23:17', '9', NULL);
 
 -- --------------------------------------------------------
 
@@ -217,7 +247,22 @@ CREATE TABLE `client_payment` (
 --
 
 INSERT INTO `client_payment` (`id`, `client_id`, `bank`, `joining_date`, `fees`, `mode`, `pending_payment`, `screenshots`, `created_at`, `updated_at`, `deleted_at`, `updated_by`) VALUES
-(1, 1, 'ICICI', '2022-02-08 00:00:00', '25,000', 2, '1', NULL, '2022-02-08 11:32:47', '2022-02-08 11:32:47', NULL, '2');
+(8, 1, 'ICICI', '2022-02-08 00:00:00', '25,000', 2, '1', NULL, '2022-02-09 15:23:17', '2022-02-09 15:23:17', NULL, '9');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client_professions`
+--
+
+CREATE TABLE `client_professions` (
+  `id` int(11) NOT NULL,
+  `profession` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` datetime DEFAULT NULL,
+  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -291,7 +336,9 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 3),
 (1, 'App\\Models\\User', 6),
 (1, 'App\\Models\\User', 8),
-(6, 'App\\Models\\User', 4);
+(6, 'App\\Models\\User', 4),
+(8, 'App\\Models\\User', 9),
+(8, 'App\\Models\\User', 10);
 
 -- --------------------------------------------------------
 
@@ -384,7 +431,9 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'super-admin', 'web', '2022-01-22 04:35:49', '2022-01-22 04:35:49', NULL),
-(6, 'user', 'web', '2022-01-27 21:39:44', '2022-01-27 21:39:44', NULL);
+(6, 'user', 'web', '2022-01-27 21:39:44', '2022-01-27 21:39:44', NULL),
+(7, 'customer relationship manager', 'web', '2022-02-09 09:22:34', '2022-02-09 09:22:34', NULL),
+(8, 'Accountant', 'web', '2022-02-09 09:22:54', '2022-02-09 09:22:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -404,8 +453,13 @@ CREATE TABLE `role_has_permissions` (
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (1, 1),
 (1, 6),
+(1, 7),
+(1, 8),
 (2, 1),
+(2, 7),
+(2, 8),
 (3, 1),
+(3, 7),
 (4, 1),
 (5, 1),
 (5, 6),
@@ -492,7 +546,24 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `st
 (3, 'user', 'user@gmail.com', NULL, '$2y$10$HjDyFEBwtU8a2q4mLm7XsOwTAJHh2Un3twkeHF6iDP2KlAUBiZwPy', 1, 'hdfc', '879546412312', 'HDFC01212', 1, 2, 'testcompany', '34', '25000', '2022-01-25', 'demo description', 'super-admin', NULL, '2022-01-25 01:29:12', '2', '2022-01-27 20:09:06', '2', '2022-01-27 20:09:06'),
 (4, 'demouser', 'demo@admin.com', NULL, '$2y$10$T7ndAkcOQp3fYd4RlOgIduRoLWa6BfUqiiQ7ZrEb/kzcHyhRttcXe', 1, 'hdfc', '38946293846', 'HDFC01212', 1, 2, NULL, NULL, '11000', '2022-01-28', 'testing', 'user', NULL, '2022-01-25 11:40:58', '2', '2022-01-28 03:10:44', '2', NULL),
 (5, 'hello', 'hello@yahoo.com', NULL, '$2y$10$tZNRM6wM0jMXBPZ4WJQJUuVNQk5AN1sM0Uival0yFu66EFR60M5Du', 1, 'demo', '3462389476', 'HDFC01212', 1, 1, 'demo', '5', NULL, '2022-01-27', 'hgfgfghfg', 'user', NULL, '2022-01-27 14:44:10', '2', '2022-01-27 20:14:23', NULL, '2022-01-27 20:14:23'),
-(6, 'demouser', 'demo@test.com', NULL, '$2y$10$MTbw6Ag0MVOc6wlcYVq3.uD/kzMwk5KXbUS3bUX5spoPGEHgq/qRi', 1, 'demo', '543534534534', 'HDFC01212', 2, 2, NULL, NULL, '55000', '2022-01-28', 'dfxgdfgdfgdf', 'user', NULL, '2022-01-27 19:31:48', '2', '2022-01-28 01:01:48', NULL, NULL);
+(6, 'demouser', 'demo@test.com', NULL, '$2y$10$MTbw6Ag0MVOc6wlcYVq3.uD/kzMwk5KXbUS3bUX5spoPGEHgq/qRi', 1, 'demo', '543534534534', 'HDFC01212', 2, 2, NULL, NULL, '55000', '2022-01-28', 'dfxgdfgdfgdf', 'user', NULL, '2022-01-27 19:31:48', '2', '2022-01-28 01:01:48', NULL, NULL),
+(9, 'account', 'account@admin.com', NULL, '$2y$10$rM1agQOJ6S.qnGyAchA0POrwf0fD/wuz2l8VqjzZE073HZy8CMtqm', 1, 'hdfc', '789789789', 'hdfc1234', 1, 2, NULL, NULL, '14500', '2022-02-09', 'Accountant', 'Accountant', NULL, '2022-02-09 09:24:23', '2', '2022-02-09 15:31:17', NULL, '2022-02-09 15:31:17'),
+(10, 'accountant', 'accountant@profinext.com', NULL, '$2y$10$Cz/EgvY59IgCVGEbEoqFyeYzWmPytcRF3M/wBLobiMGBBqYPOVSEy', 1, 'hdfc', '23423234234', 'hdfc1234', 2, 2, NULL, NULL, '55000', '2022-02-09', 'accountant', 'Accountant', NULL, '2022-02-09 15:32:09', '2', '2022-02-09 15:32:09', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_account_types`
+--
+
+CREATE TABLE `user_account_types` (
+  `id` int(10) NOT NULL,
+  `account_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -544,7 +615,9 @@ INSERT INTO `user_numbers` (`id`, `user_id`, `number`, `created_at`, `deleted_at
 (27, 2, '255345343', '2022-01-27 20:15:10', NULL, '2022-01-27 20:15:10', NULL),
 (28, 6, '7897879789', '2022-01-28 01:01:48', NULL, '2022-01-28 01:01:48', NULL),
 (29, 4, '34534535434', '2022-01-28 03:10:26', '2022-01-28 03:10:44', '2022-01-28 03:10:44', NULL),
-(30, 4, '34534535434', '2022-01-28 03:10:44', NULL, '2022-01-28 03:10:44', NULL);
+(30, 4, '34534535434', '2022-01-28 03:10:44', NULL, '2022-01-28 03:10:44', NULL),
+(31, 9, '242323423234', '2022-02-09 14:54:23', NULL, '2022-02-09 14:54:23', NULL),
+(32, 10, '123123123', '2022-02-09 15:32:09', NULL, '2022-02-09 15:32:09', NULL);
 
 --
 -- Indexes for dumped tables
@@ -577,6 +650,18 @@ ALTER TABLE `clients`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `client_banks`
+--
+ALTER TABLE `client_banks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `client_brokers`
+--
+ALTER TABLE `client_brokers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `client_demat`
 --
 ALTER TABLE `client_demat`
@@ -596,6 +681,12 @@ ALTER TABLE `client_payment`
   ADD PRIMARY KEY (`id`),
   ADD KEY `client_id` (`client_id`),
   ADD KEY `mode` (`mode`);
+
+--
+-- Indexes for table `client_professions`
+--
+ALTER TABLE `client_professions`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -674,6 +765,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indexes for table `user_account_types`
+--
+ALTER TABLE `user_account_types`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_numbers`
 --
 ALTER TABLE `user_numbers`
@@ -709,10 +806,22 @@ ALTER TABLE `clients`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `client_banks`
+--
+ALTER TABLE `client_banks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `client_brokers`
+--
+ALTER TABLE `client_brokers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `client_demat`
 --
 ALTER TABLE `client_demat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `client_mode`
@@ -724,7 +833,13 @@ ALTER TABLE `client_mode`
 -- AUTO_INCREMENT for table `client_payment`
 --
 ALTER TABLE `client_payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `client_professions`
+--
+ALTER TABLE `client_professions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -754,7 +869,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_screenshots`
@@ -766,13 +881,19 @@ ALTER TABLE `tbl_screenshots`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `user_account_types`
+--
+ALTER TABLE `user_account_types`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_numbers`
 --
 ALTER TABLE `user_numbers`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Constraints for dumped tables

@@ -105,7 +105,7 @@
                         <h5 class="alert alert-danger">{{$errors->first()}}</h5>
                     @endif
                     <!--begin:Form-->
-                    <form id="account_type_form" method="POST" action="{{route('getAccountType')}}" class="form">
+                    <form id="account_type_form" method="POST" action="{{route('createAccountType')}}" class="form">
                         @csrf
                         <div class="row mb-8">
                             <!--begin::Col-->
