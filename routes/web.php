@@ -8,6 +8,7 @@ use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AnalystController;
 use App\Http\Controllers\CallController;
+use App\Http\Controllers\AccountTypesController;
 
 // login
 Route::get("/login",function(){
@@ -93,6 +94,18 @@ Route::group(['middleware' => ['auth']], function() {
     // edit call
     Route::POST("/call/edit/",[CallController::class,"edit"])->name("editCall");
 
+
+    // users settings
+    Route::get("/settings/users",[AccountTypesController::class,"view"])->name("viewUsersAccountType");
+    Route::POST("/settings/users/createAccountType",[AccountTypesController::class, "create"])->name("createAccountType");
+    // removeAccountType
+    Route::get("/settings/users/removeAccountType/{id}",[AccountTypesController::class,"remove"])->name("removeAccountType");
+    // edit AccountType
+    Route::POST("/settings/users/getAccountType",[AccountTypesController::class,"get"])->name("getAccountType");
+    // edit AccountType
+    Route::POST("/settings/users/editAccountType",[AccountTypesController::class,"edit"])->name("editAccountType");
+    // clients settings
+    Route::get("/settings/clients",[AccountTypesController::class,"clients"])->name("manageClientsSettings");
 
     // logout
     Route::get("/logout",[LoginController::class,"logout"])->name("logout");
