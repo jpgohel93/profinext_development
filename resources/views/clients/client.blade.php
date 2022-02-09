@@ -166,20 +166,20 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                                    <!--begin::Table head-->
-                                                    <thead>
-                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                            <th class="">Sr. No.</th>
-                                                            <th class="min-w-125px">Client Name</th>
-                                                            <th class="min-w-125px">Contact Number</th>
-                                                            <th class="min-w-75px">No. of Demat</th>
-                                                            <th class="min-w-75px">Status</th>
-                                                            <th class="text-end min-w-100px">Actions</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="text-gray-600 fw-bold">
-                                                        @can("client-read")
+                                                @can("client-read")
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                                <th class="">Sr. No.</th>
+                                                                <th class="min-w-125px">Client Name</th>
+                                                                <th class="min-w-125px">Contact Number</th>
+                                                                <th class="min-w-75px">No. of Demat</th>
+                                                                <th class="min-w-75px">Status</th>
+                                                                <th class="text-end min-w-100px">Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold">
                                                             @php
                                                                 $i=0;
                                                             @endphp
@@ -237,13 +237,13 @@
                                                                     <td colspan="6">No Clients Found</td>
                                                                 </tr>    
                                                             @endforelse
-                                                        @else
-                                                            <h1>Unauthorised</h1>
-                                                        @endcan
-                                                        <!--end::Table row-->
-                                                    </tbody>
-                                                    <!--end::Table body-->
-                                                </table> 													
+                                                            <!--end::Table row-->
+                                                        </tbody>
+                                                        <!--end::Table body-->
+                                                    </table> 													
+                                                @else
+                                                    <h3>Unauthorised</h3>
+                                                @endcan
                                             </div>
                                             <!--end::Table-->
                                         </div>
