@@ -237,6 +237,8 @@
                                                                     <td colspan="6">No Clients Found</td>
                                                                 </tr>    
                                                             @endforelse
+                                                        @else
+                                                            <h1>Unauthorised</h1>
                                                         @endcan
                                                         <!--end::Table row-->
                                                     </tbody>
