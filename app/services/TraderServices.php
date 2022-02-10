@@ -18,7 +18,6 @@ class TraderServices{
         [
             "trader_id.unique"=>"Client Already Assign to this trader",
             "trader_id.exists"=>"Invalid Trader ID",
-            "client_id.exists"=>"Invalid Client",
         ]
         );
         $trader['created_by'] = Auth::id();

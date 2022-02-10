@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Services\TraderServices;
-use Illuminate\Support\Facades\Auth;
 class TraderController extends Controller
 {
     private $viewTrader = "viewTrader";
