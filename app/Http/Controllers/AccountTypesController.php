@@ -10,7 +10,7 @@ class AccountTypesController extends Controller
 {
     public function view()   {
         $types = AccountTypeServices::view();
-        return view("settings.accountType",compact('types'));
+        return view("settings.users.accountType",compact('types'));
     }
     public function create(Request $request){
         AccountTypeServices::create($request);

@@ -122,13 +122,11 @@
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <select name="profession" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Profession">
-                                                    <option></option>
-                                                    <option value="Business Man" {{(old('profession') && old('profession')=="Business Man")?"selected":""}}>Business Man</option>
-                                                    <option value="Professional" {{(old('profession') && old('profession')=="Professional")?"selected":""}}>Professional</option>
-                                                    <option value="Govt Job" {{(old('profession') && old('profession')=="Govt Job")?"selected":""}}>Govt Job</option>
-                                                    <option value="Private Job" {{(old('profession') && old('profession')=="Private Job")?"selected":""}}>Private Job</option>
-                                                    <option value="Student" {{(old('profession') && old('profession')=="Student")?"selected":""}}>Student</option>
-                                                    <option value="House wife" {{(old('profession') && old('profession')=="House wife")?"selected":""}}>House wife</option> 
+                                                    @forelse ($professions as $profession)
+                                                        <option value="{{$profession->profession}}" {{(old('profession') && old('profession')==$profession->profession)?"selected":""}}>{{$profession->profession}}</option>
+                                                    @empty
+                                                        <option>Selecte Profession</option>
+                                                    @endforelse
                                                 </select>
                                                 <!--end::Input-->
                                             </div>
@@ -301,12 +299,11 @@
                                                         <!--begin::Input-->
                                                         <select name="broker[]" class="form-select form-select-solid">
                                                             <option></option>
-                                                            <option value="Business Man">Business Man</option>
-                                                            <option value="Professional">Professional</option>
-                                                            <option value="Govt Job">Govt Job</option>
-                                                            <option value="Private Job">Private Job</option>
-                                                            <option value="Student">Student</option>
-                                                            <option value="House wife">House wife</option> 
+                                                            @forelse ($brokers as $broker)
+                                                                <option value="{{$broker->broker}}" {{(old('broker') && old('broker')==$broker->broker)?"selected":""}}>{{$broker->broker}}</option>
+                                                            @empty
+                                                                <option>Selecte Broker</option>
+                                                            @endforelse
                                                         </select>	
                                                         <!--end::Input-->
                                                     </div>
@@ -408,14 +405,13 @@
                                                             <!--begin::Input wrapper-->
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
-                                                                <select name="bank[]" class="form-select form-select-solid" >
+                                                                <select name="bank[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
                                                                     <option></option>
-                                                                    <option value="ICICI" selected >ICICI</option>
-                                                                    <option value="HDFC">HDFC</option> 
-                                                                    <option value="Canara">Canara</option> 
-                                                                    <option value="Axis">Axis</option> 
-                                                                    <option value="RBL">RBL</option> 
-                                                                    
+                                                                    @forelse ($banks as $bank)
+                                                                        <option value="{{$bank->bank}}" {{(old('bank') && old('bank')==$bank->bank)?"selected":""}}>{{$bank->bank}}</option>
+                                                                    @empty
+                                                                        <option>Selecte Bank</option>
+                                                                    @endforelse
                                                                 </select>
                                                             </div>
                                                             <!--end::Input wrapper-->

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2022 at 02:40 PM
+-- Generation Time: Feb 10, 2022 at 10:34 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -142,7 +142,7 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `name`, `number`, `communication_with`, `wp_number`, `profession`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'demouser', '123123123', 'Admin', '123123123', 'Business Man', 1, '2', '9', '2022-02-08 11:32:47', '2022-02-09 15:23:17', NULL);
+(1, 'demouser', '123123123', 'Admin', '123123123', 'Student', 1, '2', '2', '2022-02-08 11:32:47', '2022-02-10 13:31:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -159,6 +159,15 @@ CREATE TABLE `client_banks` (
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `client_banks`
+--
+
+INSERT INTO `client_banks` (`id`, `bank`, `created_at`, `updated_at`, `deleted_at`, `created_by`) VALUES
+(1, 'HDFC', '2022-02-10 13:06:00', '2022-02-10 13:06:00', NULL, '2'),
+(2, 'icici', '2022-02-10 13:22:39', '2022-02-10 13:22:39', NULL, '2'),
+(3, 'sbi', '2022-02-10 13:22:45', '2022-02-10 13:22:45', NULL, '2');
+
 -- --------------------------------------------------------
 
 --
@@ -173,6 +182,15 @@ CREATE TABLE `client_brokers` (
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `client_brokers`
+--
+
+INSERT INTO `client_brokers` (`id`, `broker`, `created_at`, `updated_at`, `deleted_at`, `created_by`) VALUES
+(1, 'HDFC broker', '2022-02-10 13:05:51', '2022-02-10 13:05:51', NULL, '2'),
+(2, 'ICICI Broker', '2022-02-10 13:25:38', '2022-02-10 13:25:38', NULL, '2'),
+(3, 'CBI Broker', '2022-02-10 13:25:46', '2022-02-10 13:25:46', NULL, '2');
 
 -- --------------------------------------------------------
 
@@ -204,7 +222,7 @@ CREATE TABLE `client_demat` (
 --
 
 INSERT INTO `client_demat` (`id`, `client_id`, `st_sg`, `serial_number`, `service_type`, `pan_number`, `holder_name`, `broker`, `user_id`, `password`, `mpin`, `capital`, `created_at`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(8, 1, 'ST', 'serial 1', '1', 'pan 1', 'Shani', 'Business Man', 'shani', '$2y$10$3yE27q7XjpCM8jC8gSpwwe6Cb3Gb8k.DZeQSlxSOdTiwgMexJH/Mi', '$2y$10$9Tlr57V0U.rulPZPiJCcou6ZXP2mPSePjLl1ZXTzkbfh6wXciFOpO', '55000', '2022-02-09 15:23:17', '2022-02-09 15:23:17', '9', NULL);
+(15, 1, 'ST', 'serial 1', '1', 'pan 1', 'shani', 'ICICI Broker', 'shani', '$2y$10$3yE27q7XjpCM8jC8gSpwwe6Cb3Gb8k.DZeQSlxSOdTiwgMexJH/Mi', '$2y$10$9Tlr57V0U.rulPZPiJCcou6ZXP2mPSePjLl1ZXTzkbfh6wXciFOpO', '55000', '2022-02-10 13:31:54', '2022-02-10 13:31:54', '2', NULL);
 
 -- --------------------------------------------------------
 
@@ -247,7 +265,7 @@ CREATE TABLE `client_payment` (
 --
 
 INSERT INTO `client_payment` (`id`, `client_id`, `bank`, `joining_date`, `fees`, `mode`, `pending_payment`, `screenshots`, `created_at`, `updated_at`, `deleted_at`, `updated_by`) VALUES
-(8, 1, 'ICICI', '2022-02-08 00:00:00', '25,000', 2, '1', NULL, '2022-02-09 15:23:17', '2022-02-09 15:23:17', NULL, '9');
+(15, 1, 'HDFC', '2022-02-08 00:00:00', '25,000', 2, '0', NULL, '2022-02-10 13:31:54', '2022-02-10 13:31:54', NULL, '2');
 
 -- --------------------------------------------------------
 
@@ -263,6 +281,16 @@ CREATE TABLE `client_professions` (
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `client_professions`
+--
+
+INSERT INTO `client_professions` (`id`, `profession`, `created_at`, `updated_at`, `deleted_at`, `created_by`) VALUES
+(1, 'Business Man', '2022-02-10 13:05:32', '2022-02-10 13:05:32', NULL, '2'),
+(2, 'Student', '2022-02-10 13:28:23', '2022-02-10 13:28:23', NULL, '2'),
+(3, 'Teacher', '2022-02-10 13:28:28', '2022-02-10 13:28:28', NULL, '2'),
+(4, 'Private', '2022-02-10 13:28:33', '2022-02-10 13:28:33', NULL, '2');
 
 -- --------------------------------------------------------
 
@@ -565,6 +593,14 @@ CREATE TABLE `user_account_types` (
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `user_account_types`
+--
+
+INSERT INTO `user_account_types` (`id`, `account_type`, `created_at`, `created_by`, `deleted_at`, `updated_at`) VALUES
+(1, 'Partner', '2022-02-10 13:06:40', '2', NULL, '2022-02-10 13:06:40'),
+(2, 'Employee', '2022-02-10 13:06:49', '2', NULL, '2022-02-10 13:06:49');
+
 -- --------------------------------------------------------
 
 --
@@ -809,19 +845,19 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT for table `client_banks`
 --
 ALTER TABLE `client_banks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `client_brokers`
 --
 ALTER TABLE `client_brokers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `client_demat`
 --
 ALTER TABLE `client_demat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `client_mode`
@@ -833,13 +869,13 @@ ALTER TABLE `client_mode`
 -- AUTO_INCREMENT for table `client_payment`
 --
 ALTER TABLE `client_payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `client_professions`
 --
 ALTER TABLE `client_professions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`

@@ -9,6 +9,9 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AnalystController;
 use App\Http\Controllers\CallController;
 use App\Http\Controllers\AccountTypesController;
+use App\Http\Controllers\ProfessionController;
+use App\Http\Controllers\BrokerController;
+use App\Http\Controllers\BankDetailsController;
 
 // login
 Route::get("/login",function(){
@@ -96,17 +99,50 @@ Route::group(['middleware' => ['auth']], function() {
 
 
     // users settings
-    Route::get("/settings/users",[AccountTypesController::class,"view"])->name("viewUsersAccountType");
+    Route::get("/settings/users/",[AccountTypesController::class,"view"])->name("viewUsersAccountType");
+    // create AccountType
     Route::POST("/settings/users/createAccountType",[AccountTypesController::class, "create"])->name("createAccountType");
     // removeAccountType
     Route::get("/settings/users/removeAccountType/{id}",[AccountTypesController::class,"remove"])->name("removeAccountType");
-    // edit AccountType
+    // get AccountType
     Route::POST("/settings/users/getAccountType",[AccountTypesController::class,"get"])->name("getAccountType");
     // edit AccountType
     Route::POST("/settings/users/editAccountType",[AccountTypesController::class,"edit"])->name("editAccountType");
+    
+    
     // clients settings
-    Route::get("/settings/clients",[AccountTypesController::class,"clients"])->name("manageClientsSettings");
+    Route::get("/settings/clients",[ProfessionController::class,"view"])->name("viewClientsProfession");
+    // create Profession
+    Route::POST("/settings/clients/createProfession",[ProfessionController::class, "create"])->name("createProfession");
+    // getProfession
+    Route::POST("/settings/clients/getProfession",[ProfessionController::class,"get"])->name("getProfession");
+    // edit AccountType
+    Route::POST("/settings/clients/editProfession",[ProfessionController::class,"edit"])->name("editProfession");
+    // removeProfession
+    Route::get("/settings/clients/removeProfession/{id}",[ProfessionController::class,"remove"])->name("removeProfession");
+    
+    // viewClientsBroker
+    Route::get("/settings/clients/broker",[BrokerController::class,"view"])->name("viewClientsBroker");
+    // createBroker
+    Route::POST("/settings/clients/createBroker", [BrokerController::class, "create"])->name("createBroker");
+    // getBroker
+    Route::POST("/settings/clients/getBroker", [BrokerController::class, "get"])->name("getBroker");
+    // editBroker
+    Route::POST("/settings/clients/editBroker", [BrokerController::class, "edit"])->name("editBroker");
+    // removeBroker
+    Route::get("/settings/clients/removeBroker/{id}", [BrokerController::class, "remove"])->name("removeBroker");
 
+    // viewClientsBanks
+    Route::get("/settings/clients/viewClientsBanks",[BankDetailsController::class,"view"])->name("viewClientsBanks");
+    // createBank
+    Route::POST("/settings/clients/createBank", [BankDetailsController::class, "create"])->name("createBank");
+    // getBank
+    Route::POST("/settings/clients/getBank", [BankDetailsController::class, "get"])->name("getBank");
+    // editBank
+    Route::POST("/settings/clients/editBank", [BankDetailsController::class, "edit"])->name("editBank");
+    // removeBank
+    Route::get("/settings/clients/removeBank/{id}", [BankDetailsController::class, "remove"])->name("removeBank");
+    
     // logout
     Route::get("/logout",[LoginController::class,"logout"])->name("logout");
     // display file

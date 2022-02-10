@@ -140,15 +140,31 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">User</span>
+                                <span class="menu-title">Users Account Type</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link @yield('settings.clients')" href="{{route('manageClientsSettings')}}">
+                            <a class="menu-link @yield('settings.clients')" href="{{route('viewClientsProfession')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Clients</span>
+                                <span class="menu-title">Client Profession</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link @yield('settings.clients.broker')" href="{{route('viewClientsBroker')}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Client Broker</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link @yield('settings.clients.bank_details')" href="{{route('viewClientsBanks')}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">bank details</span>
                             </a>
                         </div>
                     </div>

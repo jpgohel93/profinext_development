@@ -195,8 +195,11 @@
 													<!--end::Label-->
 													<!--begin::Input-->
                                                     <select name="account_type" data-control="select2" class="form-select form-select-sm form-select-solid">
-                                                        <option value="1">Saving Account</option>
-                                                        <option value="2">Current Account</option>
+                                                        @forelse ($account_types as $account_type)
+															<option value="{{$account_type->account_type}}" {{(old('account_type') && old('account_type')==$account_type->account_type)?"selected":($user->account_type==$account_type->account_type?"selected":"")}}>{{$account_type->account_type}}</option>
+														@empty
+															<option>Selecte Bank</option>
+														@endforelse
                                                     </select>
 													<!--end::Input-->
 												</div>

@@ -122,13 +122,11 @@
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
                                                     <select name="profession" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Profession">
-                                                        <option></option>
-                                                        <option value="Business Man" selected>Business Man</option>
-                                                        <option value="Professional">Professional</option>
-                                                        <option value="Govt Job">Govt Job</option>
-                                                        <option value="Private Job">Private Job</option>
-                                                        <option value="Student">Student</option>
-                                                        <option value="House wife">House wife</option> 
+                                                        @forelse ($professions as $profession)
+                                                            <option value="{{$profession->profession}}" {{(old('profession') && old('profession')==$profession->profession)?"selected":($client->profession==$profession->profession?"selected":"")}}>{{$profession->profession}}</option>
+                                                        @empty
+                                                            <option>Selecte Bank</option>
+                                                        @endforelse
                                                     </select>
                                                     <!--end::Input-->
                                                 </div>
@@ -306,13 +304,11 @@
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
                                                                     <select name="broker[]" class="form-select form-select-solid">
-                                                                        <option></option>
-                                                                        <option value="Business Man" selected>Business Man</option>
-                                                                        <option value="Professional">Professional</option>
-                                                                        <option value="Govt Job">Govt Job</option>
-                                                                        <option value="Private Job">Private Job</option>
-                                                                        <option value="Student">Student</option>
-                                                                        <option value="House wife">House wife</option> 
+                                                                        @forelse ($brokers as $broker)
+                                                                            <option value="{{$broker->broker}}" {{(old('broker') && old('broker')[$key]==$broker->broker)?"selected":($demate_account['broker']==$broker->broker?"selected":"")}}>{{$broker->broker}}</option>
+                                                                        @empty
+                                                                            <option>Selecte Bank</option>
+                                                                        @endforelse
                                                                     </select>	
                                                                     <!--end::Input-->
                                                                 </div>
@@ -416,11 +412,11 @@
                                                                             <!--begin::Input-->
                                                                             <select name="bank[]" class="form-select form-select-solid" >
                                                                                 <option></option>
-                                                                                <option value="ICICI" selected >ICICI</option>
-                                                                                <option value="HDFC">HDFC</option> 
-                                                                                <option value="Canara">Canara</option> 
-                                                                                <option value="Axis">Axis</option> 
-                                                                                <option value="RBL">RBL</option> 
+                                                                                @forelse ($banks as $bank)
+                                                                                    <option value="{{$bank->bank}}" {{(old('bank') && old('bank')[$key]==$bank->bank)?"selected":($client->clientPayment[$key]->bank==$bank->bank?"selected":"")}}>{{$bank->bank}}</option>
+                                                                                @empty
+                                                                                    <option>Selecte Bank</option>
+                                                                                @endforelse
                                                                                 
                                                                             </select>
                                                                         </div>
@@ -638,13 +634,11 @@
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
                                                                     <select name="broker[]" class="form-select form-select-solid">
-                                                                        <option></option>
-                                                                        <option value="Business Man" selected>Business Man</option>
-                                                                        <option value="Professional">Professional</option>
-                                                                        <option value="Govt Job">Govt Job</option>
-                                                                        <option value="Private Job">Private Job</option>
-                                                                        <option value="Student">Student</option>
-                                                                        <option value="House wife">House wife</option> 
+                                                                        @forelse ($brokers as $broker)
+                                                                            <option value="{{$broker->broker}}" {{(old('broker') && old('broker')[$key]==$broker->broker)?"selected":($demate_account['broker']==$broker->broker?"selected":"")}}>{{$broker->broker}}</option>
+                                                                        @empty
+                                                                            <option>Selecte Bank</option>
+                                                                        @endforelse
                                                                     </select>	
                                                                     <!--end::Input-->
                                                                 </div>
@@ -745,13 +739,11 @@
                                                                         <div class="position-relative">
                                                                             <!--begin::Input-->
                                                                             <select name="bank[]" class="form-select form-select-solid" >
-                                                                                <option></option>
-                                                                                <option value="ICICI" selected >ICICI</option>
-                                                                                <option value="HDFC">HDFC</option> 
-                                                                                <option value="Canara">Canara</option> 
-                                                                                <option value="Axis">Axis</option> 
-                                                                                <option value="RBL">RBL</option> 
-                                                                                
+                                                                                @forelse ($banks as $bank)
+                                                                                    <option value="{{$bank->bank}}" {{(old('bank') && old('bank')[$key]==$bank->bank)?"selected":($demate_account['bank']==$bank->bank?"selected":"")}}>{{$bank->bank}}</option>
+                                                                                @empty
+                                                                                    <option>Selecte Bank</option>
+                                                                                @endforelse
                                                                             </select>
                                                                         </div>
                                                                         <!--end::Input wrapper-->
@@ -1201,326 +1193,6 @@
         </div>
         <!--end::Page-->
     </div>
-    {{-- <div class="d-none" id="hiddenaddmore">
-        <div class="cloningSec">
-            <!--begin::Step 2-->
-            <div class="d-block card p-7 my-5" data-kt-stepper-element="content">
-                <div class="w-100">
-                    <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
-                        <h3 class="stepper-title text-primary">Demate Details</h3>
-                        <button type="button" class="btn btn-primary" id="addmore">Add More</button>
-                    </div>
-                    <!--begin::Input group-->
-                    <div class="row mb-8">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-3">
-                            <span class="required">Smart ID</span>
-                        </label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-md-6 mb-4 fv-row">
-                            <!--begin::Label-->
-                            <label class="required fs-6 fw-bold form-label mb-2">ST/SG</label>
-                            <!--end::Label-->
-                            <!--begin::Input wrapper-->
-                            <div class="position-relative">
-                                <!--begin::Input-->
-                                <select name="st_sg[]" class="form-select form-select-solid">
-                                    <option></option>
-                                    <option value="ST">ST</option>
-                                    <option value="SG">SG</option> 
-                                </select>
-                            </div>
-                            <!--end::Input wrapper-->
-                        </div>
-                        <!--end::Col-->
-                        <!--begin::Col-->
-                        <div class="col-md-6 mb-4 fv-row">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                <span class="required">Serial Number</span>
-                            </label>
-                            <!--end::Label-->
-                            <!--begin::Input wrapper-->
-                            <div class="position-relative">
-                                <!--begin::Input-->
-                                <input type="text" class="form-control form-control-solid bdr-ccc" value="" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
-                                <!--end::Input--> 
-                            </div>
-                            <!--end::Input wrapper-->
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="row col-md-6 mb-8">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-3">
-                            <span class="required">Service Type</span>
-                        </label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-md-6 mb-4 fv-row">
-                            <!--begin:Option-->
-                            <label class="d-flex flex-stack cursor-pointer mb-5">
-                                <!--begin::Label-->
-                                <span class="d-flex align-items-center me-2"> 
-                                    <!--begin::Info-->
-                                    <span class="d-flex flex-column">
-                                        <span class="fw-bolder fs-6">Prime</span>
-                                    </span>
-                                    <!--end::Info-->
-                                </span>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <span class="form-check form-check-custom form-check-solid">
-                                    <input class="form-check-input" type="radio" data-service_type checked="checked" value="1" />
-                                    <input class="form-check-input" type="hidden" name="service_type[]" value="1" />
-                                </span>
-                                <!--end::Input-->
-                            </label>
-                            <!--end::Option-->
-                        </div>
-                        <!--end::Col-->
-                        <div class="col-1"></div>
-                        <!--begin::Col-->
-                        <div class="col-md-6 mb-4 fv-row">
-                            <!--begin:Option-->
-                            <label class="d-flex flex-stack cursor-pointer mb-5">
-                                <!--begin::Label-->
-                                <span class="d-flex align-items-center me-2"> 
-                                    <!--begin::Info-->
-                                    <span class="d-flex flex-column">
-                                        <span class="fw-bolder fs-6">AMS</span>
-                                    </span>
-                                    <!--end::Info-->
-                                </span>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <span class="form-check form-check-custom form-check-solid">
-                                    <input class="form-check-input" type="radio" data-service_type value="2" />
-                                </span>
-                                <!--end::Input-->
-                            </label>
-                            <!--end::Option--> 
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group--> 
-                        <div class="row mb-4">
-                        <!--begin::Input group-->
-                        <div class="col-md-6 mb-4">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                <span class="required">PAN Number</span>
-                            </label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number[]" placeholder="" value="" />
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="col-md-6 mb-4">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                <span class="required">Demat Holder's Name</span>
-                            </label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="holder_name[]" placeholder="" value="" />
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                    </div>
-                    <!--begin::Input group-->
-                    <div class="fv-row mb-8">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                            <span class="required">Broker</span>
-                        </label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <select name="broker[]" class="form-select form-select-solid">
-                            <option></option>
-                            <option value="Business Man">Business Man</option>
-                            <option value="Professional">Professional</option>
-                            <option value="Govt Job">Govt Job</option>
-                            <option value="Private Job">Private Job</option>
-                            <option value="Student">Student</option>
-                            <option value="House wife">House wife</option> 
-                        </select>	
-                        <!--end::Input-->
-                    </div>
-                    <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="row"> 
-                        <!--begin::Col-->
-                        <div class="col-md-6 mb-4 fv-row">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                <span class="required">User ID</span>
-                            </label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="user_id[]" placeholder="" value="" />	
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Col-->
-                        <!--begin::Col-->
-                        <div class="col-md-6 mb-4 fv-row">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                <span class="required">Password</span>
-                            </label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" value="" />	
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group--> 
-                    <!--begin::Input group-->
-                    <div class="row mb-4"> 
-                        <!--begin::Col-->
-                        <div class="col-md-6 mb-4 fv-row">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                <span class="required">Mpin</span>
-                            </label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />	
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Col-->
-                        <!--begin::Col-->
-                        <div class="col-md-6 mb-4 fv-row">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                <span class="required">Capital</span>
-                            </label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="" />	
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group--> 
-                </div>
-            </div>
-            <!--end::Step 2-->
-            <!--begin::Step 3-->
-            <div class="d-block card p-7 my-5 payment_details" data-kt-stepper-element="content">
-                <div class="w-100">
-                    <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
-                        <h3 class="stepper-title text-primary">Payment Details</h3>
-                    </div>
-                    
-                    <!--begin::Input group-->
-                    <div class="fv-row mb-8 col-md-6">
-                        <!--begin::Label-->
-                        <label class="required fs-5 fw-bold mb-2">Mode</label>
-                        <!--end::Label-->
-                        <div class="row col-md-6 mb-4">	
-                            <!--begin::Input group-->
-                            <div class="col-md-6">
-                                <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
-                                    <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
-                                    <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" checked="checked" />
-                                    <input class="form-check-input" type="hidden" name="mode[]" value="2" />
-
-                                    <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
-                                </label>
-                            </div>
-                            <!--end::Input group-->
-                        </div>
-                    </div>
-                    <!--end::Input group-->
-
-
-                    <div class="row mb-4 PaymentSection joining_date" style="display:block;" id="BankDiv">
-                        <!--begin::Col-->
-                        <div class="col-md-5 fv-row mb-4 hideonpending">
-                            <!--begin::Label-->
-                            <label class="required fs-6 fw-bold form-label mb-2">Bank Details</label>
-                            <!--end::Label-->
-                            <!--begin::Input wrapper-->
-                            <div class="position-relative">
-                                <!--begin::Input-->
-                                <select name="bank[]" class="form-select form-select-solid" >
-                                    <option></option>
-                                    <option value="ICICI" selected >ICICI</option>
-                                    <option value="HDFC">HDFC</option> 
-                                    <option value="Canara">Canara</option> 
-                                    <option value="Axis">Axis</option> 
-                                    <option value="RBL">RBL</option> 
-                                    
-                                </select>
-                            </div>
-                            <!--end::Input wrapper-->
-                        </div>
-                        <!--end::Col-->
-
-                        <div class="row">
-                            <!--begin::Input group-->
-                        <div class="col-md-6 mb-4">
-                            <!--begin::Label-->
-                            <label class="required fs-5 fw-bold mb-2">Joining Date</label>
-                            <!--end::Label-->
-                            <!--begin::Input--> 
-                            <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date"/>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="col-md-6 mb-4 hideonpending" id="FeesDiv">
-                            <!--begin::Label-->
-                            <label class="required fs-5 fw-bold mb-2">Fees</label>
-                            <!--end::Label-->
-                            <!--begin::Input--> 
-                            <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="25,000" />
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        </div>
-                        <div class="row mb-8 " id="UploadDiv">
-                            <!--begin::Input group-->
-                        <div class="col-md-6 mb-4 hideonpending">
-                            <!--begin::Label-->
-                            <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
-                            <!--end::Label-->
-                            <!--begin::Input--> 
-                            <input type="file" name="screenshot[2][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="col-md-6 d-flex justify-content-between">
-                            <!--begin::Label-->
-                            <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
-                            <!--end::Label-->
-                            <!--begin::Input--> 
-                            <div>
-                                <!--begin::Checkbox-->
-                                <label class="form-check form-check-custom form-check-solid me-10">
-                                    <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" value="0">
-                                    <input class="form-check-input h-20px w-20px PendingMark" type="hidden" name="pending_payment[]" value="0">
-                                    <span class="form-check-label fw-bold">Pending</span>
-                                </label>
-                                <!--end::Checkbox-->
-                            </div>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <!--begin::Modals-->   
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
@@ -1535,85 +1207,6 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
-            // $(document).on("click","#addmore",function() {
-			// 		// var newcomp1 = $('#hiddenaddmore').html();
-
-			// 		var clone = $('#hiddenaddmore > .cloningSec').clone();
-			// 		var rem = clone.find('#addmore');
-			// 		$(rem).removeAttr('id');
-			// 		$(rem).addClass('btn-pink remove-btn');
-			// 		$(rem).text('Remove');
-			// 		$('#appendDiv1').append(clone);
-			// 		resetCounter();
-   		 	// 	});
-            //     // service type this is required else some values are not available server side
-            //     $(document).on("click","input[data-service_type]",function(e){
-            //         if(e.target.value==1){
-            //             $(e.target).closest(".row").find("[data-service_type][value='2'][type='radio']").first().prop('checked', false)
-            //             $(e.target).closest(".row").find("[name='service_type[]'][type='hidden']").first().val("1");
-            //         }else{
-            //             $(e.target).closest(".row").find("[data-service_type][value='1'][type='radio']").first().prop('checked', false)
-            //             $(e.target).closest(".row").find("[name='service_type[]'][type='hidden']").first().val("2");
-            //         }
-            //     })
-
-			// 	$(document).on("click",".remove-btn",function() {
-			// 		$(this).closest(".cloningSec").remove();
-			// 		resetCounter();
-			// 	})
-
-            //     function resetCounter() {
-            //         counter = 1;
-            //         $('#appendDiv1').find('.compCount').each(function() {
-            //             $(this).text(counter);
-            //             counter++;
-            //         })
-            //     }
-            //     const targetDiv = document.getElementById("PaymentSection");
-                
-            //     $(document).on('click', '#togglePaymentMode', function() {
-            //         var self = $(this);
-            //         myFunction(self);
-            //     });
-                
-            //     function myFunction(self)   
-            //     {
-            //         if (self.is(":checked")) {
-            //             self.closest('.payment_details').find('.joining_date').show();
-            //             $(self).closest('.payment_details').find('[name="mode[]"][type="hidden"]').val(2);
-            //             // targetDiv.style.display = "block";
-            //         } else {
-            //             self.closest('.payment_details').find('.joining_date').hide();
-            //             $(self).closest('.payment_details').find('[name="mode[]"][type="hidden"]').val(1);
-            //             // targetDiv.style.display = "none";
-            //         }
-            //     }
-            //     $(document).on('click', '.PendingMark', function() {
-            //         if($(this).is(":checked")) {
-            //             $(this).closest('.payment_details').find('.hideonpending').hide();
-            //             $(this).closest('.payment_details').find('[name="pending_payment[]"][type="hidden"]').val(1);
-            //         } else {
-            //             $(this).closest('.payment_details').find('.hideonpending').show();
-            //             $(this).closest('.payment_details').find('[name="pending_payment[]"][type="hidden"]').val(0);
-            //         }
-            //     });
-            //     $(document).on("input",".wpsameascontact",function() {
-            //         if ($(this).is(':checked')) {					
-            //             var $cm = $('.client-mobile');
-            //             var $wp = $('.wp');
-            //             function onChange() {
-            //                 $wp.val($cm.val());
-            //             };
-            //             $('.client-mobile')
-            //                 .change(onChange)
-            //                 .keyup(onChange);
-
-            //         }
-            //         else {
-            //             $(".wp").val(null);
-            //         }
-            //     });
-            // $("#viewClient").modal("hide");
             $(document).on("click","#addmore",function() {
 					// var newcomp1 = $('#hiddenaddmore').html();
 					var clone = $('#hiddenaddmore > .cloningSec').clone();
