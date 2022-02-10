@@ -7,6 +7,8 @@ use App\Services\ClientServices;
 use App\Services\ProfessionServices;
 use App\Services\BankDetailsServices;
 use App\Services\BrokerServices;
+use App\Services\TraderServices;
+use App\Services\UserServices;
 
 use Illuminate\Support\Facades\Redirect;
 class ClientController extends Controller
@@ -20,14 +22,15 @@ class ClientController extends Controller
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = BankDetailsServices::view(['id', 'bank']);
         $brokers = BrokerServices::view(['id', 'broker']);
-        return view("clients.client",compact('clients','professions','banks','account_types','brokers'));
+        $traders = UserServices::getByRole('trader');
+        return view("clients.client",compact('clients','professions','banks','traders','brokers'));
     }
     // create client form
     public function createClientForm(){
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = BankDetailsServices::view(['id', 'bank']);
         $brokers = BrokerServices::view(['id', 'broker']);
-        return view("clients.add", compact('professions', 'banks', 'account_types','brokers'));
+        return view("clients.add", compact('professions', 'banks','brokers'));
     }
     // create client data
     public function create(Request $request){
@@ -48,7 +51,7 @@ class ClientController extends Controller
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = BankDetailsServices::view(['id', 'bank']);
         $brokers = BrokerServices::view(['id', 'broker']);
-        return view("clients.edit", compact('client','professions', 'banks', 'account_types', 'brokers'));
+        return view("clients.edit", compact('client','professions', 'banks', 'brokers'));
     }
     public function update(Request $request,$id){
         $client =  ClientServices::update($request,$id);

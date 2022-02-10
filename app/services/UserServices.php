@@ -27,7 +27,7 @@ class UserServices
     public static function validateUsersData($data){
         $data->validate([
             "name"=>"required|alpha_spaces",
-            "account_type"=>"required|numeric",
+            "account_type"=>"required",
             "number"=>"required|array",
             "number.*"=>"numeric",
             "ifsc_code"=>"required",
@@ -92,5 +92,9 @@ class UserServices
     public static function delete($id){
         User::where("id",$id)->delete();
         return User::withTrashed()->get();
+    }
+    public static function getByRole(String $role=""){
+        return User::with(['count'])->where("role",$role)->get();
+        
     }
 }

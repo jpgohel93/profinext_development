@@ -12,6 +12,7 @@ use App\Http\Controllers\AccountTypesController;
 use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\BrokerController;
 use App\Http\Controllers\BankDetailsController;
+use App\Http\Controllers\TraderController;
 
 // login
 Route::get("/login",function(){
@@ -143,6 +144,9 @@ Route::group(['middleware' => ['auth']], function() {
     // removeBank
     Route::get("/settings/clients/removeBank/{id}", [BankDetailsController::class, "remove"])->name("removeBank");
     
+    // trader
+    Route::get("/trader",[TraderController::class, "view"])->name("viewTrader");
+    Route::POST("/trader/client/assign",[TraderController::class,'create'])->name('assignClientToTrader');
     // logout
     Route::get("/logout",[LoginController::class,"logout"])->name("logout");
     // display file
