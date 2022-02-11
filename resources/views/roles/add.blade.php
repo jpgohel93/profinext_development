@@ -35,8 +35,14 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="role" placeholder="" value="" />
+													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="role" placeholder="" value="{{old('role')}}" />
 													<!--end::Input-->
+												</div>
+												<div class="col-md-6 align-self-center">
+													<div class="form-check form-check-custom form-check-solid float-end">
+														<input type="checkbox" class="form-check-input mx-3" id="superAdmin">
+														<label class="custom-control-label h3" for="superAdmin">Super Admin</label>
+													</div>
 												</div>
 												<!--end::Input group-->
 											</div>
@@ -76,7 +82,7 @@
 															@for($i=0;$i<=3;$i++)
 																<td aria-colindex="2" role="cell" class="">
 																	<div class="form-check form-check-custom form-check-solid">
-																		<input type="checkbox" class="form-check-input" name='permission[]' value="{{$permissions[$i]->name}}" id="__BVID__675">
+																		<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' {{(null !== old('permission') && in_array($permissions[$i]->name,old('permission'))?"checked":"")}} value="{{$permissions[$i]->name}}" id="__BVID__675">
 																		<label class="custom-control-label" for="__BVID__675"></label>
 																	</div>
 																</td>
@@ -88,7 +94,7 @@
 															@for($i=4;$i<=7;$i++)
 																<td aria-colindex="2" role="cell" class="">
 																	<div class="form-check form-check-custom form-check-solid">
-																		<input type="checkbox" class="form-check-input" name='permission[]' value="{{$permissions[$i]->name}}" id="__BVID__675">
+																		<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' {{(null !== old('permission') && in_array($permissions[$i]->name,old('permission'))?"checked":"")}} value="{{$permissions[$i]->name}}" id="__BVID__675">
 																		<label class="custom-control-label" for="__BVID__675"></label>
 																	</div>
 																</td>
@@ -100,7 +106,7 @@
 															@for($i=8;$i<12;$i++)
 																<td aria-colindex="2" role="cell" class="">
 																	<div class="form-check form-check-custom form-check-solid">
-																		<input type="checkbox" class="form-check-input" name='permission[]' value="{{$permissions[$i]->name}}" id="__BVID__675">
+																		<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' {{(null !== old('permission') && in_array($permissions[$i]->name,old('permission'))?"checked":"")}} value="{{$permissions[$i]->name}}" id="__BVID__675">
 																		<label class="custom-control-label" for="__BVID__675"></label>
 																	</div>
 																</td>
@@ -112,7 +118,7 @@
 															@for($i=12;$i<16;$i++)
 																<td aria-colindex="2" role="cell" class="">
 																	<div class="form-check form-check-custom form-check-solid">
-																		<input type="checkbox" class="form-check-input" name='permission[]' value="{{$permissions[$i]->name}}" id="__BVID__675">
+																		<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' {{(null !== old('permission') && in_array($permissions[$i]->name,old('permission'))?"checked":"")}} value="{{$permissions[$i]->name}}" id="__BVID__675">
 																		<label class="custom-control-label" for="__BVID__675"></label>
 																	</div>
 																</td>
@@ -124,7 +130,19 @@
 															@for($i=16;$i<20;$i++)
 																<td aria-colindex="2" role="cell" class="">
 																	<div class="form-check form-check-custom form-check-solid">
-																		<input type="checkbox" class="form-check-input" name='permission[]' value="{{$permissions[$i]->name}}" id="__BVID__675">
+																		<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' {{(null !== old('permission') && in_array($permissions[$i]->name,old('permission'))?"checked":"")}} value="{{$permissions[$i]->name}}" id="__BVID__675">
+																		<label class="custom-control-label" for="__BVID__675"></label>
+																	</div>
+																</td>
+															@endfor
+														</tr>
+														<tr role="row" class="">
+															{{-- role permissions from 5 to 8 --}}
+															<td aria-colindex="1" role="cell" class=""> Trader </td>
+															@for($i=20;$i<24;$i++)
+																<td aria-colindex="2" role="cell" class="">
+																	<div class="form-check form-check-custom form-check-solid">
+																		<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' {{(null !== old('permission') && in_array($permissions[$i]->name,old('permission'))?"checked":"")}} value="{{$permissions[$i]->name}}" id="__BVID__675">
 																		<label class="custom-control-label" for="__BVID__675"></label>
 																	</div>
 																</td>
@@ -211,6 +229,42 @@
 			<!--end::Svg Icon-->
 		</div>
 		@section('jscript')
-		
+			<script>
+				window.addEventListener("DOMContentLoaded",function(){
+					$("#superAdmin").on("click",function(e){
+						if(e.target.checked && window.confirm("assing Super Admin Permissions?")){
+							$(".permissionCheckBox").each((i,v)=>{
+								$(v).prop("checked",true);
+							})
+						}else{
+							$(".permissionCheckBox").each((i,v)=>{
+								$(v).prop("checked",false);
+							})
+						}
+					})
+					const checkIfAdminRole = ()=>{
+						let bool = false;
+						$(".permissionCheckBox").each((i,v)=>{
+							if(!bool && v.checked){
+								bool=false;
+							}else{
+								bool = true;
+								return false;
+							}
+						})
+						return bool;
+					}
+					if(!checkIfAdminRole()){
+						$("#superAdmin").prop("checked",true);
+					}
+					$(document).on("change",".permissionCheckBox",function(){
+						if(!checkIfAdminRole()){
+							$("#superAdmin").prop("checked",true);
+						}else{
+							$("#superAdmin").prop("checked",false);
+						}
+					});
+				})
+			</script>	
 		@endsection
 @endsection

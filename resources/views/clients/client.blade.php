@@ -226,7 +226,7 @@
                                                                             </div> 
                                                                             @can("client-delete")
                                                                             <div class="menu-item px-3">
-                                                                                <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Remove</a>
+                                                                                <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3 removeClient">Remove</a>
                                                                             </div> 
                                                                             @endcan
                                                                         </div> 
@@ -948,9 +948,11 @@
                     window.alert("Unable to Load this Client");
                 }
             })
+            $(document).on("click",".removeClient",e=>{
+                if(!window.confirm("Are you sure you want to remove this Client?")){
+                    e.preventDefault();
+                }
+            })
         })
     </script>
-    @section('jscript')
-        
-    @endsection
 @endsection

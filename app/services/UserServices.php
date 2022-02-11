@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\UserNumbers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use App\Services\CommonService;
 class UserServices
 {
     public static function clients($request)
@@ -48,11 +48,11 @@ class UserServices
         }
     }
     public static function create($request){
+        self::validateUsersData($request);
         $request->validate([
             "email"=>"required|email|unique:users,email",
             "account_number"=>"required|numeric|unique:users,account_number",
         ]);
-        UserServices::validateUsersData($request);
         $user_data = $request->all();
         $user_data['password'] = Hash::make($request->password);
         $user_data['created_by'] = Auth::id();
@@ -65,36 +65,46 @@ class UserServices
         return $user->id;
     }
     public static function user($id){
-        $user = User::where("id",$id)->withTrashed()->first();
+        $user = User::where("id",$id)->first();
+        if(null === $user) return false;
         $user['numbers'] = UserNumbers::where("user_id",$id)->pluck("number");
         return $user;
     }
     public static function update($request,$id){
-        $request->validate([
-            "email"=>"required|email",
-            "account_number"=>"required|numeric",
-        ]);
-        UserServices::validateUsersData($request);
-        $user_data = $request->except(['_token',"number"]);
-        // remove old numbers
-        UserNumbers::where("user_id",$id)->delete();
-        // add new numbers
-        foreach($request->number as $number){
-            UserNumbers::create(["user_id"=>$id, "number"=>$number,"updated_by"=>Auth::id()]);
+        try {
+            self::validateUsersData($request);
+            $request->validate([
+                "email"=>"required|email",
+                "account_number"=>"required|numeric",
+            ]);
+            $user_data = $request->except(['_token',"number"]);
+            // remove old numbers
+            UserNumbers::where("user_id",$id)->delete();
+            // add new numbers
+            foreach($request->number as $number){
+                if($number){
+                    UserNumbers::create(["user_id"=>$id, "number"=>$number,"updated_by"=>Auth::id()]);
+                }
+            }
+            $user_data['updated_by'] = Auth::id();
+            User::where("id",$id)->update($user_data);
+            // update role
+            $user = User::find($id);
+            $user->syncRoles([$request->role]);
+            return UserServices::user($id);
+        } catch (\Throwable $th) {
+            return false;
         }
-        $user_data['updated_by'] = Auth::id();
-        User::where("id",$id)->update($user_data);
-        // update role
-        $user = User::find($id);
-        $user->syncRoles([$request->role]);
-        return UserServices::user($id);
     }
     public static function delete($id){
         User::where("id",$id)->delete();
         return User::withTrashed()->get();
     }
     public static function getByRole(String $role=""){
-        return User::with(['count'])->where("role",$role)->get();
-        
+        $user = User::with(['count'])->where("role",$role)->get();
+        if(null === $user){
+            abort(500);
+        }
+        return $user;
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Auth;
-
+use App\Services\CommonService;
 class LoginServices{
     public static function login($request){
         // do login
@@ -12,7 +12,9 @@ class LoginServices{
             "password"=>"required"
         ]);
         $request->flashExcept(["_token","password"]);
-        return Auth::attempt($credentials);
+        if(!Auth::attempt($credentials)){
+            CommonService::throwError("Login failed");
+        }
     }
     public static function logout($request)
     {

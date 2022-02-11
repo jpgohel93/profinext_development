@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\BrokerModal;
 use Illuminate\Support\Facades\Auth;
-
+use App\Services\CommonService;
 class BrokerServices
 {
     public static function view()
@@ -16,8 +16,12 @@ class BrokerServices
         $broker = $request->validate([
             "broker" => "required|alpha_spaces|unique:client_brokers,broker"
         ]);
-        $broker['created_by'] = Auth::id();
-        return BrokerModal::create($broker);
+        try {
+            $broker['created_by'] = Auth::id();
+            BrokerModal::create($broker);
+        } catch (\Throwable $th) {
+            CommonService::throwError("Unable to create Broker");
+        }
     }
     public static function remove($id)
     {
@@ -25,13 +29,18 @@ class BrokerServices
     }
     public static function get($id)
     {
-        return BrokerModal::where("id", $id)->first(["id", "broker"]);
+        $broker = BrokerModal::where("id", $id)->first(["id", "broker"]);
+        return (null === $broker)? CommonService::throwError("Unable to create Broker") : $broker;
     }
     public static function edit($request)
     {
         $broker = $request->validate([
             "broker" => "required|alpha_spaces|unique:client_brokers,broker"
         ]);
-        return BrokerModal::where("id", $request->id)->update($broker);
+        try {
+            return BrokerModal::where("id", $request->id)->update($broker);
+        } catch (\Throwable $th) {
+            CommonService::throwError("Unable to create Broker");
+        }
     }
 }

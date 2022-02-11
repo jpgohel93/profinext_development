@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\CommonService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-
+use Illuminate\Support\Facades\Redirect;
 class CommonController extends Controller
 {    
     /* 
@@ -27,7 +27,7 @@ class CommonController extends Controller
 
         $response = CommonService::getFileInformation($id, $type);
         if(!$response['status']) {
-            return redirect()->back()->with('error', $response['message']);
+            return Redirect::back()->with('error', $response['message']);
         }
 
         $img = file_get_contents(public_path('screenshots/').$response['data']['filename']);

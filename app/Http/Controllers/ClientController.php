@@ -7,14 +7,18 @@ use App\Services\ClientServices;
 use App\Services\ProfessionServices;
 use App\Services\BankDetailsServices;
 use App\Services\BrokerServices;
-use App\Services\TraderServices;
+use App\Services\CommonService;
 use App\Services\UserServices;
 
 use Illuminate\Support\Facades\Redirect;
 class ClientController extends Controller
 {
-    function __construct(){
-        
+    function __construct()
+    {
+        $this->middleware('permission:client-create', ['only' => ['createClientForm', 'create']]);
+        $this->middleware('permission:client-write', ['only' => ['updateForm', 'update']]);
+        $this->middleware('permission:client-read', ['only' => ['get', 'all']]);
+        $this->middleware('permission:client-delete', ['only' => ['remove', 'removePaymentScreenshot']]);
     }
     // read all clients
     public function all(){
@@ -35,14 +39,13 @@ class ClientController extends Controller
     // create client data
     public function create(Request $request){
         $client = ClientServices::create($request);
-        if($client){
-            return Redirect::route("clients")->with("info","Client have been created");
-        }
-        return Redirect::route("clients")->with("info","Unable to create client");
+        return Redirect::route("clients")->with("info","Client have been created");
     }
     // read client
     public function get(Request $request,$id){
         $client =  ClientServices::get($id);
+        if(!$client)
+            CommonService::throwError("Client not found");
         return view("clients.view",compact('client'));
     }
     // edit client

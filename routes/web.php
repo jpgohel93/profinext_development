@@ -13,7 +13,6 @@ use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\BrokerController;
 use App\Http\Controllers\BankDetailsController;
 use App\Http\Controllers\TraderController;
-
 // login
 Route::get("/login",function(){
     return view("auth.login");
@@ -29,7 +28,6 @@ Route::get("/reset",function(){
     return view("auth.reset-password");
 })->name("resetPassword");
 
-// Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
     // dashboard

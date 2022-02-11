@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\CallServices;
+use App\Services\CommonService;
 use Illuminate\Support\Facades\Redirect;
 class CallController extends Controller
 {
@@ -20,7 +21,7 @@ class CallController extends Controller
         return response(true)->header('Content-type', "application/json");
     }
     public function edit(Request $request){
-        CallServices::edit($request);
+        $call = CallServices::edit($request);
         return Redirect::route('calls')->with("info", "Call has been updated");
     }
     public function get(Request $request){

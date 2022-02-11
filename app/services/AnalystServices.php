@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Models\Analyst;
 use App\Models\AnalystNumbers;
 use Illuminate\Support\Facades\Auth;
+use App\Services\CommonService;
 class AnalystServices{
     public static function all(){
         $analyst = [];
@@ -25,25 +26,30 @@ class AnalystServices{
             "youtube"=>"required",
             "status"=>"required",
         ]);
-        if(isset($request->has_website) && $request->has_website=="1"){
-            $analyst['website'] = $request->validate([
+        if(isset($request->has_site) && $request->has_site=="1"){
+            $web = $request->validate([
                 "website" => "required",
             ]);
+            $analyst['website'] = $web['website'];
         }
         $analyst['created_by'] = Auth::id();
-        $analyst_id = Analyst::create($analyst);
-        // insert numbers
-        if(isset($request->numbers) && is_array($request->numbers) && !empty($request->numbers)){
-            foreach($request->numbers as $number){
-                if($number){
-                    AnalystNumbers::create([
-                        "number"=>$number,
-                        "analyst_id"=>$analyst_id->id
-                    ]);
+        try {
+            $analyst_id = Analyst::create($analyst);
+            // insert numbers
+            if(isset($request->numbers) && is_array($request->numbers) && !empty($request->numbers)){
+                foreach($request->numbers as $number){
+                    if($number){
+                        AnalystNumbers::create([
+                            "number"=>$number,
+                            "analyst_id"=>$analyst_id->id
+                        ]);
+                    }
                 }
             }
+            return $analyst_id->id;
+        } catch (\Throwable $th) {
+            CommonService::throwError("Unable to create Analyst");
         }
-        return $analyst_id->id;
     }
     public static function getAnalyst($id){
         return Analyst::where("id",$id)->first(["id", "total_calls", "accuracy", "trading_capacity","analyst","status"]);

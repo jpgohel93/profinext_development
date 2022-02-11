@@ -200,6 +200,12 @@ class CommonService
 
         return self::ajaxResponse(false, [], 'Unknown file type.');
     }
+    public static function throwError($err){
+        $error = \Illuminate\Validation\ValidationException::withMessages([
+            'Error' => $err,
+        ]);
+        throw $error;
+    }
 }
 
 ?>

@@ -8,7 +8,13 @@ use App\Services\TraderServices;
 class TraderController extends Controller
 {
     private $viewTrader = "viewTrader";
-
+    function __construct()
+    {
+        $this->middleware('permission:trader-create', ['only' => ['create']]);
+        $this->middleware('permission:trader-write', ['only' => ['edit']]);
+        $this->middleware('permission:trader-read', ['only' => ['view', 'get']]);
+        $this->middleware('permission:trader-delete', ['only' => ['remove', 'removePaymentScreenshot']]);
+    }
     public function view()
     {
         $traders = TraderServices::view();

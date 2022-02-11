@@ -140,13 +140,16 @@ class ClientServices
                 }
             }
         }
-        return $client->id;
+        return $client->id?$client->id: CommonService::throwError("Unable to create client");
     }
     public static function all(){
         return Client::with('clientDemat')->get();
     }
     public static function get($id){
-        return Client::with(['clientDemat','clientPayment','clientPayment.Screenshots'])->where("id",$id)->first();
+        $client = Client::with(['clientDemat','clientPayment','clientPayment.Screenshots'])->where("id",$id)->first();
+        if (!$client)
+            CommonService::throwError("Client not found");
+        return $client;
     }
     public static function update($request,$id){
         $request->session()->put("password", $request->password);
@@ -236,8 +239,11 @@ class ClientServices
                     "pending_payment.*"=>"required|numeric",
                 ],
                 [
+                    "bank.*.required"=>"Please select Bank",
                     "bank.*.alpha_spaces"=>"Invalid Bank",
+                    "mode.*.required"=>"Invalid Payment mode",
                     "joining_date.required"=>"Joining Date is Required",
+                    "pending_payment.*.required"=>"Invalid Pending Payment Mark",
                     "pending_payment.*.numeric"=>"Invalid Pending Payment Mark",
                 ]);
                 if($request->pending_payment[$key]=="0"){

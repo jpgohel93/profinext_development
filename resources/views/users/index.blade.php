@@ -87,40 +87,96 @@
 														</label>
 														<!--end::Label-->
 														<!--begin::Input-->
-														<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="" name="password" />
+														<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old('password')}}" name="password" />
 														<!--end::Input-->
 													</div>
-												<!--begin::Input group-->
-												<div class="col-md-6 col-sm-12 mb-5">
-													<!--begin::Label-->
-													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">Mobile Number <span class="compCount"></span></span>
-													</label>
-													<!--end::Label-->
-													<div class="d-flex justify-conetent-end">
-														<!--begin::Input-->
-														<input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc" style="border-radius:5px 0px 0px 5px;" name="number[]" placeholder=""  style="    display: inline;
-														width: 90%;" />
-														<!--end::Input-->
-															<button type="button" class="btn btn-primary addremwpnum" id="addmoreWhatsapp" style="border-radius: 0px 5px 5px 0px;">
-                                                            
-                                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 172 172"
-                                                                    style=" fill:#000000;">
-                                                                    <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
-                                                                        stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
-                                                                        font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                                                                        <path d="M0,172v-172h172v172z" fill="none"></path>
-                                                                        <g fill="#ffffff">
-                                                                            <path
-                                                                                d="M85.83203,17.04323c-6.32845,0.09274 -11.38527,5.2949 -11.2987,11.62344v45.86667h-45.86667c-4.13529,-0.05848 -7.98173,2.11417 -10.06645,5.68601c-2.08471,3.57184 -2.08471,7.98948 0,11.56132c2.08471,3.57184 5.93115,5.74449 10.06645,5.68601h45.86667v45.86667c-0.05848,4.13529 2.11417,7.98173 5.68601,10.06645c3.57184,2.08471 7.98948,2.08471 11.56132,0c3.57184,-2.08471 5.74449,-5.93115 5.68601,-10.06645v-45.86667h45.86667c4.13529,0.05848 7.98173,-2.11417 10.06645,-5.68601c2.08471,-3.57184 2.08471,-7.98948 0,-11.56132c-2.08471,-3.57184 -5.93115,-5.74449 -10.06645,-5.68601h-45.86667v-45.86667c0.04237,-3.09747 -1.17017,-6.08033 -3.36168,-8.26973c-2.1915,-2.18939 -5.17553,-3.39907 -8.27296,-3.35371z">
-                                                                            </path>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-
-                                                            </button>
-													</div>
-												</div>
+													@if (null!==old("number"))
+														@foreach (old("number") as $key => $number)
+															@if ($key==0)
+																<!--begin::Input group-->
+																<div class="col-md-6 col-sm-12 mb-5">
+																	<!--begin::Label-->
+																	<label class="d-flex align-items-center fs-5 fw-bold mb-2">
+																		<span class="required">Mobile Number <span class="compCount">{{1}}</span></span>
+																	</label>
+																	<!--end::Label-->
+																	<div class="d-flex justify-conetent-end">
+																		<!--begin::Input-->
+																		<input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc" style="border-radius:5px 0px 0px 5px;" value="{{old('number')[0]}}" name="number[]" placeholder=""  style="    display: inline;
+																		width: 90%;" />
+																		<button type="button" class="btn btn-primary addremwpnum" id="addmoreWhatsapp" style="border-radius: 0px 5px 5px 0px;">
+																			<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 172 172"
+																				style=" fill:#000000;">
+																				<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
+																					stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+																					font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+																					<path d="M0,172v-172h172v172z" fill="none"></path>
+																					<g fill="#ffffff">
+																						<path
+																							d="M85.83203,17.04323c-6.32845,0.09274 -11.38527,5.2949 -11.2987,11.62344v45.86667h-45.86667c-4.13529,-0.05848 -7.98173,2.11417 -10.06645,5.68601c-2.08471,3.57184 -2.08471,7.98948 0,11.56132c2.08471,3.57184 5.93115,5.74449 10.06645,5.68601h45.86667v45.86667c-0.05848,4.13529 2.11417,7.98173 5.68601,10.06645c3.57184,2.08471 7.98948,2.08471 11.56132,0c3.57184,-2.08471 5.74449,-5.93115 5.68601,-10.06645v-45.86667h45.86667c4.13529,0.05848 7.98173,-2.11417 10.06645,-5.68601c2.08471,-3.57184 2.08471,-7.98948 0,-11.56132c-2.08471,-3.57184 -5.93115,-5.74449 -10.06645,-5.68601h-45.86667v-45.86667c0.04237,-3.09747 -1.17017,-6.08033 -3.36168,-8.26973c-2.1915,-2.18939 -5.17553,-3.39907 -8.27296,-3.35371z">
+																						</path>
+																					</g>
+																				</g>
+																			</svg>
+																		</button>
+																	</div>
+																</div>	
+															@else
+																<div class="col-md-6 col-sm-12 mb-5">
+																	<!--begin::Label-->
+																	<label class="d-flex align-items-center fs-5 fw-bold mb-2">
+																		<span class="required">Mobile Number <span class="compCount">{{$key+1}}</span></span>
+																	</label>
+																	<!--end::Label-->
+																	<div class="d-flex justify-conetent-end">
+																		<!--begin::Input-->
+																		<input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc" style="border-radius:5px 0px 0px 5px;" value="{{old('number')[$key]}}" name="number[]" placeholder=""  style="    display: inline;
+																		width: 90%;" />
+																		<button type="button" class="btn btn-primary btn-danger remove-btn" style="border-radius: 0px 5px 5px 0px;">
+																			<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 172 172" style=" fill:#000000;">
+																				<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+																					<path d="M0,172v-172h172v172z" fill="none"></path>
+																					<g fill="#ffffff">
+																						<path d="M28.66667,74.53333c-4.13529,-0.05848 -7.98173,2.11417 -10.06645,5.68601c-2.08471,3.57184 -2.08471,7.98948 0,11.56132c2.08471,3.57184 5.93115,5.74449 10.06645,5.68601h114.66667c4.13529,0.05848 7.98173,-2.11417 10.06645,-5.68601c2.08471,-3.57184 2.08471,-7.98948 0,-11.56132c-2.08471,-3.57184 -5.93115,-5.74449 -10.06645,-5.68601z">
+																						</path>
+																					</g>
+																				</g>
+																			</svg>
+																		</button>
+																	</div>
+																</div>
+															@endif
+														@endforeach
+													@else
+														<!--begin::Input group-->
+														<div class="col-md-6 col-sm-12 mb-5">
+															<!--begin::Label-->
+															<label class="d-flex align-items-center fs-5 fw-bold mb-2">
+																<span class="required">Mobile Number <span class="compCount"></span></span>
+															</label>
+															<!--end::Label-->
+															<div class="d-flex justify-conetent-end">
+																<!--begin::Input-->
+																<input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc" style="border-radius:5px 0px 0px 5px;" name="number[]" placeholder=""  style="    display: inline;
+																width: 90%;" />
+																<button type="button" class="btn btn-primary addremwpnum" id="addmoreWhatsapp" style="border-radius: 0px 5px 5px 0px;">
+																	<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 172 172"
+																		style=" fill:#000000;">
+																		<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
+																			stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+																			font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+																			<path d="M0,172v-172h172v172z" fill="none"></path>
+																			<g fill="#ffffff">
+																				<path
+																					d="M85.83203,17.04323c-6.32845,0.09274 -11.38527,5.2949 -11.2987,11.62344v45.86667h-45.86667c-4.13529,-0.05848 -7.98173,2.11417 -10.06645,5.68601c-2.08471,3.57184 -2.08471,7.98948 0,11.56132c2.08471,3.57184 5.93115,5.74449 10.06645,5.68601h45.86667v45.86667c-0.05848,4.13529 2.11417,7.98173 5.68601,10.06645c3.57184,2.08471 7.98948,2.08471 11.56132,0c3.57184,-2.08471 5.74449,-5.93115 5.68601,-10.06645v-45.86667h45.86667c4.13529,0.05848 7.98173,-2.11417 10.06645,-5.68601c2.08471,-3.57184 2.08471,-7.98948 0,-11.56132c-2.08471,-3.57184 -5.93115,-5.74449 -10.06645,-5.68601h-45.86667v-45.86667c0.04237,-3.09747 -1.17017,-6.08033 -3.36168,-8.26973c-2.1915,-2.18939 -5.17553,-3.39907 -8.27296,-3.35371z">
+																				</path>
+																			</g>
+																		</g>
+																	</svg>
+																</button>
+															</div>
+														</div>
+													@endif
 												<!--end::Input group-->
 												</div>
                                                 <div id="appendDivWp"></div>
@@ -225,7 +281,7 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" checked="checked" value="1">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" {{(old('user_type')== 1?"checked":old('user_type')!=2?"checked":"")}} value="1">
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
@@ -251,7 +307,7 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" value="2">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" {{(old('user_type')== 2?"checked":old('user_type')!=1?"checked":"")}} value="2">
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
@@ -261,7 +317,7 @@
                                             </div>
 
 
-                                            <div class="row" id="partnerDiv" style="display:flex;">
+                                            <div class="row" id="partnerDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
                                                 
                                                 <!--begin::Input group-->
 												<div class="col-md-6 mb-5">
@@ -290,7 +346,7 @@
 												<!--end::Input group-->
                                             </div>
 
-                                            <div class="row" id="employeeDiv" style="display:none;">
+                                            <div class="row" id="employeeDiv" style="display:{{(old('user_type')==2)?"flex":old('user_type')!=1?"flex":"none"}};">
                                                 
                                                 <!--begin::Input group-->
 												<div class="col-md-6 mb-5">
@@ -341,7 +397,7 @@
 													{{-- <select name="account_type" data-control="select2" class="form-select form-select-sm form-select-solid"> --}}
                                                     <select name="role" aria-label="Select a role" data-control="select2" class="form-select form-select-sm form-select-solid">
 														@forelse ($roles as $role)
-                                                        	<option value="{{$role->name}}">{{$role->name}}</option>
+                                                        	<option value="{{$role->name}}" {{old('role')==$role->name?"selected":""}}>{{$role->name}}</option>
 														@empty
 															<option>Please Add Role</option>
 														@endforelse

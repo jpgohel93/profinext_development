@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class AnalystController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:analyst-create', ['only' => ['createForm', 'create']]);
+        $this->middleware('permission:analyst-write', ['only' => ['editAnalyst']]);
+        $this->middleware('permission:analyst-read', ['only' => ['view', 'getAnalyst']]);
+        $this->middleware('permission:analyst-delete', ['only' => ['editAnalyst']]);
+    }
     public function view(Request $request){
         $analysts = AnalystServices::all();
         return view("analyst.analyst",compact('analysts'));

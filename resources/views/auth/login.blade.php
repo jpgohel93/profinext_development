@@ -8,8 +8,8 @@
             <!--begin::Content-->
             <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
                 <!--begin::Logo-->
-                <a href="../../Smart trader/dist/index.html" class="mb-12">
-                    <img alt="Logo" src="assets/media/logos/logo-1.svg" class="h-40px" />
+                <a href="{{route('dashboard')}}" class="mb-12">
+                    <img alt="Logo" src="{{asset('assets/media/logos/logo-1.svg')}}" class="h-40px" />
                 </a>
                 <!--end::Logo-->
                 <!--begin::Wrapper-->
@@ -29,12 +29,6 @@
                             @endif
                             <!--begin::Title-->
                             <h1 class="text-dark mb-3">Sign In to Metronic</h1>
-                            <!--end::Title--> 
-                            <!--begin::Link-->
-                            <div class="text-gray-400 fw-bold fs-4">
-                                Don't have an account?
-                                <a href="{{route('register')}}" class="link-primary fw-bolder">Sign up here</a>
-                            </div>
                             <!--end::Link-->
                         </div>
                         <!--begin::Heading-->

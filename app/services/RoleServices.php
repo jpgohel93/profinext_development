@@ -5,17 +5,22 @@ namespace App\Services;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
 class RoleServices
 {
     public static function create($request)
     {
-        $request->validate([
-            'role' => 'required|unique:roles,name',
-            'permission' => 'required',
+        $role = $request->validate([
+            'role' => 'required|alpha_spaces|unique:roles,name'
         ]);
-        $role = Role::create(['name' => $request->input('role')]);
-        return $role->syncPermissions($request->permission);
+        $permissions = $request->validate([
+            'permission' => 'required|array'
+        ]);
+        try {
+            $role = Role::create(['name' => $role]);
+            return $role->syncPermissions($permissions);
+        } catch (\Throwable $th) {
+            CommonService::throwError("Unable to create Role");
+        }
     }
 
     public static function permissions(){
@@ -33,20 +38,32 @@ class RoleServices
         return Role::all();
     }
     public static function get($id){
-        return Role::where("id",$id)->first();
+        $role = Role::where("id",$id)->first();
+        return ($role)?$role: CommonService::throwError("Role not found");
     }
     public static function permissionsByRole($id){
         $role = Role::where("id",$id)->first();
         return $role->permissions->pluck("id")->toArray();
     }
     public static function update($request,$id){
-        $role = RoleServices::get($id);
-        // revoke permissions
-        $role->revokePermissionTo($role->permissions);
-        // grant permissions
-        foreach($request->permission as $perm){
-            $role->givePermissionTo($perm);
+        $permissions = $request->validate([
+            "permission" => "required|array"
+        ],
+            ["permission.required" => "Please select atleast one permission to edit or create role"]
+        );
+        try {
+            $role = RoleServices::get($id);
+            if(!$role)
+                return false;
+            // revoke permissions
+            $role->revokePermissionTo($role->permissions);
+            // grant permissions
+            foreach($permissions as $permission){
+                $role->givePermissionTo($permission);
+            }
+        } catch (\Throwable $th) {
+            CommonService::throwError("Unable to update this role");
         }
-        return true;
+        
     }
 }

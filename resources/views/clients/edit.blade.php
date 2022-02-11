@@ -389,7 +389,7 @@
                                                                         <div class="col-md-6">
                                                                             <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                                                 <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
-                                                                                <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" {{(old('mode')?old('mode')[$key]:$client->clientPayment[$key]->mode)=="2"?"checked":""}} />
+                                                                                <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" {{((old('mode') && isset(old('mode')[$key]))?old('mode')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?"checked":""}} />
                                                                                 <input class="form-check-input" type="hidden" name="mode[]" value="2" />
 
                                                                                 <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
@@ -401,9 +401,9 @@
                                                                 <!--end::Input group-->
 
 
-                                                                <div class="row mb-4 PaymentSection joining_date" style="display:{{(old('mode')?old('mode')[$key]:$client->clientPayment[$key]->mode)=="2"?"block":"none"}};" id="BankDiv">
+                                                                <div class="row mb-4 PaymentSection joining_date" style="display:{{(old('mode')?old('mode')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?"block":"none"}};" id="BankDiv">
                                                                     <!--begin::Col-->
-                                                                    <div class="col-md-5 fv-row mb-4 hideonpending" style="display:{{(old('pending_payment')?old('pending_payment')[$key]:$client->clientPayment[$key]->pending_payment)=="1"?"none":""}};">
+                                                                    <div class="col-md-5 fv-row mb-4 hideonpending" style="display:{{(old('pending_payment')?old('pending_payment')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->pending_payment:"")=="1"?"none":""}};">
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-6 fw-bold form-label mb-2">Bank Details</label>
                                                                         <!--end::Label-->
@@ -413,7 +413,7 @@
                                                                             <select name="bank[]" class="form-select form-select-solid" >
                                                                                 <option></option>
                                                                                 @forelse ($banks as $bank)
-                                                                                    <option value="{{$bank->bank}}" {{(old('bank') && old('bank')[$key]==$bank->bank)?"selected":($client->clientPayment[$key]->bank==$bank->bank?"selected":"")}}>{{$bank->bank}}</option>
+                                                                                    <option value="{{$bank->bank}}" {{(old('bank') && old('bank')[$key]==$bank->bank)?"selected":(isset($client->clientPayment[$key])?$client->clientPayment[$key]->bank:""==$bank->bank?"selected":"")}}>{{$bank->bank}}</option>
                                                                                 @empty
                                                                                     <option>Selecte Bank</option>
                                                                                 @endforelse
@@ -431,24 +431,24 @@
                                                                         <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input--> 
-                                                                        <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{(old('mode')?old('mode')[$key]:$client->clientPayment[$key]->mode)=="2"?($client->clientPayment[$key]->joining_date==""?"":date("Y-m-d",strtotime($client->clientPayment[$key]->joining_date))):""}}"/>
+                                                                        <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{(old('mode')?old('mode')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?(isset($client->clientPayment[$key])?$client->clientPayment[$key]->joining_date:""==""?"":date("Y-m-d",strtotime(isset($client->clientPayment[$key])?$client->clientPayment[$key]->joining_date:""))):""}}"/>
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
                                                                     <!--begin::Input group-->
-                                                                    <div class="col-md-6 mb-4 hideonpending" id="FeesDiv" style="display:{{(old('pending_payment')?old('pending_payment')[$key]:$client->clientPayment[$key]->pending_payment)=="1"?"none":""}};">
+                                                                    <div class="col-md-6 mb-4 hideonpending" id="FeesDiv" style="display:{{(old('pending_payment')?old('pending_payment')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->pending_payment:"")=="1"?"none":""}};">
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-5 fw-bold mb-2">Fees</label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input--> 
-                                                                        <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="{{(old('mode')?old('mode')[$key]:$client->clientPayment[$key]->mode)=="2"?(old('fees')?old('fees')[$key]:$client->clientPayment[$key]->fees):""}}" />
+                                                                        <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="{{(old('mode')?old('mode')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?(old('fees')?old('fees')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->fees:""):""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
                                                                     </div>
                                                                     <div class="row mb-8 " id="UploadDiv">
                                                                         <!--begin::Input group-->
-                                                                    <div class="col-md-6 mb-4 hideonpending" style="display:{{(old('pending_payment')?old('pending_payment')[$key]:$client->clientPayment[$key]->pending_payment)=="1"?"none":""}};">
+                                                                    <div class="col-md-6 mb-4 hideonpending" style="display:{{(old('pending_payment')?old('pending_payment')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->pending_payment:"")=="1"?"none":""}};">
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
                                                                         <!--end::Label-->
@@ -466,8 +466,8 @@
                                                                         <div>
                                                                             <!--begin::Checkbox-->
                                                                             <label class="form-check form-check-custom form-check-solid me-10">
-                                                                                <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" {{(old('pending_payment')?old('pending_payment')[$key]:$client->clientPayment[$key]->pending_payment)=="1"?"checked":""}} value="1">
-                                                                                <input type="hidden" name="pending_payment[]" value="{{(old('pending_payment')?old('pending_payment')[$key]:$client->clientPayment[$key]->pending_payment)=="1"?1:0}}">
+                                                                                <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" {{(old('pending_payment')?old('pending_payment')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->pending_payment:"")=="1"?"checked":""}} value="1">
+                                                                                <input type="hidden" name="pending_payment[]" value="{{(old('pending_payment')?old('pending_payment')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->pending_payment:"")=="1"?1:0}}">
                                                                                 <span class="form-check-label fw-bold">Pending</span>
                                                                             </label>
                                                                             <!--end::Checkbox-->
@@ -477,14 +477,16 @@
                                                                     <!--end::Input group-->
                                                                     </div>
                                                                     <div class="row">
-                                                                        @foreach($client->clientPayment[$key]->Screenshots as $ss)
-                                                                            <div class="form-group col-3">
-                                                                                <label>
-                                                                                    <a href="{{route('removePaymentScreenshot',[$client->id,$ss->id])}}" class="removePaymentScreenshot">Remove</a>
-                                                                                </label>
-                                                                                <img style="height: 100px;width:auto" loading="lazy" class="m-3 d-block" src="{{url('common/displayFile/'.Crypt::encryptString($ss->id).'/'.Crypt::encryptString('screenshots').'/'.$ss->file)}}" >
-                                                                            </div>
-                                                                        @endforeach
+                                                                        @if (isset($client->clientPayment[$key]))
+                                                                            @foreach($client->clientPayment[$key]->Screenshots as $ss)
+                                                                                <div class="form-group col-3">
+                                                                                    <label>
+                                                                                        <a href="{{route('removePaymentScreenshot',[$client->id,$ss->id])}}" class="removePaymentScreenshot">Remove</a>
+                                                                                    </label>
+                                                                                    <img style="height: 100px;width:auto" loading="lazy" class="m-3 d-block" src="{{url('common/displayFile/'.Crypt::encryptString($ss->id).'/'.Crypt::encryptString('screenshots').'/'.$ss->file)}}" >
+                                                                                </div>
+                                                                            @endforeach
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -803,8 +805,8 @@
                                                                     <!--end::Input group-->
                                                                     </div>
                                                                     <div class="row">
-                                                                        @if (isset($client->clientPayment[$key]))    
-                                                                            @foreach($client->clientPayment[$key]->Screenshots as $ss)
+                                                                        @if (isset($client->clientPayment[$key]))
+                                                                            @foreach(isset($client->clientPayment[$key])?$client->clientPayment[$key]->Screenshots:"" as $ss)
                                                                                 <div class="form-group col-3">
                                                                                     <label>
                                                                                         <a href="{{route('removePaymentScreenshot',[$client->id,$ss->id])}}" class="removePaymentScreenshot">Remove</a>
