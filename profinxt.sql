@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2022 at 02:36 PM
+-- Generation Time: Feb 11, 2022 at 02:51 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -50,11 +50,12 @@ CREATE TABLE `analysts` (
 --
 
 INSERT INTO `analysts` (`id`, `analyst`, `telegram_id`, `youtube`, `website`, `status`, `total_calls`, `accuracy`, `trading_capacity`, `created_by`, `created_at`, `updated_at`, `deleted_at`, `deleted_by`, `updated_by`) VALUES
-(1, 'helloTrading', 'helloTrading123', 'https://youtube.com/helloTrading123', 'helloTrading.com', 'Experiment', '8', '60%', '88', '2', '2022-02-08 12:07:08', '2022-02-08 16:32:50', '2022-02-08 07:32:04', NULL, NULL),
-(2, 'analyst', 'analystWorld', 'analystWorldYT', NULL, 'Terminated', '8', '90%', '98', '2', '2022-02-08 13:10:38', '2022-02-08 16:30:15', NULL, NULL, NULL),
-(3, 'analyst', 'analystWorld', 'analystWorldYT', NULL, 'Experiment', NULL, NULL, NULL, '2', '2022-02-08 13:11:04', '2022-02-08 13:11:04', NULL, NULL, NULL),
-(4, 'analyst', 'analystWorld', 'analystWorldYT', NULL, 'Experiment', NULL, NULL, NULL, '2', '2022-02-08 13:16:22', '2022-02-08 13:16:22', NULL, NULL, NULL),
-(5, 'demo', 'adasd', 'asdasd', NULL, 'Active', '9', '90%', '100', '2', '2022-02-08 13:20:04', '2022-02-08 16:07:23', NULL, NULL, NULL);
+(1, '23434', '345345', '3453455', NULL, 'Experiment', NULL, NULL, NULL, '2', '2022-02-11 12:17:09', '2022-02-11 12:17:09', NULL, NULL, NULL),
+(2, 'sdfsdf', '45656', '456456', NULL, 'Paper Trade', NULL, NULL, NULL, '2', '2022-02-11 12:18:54', '2022-02-11 12:18:54', NULL, NULL, NULL),
+(3, 'dfgd', 'dfg', 'dfgdfg', NULL, 'Terminated', NULL, NULL, NULL, '2', '2022-02-11 12:19:09', '2022-02-11 12:19:09', NULL, NULL, NULL),
+(4, 'helloTrading', 'analystWorld', 'analystWorldYT', NULL, 'Active', NULL, NULL, NULL, '2', '2022-02-11 12:30:29', '2022-02-11 12:30:29', NULL, NULL, NULL),
+(5, 'sfgdfg', 'gfdfg', 'dfgdf', NULL, 'Active', NULL, NULL, NULL, '2', '2022-02-11 18:24:17', '2022-02-11 18:24:17', NULL, NULL, NULL),
+(6, 'helloTrading', 'analystWorld', 'analystWorldYT', 'sdfgsdfg', 'Active', NULL, NULL, NULL, '2', '2022-02-11 18:30:53', '2022-02-11 18:30:53', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -76,15 +77,13 @@ CREATE TABLE `analyst_numbers` (
 --
 
 INSERT INTO `analyst_numbers` (`id`, `number`, `analyst_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, '123456789', 1, '2022-02-08 07:37:17', '2022-02-08 12:07:36', NULL),
-(2, '987789987', 1, '2022-02-08 07:37:17', '2022-02-08 12:07:36', NULL),
-(3, '123456789', 3, NULL, '2022-02-08 13:11:04', '2022-02-08 13:11:04'),
-(4, '555444555', 3, NULL, '2022-02-08 13:11:04', '2022-02-08 13:11:04'),
-(5, '666444666', 3, NULL, '2022-02-08 13:11:04', '2022-02-08 13:11:04'),
-(6, '123456789', 4, NULL, '2022-02-08 13:16:22', '2022-02-08 13:16:22'),
-(7, '555444555', 4, NULL, '2022-02-08 13:16:22', '2022-02-08 13:16:22'),
-(8, '666444666', 4, NULL, '2022-02-08 13:16:22', '2022-02-08 13:16:22'),
-(9, NULL, 5, NULL, '2022-02-08 13:20:04', '2022-02-08 13:20:04');
+(1, '3434', 1, NULL, '2022-02-11 12:17:09', '2022-02-11 12:17:09'),
+(2, 'r546456', 2, NULL, '2022-02-11 12:18:54', '2022-02-11 12:18:54'),
+(3, 'fdgd', 3, NULL, '2022-02-11 12:19:09', '2022-02-11 12:19:09'),
+(4, '123456789', 4, NULL, '2022-02-11 12:30:29', '2022-02-11 12:30:29'),
+(5, '345354', 5, NULL, '2022-02-11 18:24:17', '2022-02-11 18:24:17'),
+(6, '345345', 5, NULL, '2022-02-11 18:24:17', '2022-02-11 18:24:17'),
+(7, '123456789', 6, NULL, '2022-02-11 18:30:53', '2022-02-11 18:30:53');
 
 -- --------------------------------------------------------
 
@@ -113,8 +112,7 @@ CREATE TABLE `calls` (
 --
 
 INSERT INTO `calls` (`id`, `analyst_id`, `due_date`, `script_name`, `lot_size`, `entry_price`, `target_price`, `stop_loss`, `margin_value`, `created_at`, `updated_at`, `deleted_at`, `created_by`) VALUES
-(1, 1, '2022-02-08', 'Tata TCS', '55', '1350', '1445', '1230', '400', '2022-02-08 16:58:41', '2022-02-09 11:17:05', '2022-02-09 11:17:05', '2'),
-(2, 5, '2022-02-08', 'tata tcs', '5544', '1500', '1600', '1440', '50', '2022-02-08 18:44:41', '2022-02-09 14:48:31', '2022-02-09 14:48:31', '2');
+(1, 1, '2022-02-11', 'tata tcs x', '5544', '1500', '1600', '1440', '50', '2022-02-11 12:20:15', '2022-02-11 12:20:46', '2022-02-11 12:20:46', '2');
 
 -- --------------------------------------------------------
 
@@ -131,7 +129,7 @@ CREATE TABLE `clients` (
   `profession` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL
@@ -142,7 +140,7 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `name`, `number`, `communication_with`, `wp_number`, `profession`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'demouser', '123123123', 'Admin', '123123123', 'Student', 1, '2', '2', '2022-02-08 11:32:47', '2022-02-10 13:31:54', NULL);
+(1, 'demoAbcd', '123123123', 'Admin', '123123123', 'Private', 1, '2', 2, '2022-02-11 12:24:14', '2022-02-11 18:59:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -164,9 +162,10 @@ CREATE TABLE `client_banks` (
 --
 
 INSERT INTO `client_banks` (`id`, `bank`, `created_at`, `updated_at`, `deleted_at`, `created_by`) VALUES
-(1, 'HDFC', '2022-02-10 13:06:00', '2022-02-10 13:06:00', NULL, '2'),
-(2, 'icici', '2022-02-10 13:22:39', '2022-02-10 13:22:39', NULL, '2'),
-(3, 'sbi', '2022-02-10 13:22:45', '2022-02-10 13:22:45', NULL, '2');
+(1, 'HDFC', '2022-02-11 12:01:34', '2022-02-11 12:01:34', NULL, '2'),
+(2, 'ICICI', '2022-02-11 12:01:40', '2022-02-11 12:01:40', NULL, '2'),
+(3, 'SBI', '2022-02-11 12:01:44', '2022-02-11 12:01:44', NULL, '2'),
+(4, 'CBI', '2022-02-11 12:01:48', '2022-02-11 12:01:48', NULL, '2');
 
 -- --------------------------------------------------------
 
@@ -188,9 +187,8 @@ CREATE TABLE `client_brokers` (
 --
 
 INSERT INTO `client_brokers` (`id`, `broker`, `created_at`, `updated_at`, `deleted_at`, `created_by`) VALUES
-(1, 'HDFC broker', '2022-02-10 13:05:51', '2022-02-10 13:05:51', NULL, '2'),
-(2, 'ICICI Broker', '2022-02-10 13:25:38', '2022-02-10 13:25:38', NULL, '2'),
-(3, 'CBI Broker', '2022-02-10 13:25:46', '2022-02-10 13:25:46', NULL, '2');
+(1, 'HDFC broker', '2022-02-11 12:01:19', '2022-02-11 12:01:19', NULL, '2'),
+(2, 'ICICI Broker', '2022-02-11 12:01:27', '2022-02-11 12:01:27', NULL, '2');
 
 -- --------------------------------------------------------
 
@@ -222,7 +220,7 @@ CREATE TABLE `client_demat` (
 --
 
 INSERT INTO `client_demat` (`id`, `client_id`, `st_sg`, `serial_number`, `service_type`, `pan_number`, `holder_name`, `broker`, `user_id`, `password`, `mpin`, `capital`, `created_at`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(15, 1, 'ST', 'serial 1', '1', 'pan 1', 'shani', 'ICICI Broker', 'shani', '$2y$10$3yE27q7XjpCM8jC8gSpwwe6Cb3Gb8k.DZeQSlxSOdTiwgMexJH/Mi', '$2y$10$9Tlr57V0U.rulPZPiJCcou6ZXP2mPSePjLl1ZXTzkbfh6wXciFOpO', '55000', '2022-02-10 13:31:54', '2022-02-10 13:31:54', '2', NULL);
+(10, 1, 'SG', 'serial 1', '1', 'pan 1', 'shani', 'HDFC broker', 'shani', '$2y$10$94ZqOFAtOtKt8/GCj6sJee9cwizU5lplR1jIb4/mxhUeQhgyTazO2', '$2y$10$OMVlTinMEbEF4.zTzhC8Lu9JRUBOezL/7uimEsuA6h/yDgjDr391i', '55000', '2022-02-11 18:59:46', '2022-02-11 18:59:46', '2', NULL);
 
 -- --------------------------------------------------------
 
@@ -260,13 +258,6 @@ CREATE TABLE `client_payment` (
   `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `client_payment`
---
-
-INSERT INTO `client_payment` (`id`, `client_id`, `bank`, `joining_date`, `fees`, `mode`, `pending_payment`, `screenshots`, `created_at`, `updated_at`, `deleted_at`, `updated_by`) VALUES
-(15, 1, 'HDFC', '2022-02-08 00:00:00', '25,000', 2, '0', NULL, '2022-02-10 13:31:54', '2022-02-10 13:31:54', NULL, '2');
-
 -- --------------------------------------------------------
 
 --
@@ -287,10 +278,9 @@ CREATE TABLE `client_professions` (
 --
 
 INSERT INTO `client_professions` (`id`, `profession`, `created_at`, `updated_at`, `deleted_at`, `created_by`) VALUES
-(1, 'Business Man', '2022-02-10 13:05:32', '2022-02-10 13:05:32', NULL, '2'),
-(2, 'Student', '2022-02-10 13:28:23', '2022-02-10 13:28:23', NULL, '2'),
-(3, 'Teacher', '2022-02-10 13:28:28', '2022-02-10 13:28:28', NULL, '2'),
-(4, 'Private', '2022-02-10 13:28:33', '2022-02-10 13:28:33', NULL, '2');
+(1, 'Accountant', '2022-02-11 12:00:53', '2022-02-11 12:00:53', NULL, '2'),
+(2, 'Private', '2022-02-11 12:00:59', '2022-02-11 12:00:59', NULL, '2'),
+(3, 'Business Man', '2022-02-11 12:01:11', '2022-02-11 12:01:11', NULL, '2');
 
 -- --------------------------------------------------------
 
@@ -319,17 +309,6 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2022_01_12_092312_create_permission_tables', 1);
 
 -- --------------------------------------------------------
 
@@ -360,13 +339,8 @@ CREATE TABLE `model_has_roles` (
 --
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
-(1, 'App\\Models\\User', 2),
-(1, 'App\\Models\\User', 6),
-(1, 'App\\Models\\User', 8),
-(6, 'App\\Models\\User', 4),
-(8, 'App\\Models\\User', 9),
-(8, 'App\\Models\\User', 10),
-(9, 'App\\Models\\User', 3);
+(1, 'App\\Models\\User', 1),
+(1, 'App\\Models\\User', 2);
 
 -- --------------------------------------------------------
 
@@ -418,7 +392,11 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (17, 'calls-read', 'web', NULL, NULL),
 (18, 'calls-write', 'web', NULL, NULL),
 (19, 'calls-create', 'web', NULL, NULL),
-(20, 'calls-delete', 'web', NULL, NULL);
+(20, 'calls-delete', 'web', NULL, NULL),
+(21, 'trader-read', 'web', NULL, NULL),
+(22, 'trader-write', 'web', NULL, NULL),
+(23, 'trader-create', 'web', NULL, NULL),
+(24, 'trader-delete', 'web', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -459,10 +437,10 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'super-admin', 'web', '2022-01-22 04:35:49', '2022-01-22 04:35:49', NULL),
-(6, 'user', 'web', '2022-01-27 21:39:44', '2022-01-27 21:39:44', NULL),
-(7, 'customer relationship manager', 'web', '2022-02-09 09:22:34', '2022-02-09 09:22:34', NULL),
-(8, 'Accountant', 'web', '2022-02-09 09:22:54', '2022-02-09 09:22:54', NULL),
-(9, 'trader', 'web', '2022-02-10 10:13:08', '2022-02-10 10:13:08', NULL);
+(2, 'user', 'web', '2022-01-27 21:39:44', '2022-01-27 21:39:44', NULL),
+(3, 'customer relationship manager', 'web', '2022-02-09 09:22:34', '2022-02-09 09:22:34', NULL),
+(4, 'Accountant', 'web', '2022-02-09 09:22:54', '2022-02-09 09:22:54', NULL),
+(5, 'trader', 'web', '2022-02-10 10:13:08', '2022-02-10 10:13:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -481,36 +459,52 @@ CREATE TABLE `role_has_permissions` (
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (1, 1),
-(1, 6),
-(1, 7),
-(1, 8),
-(1, 9),
+(1, 2),
 (2, 1),
-(2, 7),
-(2, 8),
-(2, 9),
+(2, 2),
 (3, 1),
-(3, 7),
+(3, 2),
 (4, 1),
 (5, 1),
-(5, 6),
+(5, 2),
 (6, 1),
+(6, 2),
 (7, 1),
+(7, 2),
 (8, 1),
+(8, 2),
 (9, 1),
-(9, 6),
+(9, 2),
 (10, 1),
-(10, 6),
+(10, 2),
 (11, 1),
+(11, 2),
 (12, 1),
+(12, 2),
 (13, 1),
+(13, 2),
 (14, 1),
+(14, 2),
 (15, 1),
+(15, 2),
 (16, 1),
+(16, 2),
 (17, 1),
+(17, 2),
 (18, 1),
+(18, 2),
 (19, 1),
-(20, 1);
+(19, 2),
+(20, 1),
+(20, 2),
+(21, 1),
+(21, 2),
+(22, 1),
+(22, 2),
+(23, 1),
+(23, 2),
+(24, 1),
+(24, 2);
 
 -- --------------------------------------------------------
 
@@ -527,14 +521,6 @@ CREATE TABLE `tbl_screenshots` (
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `tbl_screenshots`
---
-
-INSERT INTO `tbl_screenshots` (`id`, `client_payment_id`, `file`, `mime_type`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 21, '8ICYBbckDGDXT6YqTBtNVGJn6pSj1tLukNsUDS6f.jpg', 'image/jpeg', '2022-02-04 20:22:06', '2022-02-04 20:22:06', NULL),
-(3, 21, 'M0gEvZXlmnU2AoLBfJ1BmA24kIJlSaACCjK8csHV.jpg', 'image/jpeg', '2022-02-04 20:22:06', '2022-02-04 20:22:06', NULL);
 
 -- --------------------------------------------------------
 
@@ -557,8 +543,7 @@ CREATE TABLE `trader` (
 --
 
 INSERT INTO `trader` (`id`, `client_id`, `trader_id`, `created_at`, `created_by`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 3, '2022-02-10 15:47:23', NULL, '2022-02-10 15:48:00', NULL),
-(2, 1, 3, '2022-02-10 18:57:31', '2', '2022-02-10 18:57:31', NULL);
+(1, 1, 1, '2022-02-11 12:24:57', '2', '2022-02-11 12:24:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -581,7 +566,7 @@ CREATE TABLE `users` (
   `company` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `percentage` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `salary` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `joining_date` date NOT NULL DEFAULT current_timestamp(),
+  `joining_date` datetime NOT NULL DEFAULT current_timestamp(),
   `job_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -597,9 +582,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `status`, `bank_name`, `account_number`, `ifsc_code`, `account_type`, `user_type`, `company`, `percentage`, `salary`, `joining_date`, `job_description`, `role`, `remember_token`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`) VALUES
-(2, 'admin', 'test@admin.com', NULL, '$2y$10$PosLnPcx9kMIxPmHwIhz2u7cR6/zzqMVWVDO1ezt.SiSkdhCODlRa', 1, 'hdfc', '4353453', 'HDFC01212', '1', 1, 'helloWorld', '90', NULL, '2022-01-27', 'dfgdfdgdfdfg', 'super-admin', NULL, '2022-01-23 02:59:58', '', '2022-01-27 20:15:10', '2', NULL),
-(3, 'user', 'user@gmail.com', NULL, '$2y$10$PosLnPcx9kMIxPmHwIhz2u7cR6/zzqMVWVDO1ezt.SiSkdhCODlRa', 1, 'hdfc', '879546412312', 'HDFC01212', 'Partner', 2, 'testcompany', '34', '25000', '2022-02-10', 'demo description', 'trader', NULL, '2022-01-25 01:29:12', '2', '2022-02-10 15:47:00', '2', NULL),
-(10, 'accountant', 'accountant@profinext.com', NULL, '$2y$10$Cz/EgvY59IgCVGEbEoqFyeYzWmPytcRF3M/wBLobiMGBBqYPOVSEy', 1, 'hdfc', '23423234234', 'hdfc1234', '2', 2, NULL, NULL, '55000', '2022-02-09', 'accountant', 'Accountant', NULL, '2022-02-09 15:32:09', '2', '2022-02-09 15:32:09', NULL, NULL);
+(1, 'dfgdfgd', 'test@admin.com', NULL, '$2y$10$w2LqjOuRuG3oWkzEWQIhFeEEVY.QH74ZfHuldHsgxuT/gWKzLoIdq', 1, 'hdfc', '546456456', 'hdfc1234', 'Service Account', 2, NULL, NULL, '44000', '2022-02-11 00:00:00', 'dfgdfg', 'super-admin', NULL, NULL, NULL, '2022-02-11 18:48:08', '2', NULL),
+(2, 'admin', 'admin@gmail.com', NULL, '$2y$10$QaAbWIxtolj8uGcYe27LDO8HenLJbqaQFzZ5MAc2ZUVnTdlcR9e3O', 1, 'hdfc', '456879546321', 'hdfc1234', 'Selecte Account Type', 1, 'demo', '55', NULL, '2022-02-11 00:00:00', 'admin', 'super-admin', NULL, '2022-02-11 06:29:52', '1', '2022-02-11 11:59:52', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -621,8 +605,8 @@ CREATE TABLE `user_account_types` (
 --
 
 INSERT INTO `user_account_types` (`id`, `account_type`, `created_at`, `created_by`, `deleted_at`, `updated_at`) VALUES
-(1, 'Partner', '2022-02-10 13:06:40', '2', NULL, '2022-02-10 13:06:40'),
-(2, 'Employee', '2022-02-10 13:06:49', '2', NULL, '2022-02-10 13:06:49');
+(1, 'Service Account', '2022-02-11 12:00:35', '2', NULL, '2022-02-11 12:00:35'),
+(2, 'Current Account', '2022-02-11 12:00:45', '2', NULL, '2022-02-11 12:00:45');
 
 -- --------------------------------------------------------
 
@@ -645,42 +629,9 @@ CREATE TABLE `user_numbers` (
 --
 
 INSERT INTO `user_numbers` (`id`, `user_id`, `number`, `created_at`, `deleted_at`, `updated_at`, `updated_by`) VALUES
-(1, 2, '255345343', '2022-01-23 08:29:58', '2022-01-27 20:15:10', '2022-01-27 20:15:10', NULL),
-(2, 3, '12345456789', '2022-01-25 06:59:12', '2022-01-25 16:33:11', '2022-01-25 16:33:11', NULL),
-(3, 3, '789456123', '2022-01-25 06:59:12', '2022-01-25 16:33:11', '2022-01-25 16:33:11', NULL),
-(4, 3, '789456123', '2022-01-25 16:34:46', '2022-01-25 16:35:48', '2022-01-25 16:35:48', NULL),
-(5, 3, '789456123', '2022-01-25 16:35:48', '2022-01-25 16:41:09', '2022-01-25 16:41:09', NULL),
-(6, 3, '789456123', '2022-01-25 16:41:09', '2022-01-25 16:41:29', '2022-01-25 16:41:29', NULL),
-(7, 3, '789456123', '2022-01-25 16:41:29', '2022-01-25 16:41:49', '2022-01-25 16:41:49', NULL),
-(8, 3, '789456123', '2022-01-25 16:41:49', '2022-01-25 16:42:06', '2022-01-25 16:42:06', NULL),
-(9, 3, '789456123', '2022-01-25 16:42:06', '2022-01-25 16:42:41', '2022-01-25 16:42:41', NULL),
-(10, 3, '789456123', '2022-01-25 16:42:41', '2022-01-25 16:44:35', '2022-01-25 16:44:35', NULL),
-(11, 3, '789456123', '2022-01-25 16:44:35', '2022-01-25 16:45:09', '2022-01-25 16:45:09', NULL),
-(12, 3, '789456123', '2022-01-25 16:45:09', '2022-01-25 16:45:43', '2022-01-25 16:45:43', NULL),
-(13, 3, '789456123', '2022-01-25 16:45:43', '2022-01-25 16:46:24', '2022-01-25 16:46:24', NULL),
-(14, 3, '789456123', '2022-01-25 16:46:24', '2022-01-25 16:48:39', '2022-01-25 16:48:39', NULL),
-(15, 3, '789456123', '2022-01-25 16:48:39', '2022-01-25 16:48:55', '2022-01-25 16:48:55', NULL),
-(16, 3, '789456123', '2022-01-25 16:48:55', '2022-01-25 16:50:14', '2022-01-25 16:50:14', NULL),
-(17, 3, '789456123', '2022-01-25 16:50:14', '2022-01-25 16:50:47', '2022-01-25 16:50:47', NULL),
-(18, 3, '789456123', '2022-01-25 16:50:47', '2022-01-25 16:51:10', '2022-01-25 16:51:10', NULL),
-(19, 3, '789456123', '2022-01-25 16:51:10', '2022-01-25 16:52:15', '2022-01-25 16:52:15', NULL),
-(20, 3, '123456', '2022-01-25 16:51:10', '2022-01-25 16:52:15', '2022-01-25 16:52:15', NULL),
-(21, 3, '789456123', '2022-01-25 16:52:15', '2022-02-10 15:46:22', '2022-02-10 15:46:22', NULL),
-(22, 3, '123456', '2022-01-25 16:52:15', '2022-02-10 15:46:22', '2022-02-10 15:46:22', NULL),
-(23, 4, '34534535434', '2022-01-25 17:10:58', '2022-01-25 17:20:10', '2022-01-25 17:20:10', NULL),
-(24, 4, '34534535434', '2022-01-25 17:20:10', '2022-01-25 17:23:21', '2022-01-25 17:23:21', NULL),
-(25, 4, '34534535434', '2022-01-25 17:23:21', '2022-01-28 03:10:26', '2022-01-28 03:10:26', NULL),
-(26, 5, '6792384629386', '2022-01-27 20:14:10', NULL, '2022-01-27 20:14:10', NULL),
-(27, 2, '255345343', '2022-01-27 20:15:10', NULL, '2022-01-27 20:15:10', NULL),
-(28, 6, '7897879789', '2022-01-28 01:01:48', NULL, '2022-01-28 01:01:48', NULL),
-(29, 4, '34534535434', '2022-01-28 03:10:26', '2022-01-28 03:10:44', '2022-01-28 03:10:44', NULL),
-(30, 4, '34534535434', '2022-01-28 03:10:44', NULL, '2022-01-28 03:10:44', NULL),
-(31, 9, '242323423234', '2022-02-09 14:54:23', NULL, '2022-02-09 14:54:23', NULL),
-(32, 10, '123123123', '2022-02-09 15:32:09', NULL, '2022-02-09 15:32:09', NULL),
-(33, 3, '789456123', '2022-02-10 15:46:22', '2022-02-10 15:47:00', '2022-02-10 15:47:00', NULL),
-(34, 3, '123456', '2022-02-10 15:46:22', '2022-02-10 15:47:00', '2022-02-10 15:47:00', NULL),
-(35, 3, '789456123', '2022-02-10 15:47:00', NULL, '2022-02-10 15:47:00', NULL),
-(36, 3, '123456', '2022-02-10 15:47:00', NULL, '2022-02-10 15:47:00', NULL);
+(1, 2, '123456789', '2022-02-11 11:59:52', NULL, '2022-02-11 11:59:52', NULL),
+(2, 1, '4564564', '2022-02-11 12:23:29', '2022-02-11 18:48:08', '2022-02-11 18:48:08', NULL),
+(5, 1, '4564564', '2022-02-11 18:48:08', NULL, '2022-02-11 18:48:08', NULL);
 
 --
 -- Indexes for dumped tables
@@ -710,7 +661,8 @@ ALTER TABLE `calls`
 -- Indexes for table `clients`
 --
 ALTER TABLE `clients`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `updated_by` (`updated_by`);
 
 --
 -- Indexes for table `client_banks`
@@ -856,19 +808,19 @@ ALTER TABLE `user_numbers`
 -- AUTO_INCREMENT for table `analysts`
 --
 ALTER TABLE `analysts`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `analyst_numbers`
 --
 ALTER TABLE `analyst_numbers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `calls`
 --
 ALTER TABLE `calls`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `clients`
@@ -880,19 +832,19 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT for table `client_banks`
 --
 ALTER TABLE `client_banks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `client_brokers`
 --
 ALTER TABLE `client_brokers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `client_demat`
 --
 ALTER TABLE `client_demat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `client_mode`
@@ -904,13 +856,13 @@ ALTER TABLE `client_mode`
 -- AUTO_INCREMENT for table `client_payment`
 --
 ALTER TABLE `client_payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `client_professions`
 --
 ALTER TABLE `client_professions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -922,13 +874,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -940,25 +892,25 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_screenshots`
 --
 ALTER TABLE `tbl_screenshots`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `trader`
 --
 ALTER TABLE `trader`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_account_types`
@@ -970,7 +922,7 @@ ALTER TABLE `user_account_types`
 -- AUTO_INCREMENT for table `user_numbers`
 --
 ALTER TABLE `user_numbers`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -987,6 +939,12 @@ ALTER TABLE `analyst_numbers`
 --
 ALTER TABLE `calls`
   ADD CONSTRAINT `calls_ibfk_1` FOREIGN KEY (`analyst_id`) REFERENCES `analysts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `clients`
+--
+ALTER TABLE `clients`
+  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `client_demat`
