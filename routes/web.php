@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/user/update/{id}",[UserController::class,"update"])->name("updateUser");
     // remove user
     Route::get("/user/delete/{id}",[UserController::class,"delete"])->name("deleteUser");
-    
+
     // list roles
     Route::get("/roles",[RolesController::class, "view"])->name("roles");
     // create role
@@ -74,7 +74,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post("/role/edit/{id}",[RolesController::class, "editRole"])->name("editRole");
     // remove role
     Route::get("/role/remove/{id}",[RolesController::class, "removeRole"])->name("removeRole");
-    
+
     // list analyst
     Route::get("/analyst", [AnalystController::class, "view"])->name("analysts");
     // create analyst
@@ -84,7 +84,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/analyst/{id}", [AnalystController::class, "getAnalyst"])->name("getAnalysts");
     // edit analyst
     Route::POST("/analyst/edit",[AnalystController::class, "editAnalyst"])->name("editAnalyst");
-    
+    // list monitor
+    Route::get("/monitor", [AnalystController::class, "viewMonitor"])->name("viewMonitor");
+    Route::get("/monitor_analysts", [AnalystController::class, "viewMonitorAnalysts"])->name("viewMonitorAnalysts");
+    Route::get("/monitor_analysts/{id}", [AnalystController::class, "viewMonitorAnalystsById"])->name("viewMonitorAnalystsById");
+
+
     // list calls
     Route::get("/calls",[CallController::class, "view"])->name('calls');
     // create call
@@ -107,8 +112,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/settings/users/getAccountType",[AccountTypesController::class,"get"])->name("getAccountType");
     // edit AccountType
     Route::POST("/settings/users/editAccountType",[AccountTypesController::class,"edit"])->name("editAccountType");
-    
-    
+
+
     // clients settings
     Route::get("/settings/clients",[ProfessionController::class,"view"])->name("viewClientsProfession");
     // create Profession
@@ -119,7 +124,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/settings/clients/editProfession",[ProfessionController::class,"edit"])->name("editProfession");
     // removeProfession
     Route::get("/settings/clients/removeProfession/{id}",[ProfessionController::class,"remove"])->name("removeProfession");
-    
+
     // viewClientsBroker
     Route::get("/settings/clients/broker",[BrokerController::class,"view"])->name("viewClientsBroker");
     // createBroker
@@ -141,7 +146,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/settings/clients/editBank", [BankDetailsController::class, "edit"])->name("editBank");
     // removeBank
     Route::get("/settings/clients/removeBank/{id}", [BankDetailsController::class, "remove"])->name("removeBank");
-    
+
     // trader
     Route::get("/trader",[TraderController::class, "view"])->name("viewTrader");
     Route::POST("/trader/client/assign",[TraderController::class,'create'])->name('assignClientToTrader');

@@ -15,8 +15,9 @@ class RoleServices
         $permissions = $request->validate([
             'permission' => 'required|array'
         ]);
+
         try {
-            $role = Role::create(['name' => $role]);
+            $role = Role::create(['name' => isset($role['role']) ? $role['role'] : '']);
             return $role->syncPermissions($permissions);
         } catch (\Throwable $th) {
             CommonService::throwError("Unable to create Role");
@@ -64,6 +65,6 @@ class RoleServices
         } catch (\Throwable $th) {
             CommonService::throwError("Unable to update this role");
         }
-        
+
     }
 }

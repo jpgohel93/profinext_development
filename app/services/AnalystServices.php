@@ -25,6 +25,7 @@ class AnalystServices{
             "telegram_id"=>"required",
             "youtube"=>"required",
             "status"=>"required",
+            "assign_user_id"=>"required",
         ]);
         if(isset($request->has_site) && $request->has_site=="1"){
             $web = $request->validate([
@@ -61,10 +62,24 @@ class AnalystServices{
                 "total_calls"=>"required",
                 "accuracy"=>"required",
                 "trading_capacity"=>"required",
-                "status"=>"required",
+                "status"=>"required"
             ]);
             return Analyst::where("id", $request->analyst_id)->update($analyst);
         }
         return Analyst::where("id", $request->analyst_id)->update(["status"=> "Terminated"]);
+    }
+
+    public static function allUserAssignAnalysts($id){
+        $analyst = [];
+        // get all Active
+        $analyst['active'] = Analyst::with(["analystNumbers"])->where("status", "Active")->where('assign_user_id',$id)->get();
+        // get all Experiment
+        $analyst['experiment'] = Analyst::with(["analystNumbers"])->where("status", "Experiment")->where('assign_user_id',$id)->get();
+        // get all Paper Trade
+        $analyst['paper_trade'] = Analyst::with(["analystNumbers"])->where("status", "Paper Trade")->where('assign_user_id',$id)->get();
+        // get all Terminated
+        $analyst['terminated'] = Analyst::with(["analystNumbers"])->where("status", "Terminated")->where('assign_user_id',$id)->get();
+
+        return $analyst;
     }
 }

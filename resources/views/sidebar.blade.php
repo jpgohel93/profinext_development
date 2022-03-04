@@ -58,7 +58,7 @@
                         </span>
                         <span class="menu-title">Client</span>
                     </a>
-                </div> 
+                </div>
                 <div class="menu-item">
                     <a class="menu-link @yield('roles')" href="{{route('roles')}}">
                         <span class="menu-icon">
@@ -73,7 +73,7 @@
                         </span>
                         <span class="menu-title">Roles</span>
                     </a>
-                </div> 
+                </div>
                 <div class="menu-item">
                     <a class="menu-link @yield('users')" href="{{route('users')}}">
                         <span class="menu-icon">
@@ -88,22 +88,66 @@
                         </span>
                         <span class="menu-title">Users</span>
                     </a>
-                </div> 
-                <div class="menu-item">
-                    <a class="menu-link @yield('analyst')" href="{{route('analysts')}}">
+                </div>
+{{--                <div class="menu-item">--}}
+{{--                    <a class="menu-link @yield('analyst')" href="{{route('analysts')}}">--}}
+{{--                        <span class="menu-icon">--}}
+{{--                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->--}}
+{{--                            <span class="svg-icon svg-icon-2">--}}
+{{--                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">--}}
+{{--                                    <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black"></path>--}}
+{{--                                    <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black"></rect>--}}
+{{--                                </svg>--}}
+{{--                            </span>--}}
+{{--                            <!--end::Svg Icon-->--}}
+{{--                        </span>--}}
+{{--                        <span class="menu-title">Analysis</span>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('analysis')">
+                    <span class="menu-link">
                         <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                            <!--begin::Svg Icon | path: icons/duotune/communication/com013.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black"></path>
-                                    <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black"></rect>
+                                    <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black" />
+                                    <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black" />
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Analyst</span>
-                    </a>
-                </div> 
+                        <span class="menu-title">Analysis</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                        <div class="menu-item">
+                            <a class="menu-link @yield('analysis.analysis')" href="{{route('analysts')}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Analysis</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link @yield('analysis.monitor')" href="{{route('viewMonitor')}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Monitor</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link @yield('analysis.analyst')" href="{{route('viewMonitorAnalysts')}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Analyst</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="menu-item">
                     <a class="menu-link @yield('calls')" href="{{route('calls')}}">
                         <span class="menu-icon">
@@ -118,7 +162,7 @@
                         </span>
                         <span class="menu-title">Calls</span>
                     </a>
-                </div> 
+                </div>
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('accordion')">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -183,12 +227,12 @@
                         </span>
                         <span class="menu-title">Trader</span>
                     </a>
-                </div> 
+                </div>
             </div>
             <!--end::Menu-->
         </div>
         <!--end::Aside Menu-->
     </div>
-    <!--end::Aside menu--> 
+    <!--end::Aside menu-->
 </div>
 <!--end::Aside-->

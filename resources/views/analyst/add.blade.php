@@ -1,8 +1,9 @@
 @extends('layout')
-@section("page-title","Add Analst")
-@section("analyst","active")
+@section("page-title","Add Analysis")
+@section("analysis.analysis","active")
+@section("analysis","hover show")
 @section("content")
-	<!--begin::Body-->	
+	<!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -31,7 +32,7 @@
                             <!--begin::Page title-->
                             <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                                 <!--begin::Title-->
-                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Add Analysts
+                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Add Analysis
                                 </h1>
                                 <!--end::Title-->
                             </div>
@@ -41,7 +42,7 @@
                     </div>
                     <!--end::Toolbar-->
                     <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid" id="kt_modal_create_app_stepper">
-                        
+
                         <!--begin::Content-->
                         <div class="flex-row-fluid px-lg-15">
                             <!--begin::Form-->
@@ -68,7 +69,7 @@
                                             <!--end::Input group-->
 
                                             <div class="row d-flex align-items-end mb-5 custom_appendDiv">
-                                                
+
                                             <!--begin::Input group-->
                                             <div class="col-6">
                                                 <!--begin::Label-->
@@ -91,7 +92,7 @@
                                             <div id="appendDivWp"></div>
                                         </div>
                                         <div class="row mb-4">
-                                            
+
                                         <!--begin::Input group-->
                                         <div class="col-4">
                                             <!--begin::Label-->
@@ -103,8 +104,8 @@
                                             <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="telegram_id" placeholder="" value="{{old('telegram_id')}}" />
                                             <!--end::Input-->
                                         </div>
-                                        
-                                            
+
+
                                         <!--begin::Input group-->
                                         <div class="col-4">
                                             <!--begin::Label-->
@@ -135,21 +136,42 @@
                                         <!--end::Input group-->
                                         </div>
                                         <!--begin::Input group-->
-                                        <div class="col-4">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                <span class="required">Status</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <select name="status" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
-                                                <option></option>
-                                                <option value="Active" {{(old('status')=="Active")?"selected":""}}>Active</option>
-                                                <option value="Experiment" {{(old('status')=="Experiment")?"selected":""}}>Experiment</option>
-                                                <option value="Paper Trade" {{(old('status')=="Paper Trade")?"selected":""}}>Paper Trade</option>
-                                                <option value="Terminated" {{(old('status')=="Terminated")?"selected":""}}>Terminated</option>
-                                            </select>
-                                            <!--end::Input-->
+                                        <div class="mb-4 row">
+                                            <div class="col-4">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                    <span class="required">Status</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <select name="status" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
+                                                    <option></option>
+                                                    <option value="Active" {{(old('status')=="Active")?"selected":""}}>Active</option>
+                                                    <option value="Experiment" {{(old('status')=="Experiment")?"selected":""}}>Experiment</option>
+                                                    <option value="Paper Trade" {{(old('status')=="Paper Trade")?"selected":""}}>Paper Trade</option>
+                                                    <option value="Terminated" {{(old('status')=="Terminated")?"selected":""}}>Terminated</option>
+                                                </select>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="col-4">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                    <span class="required">Assign To</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <select name="assign_user_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Monitor">
+                                                    <option></option>
+                                                    @if(!empty($monitor))
+                                                        @foreach($monitor as $monitorData)
+                                                            <option value="{{$monitorData->id}}">{{$monitorData->name}}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                                <!--end::Input-->
+                                            </div>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -220,7 +242,7 @@
         </div>
         <!--end::Page-->
     </div>
-    <!--begin::Modals-->   
+    <!--begin::Modals-->
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
@@ -235,7 +257,7 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(document).on("click", "#addmoreWhatsapp", function () {
-                var newcomp1 = $('#hiddenaddmoreWhatsapp').html();                
+                var newcomp1 = $('#hiddenaddmoreWhatsapp').html();
                 $('.custom_appendDiv').append(newcomp1);
                 resetCounter();
             });
@@ -255,6 +277,6 @@
         });
     </script>
     @section('jscript')
-        
+
     @endsection
 @endsection
