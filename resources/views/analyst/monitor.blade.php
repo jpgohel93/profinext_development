@@ -1,6 +1,6 @@
 @extends('layout')
 @section("page-title","Analysis")
-@section("analysis.monitor","active")
+@section("analysis.monitor.data","active")
 @section("analysis","hover show")
 @section("content")
     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
@@ -57,7 +57,7 @@
                             <div class="d-flex align-items-center py-1">
                             @can("role-create")
                                 <!--begin::Button-->
-                                    <a href="{{route('createUserForm')}}" class="btn btn-sm btn-primary" id="kt_toolbar_primary_button">
+                                    <a href="{{route('users')}}" class="btn btn-sm btn-primary" id="kt_toolbar_primary_button">
 									<span class="svg-icon svg-icon-2">
 										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 											<rect x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
@@ -181,7 +181,7 @@
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <td colspan="4">No Analysis Found</td>
+                                                        <td colspan="4">No Monitor Found</td>
                                                     </tr>
                                                 @endforelse
                                             @else

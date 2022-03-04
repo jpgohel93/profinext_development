@@ -64,7 +64,7 @@
 														<!--end::Input-->
 													</div>
 													<!--end::Input group-->
-														
+
 													<!--begin::Input group-->
 													<div class="col-md-6 col-sm-12 mb-5">
 														<!--begin::Label-->
@@ -77,7 +77,7 @@
 														<!--end::Input-->
 													</div>
 												</div>
-												
+
 												<div class="row d-flex align-items-end mb-5 custom_appendDiv">
 													<!--begin::Input group-->
 													<div class="col-md-6 col-sm-12 mb-5">
@@ -120,7 +120,7 @@
 																			</svg>
 																		</button>
 																	</div>
-																</div>	
+																</div>
 															@else
 																<div class="col-md-6 col-sm-12 mb-5">
 																	<!--begin::Label-->
@@ -196,9 +196,9 @@
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
-                                            
 
-                            
+
+
 												<!--begin::Input group-->
 												<div class="col-md-6 col-sm-12 mb-5">
 													<!--begin::Label-->
@@ -226,7 +226,7 @@
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
-                                                
+
 												<!--begin::Input group-->
 												<div class="col-md-6 col-sm-12 mb-5">
                                                     <!--begin::Label-->
@@ -246,7 +246,7 @@
 												</div>
 												<!--end::Input group-->
                                             </div>
-                                        
+
 										</div>
 									</div>
 									<!--end::Step 1-->
@@ -271,7 +271,7 @@
                                                     <!--begin:Option-->
                                                     <label class="d-flex flex-stack cursor-pointer mb-5">
                                                         <!--begin::Label-->
-                                                        <span class="d-flex align-items-center me-2"> 
+                                                        <span class="d-flex align-items-center me-2">
                                                             <!--begin::Info-->
                                                             <span class="d-flex flex-column">
                                                                 <span class="fw-bolder fs-6">Partner</span>
@@ -288,7 +288,7 @@
                                                     <!--end::Option-->
                                                 </div>
 
-                                                
+
 
                                                 <!--end::Col-->
                                                 <div class="col-1"></div>
@@ -297,7 +297,7 @@
                                                     <!--begin:Option-->
                                                     <label class="d-flex flex-stack cursor-pointer mb-5">
                                                         <!--begin::Label-->
-                                                        <span class="d-flex align-items-center me-2"> 
+                                                        <span class="d-flex align-items-center me-2">
                                                             <!--begin::Info-->
                                                             <span class="d-flex flex-column">
                                                                 <span class="fw-bolder fs-6">Employee</span>
@@ -311,14 +311,14 @@
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
-                                                    <!--end::Option--> 
+                                                    <!--end::Option-->
                                                 </div>
                                                 <!--end::Col-->
                                             </div>
 
 
                                             <div class="row" id="partnerDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
-                                                
+
                                                 <!--begin::Input group-->
 												<div class="col-md-6 mb-5">
 													<!--begin::Label-->
@@ -347,7 +347,7 @@
                                             </div>
 
                                             <div class="row" id="employeeDiv" style="display:{{(old('user_type')==2)?"flex":old('user_type')!=1?"flex":"none"}};">
-                                                
+
                                                 <!--begin::Input group-->
 												<div class="col-md-6 mb-5">
 													<!--begin::Label-->
@@ -365,7 +365,7 @@
                                                     <!--begin::Label-->
                                                     <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                     <!--end::Label-->
-                                                    <!--begin::Input--> 
+                                                    <!--begin::Input-->
                                                     <input type="text" name="joining_date" value="{{date("Y-m-d",strtotime("now"))}}" readonly class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select date"/>
                                                     <!--end::Input-->
                                                 </div>
@@ -385,7 +385,7 @@
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
-                                                
+
 												<!--begin::Input group-->
 												<div class="col-md-6 col-sm-12 mb-5">
                                                     <!--begin::Label-->
@@ -395,7 +395,8 @@
 													<!--end::Label-->
 													<!--begin::Input-->
 													{{-- <select name="account_type" data-control="select2" class="form-select form-select-sm form-select-solid"> --}}
-                                                    <select name="role" aria-label="Select a role" data-control="select2" class="form-select form-select-sm form-select-solid">
+                                                    <select name="role" aria-label="Select a role" data-control="select2" class="form-select form-select-sm form-select-solid" data-placeholder="Select Role">
+                                                        <option></option>
 														@forelse ($roles as $role)
                                                         	<option value="{{$role->name}}" {{old('role')==$role->name?"selected":""}}>{{$role->name}}</option>
 														@empty
@@ -406,7 +407,7 @@
 												</div>
 												<!--end::Input group-->
                                             </div>
-                                        
+
 										</div>
 									</div>
 									<!--end::Step 2-->
@@ -427,7 +428,7 @@
 										</div>
 										<!--end::Wrapper-->
 										<!--begin::Wrapper-->
-										<div>                                            
+										<div>
 											<button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="submit">
 												<span class="indicator-label">Submit
 												<!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
@@ -2293,11 +2294,11 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- hidden More Whatsapp Ends-->
 		<!--end::Scrolltop-->
 		<!--end::Main-->
-		
+
 		@section("jscript")
 			<script>
 				$(document).ready(function(){
@@ -2306,7 +2307,7 @@
 						// console.log(newcomp1);
 						$('.custom_appendDiv').append(newcomp1);
 						resetCounter();
-					});		
+					});
 
 					$(document).on("click",".remove-btn",function() {
 						$(this).closest(".removableDiv").remove();
@@ -2333,7 +2334,7 @@
 
 					return today_Date_Str;
 					}
-				
+
 					// $(function() {
 					// 	$(".c-date").datepicker({
 					// 	dateFormat: "dd-mm-yy",

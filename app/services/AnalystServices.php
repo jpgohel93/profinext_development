@@ -82,4 +82,10 @@ class AnalystServices{
 
         return $analyst;
     }
+
+    public static function allUserAnalysts($id){
+
+        $analyst =  Analyst::where("status", "Active")->where('assign_user_id',$id)->get();
+        return $analyst;
+    }
 }

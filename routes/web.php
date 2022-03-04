@@ -88,6 +88,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/monitor", [AnalystController::class, "viewMonitor"])->name("viewMonitor");
     Route::get("/monitor_analysts", [AnalystController::class, "viewMonitorAnalysts"])->name("viewMonitorAnalysts");
     Route::get("/monitor_analysts/{id}", [AnalystController::class, "viewMonitorAnalystsById"])->name("viewMonitorAnalystsById");
+    Route::get("/monitor_data", [AnalystController::class, "viewMonitorData"])->name("viewMonitorData");
+    Route::get("/monitor_call", [AnalystController::class, "createMonitorDataForm"])->name("createMonitorDataForm");
+    Route::POST("/monitor_call", [AnalystController::class, "createMonitorData"])->name("createMonitorData");
+    Route::get("/monitor_call_edit/{id}", [AnalystController::class, "editMonitorDataForm"])->name("editMonitorDataForm");
+    Route::POST("/monitor_call_edit", [AnalystController::class, "editMonitorData"])->name("editMonitorData");
 
 
     // list calls

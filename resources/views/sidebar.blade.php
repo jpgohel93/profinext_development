@@ -126,11 +126,19 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Analysis</span>
+                                <span class="menu-title">Analyst</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link @yield('analysis.monitor')" href="{{route('viewMonitor')}}">
+                            <a class="menu-link @yield('analysis.monitor.data')" href="{{route('viewMonitor')}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Monitor Data</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link @yield('analysis.monitor')" href="{{route('viewMonitorData')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -142,7 +150,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Analyst</span>
+                                <span class="menu-title">Report</span>
                             </a>
                         </div>
                     </div>
