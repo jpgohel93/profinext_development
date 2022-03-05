@@ -1,7 +1,6 @@
 @extends('layout')
 @section("page-title","Add Analysis")
 @section("analysis.monitor","active")
-@section("analysis","hover show")
 @section("content")
 <!--begin::Body-->
 <!--begin::Main-->
@@ -62,7 +61,6 @@
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <select name="analysts_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Analyst">
-                                            <option></option>
                                             @if(!empty($analysts))
                                                 @foreach($analysts as $analyst)
                                                     <option value="{{$analyst->id}}">{{$analyst->analyst}}</option>
@@ -81,7 +79,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="date" class="form-control form-control-lg form-control-solid bdr-ccc" name="date" placeholder="" value="{{old('date')}}" />
+                                        <input type="date" class="form-control form-control-lg form-control-solid bdr-ccc" name="date" placeholder="" value="{{date('d-m-Y')}}" />
                                         <!--end::Input-->
                                     </div>
 
@@ -165,35 +163,6 @@
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input type="time" class="form-control form-control-lg form-control-solid bdr-ccc" name="entry_time" placeholder="" value="{{old('entry_time')}}" />
-                                        <!--end::Input-->
-                                    </div>
-
-                                    <!--end::Input group-->
-                                </div>
-
-                                <div class="row mb-4">
-
-                                    <!--begin::Input group-->
-                                    <div class="col-6">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                            <span class="required">Exit Price</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="exit_price" placeholder="Exit Price" value="{{old('exit_price')}}" />
-                                        <!--end::Input-->
-                                    </div>
-
-                                    <!--begin::Input group-->
-                                    <div class="col-6">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                            <span class="required">Exit Time</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="time" class="form-control form-control-lg form-control-solid bdr-ccc" name="exit_time" placeholder="" value="{{old('exit_time')}}" />
                                         <!--end::Input-->
                                     </div>
 

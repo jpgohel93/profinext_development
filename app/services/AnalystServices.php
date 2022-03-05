@@ -16,6 +16,8 @@ class AnalystServices{
         $analyst['paper_trade'] = Analyst::with(["analystNumbers"])->where("status", "Paper Trade")->get();
         // get all Terminated
         $analyst['terminated'] = Analyst::with(["analystNumbers"])->where("status", "Terminated")->get();
+        // get all Terminated
+        $analyst['free_trade'] = Analyst::with(["analystNumbers"])->where("status", "Free Trade")->get();
 
         return $analyst;
     }

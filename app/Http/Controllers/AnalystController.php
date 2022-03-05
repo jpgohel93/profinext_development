@@ -43,6 +43,9 @@ class AnalystController extends Controller
     }
     public function viewMonitor(Request $request){
         $users = User::where("role","monitor")->get();
+        foreach ($users as $key => $data){
+            $users[$key]['total_analyst'] = MonitorDataServices::countMonitorData($data['id']);
+        }
         return view("analyst.monitor",compact('users'));
     }
     public function viewMonitorAnalysts(Request $request){
@@ -56,13 +59,20 @@ class AnalystController extends Controller
     }
 
     public function viewMonitorData(Request $request){
-        $monitorData = MonitorDataServices::all();
+        $auth_user = Auth::user();
+        $monitorData = MonitorDataServices::all($auth_user->id);
+        if(isset($monitorData['analyst']) && !empty($monitorData['analyst'])) {
+            foreach ($monitorData['analyst'] as $key => $data) {
+                $countData = MonitorDataServices::countAnalystCall($data['id']);
+                $monitorData['analyst'][$key]['close_call'] = $countData['close_call'];
+                $monitorData['analyst'][$key]['open_call'] = $countData['open_call'];
+            }
+        }
         return view("analyst.monitor_data",compact('monitorData'));
     }
 
-    public function createMonitorDataForm(Request $request){
-        $auth_user = Auth::user();
-        $analysts = AnalystServices::allUserAnalysts($auth_user->id);
+    public function createMonitorDataForm(Request $request,$id){
+        $analysts = Analyst::where("id",$id)->get();
         return view("analyst.monitor_data_add",compact('analysts'));
     }
 

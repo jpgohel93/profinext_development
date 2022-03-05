@@ -153,7 +153,8 @@
                                             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                 <th class="min-w-10px">Sr No.</th>
                                                 <th class="min-w-75px">Monitor Name</th>
-                                                <th class="min-w-75px">Status</th>
+                                                <th class="min-w-75px">Total Analyst</th>
+                                                <th class="min-w-75px">Action</th>
                                             </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold">
@@ -166,16 +167,19 @@
                                                         <td>{{$i++}}</td>
                                                         <td class="d-flex align-items-center">
                                                             <div class="d-flex flex-column">
-                                                                <a href="{{url('/monitor_analysts/'.$user->id)}}" target="_blank" class="text-gray-800 text-hover-primary mb-1">{{$user->name}}</a>
+                                                                <a href="#" target="_blank" class="text-gray-800 text-hover-primary mb-1">{{$user->name}}</a>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <div class="form-check form-check-solid form-switch fv-row">
-                                                                @if($user->status == 1)
-                                                                    <input class="form-check-input w-30px h-15px" type="checkbox" data-id="{{$user->id}}" id="allowmarketing" checked="checked" />
-                                                                @else
-                                                                    <input class="form-check-input w-30px h-15px" type="checkbox" data-id="{{$user->id}}" id="allowmarketing" checked="false" />
-                                                                @endif
+                                                            {{$user->total_analyst}}
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex justify-content-center">
+                                                                <div class="menu-item">
+                                                                    <a href="#" class="menu-link p-1" target="_blank">
+                                                                        <i class="fa fa-edit text-dark fa-2x"></i>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </td>
                                                     </tr>

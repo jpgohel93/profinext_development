@@ -1,7 +1,6 @@
 @extends('layout')
 @section("page-title","Add Analysis")
 @section("analysis.monitor","active")
-@section("analysis","hover show")
 @section("content")
     <!--begin::Body-->
     <!--begin::Main-->
@@ -216,8 +215,17 @@
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <select name="status" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
-                                                    <option value="open">Open</option>
-                                                    <option value="close">Close</option>
+                                                    <?php if(isset($monitorData->status) && $monitorData->status == "open"){?>
+                                                        <option value="open" selected>Open</option>
+                                                    <? } else{?>
+                                                        <option value="close">Close</option>
+                                                     <?php    }?>
+
+                                                    <?php if(isset($monitorData->status) && $monitorData->status == "close"){?>
+                                                        <option value="close" selected>Close</option>
+                                                    <? } else{?>
+                                                        <option value="open">Open</option>
+                                                    <?php    }?>
                                                 </select>
                                                 <!--end::Input-->
                                             </div>
@@ -231,6 +239,23 @@
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="risk_reward" placeholder="Risk Reward" value="{{isset($monitorData->risk_reward) ? $monitorData->risk_reward : ''}}" />
+                                                <!--end::Input-->
+                                            </div>
+
+                                            <!--end::Input group-->
+                                        </div>
+
+                                        <div class="row mb-4">
+
+                                            <!--begin::Input group-->
+                                            <div class="col-4">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                    <span class="required">Earning</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="earning" placeholder="Entry Price" value="{{isset($monitorData->earning) ? $monitorData->earning : ''}}" />
                                                 <!--end::Input-->
                                             </div>
 
