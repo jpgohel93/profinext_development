@@ -55,15 +55,15 @@ class AnalystServices{
         }
     }
     public static function getAnalyst($id){
-        return Analyst::where("id",$id)->first(["id", "total_calls", "accuracy", "trading_capacity","analyst","status"]);
+        return Analyst::where("id",$id)->first(["id", "total_calls", "accuracy", "trading_capacity","analyst","status","assign_user_id"]);
     }
     public static function update($request){
         if($request->status!= "Terminated"){
             $analyst = $request->validate([
                 "analyst"=>"required",
-                "total_calls"=>"required",
-                "accuracy"=>"required",
-                "trading_capacity"=>"required",
+//                "total_calls"=>"required",
+//                "accuracy"=>"required",
+//                "trading_capacity"=>"required",
                 "status"=>"required"
             ]);
             return Analyst::where("id", $request->analyst_id)->update($analyst);
@@ -90,4 +90,14 @@ class AnalystServices{
         $analyst =  Analyst::where("status", "Active")->where('assign_user_id',$id)->get();
         return $analyst;
     }
+
+    public static function updateAssignTo($request)
+    {
+        $analyst = $request->validate([
+            "analyst" => "required",
+            "assign_user_id" => "required"
+        ]);
+        return Analyst::where("id", $request->analyst_id)->update($analyst);
+    }
+
 }

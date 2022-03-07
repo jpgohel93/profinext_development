@@ -176,7 +176,7 @@
                                                         <td>
                                                             <div class="d-flex justify-content-center">
                                                                 <div class="menu-item">
-                                                                    <a href="#" class="menu-link p-1" target="_blank">
+                                                                    <a href="{{url('monitor_analysts/'.$user->id)}}" class="menu-link p-1" target="_blank">
                                                                         <i class="fa fa-edit text-dark fa-2x"></i>
                                                                     </a>
                                                                 </div>

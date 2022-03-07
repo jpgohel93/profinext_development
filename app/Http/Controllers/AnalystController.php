@@ -23,10 +23,138 @@ class AnalystController extends Controller
     }
     public function view(Request $request){
         $analysts = AnalystServices::all();
+        $dataArray = array();
+        foreach ($analysts['active'] as $key => $analyst){
+            $totalCall = MonitorDataServices::countAnalystCall($analyst['id']);
+            $analysts['active'][$key]['total_calls'] = $totalCall['close_call'] > 0 ? $totalCall['close_call'] : 0;
+            $monitorCallData = MonitorDataServices::getAnalystCallData($analyst['id']);
+            $totalProfitCall = 0;
+            $accuracy = 0;
+            $totalReward= 0;
+            $rewardCount= 0;
+            foreach ($monitorCallData as $monitorCall){
+                $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
+                if($pl > 0){
+                    $totalProfitCall = $totalProfitCall + 1;
+                }
+
+                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                    $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
+                    $totalReward = $totalReward + $reward;
+                }
+                $rewardCount = $rewardCount + 1;
+            }
+            if($totalProfitCall > 0) {
+                $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
+            }
+            $analysts['active'][$key]['accuracy'] = $accuracy >= 0 ? $accuracy : 0;
+            $analysts['active'][$key]['reward'] = $rewardCount >= 0 && $totalReward > 0 ? $totalReward/$rewardCount : 0;
+        }
+        foreach ($analysts['experiment'] as $key => $analyst){
+            $totalCall = MonitorDataServices::countAnalystCall($analyst['id']);
+            $analysts['experiment'][$key]['total_calls'] = $totalCall['close_call'] > 0 ? $totalCall['close_call'] : 0;
+            $monitorCallData = MonitorDataServices::getAnalystCallData($analyst['id']);
+            $totalProfitCall = 0;
+            $accuracy = 0;
+            $totalReward= 0;
+            $rewardCount= 0;
+            foreach ($monitorCallData as $monitorCall){
+                $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
+                if($pl > 0){
+                    $totalProfitCall = $totalProfitCall + 1;
+                }
+                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                    $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
+                    $totalReward = $totalReward + $reward;
+                }
+                $rewardCount = $rewardCount + 1;
+            }
+            if($totalProfitCall > 0) {
+                $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
+            }
+            $analysts['experiment'][$key]['accuracy'] = $accuracy > 0 ? $accuracy : 0;
+            $analysts['experiment'][$key]['reward'] = $rewardCount >= 0 && $totalReward > 0? $totalReward/$rewardCount : 0;
+        }
+        foreach ($analysts['paper_trade'] as $key => $analyst){
+            $totalCall = MonitorDataServices::countAnalystCall($analyst['id']);
+            $analysts['paper_trade'][$key]['total_calls'] = $totalCall['close_call'] > 0 ? $totalCall['close_call'] : 0;
+            $monitorCallData = MonitorDataServices::getAnalystCallData($analyst['id']);
+            $totalProfitCall = 0;
+            $accuracy = 0;
+            $totalReward= 0;
+            $rewardCount= 0;
+            foreach ($monitorCallData as $monitorCall){
+                $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
+                if($pl > 0){
+                    $totalProfitCall = $totalProfitCall + 1;
+                }
+                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                    $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
+                    $totalReward = $totalReward + $reward;
+                }
+                $rewardCount = $rewardCount + 1;
+            }
+            if($totalProfitCall > 0) {
+                $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
+            }
+            $analysts['paper_trade'][$key]['accuracy'] = $accuracy > 0 ? $accuracy : 0;
+            $analysts['paper_trade'][$key]['reward'] = $rewardCount >= 0 && $totalReward > 0 ? $totalReward/$rewardCount : 0;
+        }
+        foreach ($analysts['terminated'] as $key => $analyst){
+            $totalCall = MonitorDataServices::countAnalystCall($analyst['id']);
+            $analysts['terminated'][$key]['total_calls'] = $totalCall['close_call'] > 0 ? $totalCall['close_call'] : 0;
+            $monitorCallData = MonitorDataServices::getAnalystCallData($analyst['id']);
+            $totalProfitCall = 0;
+            $accuracy = 0;
+            $totalReward= 0;
+            $rewardCount= 0;
+            foreach ($monitorCallData as $monitorCall){
+                $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
+                if($pl > 0){
+                    $totalProfitCall = $totalProfitCall + 1;
+                }
+                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                    $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
+                    $totalReward = $totalReward + $reward;
+                }
+                $rewardCount = $rewardCount + 1;
+            }
+            if($totalProfitCall > 0) {
+                $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
+            }
+            $analysts['terminated'][$key]['accuracy'] = $accuracy > 0 ? $accuracy : 0;
+            $analysts['terminated'][$key]['reward'] = $rewardCount >= 0 && $totalReward > 0 ? $totalReward/$rewardCount : 0;
+        }
+        foreach ($analysts['free_trade'] as $key => $analyst){
+            $totalCall = MonitorDataServices::countAnalystCall($analyst['id']);
+            $analysts['free_trade'][$key]['total_calls'] = $totalCall['close_call'] > 0 ? $totalCall['close_call'] : 0;
+            $monitorCallData = MonitorDataServices::getAnalystCallData($analyst['id']);
+            $totalProfitCall = 0;
+            $accuracy = 0;
+            $totalReward= 0;
+            $rewardCount= 0;
+            foreach ($monitorCallData as $monitorCall){
+                $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
+                if($pl > 0){
+                    $totalProfitCall = $totalProfitCall + 1;
+                }
+                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                    $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
+                    $totalReward = $totalReward + $reward;
+                }
+                $rewardCount = $rewardCount + 1;
+            }
+            if($totalProfitCall > 0) {
+                $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
+            }
+            $analysts['free_trade'][$key]['accuracy'] = $accuracy > 0 ? $accuracy : 0;
+            $analysts['free_trade'][$key]['reward'] = $rewardCount >= 0 && $totalReward > 0 ? $totalReward/$rewardCount : 0;
+        }
+
         return view("analyst.analyst",compact('analysts'));
     }
     public function createForm(){
-        $monitor = User::where("role","monitor")->get();
+        $monitor = User::where("role",'like', "%monitor%")->get();
         return view("analyst.add",compact('monitor'));
     }
     public function create(Request $request){
@@ -42,7 +170,7 @@ class AnalystController extends Controller
         return Redirect::route('analysts')->with("info", "Analyst has been Updated");
     }
     public function viewMonitor(Request $request){
-        $users = User::where("role","monitor")->get();
+        $users = User::where("role",'like', "%monitor%")->get();
         foreach ($users as $key => $data){
             $users[$key]['total_analyst'] = MonitorDataServices::countMonitorData($data['id']);
         }
@@ -54,8 +182,9 @@ class AnalystController extends Controller
         return view("analyst.monitor_analysts",compact('analysts'));
     }
     public function viewMonitorAnalystsById(Request $request,$id){
-        $analysts = AnalystServices::allUserAssignAnalysts($id);
-        return view("analyst.monitor_analysts",compact('analysts'));
+        $analysts = MonitorDataServices::allUserAnalysts($id);
+        $monitor = User::where("role",'like', "%monitor%")->get();
+        return view("analyst.monitor_analysts",compact('analysts','monitor'));
     }
 
     public function viewMonitorData(Request $request){
@@ -93,7 +222,36 @@ class AnalystController extends Controller
     public function editMonitorData(Request $request){
         $auth_user = Auth::user();
         $request['monitor_id'] = $auth_user->id;
+        $request['sl_status'] = null;
+        if($request['status'] == "close"){
+            if($request['entry_price'] <= $request['exit_price']) {
+                if ($request['exit_price'] == $request['target']) {
+                    $request['sl_status'] = "Target";
+                } else if ($request['exit_price'] > $request['target']) {
+                    $request['sl_status'] = "Access Target";
+                } else if ($request['exit_price'] < $request['target']) {
+                    $request['sl_status'] = "Early Target";
+                }
+            }else if($request['entry_price'] > $request['exit_price']) {
+                if ($request['exit_price'] == $request['sl']) {
+                    $request['sl_status'] = "SL";
+                } else if ($request['exit_price'] > $request['sl']) {
+                    $request['sl_status'] = "Early SL";
+                } else if ($request['exit_price'] < $request['sl']) {
+                    $request['sl_status'] = "Trapped";
+                }
+            }
+        }
         MonitorDataServices::update($request);
         return Redirect::route('viewMonitorData')->with("info","Monitor Data has been updated");
+    }
+
+    public function editAnalystAssignTo(Request $request){
+        AnalystServices::updateAssignTo($request);
+        return Redirect::route('viewMonitor')->with("info", "Analyst has been Updated");
+    }
+
+    public function report(){
+        return view("analyst.report");
     }
 }

@@ -187,7 +187,7 @@
                                                                 <th class="min-w-125px">Analyst Name</th>
                                                                 <th class="min-w-125px">No of Calls</th>
                                                                 <th class="min-w-75px">Accuracy</th>
-                                                                <th class="min-w-75px">Trading Capacity</th>
+                                                                <th class="min-w-75px">Risk Reward</th>
                                                                 <th class="text-end min-w-100px">Actions</th>
                                                             </tr>
                                                         </thead>
@@ -205,7 +205,7 @@
                                                                     </td>
                                                                     <td>{{$analyst->total_calls}}</td>
                                                                     <td>{{$analyst->accuracy}}</td>
-                                                                    <td>{{$analyst->trading_capacity}}</td>
+                                                                    <td>{{$analyst->reward}}</td>
                                                                     <td class="text-end">
                                                                         <div class="d-flex justify-content-end align-items-center">
                                                                             <div class="menu-item px-3">
@@ -310,7 +310,7 @@
                                                                 <th class="min-w-125px">Analyst Name</th>
                                                                 <th class="min-w-125px">No of Calls</th>
                                                                 <th class="min-w-75px">Accuracy</th>
-                                                                <th class="min-w-75px">Trading Capacity</th>
+                                                                <th class="min-w-75px">Risk Reward</th>
                                                                 <th class="text-end min-w-100px">Actions</th>
                                                             </tr>
                                                         </thead>
@@ -328,7 +328,7 @@
                                                                     </td>
                                                                     <td>{{$analyst->total_calls}}</td>
                                                                     <td>{{$analyst->accuracy}}</td>
-                                                                    <td>{{$analyst->trading_capacity}}</td>
+                                                                    <td>{{$analyst->reward}}</td>
                                                                     <td class="text-end">
                                                                         <div class="d-flex justify-content-end align-items-center">
                                                                             <div class="menu-item px-3">
@@ -433,7 +433,7 @@
                                                                 <th class="min-w-125px">Client Name</th>
                                                                 <th class="min-w-125px">No of Calls</th>
                                                                 <th class="min-w-75px">Accuracy</th>
-                                                                <th class="min-w-75px">Trading Capacity</th>
+                                                                <th class="min-w-75px">Risk Reward</th>
                                                                 <th class="text-end min-w-100px">Actions</th>
                                                             </tr>
                                                         </thead>
@@ -451,7 +451,7 @@
                                                                     </td>
                                                                     <td>{{$analyst->total_calls}}</td>
                                                                     <td>{{$analyst->accuracy}}</td>
-                                                                    <td>{{$analyst->trading_capacity}}</td>
+                                                                    <td>{{$analyst->reward}}</td>
                                                                     <td class="text-end">
                                                                         <div class="d-flex justify-content-end align-items-center">
                                                                             <div class="menu-item px-3">
@@ -556,7 +556,7 @@
                                                                     <th class="min-w-125px">Client Name</th>
                                                                     <th class="min-w-125px">No of Calls</th>
                                                                     <th class="min-w-75px">Accuracy</th>
-                                                                    <th class="min-w-75px">Trading Capacity</th>
+                                                                    <th class="min-w-75px">Risk Reward</th>
                                                                     <th class="text-end min-w-100px">Actions</th>
                                                                 </tr>
                                                             </thead>
@@ -574,7 +574,7 @@
                                                                         </td>
                                                                         <td>{{$analyst->total_calls}}</td>
                                                                         <td>{{$analyst->accuracy}}</td>
-                                                                        <td>{{$analyst->trading_capacity}}</td>
+                                                                        <td>{{$analyst->reward}}</td>
                                                                         <td class="text-end">
                                                                             <div class="d-flex justify-content-end align-items-center">
                                                                                 <div class="menu-item px-3">
@@ -679,7 +679,7 @@
                                                                 <th class="min-w-125px">Client Name</th>
                                                                 <th class="min-w-125px">No of Calls</th>
                                                                 <th class="min-w-75px">Accuracy</th>
-                                                                <th class="min-w-75px">Trading Capacity</th>
+                                                                <th class="min-w-75px">Risk Reward</th>
                                                                 <th class="text-end min-w-100px">Actions</th>
                                                             </tr>
                                                         </thead>
@@ -697,7 +697,7 @@
                                                                     </td>
                                                                     <td>{{$analyst->total_calls}}</td>
                                                                     <td>{{$analyst->accuracy}}</td>
-                                                                    <td>{{$analyst->trading_capacity}}</td>
+                                                                    <td>{{$analyst->reward}}</td>
                                                                     <td class="text-end">
                                                                         <div class="d-flex justify-content-end align-items-center">
                                                                             <div class="menu-item px-3">
@@ -764,32 +764,32 @@
                                     <input class="form-control" name="analyst" type="text" value="{{old('analyst')}}" id="analyst"  />
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="example-email-input" class="col-3 col-form-label">No of calls</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" name="total_calls" value="{{old('total_calls')}}" id="total_colls"  /> </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="example-tel-input" class="col-3 col-form-label">Accuracy</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" value="{{old('accuracy')}}" name="accuracy" id="accuracy"  />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="example-tel-input" class="col-3 col-form-label">Trading Capacity</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" value="{{old('trading_capacity')}}" name="trading_capacity" id="trading_capacity"  />
-                                </div>
-                            </div>
+{{--                            <div class="form-group row">--}}
+{{--                                <label for="example-email-input" class="col-3 col-form-label">No of calls</label>--}}
+{{--                                <div class="col-9">--}}
+{{--                                    <input class="form-control" type="text" name="total_calls" value="{{old('total_calls')}}" id="total_colls"  /> </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group row">--}}
+{{--                                <label for="example-tel-input" class="col-3 col-form-label">Accuracy</label>--}}
+{{--                                <div class="col-9">--}}
+{{--                                    <input class="form-control" type="text" value="{{old('accuracy')}}" name="accuracy" id="accuracy"  />--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group row">--}}
+{{--                                <label for="example-tel-input" class="col-3 col-form-label">Trading Capacity</label>--}}
+{{--                                <div class="col-9">--}}
+{{--                                    <input class="form-control" type="text" value="{{old('trading_capacity')}}" name="trading_capacity" id="trading_capacity"  />--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="form-group row mb-0">
                                 <label for="no-of-demat" class="col-3 col-form-label">Status</label>
                                 <div class="col-9">
                                     <select name="status" id="analyst_status" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
                                         <option></option>
                                         <option value="Free Trade" {{(old('status')=="Free Trade")?"selected":""}}>Free Trade</option>
-                                        <option value="Active" {{(old('status')=="Active")?"selected":""}}>Active</option>
-                                        <option value="Experiment" {{(old('status')=="Experiment")?"selected":""}}>Experiment</option>
                                         <option value="Paper Trade" {{(old('status')=="Paper Trade")?"selected":""}}>Paper Trade</option>
+                                        <option value="Experiment" {{(old('status')=="Experiment")?"selected":""}}>Experiment</option>
+                                        <option value="Active" {{(old('status')=="Active")?"selected":""}}>Active</option>
                                         <option value="Terminated" {{(old('status')=="Terminated")?"selected":""}}>Terminated</option>
                                     </select>
                                 </div>

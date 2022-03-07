@@ -504,7 +504,23 @@
                                                                     <td>{{$i++}}</td>
                                                                     <td> {{$monitor->script_name}} </td>
                                                                     <td> {{$monitor->earning}} </td>
-                                                                    <td> {{$monitor->status}} </td>
+
+                                                                        @if($monitor->sl_status == "Target")
+                                                                            <td style="background: #0A8A0A;  color: whitesmoke;">{{$monitor->sl_status}}</td>
+                                                                        @elseif($monitor->sl_status == "Access Target")
+                                                                        <td style="background: #005800;  color: whitesmoke;">{{$monitor->sl_status}}</td>
+                                                                        @elseif($monitor->sl_status == "Early Target")
+                                                                            <td style="background: #3CBC3C;  color: whitesmoke;">{{$monitor->sl_status}}</td>
+                                                                        @elseif($monitor->sl_status == "SL")
+                                                                            <td style="background: #FF0A0A;  color: whitesmoke;">{{$monitor->sl_status}}</td>
+                                                                        @elseif($monitor->sl_status == "Early SL")
+                                                                            <td style="background: #FF4646;  color: whitesmoke;">{{$monitor->sl_status}}</td>
+                                                                        @elseif($monitor->sl_status == "Trapped")
+                                                                            <td style="background: #C30000; color: whitesmoke;">{{$monitor->sl_status}}</td>
+                                                                        @else
+                                                                            <td>{{$monitor->sl_status}}</td>
+                                                                        @endif
+
                                                                     <td class="">
                                                                         <div class="d-flex justify-content-center">
                                                                             <div class="menu-item">

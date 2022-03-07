@@ -137,6 +137,14 @@
                                 <span class="menu-title">Monitor Data</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                            <a class="menu-link @yield('analysis.report')" href="{{route('report')}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Report</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
