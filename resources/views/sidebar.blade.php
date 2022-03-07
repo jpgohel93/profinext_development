@@ -137,14 +137,6 @@
                                 <span class="menu-title">Monitor Data</span>
                             </a>
                         </div>
-                        <div class="menu-item">
-                            <a class="menu-link @yield('analysis.analyst')" href="{{route('viewMonitorAnalysts')}}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Report</span>
-                            </a>
-                        </div>
                     </div>
                 </div>
 

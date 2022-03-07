@@ -60,7 +60,7 @@
                             @can('analyst-create')
                                 <div class="d-flex align-items-center py-1">
                                     <a href="{{route('createAnalystForm')}}" target="_blank" class="btn btn-lg btn-primary">
-                                    Add Analysis
+                                    Add Analyst
                                     </a>
                                 </div>
                             @endcan

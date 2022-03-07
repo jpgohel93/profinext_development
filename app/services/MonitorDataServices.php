@@ -10,7 +10,7 @@ class MonitorDataServices{
     public static function all($id){
         $monitorData['open'] = MonitorData::where("monitor_id", $id)->where("status", "open")->get();
         $monitorData['close'] = MonitorData::where("monitor_id", $id)->where("status", "close")->get();
-        $monitorData['analyst'] = Analyst::where("assign_user_id", $id)->get();
+        $monitorData['analyst'] = Analyst::where("assign_user_id", $id) ->where('status', '!=' , "Terminated")->get();
         return $monitorData;
     }
     public static function create($request){

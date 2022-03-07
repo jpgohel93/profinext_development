@@ -147,9 +147,9 @@
                                                 <select name="status" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
                                                     <option></option>
                                                     <option value="Free Trade" {{(old('status')=="Free Trade")?"selected":""}}>Free Trade</option>
-                                                    <option value="Active" {{(old('status')=="Active")?"selected":""}}>Active</option>
-                                                    <option value="Experiment" {{(old('status')=="Experiment")?"selected":""}}>Experiment</option>
                                                     <option value="Paper Trade" {{(old('status')=="Paper Trade")?"selected":""}}>Paper Trade</option>
+                                                    <option value="Experiment" {{(old('status')=="Experiment")?"selected":""}}>Experiment</option>
+                                                    <option value="Active" {{(old('status')=="Active")?"selected":""}}>Active</option>
                                                     <option value="Terminated" {{(old('status')=="Terminated")?"selected":""}}>Terminated</option>
                                                 </select>
                                                 <!--end::Input-->
