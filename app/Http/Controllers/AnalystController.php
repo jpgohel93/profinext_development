@@ -38,7 +38,7 @@ class AnalystController extends Controller
                     $totalProfitCall = $totalProfitCall + 1;
                 }
 
-                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                if(($monitorCall['entry_price'] != $monitorCall['sl'])) {
                     $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
                     $totalReward = $totalReward + $reward;
                 }
@@ -47,8 +47,9 @@ class AnalystController extends Controller
             if($totalProfitCall > 0) {
                 $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
             }
-            $analysts['active'][$key]['accuracy'] = $accuracy >= 0 ? $accuracy : 0;
-            $analysts['active'][$key]['reward'] = $rewardCount >= 0 && $totalReward > 0 ? $totalReward/$rewardCount : 0;
+
+            $analysts['active'][$key]['accuracy'] = $accuracy;
+            $analysts['active'][$key]['reward'] = $rewardCount != 0 ? number_format($totalReward/$rewardCount,2) : 0;
         }
         foreach ($analysts['experiment'] as $key => $analyst){
             $totalCall = MonitorDataServices::countAnalystCall($analyst['id']);
@@ -63,7 +64,7 @@ class AnalystController extends Controller
                 if($pl > 0){
                     $totalProfitCall = $totalProfitCall + 1;
                 }
-                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                if(($monitorCall['entry_price'] != $monitorCall['sl'])) {
                     $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
                     $totalReward = $totalReward + $reward;
                 }
@@ -72,8 +73,8 @@ class AnalystController extends Controller
             if($totalProfitCall > 0) {
                 $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
             }
-            $analysts['experiment'][$key]['accuracy'] = $accuracy > 0 ? $accuracy : 0;
-            $analysts['experiment'][$key]['reward'] = $rewardCount >= 0 && $totalReward > 0? $totalReward/$rewardCount : 0;
+            $analysts['experiment'][$key]['accuracy'] =$accuracy;
+            $analysts['experiment'][$key]['reward'] = $rewardCount != 0 ? number_format($totalReward/$rewardCount,2) : 0;
         }
         foreach ($analysts['paper_trade'] as $key => $analyst){
             $totalCall = MonitorDataServices::countAnalystCall($analyst['id']);
@@ -88,7 +89,7 @@ class AnalystController extends Controller
                 if($pl > 0){
                     $totalProfitCall = $totalProfitCall + 1;
                 }
-                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                if(($monitorCall['entry_price'] != $monitorCall['sl'])) {
                     $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
                     $totalReward = $totalReward + $reward;
                 }
@@ -97,8 +98,8 @@ class AnalystController extends Controller
             if($totalProfitCall > 0) {
                 $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
             }
-            $analysts['paper_trade'][$key]['accuracy'] = $accuracy > 0 ? $accuracy : 0;
-            $analysts['paper_trade'][$key]['reward'] = $rewardCount >= 0 && $totalReward > 0 ? $totalReward/$rewardCount : 0;
+            $analysts['paper_trade'][$key]['accuracy'] = $accuracy;
+            $analysts['paper_trade'][$key]['reward'] = $rewardCount != 0 ? number_format($totalReward/$rewardCount,2) : 0;
         }
         foreach ($analysts['terminated'] as $key => $analyst){
             $totalCall = MonitorDataServices::countAnalystCall($analyst['id']);
@@ -113,7 +114,7 @@ class AnalystController extends Controller
                 if($pl > 0){
                     $totalProfitCall = $totalProfitCall + 1;
                 }
-                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                if(($monitorCall['entry_price'] != $monitorCall['sl'])) {
                     $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
                     $totalReward = $totalReward + $reward;
                 }
@@ -122,8 +123,8 @@ class AnalystController extends Controller
             if($totalProfitCall > 0) {
                 $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
             }
-            $analysts['terminated'][$key]['accuracy'] = $accuracy > 0 ? $accuracy : 0;
-            $analysts['terminated'][$key]['reward'] = $rewardCount >= 0 && $totalReward > 0 ? $totalReward/$rewardCount : 0;
+            $analysts['terminated'][$key]['accuracy'] = $accuracy;
+            $analysts['terminated'][$key]['reward'] = $rewardCount != 0 ? number_format($totalReward/$rewardCount,2) : 0;
         }
         foreach ($analysts['free_trade'] as $key => $analyst){
             $totalCall = MonitorDataServices::countAnalystCall($analyst['id']);
@@ -138,7 +139,7 @@ class AnalystController extends Controller
                 if($pl > 0){
                     $totalProfitCall = $totalProfitCall + 1;
                 }
-                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                if(($monitorCall['entry_price'] != $monitorCall['sl'])) {
                     $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
                     $totalReward = $totalReward + $reward;
                 }
@@ -147,8 +148,8 @@ class AnalystController extends Controller
             if($totalProfitCall > 0) {
                 $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
             }
-            $analysts['free_trade'][$key]['accuracy'] = $accuracy > 0 ? $accuracy : 0;
-            $analysts['free_trade'][$key]['reward'] = $rewardCount >= 0 && $totalReward > 0 ? $totalReward/$rewardCount : 0;
+            $analysts['free_trade'][$key]['accuracy'] = $accuracy;
+            $analysts['free_trade'][$key]['reward'] = $rewardCount != 0 ? number_format($totalReward/$rewardCount,2) : 0;
         }
 
         return view("analyst.analyst",compact('analysts'));
