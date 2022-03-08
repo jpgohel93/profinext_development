@@ -56,7 +56,10 @@ class UserServices
         $user_data = $request->all();
         $user_data['password'] = Hash::make($request->password);
         $user_data['created_by'] = Auth::id();
+		$userRoles = implode(",", $request->role);
+        $user_data['role'] = $userRoles;
         $user = User::create($user_data);
+		
         $user->assignRole($request->role);
         $numbers = $request->number;
         foreach($numbers as $number){
@@ -86,11 +89,14 @@ class UserServices
                     UserNumbers::create(["user_id"=>$id, "number"=>$number,"updated_by"=>Auth::id()]);
                 }
             }
+
+			$userRoles = implode(",", $request->role);
+            $user_data['role'] = $userRoles;
             $user_data['updated_by'] = Auth::id();
             User::where("id",$id)->update($user_data);
             // update role
             $user = User::find($id);
-            $user->syncRoles([$request->role]);
+            $user->syncRoles($request->role);
             return UserServices::user($id);
         } catch (\Throwable $th) {
             return false;

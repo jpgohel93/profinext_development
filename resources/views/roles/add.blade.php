@@ -114,7 +114,7 @@
 														</tr>
 														<tr role="row" class="">
 															{{-- role permissions from 5 to 8 --}}
-															<td aria-colindex="1" role="cell" class=""> Analyst </td>
+															<td aria-colindex="1" role="cell" class=""> Analysis </td>
 															@for($i=12;$i<16;$i++)
 																<td aria-colindex="2" role="cell" class="">
 																	<div class="form-check form-check-custom form-check-solid">
@@ -140,6 +140,18 @@
 															{{-- role permissions from 5 to 8 --}}
 															<td aria-colindex="1" role="cell" class=""> Trader </td>
 															@for($i=20;$i<24;$i++)
+																<td aria-colindex="2" role="cell" class="">
+																	<div class="form-check form-check-custom form-check-solid">
+																		<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' {{(null !== old('permission') && in_array($permissions[$i]->name,old('permission'))?"checked":"")}} value="{{$permissions[$i]->name}}" id="__BVID__675">
+																		<label class="custom-control-label" for="__BVID__675"></label>
+																	</div>
+																</td>
+															@endfor
+														</tr>
+														<tr role="row" class="">
+															{{-- role permissions from 5 to 8 --}}
+															<td aria-colindex="1" role="cell" class=""> Monitor </td>
+															@for($i=24;$i<28;$i++)
 																<td aria-colindex="2" role="cell" class="">
 																	<div class="form-check form-check-custom form-check-solid">
 																		<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' {{(null !== old('permission') && in_array($permissions[$i]->name,old('permission'))?"checked":"")}} value="{{$permissions[$i]->name}}" id="__BVID__675">

@@ -394,8 +394,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													{{-- <select name="account_type" data-control="select2" class="form-select form-select-sm form-select-solid"> --}}
-                                                    <select name="role" aria-label="Select a role" data-control="select2" class="form-select form-select-sm form-select-solid" data-placeholder="Select Role">
+                                                    <select name="role[]" id="user_role" aria-label="Select a role" multiple class="form-control" data-placeholder="Select Role">
                                                         <option></option>
 														@forelse ($roles as $role)
                                                         	<option value="{{$role->name}}" {{old('role')==$role->name?"selected":""}}>{{$role->name}}</option>
@@ -2302,6 +2301,11 @@
 		@section("jscript")
 			<script>
 				$(document).ready(function(){
+					
+					$('#user_role').select2({
+						placeholder: 'Select a role'
+					});
+					
 					$(document).on("click","#addmoreWhatsapp",function() {
 						var newcomp1 = $('#hiddenaddmoreWhatsapp').html();
 						// console.log(newcomp1);

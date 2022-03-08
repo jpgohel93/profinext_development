@@ -141,7 +141,6 @@
                                                 <div id="appendDivWp"></div>
 											</div>
 
-
                                             <div class="row">
 												<!--begin::Input group-->
 												<div class="col-md-6 col-sm-12 mb-5">
@@ -155,8 +154,6 @@
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
-
-
 
 												<!--begin::Input group-->
 												<div class="col-md-6 col-sm-12 mb-5">
@@ -217,7 +214,6 @@
 												<h3 class="stepper-title text-primary">Professional Details</h3>
 											</div>
 
-
                                             <div class="row col-md-6 mb-8">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-5 fw-bold mb-3">
@@ -246,8 +242,6 @@
                                                     <!--end::Option-->
                                                 </div>
 
-
-
                                                 <!--end::Col-->
                                                 <div class="col-1"></div>
                                                 <!--begin::Col-->
@@ -274,9 +268,7 @@
                                                 <!--end::Col-->
                                             </div>
 
-
                                             <div class="row" id="partnerDiv" style="display:{{($user->user_type=="1")?"flex":"none"}};">
-
                                                 <!--begin::Input group-->
 												<div class="col-md-6 mb-5">
 													<!--begin::Label-->
@@ -305,7 +297,6 @@
                                             </div>
 
                                             <div class="row" id="employeeDiv" style="display:{{($user->user_type=="2")?"flex":"none"}};">
-
                                                 <!--begin::Input group-->
 												<div class="col-md-6 mb-5">
 													<!--begin::Label-->
@@ -352,12 +343,14 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													{{-- <select name="account_type" data-control="select2" class="form-select form-select-sm form-select-solid"> --}}
 													@can("role-write")
-														<select name="role" aria-label="Select a role" data-control="select2" class="form-select form-select-sm form-select-solid" data-placeholder="Select Role">
+														@php
+															$userRole = explode(",", $user->role);
+														@endphp
+														<select name="role[]" id="user_role" aria-label="Select a role" multiple class="form-control" data-placeholder="Select Role">
                                                             <option></option>
                                                             @forelse ($roles as $role)
-																<option value="{{$role->name}}" {{($user->role==$role->name)?"selected":""}}>{{$role->name}}</option>
+																<option value="{{$role->name}}" {{(in_array($role->name,$userRole)) ? "selected" : "" }}>{{$role->name}}</option>
 															@empty
 																<option>Please Add Role</option>
 															@endforelse
@@ -2267,6 +2260,11 @@
 		@section("jscript")
 			<script>
 				$(document).ready(function(){
+					
+					$('#user_role').select2({
+						placeholder: 'Select a role'
+					});
+
 					$(document).on("click","#addmoreWhatsapp",function() {
 						var newcomp1 = $('#hiddenaddmoreWhatsapp').html();
 						// console.log(newcomp1);
@@ -2278,7 +2276,6 @@
 						$(this).closest(".removableDiv").remove();
 						resetCounter();
 					})
-
 				});
 
 				function resetCounter() {
