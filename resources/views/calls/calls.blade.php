@@ -1,6 +1,7 @@
 @extends('layout')
 @section("page-title","Calls")
 @section("calls","active")
+@section("trading","hover show")
 @section("content")
 <!--begin::Body-->
 <!--begin::Main-->
