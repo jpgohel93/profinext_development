@@ -314,6 +314,78 @@
                                                     <!--end::Option-->
                                                 </div>
                                                 <!--end::Col-->
+
+                                                <div class="col-1"></div>
+                                                <!--begin::Col-->
+                                                <div class="col-md-6 mb-4 fv-row">
+                                                    <!--begin:Option-->
+                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                        <!--begin::Label-->
+                                                        <span class="d-flex align-items-center me-2">
+                                                            <!--begin::Info-->
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fw-bolder fs-6">Channel Partner</span>
+                                                            </span>
+                                                            <!--end::Info-->
+                                                        </span>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <span class="form-check form-check-custom form-check-solid">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" value="3">
+                                                        </span>
+                                                        <!--end::Input-->
+                                                    </label>
+                                                    <!--end::Option-->
+                                                </div>
+                                                <!--end::Col-->
+
+                                                <div class="col-1"></div>
+                                                <!--begin::Col-->
+                                                <div class="col-md-6 mb-4 fv-row">
+                                                    <!--begin:Option-->
+                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                        <!--begin::Label-->
+                                                        <span class="d-flex align-items-center me-2">
+                                                            <!--begin::Info-->
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fw-bolder fs-6">Freelancer AMS</span>
+                                                            </span>
+                                                            <!--end::Info-->
+                                                        </span>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <span class="form-check form-check-custom form-check-solid">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" value="4">
+                                                        </span>
+                                                        <!--end::Input-->
+                                                    </label>
+                                                    <!--end::Option-->
+                                                </div>
+                                                <!--end::Col-->
+
+                                                <div class="col-1"></div>
+                                                <!--begin::Col-->
+                                                <div class="col-md-6 mb-4 fv-row">
+                                                    <!--begin:Option-->
+                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                        <!--begin::Label-->
+                                                        <span class="d-flex align-items-center me-2">
+                                                            <!--begin::Info-->
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fw-bolder fs-6">Freelancer Prime</span>
+                                                            </span>
+                                                            <!--end::Info-->
+                                                        </span>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <span class="form-check form-check-custom form-check-solid">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" value="5">
+                                                        </span>
+                                                        <!--end::Input-->
+                                                    </label>
+                                                    <!--end::Option-->
+                                                </div>
+                                                <!--end::Col-->
                                             </div>
 
 
@@ -372,6 +444,86 @@
                                                 <!--end::Input group-->
 
                                             </div>
+
+                                            <div class="row" id="freelancerDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
+
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Percentage</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="percentage" placeholder=""  />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+
+                                                <div class="col-md-6 mb-4">
+                                                    <!--begin::Label-->
+                                                    <label class="required fs-5 fw-bold mb-2">Joining Date</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="joining_date" value="{{date("Y-m-d",strtotime("now"))}}" readonly class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select date"/>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+
+                                            <div class="row" id="channelPartnerDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
+
+                                                <div class="row">
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-5">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Percentage For AMS New Client</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="percentage" placeholder="Percentage For AMS New Client"  />
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="required fs-5 fw-bold mb-2">Percentage For AMS Renewal Client</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" name="joining_date" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Percentage For AMS Renewal Client"/>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+
+                                                <div class="row">
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-5">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Percentage For Prime New Client</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="percentage" placeholder="Percentage For Prime New Client"  />
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="required fs-5 fw-bold mb-2">Percentage For Prime Renewal Client</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" name="joining_date"  class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Percentage For Prime Renewal Client"/>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+                                            </div>
+
                                             <div class="row">
 												<!--begin::Input group-->
 												<div class="col-md-8 col-sm-12 mb-5">
@@ -2301,11 +2453,11 @@
 		@section("jscript")
 			<script>
 				$(document).ready(function(){
-					
+
 					$('#user_role').select2({
 						placeholder: 'Select a role'
 					});
-					
+
 					$(document).on("click","#addmoreWhatsapp",function() {
 						var newcomp1 = $('#hiddenaddmoreWhatsapp').html();
 						// console.log(newcomp1);
@@ -2357,16 +2509,29 @@
 
 
 				$(document).on('click', '.toggleUserType', function() {
-					// alert("Hello");
+					//alert($('.toggleUserType:checked').val());
 
 					if($('.toggleUserType:checked').val() == 1) {
 						$(this).closest('#professionalDetails').find('#partnerDiv').show();
 						$(this).closest('#professionalDetails').find('#employeeDiv').hide();
-					} else {
-						console.log('not checked');
+						$(this).closest('#professionalDetails').find('#freelancerDiv').hide();
+						$(this).closest('#professionalDetails').find('#channelPartnerDiv').hide();
+					} else if($('.toggleUserType:checked').val() == 2) {
 						$(this).closest('#professionalDetails').find('#employeeDiv').show();
 						$(this).closest('#professionalDetails').find('#partnerDiv').hide();
-					}
+                        $(this).closest('#professionalDetails').find('#freelancerDiv').hide();
+                        $(this).closest('#professionalDetails').find('#channelPartnerDiv').hide();
+					}else if($('.toggleUserType:checked').val() == 3 ) {
+                        $(this).closest('#professionalDetails').find('#employeeDiv').hide();
+                        $(this).closest('#professionalDetails').find('#partnerDiv').hide();
+                        $(this).closest('#professionalDetails').find('#freelancerDiv').hide();
+                        $(this).closest('#professionalDetails').find('#channelPartnerDiv').show();
+                    }else if($('.toggleUserType:checked').val() == 4 || $('.toggleUserType:checked').val() ==5) {
+                        $(this).closest('#professionalDetails').find('#employeeDiv').hide();
+                        $(this).closest('#professionalDetails').find('#partnerDiv').hide();
+                        $(this).closest('#professionalDetails').find('#freelancerDiv').show();
+                        $(this).closest('#professionalDetails').find('#channelPartnerDiv').hide();
+                    }
 				});
 			</script>
 		@endsection
