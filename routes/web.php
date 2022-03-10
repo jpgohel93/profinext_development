@@ -62,6 +62,7 @@ Route::group(['middleware' => ['auth']], function() {
     // edit user
     Route::get("/user/edit/{id}",[UserController::class,"updateForm"])->name("updateUserForm");
     Route::POST("/user/update/{id}",[UserController::class,"update"])->name("updateUser");
+    Route::POST("/user/assignTraderRole",[UserController::class,"assignTraderRoles"])->name("assignTraderRoles");
     // remove user
     Route::get("/user/delete/{id}",[UserController::class,"delete"])->name("deleteUser");
 

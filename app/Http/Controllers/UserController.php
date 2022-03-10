@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Services\UserServices;
 use Illuminate\Support\Facades\Redirect;
 use App\Services\AccountTypeServices;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+
 class UserController extends Controller
 {
     function __construct()
@@ -42,7 +46,31 @@ class UserController extends Controller
         $account_types = AccountTypeServices::view(['id', 'account_type']);
         return view("users.edit",["user"=>$user,"roles"=>$roles,"account_types"=>$account_types]);
     }
-    public function update(Request $request,$id){
+	
+    public function assignTraderRoles(Request $request)
+	{
+		$userId = $request->userId;
+		$user = UserServices::user($userId);
+        if (!$user)
+            return Redirect::route("users")->with("info", "User not found");
+		
+		if($user->role != "") {
+			$user_data['role'] = $user->role.",trader";
+		} else {
+			$user_data['role'] = "trader";
+		}
+		
+		$user_data['updated_by'] = Auth::id();
+		User::where("id",$userId)->update($user_data);
+		
+		$userData = User::find($userId);
+		$exp = explode(",", $userData->role);
+        $userData->syncRoles($exp);
+		
+		return Redirect::route("viewTrader")->with("info","User Updated!");
+	}
+	
+	public function update(Request $request,$id){
         $request['company_first'] = isset($request->company_1) ? 1 : 0;
         $request['profit_percentage_first'] = isset($request->profit_company_1) ? $request->profit_company_1 : null;
         $request['company_second'] = isset($request->company_2) ? 1 : 0;

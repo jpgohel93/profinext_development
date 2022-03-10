@@ -1,5 +1,5 @@
 @extends('layout')
-@section("page-title","Calls")
+@section("page-title","Trade")
 @section("calls","active")
 @section("trading","hover show")
 @section("content")
@@ -34,7 +34,7 @@
                             data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                             class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                             <!--begin::Title-->
-                            <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Call</h1>
+                            <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Trade</h1>
                             <!--end::Title-->
                             <!--begin::Separator-->
                             <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -52,7 +52,7 @@
                                 </li>
                                 <!--end::Item-->
                                 <!--begin::Item-->
-                                <li class="breadcrumb-item text-dark">Call</li>
+                                <li class="breadcrumb-item text-dark">Trade</li>
                                 <!--end::Item-->
                             </ul>
                             <!--end::Breadcrumb-->
@@ -63,7 +63,7 @@
                             <div class="d-flex align-items-center py-1">
                                 <a href="#" class="btn btn-lg btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#call_modal">
-                                    Add Call
+                                    Add Trade
                                 </a>
                             </div>
                         @endcan
@@ -252,7 +252,7 @@
                                                             @endforeach
                                                         </tbody>
                                                     @else
-                                                        <h3>there's no Active call exists.</h3>
+                                                        <h3>there's no Active trade exists.</h3>
                                                     @endif
                                                     <!--end::Table body-->
                                                 </table>
@@ -417,7 +417,7 @@
                                                             @endforeach
                                                         </tbody>
                                                     @else
-                                                        <h3>there's no closed call exists.</h3>
+                                                        <h3>there's no closed trade exists.</h3>
                                                     @endif
                                                     <!--end::Table body-->
                                                 </table>

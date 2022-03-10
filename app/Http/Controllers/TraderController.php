@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Services\TraderServices;
+use App\Models\User;
+
 class TraderController extends Controller
 {
     private $viewTrader = "viewTrader";
@@ -18,7 +20,17 @@ class TraderController extends Controller
     public function view()
     {
         $traders = TraderServices::view();
-        return view('trader.index', compact('traders'));
+		
+		$users = User::where("status","1")->where(function($q) {
+						$q->whereRaw("!FIND_IN_SET(?, role)", ["super-admin"])
+						->whereRaw("!FIND_IN_SET(?, role)", ["admin"])
+						->whereRaw("!FIND_IN_SET(?, role)", ["trader"])
+						->orWhere('role', NULL);
+                    })->get();
+		
+		//->where("role",NULL)->whereRaw("!FIND_IN_SET(?, role)", ["super-admin"])->whereRaw("!FIND_IN_SET(?, role)", ["admin"])->whereRaw("!FIND_IN_SET(?, role)", ["trader"])->get();
+		
+        return view('trader.index', compact('traders','users'));
     }
     public function create(Request $request)
     {
