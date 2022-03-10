@@ -79,7 +79,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="date" class="form-control form-control-lg form-control-solid bdr-ccc" name="date" placeholder="" value="{{date('d-m-Y')}}" />
+                                        <input type="text" value="{{date("Y-m-d",strtotime("now"))}}" class="form-control form-control-lg form-control-solid bdr-ccc" name="date" placeholder="" value="{{date('d-m-Y')}}" />
                                         <!--end::Input-->
                                     </div>
 
@@ -121,12 +121,44 @@
                                         <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="buy_sell" placeholder="Buy / Sell" value="{{old('buy_sell')}}" />
                                         <!--end::Input-->
                                     </div>
+                                    <!--begin::Input group-->
+                                    <div class="col-4">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                            <span class="required">Entry Price</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="entry_price" placeholder="Entry Price" value="{{old('entry_price')}}" />
+                                        <!--end::Input-->
+                                    </div>
 
                                     <!--begin::Input group-->
                                     <div class="col-4">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                            <span class="required">sl</span>
+                                            <span class="required">Entry Time</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="entry_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+{{--                                        <input type="time" class="form-control form-control-lg form-control-solid bdr-ccc" name="entry_time" placeholder="" value="{{old('entry_time')}}" />--}}
+                                        <!--end::Input-->
+                                    </div>
+
+                                    <!--end::Input group-->
+                                </div>
+
+
+                                <div class="row mb-4">
+                                    <!--begin::Input group-->
+                                    <div class="col-4">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                            <span class="">sl</span>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
@@ -139,7 +171,7 @@
                                     <div class="col-4">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                            <span class="required">Target</span>
+                                            <span class="">Target</span>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
@@ -147,42 +179,9 @@
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->
-                                </div>
-
-
-                                <div class="row mb-4">
 
                                     <!--begin::Input group-->
-                                    <div class="col-6">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                            <span class="required">Entry Price</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="entry_price" placeholder="Entry Price" value="{{old('entry_price')}}" />
-                                        <!--end::Input-->
-                                    </div>
-
-                                    <!--begin::Input group-->
-                                    <div class="col-6">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                            <span class="required">Entry Time</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="time" class="form-control form-control-lg form-control-solid bdr-ccc" name="entry_time" placeholder="" value="{{old('entry_time')}}" />
-                                        <!--end::Input-->
-                                    </div>
-
-                                    <!--end::Input group-->
-                                </div>
-
-                                <div class="row mb-4">
-
-                                    <!--begin::Input group-->
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                             <span class="required">Status</span>
@@ -197,19 +196,24 @@
                                     </div>
 
                                     <!--begin::Input group-->
-                                    <div class="col-6">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                            <span class="required">Risk Reward</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="risk_reward" placeholder="Risk Reward" value="{{old('risk_reward')}}" />
-                                        <!--end::Input-->
-                                    </div>
-
-                                    <!--end::Input group-->
                                 </div>
+
+{{--                                <div class="row mb-4">--}}
+
+
+{{--                                    <div class="col-6">--}}
+{{--                                        <!--begin::Label-->--}}
+{{--                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">--}}
+{{--                                            <span class="required">Risk Reward</span>--}}
+{{--                                        </label>--}}
+{{--                                        <!--end::Label-->--}}
+{{--                                        <!--begin::Input-->--}}
+{{--                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="risk_reward" placeholder="Risk Reward" value="{{old('risk_reward')}}" />--}}
+{{--                                        <!--end::Input-->--}}
+{{--                                    </div>--}}
+
+{{--                                    <!--end::Input group-->--}}
+{{--                                </div>--}}
 
                             </div>
                         </div>

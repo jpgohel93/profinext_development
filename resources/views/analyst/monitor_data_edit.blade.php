@@ -84,7 +84,7 @@
                                                 </label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="date" class="form-control form-control-lg form-control-solid bdr-ccc" name="date" placeholder="" value="{{ isset($monitorData->date) ? $monitorData->date : ''}}" />
+                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="date" placeholder="" value="{{ isset($monitorData->date) ? $monitorData->date : ''}}" />
                                                 <input type="hidden" class="form-control form-control-lg form-control-solid bdr-ccc" name="monitor_data_id" placeholder="" value="{{ isset($monitorData->id) ? $monitorData->id : ''}}" />
                                                 <!--end::Input-->
                                             </div>
@@ -131,36 +131,6 @@
                                             <div class="col-4">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">sl</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="sl" placeholder="Enter SL" value="{{isset($monitorData->sl) ? $monitorData->sl : ''}}" />
-                                                <!--end::Input-->
-                                            </div>
-
-                                            <!--end::Input group-->
-                                            <!--begin::Input group-->
-                                            <div class="col-4">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Target</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="target" placeholder="Enter Target" value="{{isset($monitorData->target) ? $monitorData->target : ''}}" />
-                                                <!--end::Input-->
-                                            </div>
-                                            <!--end::Input group-->
-                                        </div>
-
-
-                                        <div class="row mb-4">
-
-                                            <!--begin::Input group-->
-                                            <div class="col-6">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                     <span class="required">Entry Price</span>
                                                 </label>
                                                 <!--end::Label-->
@@ -170,15 +140,29 @@
                                             </div>
 
                                             <!--begin::Input group-->
-                                            <div class="col-6">
+                                            <div class="col-4">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                     <span class="required">Entry Time</span>
                                                 </label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="time" class="form-control form-control-lg form-control-solid bdr-ccc" name="entry_time" placeholder="" value="{{isset($monitorData->entry_time) ? $monitorData->entry_time : ''}}" />
-                                                <!--end::Input-->
+                                                <!--begin::Input-->
+                                                <select name="entry_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
+                                                    <?php if(isset($monitorData->entry_time) && $monitorData->entry_time == "yes"){?>
+                                                    <option value="yes" selected>Yes</option>
+                                                    <? } else{?>
+                                                    <option value="no">No</option>
+                                                    <?php    }?>
+
+                                                    <?php if(isset($monitorData->entry_time) && $monitorData->entry_time == "no"){?>
+                                                    <option value="no" selected>No</option>
+                                                    <?php } else{?>
+                                                    <option value="yes">Yes</option>
+                                                    <?php    }?>
+                                                </select>
+                                            {{--                                                <input type="time" class="form-control form-control-lg form-control-solid bdr-ccc" name="entry_time" placeholder="" value="{{isset($monitorData->entry_time) ? $monitorData->entry_time : ''}}" />--}}
+                                            <!--end::Input-->
                                             </div>
 
                                             <!--end::Input group-->
@@ -206,11 +190,53 @@
                                                 </label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="time" class="form-control form-control-lg form-control-solid bdr-ccc" name="exit_time" placeholder="" value="{{isset($monitorData->exit_time) ? $monitorData->exit_time : ''}}" />
+                                                <select name="entry_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
+                                                    <?php if(isset($monitorData->exit_time) && $monitorData->exit_time == "no"){?>
+                                                        <option value="no" selected>No</option>
+                                                    <?php } else{?>
+                                                        <option value="yes">Yes</option>
+                                                    <?php    }?>
+
+                                                        <?php if(isset($monitorData->exit_time) && $monitorData->exit_time == "yes"){?>
+                                                        <option value="yes" selected>Yes</option>
+                                                        <?php } else{?>
+                                                        <option value="no">No</option>
+                                                        <?php    }?>
+                                                </select>
+{{--                                                <input type="time" class="form-control form-control-lg form-control-solid bdr-ccc" name="exit_time" placeholder="" value="{{isset($monitorData->exit_time) ? $monitorData->exit_time : ''}}" />--}}
                                                 <!--end::Input-->
                                             </div>
 
                                             <!--end::Input group-->
+                                        </div>
+
+                                        <div class="row mb-4">
+                                            <!--begin::Input group-->
+                                            <div class="col-6">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                    <span class="">Sl</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="sl" placeholder="Enter SL" value="{{isset($monitorData->sl) ? $monitorData->sl : ''}}" />
+                                                <!--end::Input-->
+                                            </div>
+
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="col-6">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                    <span class="">Target</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="target" placeholder="Enter Target" value="{{isset($monitorData->target) ? $monitorData->target : ''}}" />
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+
                                         </div>
 
                                         <div class="row mb-4">
@@ -240,23 +266,6 @@
                                             </div>
 
                                             <!--begin::Input group-->
-                                            <div class="col-6">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Risk Reward</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="risk_reward" placeholder="Risk Reward" value="{{isset($monitorData->risk_reward) ? $monitorData->risk_reward : ''}}" />
-                                                <!--end::Input-->
-                                            </div>
-
-                                            <!--end::Input group-->
-                                        </div>
-
-                                        <div class="row mb-4">
-
-                                            <!--begin::Input group-->
                                             <div class="col-4">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-5 fw-bold mb-2">
@@ -269,6 +278,25 @@
                                             </div>
 
                                             <!--end::Input group-->
+
+{{--                                            <!--begin::Input group-->--}}
+{{--                                            <div class="col-6">--}}
+{{--                                                <!--begin::Label-->--}}
+{{--                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">--}}
+{{--                                                    <span class="required">Risk Reward</span>--}}
+{{--                                                </label>--}}
+{{--                                                <!--end::Label-->--}}
+{{--                                                <!--begin::Input-->--}}
+{{--                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="risk_reward" placeholder="Risk Reward" value="{{isset($monitorData->risk_reward) ? $monitorData->risk_reward : ''}}" />--}}
+{{--                                                <!--end::Input-->--}}
+{{--                                            </div>--}}
+
+{{--                                            <!--end::Input group-->--}}
+                                        </div>
+
+                                        <div class="row mb-4">
+
+
                                         </div>
 
                                     </div>

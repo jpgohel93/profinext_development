@@ -81,7 +81,7 @@
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#freelancerprivate">Freelancer Private</a>
+                                       href="#freelancerprivate">Freelancer Prime</a>
                                 </li>
                                 <!--end:::Tab item-->
                             </ul>
