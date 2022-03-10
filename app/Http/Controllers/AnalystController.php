@@ -191,6 +191,7 @@ class AnalystController extends Controller
 
     public function viewMonitorData(Request $request){
         $auth_user = Auth::user();
+		
         $monitorData = MonitorDataServices::all($auth_user->id);
         if(isset($monitorData['analyst']) && !empty($monitorData['analyst'])) {
             foreach ($monitorData['analyst'] as $key => $data) {

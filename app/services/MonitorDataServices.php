@@ -7,11 +7,21 @@ use App\Services\CommonService;
 use Illuminate\Support\Facades\Auth;
 
 class MonitorDataServices{
-    public static function all($id){
-        $monitorData['open'] = MonitorData::where("monitor_id", $id)->where("status", "open")->get();
-        $monitorData['close'] = MonitorData::where("monitor_id", $id)->where("status", "close")->get();
-        $monitorData['analyst'] = Analyst::where("assign_user_id", $id)->where('status', '!=' , "Terminated")->get();
-        return $monitorData;
+    public static function all($id)
+	{
+		$auth_user = Auth::user();
+		$explRole = explode(",", $auth_user->role);
+		
+		if(in_array("super-admin", $explRole)) {
+			$monitorData['open'] = MonitorData::where("status", "open")->get();
+			$monitorData['close'] = MonitorData::where("status", "close")->get();
+			$monitorData['analyst'] = Analyst::where('status', '!=' , "Terminated")->get();
+		} else {
+			$monitorData['open'] = MonitorData::where("monitor_id", $id)->where("status", "open")->get();
+			$monitorData['close'] = MonitorData::where("monitor_id", $id)->where("status", "close")->get();
+			$monitorData['analyst'] = Analyst::where("assign_user_id", $id)->where('status', '!=' , "Terminated")->get();
+        }
+		return $monitorData;
     }
     public static function create($request){
         $monitor = $request->validate([
