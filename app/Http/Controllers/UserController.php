@@ -43,10 +43,25 @@ class UserController extends Controller
         return view("users.edit",["user"=>$user,"roles"=>$roles,"account_types"=>$account_types]);
     }
     public function update(Request $request,$id){
+        $request['company_first'] = isset($request->company_1) ? 1 : 0;
+        $request['profit_percentage_first'] = isset($request->profit_company_1) ? $request->profit_company_1 : null;
+        $request['company_second'] = isset($request->company_2) ? 1 : 0;
+        $request['profit_percentage_second'] = isset($request->profit_company_2) ? $request->profit_company_2 : null;
+        $request['ams_new_client_percentage'] = isset($request->ams_new_client_percentage) ? $request->ams_new_client_percentage : null;
+        $request['ams_renewal_client_percentage'] = isset($request->ams_renewal_client_percentage) ? $request->ams_renewal_client_percentage : null;
+        $request['prime_new_client_percentage'] = isset($request->prime_new_client_percentage) ? $request->prime_new_client_percentage : null;
+        $request['prime_renewal_client_percentage'] = isset($request->prime_renewal_client_percentage) ? $request->prime_renewal_client_percentage : null;
+        $request['ams_limit'] = isset($request->limit) ? $request->limit : null;
+        $request['fees_percentage'] = isset($request->fees_percentage) ? $request->fees_percentage : null;
+        unset($request["profit_company_1"]);
+        unset($request["profit_company_2"]);
+        unset($request["company_1"]);
+        unset($request["company_2"]);
+        unset($request["limit"]);
         $user = UserServices::update($request,$id);
         if (!$user)
             return Redirect::route("users")->with("info", "Unable to update user");
-        return Redirect::route("viewUser",$id)->with("info","User Updated!");
+        return Redirect::route("users")->with("info","User Updated!");
     }
     public function delete(Request $request,$id){
         $user = UserServices::delete($id);

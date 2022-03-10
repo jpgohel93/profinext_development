@@ -390,32 +390,85 @@
 
 
                                             <div class="row" id="partnerDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
+                                                <div class="col-md-2 mb-4 fv-row">
+                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                        <!--begin::Label-->
+                                                        <span class="d-flex align-items-center me-2">
+                                                            <!--begin::Info-->
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fw-bolder fs-6">Company</span>
+                                                            </span>
+                                                            <!--end::Info-->
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <!--begin::Col-->
+                                                <div class="col-md-5 mb-4 fv-row">
+                                                    <!--begin:Option-->
+                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                        <!--begin::Label-->
+                                                        <span class="d-flex align-items-center me-2">
+                                                            <!--begin::Info-->
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fw-bolder fs-6">Smart Trader</span>
+                                                            </span>
+                                                            <!--end::Info-->
+                                                        </span>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <span class="form-check form-check-custom form-check-solid">
+                                                            <input class="form-check-input toggleUserType" type="checkbox" id="company_1"  name="company_1" value="1">
+                                                        </span>
+                                                        <!--end::Input-->
+                                                    </label>
+                                                    <!--end::Option-->
 
-                                                <!--begin::Input group-->
-												<div class="col-md-6 mb-5">
-													<!--begin::Label-->
-													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">Company</span>
-													</label>
-													<!--end::Label-->
-													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("company")}}" name="company" placeholder=""  />
-													<!--end::Input-->
+                                                    <div id="profit_company_1">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Profit Percentage</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="profit_company_1" placeholder="Profit Percentage"  />
+                                                        <!--end::Input-->
+                                                    </div>
 												</div>
 												<!--end::Input group-->
 
-                                                <!--begin::Input group-->
-												<div class="col-md-6 mb-5">
-													<!--begin::Label-->
-													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">Percentage</span>
-													</label>
-													<!--end::Label-->
-													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="percentage" placeholder=""  />
-													<!--end::Input-->
-												</div>
-												<!--end::Input group-->
+                                                <!--begin::Col-->
+                                                <div class="col-md-5 mb-4 fv-row">
+                                                    <!--begin:Option-->
+                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                        <!--begin::Label-->
+                                                        <span class="d-flex align-items-center me-2">
+                                                            <!--begin::Info-->
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fw-bolder fs-6">ProfiNext</span>
+                                                            </span>
+                                                            <!--end::Info-->
+                                                        </span>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <span class="form-check form-check-custom form-check-solid">
+                                                            <input class="form-check-input toggleUserType" type="checkbox" id="company_2" name="company_2" value="1">
+                                                        </span>
+                                                        <!--end::Input-->
+                                                    </label>
+                                                    <!--end::Option-->
+
+                                                    <div id="profit_company_2">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Profit Percentage</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="profit_company_2" placeholder="Profit Percentage"  />
+                                                        <!--end::Input-->
+                                                    </div>
+                                                </div>
+                                                <!--end::Input group-->
                                             </div>
 
                                             <div class="row" id="employeeDiv" style="display:{{(old('user_type')==2)?"flex":old('user_type')!=1?"flex":"none"}};">
@@ -445,17 +498,70 @@
 
                                             </div>
 
-                                            <div class="row" id="freelancerDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
+                                            <div class="row" id="freelancerAmsDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
+
+                                                <div class="row">
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-5">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Percentage of fees</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="fees_percentage" placeholder="Percentage of fees"  />
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="required fs-5 fw-bold mb-2">Limit</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" name="limit" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Limit"/>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+
+                                                <div class="row">
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-5">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Percentage For AMS New Client</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="ams_new_client_profit" placeholder="Percentage For AMS New Client"  />
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="required fs-5 fw-bold mb-2">Joining Date</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" name="joining_date" value="{{date("Y-m-d",strtotime("now"))}}" readonly class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select date"/>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+                                            </div>
+
+                                            <div class="row" id="freelancerPrimeDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
 
                                                 <!--begin::Input group-->
                                                 <div class="col-md-6 mb-5">
                                                     <!--begin::Label-->
                                                     <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                        <span class="required">Percentage</span>
+                                                        <span class="required">Percentage of profit sharing</span>
                                                     </label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="percentage" placeholder=""  />
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="percentage" placeholder="Percentage of profit sharing"  />
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
@@ -482,7 +588,7 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="percentage" placeholder="Percentage For AMS New Client"  />
+                                                        <input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="ams_new_client_percentage" placeholder="Percentage For AMS New Client"  />
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -492,7 +598,7 @@
                                                         <label class="required fs-5 fw-bold mb-2">Percentage For AMS Renewal Client</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" name="joining_date" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Percentage For AMS Renewal Client"/>
+                                                        <input type="number" name="ams_renewal_client_percentage" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Percentage For AMS Renewal Client"/>
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -507,7 +613,7 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="percentage" placeholder="Percentage For Prime New Client"  />
+                                                        <input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="prime_new_client_percentage" placeholder="Percentage For Prime New Client"  />
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -517,7 +623,7 @@
                                                         <label class="required fs-5 fw-bold mb-2">Percentage For Prime Renewal Client</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" name="joining_date"  class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Percentage For Prime Renewal Client"/>
+                                                        <input type="number" name="prime_renewal_client_percentage"  class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Percentage For Prime Renewal Client"/>
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -2454,6 +2560,9 @@
 			<script>
 				$(document).ready(function(){
 
+                    $("#profit_company_2").hide();
+                    $("#profit_company_1").hide();
+
 					$('#user_role').select2({
 						placeholder: 'Select a role'
 					});
@@ -2514,25 +2623,51 @@
 					if($('.toggleUserType:checked').val() == 1) {
 						$(this).closest('#professionalDetails').find('#partnerDiv').show();
 						$(this).closest('#professionalDetails').find('#employeeDiv').hide();
-						$(this).closest('#professionalDetails').find('#freelancerDiv').hide();
+                        $(this).closest('#professionalDetails').find('#freelancerPrimeDiv').hide();
+                        $(this).closest('#professionalDetails').find('#freelancerAmsDiv').hide();
 						$(this).closest('#professionalDetails').find('#channelPartnerDiv').hide();
 					} else if($('.toggleUserType:checked').val() == 2) {
 						$(this).closest('#professionalDetails').find('#employeeDiv').show();
 						$(this).closest('#professionalDetails').find('#partnerDiv').hide();
-                        $(this).closest('#professionalDetails').find('#freelancerDiv').hide();
+                        $(this).closest('#professionalDetails').find('#freelancerPrimeDiv').hide();
+                        $(this).closest('#professionalDetails').find('#freelancerAmsDiv').hide();
                         $(this).closest('#professionalDetails').find('#channelPartnerDiv').hide();
 					}else if($('.toggleUserType:checked').val() == 3 ) {
                         $(this).closest('#professionalDetails').find('#employeeDiv').hide();
                         $(this).closest('#professionalDetails').find('#partnerDiv').hide();
-                        $(this).closest('#professionalDetails').find('#freelancerDiv').hide();
+                        $(this).closest('#professionalDetails').find('#freelancerPrimeDiv').hide();
+                        $(this).closest('#professionalDetails').find('#freelancerAmsDiv').hide();
                         $(this).closest('#professionalDetails').find('#channelPartnerDiv').show();
-                    }else if($('.toggleUserType:checked').val() == 4 || $('.toggleUserType:checked').val() ==5) {
+                    }else if($('.toggleUserType:checked').val() == 4) {
                         $(this).closest('#professionalDetails').find('#employeeDiv').hide();
                         $(this).closest('#professionalDetails').find('#partnerDiv').hide();
-                        $(this).closest('#professionalDetails').find('#freelancerDiv').show();
+                        $(this).closest('#professionalDetails').find('#freelancerPrimeDiv').hide();
+                        $(this).closest('#professionalDetails').find('#freelancerAmsDiv').show();
+                        $(this).closest('#professionalDetails').find('#channelPartnerDiv').hide();
+                    }else if($('.toggleUserType:checked').val() == 5) {
+                        $(this).closest('#professionalDetails').find('#employeeDiv').hide();
+                        $(this).closest('#professionalDetails').find('#partnerDiv').hide();
+                        $(this).closest('#professionalDetails').find('#freelancerPrimeDiv').show();
+                        $(this).closest('#professionalDetails').find('#freelancerAmsDiv').hide();
                         $(this).closest('#professionalDetails').find('#channelPartnerDiv').hide();
                     }
 				});
+
+                $('#company_1').click(function () {
+                    if ($(this).is(':checked') == true) {
+                       $("#profit_company_1").show();
+                    }else{
+                        $("#profit_company_1").hide();
+                    }
+                });
+
+                $('#company_2').click(function () {
+                    if ($(this).is(':checked') == true) {
+                        $("#profit_company_2").show();
+                    }else{
+                        $("#profit_company_2").hide();
+                    }
+                });
 			</script>
 		@endsection
 @endsection

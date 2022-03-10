@@ -2,7 +2,7 @@
 @section("page-title","Update Client")
 @section("clients","active")
 @section("content")
-	<!--begin::Body-->	
+	<!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -81,7 +81,7 @@
                                                     <!--end::Input group-->
                                                 </div>
                                                 <div class="row">
-                                                    
+
                                                 <!--begin::Input group-->
                                                 <div class="col-md-6 mb-4">
                                                     <!--begin::Label-->
@@ -113,24 +113,49 @@
                                                 </div>
                                                 <!--end::Input group-->
                                                 </div>
-                                                <!--begin::Input group-->
-                                                <div class="col-md-6 mb-4">
-                                                    <!--begin::Label-->
-                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                        <span class="required">Profession</span>
-                                                    </label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <select name="profession" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Profession">
-                                                        @forelse ($professions as $profession)
-                                                            <option value="{{$profession->profession}}" {{(old('profession') && old('profession')==$profession->profession)?"selected":($client->profession==$profession->profession?"selected":"")}}>{{$profession->profession}}</option>
-                                                        @empty
-                                                            <option>Selecte Bank</option>
-                                                        @endforelse
-                                                    </select>
-                                                    <!--end::Input-->
+                                                <div class="row">
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Profession</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <select name="profession" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Profession">
+                                                            @forelse ($professions as $profession)
+                                                                <option value="{{$profession->profession}}" {{(old('profession') && old('profession')==$profession->profession)?"selected":($client->profession==$profession->profession?"selected":"")}}>{{$profession->profession}}</option>
+                                                            @empty
+                                                                <option>Selecte Bank</option>
+                                                            @endforelse
+                                                        </select>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Select Channel Partner</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <select name="channel_partner_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Profession">
+                                                            <option></option>
+                                                            @forelse ($channelPartner as $partner)
+                                                                @if($client->channel_partner_id == $partner->id)
+                                                                    <option selected value="{{$partner->id}}" >{{$partner->name}}</option>
+                                                                @else
+                                                                    <option value="{{$partner->id}}" >{{$partner->name}}</option>
+                                                                @endif
+                                                            @empty
+                                                                <option>Select Channel Partner</option>
+                                                            @endforelse
+                                                        </select>
+                                                        <!--end::Input-->
+                                                    </div>
                                                 </div>
-                                                <!--end::Input group-->
                                             </div>
                                         </div>
                                         <div class="row">
@@ -207,7 +232,7 @@
                                                                         <div class="position-relative">
                                                                             <!--begin::Input-->
                                                                             <input type="text" class="form-control form-control-solid bdr-ccc" value="{{(old('serial_number'))?old('serial_number')[$key]:$demate_account['serial_number']}}" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
-                                                                            <!--end::Input--> 
+                                                                            <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input wrapper-->
                                                                     </div>
@@ -226,7 +251,7 @@
                                                                         <!--begin:Option-->
                                                                         <label class="d-flex flex-stack cursor-pointer mb-5">
                                                                             <!--begin::Label-->
-                                                                            <span class="d-flex align-items-center me-2"> 
+                                                                            <span class="d-flex align-items-center me-2">
                                                                                 <!--begin::Info-->
                                                                                 <span class="d-flex flex-column">
                                                                                     <span class="fw-bolder fs-6">Prime</span>
@@ -250,7 +275,7 @@
                                                                         <!--begin:Option-->
                                                                         <label class="d-flex flex-stack cursor-pointer mb-5">
                                                                             <!--begin::Label-->
-                                                                            <span class="d-flex align-items-center me-2"> 
+                                                                            <span class="d-flex align-items-center me-2">
                                                                                 <!--begin::Info-->
                                                                                 <span class="d-flex flex-column">
                                                                                     <span class="fw-bolder fs-6">AMS</span>
@@ -264,11 +289,11 @@
                                                                             </span>
                                                                             <!--end::Input-->
                                                                         </label>
-                                                                        <!--end::Option--> 
+                                                                        <!--end::Option-->
                                                                     </div>
                                                                     <!--end::Col-->
                                                                 </div>
-                                                                <!--end::Input group--> 
+                                                                <!--end::Input group-->
                                                                     <div class="row mb-4">
                                                                     <!--begin::Input group-->
                                                                     <div class="col-md-6 mb-4">
@@ -309,12 +334,12 @@
                                                                         @empty
                                                                             <option>Selecte Bank</option>
                                                                         @endforelse
-                                                                    </select>	
+                                                                    </select>
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Input group-->
                                                                 <!--begin::Input group-->
-                                                                <div class="row"> 
+                                                                <div class="row">
                                                                     <!--begin::Col-->
                                                                     <div class="col-md-6 mb-4 fv-row">
                                                                         <!--begin::Label-->
@@ -323,7 +348,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly placeholder="" name="user_id[]" value="{{$demate_account['user_id']}}" />	
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly placeholder="" name="user_id[]" value="{{$demate_account['user_id']}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
@@ -335,14 +360,14 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="password[]" value="{{$demate_account['password']}}" />	
+                                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="password[]" value="{{$demate_account['password']}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
                                                                 </div>
-                                                                <!--end::Input group--> 
+                                                                <!--end::Input group-->
                                                                 <!--begin::Input group-->
-                                                                <div class="row mb-4"> 
+                                                                <div class="row mb-4">
                                                                     <!--begin::Col-->
                                                                     <div class="col-md-6 mb-4 fv-row">
                                                                         <!--begin::Label-->
@@ -351,7 +376,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />	
+                                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
@@ -363,12 +388,12 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="{{(old('capital') ? old('capital')[$key] :$demate_account['capital'])}}" />	
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="{{(old('capital') ? old('capital')[$key] :$demate_account['capital'])}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
                                                                 </div>
-                                                                <!--end::Input group--> 
+                                                                <!--end::Input group-->
                                                             </div>
                                                         </div>
                                                         <!--end::Step 2-->
@@ -378,13 +403,13 @@
                                                                 <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                                     <h3 class="stepper-title text-primary">Payment Details</h3>
                                                                 </div>
-                                                                
+
                                                                 <!--begin::Input group-->
                                                                 <div class="fv-row mb-8 col-md-6">
                                                                     <!--begin::Label-->
                                                                     <label class="required fs-5 fw-bold mb-2">Mode</label>
                                                                     <!--end::Label-->
-                                                                    <div class="row col-md-6 mb-4">	
+                                                                    <div class="row col-md-6 mb-4">
                                                                         <!--begin::Input group-->
                                                                         <div class="col-md-6">
                                                                             <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
@@ -417,7 +442,7 @@
                                                                                 @empty
                                                                                     <option>Selecte Bank</option>
                                                                                 @endforelse
-                                                                                
+
                                                                             </select>
                                                                         </div>
                                                                         <!--end::Input wrapper-->
@@ -430,7 +455,7 @@
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                                         <!--end::Label-->
-                                                                        <!--begin::Input--> 
+                                                                        <!--begin::Input-->
                                                                         <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{(old('mode')?old('mode')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?(isset($client->clientPayment[$key])?$client->clientPayment[$key]->joining_date:""==""?"":date("Y-m-d",strtotime(isset($client->clientPayment[$key])?$client->clientPayment[$key]->joining_date:""))):""}}"/>
                                                                         <!--end::Input-->
                                                                     </div>
@@ -440,7 +465,7 @@
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-5 fw-bold mb-2">Fees</label>
                                                                         <!--end::Label-->
-                                                                        <!--begin::Input--> 
+                                                                        <!--begin::Input-->
                                                                         <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="{{(old('mode')?old('mode')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?(old('fees')?old('fees')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->fees:""):""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
@@ -452,7 +477,7 @@
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
                                                                         <!--end::Label-->
-                                                                        <!--begin::Input--> 
+                                                                        <!--begin::Input-->
                                                                         <input type="file" name="screenshot[{{$key}}][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
                                                                         <!--end::Input-->
                                                                     </div>
@@ -462,7 +487,7 @@
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
                                                                         <!--end::Label-->
-                                                                        <!--begin::Input--> 
+                                                                        <!--begin::Input-->
                                                                         <div>
                                                                             <!--begin::Checkbox-->
                                                                             <label class="form-check form-check-custom form-check-solid me-10">
@@ -539,7 +564,7 @@
                                                                         <div class="position-relative">
                                                                             <!--begin::Input-->
                                                                             <input type="text" class="form-control form-control-solid bdr-ccc" value="{{(old('serial_number'))?old('serial_number')[$key]:$demate_account['serial_number']}}" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
-                                                                            <!--end::Input--> 
+                                                                            <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input wrapper-->
                                                                     </div>
@@ -558,7 +583,7 @@
                                                                         <!--begin:Option-->
                                                                         <label class="d-flex flex-stack cursor-pointer mb-5">
                                                                             <!--begin::Label-->
-                                                                            <span class="d-flex align-items-center me-2"> 
+                                                                            <span class="d-flex align-items-center me-2">
                                                                                 <!--begin::Info-->
                                                                                 <span class="d-flex flex-column">
                                                                                     <span class="fw-bolder fs-6">Prime</span>
@@ -582,7 +607,7 @@
                                                                         <!--begin:Option-->
                                                                         <label class="d-flex flex-stack cursor-pointer mb-5">
                                                                             <!--begin::Label-->
-                                                                            <span class="d-flex align-items-center me-2"> 
+                                                                            <span class="d-flex align-items-center me-2">
                                                                                 <!--begin::Info-->
                                                                                 <span class="d-flex flex-column">
                                                                                     <span class="fw-bolder fs-6">AMS</span>
@@ -596,11 +621,11 @@
                                                                             </span>
                                                                             <!--end::Input-->
                                                                         </label>
-                                                                        <!--end::Option--> 
+                                                                        <!--end::Option-->
                                                                     </div>
                                                                     <!--end::Col-->
                                                                 </div>
-                                                                <!--end::Input group--> 
+                                                                <!--end::Input group-->
                                                                     <div class="row mb-4">
                                                                     <!--begin::Input group-->
                                                                     <div class="col-md-6 mb-4">
@@ -641,12 +666,12 @@
                                                                         @empty
                                                                             <option>Selecte Bank</option>
                                                                         @endforelse
-                                                                    </select>	
+                                                                    </select>
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Input group-->
                                                                 <!--begin::Input group-->
-                                                                <div class="row"> 
+                                                                <div class="row">
                                                                     <!--begin::Col-->
                                                                     <div class="col-md-6 mb-4 fv-row">
                                                                         <!--begin::Label-->
@@ -655,7 +680,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly placeholder="" name="user_id[]" value="{{$demate_account['user_id']}}" />	
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly placeholder="" name="user_id[]" value="{{$demate_account['user_id']}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
@@ -667,14 +692,14 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="password[]" value="{{(session('password')[$key])?session('password')[$key]:""}}" />	
+                                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="password[]" value="{{(session('password')[$key])?session('password')[$key]:""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
                                                                 </div>
-                                                                <!--end::Input group--> 
+                                                                <!--end::Input group-->
                                                                 <!--begin::Input group-->
-                                                                <div class="row mb-4"> 
+                                                                <div class="row mb-4">
                                                                     <!--begin::Col-->
                                                                     <div class="col-md-6 mb-4 fv-row">
                                                                         <!--begin::Label-->
@@ -683,7 +708,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />	
+                                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
@@ -695,12 +720,12 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="{{$demate_account['capital']}}" />	
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="{{$demate_account['capital']}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
                                                                 </div>
-                                                                <!--end::Input group--> 
+                                                                <!--end::Input group-->
                                                             </div>
                                                         </div>
                                                         <!--end::Step 2-->
@@ -710,13 +735,13 @@
                                                                 <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                                     <h3 class="stepper-title text-primary">Payment Details</h3>
                                                                 </div>
-                                                                
+
                                                                 <!--begin::Input group-->
                                                                 <div class="fv-row mb-8 col-md-6">
                                                                     <!--begin::Label-->
                                                                     <label class="required fs-5 fw-bold mb-2">Mode</label>
                                                                     <!--end::Label-->
-                                                                    <div class="row col-md-6 mb-4">	
+                                                                    <div class="row col-md-6 mb-4">
                                                                         <!--begin::Input group-->
                                                                         <div class="col-md-6">
                                                                             <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
@@ -758,7 +783,7 @@
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                                         <!--end::Label-->
-                                                                        <!--begin::Input--> 
+                                                                        <!--begin::Input-->
                                                                         <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{$demate_account['mode']=="2"?($demate_account['joining_date']==""?"":date("Y-m-d",strtotime($demate_account['joining_date']))):""}}"/>
                                                                         <!--end::Input-->
                                                                     </div>
@@ -768,7 +793,7 @@
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-5 fw-bold mb-2">Fees</label>
                                                                         <!--end::Label-->
-                                                                        <!--begin::Input--> 
+                                                                        <!--begin::Input-->
                                                                         <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="{{$demate_account['mode']=="2"?$demate_account['fees']:""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
@@ -780,7 +805,7 @@
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
                                                                         <!--end::Label-->
-                                                                        <!--begin::Input--> 
+                                                                        <!--begin::Input-->
                                                                         <input type="file" name="screenshot[{{$key}}][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
                                                                         <!--end::Input-->
                                                                     </div>
@@ -790,7 +815,7 @@
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
                                                                         <!--end::Label-->
-                                                                        <!--begin::Input--> 
+                                                                        <!--begin::Input-->
                                                                         <div>
                                                                             <!--begin::Checkbox-->
                                                                             <label class="form-check form-check-custom form-check-solid me-10">
@@ -848,7 +873,7 @@
                                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                             </button>
                                         </div>
-                                        <!--end::Wrapper-->    
+                                        <!--end::Wrapper-->
                                         <!--end::Actions-->
                                     </form>
                                     <!--begin::Step 2 & 3 hidden for add more-->
@@ -879,7 +904,7 @@
                                                                 <select name="st_sg[]" class="form-select form-select-solid">
                                                                     <option></option>
                                                                     <option value="ST">ST</option>
-                                                                    <option value="SG">SG</option> 
+                                                                    <option value="SG">SG</option>
                                                                 </select>
                                                             </div>
                                                             <!--end::Input wrapper-->
@@ -896,7 +921,7 @@
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
                                                                 <input type="text" class="form-control form-control-solid bdr-ccc" value="" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
-                                                                <!--end::Input--> 
+                                                                <!--end::Input-->
                                                             </div>
                                                             <!--end::Input wrapper-->
                                                         </div>
@@ -915,7 +940,7 @@
                                                             <!--begin:Option-->
                                                             <label class="d-flex flex-stack cursor-pointer mb-5">
                                                                 <!--begin::Label-->
-                                                                <span class="d-flex align-items-center me-2"> 
+                                                                <span class="d-flex align-items-center me-2">
                                                                     <!--begin::Info-->
                                                                     <span class="d-flex flex-column">
                                                                         <span class="fw-bolder fs-6">Prime</span>
@@ -939,7 +964,7 @@
                                                             <!--begin:Option-->
                                                             <label class="d-flex flex-stack cursor-pointer mb-5">
                                                                 <!--begin::Label-->
-                                                                <span class="d-flex align-items-center me-2"> 
+                                                                <span class="d-flex align-items-center me-2">
                                                                     <!--begin::Info-->
                                                                     <span class="d-flex flex-column">
                                                                         <span class="fw-bolder fs-6">AMS</span>
@@ -953,11 +978,11 @@
                                                                 </span>
                                                                 <!--end::Input-->
                                                             </label>
-                                                            <!--end::Option--> 
+                                                            <!--end::Option-->
                                                         </div>
                                                         <!--end::Col-->
                                                     </div>
-                                                    <!--end::Input group--> 
+                                                    <!--end::Input group-->
                                                         <div class="row mb-4">
                                                         <!--begin::Input group-->
                                                         <div class="col-md-6 mb-4">
@@ -999,13 +1024,13 @@
                                                             <option value="Govt Job">Govt Job</option>
                                                             <option value="Private Job">Private Job</option>
                                                             <option value="Student">Student</option>
-                                                            <option value="House wife">House wife</option> 
-                                                        </select>	
+                                                            <option value="House wife">House wife</option>
+                                                        </select>
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
                                                     <!--begin::Input group-->
-                                                    <div class="row"> 
+                                                    <div class="row">
                                                         <!--begin::Col-->
                                                         <div class="col-md-6 mb-4 fv-row">
                                                             <!--begin::Label-->
@@ -1014,7 +1039,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="user_id[]" placeholder="" value="" />	
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="user_id[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->
@@ -1026,14 +1051,14 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" value="" />	
+                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->
                                                     </div>
-                                                    <!--end::Input group--> 
+                                                    <!--end::Input group-->
                                                     <!--begin::Input group-->
-                                                    <div class="row mb-4"> 
+                                                    <div class="row mb-4">
                                                         <!--begin::Col-->
                                                         <div class="col-md-6 mb-4 fv-row">
                                                             <!--begin::Label-->
@@ -1042,7 +1067,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />	
+                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->
@@ -1054,12 +1079,12 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="" />	
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->
                                                     </div>
-                                                    <!--end::Input group--> 
+                                                    <!--end::Input group-->
                                                 </div>
                                             </div>
                                             <!--end::Step 2-->
@@ -1069,13 +1094,13 @@
                                                     <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                         <h3 class="stepper-title text-primary">Payment Details</h3>
                                                     </div>
-                                                    
+
                                                     <!--begin::Input group-->
                                                     <div class="fv-row mb-8 col-md-6">
                                                         <!--begin::Label-->
                                                         <label class="required fs-5 fw-bold mb-2">Mode</label>
                                                         <!--end::Label-->
-                                                        <div class="row col-md-6 mb-4">	
+                                                        <div class="row col-md-6 mb-4">
                                                             <!--begin::Input group-->
                                                             <div class="col-md-6">
                                                                 <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
@@ -1104,11 +1129,11 @@
                                                                 <select name="bank[]" class="form-select form-select-solid" >
                                                                     <option></option>
                                                                     <option value="ICICI" selected >ICICI</option>
-                                                                    <option value="HDFC">HDFC</option> 
-                                                                    <option value="Canara">Canara</option> 
-                                                                    <option value="Axis">Axis</option> 
-                                                                    <option value="RBL">RBL</option> 
-                                                                    
+                                                                    <option value="HDFC">HDFC</option>
+                                                                    <option value="Canara">Canara</option>
+                                                                    <option value="Axis">Axis</option>
+                                                                    <option value="RBL">RBL</option>
+
                                                                 </select>
                                                             </div>
                                                             <!--end::Input wrapper-->
@@ -1121,7 +1146,7 @@
                                                             <!--begin::Label-->
                                                             <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                             <!--end::Label-->
-                                                            <!--begin::Input--> 
+                                                            <!--begin::Input-->
                                                             <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date"/>
                                                             <!--end::Input-->
                                                         </div>
@@ -1131,7 +1156,7 @@
                                                             <!--begin::Label-->
                                                             <label class="required fs-5 fw-bold mb-2">Fees</label>
                                                             <!--end::Label-->
-                                                            <!--begin::Input--> 
+                                                            <!--begin::Input-->
                                                             <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="25,000" />
                                                             <!--end::Input-->
                                                         </div>
@@ -1143,7 +1168,7 @@
                                                             <!--begin::Label-->
                                                             <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
                                                             <!--end::Label-->
-                                                            <!--begin::Input--> 
+                                                            <!--begin::Input-->
                                                             <input type="file" name="screenshot[2][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
                                                             <!--end::Input-->
                                                         </div>
@@ -1153,7 +1178,7 @@
                                                             <!--begin::Label-->
                                                             <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
                                                             <!--end::Label-->
-                                                            <!--begin::Input--> 
+                                                            <!--begin::Input-->
                                                             <div>
                                                                 <!--begin::Checkbox-->
                                                                 <label class="form-check form-check-custom form-check-solid me-10">
@@ -1195,7 +1220,7 @@
         </div>
         <!--end::Page-->
     </div>
-    <!--begin::Modals-->   
+    <!--begin::Modals-->
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
@@ -1252,13 +1277,13 @@
                     })
                 }
                 const targetDiv = document.getElementById("PaymentSection");
-                
+
                 $(document).on('click', '#togglePaymentMode', function() {
                     var self = $(this);
                     myFunction(self);
                 });
-                
-                function myFunction(self)   
+
+                function myFunction(self)
                 {
                     if (self.is(":checked")) {
                         self.closest('.payment_details').find('.joining_date').show();
@@ -1279,7 +1304,7 @@
                     }
                 });
                 $(document).on("input",".wpsameascontact",function() {
-                    if ($(this).is(':checked')) {					
+                    if ($(this).is(':checked')) {
                         var $cm = $('.client-mobile');
                         var $wp = $('.wp');
                         function onChange() {
@@ -1302,7 +1327,7 @@
         })
     </script>
     @section('jscript')
-        
+
 		<script src="{{asset('assets/js/custom/modals/create-app.js')}}"></script>
     @endsection
 @endsection

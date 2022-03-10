@@ -13,6 +13,7 @@ use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\BrokerController;
 use App\Http\Controllers\BankDetailsController;
 use App\Http\Controllers\TraderController;
+use App\Http\Controllers\FreelancerController;
 // login
 Route::get("/login",function(){
     return view("auth.login");
@@ -49,7 +50,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/client/remove/{id}",[ClientController::class,"remove"])->name("removeClient");
     // remove client
     Route::get("'/client/edit/{client_id}/remove/screenshot/{screenshot_id}",[ClientController::class,"removePaymentScreenshot"])->name("removePaymentScreenshot");
-
+    Route::POST("/freelancer/client/assign",[ClientController::class,'assignClientToFreelancer'])->name('assignClientToFreelancer');
 
     // users
     Route::get("/users",[UserController::class,"all"])->name("users");
@@ -161,4 +162,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/logout",[LoginController::class,"logout"])->name("logout");
     // display file
     Route::get('/common/displayFile/{id}/{type}/{name}', [App\Http\Controllers\CommonController::class,'displayFile'])->name('displayFile');
+
+    // freelancer
+    Route::get("/freelancer",[FreelancerController::class, "freelancerData"])->name("freelancerData");
 });

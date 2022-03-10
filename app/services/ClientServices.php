@@ -30,8 +30,9 @@ class ClientServices
         }else{
             $client['wp_number']=$client['number'];
         }
-        
+
         $client['created_by'] = Auth::id();
+        $client['channel_partner_id'] = ($request->channel_partner_id != '') ? $request->channel_partner_id : 0;
 
         $client = Client::create($client);
 
@@ -84,7 +85,7 @@ class ClientServices
             $array['mpin']=$demat['mpin'][$key];
             $array['capital']=$demat['capital'][$key];
             $array['client_id']=$demat['client_id'][$key];
-            
+
             ClientDemat::insert($array);
         }
 
@@ -107,7 +108,7 @@ class ClientServices
                     ],
                     [
                         "fees.required"=>"Fees is required",
-                    ]); 
+                    ]);
                 }
                 $payment['joining_date']=$request->joining_date[$key];
                 $payment['bank']=$request->bank[$key];
@@ -169,6 +170,7 @@ class ClientServices
         }
         $client['updated_by'] = Auth::id();
         $client['status'] = 0;
+        $client['channel_partner_id'] = ($request->channel_partner_id != '') ? $request->channel_partner_id : 0;
         if(isset($request->payment_verified) && $request->payment_verified=="1"){
             $auth_user = Auth::user();
             if($auth_user->hasRole([8,1])){
@@ -227,7 +229,7 @@ class ClientServices
             $array['client_id']=$id;
             $array['updated_by']=Auth::id();
             $array['updated_at']=date("Y-m-d H:i:s");
-            
+
             ClientDemat::insert($array);
         }
         foreach($request->mode as $key => $mode){
@@ -252,7 +254,7 @@ class ClientServices
                     ],
                     [
                         "fees.required"=>"Fees is required",
-                    ]); 
+                    ]);
                 }
                 $payment['joining_date']=$request->joining_date[$key];
                 $payment['bank']=$request->bank[$key];
@@ -291,5 +293,10 @@ class ClientServices
     }
     public static function removePaymentScreenshot($ss){
         return Screenshots::where("id",$ss)->delete();
+    }
+
+    public static function updateAssignTo($id,$request)
+    {
+        return Client::where("id", $id)->update($request);
     }
 }

@@ -41,7 +41,7 @@
 										<li class="breadcrumb-item text-muted">
 											<a href="index.html" class="text-muted text-hover-primary">Home</a>
 										</li>
-										<!--end::Item-->  
+										<!--end::Item-->
 										<!--begin::Item-->
 										<li class="breadcrumb-item">
 											<span class="bullet bg-gray-200 w-5px h-2px"></span>
@@ -55,7 +55,7 @@
 								</div>
 								<!--end::Page title-->
 								@can("user-create")
-								<div class="d-flex align-items-center py-1"> 
+								<div class="d-flex align-items-center py-1">
                                     <a href="{{route('createUserForm')}}" class="btn btn-lg btn-primary">
                                     Add User
                                     </a>
@@ -138,8 +138,55 @@
 													</label>
 													<!--end::Option-->
 												</div>
-												<!--end::Col-->
-												
+                                                <!--end::Col-->
+                                                <!--begin::Col-->
+                                                <div class="">
+                                                    <!--begin::Option-->
+                                                    <input type="checkbox" class="btn-check" name="account_type" value="employee" {{($user->user_type==3 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
+                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee" style="width: min-content;">
+                                                        <!--begin::Info-->
+                                                        Channel Partner
+                                                        <!-- <span class="d-block fw-bold text-start">
+                                                            <span class="text-dark fw-bolder d-block fs-4 mb-2">Employee</span>
+                                                        </span> -->
+                                                        <!--end::Info-->
+                                                    </label>
+                                                    <!--end::Option-->
+                                                </div>
+                                                <!--end::Col-->
+                                            </div>
+                                            <div class="d-flex justify-content-between mt-4">
+                                                <!--begin::Col-->
+                                                <div class="">
+                                                    <!--begin::Option-->
+                                                    <input type="checkbox" class="btn-check" name="account_type" value="employee" {{($user->user_type==4 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
+                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee" style="width: min-content;">
+                                                        <!--begin::Info-->
+                                                        Freelancer AMS
+                                                        <!-- <span class="d-block fw-bold text-start">
+                                                            <span class="text-dark fw-bolder d-block fs-4 mb-2">Employee</span>
+                                                        </span> -->
+                                                        <!--end::Info-->
+                                                    </label>
+                                                    <!--end::Option-->
+                                                </div>
+                                                <!--end::Col-->
+                                                <!--begin::Col-->
+                                                <div class="">
+                                                    <!--begin::Option-->
+                                                    <input type="checkbox" class="btn-check" name="account_type" value="employee" {{($user->user_type==5 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
+                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee" style="width: min-content;">
+                                                        <!--begin::Info-->
+                                                        Freelancer Prime
+                                                        <!-- <span class="d-block fw-bold text-start">
+                                                            <span class="text-dark fw-bolder d-block fs-4 mb-2">Employee</span>
+                                                        </span> -->
+                                                        <!--end::Info-->
+                                                    </label>
+                                                    <!--end::Option-->
+                                                </div>
+                                                <!--end::Col-->
+
 												<!--begin::Col-->
 												<div class="">
 													<!--begin::Option-->
@@ -167,14 +214,14 @@
 
 										<div class="d-flex justify-content-between">
 											@can("user-write")
-											<div class="d-flex align-items-center py-1"> 
+											<div class="d-flex align-items-center py-1">
 												<a href="{{url('/user/edit',$user->id)}}" target="_blank" class="btn btn-lg btn-primary">
 												Edit User
 												</a>
 											</div>
 											@endcan
 											@can("user-delete")
-											<div class="d-flex align-items-center py-1"> 
+											<div class="d-flex align-items-center py-1">
 												<a href="javascript:void(0);" data-id='{{$user->id}}' class="btn btn-lg btn-primary terminateAccount" data-bs-toggle="modal" data-bs-target="#confirmTerminate">
 												Terminate
 												</a>
@@ -217,7 +264,7 @@
 		@include("kt_explore")
 		<!--end::Exolore drawer-->
 		<!--end::Drawers--> --}}
-		 
+
 		<!-- Modal View Users -->
 		<div class="modal fade" id="confirmTerminate" tabindex="-1" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered mw-650px" role="document">
@@ -269,7 +316,7 @@
 			</span>
 			<!--end::Svg Icon-->
 		</div>
-		
+
 		<div id="kt_modal_add_user"></div>
 		<!-- hidden More Whatsapp Ends-->
 		<!--end::Scrolltop-->

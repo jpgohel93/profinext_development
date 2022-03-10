@@ -35,12 +35,7 @@ class UserServices
             "job_description"=>"required",
             "role"=>"required",
         ]);
-        if($data->user_type=='1'){
-            $data->validate([
-                "company"=>"required",
-                "percentage"=>"required|numeric|min:0|max:100",
-            ]);
-        }else{
+        if($data->user_type=='2'){
             $data->validate([
                 "salary"=>"required|numeric",
                 "joining_date"=>"required|date"
@@ -58,8 +53,18 @@ class UserServices
         $user_data['created_by'] = Auth::id();
 		$userRoles = implode(",", $request->role);
         $user_data['role'] = $userRoles;
+        $user_data['company_first'] = isset($request->company_1) ? 1 : null ;
+        $user_data['profit_percentage_first'] = isset($request->profit_company_1) ? $request->profit_company_1 : null ;
+        $user_data['company_second'] = isset($request->company_2) ? 1 : null ;
+        $user_data['profit_percentage_second'] = isset($request->profit_company_2) ? $request->profit_company_2 : null ;
+        $user_data['ams_new_client_percentage'] = isset($request->ams_new_client_percentage) ? $request->ams_new_client_percentage : null ;
+        $user_data['ams_renewal_client_percentage'] = isset($request->ams_renewal_client_percentage) ? $request->ams_renewal_client_percentage : null;
+        $user_data['prime_new_client_percentage'] = isset($request->prime_new_client_percentage) ? $request->prime_new_client_percentage : null;
+        $user_data['prime_renewal_client_percentage'] = isset($request->prime_renewal_client_percentage) ? $request->prime_renewal_client_percentage : null;
+        $user_data['ams_limit'] = isset($request->limit) ? $request->limit : null;
+        $user_data['fees_percentage'] = isset($request->fees_percentage) ? $request->fees_percentage : null;
         $user = User::create($user_data);
-		
+
         $user->assignRole($request->role);
         $numbers = $request->number;
         foreach($numbers as $number){
@@ -74,6 +79,7 @@ class UserServices
         return $user;
     }
     public static function update($request,$id){
+
         try {
             self::validateUsersData($request);
             $request->validate([
@@ -93,6 +99,7 @@ class UserServices
 			$userRoles = implode(",", $request->role);
             $user_data['role'] = $userRoles;
             $user_data['updated_by'] = Auth::id();
+
             User::where("id",$id)->update($user_data);
             // update role
             $user = User::find($id);
@@ -112,5 +119,16 @@ class UserServices
             abort(500);
         }
         return $user;
+    }
+    public static function getByType($type)
+    {
+        return User::where("user_type",$type)->get();
+    }
+
+    public static function getFreelancerData()
+    {
+        $freelancer['freelancer_ams'] =  User::where("user_type",4)->get();
+        $freelancer['freelancer_prime'] =  User::where("user_type",5)->get();
+        return $freelancer;
     }
 }

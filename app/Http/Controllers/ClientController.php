@@ -27,14 +27,17 @@ class ClientController extends Controller
         $banks = BankDetailsServices::view(['id', 'bank']);
         $brokers = BrokerServices::view(['id', 'broker']);
         $traders = UserServices::getByRole('trader');
-        return view("clients.client",compact('clients','professions','banks','traders','brokers'));
+        $freelancerAms= UserServices::getByType(4);
+        $freelancerPrime = UserServices::getByType(5);
+        return view("clients.client",compact('clients','professions','banks','traders','brokers','freelancerAms','freelancerPrime'));
     }
     // create client form
     public function createClientForm(){
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = BankDetailsServices::view(['id', 'bank']);
         $brokers = BrokerServices::view(['id', 'broker']);
-        return view("clients.add", compact('professions', 'banks','brokers'));
+        $channelPartner = UserServices::getByType(3);
+        return view("clients.add", compact('professions', 'banks','brokers','channelPartner'));
     }
     // create client data
     public function create(Request $request){
@@ -54,7 +57,8 @@ class ClientController extends Controller
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = BankDetailsServices::view(['id', 'bank']);
         $brokers = BrokerServices::view(['id', 'broker']);
-        return view("clients.edit", compact('client','professions', 'banks', 'brokers'));
+        $channelPartner = UserServices::getByType(3);
+        return view("clients.edit", compact('client','professions', 'banks', 'brokers','channelPartner'));
     }
     public function update(Request $request,$id){
         $client =  ClientServices::update($request,$id);
@@ -69,5 +73,11 @@ class ClientController extends Controller
     public function removePaymentScreenshot(Request $request,$client,$ss_id){
         ClientServices::removePaymentScreenshot($ss_id);
         return Redirect::route("updateClientForm",$client)->with("info","Screenshot Removed");
+    }
+    // assign client to freelancer
+    public function assignClientToFreelancer(Request $request){
+        $requestData['freelancer_id'] = (isset($request->freelancer_id) && $request->freelancer_id != '') ? $request->freelancer_id : $request->ams_freelancer_id;
+        ClientServices::updateAssignTo($request->client_id,$requestData);
+        return Redirect::route("clients")->with("info","Freelancer assign to client");
     }
 }

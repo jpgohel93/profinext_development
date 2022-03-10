@@ -2,7 +2,7 @@
 @section("page-title","Clients")
 @section("clients","active")
 @section("content")
-	<!--begin::Body-->	
+	<!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -42,7 +42,7 @@
                                     <li class="breadcrumb-item text-muted">
                                         <a href="/dist/index.html" class="text-muted text-hover-primary">Home</a>
                                     </li>
-                                    <!--end::Item-->  
+                                    <!--end::Item-->
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item">
                                         <span class="bullet bg-gray-200 w-5px h-2px"></span>
@@ -57,7 +57,7 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             @can("client-create")
-                                <div class="d-flex align-items-center py-1"> 
+                                <div class="d-flex align-items-center py-1">
                                     <!--begin::Button-->
                                     <a href="{{route('createClientForm')}}" class="btn btn-sm btn-primary" >
                                         <span class="svg-icon svg-icon-2">
@@ -66,10 +66,10 @@
                                                 <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                                             </svg>
                                         </span>Add Client
-                                    </a> 
+                                    </a>
                                 </div>
                             @endcan
-                            <!--end::Actions--> 
+                            <!--end::Actions-->
                         </div>
                         <!--end::Container-->
                     </div>
@@ -94,7 +94,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" href="#allTab">All</a>
                                 </li>
-                            </ul> 
+                            </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="activeTab" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
@@ -119,11 +119,11 @@
                                             </div>
                                             <!--begin::Card title-->
                                             <!--begin::Card toolbar-->
-                                        
+
                                             <div class="card-toolbar">
                                                 <!--begin::Toolbar-->
-                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base"> 
-                                                    <!--begin::Export--> 
+                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                                                    <!--begin::Export-->
                                                     <a href="#" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                         <span class="svg-icon svg-icon-2">
@@ -138,25 +138,25 @@
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                 <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                             </svg>
-                                                        </span> 
-                                                    </a> 
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true"> 
+                                                        </span>
+                                                    </a>
+                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
                                                                 <span class="menu-icon">
                                                                     <i class="la la-file-pdf-o"></i>
                                                                 </span>PDF
-                                                            </a> 
-                                                        </div> 
+                                                            </a>
+                                                        </div>
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
                                                                 <span class="menu-icon">
                                                                     <i class="la la-file-excel-o"></i>
                                                                 </span>Excel
-                                                            </a>  
-                                                        </div> 
-                                                    </div> 
-                                                    <!--end::Export--> 
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Export-->
                                                 </div>
                                                 <!--end::Toolbar-->
                                             </div>
@@ -184,63 +184,66 @@
                                                                 $i=0;
                                                             @endphp
                                                             @forelse ($clients as $client)
-                                                                <tr> 
+                                                                <tr>
                                                                     <td>{{$i+=1}}</td>
-                                                                    <td class="d-flex align-items-center"> 
+                                                                    <td class="d-flex align-items-center">
                                                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                                             <a href="#">
                                                                                 <div class="symbol-label">
                                                                                     <img src="{{asset("assets/media/avatars/150-1.jpg")}}" alt="Emma Smith" class="w-100" />
                                                                                 </div>
                                                                             </a>
-                                                                        </div> 
+                                                                        </div>
                                                                         <div class="d-flex flex-column">
                                                                             <a href="#" class="text-gray-800 text-hover-primary mb-1">{{$client->name}}</a>
                                                                             <span>{{$client->email}}</span>
-                                                                        </div> 
-                                                                    </td> 
-                                                                    <td>{{$client->number}}</td>  
-                                                                    <td>{{ $client->clientDemat->count()}}</td> 
-                                                                    <td>{{ ($client->status)?"Verified":"unverified"}}</td> 
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>{{$client->number}}</td>
+                                                                    <td>{{ $client->clientDemat->count()}}</td>
+                                                                    <td>{{ ($client->status)?"Verified":"unverified"}}</td>
                                                                     <td class="text-end">
                                                                         <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                             <span class="svg-icon svg-icon-5 m-0">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                                     <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                                                 </svg>
-                                                                            </span> 
-                                                                        </a> 
-                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
+                                                                            </span>
+                                                                        </a>
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                             @can("client-read")
-                                                                            <div class="menu-item px-3">  
+                                                                            <div class="menu-item px-3">
                                                                                 <a href="{{route('clientView',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">View</a>
-                                                                            </div> 
+                                                                            </div>
                                                                             @endcan
                                                                             @can("client-write")
-                                                                            <div class="menu-item px-3">  
+                                                                            <div class="menu-item px-3">
                                                                                 <a href="{{route('updateClientForm',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Edit</a>
-                                                                            </div> 
+                                                                            </div>
                                                                             @endcan
                                                                             <div class="menu-item px-3">
                                                                                 <a href="javascript:void(0)" data-id='{{$client->id}}' data-name='{{$client->name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
-                                                                            </div> 
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$client->id}}' data-name='{{$client->name}}'  data-service='{{$client->clientDemat[0]->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+                                                                            </div>
                                                                             @can("client-delete")
                                                                             <div class="menu-item px-3">
                                                                                 <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3 removeClient">Remove</a>
-                                                                            </div> 
+                                                                            </div>
                                                                             @endcan
-                                                                        </div> 
-                                                                    </td> 
+                                                                        </div>
+                                                                    </td>
                                                                 </tr>
                                                             @empty
                                                                 <tr>
                                                                     <td colspan="6">No Clients Found</td>
-                                                                </tr>    
+                                                                </tr>
                                                             @endforelse
                                                             <!--end::Table row-->
                                                         </tbody>
                                                         <!--end::Table body-->
-                                                    </table> 													
+                                                    </table>
                                                 @else
                                                     <h3>Unauthorised</h3>
                                                 @endcan
@@ -274,11 +277,11 @@
                                             </div>
                                             <!--begin::Card title-->
                                             <!--begin::Card toolbar-->
-                                        
+
                                             <div class="card-toolbar">
                                                 <!--begin::Toolbar-->
-                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base"> 
-                                                    <!--begin::Export--> 
+                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                                                    <!--begin::Export-->
                                                     <a href="#" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                         <span class="svg-icon svg-icon-2">
@@ -293,27 +296,27 @@
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                 <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                             </svg>
-                                                        </span> 
-                                                    </a> 
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true"> 
+                                                        </span>
+                                                    </a>
+                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
                                                                 <span class="menu-icon">
                                                                     <i class="la la-file-pdf-o"></i>
                                                                 </span>PDF
-                                                            </a> 
-                                                        </div> 
+                                                            </a>
+                                                        </div>
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
                                                                 <span class="menu-icon">
                                                                     <i class="la la-file-excel-o"></i>
                                                                 </span>Excel
-                                                            </a>  
-                                                        </div> 
-                                                    </div> 
-                                                    <!--end::Export--> 
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Export-->
                                                 </div>
-                                                <!--end::Toolbar-->  
+                                                <!--end::Toolbar-->
                                             </div>
                                             <!--end::Card toolbar-->
                                         </div>
@@ -333,51 +336,51 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
-                                                        <tr> 
+                                                        <tr>
                                                             <td>1</td>
-                                                            <td class="d-flex align-items-center"> 
+                                                            <td class="d-flex align-items-center">
                                                                 <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                                     <a href="#">
                                                                         <div class="symbol-label">
                                                                             <img src="{{asset("assets/media/avatars/150-1.jpg")}}" alt="Emma Smith" class="w-100" />
                                                                         </div>
                                                                     </a>
-                                                                </div> 
+                                                                </div>
                                                                 <div class="d-flex flex-column">
                                                                     <a href="#" class="text-gray-800 text-hover-primary mb-1">Ethan Black</a>
                                                                     <span>ethan-black@example.com</span>
-                                                                </div> 
-                                                            </td> 
-                                                            <td>(937) 874 6878</td>  
-                                                            <td>Test</td> 
+                                                                </div>
+                                                            </td>
+                                                            <td>(937) 874 6878</td>
+                                                            <td>Test</td>
                                                             <td class="text-end">
                                                                 <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                     <span class="svg-icon svg-icon-5 m-0">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                             <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                                         </svg>
-                                                                    </span> 
-                                                                </a> 
-                                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
-                                                                    <div class="menu-item px-3"> 
+                                                                    </span>
+                                                                </a>
+                                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                    <div class="menu-item px-3">
                                                                         <a href="javascript;:" class="menu-link px-3">Renew</a>
-                                                                    </div> 
+                                                                    </div>
                                                                     <div class="menu-item px-3">
                                                                         <a href="javascript;:" class="menu-link px-3">Terminate</a>
-                                                                    </div> 
-                                                                </div> 
-                                                            </td> 
-                                                        </tr>  
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
                                                         <!--end::Table row-->
                                                     </tbody>
                                                     <!--end::Table body-->
-                                                </table>  
+                                                </table>
                                             </div>
                                             <!--end::Table-->
                                         </div>
                                         <!--end::Card body-->
                                     </div>
-                                    <!--end::Card--> 
+                                    <!--end::Card-->
                                 </div>
                                 <div class="tab-pane fade" id="problemTab" aria-labelledby="problem-tab" role="tabpanel">
                                     <!--begin::Card-->
@@ -402,11 +405,11 @@
                                             </div>
                                             <!--begin::Card title-->
                                             <!--begin::Card toolbar-->
-                                        
+
                                             <div class="card-toolbar">
                                                 <!--begin::Toolbar-->
-                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base"> 
-                                                    <!--begin::Export--> 
+                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                                                    <!--begin::Export-->
                                                     <a href="#" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                         <span class="svg-icon svg-icon-2">
@@ -421,27 +424,27 @@
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                 <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                             </svg>
-                                                        </span> 
-                                                    </a> 
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true"> 
+                                                        </span>
+                                                    </a>
+                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
                                                                 <span class="menu-icon">
                                                                     <i class="la la-file-pdf-o"></i>
                                                                 </span>PDF
-                                                            </a> 
-                                                        </div> 
+                                                            </a>
+                                                        </div>
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
                                                                 <span class="menu-icon">
                                                                     <i class="la la-file-excel-o"></i>
                                                                 </span>Excel
-                                                            </a>  
-                                                        </div> 
-                                                    </div> 
-                                                    <!--end::Export--> 
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Export-->
                                                 </div>
-                                                <!--end::Toolbar-->  
+                                                <!--end::Toolbar-->
                                             </div>
                                             <!--end::Card toolbar-->
                                         </div>
@@ -462,23 +465,23 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
-                                                        <tr> 
+                                                        <tr>
                                                             <td>1</td>
-                                                            <td class="d-flex align-items-center"> 
+                                                            <td class="d-flex align-items-center">
                                                                 <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                                     <a href="#">
                                                                         <div class="symbol-label">
                                                                             <img src="{{asset("assets/media/avatars/150-1.jpg")}}" alt="Emma Smith" class="w-100" />
                                                                         </div>
                                                                     </a>
-                                                                </div> 
+                                                                </div>
                                                                 <div class="d-flex flex-column">
                                                                     <a href="#" class="text-gray-800 text-hover-primary mb-1">Ethan Black</a>
                                                                     <span>ethan-black@example.com</span>
-                                                                </div> 
-                                                            </td> 
-                                                            <td>(937) 874 6878</td>  
-                                                            <td>Test</td> 
+                                                                </div>
+                                                            </td>
+                                                            <td>(937) 874 6878</td>
+                                                            <td>Test</td>
                                                             <td>No fund</td>
                                                             <td class="text-end">
                                                                 <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -486,28 +489,28 @@
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                             <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                                         </svg>
-                                                                    </span> 
-                                                                </a> 
-                                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
-                                                                    <div class="menu-item px-3"> 
+                                                                    </span>
+                                                                </a>
+                                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                    <div class="menu-item px-3">
                                                                         <a href="javascript;:" class="menu-link px-3">Issue Resolved</a>
-                                                                    </div> 
+                                                                    </div>
                                                                     <div class="menu-item px-3">
                                                                         <a href="javascript;:" class="menu-link px-3">Terminate</a>
-                                                                    </div> 
-                                                                </div> 
-                                                            </td> 
-                                                        </tr>  
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
                                                         <!--end::Table row-->
                                                     </tbody>
                                                     <!--end::Table body-->
-                                                </table>  
+                                                </table>
                                             </div>
                                             <!--end::Table-->
                                         </div>
                                         <!--end::Card body-->
                                     </div>
-                                    <!--end::Card--> 
+                                    <!--end::Card-->
                                 </div>
                                 <div class="tab-pane fade" id="terminatedTab" aria-labelledby="terminated-tab" role="tabpanel">
                                     <!--begin::Card-->
@@ -532,11 +535,11 @@
                                             </div>
                                             <!--begin::Card title-->
                                             <!--begin::Card toolbar-->
-                                        
+
                                             <div class="card-toolbar">
                                                 <!--begin::Toolbar-->
-                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base"> 
-                                                    <!--begin::Export--> 
+                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                                                    <!--begin::Export-->
                                                     <a href="#" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                         <span class="svg-icon svg-icon-2">
@@ -551,27 +554,27 @@
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                 <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                             </svg>
-                                                        </span> 
-                                                    </a> 
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true"> 
+                                                        </span>
+                                                    </a>
+                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
                                                                 <span class="menu-icon">
                                                                     <i class="la la-file-pdf-o"></i>
                                                                 </span>PDF
-                                                            </a> 
-                                                        </div> 
+                                                            </a>
+                                                        </div>
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
                                                                 <span class="menu-icon">
                                                                     <i class="la la-file-excel-o"></i>
                                                                 </span>Excel
-                                                            </a>  
-                                                        </div> 
-                                                    </div> 
-                                                    <!--end::Export--> 
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Export-->
                                                 </div>
-                                                <!--end::Toolbar-->  
+                                                <!--end::Toolbar-->
                                             </div>
                                             <!--end::Card toolbar-->
                                         </div>
@@ -586,53 +589,53 @@
                                                             <th class="">Sr. No.</th>
                                                             <th class="min-w-125px">Client Name</th>
                                                             <th class="min-w-125px">Contact Number</th>
-                                                            <th class="min-w-75px">Demat Name</th> 
+                                                            <th class="min-w-75px">Demat Name</th>
                                                             <th class="text-end min-w-100px">Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
-                                                        <tr> 
+                                                        <tr>
                                                             <td>1</td>
-                                                            <td class="d-flex align-items-center"> 
+                                                            <td class="d-flex align-items-center">
                                                                 <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                                     <a href="#">
                                                                         <div class="symbol-label">
                                                                             <img src="{{asset("assets/media/avatars/150-1.jpg")}}" alt="Emma Smith" class="w-100" />
                                                                         </div>
                                                                     </a>
-                                                                </div> 
+                                                                </div>
                                                                 <div class="d-flex flex-column">
                                                                     <a href="#" class="text-gray-800 text-hover-primary mb-1">Ethan Black</a>
                                                                     <span>ethan-black@example.com</span>
-                                                                </div> 
-                                                            </td> 
-                                                            <td>(937) 874 6878</td>  
-                                                            <td>Test</td> 
+                                                                </div>
+                                                            </td>
+                                                            <td>(937) 874 6878</td>
+                                                            <td>Test</td>
                                                             <td class="text-end">
                                                                 <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                     <span class="svg-icon svg-icon-5 m-0">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                             <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                                         </svg>
-                                                                    </span> 
-                                                                </a> 
-                                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
+                                                                    </span>
+                                                                </a>
+                                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                     <div class="menu-item px-3">
                                                                         <a href="javascript;:" class="menu-link px-3">Renew</a>
-                                                                    </div> 
-                                                                </div> 
-                                                            </td> 
-                                                        </tr>  
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
                                                         <!--end::Table row-->
                                                     </tbody>
                                                     <!--end::Table body-->
-                                                </table>  
+                                                </table>
                                             </div>
                                             <!--end::Table-->
                                         </div>
                                         <!--end::Card body-->
                                     </div>
-                                    <!--end::Card--> 
+                                    <!--end::Card-->
                                 </div>
                                 <div class="tab-pane fade" id="allTab" aria-labelledby="all-tab" role="tabpanel">
                                     <!--begin::Card-->
@@ -657,11 +660,11 @@
                                             </div>
                                             <!--begin::Card title-->
                                             <!--begin::Card toolbar-->
-                                        
+
                                             <div class="card-toolbar">
                                                 <!--begin::Toolbar-->
-                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base"> 
-                                                    <!--begin::Export--> 
+                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                                                    <!--begin::Export-->
                                                     <a href="#" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                         <span class="svg-icon svg-icon-2">
@@ -676,27 +679,27 @@
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                 <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                             </svg>
-                                                        </span> 
-                                                    </a> 
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true"> 
+                                                        </span>
+                                                    </a>
+                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
                                                                 <span class="menu-icon">
                                                                     <i class="la la-file-pdf-o"></i>
                                                                 </span>PDF
-                                                            </a> 
-                                                        </div> 
+                                                            </a>
+                                                        </div>
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
                                                                 <span class="menu-icon">
                                                                     <i class="la la-file-excel-o"></i>
                                                                 </span>Excel
-                                                            </a>  
-                                                        </div> 
-                                                    </div> 
-                                                    <!--end::Export--> 
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Export-->
                                                 </div>
-                                                <!--end::Toolbar-->  
+                                                <!--end::Toolbar-->
                                             </div>
                                             <!--end::Card toolbar-->
                                         </div>
@@ -711,61 +714,61 @@
                                                             <th class="">Sr. No.</th>
                                                             <th class="min-w-125px">Client Name</th>
                                                             <th class="min-w-125px">Contact Number</th>
-                                                            <th class="min-w-75px">Demat Name</th> 
+                                                            <th class="min-w-75px">Demat Name</th>
                                                             <th class="text-end min-w-100px">Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
-                                                        <tr> 
+                                                        <tr>
                                                             <td>1</td>
-                                                            <td class="d-flex align-items-center"> 
+                                                            <td class="d-flex align-items-center">
                                                                 <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                                     <a href="#">
                                                                         <div class="symbol-label">
                                                                             <img src="{{asset("assets/media/avatars/150-1.jpg")}}" alt="Emma Smith" class="w-100" />
                                                                         </div>
                                                                     </a>
-                                                                </div> 
+                                                                </div>
                                                                 <div class="d-flex flex-column">
                                                                     <a href="#" class="text-gray-800 text-hover-primary mb-1">Ethan Black</a>
                                                                     <span>ethan-black@example.com</span>
-                                                                </div> 
-                                                            </td> 
-                                                            <td>(937) 874 6878</td>  
-                                                            <td>Test</td> 
+                                                                </div>
+                                                            </td>
+                                                            <td>(937) 874 6878</td>
+                                                            <td>Test</td>
                                                             <td class="text-end">
                                                                 <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                     <span class="svg-icon svg-icon-5 m-0">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                             <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                                         </svg>
-                                                                    </span> 
-                                                                </a> 
-                                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
+                                                                    </span>
+                                                                </a>
+                                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                     <div class="menu-item px-3">
                                                                         <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#actClientView">View</a>
                                                                     </div>
                                                                     <div class="menu-item px-3">
                                                                         <a href="javascript;:" class="menu-link px-3">Renew</a>
-                                                                    </div> 
+                                                                    </div>
                                                                     <div class="menu-item px-3">
                                                                         <a href="javascript;:" class="menu-link px-3">Terminate</a>
-                                                                    </div> 
-                                                                </div> 
-                                                            </td> 
-                                                        </tr>  
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
                                                         <!--end::Table row-->
                                                     </tbody>
                                                     <!--end::Table body-->
-                                                </table>  
+                                                </table>
                                             </div>
                                             <!--end::Table-->
                                         </div>
                                         <!--end::Card body-->
                                     </div>
-                                    <!--end::Card--> 
-                                </div> 
-                            </div> 
+                                    <!--end::Card-->
+                                </div>
+                            </div>
                         </div>
                         <!--end::Container-->
                     </div>
@@ -780,10 +783,10 @@
         </div>
         <!--end::Page-->
     </div>
-    <!--begin::Modals-->   
+    <!--begin::Modals-->
 		<!--begin::Modal - Add client-->
-		<!--end::Modal - Add client--> 
-		<!--begin::Modal - View Client Details--> 
+		<!--end::Modal - Add client-->
+		<!--begin::Modal - View Client Details-->
 		<div class="modal fade" id="viewClient" tabindex="-1" aria-hidden="true">
 		    <div class="modal-dialog modal-dialog-centered mw-650px" role="document">
 		        <div class="modal-content">
@@ -805,7 +808,7 @@
 						<form id="" class="form" action="#">
 							<!--begin::Scroll-->
 							<!-- <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px"> -->
-								
+
 								<div class="form-group row">
 									<label class="col-3 col-form-label">Client</label>
 									<div class="col-9">
@@ -816,21 +819,21 @@
 									<label for="example-email-input" class="col-3 col-form-label">Number</label>
 									<div class="col-9">
 										<input class="form-control" type="text" value="" id="client_number" readonly /> </div>
-								</div> 
+								</div>
 								<div class="form-group row">
 									<label for="example-tel-input" class="col-3 col-form-label">Profession</label>
 									<div class="col-9">
 										<input class="form-control" type="text" value="" id="client_profession"  readonly/>
                                     </div>
-								</div> 
+								</div>
 								<div class="form-group row mb-0">
 									<label for="no-of-demat" class="col-3 col-form-label">Status</label>
 									<div class="col-9">
 										<input class="form-control" type="text" value="" id="client_status"  readonly/>
                                     </div>
-								</div> 
+								</div>
 							<!-- </div> -->
-							<!--end::Scroll--> 
+							<!--end::Scroll-->
 						</form>
 						<!--end::Form-->
 					</div>
@@ -841,7 +844,7 @@
 							<span class="indicator-label">Submit</span>
 							<span class="indicator-progress">Please wait...
 							<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-						</button> 
+						</button>
 					</div>
 		        </div>
 		    </div>
@@ -885,7 +888,7 @@
                                         @endforelse
                                     </select>
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                         <!--end::Modal body-->
                         <div class="modal-footer text-center">
@@ -894,7 +897,7 @@
                                 <span class="indicator-label">Submit</span>
                                 <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button> 
+                            </button>
                         </div>
                     </form>
                     <!--end::Form-->
@@ -903,6 +906,80 @@
 		</div>
 		<!--end::Modal - View Client Details-->
 		<!--end::Modals-->
+
+        <!-- Modal -->
+        <div class="modal fade" id="assignFreelancerModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog mw-650px" role="document">
+                <div class="modal-content">
+                    <!--begin::Form-->
+                    <form id="" class="form" method="POST" action="{{route('assignClientToFreelancer')}}">
+                        @csrf
+                        <div class="modal-header">
+                            <h2 class="fw-bolder">Assign Client to Freelancer</h2>
+                            <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span class="svg-icon svg-icon-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                        </svg>
+                                    </span>
+                            </button>
+                        </div>
+
+                        <!--begin::Modal body-->
+                        <div class="modal-body mx-md-10">
+                            <div class="form-group row">
+                                <label class="col-3 col-form-label">Client</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" id="assignFreelancerName" readonly/>
+                                    <input class="form-control" type="hidden" value="" name='client_id' id="assignFreelancerId" readonly />
+                                </div>
+                            </div>
+                            <div class="form-group row" id="ams_freelancer">
+                                <label for="example-email-input" class="col-3 col-form-label"> AMS freelancer</label>
+                                <div class="col-9">
+                                    <select class="form-select form-select-solid" name='freelancer_id' data-control="select2" data-hide-search="true" data-placeholder="Select AMS freelancer">
+                                        <option></option>
+                                        @forelse ($freelancerAms as $freelancer)
+                                            <option value="{{$freelancer->id}}">{{$freelancer->name}}</option>
+                                        @empty
+                                            <option>Select AMS freelancer</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row" id="prime_freelancer">
+                                <label for="example-email-input" class="col-3 col-form-label"> Prime freelancer</label>
+                                <div class="col-9">
+                                    <select class="form-select form-select-solid" name='ams_freelancer_id' data-control="select2" data-hide-search="true" data-placeholder="Select Prime freelancer">
+                                        <option></option>
+                                        @forelse ($freelancerPrime as $freelancer)
+                                            <option value="{{$freelancer->id}}">{{$freelancer->name}}</option>
+                                        @empty
+                                            <option>Select Prime freelancer</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Modal body-->
+                        <div class="modal-footer text-center">
+                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                            <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+        </div>
+        <!--end::Modal - View Client Details-->
+        <!--end::Modals-->
+
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
@@ -947,7 +1024,28 @@
                 }else{
                     window.alert("Unable to Load this Client");
                 }
-            })
+            });
+            $(document).on("click",'.assignFreelancer',function(e){
+                const id = e.target.getAttribute("data-id");
+                const name = e.target.getAttribute("data-name");
+                const service = e.target.getAttribute("data-service");
+                if(id){
+                    $("#assignFreelancerId").val(id);
+                    $("#assignFreelancerName").val(name);
+                    $("#prime_freelancer").hide();
+                    $("#ams_freelancer").hide();
+                    if(service == 1){
+                        $("#prime_freelancer").show();
+                        $("#ams_freelancer").hide();
+                    }else if(service == 2){
+                        $("#ams_freelancer").show();
+                        $("#prime_freelancer").hide();
+                    }
+                    $("#assignFreelancerModal").modal("show");
+                }else{
+                    window.alert("Unable to Load this Client");
+                }
+            });
             $(document).on("click",".removeClient",e=>{
                 if(!window.confirm("Are you sure you want to remove this Client?")){
                     e.preventDefault();
