@@ -1,6 +1,6 @@
 @extends('layout')
-@section("page-title","Freelancer")
-@section("freelancer","active")
+@section("page-title","Channel Partner")
+@section("channelPartner","active")
 @section("content")
     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
     <!--begin::Body-->
@@ -28,7 +28,7 @@
                             <!--begin::Page title-->
                             <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                                 <!--begin::Title-->
-                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Freelancer</h1>
+                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Channel Partner Clients</h1>
                                 <!--end::Title-->
                                 <!--begin::Separator-->
                                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -46,7 +46,7 @@
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
-                                    <li class="breadcrumb-item text-dark">Freelancer</li>
+                                    <li class="breadcrumb-item text-dark">Channel Partner Clients</li>
                                     <!--end::Item-->
                                 </ul>
                                 <!--end::Breadcrumb-->
@@ -74,14 +74,14 @@
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary pb-1 active" data-bs-toggle="tab"
-                                       href="#freelancerams">Freelancer AMS</a>
+                                       href="#freelancerams">Channel Partner Clients AMS</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#freelancerprivate">Freelancer Private</a>
+                                       href="#freelancerprivate">Channel Partner Clients Private</a>
                                 </li>
                                 <!--end:::Tab item-->
                             </ul>
@@ -183,40 +183,38 @@
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5"
                                                        id="kt_table_users">
-                                                @if ($freelancerData['freelancer_ams']->isNotEmpty())
+                                                @if ($channelPartnerClient['ams']->isNotEmpty())
                                                     <!--begin::Table head-->
                                                         <thead>
                                                         <tr
                                                             class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Sr No.</th>
-                                                            <th class="min-w-75px">Freelancer Name</th>
-                                                            <th class="min-w-75px">Freelancer Email</th>
-                                                            <th class="text-end min-w-100px">View Clients</th>
+                                                            <th class="min-w-75px">Client Name</th>
+                                                            <th class="min-w-75px">Number</th>
+                                                            <th class="min-w-75px">Whatsapp Number</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold" id="activeCallTable">
                                                         @php
                                                             $i=1;
                                                         @endphp
-                                                        @foreach($freelancerData['freelancer_ams'] as $freelancer)
+                                                        @foreach($channelPartnerClient['ams'] as $client)
                                                             <tr>
                                                                 <td>{{$i++}}</td>
-                                                                <td> {{$freelancer->name}} </td>
-                                                                <td> {{$freelancer->email}}</td>
-                                                                <td class="">
-                                                                    <div class="d-flex justify-content-center">
-                                                                        <div class="menu-item">
-                                                                            <a href="{{url('/freelancer/clients/'.$freelancer->id)}}" class="menu-link p-1" target="_blank">
-                                                                                <i class="fa fa-eye text-dark fa-2x"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
+                                                                <td class="d-flex align-items-center">
+                                                                    {{$client->name}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$client->number}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$client->wp_number}}
                                                                 </td>
                                                             </tr>
                                                         @endforeach
                                                         </tbody>
                                                     @else
-                                                        <h3>there's no AMS Freelancer.</h3>
+                                                        <h3>No Clients Found</h3>
                                                 @endif
                                                 <!--end::Table body-->
                                                 </table>
@@ -322,40 +320,38 @@
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5"
                                                        id="kt_table_users">
-                                                @if ($freelancerData['freelancer_prime']->isNotEmpty())
+                                                @if ($channelPartnerClient['prime']->isNotEmpty())
                                                     <!--begin::Table head-->
                                                         <thead>
                                                         <tr
                                                             class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Sr No.</th>
-                                                            <th class="min-w-75px">Freelancer Name</th>
-                                                            <th class="min-w-75px">Freelancer Email</th>
-                                                            <th class="text-end min-w-100px">View Clients</th>
+                                                            <th class="min-w-75px">Client Name</th>
+                                                            <th class="min-w-75px">Number</th>
+                                                            <th class="min-w-75px">Whatsapp Number</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold" id="activeCallTable">
                                                         @php
                                                             $i=1;
                                                         @endphp
-                                                        @foreach($freelancerData['freelancer_prime'] as $freelancer)
+                                                        @foreach($channelPartnerClient['prime'] as $client)
                                                             <tr>
                                                                 <td>{{$i++}}</td>
-                                                                <td> {{$freelancer->name}} </td>
-                                                                <td> {{$freelancer->email}}</td>
-                                                                <td class="">
-                                                                    <div class="d-flex justify-content-center">
-                                                                        <div class="menu-item">
-                                                                            <a href="{{url('/freelancer/clients/'.$freelancer->id)}}" class="menu-link p-1" target="_blank">
-                                                                                <i class="fa fa-eye text-dark fa-2x"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
+                                                                <td class="d-flex align-items-center">
+                                                                    {{$client->name}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$client->number}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$client->wp_number}}
                                                                 </td>
                                                             </tr>
                                                         @endforeach
                                                         </tbody>
                                                     @else
-                                                        <h3>there's no Prime Freelancer.</h3>
+                                                        <h3>No Clients Found</h3>
                                                 @endif
                                                 <!--end::Table body-->
                                                 </table>

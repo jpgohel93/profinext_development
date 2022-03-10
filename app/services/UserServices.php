@@ -131,4 +131,9 @@ class UserServices
         $freelancer['freelancer_prime'] =  User::where("user_type",5)->get();
         return $freelancer;
     }
+    public static function getChannelPartnerData()
+    {
+        return User::where("user_type",3)->get();
+
+    }
 }

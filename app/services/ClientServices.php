@@ -299,4 +299,21 @@ class ClientServices
     {
         return Client::where("id", $id)->update($request);
     }
+
+    public static function freelancerClientList($id){
+        return Client::where("freelancer_id",$id)->get();
+    }
+
+    public static function channelPartnerClientList($id){
+
+        $clientList["prime"] = Client::where("channel_partner_id",$id)
+            ->leftJoin('client_demat', 'clients.id', '=', 'client_demat.client_id')
+            ->where("client_demat.service_type",1)->get();
+
+        $clientList["ams"] = Client::where("channel_partner_id",$id)
+            ->leftJoin('client_demat', 'clients.id', '=', 'client_demat.client_id')
+            ->where("client_demat.service_type",2)->get();
+
+        return $clientList;
+    }
 }

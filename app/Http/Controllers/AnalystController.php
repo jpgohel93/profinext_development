@@ -7,6 +7,7 @@ use App\Models\Analyst;
 use App\Models\MonitorData;
 use App\Services\UserServices;
 use App\Services\MonitorDataServices;
+use App\Services\KeywordServices;
 use Illuminate\Http\Request;
 use App\Services\AnalystServices;
 use Illuminate\Support\Facades\Auth;
@@ -191,7 +192,7 @@ class AnalystController extends Controller
 
     public function viewMonitorData(Request $request){
         $auth_user = Auth::user();
-		
+
         $monitorData = MonitorDataServices::all($auth_user->id);
         if(isset($monitorData['analyst']) && !empty($monitorData['analyst'])) {
             foreach ($monitorData['analyst'] as $key => $data) {
@@ -204,13 +205,23 @@ class AnalystController extends Controller
     }
 
     public function createMonitorDataForm(Request $request,$id){
+        $keywords = KeywordServices::all();
         $analysts = Analyst::where("id",$id)->get();
-        return view("analyst.monitor_data_add",compact('analysts'));
+        return view("analyst.monitor_data_add",compact('analysts','keywords'));
     }
 
     public function createMonitorData(Request $request){
         $auth_user = Auth::user();
         $request['monitor_id'] = $auth_user->id;
+
+        if(isset($request->script_name) &&  $request->script_name != ''){
+            $keyword['name'] = $request->script_name;
+            $keywordData = KeywordServices::getKeywordByName($request->script_name);
+            if(empty($keywordData)){
+                KeywordServices::create($keyword);
+            }
+        }
+
         MonitorDataServices::create($request);
         return Redirect::route('viewMonitorData')->with("info","Monitor Data has been created");
     }
@@ -219,7 +230,8 @@ class AnalystController extends Controller
         $monitorData = MonitorDataServices::getMonitorData($id);
         $auth_user = Auth::user();
         $analysts = AnalystServices::allUserAnalysts($auth_user->id);
-        return view("analyst.monitor_data_edit",compact('monitorData','analysts'));
+        $keywords = KeywordServices::all();
+        return view("analyst.monitor_data_edit",compact('monitorData','analysts','keywords'));
     }
 
     public function editMonitorData(Request $request){
@@ -243,6 +255,13 @@ class AnalystController extends Controller
                 } else if ($request['exit_price'] < $request['sl']) {
                     $request['sl_status'] = "Trapped";
                 }
+            }
+        }
+        if(isset($request->script_name) &&  $request->script_name != ''){
+            $keyword['name'] = $request->script_name;
+            $keywordData = KeywordServices::getKeywordByName($request->script_name);
+            if(empty($keywordData)){
+                KeywordServices::create($keyword);
             }
         }
         MonitorDataServices::update($request);

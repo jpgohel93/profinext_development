@@ -14,6 +14,8 @@ use App\Http\Controllers\BrokerController;
 use App\Http\Controllers\BankDetailsController;
 use App\Http\Controllers\TraderController;
 use App\Http\Controllers\FreelancerController;
+use App\Http\Controllers\ChannelPartnerController;
+use App\Http\Controllers\KeywordController;
 // login
 Route::get("/login",function(){
     return view("auth.login");
@@ -166,4 +168,16 @@ Route::group(['middleware' => ['auth']], function() {
 
     // freelancer
     Route::get("/freelancer",[FreelancerController::class, "freelancerData"])->name("freelancerData");
+    Route::get("/freelancer/clients/{id}",[FreelancerController::class, "freelancerClientData"])->name("freelancerClientData");
+
+    // Channel Partner
+    Route::get("/channelPartner",[ChannelPartnerController::class, "channelPartnerData"])->name("channelPartnerData");
+    Route::get("/channelPartner/clients/{id}",[ChannelPartnerController::class, "channelPartnerClientData"])->name("channelPartnerClientData");
+
+    // keyword
+    Route::get("/keyword",[KeywordController::class, "keywordData"])->name("keywordData");
+    Route::POST("/addKeyword",[KeywordController::class, "addKeyword"])->name("addKeyword");
+    Route::POST("/editKeyword",[KeywordController::class, "editKeyword"])->name("editKeyword");
+    Route::get("/deleteKeyword/{id}",[KeywordController::class, "deleteKeyword"])->name("deleteKeyword");
+
 });

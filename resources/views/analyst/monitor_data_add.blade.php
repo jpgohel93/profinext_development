@@ -91,9 +91,19 @@
                                             <span class="required">Script Name</span>
                                         </label>
                                         <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="script_name" placeholder="Enter Script Name" value="{{(old('script_name'))?old('script_name'):""}}" />
-                                        <!--end::Input-->
+
+                                        <input list="script_name"  class="form-control form-control-lg form-control-solid bdr-ccc" name="script_name">
+                                        <datalist id="script_name">
+                                            @if(!empty($keywords))
+                                                @foreach($keywords as $keyword)
+                                                    <option value="{{$keyword->name}}">{{$keyword->name}}</option>
+                                                @endforeach
+                                            @endif
+                                        </datalist>
+{{--
+                                        {{--                                        <!--begin::Input-->--}}
+                                        {{--                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="script_name" placeholder="Enter Script Name" value="{{(old('script_name'))?old('script_name'):""}}" />--}}
+                                        {{--                                        <!--end::Input-->--}}
                                     </div>
                                     <!--end::Input group-->
                                 </div>
