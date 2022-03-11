@@ -23,7 +23,7 @@ class ClientController extends Controller
     }
     // read all clients
     public function all(){
-        $clients = ClientServices::all();
+        $clients = ClientServices::allClientTypeWise();
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = BankDetailsServices::view(['id', 'bank']);
         $brokers = BrokerServices::view(['id', 'broker']);
@@ -36,20 +36,20 @@ class ClientController extends Controller
     public function createClientForm(){
         $getLastSGNo = ClientDemat::select("serial_number")->where("st_sg", "SG")->orderBy("id", "DESC")->first();
 
-		if(!empty($getLastSGNo)) {	
+		if(!empty($getLastSGNo)) {
 			$newSGNo = $getLastSGNo->serial_number;
 		} else {
 			$newSGNo = "000";
 		}
-		
+
 		$getLastSTNo = ClientDemat::select("serial_number")->where("st_sg", "ST")->orderBy("id", "DESC")->first();
-		
+
 		if(!empty($getLastSTNo)) {
 			$newSTNo = $getLastSTNo->serial_number;
 		} else {
 			$newSTNo = "000";
-		}	
-		
+		}
+
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = BankDetailsServices::view(['id', 'bank']);
         $brokers = BrokerServices::view(['id', 'broker']);
@@ -94,7 +94,15 @@ class ClientController extends Controller
     // assign client to freelancer
     public function assignClientToFreelancer(Request $request){
         $requestData['freelancer_id'] = (isset($request->freelancer_id) && $request->freelancer_id != '') ? $request->freelancer_id : $request->ams_freelancer_id;
-        ClientServices::updateAssignTo($request->client_id,$requestData);
-        return Redirect::route("clients")->with("info","Freelancer assign to client");
+        ClientServices::updateAssignTo($request->client_demate_id,$requestData);
+        return Redirect::route("clientDematAccount")->with("info","Freelancer assign to client demat account");
+    }
+    // assign client to freelancer
+    public function clientDematAccount(){
+        $freelancerAms= UserServices::getByType(4);
+        $freelancerPrime = UserServices::getByType(5);
+        $dematAccount = ClientServices::getClientDematAccount(5);
+        return view("clients.client_demat",compact('dematAccount','freelancerAms','freelancerPrime'));
+
     }
 }

@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     // clients
     Route::get("/clients",[ClientController::class,"all"])->name("clients");
+    Route::get("/clients/Demat",[ClientController::class,"clientDematAccount"])->name("clientDematAccount");
     // read client
     Route::get("/client/view/{client_id}",[ClientController::class,"get"])->name("clientView");
     // create client

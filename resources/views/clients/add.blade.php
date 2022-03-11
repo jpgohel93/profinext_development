@@ -1,6 +1,7 @@
 @extends('layout')
 @section("page-title","Add Client")
-@section("clients","active")
+@section("clientsData.clients","active")
+@section("clientsData","hover show")
 @section("content")
 	<!--begin::Body-->
     <!--begin::Main-->
@@ -232,7 +233,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-														
+
                                                         <div class="row col-md-6 mb-8">
                                                             <label class="d-flex align-items-center fs-5 fw-bold mb-3">
                                                                 <span class="required">Service Type</span>
@@ -1201,11 +1202,11 @@
 				var lastSGNo = parseInt("<?php echo $newSGNo;?>");
 				var lastSTNo = parseInt("<?php echo $newSTNo;?>");
 				var string = "000";
-				
+
 				$("[name='st_sg[]']").each( function(index){
 					var vl = $(this).val();
 					if(vl != "") {
-						if(vl == "SG") {	
+						if(vl == "SG") {
 							lastSGNo = (parseInt(lastSGNo) + 1);
 							var len = lastSGNo.toString().length;
 							var prefix = string.substring(len);
@@ -1217,11 +1218,11 @@
 							var prefix1 = string.substring(len1);
 							var newNo1 = prefix1+''+lastSTNo;
 							$("[name='serial_number[]']").eq(index).val(newNo1);
-						}	
+						}
 					}
 				});
 			});
-			
+
 			$(document).on("click","#addmore",function() {
 				// var newcomp1 = $('#hiddenaddmore').html();
 				var clone = $('#hiddenaddmore > .cloningSec').clone();

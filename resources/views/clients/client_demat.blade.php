@@ -1,6 +1,7 @@
 @extends('layout')
-@section("page-title","Freelancer")
-@section("freelancer","active")
+@section("page-title","Client Demat")
+@section("clientsData.clients.demat","active")
+@section("clientsData","hover show")
 @section("content")
     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
     <!--begin::Body-->
@@ -28,7 +29,7 @@
                             <!--begin::Page title-->
                             <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                                 <!--begin::Title-->
-                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Freelancer Clients</h1>
+                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Client Demat</h1>
                                 <!--end::Title-->
                                 <!--begin::Separator-->
                                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -46,8 +47,7 @@
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
-                                    <li class="breadcrumb-item text-dark">Freelancer</li>
-                                    <li class="breadcrumb-item text-dark">Client</li>
+                                    <li class="breadcrumb-item text-dark">Client Demat</li>
                                     <!--end::Item-->
                                 </ul>
                                 <!--end::Breadcrumb-->
@@ -142,6 +142,7 @@
                                                 <th class="min-w-75px">Holder Name</th>
                                                 <th class="min-w-75px">Service Type</th>
                                                 <th class="min-w-75px">Broker</th>
+                                                <th class="text-end min-w-100px">View Clients</th>
                                             </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold">
@@ -149,24 +150,43 @@
                                                 @php
                                                     $i=1;
                                                 @endphp
-                                                @forelse ($freelancerClient as $client)
+                                                @forelse ($dematAccount as $account)
                                                     <tr>
                                                         <td>{{$i++}}</td>
-                                                        <td> {{$client->st_sg."-".$client->serial_number}} </td>
-                                                        <td> {{$client->name}}</td>
-                                                        <td> {{$client->holder_name}}</td>
+                                                        <td> {{$account->st_sg."-".$account->serial_number}} </td>
+                                                        <td> {{$account->name}}</td>
+                                                        <td> {{$account->holder_name}}</td>
                                                         <td>
-                                                            @if($client->service_type == 1)
+                                                            @if($account->service_type == 1)
                                                                 Prime
-                                                            @elseif($client->service_type == 2)
+                                                            @elseif($account->service_type == 2)
                                                                 AMS
                                                             @endif
                                                         </td>
-                                                        <td> {{$client->broker}}</td>
+                                                        <td> {{$account->broker}}</td>
+                                                        <td class="text-end">
+                                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                            </a>
+                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                @can("client-write")
+                                                                    <div class="menu-item px-3">
+                                                                        <a href="{{route('updateClientForm',$account->client_id)}}" data-id='{{$account->client_id}}' class="menu-link px-3">Edit</a>
+                                                                    </div>
+                                                                @endcan
+                                                                <div class="menu-item px-3">
+                                                                     <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <td colspan="4">No Clients Found</td>
+                                                        <td colspan="4">No Demat Account  Found</td>
                                                     </tr>
                                                 @endforelse
                                             @else
@@ -198,6 +218,84 @@
     </div>
     <!--begin::Modals-->
 
+    <!-- Modal -->
+    <div class="modal fade" id="assignFreelancerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px" role="document">
+            <div class="modal-content">
+                <!--begin::Form-->
+                <form id="" class="form" method="POST" action="{{route('assignClientToFreelancer')}}">
+                    @csrf
+                    <div class="modal-header">
+                        <h2 class="fw-bolder">Assign Client to Freelancer</h2>
+                        <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span class="svg-icon svg-icon-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                        </svg>
+                                    </span>
+                        </button>
+                    </div>
+
+                    <!--begin::Modal body-->
+                    <div class="modal-body mx-md-10">
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Client</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" id="client_Name" readonly/>
+                                <input class="form-control" type="hidden" value="" name='client_demate_id' id="assignFreelancerId" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Client</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" id="hoder_name" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group row" id="ams_freelancer">
+                            <label for="example-email-input" class="col-3 col-form-label"> AMS freelancer</label>
+                            <div class="col-9">
+                                <select class="form-select form-select-solid" name='freelancer_id' data-control="select2" data-hide-search="true" data-placeholder="Select AMS freelancer">
+                                    <option></option>
+                                    @forelse ($freelancerAms as $freelancer)
+                                        <option value="{{$freelancer->id}}">{{$freelancer->name}}</option>
+                                    @empty
+                                        <option>Select AMS freelancer</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" id="prime_freelancer">
+                            <label for="example-email-input" class="col-3 col-form-label"> Prime freelancer</label>
+                            <div class="col-9">
+                                <select class="form-select form-select-solid" name='ams_freelancer_id' data-control="select2" data-hide-search="true" data-placeholder="Select Prime freelancer">
+                                    <option></option>
+                                    @forelse ($freelancerPrime as $freelancer)
+                                        <option value="{{$freelancer->id}}">{{$freelancer->name}}</option>
+                                    @empty
+                                        <option>Select Prime freelancer</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Modal body-->
+                    <div class="modal-footer text-center">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                            <span class="indicator-label">Submit</span>
+                            <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+        </div>
+    </div>
+    <!--end::Modal - View Client Details-->
+    <!--end::Modals-->
 
     <!--end::Modals-->
     <!--begin::Scrolltop-->
@@ -211,4 +309,32 @@
         </span>
         <!--end::Svg Icon-->
     </div>
+    <script>
+        window.addEventListener("DOMContentLoaded",function(){
+
+            $(document).on("click",'.assignFreelancer',function(e){
+                const id = e.target.getAttribute("data-id");
+                const name = e.target.getAttribute("data-name");
+                const holderName = e.target.getAttribute("data-holder");
+                const service = e.target.getAttribute("data-service");
+                if(id){
+                    $("#assignFreelancerId").val(id);
+                    $("#client_Name").val(name);
+                    $("#hoder_name").val(holderName);
+                    $("#prime_freelancer").hide();
+                    $("#ams_freelancer").hide();
+                    if(service == 1){
+                        $("#prime_freelancer").show();
+                        $("#ams_freelancer").hide();
+                    }else if(service == 2){
+                        $("#ams_freelancer").show();
+                        $("#prime_freelancer").hide();
+                    }
+                    $("#assignFreelancerModal").modal("show");
+                }else{
+                    window.alert("Unable to Load this Client");
+                }
+            });
+        })
+    </script>
 @endsection

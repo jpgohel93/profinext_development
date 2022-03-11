@@ -1,8 +1,9 @@
 @extends('layout')
 @section("page-title","Add Clients")
-@section("clients","active")
+@section("clientsData.clients","active")
+@section("clientsData","hover show")
 @section("content")
-	<!--begin::Body-->	
+	<!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -77,7 +78,7 @@
                                                 <!--end::Input group-->
                                             </div>
                                             <div class="row">
-                                                
+
                                             <!--begin::Input group-->
                                             <div class="col-md-6 mb-4">
                                                 <!--begin::Label-->
@@ -120,11 +121,11 @@
                                                 <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$client->profession}}" />
                                                 <!--end::Input-->
                                             </div>
-                                        
+
                                             <!--end::Input group-->
                                         </div>
                                     </div>
-                                    
+
                                     @forelse ($client->clientDemat as $key => $demate_account)
                                         <!--end::Step 1-->
                                         <div class="cloningSec">
@@ -165,7 +166,7 @@
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
                                                                 <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$demate_account->serial_number}}" />
-                                                                <!--end::Input--> 
+                                                                <!--end::Input-->
                                                             </div>
                                                             <!--end::Input wrapper-->
                                                         </div>
@@ -184,7 +185,7 @@
                                                             <!--begin:Option-->
                                                             <label class="d-flex flex-stack cursor-pointer mb-5">
                                                                 <!--begin::Label-->
-                                                                <span class="d-flex align-items-center me-2"> 
+                                                                <span class="d-flex align-items-center me-2">
                                                                     <!--begin::Info-->
                                                                     <span class="d-flex flex-column">
                                                                         <span class="fw-bolder fs-6">Prime</span>
@@ -207,7 +208,7 @@
                                                             <!--begin:Option-->
                                                             <label class="d-flex flex-stack cursor-pointer mb-5">
                                                                 <!--begin::Label-->
-                                                                <span class="d-flex align-items-center me-2"> 
+                                                                <span class="d-flex align-items-center me-2">
                                                                     <!--begin::Info-->
                                                                     <span class="d-flex flex-column">
                                                                         <span class="fw-bolder fs-6">AMS</span>
@@ -221,11 +222,11 @@
                                                                 </span>
                                                                 <!--end::Input-->
                                                             </label>
-                                                            <!--end::Option--> 
+                                                            <!--end::Option-->
                                                         </div>
                                                         <!--end::Col-->
                                                     </div>
-                                                    <!--end::Input group--> 
+                                                    <!--end::Input group-->
                                                         <div class="row mb-4">
                                                         <!--begin::Input group-->
                                                         <div class="col-md-6 mb-4">
@@ -265,7 +266,7 @@
                                                     </div>
                                                     <!--end::Input group-->
                                                     <!--begin::Input group-->
-                                                    <div class="row"> 
+                                                    <div class="row">
                                                         <!--begin::Col-->
                                                         <div class="col-md-6 mb-4 fv-row">
                                                             <!--begin::Label-->
@@ -291,9 +292,9 @@
                                                         </div>
                                                         <!--end::Col-->
                                                     </div>
-                                                    <!--end::Input group--> 
+                                                    <!--end::Input group-->
                                                     <!--begin::Input group-->
-                                                    <div class="row mb-4"> 
+                                                    <div class="row mb-4">
                                                         <!--begin::Col-->
                                                         <div class="col-md-6 mb-4 fv-row">
                                                             <!--begin::Label-->
@@ -319,7 +320,7 @@
                                                         </div>
                                                         <!--end::Col-->
                                                     </div>
-                                                    <!--end::Input group--> 
+                                                    <!--end::Input group-->
                                                 </div>
                                             </div>
                                             <!--end::Step 2-->
@@ -329,13 +330,13 @@
                                                     <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                         <h3 class="stepper-title text-primary">Payment Details {{$key+1}}</h3>
                                                     </div>
-                                                    
+
                                                     <!--begin::Input group-->
                                                     <div class="fv-row mb-8 col-md-6">
                                                         <!--begin::Label-->
                                                         <label class="required fs-5 fw-bold mb-2">Mode</label>
                                                         <!--end::Label-->
-                                                        <div class="row col-md-6 mb-4">	
+                                                        <div class="row col-md-6 mb-4">
                                                             <!--begin::Input group-->
                                                             <div class="col-md-6">
                                                                 <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
@@ -370,7 +371,7 @@
                                                                 <!--begin::Label-->
                                                                 <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                                 <!--end::Label-->
-                                                                <!--begin::Input--> 
+                                                                <!--begin::Input-->
                                                                 <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{date("Y-m-d",strtotime($client->clientPayment[$key]->joining_date))}}" />
                                                                 <!--end::Input-->
                                                             </div>
@@ -380,7 +381,7 @@
                                                                 <!--begin::Label-->
                                                                 <label class="required fs-5 fw-bold mb-2">Fees</label>
                                                                 <!--end::Label-->
-                                                                <!--begin::Input--> 
+                                                                <!--begin::Input-->
                                                                 <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$client->clientPayment[$key]->fees}}" />
                                                                 <!--end::Input-->
                                                             </div>
@@ -392,10 +393,10 @@
                                                                 <!--begin::Label-->
                                                                 <label class="required fs-5 fw-bold mb-2">Screenshot</label>
                                                                 <!--end::Label-->
-                                                                <!--begin::Input--> 
+                                                                <!--begin::Input-->
                                                                 {{-- <input type="file" name="screenshot[]" class="form-control form-control-lg form-control-solid bdr-ccc" readonly placeholder="Upload ScreenShot"/> --}}
                                                                 {{-- <img src="{{url('screenshots/'.$client->clientPayment[$key]->screenshots)}}" style="width: 200px" class="d-block"> --}}
-                                                                
+
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Input group-->
@@ -404,7 +405,7 @@
                                                                 <!--begin::Label-->
                                                                 <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
                                                                 <!--end::Label-->
-                                                                <!--begin::Input--> 
+                                                                <!--begin::Input-->
                                                                 <div>
                                                                     <!--begin::Checkbox-->
                                                                     <label class="form-check form-check-custom form-check-solid me-10">
@@ -459,7 +460,7 @@
         </div>
         <!--end::Page-->
     </div>
-    <!--begin::Modals-->   
+    <!--begin::Modals-->
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->

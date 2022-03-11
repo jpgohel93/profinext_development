@@ -19,6 +19,10 @@ class FreelancerController extends Controller
         return view("freelancer.freelancer", compact('freelancerData'));
     }
     // view all the freelancer client list
+        //    public function freelancerClientData(Request $request,$id){
+        //        $freelancerClient = ClientServices::freelancerClientList($id);
+        //        return view("freelancer.freelancer_client", compact('freelancerClient'));
+        //    }
     public function freelancerClientData(Request $request,$id){
         $freelancerClient = ClientServices::freelancerClientList($id);
         return view("freelancer.freelancer_client", compact('freelancerClient'));

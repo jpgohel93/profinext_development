@@ -298,11 +298,16 @@ class ClientServices
 
     public static function updateAssignTo($id,$request)
     {
-        return Client::where("id", $id)->update($request);
+        return ClientDemat::where("id", $id)->update($request);
     }
 
     public static function freelancerClientList($id){
-        return Client::where("freelancer_id",$id)->get();
+        $dematAccount = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("client_demat.freelancer_id",$id)->
+        select('client_demat.*','clients.name')
+            ->get();
+        return $dematAccount;
     }
 
     public static function channelPartnerClientList($id){
@@ -316,5 +321,22 @@ class ClientServices
             ->where("client_demat.service_type",2)->get();
 
         return $clientList;
+    }
+
+    public static function allClientTypeWise(){
+        $client['account_handling'] = Client::where("client_type",1)->with('clientDemat')->get();
+        $client['mutual_fund'] = Client::where("client_type",2)->with('clientDemat')->get();
+        $client['unlisted_shares'] = Client::where("client_type",3)->with('clientDemat')->get();
+        return $client;
+    }
+
+    public static function getClientDematAccount(){
+       // return ClientDemat::with('clients')->get();
+
+        $dematAccount = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        select('client_demat.*','clients.name')
+        ->get();
+        return $dematAccount;
     }
 }
