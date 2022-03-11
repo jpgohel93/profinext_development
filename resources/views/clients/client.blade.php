@@ -59,7 +59,7 @@
                             @can("client-create")
                                 <div class="d-flex align-items-center py-1">
                                     <!--begin::Button-->
-                                    <a href="{{route('createClientForm')}}" class="btn btn-sm btn-primary" >
+                                    <a href="{{route('createClientForm')}}" class="btn btn-sm btn-primary" target="_blank">
                                         <span class="svg-icon svg-icon-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                 <rect x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
