@@ -101,8 +101,48 @@ class ClientController extends Controller
     public function clientDematAccount(){
         $freelancerAms= UserServices::getByType(4);
         $freelancerPrime = UserServices::getByType(5);
-        $dematAccount = ClientServices::getClientDematAccount(5);
+        $dematAccount = ClientServices::getClientDematAccount();
         return view("clients.client_demat",compact('dematAccount','freelancerAms','freelancerPrime'));
+
+    }
+
+    //update the available fund and profit / loss in demat
+    public function editClientDematAccount(Request $request){
+        $availableBalance = (isset($request->available_balance) && $request->available_balance != '') ? $request->available_balance : 0;
+        $pl = (isset($request->pl) && $request->pl != '') ? $request->pl : 0;
+        if($availableBalance != 0 || $pl != 0) {
+            $requestData['available_balance'] = $availableBalance;
+            $requestData['pl'] = $pl;
+            ClientServices::updateClientDematAccount($request->demate_id, $requestData);
+            if($request->form_type == "setup"){
+                return Redirect::route("setup")->with("info", "Client demat account update successful");
+            }elseif ($request->form_type == "client_demat"){
+                return Redirect::route("clientDematAccount")->with("info", "Client demat account update successful");
+            }
+        }else{
+            return Redirect::route("clientDematAccount")->with("info", "Please enter the  available fund or profit / loss");
+        }
+    }
+
+    //makeAsPreferred
+    public function makeAsPreferred(Request $request)
+    {
+        $requestData['is_make_as_preferred'] = $request->is_make_as_preferred;
+        ClientServices::updateClientDematAccount($request->id, $requestData);
+        return true;
+    }
+
+    // set up
+    public function setup(){
+        $dematAccount = ClientServices::getClientForSetUp();
+        return view("calls.setup",compact('dematAccount'));
+
+    }
+
+    // set up
+    public function getLoginInfo(Request $request,$id){
+        $dematAccount = ClientDemat::where("id", $id)->first();;
+        return $dematAccount;
 
     }
 }

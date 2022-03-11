@@ -328,6 +328,14 @@
                                 <span class="menu-title">Trader Data</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                             <a class="menu-link @yield('setup')" href="{{route('setup')}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Setup</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <!--div class="menu-item">

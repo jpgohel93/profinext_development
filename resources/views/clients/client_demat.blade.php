@@ -142,7 +142,7 @@
                                                 <th class="min-w-75px">Holder Name</th>
                                                 <th class="min-w-75px">Service Type</th>
                                                 <th class="min-w-75px">Broker</th>
-                                                <th class="text-end min-w-100px">View Clients</th>
+                                                <th class="text-end min-w-100px">Action</th>
                                             </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold">
@@ -175,11 +175,11 @@
                                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                 @can("client-write")
                                                                     <div class="menu-item px-3">
-                                                                        <a href="{{route('updateClientForm',$account->client_id)}}" data-id='{{$account->client_id}}' class="menu-link px-3">Edit</a>
+                                                                        <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
                                                                     </div>
                                                                 @endcan
                                                                 <div class="menu-item px-3">
-                                                                     <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+                                                                    <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -247,9 +247,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-3 col-form-label">Client</label>
+                            <label class="col-3 col-form-label">Account Holder Name</label>
                             <div class="col-9">
-                                <input class="form-control" type="text" id="hoder_name" readonly/>
+                                <input class="form-control" type="text" id="holder_name" readonly/>
                             </div>
                         </div>
                         <div class="form-group row" id="ams_freelancer">
@@ -297,6 +297,71 @@
     <!--end::Modal - View Client Details-->
     <!--end::Modals-->
 
+    <!-- Modal -->
+    <div class="modal fade" id="editDematModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px" role="document">
+            <div class="modal-content">
+                <!--begin::Form-->
+                <form id="" class="form" method="POST" action="{{route('editClientDematAccount')}}">
+                    @csrf
+                    <div class="modal-header">
+                        <h2 class="fw-bolder">Assign Client to Freelancer</h2>
+                        <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span class="svg-icon svg-icon-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                        </svg>
+                                    </span>
+                        </button>
+                    </div>
+
+                    <!--begin::Modal body-->
+                    <div class="modal-body mx-md-10">
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Client</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" id="demat_client_Name" readonly/>
+                                <input class="form-control" type="hidden" value="" name='demate_id' id="demate_id" readonly />
+                                <input class="form-control" type="hidden" value="client_demat" name='form_type' id="form_type" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Account Holder Name</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" id="demat_holder_name" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Available Balance</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" id="available_balance" name="available_balance"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Profit / Loss</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" id="pl" name="pl"/>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--end::Modal body-->
+                    <div class="modal-footer text-center">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                            <span class="indicator-label">Submit</span>
+                            <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+        </div>
+    </div>
+    <!--end::Modal - View Client Details-->
+
     <!--end::Modals-->
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
@@ -320,7 +385,7 @@
                 if(id){
                     $("#assignFreelancerId").val(id);
                     $("#client_Name").val(name);
-                    $("#hoder_name").val(holderName);
+                    $("#holder_name").val(holderName);
                     $("#prime_freelancer").hide();
                     $("#ams_freelancer").hide();
                     if(service == 1){
@@ -331,6 +396,21 @@
                         $("#prime_freelancer").hide();
                     }
                     $("#assignFreelancerModal").modal("show");
+                }else{
+                    window.alert("Unable to Load this Client");
+                }
+            });
+
+            $(document).on("click",'.editDematAccount',function(e){
+                const id = e.target.getAttribute("data-id");
+                const name = e.target.getAttribute("data-name");
+                const holderName = e.target.getAttribute("data-holder");
+                if(id){
+                    $("#demate_id").val(id);
+                    $("#demat_client_Name").val(name);
+                    $("#demat_holder_name").val(holderName);
+
+                    $("#editDematModal").modal("show");
                 }else{
                     window.alert("Unable to Load this Client");
                 }

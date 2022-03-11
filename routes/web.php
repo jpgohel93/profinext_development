@@ -54,7 +54,8 @@ Route::group(['middleware' => ['auth']], function() {
     // remove client
     Route::get("'/client/edit/{client_id}/remove/screenshot/{screenshot_id}",[ClientController::class,"removePaymentScreenshot"])->name("removePaymentScreenshot");
     Route::POST("/freelancer/client/assign",[ClientController::class,'assignClientToFreelancer'])->name('assignClientToFreelancer');
-
+    Route::POST("/clients/edit/Demat",[ClientController::class,"editClientDematAccount"])->name("editClientDematAccount");
+    Route::get("/loginInfo/{id}", [ClientController::class, "getLoginInfo"])->name("getLoginInfo");
     // users
     Route::get("/users",[UserController::class,"all"])->name("users");
     // view users
@@ -112,6 +113,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/call/view/",[CallController::class, "get"])->name('getCall');
     // edit call
     Route::POST("/call/edit/",[CallController::class,"edit"])->name("editCall");
+    Route::get("/call/setup",[ClientController::class,"setup"])->name("setup");
+    Route::POST("/makeAsPreferred",[ClientController::class,"makeAsPreferred"])->name("makeAsPreferred");
+
 
 
     // users settings

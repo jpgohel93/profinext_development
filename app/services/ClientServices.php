@@ -67,8 +67,10 @@ class ClientServices
 
         // hash all passwords
         foreach($request->password as $key => $password){
-            $demat["password"][$key] = Hash::make($password);
-            $demat["mpin"][$key] = Hash::make($request->mpin[$key]);
+//            $demat["password"][$key] = Hash::make($password);
+//            $demat["mpin"][$key] = Hash::make($request->mpin[$key]);
+            $demat["password"][$key] = $password;
+            $demat["mpin"][$key] = $request->mpin[$key];
             array_push($demat['client_id'],$client->id);
         }
 
@@ -86,6 +88,9 @@ class ClientServices
             $array['mpin']=$demat['mpin'][$key];
             $array['capital']=$demat['capital'][$key];
             $array['client_id']=$demat['client_id'][$key];
+            $array['available_balance']=$demat['capital'][$key];
+            $array['pl']= "0";
+            $array['is_make_as_preferred']= 0;
 
             ClientDemat::insert($array);
         }
@@ -301,6 +306,11 @@ class ClientServices
         return ClientDemat::where("id", $id)->update($request);
     }
 
+    public static function updateClientDematAccount($id,$request)
+    {
+        return ClientDemat::where("id", $id)->update($request);
+    }
+
     public static function freelancerClientList($id){
         $dematAccount = ClientDemat::
         leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
@@ -337,6 +347,23 @@ class ClientServices
         leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
         select('client_demat.*','clients.name')
         ->get();
+        return $dematAccount;
+    }
+
+    public static function getClientForSetUp(){
+        // return ClientDemat::with('clients')->get();
+
+        $dematAccount['normal'] = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("client_demat.is_make_as_preferred",0)->
+        where("client_demat.freelancer_id",0)->
+        select('client_demat.*','clients.name')->get();
+
+        $dematAccount['make_as_preferred'] = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("client_demat.is_make_as_preferred",1)->
+        where("client_demat.freelancer_id",0)->
+        select('client_demat.*','clients.name')->get();
         return $dematAccount;
     }
 }
