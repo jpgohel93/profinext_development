@@ -9,6 +9,7 @@ use App\Services\BankDetailsServices;
 use App\Services\BrokerServices;
 use App\Services\CommonService;
 use App\Services\UserServices;
+use App\Models\ClientDemat;
 
 use Illuminate\Support\Facades\Redirect;
 class ClientController extends Controller
@@ -33,11 +34,27 @@ class ClientController extends Controller
     }
     // create client form
     public function createClientForm(){
+        $getLastSGNo = ClientDemat::select("serial_number")->where("st_sg", "SG")->orderBy("id", "DESC")->first();
+
+		if(!empty($getLastSGNo)) {	
+			$newSGNo = $getLastSGNo->serial_number;
+		} else {
+			$newSGNo = "000";
+		}
+		
+		$getLastSTNo = ClientDemat::select("serial_number")->where("st_sg", "ST")->orderBy("id", "DESC")->first();
+		
+		if(!empty($getLastSTNo)) {
+			$newSTNo = $getLastSTNo->serial_number;
+		} else {
+			$newSTNo = "000";
+		}	
+		
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = BankDetailsServices::view(['id', 'bank']);
         $brokers = BrokerServices::view(['id', 'broker']);
         $channelPartner = UserServices::getByType(3);
-        return view("clients.add", compact('professions', 'banks','brokers','channelPartner'));
+        return view("clients.add", compact('professions', 'banks','brokers','channelPartner','newSTNo','newSGNo'));
     }
     // create client data
     public function create(Request $request){

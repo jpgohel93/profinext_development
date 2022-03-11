@@ -31,6 +31,7 @@ class ClientServices
             $client['wp_number']=$client['number'];
         }
 
+        $client['client_type'] = $request->client_type;
         $client['created_by'] = Auth::id();
         $client['channel_partner_id'] = ($request->channel_partner_id != '') ? $request->channel_partner_id : 0;
 

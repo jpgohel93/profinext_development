@@ -60,7 +60,7 @@
                                                     </label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <select name="user_type" id="user_type" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select User Type">
+                                                    <select name="client_type" id="client_type" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select User Type">
                                                         <option></option>
                                                         <option value="1">Account Handling</option>
                                                         <option value="2">Mutual Fund</option>
@@ -210,77 +210,47 @@
                                                             <h3 class="stepper-title text-primary">Demate Details</h3>
                                                             <button type="button" class="btn btn-primary" id="addmore">Add More</button>
                                                         </div>
-                                                        <!--begin::Input group-->
                                                         <div class="row mb-8">
-                                                            <!--begin::Label-->
                                                             <label class="d-flex align-items-center fs-5 fw-bold mb-3">
                                                                 <span class="required">Smart ID</span>
                                                             </label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Col-->
                                                             <div class="col-md-6 mb-4 fv-row">
-                                                                <!--begin::Input wrapper-->
                                                                 <div class="position-relative">
-                                                                    <!--begin::Input-->
                                                                     <select name="st_sg[]" class="form-select form-select-solid">
-                                                                        <option></option>
-                                                                        <option value="ST" >ST</option>
+                                                                        <option value="">Select ID</option>
+                                                                        <option value="ST">ST</option>
                                                                         <option value="SG">SG</option>
                                                                     </select>
                                                                 </div>
-                                                                <!--end::Input wrapper-->
                                                             </div>
-                                                            <!--end::Col-->
-                                                            <!--begin::Col-->
                                                             <div class="col-md-6 mb-4 fv-row">
-                                                                <!--begin::Label-->
                                                                 <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                                                     <span class="required">Serial Number</span>
                                                                 </label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input wrapper-->
                                                                 <div class="position-relative">
-                                                                    <!--begin::Input-->
                                                                     <input type="text" class="form-control form-control-solid bdr-ccc" value="" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
-                                                                    <!--end::Input-->
                                                                 </div>
-                                                                <!--end::Input wrapper-->
                                                             </div>
-                                                            <!--end::Col-->
                                                         </div>
-                                                        <!--end::Input group-->
-                                                        <!--begin::Input group-->
+														
                                                         <div class="row col-md-6 mb-8">
-                                                            <!--begin::Label-->
                                                             <label class="d-flex align-items-center fs-5 fw-bold mb-3">
                                                                 <span class="required">Service Type</span>
                                                             </label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Col-->
                                                             <div class="col-md-6 mb-4 fv-row">
-                                                                <!--begin:Option-->
                                                                 <label class="d-flex flex-stack cursor-pointer mb-5">
-                                                                    <!--begin::Label-->
                                                                     <span class="d-flex align-items-center me-2">
-                                                                        <!--begin::Info-->
                                                                         <span class="d-flex flex-column">
                                                                             <span class="fw-bolder fs-6">Prime</span>
                                                                         </span>
-                                                                        <!--end::Info-->
                                                                     </span>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
                                                                     <span class="form-check form-check-custom form-check-solid">
                                                                         <input class="form-check-input" type="radio" data-service_type checked="checked" value="1" />
                                                                         <input class="form-check-input" type="hidden" name="service_type[]" value="1" />
                                                                     </span>
-                                                                    <!--end::Input-->
                                                                 </label>
-                                                                <!--end::Option-->
                                                             </div>
-                                                            <!--end::Col-->
                                                             <div class="col-1"></div>
-                                                            <!--begin::Col-->
                                                             <div class="col-md-6 mb-4 fv-row">
                                                                 <!--begin:Option-->
                                                                 <label class="d-flex flex-stack cursor-pointer mb-5">
@@ -1227,117 +1197,143 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
-                $(document).on("click","#addmore",function() {
-					// var newcomp1 = $('#hiddenaddmore').html();
-					var clone = $('#hiddenaddmore > .cloningSec').clone();
-					var rem = clone.find('#addmore');
-					$(rem).removeAttr('id');
-					$(rem).addClass('btn-pink remove-btn');
-					$(rem).text('Remove');
-					$('#appendDiv1').append(clone);
-					resetCounter();
-   		 		});
-                // service type this is required else some values are not available server side
-                $(document).on("click","input[data-service_type]",function(e){
-                    if(e.target.value==1){
-                        $(e.target).closest(".row").find("[data-service_type][value='2'][type='radio']").first().prop('checked', false)
-                        $(e.target).closest(".row").find("[name='service_type[]'][type='hidden']").first().val("1");
-                    }else{
-                        $(e.target).closest(".row").find("[data-service_type][value='1'][type='radio']").first().prop('checked', false)
-                        $(e.target).closest(".row").find("[name='service_type[]'][type='hidden']").first().val("2");
-                    }
-                })
-                $(document).on("click","input[data-pending_payment]",function(e){
-                    if($(e.target).is(":checked")){
-                        $(e.target).parent(".form-check").find("[name='pending_payment[]'][type='hidden']").first().val("1");
-                    }else{
-                        $(e.target).parent(".form-check").find("[name='pending_payment[]'][type='hidden']").first().val("0");
-                    }
-                })
+			$(document).on("change","[name='st_sg[]']",function() {
+				var lastSGNo = parseInt("<?php echo $newSGNo;?>");
+				var lastSTNo = parseInt("<?php echo $newSTNo;?>");
+				var string = "000";
+				
+				$("[name='st_sg[]']").each( function(index){
+					var vl = $(this).val();
+					if(vl != "") {
+						if(vl == "SG") {	
+							lastSGNo = (parseInt(lastSGNo) + 1);
+							var len = lastSGNo.toString().length;
+							var prefix = string.substring(len);
+							var newNo = prefix+''+lastSGNo;
+							$("[name='serial_number[]']").eq(index).val(newNo);
+						} else {
+							lastSTNo = (parseInt(lastSTNo) + 1);
+							var len1 = lastSTNo.toString().length;
+							var prefix1 = string.substring(len1);
+							var newNo1 = prefix1+''+lastSTNo;
+							$("[name='serial_number[]']").eq(index).val(newNo1);
+						}	
+					}
+				});
+			});
+			
+			$(document).on("click","#addmore",function() {
+				// var newcomp1 = $('#hiddenaddmore').html();
+				var clone = $('#hiddenaddmore > .cloningSec').clone();
+				var rem = clone.find('#addmore');
+				$(rem).removeAttr('id');
+				$(rem).addClass('btn-pink remove-btn');
+				$(rem).text('Remove');
+				$('#appendDiv1').append(clone);
+				resetCounter();
+			});
+			// service type this is required else some values are not available server side
+			$(document).on("click","input[data-service_type]",function(e){
+				if(e.target.value==1){
+					$(e.target).closest(".row").find("[data-service_type][value='2'][type='radio']").first().prop('checked', false)
+					$(e.target).closest(".row").find("[name='service_type[]'][type='hidden']").first().val("1");
+				}else{
+					$(e.target).closest(".row").find("[data-service_type][value='1'][type='radio']").first().prop('checked', false)
+					$(e.target).closest(".row").find("[name='service_type[]'][type='hidden']").first().val("2");
+				}
+			})
+			$(document).on("click","input[data-pending_payment]",function(e){
+				if($(e.target).is(":checked")){
+					$(e.target).parent(".form-check").find("[name='pending_payment[]'][type='hidden']").first().val("1");
+				}else{
+					$(e.target).parent(".form-check").find("[name='pending_payment[]'][type='hidden']").first().val("0");
+				}
+			})
 
-				$(document).on("click",".remove-btn",function() {
-					$(this).closest(".cloningSec").remove();
-					resetCounter();
+			$(document).on("click",".remove-btn",function() {
+				$(this).closest(".cloningSec").remove();
+				$("[name='st_sg[]']").trigger("change");
+				resetCounter();
+			})
+
+			function resetCounter() {
+				counter = 1;
+				$.each($('#appendDiv1 .cloningSec'),(i,v)=> {
+					let elem = $(v)[0];
+					$(elem).find("[type='file']").first().attr("name","screenshot["+counter+"][]")
+					$(elem).find("[type='file']").first().attr("name","screenshot["+counter+"][]")
+					counter++;
 				})
+			}
+			const targetDiv = document.getElementById("PaymentSection");
 
-                function resetCounter() {
-                    counter = 1;
-                    $.each($('#appendDiv1 .cloningSec'),(i,v)=> {
-                        let elem = $(v)[0];
-                        $(elem).find("[type='file']").first().attr("name","screenshot["+counter+"][]")
-                        $(elem).find("[type='file']").first().attr("name","screenshot["+counter+"][]")
-                        counter++;
-                    })
-                }
-                const targetDiv = document.getElementById("PaymentSection");
+			$(document).on('click', '#togglePaymentMode', function() {
+				var self = $(this);
+				myFunction(self);
+			});
 
-                $(document).on('click', '#togglePaymentMode', function() {
-                    var self = $(this);
-                    myFunction(self);
-                });
+			function myFunction(self)
+			{
+				if (self.is(":checked")) {
+					self.closest('.payment_details').find('.joining_date').show();
+					$(self).closest('.payment_details').find('[name="mode[]"][type="hidden"]').val(2);
+					// targetDiv.style.display = "block";
+				} else {
+					self.closest('.payment_details').find('.joining_date').hide();
+					$(self).closest('.payment_details').find('[name="mode[]"][type="hidden"]').val(1);
+					// targetDiv.style.display = "none";
+				}
+			}
+			$(document).on('click', '.PendingMark', function() {
+				if($(this).is(":checked")) {
+					$(this).closest('.payment_details').find('.hideonpending').hide();
+				} else {
+					console.log('not checked');
+					$(this).closest('.payment_details').find('.hideonpending').show();
+				}
+			});
+			$(document).on("input",".wpsameascontact",function() {
+				if ($(this).is(':checked')) {
+					var $cm = $('.client-mobile');
+					var $wp = $('.wp');
+					function onChange() {
+						$wp.val($cm.val());
+					};
+					$('.client-mobile')
+						.change(onChange)
+						.keyup(onChange);
 
-                function myFunction(self)
-                {
-                    if (self.is(":checked")) {
-                        self.closest('.payment_details').find('.joining_date').show();
-                        $(self).closest('.payment_details').find('[name="mode[]"][type="hidden"]').val(2);
-                        // targetDiv.style.display = "block";
-                    } else {
-                        self.closest('.payment_details').find('.joining_date').hide();
-                        $(self).closest('.payment_details').find('[name="mode[]"][type="hidden"]').val(1);
-                        // targetDiv.style.display = "none";
-                    }
-                }
-                $(document).on('click', '.PendingMark', function() {
-                    if($(this).is(":checked")) {
-                        $(this).closest('.payment_details').find('.hideonpending').hide();
-                    } else {
-                        console.log('not checked');
-                        $(this).closest('.payment_details').find('.hideonpending').show();
-                    }
-                });
-                $(document).on("input",".wpsameascontact",function() {
-                    if ($(this).is(':checked')) {
-                        var $cm = $('.client-mobile');
-                        var $wp = $('.wp');
-                        function onChange() {
-                            $wp.val($cm.val());
-                        };
-                        $('.client-mobile')
-                            .change(onChange)
-                            .keyup(onChange);
+				}
+				else {
+					$(".wp").val(null);
+				}
+			});
+			$("#viewClient").modal("hide");
 
-                    }
-                    else {
-                        $(".wp").val(null);
-                    }
-                });
-                $("#viewClient").modal("hide");
-
-                $(document).ready(function() {
-                    $("#personalDetail").hide();
-                    $("#accountHandlingDetail").hide();
-                    $("#submitSmsButton").hide();
-                });
-                $(document).on('change',"#user_type", function () {
-                    var selectVal = $(this).val();
-                    if(selectVal == 1){
-                        $("#personalDetail").show();
-                        $("#accountHandlingDetail").show();
-                        $("#submitSmsButton").show();
-                        $("#channelPartnerDiv").show();
-                    }else if(selectVal == 2){
-                        $("#personalDetail").show();
-                        $("#accountHandlingDetail").hide();
-                        $("#channelPartnerDiv").hide();
-                        $("#submitSmsButton").show();
-                    }else if(selectVal == 3){
-                        $("#personalDetail").show();
-                        $("#accountHandlingDetail").hide();
-                        $("#submitSmsButton").show();
-                        $("#channelPartnerDiv").hide();
-                    }
-                });
+			$(document).ready(function() {
+				$("#personalDetail").hide();
+				$("#accountHandlingDetail").hide();
+				$("#submitSmsButton").hide();
+			});
+			$(document).on('change',"#client_type", function () {
+				var selectVal = $(this).val();
+				if(selectVal == 1){
+					$("#personalDetail").show();
+					$("#accountHandlingDetail").show();
+					$("#submitSmsButton").show();
+					$("#channelPartnerDiv").show();
+				}else if(selectVal == 2){
+					$("#personalDetail").show();
+					$("#accountHandlingDetail").hide();
+					$("#channelPartnerDiv").hide();
+					$("#submitSmsButton").show();
+				}else if(selectVal == 3){
+					$("#personalDetail").show();
+					$("#accountHandlingDetail").hide();
+					$("#submitSmsButton").show();
+					$("#channelPartnerDiv").hide();
+				}
+			});
         })
     </script>
     @section('jscript')
