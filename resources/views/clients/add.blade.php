@@ -166,6 +166,8 @@
                                                             <option></option>
                                                             @forelse ($channelPartner as $partner)
                                                                 <option value="{{$partner->id}}" >{{$partner->name}}</option>
+                                                            @empty
+
                                                             @endforelse
                                                         </select>
                                                         <!--end::Input-->
