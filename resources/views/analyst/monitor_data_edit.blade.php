@@ -1,5 +1,5 @@
 @extends('layout')
-@section("page-title","Add Analysis")
+@section("page-title","Edit Analysis")
 @section("analysis.monitor","active")
 @section("content")
     <!--begin::Body-->
@@ -149,17 +149,16 @@
                                                 <!--begin::Input-->
                                                 <!--begin::Input-->
                                                 <select name="entry_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
-                                                    <?php if(isset($monitorData->entry_time) && $monitorData->entry_time == "yes"){?>
-                                                    <option value="yes" selected>Yes</option>
-                                                    <? } else{?>
-                                                    <option value="no">No</option>
-                                                    <?php    }?>
-
-                                                    <?php if(isset($monitorData->entry_time) && $monitorData->entry_time == "no"){?>
-                                                    <option value="no" selected>No</option>
-                                                    <?php } else{?>
-                                                    <option value="yes">Yes</option>
-                                                    <?php    }?>
+                                                        <?php if(isset($monitorData->entry_time) && $monitorData->entry_time == "yes"){?>
+                                                           <option value="yes" selected>Yes</option>
+                                                        <?php } else{?>
+                                                            <option value="yes">Yes</option>
+                                                        <?php    }?>
+                                                        <?php if(isset($monitorData->entry_time) && $monitorData->entry_time == "no"){?>
+                                                            <option value="no" selected>No</option>
+                                                        <?php } else{?>
+                                                            <option value="no">No</option>
+                                                        <?php    }?>
                                                 </select>
                                             {{--                                                <input type="time" class="form-control form-control-lg form-control-solid bdr-ccc" name="entry_time" placeholder="" value="{{isset($monitorData->entry_time) ? $monitorData->entry_time : ''}}" />--}}
                                             <!--end::Input-->
@@ -191,17 +190,18 @@
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <select name="entry_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
-                                                    <?php if(isset($monitorData->exit_time) && $monitorData->exit_time == "no"){?>
-                                                        <option value="no" selected>No</option>
-                                                    <?php } else{?>
-                                                        <option value="yes">Yes</option>
-                                                    <?php    }?>
+
 
                                                         <?php if(isset($monitorData->exit_time) && $monitorData->exit_time == "yes"){?>
                                                         <option value="yes" selected>Yes</option>
                                                         <?php } else{?>
-                                                        <option value="no">No</option>
+                                                        <option value="yes">Yes</option>
                                                         <?php    }?>
+                                                            <?php if(isset($monitorData->exit_time) && $monitorData->exit_time == "no"){?>
+                                                            <option value="no" selected>No</option>
+                                                            <?php } else{?>
+                                                            <option value="no">No</option>
+                                                            <?php    }?>
                                                 </select>
 {{--                                                <input type="time" class="form-control form-control-lg form-control-solid bdr-ccc" name="exit_time" placeholder="" value="{{isset($monitorData->exit_time) ? $monitorData->exit_time : ''}}" />--}}
                                                 <!--end::Input-->
@@ -252,30 +252,30 @@
                                                 <select name="status" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
                                                     <?php if(isset($monitorData->status) && $monitorData->status == "open"){?>
                                                         <option value="open" selected>Open</option>
-                                                    <? } else{?>
-                                                        <option value="close">Close</option>
+                                                    <?php } else{?>
+                                                        <option value="open">Open</option>
                                                      <?php    }?>
 
                                                     <?php if(isset($monitorData->status) && $monitorData->status == "close"){?>
                                                         <option value="close" selected>Close</option>
-                                                    <? } else{?>
-                                                        <option value="open">Open</option>
+                                                    <?php } else{?>
+                                                        <option value="close">Close</option>
                                                     <?php    }?>
                                                 </select>
                                                 <!--end::Input-->
                                             </div>
 
-                                            <!--begin::Input group-->
-                                            <div class="col-4">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Earning</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="earning" placeholder="Entry Price" value="{{isset($monitorData->earning) ? $monitorData->earning : ''}}" />
-                                                <!--end::Input-->
-                                            </div>
+{{--                                            <!--begin::Input group-->--}}
+{{--                                            <div class="col-4">--}}
+{{--                                                <!--begin::Label-->--}}
+{{--                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">--}}
+{{--                                                    <span class="required">Earning</span>--}}
+{{--                                                </label>--}}
+{{--                                                <!--end::Label-->--}}
+{{--                                                <!--begin::Input-->--}}
+{{--                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="earning" placeholder="Entry Price" value="{{isset($monitorData->earning) ? $monitorData->earning : ''}}" />--}}
+{{--                                                <!--end::Input-->--}}
+{{--                                            </div>--}}
 
                                             <!--end::Input group-->
 

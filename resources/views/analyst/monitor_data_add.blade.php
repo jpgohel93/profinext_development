@@ -190,7 +190,7 @@
                                         <!--begin::Input-->
                                         <select name="status" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
                                             <option value="open">Open</option>
-                                            <option value="close">Close</option>
+{{--                                            <option value="close">Close</option>--}}
                                         </select>
                                         <!--end::Input-->
                                     </div>

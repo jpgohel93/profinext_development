@@ -87,7 +87,15 @@ class AnalystServices{
 
     public static function allUserAnalysts($id){
 
-        $analyst =  Analyst::where("status", "Active")->where('assign_user_id',$id)->get();
+        $auth_user = Auth::user();
+        $explRole = explode(",", $auth_user->role);
+
+        if(in_array("super-admin", $explRole)) {
+            $analyst =  Analyst::get();
+        }else{
+            $analyst =  Analyst::where('assign_user_id',$id)->get();
+        }
+
         return $analyst;
     }
 

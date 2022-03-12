@@ -207,6 +207,7 @@
                                                                 class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                                 <th class="min-w-10px">Sr No.</th>
                                                                 <th class="min-w-75px">Analyst</th>
+                                                                <th class="min-w-75px">Status</th>
                                                                 <th class="min-w-75px">No. of Calls Open</th>
                                                                 <th class="min-w-75px">No. of Calls Close</th>
                                                                 <th class="text-end min-w-100px">Add Call</th>
@@ -220,6 +221,7 @@
                                                                 <tr>
                                                                     <td>{{$i++}}</td>
                                                                     <td> {{$monitor->analyst}} </td>
+                                                                    <td> {{$monitor->status}} </td>
                                                                     <td> {{$monitor->open_call}} </td>
                                                                     <td> {{$monitor->close_call}} </td>
                                                                     <td class="">
