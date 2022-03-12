@@ -24,7 +24,7 @@
                             <h5 class="alert alert-info">{{session("info")}}</h5>
                         </div>
                     @endif
-					
+
 					<div class="modal fade" id="add_trader_model" tabindex="-1" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content rounded">
@@ -72,7 +72,7 @@
 							</div>
 						</div>
 					</div>
-	
+
                     <!--begin::Toolbar-->
                     <div class="toolbar" id="kt_toolbar">
                         <!--begin::Container-->
@@ -91,7 +91,7 @@
                                     <li class="breadcrumb-item text-muted">
                                         <a href="/profinext/dist/index.html" class="text-muted text-hover-primary">Home</a>
                                     </li>
-                                    <!--end::Item-->  
+                                    <!--end::Item-->
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item">
                                         <span class="bullet bg-gray-200 w-5px h-2px"></span>
@@ -106,11 +106,11 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             @can('trader-create')
-                                <div class="d-flex align-items-center py-1"> 
+                                <div class="d-flex align-items-center py-1">
 									<button type="button" class="btn btn-primary" id="add_tradermdl">Add Trader</button>
                                 </div>
                             @endcan
-                            <!--end::Actions--> 
+                            <!--end::Actions-->
                         </div>
                         <!--end::Container-->
                     </div>
@@ -168,12 +168,12 @@
                                                 </div>
                                                 <!--begin::Card title-->
                                                 <!--begin::Card toolbar-->
-                                            
+
                                                 <div class="card-toolbar">
                                                     <!--begin::Toolbar-->
                                                     <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                                             <div class="d-flex justify-content-between">
-                                                        <!--begin::Export--> 
+                                                        <!--begin::Export-->
                                                         <a href="#" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                             <span class="svg-icon svg-icon-2">
@@ -188,26 +188,26 @@
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                     <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                                 </svg>
-                                                            </span> 
-                                                        </a> 
+                                                            </span>
+                                                        </a>
                                                             </div>
-                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true"> 
+                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
                                                             <div class="menu-item px-3">
                                                                 <a href="#" class="menu-link px-3">
                                                                     <span class="menu-icon">
                                                                         <i class="la la-file-pdf-o"></i>
                                                                     </span>PDF
-                                                                </a> 
-                                                            </div> 
+                                                                </a>
+                                                            </div>
                                                             <div class="menu-item px-3">
                                                                 <a href="#" class="menu-link px-3">
                                                                     <span class="menu-icon">
                                                                         <i class="la la-file-excel-o"></i>
                                                                     </span>Excel
-                                                                </a>  
-                                                            </div> 
-                                                        </div> 
-                                                        <!--end::Export--> 
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Export-->
                                                     </div>
                                                     <!--end::Toolbar-->
                                                 </div>
@@ -232,57 +232,60 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-gray-600 fw-bold">
+                                                                @php
+                                                                    $i=1;
+                                                                @endphp
                                                                 @foreach ($traders as $trader)
-                                                                    <tr> 
-                                                                        <td>{{$trader->withClient->id}}</td>
-                                                                        <td class="d-flex align-items-center"> 
+                                                                    <tr>
+                                                                        <td>{{$i++}}</td>
+                                                                        <td class="d-flex align-items-center">
                                                                             <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                                                 <a href="#">
                                                                                     <div class="symbol-label">
                                                                                         <img src="{{asset('assets/media/avatars/150-1.jpg')}}" alt="Emma Smith" class="w-100" />
                                                                                     </div>
                                                                                 </a>
-                                                                            </div> 
+                                                                            </div>
                                                                             <div class="d-flex flex-column">
                                                                                 <a href="{{route('clientView',$trader->withClient->id)}}" class="text-gray-800 text-hover-primary mb-1">{{$trader->withClient->name}}</a>
-                                                                            </div> 
-                                                                        </td> 
-                                                                        <td>{{$trader->withClient->id}}</td> 
-                                                                        <td>R Power</td> 
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>{{$trader->withClient->id}}</td>
+                                                                        <td>R Power</td>
                                                                         <td>2314</td>
                                                                         <td>2450</td>
                                                                         <td class="text-end">
                                                                             <div class="d-flex justify-content-end align-items-center">
-                                                                                <div class="menu-item">  
+                                                                                <div class="menu-item">
                                                                                     <a href="#" class="menu-link btn btn-active-light-primary px-2" data-bs-toggle="modal" data-bs-target="#trading_modal"><i class="fa fa-eye"></i></a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 @can('trader-delete')
-                                                                                    <div class="menu-item px-2">  
+                                                                                    <div class="menu-item px-2">
                                                                                         <a href="javascript:void(0);"  class="menu-link px-2" data-bs-toggle="modal" data-bs-target="#confirmDelete"><i class="fa fa-times not_active text-dark"></i></a>
-                                                                                    </div> 
+                                                                                    </div>
                                                                                 @endcan
-                                                                                <div>	
+                                                                                <div>
                                                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><i class="fa fa-ellipsis-v"></i>
-                                                                                    </a> 
-                                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
+                                                                                    </a>
+                                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                                         <div class="menu-item px-3">
                                                                                             <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_holding">Add Holding</a>
                                                                                         </div>
                                                                                         <div class="menu-item px-3">
                                                                                             <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_quantity_modal">Add Qty</a>
-                                                                                        </div> 
+                                                                                        </div>
                                                                                         <div class="menu-item px-3">
                                                                                             <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#square-off-modal">Square Off</a>
-                                                                                        </div> 
-                                                                                    </div> 
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </td> 
-                                                                    </tr> 
+                                                                        </td>
+                                                                    </tr>
                                                                 @endforeach
                                                             </tbody>
                                                             <!--end::Table body-->
-                                                        </table> 													
+                                                        </table>
                                                     @else
                                                         <h1>No Active Traders</h1>
                                                     @endif
@@ -316,12 +319,12 @@
                                                 </div>
                                                 <!--begin::Card title-->
                                                 <!--begin::Card toolbar-->
-                                            
+
                                                 <div class="card-toolbar">
                                                     <!--begin::Toolbar-->
                                                     <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                                             <div class="d-flex justify-content-between">
-                                                        <!--begin::Export--> 
+                                                        <!--begin::Export-->
                                                         <a href="#" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                             <span class="svg-icon svg-icon-2">
@@ -336,26 +339,26 @@
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                     <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                                 </svg>
-                                                            </span> 
-                                                        </a> 
+                                                            </span>
+                                                        </a>
                                                             </div>
-                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true"> 
+                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
                                                             <div class="menu-item px-3">
                                                                 <a href="#" class="menu-link px-3">
                                                                     <span class="menu-icon">
                                                                         <i class="la la-file-pdf-o"></i>
                                                                     </span>PDF
-                                                                </a> 
-                                                            </div> 
+                                                                </a>
+                                                            </div>
                                                             <div class="menu-item px-3">
                                                                 <a href="#" class="menu-link px-3">
                                                                     <span class="menu-icon">
                                                                         <i class="la la-file-excel-o"></i>
                                                                     </span>Excel
-                                                                </a>  
-                                                            </div> 
-                                                        </div> 
-                                                        <!--end::Export--> 
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Export-->
                                                     </div>
                                                     <!--end::Toolbar-->
                                                 </div>
@@ -379,100 +382,100 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold">
-                                                            <tr> 
+                                                            <tr>
                                                                 <td>1</td>
-                                                                <td class="d-flex align-items-center"> 
+                                                                <td class="d-flex align-items-center">
                                                                     <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                                         <a href="#">
                                                                             <div class="symbol-label">
                                                                                 <img src="/profinext/dist/assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />
                                                                             </div>
                                                                         </a>
-                                                                    </div> 
+                                                                    </div>
                                                                     <div class="d-flex flex-column">
                                                                         <a href="#" class="text-gray-800 text-hover-primary mb-1">Ethan Black</a>
                                                                         <span>ethan-black@example.com</span>
-                                                                    </div> 
-                                                                </td> 
-                                                                <td>Call</td> 
-                                                                <td>R Power</td> 
+                                                                    </div>
+                                                                </td>
+                                                                <td>Call</td>
+                                                                <td>R Power</td>
                                                                 <td>2314</td>
                                                                 <td>2450</td>
                                                                 <td class="text-end">
                                                                     <div class="d-flex justify-content-end align-items-center">
-                                                                        <div class="menu-item">  
+                                                                        <div class="menu-item">
                                                                             <a href="#" class="menu-link btn btn-active-light-primary px-2" data-bs-toggle="modal" data-bs-target="#holding_modal"><i class="fas fa-eye"></i></a>
-                                                                        </div> 
-                                                                        <div class="menu-item px-2">  
+                                                                        </div>
+                                                                        <div class="menu-item px-2">
                                                                             <a href="javascript:void(0);"  class="menu-link px-2"  data-bs-toggle="modal" data-bs-target="#confirmDelete"><i class="fas fa-times not_active text-danger"></i></a>
-                                                                        </div> 
-                                                                        <div>	
+                                                                        </div>
+                                                                        <div>
                                                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><i class="fas fa-ellipsis-v"></i>
-                                                                            </a> 
-                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
+                                                                            </a>
+                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_holding">Add Holding</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_quantity_modal">Add Qty</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#square-off-modal">Square Off</a>
-                                                                                </div> 
-                                                                            </div> 
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </td> 
-                                                            </tr> 
-                                                            <tr> 
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
                                                                 <td>2</td>
-                                                                <td class="d-flex align-items-center"> 
+                                                                <td class="d-flex align-items-center">
                                                                     <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                                         <a href="#">
                                                                             <div class="symbol-label">
                                                                                 <img src="/profinext/dist/assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />
                                                                             </div>
                                                                         </a>
-                                                                    </div> 
+                                                                    </div>
                                                                     <div class="d-flex flex-column">
                                                                         <a href="#" class="text-gray-800 text-hover-primary mb-1">Ethan Black</a>
                                                                         <span>ethan-black@example.com</span>
-                                                                    </div> 
-                                                                </td> 
-                                                                <td>Call</td> 
-                                                                <td>Sail</td> 
+                                                                    </div>
+                                                                </td>
+                                                                <td>Call</td>
+                                                                <td>Sail</td>
                                                                 <td>78</td>
                                                                 <td>85</td>
                                                                 <td class="text-end">
                                                                     <div class="d-flex justify-content-end align-items-center">
-                                                                        <div class="menu-item">  
+                                                                        <div class="menu-item">
                                                                             <a href="#" class="menu-link btn btn-active-light-primary px-2" data-bs-toggle="modal" data-bs-target="#holding_modal"><i class="fas fa-eye"></i></a>
-                                                                        </div> 
-                                                                        <div class="menu-item px-2">  
+                                                                        </div>
+                                                                        <div class="menu-item px-2">
                                                                             <a href="javascript:void(0);"  class="menu-link px-2"  data-bs-toggle="modal" data-bs-target="#confirmDelete"><i class="fas fa-times not_active text-danger"></i></a>
-                                                                        </div> 
-                                                                        <div>	
+                                                                        </div>
+                                                                        <div>
                                                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><i class="fas fa-ellipsis-v"></i>
-                                                                            </a> 
-                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
+                                                                            </a>
+                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_holding">Add Holding</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_quantity_modal">Add Qty</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#square-off-modal">Square Off</a>
-                                                                                </div> 
-                                                                            </div> 
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </td> 
-                                                            </tr> 
+                                                                </td>
+                                                            </tr>
                                                             <!--end::Table row-->
                                                         </tbody>
                                                         <!--end::Table body-->
-                                                    </table> 													
+                                                    </table>
                                                 </div>
                                                 <!--end::Table-->
                                             </div>
@@ -503,12 +506,12 @@
                                                 </div>
                                                 <!--begin::Card title-->
                                                 <!--begin::Card toolbar-->
-                                            
+
                                                 <div class="card-toolbar">
                                                     <!--begin::Toolbar-->
                                                     <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                                             <div class="d-flex justify-content-between">
-                                                        <!--begin::Export--> 
+                                                        <!--begin::Export-->
                                                         <a href="#" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                             <span class="svg-icon svg-icon-2">
@@ -523,26 +526,26 @@
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                     <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                                 </svg>
-                                                            </span> 
-                                                        </a> 
+                                                            </span>
+                                                        </a>
                                                             </div>
-                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true"> 
+                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
                                                             <div class="menu-item px-3">
                                                                 <a href="#" class="menu-link px-3">
                                                                     <span class="menu-icon">
                                                                         <i class="la la-file-pdf-o"></i>
                                                                     </span>PDF
-                                                                </a> 
-                                                            </div> 
+                                                                </a>
+                                                            </div>
                                                             <div class="menu-item px-3">
                                                                 <a href="#" class="menu-link px-3">
                                                                     <span class="menu-icon">
                                                                         <i class="la la-file-excel-o"></i>
                                                                     </span>Excel
-                                                                </a>  
-                                                            </div> 
-                                                        </div> 
-                                                        <!--end::Export--> 
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Export-->
                                                     </div>
                                                     <!--end::Toolbar-->
                                                 </div>
@@ -567,114 +570,114 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold">
-                                                            <tr> 
+                                                            <tr>
                                                                 <td>1</td>
-                                                                <td class="d-flex align-items-center"> 
+                                                                <td class="d-flex align-items-center">
                                                                     <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                                         <a href="#">
                                                                             <div class="symbol-label">
                                                                                 <img src="/profinext/dist/assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />
                                                                             </div>
                                                                         </a>
-                                                                    </div> 
+                                                                    </div>
                                                                     <div class="d-flex flex-column">
                                                                         <a href="#" class="text-gray-800 text-hover-primary mb-1">Ethan Black</a>
                                                                         <span>ethan-black@example.com</span>
-                                                                    </div> 
-                                                                </td> 
-                                                                <td>Call</td> 
-                                                                <td>R Power</td> 
+                                                                    </div>
+                                                                </td>
+                                                                <td>Call</td>
+                                                                <td>R Power</td>
                                                                 <td>2314</td>
                                                                 <td>2450</td>
                                                                 <td>500</td>
                                                                 <td class="text-end">
                                                                     <div class="d-flex justify-content-end align-items-center">
-                                                                        <div class="menu-item">  
+                                                                        <div class="menu-item">
                                                                             <a href="#" class="menu-link btn btn-active-light-primary px-2" data-bs-toggle="modal" data-bs-target="#renew_modal2"><i class="fas fa-eye"></i></a>
-                                                                        </div> 
-                                                                        <div class="menu-item px-2">  
+                                                                        </div>
+                                                                        <div class="menu-item px-2">
                                                                             <a href="javascript:void(0);"  class="menu-link px-2" data-bs-toggle="modal" data-bs-target="#confirmDelete"><i class="fas fa-times not_active text-dark"></i></a>
-                                                                        </div> 
-                                                                        <div>	
+                                                                        </div>
+                                                                        <div>
                                                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><i class="fas fa-ellipsis-v"></i>
-                                                                            </a> 
-                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
+                                                                            </a>
+                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_holding">Add Holding</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_quantity_modal">Add Qty</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#renew_modal2">Renew</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#terminate_modal">Terminate</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#square-off-modal">Square Off</a>
                                                                                 </div>
-                                                                            </div> 
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </td> 
-                                                            </tr> 
-                                                            <tr> 
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
                                                                 <td>2</td>
-                                                                <td class="d-flex align-items-center"> 
+                                                                <td class="d-flex align-items-center">
                                                                     <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                                         <a href="#">
                                                                             <div class="symbol-label">
                                                                                 <img src="/profinext/dist/assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />
                                                                             </div>
                                                                         </a>
-                                                                    </div> 
+                                                                    </div>
                                                                     <div class="d-flex flex-column">
                                                                         <a href="#" class="text-gray-800 text-hover-primary mb-1">Ethan Black</a>
                                                                         <span>ethan-black@example.com</span>
-                                                                    </div> 
-                                                                </td> 
-                                                                <td>Call</td> 
-                                                                <td>Sail</td> 
+                                                                    </div>
+                                                                </td>
+                                                                <td>Call</td>
+                                                                <td>Sail</td>
                                                                 <td>78</td>
                                                                 <td>85</td>
                                                                 <td>35</td>
                                                                 <td class="text-end">
                                                                     <div class="d-flex justify-content-end align-items-center">
-                                                                        <div class="menu-item">  
+                                                                        <div class="menu-item">
                                                                             <a href="#" class="menu-link btn btn-active-light-primary px-2" data-bs-toggle="modal" data-bs-target="#renew_modal2"><i class="fas fa-eye"></i></a>
-                                                                        </div> 
-                                                                        <div class="menu-item px-2">  
+                                                                        </div>
+                                                                        <div class="menu-item px-2">
                                                                             <a href="javascript:void(0);"  class="menu-link px-2"  data-bs-toggle="modal" data-bs-target="#confirmDelete"><i class="fas fa-times not_active text-danger"></i></a>
-                                                                        </div> 
-                                                                        <div>	
+                                                                        </div>
+                                                                        <div>
                                                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><i class="fas fa-ellipsis-v"></i>
-                                                                            </a> 
-                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
+                                                                            </a>
+                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_holding">Add Holding</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_quantity_modal">Add Qty</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#renew_modal2">Renew</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#terminate_modal">Terminate</a>
-                                                                                </div>  
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#square-off-modal">Square Off</a>
-                                                                                </div> 
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </td> 
-                                                            </tr> 
+                                                                </td>
+                                                            </tr>
                                                             <!--end::Table row-->
                                                         </tbody>
                                                         <!--end::Table body-->
-                                                    </table> 													
+                                                    </table>
                                                 </div>
                                                 <!--end::Table-->
                                             </div>
@@ -705,12 +708,12 @@
                                                 </div>
                                                 <!--begin::Card title-->
                                                 <!--begin::Card toolbar-->
-                                            
+
                                                 <div class="card-toolbar">
                                                     <!--begin::Toolbar-->
                                                     <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                                             <div class="d-flex justify-content-between">
-                                                        <!--begin::Export--> 
+                                                        <!--begin::Export-->
                                                         <a href="#" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                             <span class="svg-icon svg-icon-2">
@@ -725,26 +728,26 @@
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                     <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                                 </svg>
-                                                            </span> 
-                                                        </a> 
+                                                            </span>
+                                                        </a>
                                                             </div>
-                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true"> 
+                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
                                                             <div class="menu-item px-3">
                                                                 <a href="#" class="menu-link px-3">
                                                                     <span class="menu-icon">
                                                                         <i class="la la-file-pdf-o"></i>
                                                                     </span>PDF
-                                                                </a> 
-                                                            </div> 
+                                                                </a>
+                                                            </div>
                                                             <div class="menu-item px-3">
                                                                 <a href="#" class="menu-link px-3">
                                                                     <span class="menu-icon">
                                                                         <i class="la la-file-excel-o"></i>
                                                                     </span>Excel
-                                                                </a>  
-                                                            </div> 
-                                                        </div> 
-                                                        <!--end::Export--> 
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Export-->
                                                     </div>
                                                     <!--end::Toolbar-->
                                                 </div>
@@ -768,100 +771,100 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold">
-                                                            <tr> 
+                                                            <tr>
                                                                 <td>1</td>
-                                                                <td class="d-flex align-items-center"> 
+                                                                <td class="d-flex align-items-center">
                                                                     <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                                         <a href="#">
                                                                             <div class="symbol-label">
                                                                                 <img src="/profinext/dist/assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />
                                                                             </div>
                                                                         </a>
-                                                                    </div> 
+                                                                    </div>
                                                                     <div class="d-flex flex-column">
                                                                         <a href="#" class="text-gray-800 text-hover-primary mb-1">Ethan Black</a>
                                                                         <span>ethan-black@example.com</span>
-                                                                    </div> 
-                                                                </td> 
-                                                                <td>Call</td> 
-                                                                <td>R Power</td> 
+                                                                    </div>
+                                                                </td>
+                                                                <td>Call</td>
+                                                                <td>R Power</td>
                                                                 <td>2314</td>
                                                                 <td>2450</td>
                                                                 <td class="text-end">
                                                                     <div class="d-flex justify-content-end align-items-center">
-                                                                        <div class="menu-item">  
+                                                                        <div class="menu-item">
                                                                             <a href="#" class="menu-link btn btn-active-light-primary px-2" data-bs-toggle="modal" data-bs-target="#allTab"><i class="fas fa-eye"></i></a>
-                                                                        </div> 
-                                                                        <div class="menu-item px-2">  
+                                                                        </div>
+                                                                        <div class="menu-item px-2">
                                                                             <a href="javascript:void(0);"  class="menu-link px-2"  data-bs-toggle="modal" data-bs-target="#confirmDelete"><i class="fas fa-times not_active text-danger"></i></a>
-                                                                        </div> 
-                                                                        <div>	
+                                                                        </div>
+                                                                        <div>
                                                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><i class="fas fa-ellipsis-v"></i>
-                                                                            </a> 
-                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
+                                                                            </a>
+                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#renew_modal2">Renew</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#terminate_modal">Terminate</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#square-off-modal">Square Off</a>
                                                                                 </div>
-                                                                            </div> 
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </td> 
-                                                            </tr> 
-                                                            <tr> 
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
                                                                 <td>2</td>
-                                                                <td class="d-flex align-items-center"> 
+                                                                <td class="d-flex align-items-center">
                                                                     <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                                         <a href="#">
                                                                             <div class="symbol-label">
                                                                                 <img src="/profinext/dist/assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />
                                                                             </div>
                                                                         </a>
-                                                                    </div> 
+                                                                    </div>
                                                                     <div class="d-flex flex-column">
                                                                         <a href="#" class="text-gray-800 text-hover-primary mb-1">Ethan Black</a>
                                                                         <span>ethan-black@example.com</span>
-                                                                    </div> 
-                                                                </td> 
-                                                                <td>Call</td> 
-                                                                <td>Sail</td> 
+                                                                    </div>
+                                                                </td>
+                                                                <td>Call</td>
+                                                                <td>Sail</td>
                                                                 <td>78</td>
                                                                 <td>85</td>
                                                                 <td class="text-end">
                                                                     <div class="d-flex justify-content-end align-items-center">
-                                                                        <div class="menu-item">  
+                                                                        <div class="menu-item">
                                                                             <a href="#" class="menu-link btn btn-active-light-primary px-2" data-bs-toggle="modal" data-bs-target="#all"><i class="fas fa-eye"></i></a>
-                                                                        </div> 
-                                                                        <div class="menu-item px-2">  
+                                                                        </div>
+                                                                        <div class="menu-item px-2">
                                                                             <a href="javascript:void(0);"  class="menu-link px-2"  data-bs-toggle="modal" data-bs-target="#confirmDelete"><i class="fas fa-times not_active text-danger"></i></a>
-                                                                        </div> 
-                                                                        <div>	
+                                                                        </div>
+                                                                        <div>
                                                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><i class="fas fa-ellipsis-v"></i>
-                                                                            </a> 
-                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
+                                                                            </a>
+                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#renew_modal2">Renew</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#terminate_modal">Terminate</a>
-                                                                                </div> 
+                                                                                </div>
                                                                                 <div class="menu-item px-3">
                                                                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#square-off-modal">Square Off</a>
                                                                                 </div>
-                                                                            </div> 
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </td> 
-                                                            </tr> 
+                                                                </td>
+                                                            </tr>
                                                             <!--end::Table row-->
                                                         </tbody>
                                                         <!--end::Table body-->
-                                                    </table> 													
+                                                    </table>
                                                 </div>
                                                 <!--end::Table-->
                                             </div>
@@ -869,7 +872,7 @@
                                         </div>
                                         <!--end::Card-->
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                             <!--end::Container-->
                         </div>
@@ -885,7 +888,7 @@
         </div>
         <!--end::Page-->
     </div>
-	
+
 	@section('jscript')
         <script>
 			$("#add_tradermdl").on("click",function(){

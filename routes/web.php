@@ -114,9 +114,10 @@ Route::group(['middleware' => ['auth']], function() {
     // edit call
     Route::POST("/call/edit/",[CallController::class,"edit"])->name("editCall");
     Route::get("/call/setup",[ClientController::class,"setup"])->name("setup");
-	
+
     Route::POST("/call/assignDematTrader",[ClientController::class,'assignTraderToDemat'])->name('assignTraderToDemat');
     Route::POST("/makeAsPreferred",[ClientController::class,"makeAsPreferred"])->name("makeAsPreferred");
+    Route::POST("/updateDematStatus",[ClientController::class,"updateDematStatus"])->name("updateDematStatus");
 
 
 
@@ -167,6 +168,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     // trader
     Route::get("/trader",[TraderController::class, "view"])->name("viewTrader");
+    Route::get("/trader/accounts",[TraderController::class, "viewTraderAccounts"])->name("viewTraderAccounts");
     Route::POST("/trader/client/assign",[TraderController::class,'create'])->name('assignClientToTrader');
     // logout
     Route::get("/logout",[LoginController::class,"logout"])->name("logout");

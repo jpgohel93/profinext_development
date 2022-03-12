@@ -99,7 +99,7 @@ class ClientController extends Controller
     }
     // assign client to freelancer
     public function clientDematAccount($filter_type = null, $filter_id = null ){
-		
+
         $freelancerAms= UserServices::getByType(4);
         $freelancerPrime = UserServices::getByType(5);
         $dematAccount = ClientServices::getClientDematAccount($filter_type, $filter_id);
@@ -129,8 +129,37 @@ class ClientController extends Controller
     public function makeAsPreferred(Request $request)
     {
         $requestData['is_make_as_preferred'] = $request->is_make_as_preferred;
+        $requestData['account_status'] = "normal";
         ClientServices::updateClientDematAccount($request->id, $requestData);
         return true;
+    }
+
+    //makeAsPreferred
+    public function updateDematStatus(Request $request)
+    {
+        $requestData['account_status'] = $request->status;
+        if($request->status == "normal"){
+            $requestData['entry_price'] = 0;
+            $requestData['quantity'] = 0;
+            $requestData['problem'] = '';
+            $requestData['is_make_as_preferred'] = 0;
+        }elseif ($request->status == "holding"){
+            $requestData['entry_price'] = $request->entry_price;
+            $requestData['quantity'] = $request->quantity;
+        }elseif ($request->status == "problem"){
+            if($request->problem == "other"){
+                $requestData['problem'] = $request->other_problem;
+            }else{
+                $requestData['problem'] = $request->problem;
+            }
+        }
+        ClientServices::updateClientDematAccount($request->id, $requestData);
+
+        if ($request->status == "holding" || $request->status == "problem"){
+            return Redirect::route("viewTraderAccounts")->with("info", "stactus change successfully.");
+        }else{
+            return true;
+        }
     }
 
     // set up
@@ -139,9 +168,9 @@ class ClientController extends Controller
 		$traders = UserServices::getByRole('trader');
         return view("calls.setup",compact('dematAccount','traders'));
     }
-	
+
     public function assignTraderToDemat(Request $request)
-	{  
+	{
 		/* $trader = $request->validate([
 				"client_id" => "required|numeric|exists:clients,id",
 				"trader_id" => "required|numeric|exists:users,id",
@@ -151,7 +180,7 @@ class ClientController extends Controller
 				"trader_id.exists"=>"Invalid Trader ID",
 			]
         ); */
-		
+
 		$updateDemat['trader_id'] = $request->trader_id;
 		ClientDemat::where("id", $request->client_id)->update($updateDemat);
 		return Redirect::route("setup")->with("info", "Trader Assinged successfully.");

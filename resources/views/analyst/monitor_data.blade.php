@@ -492,7 +492,7 @@
                                                                 class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                                 <th class="min-w-10px">Sr No.</th>
                                                                 <th class="min-w-75px">Script Name</th>
-                                                                <th class="min-w-75px">Earning</th>
+                                                                <th class="min-w-75px">P / L</th>
                                                                 <th class="min-w-75px">Status</th>
                                                                 <th class="min-w-75px">action</th>
                                                             </tr>
@@ -505,7 +505,7 @@
                                                                 <tr>
                                                                     <td>{{$i++}}</td>
                                                                     <td> {{$monitor->script_name}} </td>
-                                                                    <td> {{$monitor->earning}} </td>
+                                                                    <td> {{$monitor->exit_price - $monitor->entry_price}} </td>
 
                                                                         @if($monitor->sl_status == "Target")
                                                                             <td style="background: #0A8A0A;  color: whitesmoke;">{{$monitor->sl_status}}</td>

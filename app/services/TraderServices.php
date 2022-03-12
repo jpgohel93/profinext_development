@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use App\Models\ClientDemat;
 use App\Models\TraderModal;
 use Illuminate\Support\Facades\Auth;
 class TraderServices{
@@ -40,4 +41,43 @@ class TraderServices{
         return TraderModal::where("id", $request->id)->update($trader);
     }
 
+    public static function traderClientList($id){
+        $dematAccount['preferred'] = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("client_demat.trader_id",$id)->
+        where("client_demat.is_make_as_preferred","1")->
+        where("client_demat.account_status","normal")->
+        select('client_demat.*','clients.name')
+            ->get();
+
+        $dematAccount['holding'] = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("client_demat.trader_id",$id)->
+        where("client_demat.account_status","holding")->
+        select('client_demat.*','clients.name')
+            ->get();
+
+        $dematAccount['renew'] = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("client_demat.trader_id",$id)->
+        where("client_demat.account_status","renew")->
+        select('client_demat.*','clients.name')
+            ->get();
+
+        $dematAccount['problem'] = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("client_demat.trader_id",$id)->
+        where("client_demat.account_status","problem")->
+        select('client_demat.*','clients.name')
+            ->get();
+
+        $dematAccount['all'] = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("client_demat.trader_id",$id)->
+        where("client_demat.account_status","normal")->
+        where("client_demat.is_make_as_preferred","!=","1")->
+        select('client_demat.*','clients.name')
+            ->get();
+        return $dematAccount;
+    }
 }

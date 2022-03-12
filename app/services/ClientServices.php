@@ -344,12 +344,12 @@ class ClientServices
 	{
         $query = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')
 			->select('client_demat.*','clients.name');
-			
+
 		if($filter_type == "freelancer") {
 			$query->where("client_demat.freelancer_id", $filter_id);
 		} else if($filter_type == "trader") {
-			$query->where("client_demat.trader_id", $filter_id);	
-		}	
+			$query->where("client_demat.trader_id", $filter_id);
+		}
 
 		$dematAccount = $query->get();
         return $dematAccount;

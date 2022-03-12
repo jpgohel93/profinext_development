@@ -1,6 +1,7 @@
 @extends('layout')
-@section("page-title","Freelancer")
-@section("freelancer","active")
+@section("page-title","Setup")
+@section("setup","active")
+@section("trading","hover show")
 @section("content")
     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
     <!--begin::Body-->
@@ -55,7 +56,7 @@
 						</div>
 						<!--end::Container-->
 					</div>
-					
+
                     <div class="post d-flex flex-column-fluid" id="kt_post">
                         <!--begin::Container-->
                         <div id="kt_content_container" class="container-xxl">
@@ -225,11 +226,11 @@
                                                                                 <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
                                                                             </div>
                                                                         @endcan
-																		
+
 																		<div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
-                                                                        </div>	
-																		
+                                                                        </div>
+
 																		<div class="menu-item px-3">
 																			<a href="javascript:void(0)"
 																			   data-id='{{$account->id}}'
@@ -414,7 +415,7 @@
                                                                         @endcan
 																		<div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
-                                                                        </div>	
+                                                                        </div>
                                                                         <div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="0">Remove as Preferred</a>
                                                                         </div>
@@ -463,7 +464,7 @@
     <!--begin::Modals-->
 
     <!-- Modal -->
-	
+
 	<div class="modal fade" id="assignTraderModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog mw-650px" role="document">
             <div class="modal-content">
@@ -524,7 +525,7 @@
             </div>
         </div>
     </div>
-	
+
     <div class="modal fade" id="assignFreelancerModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog mw-650px" role="document">
             <div class="modal-content">
@@ -735,7 +736,7 @@
                     window.alert("Unable to Load this Client");
                 }
             });
-			
+
 			$(document).on("click",'.assignTrader',function(e){
                 const id = e.target.getAttribute("data-id");
                 const name = e.target.getAttribute("data-clname");
