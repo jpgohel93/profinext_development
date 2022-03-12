@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     // clients
     Route::get("/clients",[ClientController::class,"all"])->name("clients");
-    Route::get("/clients/Demat",[ClientController::class,"clientDematAccount"])->name("clientDematAccount");
+    Route::get("/clients/Demat/{filter_type?}/{filter_id?}",[ClientController::class,"clientDematAccount"])->name("clientDematAccount");
     // read client
     Route::get("/client/view/{client_id}",[ClientController::class,"get"])->name("clientView");
     // create client
@@ -114,6 +114,8 @@ Route::group(['middleware' => ['auth']], function() {
     // edit call
     Route::POST("/call/edit/",[CallController::class,"edit"])->name("editCall");
     Route::get("/call/setup",[ClientController::class,"setup"])->name("setup");
+	
+    Route::POST("/call/assignDematTrader",[ClientController::class,'assignTraderToDemat'])->name('assignTraderToDemat');
     Route::POST("/makeAsPreferred",[ClientController::class,"makeAsPreferred"])->name("makeAsPreferred");
 
 

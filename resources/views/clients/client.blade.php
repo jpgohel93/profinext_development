@@ -257,9 +257,9 @@
                                                                                 <a href="{{route('updateClientForm',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Edit</a>
                                                                             </div>
                                                                         @endcan
-                                                                        <div class="menu-item px-3">
+                                                                        <!--div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$client->id}}' data-name='{{$client->name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
-                                                                        </div>
+                                                                        </div-->
                                                                         @can("client-delete")
                                                                             <div class="menu-item px-3">
                                                                                 <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3 removeClient">Remove</a>
@@ -431,9 +431,9 @@
                                                                                 <a href="{{route('updateClientForm',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Edit</a>
                                                                             </div>
                                                                         @endcan
-                                                                        <div class="menu-item px-3">
+                                                                        <!--div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$client->id}}' data-name='{{$client->name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
-                                                                        </div>
+                                                                        </div-->
                                                                         @can("client-delete")
                                                                             <div class="menu-item px-3">
                                                                                 <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3 removeClient">Remove</a>
@@ -605,9 +605,9 @@
                                                                                 <a href="{{route('updateClientForm',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Edit</a>
                                                                             </div>
                                                                         @endcan
-                                                                        <div class="menu-item px-3">
+                                                                        <!--div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$client->id}}' data-name='{{$client->name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
-                                                                        </div>
+                                                                        </div-->
                                                                         @can("client-delete")
                                                                             <div class="menu-item px-3">
                                                                                 <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3 removeClient">Remove</a>
@@ -710,63 +710,6 @@
         </div>
     </div>
     <!-- Modal -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="assignTraderModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog mw-650px" role="document">
-            <div class="modal-content">
-                <!--begin::Form-->
-                <form id="" class="form" method="POST" action="{{route('assignClientToTrader')}}">
-                    @csrf
-                    <div class="modal-header">
-                        <h2 class="fw-bolder">assign Client to Trader</h2>
-                        <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
-                                <span class="svg-icon svg-icon-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                                        <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-                                    </svg>
-                                </span>
-                        </button>
-                    </div>
-
-                    <!--begin::Modal body-->
-                    <div class="modal-body mx-md-10">
-                        <div class="form-group row">
-                            <label class="col-3 col-form-label">Client</label>
-                            <div class="col-9">
-                                <input class="form-control" type="text" id="assignName" readonly/>
-                                <input class="form-control" type="hidden" value="" name='client_id' id="assignId" readonly />
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-email-input" class="col-3 col-form-label">Trader</label>
-                            <div class="col-9">
-                                <select class="form-select form-select-solid" name='trader_id' data-control="select2" data-hide-search="true" data-placeholder="Select Trader">
-                                    @forelse ($traders as $trader)
-                                        <option value="{{$trader->id}}">{{$trader->name}} - {{$trader->count->count()}} &nbsp; Client</option>
-                                    @empty
-                                        <option>Select Trader</option>
-                                    @endforelse
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end::Modal body-->
-                    <div class="modal-footer text-center">
-                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
-                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                            <span class="indicator-label">Submit</span>
-                            <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                        </button>
-                    </div>
-                </form>
-                <!--end::Form-->
-            </div>
-        </div>
-    </div>
-    <!--end::Modal - View Client Details-->
 
     <!--end::Modals-->
     <!--begin::Scrolltop-->

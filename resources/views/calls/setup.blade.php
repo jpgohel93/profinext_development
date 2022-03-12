@@ -17,48 +17,45 @@
             <!--begin::Content-->
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                     @if(session("info"))
-                        <div class="container">
-                            <h6 class="alert alert-info">{{session("info")}}</h6>
-                        </div>
-                @endif
+					<div class="container">
+						<h6 class="alert alert-info">{{session("info")}}</h6>
+					</div>
+					@endif
                 <!--begin::Toolbar-->
-                        <div class="toolbar" id="kt_toolbar">
-                            <!--begin::Container-->
-                            <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                                <!--begin::Page title-->
-                                <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
-                                    <!--begin::Title-->
-                                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Setup</h1>
-                                    <!--end::Title-->
-                                    <!--begin::Separator-->
-                                    <span class="h-20px border-gray-200 border-start mx-4"></span>
-                                    <!--end::Separator-->
-                                    <!--begin::Breadcrumb-->
-                                    <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
-                                        <!--begin::Item-->
-                                        <li class="breadcrumb-item text-muted">
-                                            <a href="profinext/dist/index.html" class="text-muted text-hover-primary">Home</a>
-                                        </li>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <li class="breadcrumb-item">
-                                            <span class="bullet bg-gray-200 w-5px h-2px"></span>
-                                        </li>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <li class="breadcrumb-item text-dark">Setup</li>
-                                        <!--end::Item-->
-                                    </ul>
-                                    <!--end::Breadcrumb-->
-                                </div>
-                                <!--end::Page title-->
-                            </div>
-                            <!--end::Container-->
-                        </div>
-                    <!--end::Toolbar-->
-                    <!--begin::Post-->
-
-
+					<div class="toolbar" id="kt_toolbar">
+						<!--begin::Container-->
+						<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+							<!--begin::Page title-->
+							<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+								<!--begin::Title-->
+								<h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Setup</h1>
+								<!--end::Title-->
+								<!--begin::Separator-->
+								<span class="h-20px border-gray-200 border-start mx-4"></span>
+								<!--end::Separator-->
+								<!--begin::Breadcrumb-->
+								<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+									<!--begin::Item-->
+									<li class="breadcrumb-item text-muted">
+										<a href="profinext/dist/index.html" class="text-muted text-hover-primary">Home</a>
+									</li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item">
+										<span class="bullet bg-gray-200 w-5px h-2px"></span>
+									</li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item text-dark">Setup</li>
+									<!--end::Item-->
+								</ul>
+								<!--end::Breadcrumb-->
+							</div>
+							<!--end::Page title-->
+						</div>
+						<!--end::Container-->
+					</div>
+					
                     <div class="post d-flex flex-column-fluid" id="kt_post">
                         <!--begin::Container-->
                         <div id="kt_content_container" class="container-xxl">
@@ -228,26 +225,29 @@
                                                                                 <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
                                                                             </div>
                                                                         @endcan
-
-
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)"
-                                                                                   data-id='{{$account->id}}'
-                                                                                   class="menu-link px-3 makeAsPreferred"
-                                                                                   data-value="1">Make as Preferred</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)"
-                                                                                   data-id='{{$account->id}}'
-                                                                                   class="menu-link px-3 loginInfo">Login
-                                                                                    Info</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)"
-                                                                                   class="menu-link px-3"
-                                                                                   onclick="myFunction({{$account->id}})">Copy
-                                                                                    Login Info</a>
-                                                                            </div>
+																		
+																		<div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
+                                                                        </div>	
+																		
+																		<div class="menu-item px-3">
+																			<a href="javascript:void(0)"
+																			   data-id='{{$account->id}}'
+																			   class="menu-link px-3 makeAsPreferred"
+																			   data-value="1">Make as Preferred</a>
+																		</div>
+																		<div class="menu-item px-3">
+																			<a href="javascript:void(0)"
+																			   data-id='{{$account->id}}'
+																			   class="menu-link px-3 loginInfo">Login
+																				Info</a>
+																		</div>
+																		<div class="menu-item px-3">
+																			<a href="javascript:void(0)"
+																			   class="menu-link px-3"
+																			   onclick="myFunction({{$account->id}})">Copy
+																				Login Info</a>
+																		</div>
 {{--                                                                        <div class="menu-item px-3">--}}
 {{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 assignFreelancer">Allocate to Trader</a>--}}
 {{--                                                                        </div>--}}
@@ -412,8 +412,9 @@
                                                                                 <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
                                                                             </div>
                                                                         @endcan
-
-
+																		<div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
+                                                                        </div>	
                                                                         <div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="0">Remove as Preferred</a>
                                                                         </div>
@@ -462,6 +463,68 @@
     <!--begin::Modals-->
 
     <!-- Modal -->
+	
+	<div class="modal fade" id="assignTraderModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px" role="document">
+            <div class="modal-content">
+                <!--begin::Form-->
+                <form id="" class="form" method="POST" action="{{route('assignTraderToDemat')}}">
+                    @csrf
+                    <div class="modal-header">
+                        <h2 class="fw-bolder">Assign Client Demat to Trader</h2>
+                        <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                        <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                    </svg>
+                                </span>
+                        </button>
+                    </div>
+
+                    <!--begin::Modal body-->
+                    <div class="modal-body mx-md-10">
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Client</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" id="assignName" readonly/>
+                                <input class="form-control" type="hidden" value="" name='client_id' id="assignId" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Account Holder Name</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" id="holderName" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-email-input" class="col-3 col-form-label">Trader</label>
+                            <div class="col-9">
+                                <select class="form-select form-select-solid" name='trader_id' data-control="select2" data-hide-search="true" data-placeholder="Select Trader">
+                                    @forelse ($traders as $trader)
+                                        <option value="{{$trader->id}}">{{$trader->name}} - {{$trader->count->count()}} &nbsp; Client</option>
+                                    @empty
+                                        <option>Select Trader</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Modal body-->
+                    <div class="modal-footer text-center">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                            <span class="indicator-label">Submit</span>
+                            <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+        </div>
+    </div>
+	
     <div class="modal fade" id="assignFreelancerModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog mw-650px" role="document">
             <div class="modal-content">
@@ -668,6 +731,20 @@
                     $("#client_Name").val(name);
                     $("#holder_name").val(holderName);
                     $("#assignFreelancerModal").modal("show");
+                }else{
+                    window.alert("Unable to Load this Client");
+                }
+            });
+			
+			$(document).on("click",'.assignTrader',function(e){
+                const id = e.target.getAttribute("data-id");
+                const name = e.target.getAttribute("data-clname");
+                const holderName = e.target.getAttribute("data-name");
+                if(id){
+                    $("#assignId").val(id);
+                    $("#assignName").val(name);
+                    $("#holderName").val(holderName);
+                    $("#assignTraderModal").modal("show");
                 }else{
                     window.alert("Unable to Load this Client");
                 }

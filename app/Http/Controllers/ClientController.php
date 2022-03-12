@@ -27,10 +27,10 @@ class ClientController extends Controller
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = BankDetailsServices::view(['id', 'bank']);
         $brokers = BrokerServices::view(['id', 'broker']);
-        $traders = UserServices::getByRole('trader');
+        //$traders = UserServices::getByRole('trader');
         $freelancerAms= UserServices::getByType(4);
         $freelancerPrime = UserServices::getByType(5);
-        return view("clients.client",compact('clients','professions','banks','traders','brokers','freelancerAms','freelancerPrime'));
+        return view("clients.client",compact('clients','professions','banks','brokers','freelancerAms','freelancerPrime'));
     }
     // create client form
     public function createClientForm(){
@@ -98,12 +98,13 @@ class ClientController extends Controller
         return Redirect::route("clientDematAccount")->with("info","Freelancer assign to client demat account");
     }
     // assign client to freelancer
-    public function clientDematAccount(){
+    public function clientDematAccount($filter_type = null, $filter_id = null ){
+		
         $freelancerAms= UserServices::getByType(4);
         $freelancerPrime = UserServices::getByType(5);
-        $dematAccount = ClientServices::getClientDematAccount();
-        return view("clients.client_demat",compact('dematAccount','freelancerAms','freelancerPrime'));
-
+        $dematAccount = ClientServices::getClientDematAccount($filter_type, $filter_id);
+		$traders = UserServices::getByRole('trader');
+        return view("clients.client_demat",compact('dematAccount','freelancerAms','freelancerPrime','traders','filter_type','filter_id'));
     }
 
     //update the available fund and profit / loss in demat
@@ -135,8 +136,25 @@ class ClientController extends Controller
     // set up
     public function setup(){
         $dematAccount = ClientServices::getClientForSetUp();
-        return view("calls.setup",compact('dematAccount'));
-
+		$traders = UserServices::getByRole('trader');
+        return view("calls.setup",compact('dematAccount','traders'));
+    }
+	
+    public function assignTraderToDemat(Request $request)
+	{  
+		/* $trader = $request->validate([
+				"client_id" => "required|numeric|exists:clients,id",
+				"trader_id" => "required|numeric|exists:users,id",
+			],
+			[
+				"trader_id.unique"=>"Client Already Assign to this trader",
+				"trader_id.exists"=>"Invalid Trader ID",
+			]
+        ); */
+		
+		$updateDemat['trader_id'] = $request->trader_id;
+		ClientDemat::where("id", $request->client_id)->update($updateDemat);
+		return Redirect::route("setup")->with("info", "Trader Assinged successfully.");
     }
 
     // set up

@@ -88,8 +88,30 @@
                                         <!--begin::Toolbar-->
                                         <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                             <div class="d-flex justify-content-between">
+											
+												<select class="form-select form-select-solid" id='freelancer_type' data-control="select2" data-hide-search="true" data-placeholder="Select Freelancer" style="margin-left: 10px;">
+													<option value="">Select freelancer</option>
+													@forelse ($freelancerAms as $freelancer)
+														<option value="{{$freelancer->id}}" @if($filter_type == 'freelancer' && $filter_id == $freelancer->id) selected @endif >{{$freelancer->name}}</option>
+													@empty
+													@endforelse
+														
+													@forelse ($freelancerPrime as $freelancer)
+														<option value="{{$freelancer->id}}" @if($filter_type == 'freelancer' && $filter_id == $freelancer->id) selected @endif >{{$freelancer->name}}</option>
+													@empty
+													@endforelse	
+												</select>
+												
+												<select class="form-select form-select-solid" id='trader_id' data-control="select2" data-hide-search="true" data-placeholder="Select Trader">
+													<option value="">Select Trader</option>
+													@forelse ($traders as $trader)
+														<option value="{{$trader->id}}" @if($filter_type == 'trader' && $filter_id == $freelancer->id) selected @endif >{{$trader->name}} - {{$trader->count->count()}} &nbsp; Client</option>
+													@empty
+													@endforelse
+												</select>
+												
                                                 <!--begin::Export-->
-                                                <a href="#" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                                <a href="javascript:;" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" style="width: 300px; margin-left: 10px;">
                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                     <span class="svg-icon svg-icon-2">
 													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -167,10 +189,10 @@
                                                         <td class="text-end">
                                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                 <span class="svg-icon svg-icon-5 m-0">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                                </svg>
-                                                                            </span>
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+																		<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+																	</svg>
+																</span>
                                                             </a>
                                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                 @can("client-write")
@@ -377,6 +399,16 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
 
+            $(document).on("change",'#freelancer_type',function(e){
+				var val = $(this).val();
+				window.location.href = "{{ route('clientDematAccount') }}/freelancer/"+val;
+			});	
+			
+            $(document).on("change",'#trader_id',function(e){
+				var val = $(this).val();
+				window.location.href = "{{ route('clientDematAccount') }}/trader/"+val;
+			});	
+			
             $(document).on("click",'.assignFreelancer',function(e){
                 const id = e.target.getAttribute("data-id");
                 const name = e.target.getAttribute("data-name");
