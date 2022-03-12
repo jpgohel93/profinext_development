@@ -63,4 +63,16 @@ class TraderController extends Controller
 
         return view('trader.view_trader_client', compact('dematAccount'));
     }
+
+    public function getTraderList(){
+        $traders = UserServices::getByRole('trader');
+        return  view('trader.trader_list', compact('traders'));;
+    }
+
+    public function viewTraderClientList(Request $request,$id)
+    {
+        $dematAccount = TraderServices::traderClientList($id);
+
+        return view('trader.view_trader_client', compact('dematAccount'));
+    }
 }

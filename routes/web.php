@@ -168,6 +168,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     // trader
     Route::get("/trader",[TraderController::class, "view"])->name("viewTrader");
+    Route::get("/traders",[TraderController::class, "getTraderList"])->name("viewTraderList");
+    Route::get("/traders/clients/{id}",[TraderController::class, "viewTraderClientList"])->name("viewTraderClientList");
     Route::get("/trader/accounts",[TraderController::class, "viewTraderAccounts"])->name("viewTraderAccounts");
     Route::POST("/trader/client/assign",[TraderController::class,'create'])->name('assignClientToTrader');
     // logout
