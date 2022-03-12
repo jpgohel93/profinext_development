@@ -162,12 +162,10 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <select name="channel_partner_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Profession">
+                                                        <select name="channel_partner_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Channel Partner">
                                                             <option></option>
                                                             @forelse ($channelPartner as $partner)
                                                                 <option value="{{$partner->id}}" >{{$partner->name}}</option>
-                                                            @empty
-                                                                <option>Select Channel Partner</option>
                                                             @endforelse
                                                         </select>
                                                         <!--end::Input-->
