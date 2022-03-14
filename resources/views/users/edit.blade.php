@@ -338,6 +338,30 @@
                                                     <!--end::Option-->
                                                 </div>
                                                 <!--end::Col-->
+
+                                                <div class="col-1"></div>
+                                                <!--begin::Col-->
+                                                <div class="col-md-6 mb-4 fv-row">
+                                                    <!--begin:Option-->
+                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                        <!--begin::Label-->
+                                                        <span class="d-flex align-items-center me-2">
+                                                            <!--begin::Info-->
+                                                            <span class="d-flex flex-column">
+                                                                <span class="fw-bolder fs-6">Terminate</span>
+                                                            </span>
+                                                            <!--end::Info-->
+                                                        </span>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <span class="form-check form-check-custom form-check-solid">
+                                                            <input class="form-check-input toggleUserType" type="radio" {{($user->deleted_at!=null)?"checked":""}} name="user_type" value="6">
+                                                        </span>
+                                                        <!--end::Input-->
+                                                    </label>
+                                                    <!--end::Option-->
+                                                </div>
+                                                <!--end::Col-->
                                             </div>
 
                                             <div class="row" id="partnerDiv" style="display:{{($user->user_type=="1")?"flex":"none"}};">

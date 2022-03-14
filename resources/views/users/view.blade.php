@@ -62,7 +62,7 @@
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
-                                                        
+
                                                     <!--begin::Input group-->
                                                     <div class="col-md-6 col-sm-12 mb-5">
                                                         <!--begin::Label-->
@@ -75,8 +75,8 @@
                                                         <!--end::Input-->
                                                     </div>
                                                 </div>
-                                                
-                                                
+
+
 
                                                 <div class="row d-flex align-items-end mb-5 custom_appendDiv">
                                                     <!--begin::Label-->
@@ -113,9 +113,9 @@
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
-                                            
 
-                            
+
+
                                                 <!--begin::Input group-->
                                                 <div class="col-md-6 col-sm-12 mb-5">
                                                     <!--begin::Label-->
@@ -143,7 +143,7 @@
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
-                                                
+
                                                 <!--begin::Input group-->
                                                 <div class="col-md-6 col-sm-12 mb-5">
                                                     <!--begin::Label-->
@@ -153,14 +153,14 @@
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
                                                     @php
-                                                        $account_type = (($user->account_type==1)?"Saving Account":"Current Account");                                                        
+                                                        $account_type = (($user->account_type==1)?"Saving Account":"Current Account");
                                                     @endphp
                                                     <input type="text" class="form-select form-select-sm form-select-solid" value="{{$account_type}}" readonly>
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
                                             </div>
-                                        
+
                                         </div>
                                     </div>
                                     <!--end::Step 1-->
@@ -184,7 +184,7 @@
                                                         <!--begin:Option-->
                                                         <label class="d-flex flex-stack cursor-pointer mb-5">
                                                             <!--begin::Label-->
-                                                            <span class="d-flex align-items-center me-2"> 
+                                                            <span class="d-flex align-items-center me-2">
                                                                 <!--begin::Info-->
                                                                 <span class="d-flex flex-column">
                                                                     <span class="fw-bolder fs-6">Partner</span>
@@ -215,7 +215,7 @@
 															<!--end::Input-->
 														</div>
 														<!--end::Input group-->
-		
+
 														<!--begin::Input group-->
 														<div class="col-md-6 mb-5">
 															<!--begin::Label-->
@@ -230,12 +230,12 @@
 														<!--end::Input group-->
 													</div>
 												</div>
-                                                @else
+                                                @elseif($user->user_type=='2')
 													<div class="col-md-6">
 														<!--begin:Option-->
 														<label class="d-flex flex-stack cursor-pointer mb-5">
 															<!--begin::Label-->
-															<span class="d-flex align-items-center me-2"> 
+															<span class="d-flex align-items-center me-2">
 																<!--begin::Info-->
 																<span class="d-flex flex-column">
 																	<span class="fw-bolder fs-6">Employee</span>
@@ -249,7 +249,7 @@
 															</span>
 															<!--end::Input-->
 														</label>
-														<!--end::Option--> 
+														<!--end::Option-->
 													</div></div>
 													<div class="row" id="employeeDiv">
 														<!--begin::Input group-->
@@ -264,17 +264,209 @@
 															<!--end::Input-->
 														</div>
 														<!--end::Input group-->
-		
+
 														<div class="col-md-6 mb-4">
 															<!--begin::Label-->
 															<label class="required fs-5 fw-bold mb-2">Joining Date</label>
 															<!--end::Label-->
-															<!--begin::Input--> 
+															<!--begin::Input-->
 															<input type="text" name="joining_date" value="{{date("Y-m-d",strtotime("now"))}}" readonly class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select date"/>
 															<!--end::Input-->
 														</div>
 														<!--end::Input group-->
 													</div>
+                                                @elseif($user->user_type=='3')
+                                                <div class="col-md-6">
+                                                    <!--begin:Option-->
+                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                        <!--begin::Label-->
+                                                        <span class="d-flex align-items-center me-2">
+																<!--begin::Info-->
+																<span class="d-flex flex-column">
+																	<span class="fw-bolder fs-6">Channel Partner</span>
+																</span>
+                                                            <!--end::Info-->
+															</span>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <span class="form-check form-check-custom form-check-solid">
+																<input class="form-check-input toggleUserType" type="radio" name="user_type" value="3" checked="checked">
+															</span>
+                                                        <!--end::Input-->
+                                                    </label>
+                                                    <!--end::Option-->
+                                                </div></div>
+                                                    <div class="row" id="channelPartnerDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
+
+                                                        <div class="row">
+                                                            <!--begin::Input group-->
+                                                            <div class="col-md-6 mb-5">
+                                                                <!--begin::Label-->
+                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                    <span class="required">Percentage For AMS New Client</span>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{isset($user->ams_new_client_percentage) ? $user->ams_new_client_percentage : ''}}" name="ams_new_client_percentage" placeholder="Percentage For AMS New Client"  />
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <div class="col-md-6 mb-4">
+                                                                <!--begin::Label-->
+                                                                <label class="required fs-5 fw-bold mb-2">Percentage For AMS Renewal Client</label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="number" name="ams_renewal_client_percentage" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{isset($user->ams_renewal_client_percentage) ? $user->ams_renewal_client_percentage : ''}}" placeholder="Percentage For AMS Renewal Client"/>
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <!--begin::Input group-->
+                                                            <div class="col-md-6 mb-5">
+                                                                <!--begin::Label-->
+                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                    <span class="required">Percentage For Prime New Client</span>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{isset($user->prime_new_client_percentage) ? $user->prime_new_client_percentage : ''}}" name="prime_new_client_percentage" placeholder="Percentage For Prime New Client"  />
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <div class="col-md-6 mb-4">
+                                                                <!--begin::Label-->
+                                                                <label class="required fs-5 fw-bold mb-2">Percentage For Prime Renewal Client</label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="number" name="prime_renewal_client_percentage"  class="form-control form-control-lg form-control-solid bdr-ccc" value="{{isset($user->prime_renewal_client_percentage) ? $user->prime_renewal_client_percentage : ''}}" placeholder="Percentage For Prime Renewal Client"/>
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                        </div>
+                                                    </div>
+                                            @elseif($user->user_type=='4')
+                                                <div class="col-md-6">
+                                                    <!--begin:Option-->
+                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                        <!--begin::Label-->
+                                                        <span class="d-flex align-items-center me-2">
+                                                                    <!--begin::Info-->
+                                                                    <span class="d-flex flex-column">
+                                                                        <span class="fw-bolder fs-6">Freelancer AMS</span>
+                                                                    </span>
+                                                            <!--end::Info-->
+                                                                </span>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <span class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input toggleUserType" type="radio" name="user_type" value="3" checked="checked">
+                                                                </span>
+                                                        <!--end::Input-->
+                                                    </label>
+                                                    <!--end::Option-->
+                                                </div></div>
+                                                <div class="row" id="freelancerAmsDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
+
+                                            <div class="row">
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Percentage of fees</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{isset($user->fees_percentage) ? $user->fees_percentage : ''}}" name="fees_percentage" placeholder="Percentage of fees"  />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+
+                                                <div class="col-md-6 mb-4">
+                                                    <!--begin::Label-->
+                                                    <label class="required fs-5 fw-bold mb-2">Limit</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="limit" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{isset($user->ams_limit) ? $user->ams_limit : ''}}" placeholder="Limit"/>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+
+                                            <div class="row">
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Percentage For AMS New Client</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{isset($user->ams_new_client_profit) ? $user->ams_new_client_profit : ''}}" name="ams_new_client_profit" placeholder="Percentage For AMS New Client"  />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+
+                                                <div class="col-md-6 mb-4">
+                                                    <!--begin::Label-->
+                                                    <label class="required fs-5 fw-bold mb-2">Joining Date</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="joining_date" value="{{isset($user->joining_date) ? $user->joining_date : ''}}" readonly class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select date"/>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+                                        </div>
+                                            @elseif($user->user_type=='5')
+                                                <div class="col-md-6">
+                                                    <!--begin:Option-->
+                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                        <!--begin::Label-->
+                                                        <span class="d-flex align-items-center me-2">
+                                                                    <!--begin::Info-->
+                                                                    <span class="d-flex flex-column">
+                                                                        <span class="fw-bolder fs-6">Freelancer Prime</span>
+                                                                    </span>
+                                                            <!--end::Info-->
+                                                                </span>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <span class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input toggleUserType" type="radio" name="user_type" value="3" checked="checked">
+                                                                </span>
+                                                        <!--end::Input-->
+                                                    </label>
+                                                    <!--end::Option-->
+                                                </div></div>
+                                                <div class="row" id="freelancerPrimeDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
+
+                                <!--begin::Input group-->
+                                <div class="col-md-6 mb-5">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                        <span class="required">Percentage of profit sharing</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{isset($user->percentage) ? $user->percentage : ''}}"  name="percentage" placeholder="Percentage of profit sharing"  />
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+
+                                <div class="col-md-6 mb-4">
+                                    <!--begin::Label-->
+                                    <label class="required fs-5 fw-bold mb-2">Joining Date</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" name="joining_date" value="{{date("Y-m-d",strtotime("now"))}}" readonly value="{{isset($user->joining_date) ? $user->joining_date : ''}}" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select date"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                            </div>
                                                 @endif
                                             </div>
                                             <div class="row">
@@ -290,7 +482,7 @@
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
-                                                
+
                                                 <!--begin::Input group-->
                                                 <div class="col-md-6 col-sm-12 mb-5">
                                                     <!--begin::Label-->
@@ -305,7 +497,7 @@
                                                 </div>
                                                 <!--end::Input group-->
                                             </div>
-                                        
+
                                         </div>
                                     </div>
                                     <!--end::Step 2-->
@@ -2167,10 +2359,10 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- hidden More Whatsapp Ends-->
 		<!--end::Scrolltop-->
-		
+
 		<!--end::Page Custom Javascript-->
 		@section("jscript")
 			<script>
@@ -2180,12 +2372,46 @@
 						// console.log(newcomp1);
 						$('.custom_appendDiv').append(newcomp1);
 						resetCounter();
-					});		
+					});
 
 					$(document).on("click",".remove-btn",function() {
 						$(this).closest(".removableDiv").remove();
 						resetCounter();
 					})
+
+                    var userType = {{isset($user->user_type) ? $user->user_type : 0}};
+
+                    if (userType == 1) {
+                        $('#partnerDiv').show();
+                        $('#employeeDiv').hide();
+                        $('#freelancerPrimeDiv').hide();
+                        $('#freelancerAmsDiv').hide();
+                        $('#channelPartnerDiv').hide();
+                    } else if (userType == 2) {
+                        $('#employeeDiv').show();
+                        $('#partnerDiv').hide();
+                        $('#freelancerPrimeDiv').hide();
+                        $('#freelancerAmsDiv').hide();
+                        $('#channelPartnerDiv').hide();
+                    } else if (userType == 3) {
+                        $('#employeeDiv').hide();
+                        $('#partnerDiv').hide();
+                        $('#freelancerPrimeDiv').hide();
+                        $('#freelancerAmsDiv').hide();
+                        $('#channelPartnerDiv').show();
+                    } else if (userType == 4) {
+                        $('#employeeDiv').hide();
+                        $('#partnerDiv').hide();
+                        $('#freelancerPrimeDiv').hide();
+                        $('#freelancerAmsDiv').show();
+                        $('#channelPartnerDiv').hide();
+                    } else if (userType == 5) {
+                        $('#employeeDiv').hide();
+                        $('#partnerDiv').hide();
+                        $('#freelancerPrimeDiv').show();
+                        $('#freelancerAmsDiv').hide();
+                        $('#channelPartnerDiv').hide();
+                    }
 
 				});
 
@@ -2207,7 +2433,7 @@
 
 					return today_Date_Str;
 					}
-				
+
 					$(function() {
 						$(".c-date").datepicker({
 						dateFormat: "dd-mm-yy",

@@ -147,7 +147,7 @@
                                                 @if($user->user_type==3 && $user->deleted_at==null)
                                                 <div class="">
                                                     <!--begin::Option-->
-                                                    <input type="checkbox" class="btn-check" name="account_type" value="employee" {{($user->user_type==3 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
+                                                    <input type="checkbox" class="btn-check" name="account_type" value="channel_partner" {{($user->user_type==3 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
                                                     <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">
                                                         <!--begin::Info-->
                                                         Channel Partner
@@ -166,7 +166,7 @@
                                                 @if($user->user_type==4 && $user->deleted_at==null)
                                                 <div class="">
                                                     <!--begin::Option-->
-                                                    <input type="checkbox" class="btn-check" name="account_type" value="employee" {{($user->user_type==4 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
+                                                    <input type="checkbox" class="btn-check" name="account_type" value="freelancer_ams" {{($user->user_type==4 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
                                                     <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">
                                                         <!--begin::Info-->
                                                         Freelancer AMS
@@ -183,7 +183,7 @@
                                                 @if($user->user_type==5 && $user->deleted_at==null)
                                                 <div class="">
                                                     <!--begin::Option-->
-                                                    <input type="checkbox" class="btn-check" name="account_type" value="employee" {{($user->user_type==5 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
+                                                    <input type="checkbox" class="btn-check" name="account_type" value="freelancer_prime" {{($user->user_type==5 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
                                                     <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">
                                                         <!--begin::Info-->
                                                         Freelancer Prime
@@ -217,11 +217,11 @@
 											</div>
 											<!--end::Info-->
 										<!--begin::Details toggle-->
-										<div class="d-flex justify-content-center align-items-center fs-4 py-3">
-											<span data-bs-toggle="tooltip" data-bs-trigger="hover" title="" data-bs-original-title="View More Details">
-												<a href="{{route('viewUser',$user->id)}}" target="_blank" class="btn btn-sm btn-light-primary">View More</a>
-											</span>
-										</div>
+{{--										<div class="d-flex justify-content-center align-items-center fs-4 py-3">--}}
+{{--											<span data-bs-toggle="tooltip" data-bs-trigger="hover" title="" data-bs-original-title="View More Details">--}}
+{{--												<a href="{{route('viewUser',$user->id)}}" target="_blank" class="btn btn-sm btn-light-primary">View More</a>--}}
+{{--											</span>--}}
+{{--										</div>--}}
 										<!--end::Details toggle-->
 
 										<div class="d-flex justify-content-between">
@@ -232,13 +232,17 @@
 												</a>
 											</div>
 											@endcan
-											@can("user-delete")
-											<div class="d-flex align-items-center py-1">
-												<a href="javascript:void(0);" data-id='{{$user->id}}' class="btn btn-lg btn-primary terminateAccount" data-bs-toggle="modal" data-bs-target="#confirmTerminate">
-												Terminate
-												</a>
-											</div>
-											@endcan
+                                                <div class="d-flex align-items-center py-1">
+                                                    <a href="{{route('viewUser',$user->id)}}" target="_blank" class="btn btn-lg btn-primary">View More</a>
+                                                </div>
+
+{{--											@can("user-delete")--}}
+{{--											<div class="d-flex align-items-center py-1">--}}
+{{--												<a href="javascript:void(0);" data-id='{{$user->id}}' class="btn btn-lg btn-primary terminateAccount" data-bs-toggle="modal" data-bs-target="#confirmTerminate">--}}
+{{--												Terminate--}}
+{{--												</a>--}}
+{{--											</div>--}}
+{{--											@endcan--}}
 										</div>
 										</div>
 										<!--end:: Card body-->

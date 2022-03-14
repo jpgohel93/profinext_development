@@ -22,7 +22,8 @@ class UserServices
         return User::where("status","1")->get();
     }
     public static function all(){
-        return User::withTrashed()->get();
+        //return User::withTrashed()->get();
+        return User::get();
     }
     public static function validateUsersData($data){
         $data->validate([
@@ -74,6 +75,7 @@ class UserServices
     }
     public static function user($id){
         $user = User::where("id",$id)->first();
+        //$user = User::withTrashed()->where("id",$id)->first();
         if(null === $user) return false;
         $user['numbers'] = UserNumbers::where("user_id",$id)->pluck("number");
         return $user;
@@ -111,7 +113,8 @@ class UserServices
     }
     public static function delete($id){
         User::where("id",$id)->delete();
-        return User::withTrashed()->get();
+        //return User::withTrashed()->get();
+        return User::get();
     }
     public static function getByRole(String $role=""){
         $user = User::with(['count'])->where("role",$role)->get();
