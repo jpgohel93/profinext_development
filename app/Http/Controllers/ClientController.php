@@ -111,14 +111,18 @@ class ClientController extends Controller
     public function editClientDematAccount(Request $request){
         $availableBalance = (isset($request->available_balance) && $request->available_balance != '') ? $request->available_balance : 0;
         $pl = (isset($request->pl) && $request->pl != '') ? $request->pl : 0;
+        $notes = (isset($request->notes) && $request->notes != '') ? $request->notes : '';
         if($availableBalance != 0 || $pl != 0) {
             $requestData['available_balance'] = $availableBalance;
             $requestData['pl'] = $pl;
+            $requestData['notes'] = $notes;
             ClientServices::updateClientDematAccount($request->demate_id, $requestData);
             if($request->form_type == "setup"){
                 return Redirect::route("setup")->with("info", "Client demat account update successful");
             }elseif ($request->form_type == "client_demat"){
                 return Redirect::route("clientDematAccount")->with("info", "Client demat account update successful");
+            }elseif ($request->form_type == "freelancer_demat"){
+                return Redirect::route("freelancerUserData")->with("info", "Client demat account update successful");
             }
         }else{
             return Redirect::route("clientDematAccount")->with("info", "Please enter the  available fund or profit / loss");
@@ -188,8 +192,9 @@ class ClientController extends Controller
 
     // set up
     public function getLoginInfo(Request $request,$id){
-        $dematAccount = ClientDemat::where("id", $id)->first();;
+        $dematAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')
+            ->select('client_demat.*','clients.name')->
+            where("client_demat.id", $id)->first();
         return $dematAccount;
-
     }
 }

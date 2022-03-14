@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\Services\ClientServices;
 use App\Services\UserServices;
@@ -22,6 +23,12 @@ class ChannelPartnerController extends Controller
     public function channelPartnerClientData(Request $request,$id){
         $channelPartnerClient = ClientServices::channelPartnerClientList($id);
         return view("channelPartner.channel_partner_client", compact('channelPartnerClient'));
+    }
+
+    public function channelPartnerUserData(){
+        $auth_user = Auth::user();
+        $channelPartnerClient = ClientServices::channelPartnerClientList($auth_user->id);
+        return view("channelPartner.channel_partner_user_client", compact('channelPartnerClient'));
     }
 
 }

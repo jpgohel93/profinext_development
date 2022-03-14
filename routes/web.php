@@ -179,11 +179,13 @@ Route::group(['middleware' => ['auth']], function() {
 
     // freelancer
     Route::get("/freelancer",[FreelancerController::class, "freelancerData"])->name("freelancerData");
+    Route::get("/user/freelancer",[FreelancerController::class, "freelancerUserData"])->name("freelancerUserData");
     Route::get("/freelancer/clients/{id}",[FreelancerController::class, "freelancerClientData"])->name("freelancerClientData");
 
     // Channel Partner
     Route::get("/channelPartner",[ChannelPartnerController::class, "channelPartnerData"])->name("channelPartnerData");
     Route::get("/channelPartner/clients/{id}",[ChannelPartnerController::class, "channelPartnerClientData"])->name("channelPartnerClientData");
+    Route::get("/user/channelPartner",[ChannelPartnerController::class, "channelPartnerUserData"])->name("channelPartnerUserData");
 
     // keyword
     Route::get("/keyword",[KeywordController::class, "keywordData"])->name("keywordData");

@@ -60,7 +60,8 @@
 {{--                    </a>--}}
 {{--                </div>--}}
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('clientsData')">
+                @canany(["client-read","client-demat-read"])
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('clientsData')">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com013.svg-->
@@ -76,25 +77,32 @@
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link @yield('clientsData.clients')" href="{{route('clients')}}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Client</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link @yield('clientsData.clients.demat')" href="{{route('clientDematAccount')}}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Demat Accounts</span>
-                            </a>
-                        </div>
+                        @can("client-read")
+                            <div class="menu-item">
+                                <a class="menu-link @yield('clientsData.clients')" href="{{route('clients')}}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Client</span>
+                                </a>
+                            </div>
+                        @endcan
+                        @can("client-demat-read")
+                            <div class="menu-item">
+                                <a class="menu-link @yield('clientsData.clients.demat')" href="{{route('clientDematAccount')}}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Demat Accounts</span>
+                                </a>
+                            </div>
+                        @endcan
                     </div>
                 </div>
-                <div class="menu-item">
+                @endcan
+
+                @can("role-read")
+                    <div class="menu-item">
                     <a class="menu-link @yield('roles')" href="{{route('roles')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -109,7 +117,10 @@
                         <span class="menu-title">Roles</span>
                     </a>
                 </div>
-                <div class="menu-item">
+                @endcan
+
+                @can("user-read")
+                    <div class="menu-item">
                     <a class="menu-link @yield('users')" href="{{route('users')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -124,6 +135,7 @@
                         <span class="menu-title">Users</span>
                     </a>
                 </div>
+                @endcan
 {{--                <div class="menu-item">--}}
 {{--                    <a class="menu-link @yield('analyst')" href="{{route('analysts')}}">--}}
 {{--                        <span class="menu-icon">--}}
@@ -140,50 +152,53 @@
 {{--                    </a>--}}
 {{--                </div>--}}
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('analysis')">
-                    <span class="menu-link">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/communication/com013.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black" />
-                                    <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black" />
-                                </svg>
+                @canany(["analyst-read","monitor-data-read","report-read"])
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('analysis')">
+                        <span class="menu-link">
+                            <span class="menu-icon">
+                                <!--begin::Svg Icon | path: icons/duotune/communication/com013.svg-->
+                                <span class="svg-icon svg-icon-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black" />
+                                        <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black" />
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
                             </span>
-                            <!--end::Svg Icon-->
+                            <span class="menu-title">Analysis</span>
+                            <span class="menu-arrow"></span>
                         </span>
-                        <span class="menu-title">Analysis</span>
-                        <span class="menu-arrow"></span>
-                    </span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link @yield('analysis.analysis')" href="{{route('analysts')}}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Analyst</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link @yield('analysis.monitor.data')" href="{{route('viewMonitor')}}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Monitor Data</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link @yield('analysis.report')" href="{{route('report')}}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Report</span>
-                            </a>
+                        <div class="menu-sub menu-sub-accordion menu-active-bg">
+                            <div class="menu-item">
+                                <a class="menu-link @yield('analysis.analysis')" href="{{route('analysts')}}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Analyst</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link @yield('analysis.monitor.data')" href="{{route('viewMonitor')}}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Monitor Data</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link @yield('analysis.report')" href="{{route('report')}}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Report</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endcan
 
-                <div class="menu-item">
+                @can("freelancer-data-read")
+                    <div class="menu-item">
                     <a class="menu-link @yield('freelancer')" href="{{route('freelancerData')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -195,43 +210,85 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Freelancer</span>
+                        <span class="menu-title">Freelancer Data</span>
                     </a>
                 </div>
+                @endcan
 
-                <div class="menu-item">
-                    <a class="menu-link @yield('channelPartner')" href="{{route('channelPartnerData')}}">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black"></path>
-                                    <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black"></rect>
-                                </svg>
+                @can("freelancer-read")
+                    <div class="menu-item">
+                        <a class="menu-link @yield('freelancer_user')" href="{{route('freelancerUserData')}}">
+                            <span class="menu-icon">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                <span class="svg-icon svg-icon-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black"></path>
+                                        <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black"></rect>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
                             </span>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">Channel Partner</span>
-                    </a>
-                </div>
+                            <span class="menu-title">Freelancer</span>
+                        </a>
+                    </div>
+                @endcan
 
-                <div class="menu-item">
-                    <a class="menu-link @yield('keyword')" href="{{route('keywordData')}}">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black"></path>
-                                    <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black"></rect>
-                                </svg>
+                @can("channelpartner-data-read")
+                    <div class="menu-item">
+                        <a class="menu-link @yield('channelPartner')" href="{{route('channelPartnerData')}}">
+                            <span class="menu-icon">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                <span class="svg-icon svg-icon-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black"></path>
+                                        <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black"></rect>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
                             </span>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">Keyword</span>
-                    </a>
-                </div>
+                            <span class="menu-title">Channel Partner Data</span>
+                        </a>
+                    </div>
+                @endcan
 
-                <div class="menu-item">
+                @can("channelpartner-read")
+                    <div class="menu-item">
+                        <a class="menu-link @yield('channelPartnerClient')" href="{{route('channelPartnerUserData')}}">
+                            <span class="menu-icon">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                <span class="svg-icon svg-icon-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black"></path>
+                                        <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black"></rect>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </span>
+                            <span class="menu-title">Channel Partner</span>
+                        </a>
+                    </div>
+                @endcan
+
+                @can("keyword-read")
+                    <div class="menu-item">
+                        <a class="menu-link @yield('keyword')" href="{{route('keywordData')}}">
+                            <span class="menu-icon">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                <span class="svg-icon svg-icon-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black"></path>
+                                        <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black"></rect>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </span>
+                            <span class="menu-title">Keyword</span>
+                        </a>
+                    </div>
+                @endcan
+
+                @can("monitor-read")
+                    <div class="menu-item">
                     <a class="menu-link @yield('analysis.monitor')" href="{{route('viewMonitorData')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -246,7 +303,9 @@
                         <span class="menu-title">Monitor</span>
                     </a>
                 </div>
+                @endcan
 
+                @can("trader-read")
                 <div class="menu-item">
                     <a class="menu-link @yield('traders')" href="{{route('viewTraderAccounts')}}">
                         <span class="menu-icon">
@@ -262,6 +321,7 @@
                         <span class="menu-title">Trader</span>
                     </a>
                 </div>
+                @endcan
 
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('accordion')">
                     <span class="menu-link">
@@ -314,47 +374,55 @@
                     </div>
                 </div>
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('trading')">
-                    <span class="menu-link">
-                        <span class="menu-icon">
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black" />
-                                    <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black" />
-                                </svg>
+                @canany(["trader-data-read","calls-read","setup-read"])
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('trading')">
+                        <span class="menu-link">
+                            <span class="menu-icon">
+                                <span class="svg-icon svg-icon-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black" />
+                                        <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black" />
+                                    </svg>
+                                </span>
                             </span>
+                            <span class="menu-title">Trading</span>
+                            <span class="menu-arrow"></span>
                         </span>
-                        <span class="menu-title">Trading</span>
-                        <span class="menu-arrow"></span>
-                    </span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link @yield('calls')" href="{{route('calls')}}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Trade</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-{{--                             <a class="menu-link @yield('trader')" href="{{route('viewTrader')}}">--}}
-                             <a class="menu-link @yield('trader')" href="{{route('viewTraderList')}}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Trader Data</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                             <a class="menu-link @yield('setup')" href="{{route('setup')}}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Setup</span>
-                            </a>
+                        <div class="menu-sub menu-sub-accordion menu-active-bg">
+                            @can("calls-read")
+                                <div class="menu-item">
+                                    <a class="menu-link @yield('calls')" href="{{route('calls')}}">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Trade</span>
+                                    </a>
+                                </div>
+                            @endcan
+                            @can("trader-data-read")
+                                <div class="menu-item">
+        {{--                             <a class="menu-link @yield('trader')" href="{{route('viewTrader')}}">--}}
+                                     <a class="menu-link @yield('trader')" href="{{route('viewTraderList')}}">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Trader Data</span>
+                                    </a>
+                                </div>
+                            @endcan
+                            @can("setup-read")
+                                <div class="menu-item">
+                                     <a class="menu-link @yield('setup')" href="{{route('setup')}}">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Setup</span>
+                                    </a>
+                                </div>
+                            @endcan
                         </div>
                     </div>
-                </div>
+                @endcan
                 <!--div class="menu-item">
                     <a class="menu-link @yield('trader')" href="{{route('viewTrader')}}">
                         <span class="menu-icon">
