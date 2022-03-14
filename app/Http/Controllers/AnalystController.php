@@ -35,16 +35,18 @@ class AnalystController extends Controller
             $totalReward= 0;
             $rewardCount= 0;
             foreach ($monitorCallData as $monitorCall){
-                $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
-                if($pl > 0){
-                    $totalProfitCall = $totalProfitCall + 1;
-                }
+                if($monitorCall['entry_price'] != '' && $monitorCall['exit_price'] != '') {
+                    $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
+                    if ($pl > 0) {
+                        $totalProfitCall = $totalProfitCall + 1;
+                    }
 
-                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
-                    $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
-                    $totalReward = $totalReward + $reward;
+                    if (($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                        $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
+                        $totalReward = $totalReward + $reward;
+                    }
+                    $rewardCount = $rewardCount + 1;
                 }
-                $rewardCount = $rewardCount + 1;
             }
             if($totalProfitCall > 0) {
                 $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
@@ -62,15 +64,17 @@ class AnalystController extends Controller
             $totalReward= 0;
             $rewardCount= 0;
             foreach ($monitorCallData as $monitorCall){
-                $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
-                if($pl > 0){
-                    $totalProfitCall = $totalProfitCall + 1;
+                if($monitorCall['entry_price'] != '' && $monitorCall['exit_price'] != '') {
+                    $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
+                    if ($pl > 0) {
+                        $totalProfitCall = $totalProfitCall + 1;
+                    }
+                    if (($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                        $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
+                        $totalReward = $totalReward + $reward;
+                    }
+                    $rewardCount = $rewardCount + 1;
                 }
-                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
-                    $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
-                    $totalReward = $totalReward + $reward;
-                }
-                $rewardCount = $rewardCount + 1;
             }
             if($totalProfitCall > 0) {
                 $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
@@ -87,15 +91,17 @@ class AnalystController extends Controller
             $totalReward= 0;
             $rewardCount= 0;
             foreach ($monitorCallData as $monitorCall){
-                $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
-                if($pl > 0){
-                    $totalProfitCall = $totalProfitCall + 1;
+                if($monitorCall['entry_price'] != '' && $monitorCall['exit_price'] != '') {
+                    $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
+                    if ($pl > 0) {
+                        $totalProfitCall = $totalProfitCall + 1;
+                    }
+                    if (($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                        $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
+                        $totalReward = $totalReward + $reward;
+                    }
+                    $rewardCount = $rewardCount + 1;
                 }
-                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
-                    $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
-                    $totalReward = $totalReward + $reward;
-                }
-                $rewardCount = $rewardCount + 1;
             }
             if($totalProfitCall > 0) {
                 $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
@@ -112,15 +118,17 @@ class AnalystController extends Controller
             $totalReward= 0;
             $rewardCount= 0;
             foreach ($monitorCallData as $monitorCall){
-                $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
-                if($pl > 0){
-                    $totalProfitCall = $totalProfitCall + 1;
+                if($monitorCall['entry_price'] != '' && $monitorCall['exit_price'] != '') {
+                    $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
+                    if ($pl > 0) {
+                        $totalProfitCall = $totalProfitCall + 1;
+                    }
+                    if (($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                        $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
+                        $totalReward = $totalReward + $reward;
+                    }
+                    $rewardCount = $rewardCount + 1;
                 }
-                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
-                    $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
-                    $totalReward = $totalReward + $reward;
-                }
-                $rewardCount = $rewardCount + 1;
             }
             if($totalProfitCall > 0) {
                 $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
@@ -137,15 +145,17 @@ class AnalystController extends Controller
             $totalReward= 0;
             $rewardCount= 0;
             foreach ($monitorCallData as $monitorCall){
-                $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
-                if($pl > 0){
-                    $totalProfitCall = $totalProfitCall + 1;
+                if($monitorCall['entry_price'] != '' && $monitorCall['exit_price'] != '') {
+                    $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
+                    if ($pl > 0) {
+                        $totalProfitCall = $totalProfitCall + 1;
+                    }
+                    if (($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                        $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
+                        $totalReward = $totalReward + $reward;
+                    }
+                    $rewardCount = $rewardCount + 1;
                 }
-                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
-                    $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
-                    $totalReward = $totalReward + $reward;
-                }
-                $rewardCount = $rewardCount + 1;
             }
             if($totalProfitCall > 0) {
                 $accuracy = $totalProfitCall / $totalCall['close_call'] * 100;
