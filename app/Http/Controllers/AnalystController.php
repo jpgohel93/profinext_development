@@ -35,7 +35,7 @@ class AnalystController extends Controller
             $totalReward= 0;
             $rewardCount= 0;
             foreach ($monitorCallData as $monitorCall){
-                if($monitorCall['entry_price'] != '' && $monitorCall['exit_price'] != '') {
+                if($monitorCall['entry_price'] > 0 && $monitorCall['exit_price'] > 0) {
                     $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
                     if ($pl > 0) {
                         $totalProfitCall = $totalProfitCall + 1;
@@ -64,7 +64,7 @@ class AnalystController extends Controller
             $totalReward= 0;
             $rewardCount= 0;
             foreach ($monitorCallData as $monitorCall){
-                if($monitorCall['entry_price'] != '' && $monitorCall['exit_price'] != '') {
+                if($monitorCall['entry_price'] > 0 && $monitorCall['exit_price'] > 0) {
                     $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
                     if ($pl > 0) {
                         $totalProfitCall = $totalProfitCall + 1;
@@ -91,7 +91,7 @@ class AnalystController extends Controller
             $totalReward= 0;
             $rewardCount= 0;
             foreach ($monitorCallData as $monitorCall){
-                if($monitorCall['entry_price'] != '' && $monitorCall['exit_price'] != '') {
+                if($monitorCall['entry_price'] > 0 && $monitorCall['exit_price'] > 0) {
                     $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
                     if ($pl > 0) {
                         $totalProfitCall = $totalProfitCall + 1;
@@ -118,7 +118,7 @@ class AnalystController extends Controller
             $totalReward= 0;
             $rewardCount= 0;
             foreach ($monitorCallData as $monitorCall){
-                if($monitorCall['entry_price'] != '' && $monitorCall['exit_price'] != '') {
+                if($monitorCall['entry_price'] > 0 && $monitorCall['exit_price'] > 0) {
                     $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
                     if ($pl > 0) {
                         $totalProfitCall = $totalProfitCall + 1;
@@ -145,7 +145,7 @@ class AnalystController extends Controller
             $totalReward= 0;
             $rewardCount= 0;
             foreach ($monitorCallData as $monitorCall){
-                if($monitorCall['entry_price'] != '' && $monitorCall['exit_price'] != '') {
+                if($monitorCall['entry_price'] > 0 && $monitorCall['exit_price'] > 0) {
                     $pl = $monitorCall['entry_price'] - $monitorCall['exit_price'];
                     if ($pl > 0) {
                         $totalProfitCall = $totalProfitCall + 1;
