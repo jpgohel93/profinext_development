@@ -1,0 +1,1073 @@
+Index: resources/views/freelancer/freelancer.blade.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@extends('layout')\r\n@section(\"page-title\",\"Analysis\")\r\n@section(\"freelancer\",\"active\")\r\n@section(\"content\")\r\n    <link href=\"{{asset(\"assets/css/custom.css\")}}\" rel=\"stylesheet\">\r\n    <!--begin::Body-->\r\n    <!--begin::Main-->\r\n    <!--begin::Root-->\r\n    <div class=\"d-flex flex-column flex-root\">\r\n        <!--begin::Page-->\r\n        <div class=\"page d-flex flex-row flex-column-fluid\">\r\n        @include(\"sidebar\")\r\n        <!--end::Aside-->\r\n            <!--begin::Wrapper-->\r\n            <div class=\"wrapper d-flex flex-column flex-row-fluid\" id=\"kt_wrapper\">\r\n            @include(\"header\")\r\n            <!--begin::Content-->\r\n                <div class=\"content d-flex flex-column flex-column-fluid\" id=\"kt_content\">\r\n                    @if(session(\"info\"))\r\n                        <div class=\"container\">\r\n                            <h6 class=\"alert alert-info\">{{session(\"info\")}}</h6>\r\n                        </div>\r\n                @endif\r\n                <!--begin::Toolbar-->\r\n                    <div class=\"toolbar\" id=\"kt_toolbar\">\r\n                        <!--begin::Container-->\r\n                        <div id=\"kt_toolbar_container\" class=\"container-fluid d-flex flex-stack\">\r\n                            <!--begin::Page title-->\r\n                            <div data-kt-swapper=\"true\" data-kt-swapper-mode=\"prepend\" data-kt-swapper-parent=\"{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}\" class=\"page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0\">\r\n                                <!--begin::Title-->\r\n                                <h1 class=\"d-flex align-items-center text-dark fw-bolder fs-3 my-1\">Freelancer</h1>\r\n                                <!--end::Title-->\r\n                                <!--begin::Separator-->\r\n                                <span class=\"h-20px border-gray-200 border-start mx-4\"></span>\r\n                                <!--end::Separator-->\r\n                                <!--begin::Breadcrumb-->\r\n                                <ul class=\"breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1\">\r\n                                    <!--begin::Item-->\r\n                                    <li class=\"breadcrumb-item text-muted\">\r\n                                        <a href=\"profinext/dist/index.html\" class=\"text-muted text-hover-primary\">Home</a>\r\n                                    </li>\r\n                                    <!--end::Item-->\r\n                                    <!--begin::Item-->\r\n                                    <li class=\"breadcrumb-item\">\r\n                                        <span class=\"bullet bg-gray-200 w-5px h-2px\"></span>\r\n                                    </li>\r\n                                    <!--end::Item-->\r\n                                    <!--begin::Item-->\r\n                                    <li class=\"breadcrumb-item text-dark\">Freelancer</li>\r\n                                    <!--end::Item-->\r\n                                </ul>\r\n                                <!--end::Breadcrumb-->\r\n                            </div>\r\n                            <!--end::Page title-->\r\n                            <!--begin::Actions-->\r\n                            <div class=\"d-flex align-items-center py-1\">\r\n                            </div>\r\n                            <!--end::Actions-->\r\n                        </div>\r\n                        <!--end::Container-->\r\n                    </div>\r\n                    <!--end::Toolbar-->\r\n                    <!--begin::Post-->\r\n\r\n\r\n                    <div class=\"post d-flex flex-column-fluid\" id=\"kt_post\">\r\n                        <!--begin::Container-->\r\n                        <div id=\"kt_content_container\" class=\"container-xxl\">\r\n\r\n                            <!--begin:::Tabs-->\r\n                            <ul\r\n                                class=\"nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad\">\r\n\r\n                                <!--begin:::Tab item-->\r\n                                <li class=\"nav-item\">\r\n                                    <a class=\"nav-link text-active-primary pb-1 active\" data-bs-toggle=\"tab\"\r\n                                       href=\"#freelancerams\">Freelancer AMS</a>\r\n                                </li>\r\n                                <!--end:::Tab item-->\r\n\r\n                                <!--begin:::Tab item-->\r\n                                <li class=\"nav-item\">\r\n                                    <a class=\"nav-link text-active-primary pb-1\" data-bs-toggle=\"tab\"\r\n                                       href=\"#freelancerprivate\">Freelancer Private</a>\r\n                                </li>\r\n                                <!--end:::Tab item-->\r\n                            </ul>\r\n                            <!--end:::Tabs-->\r\n\r\n                            <div class=\"tab-content\">\r\n                                <div class=\"tab-pane fade show active\" id=\"freelancerams\" aria-labelledby=\"active-tab\"\r\n                                     role=\"tabpanel\">\r\n                                    <!--begin::Card-->\r\n                                    <div class=\"card\">\r\n                                        <!--begin::Card header-->\r\n                                        <div class=\"card-header border-0 pt-6\">\r\n                                            <!--begin::Card title-->\r\n                                            <div class=\"card-title\">\r\n                                                <!--begin::Search-->\r\n                                                <div class=\"d-flex align-items-center position-relative my-1\">\r\n                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->\r\n                                                    <span class=\"svg-icon svg-icon-1 position-absolute ms-6\">\r\n                                                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\"\r\n                                                             viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                                            <rect opacity=\"0.5\" x=\"17.0365\" y=\"15.1223\" width=\"8.15546\"\r\n                                                                  height=\"2\" rx=\"1\" transform=\"rotate(45 17.0365 15.1223)\"\r\n                                                                  fill=\"black\" />\r\n                                                            <path\r\n                                                                d=\"M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z\"\r\n                                                                fill=\"black\" />\r\n                                                        </svg>\r\n                                                    </span>\r\n                                                    <!--end::Svg Icon-->\r\n                                                    <input type=\"text\" data-kt-user-table-filter=\"search\"\r\n                                                           class=\"form-control form-control-solid w-250px ps-14\"\r\n                                                           placeholder=\"Search user\" />\r\n                                                </div>\r\n                                                <!--end::Search-->\r\n                                            </div>\r\n                                            <!--begin::Card title-->\r\n                                            <!--begin::Card toolbar-->\r\n\r\n                                            <div class=\"card-toolbar\">\r\n                                                <!--begin::Toolbar-->\r\n                                                <div class=\"d-flex justify-content-end\" data-kt-user-table-toolbar=\"base\">\r\n                                                    <div class=\"d-flex justify-content-between\">\r\n                                                        <!--begin::Export-->\r\n                                                        <a href=\"#\" class=\"btn btn-light-primary\"\r\n                                                           data-kt-menu-trigger=\"click\"\r\n                                                           data-kt-menu-placement=\"bottom-end\">\r\n                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->\r\n                                                            <span class=\"svg-icon svg-icon-2\">\r\n                                                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\"\r\n                                                                     height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                                                    <rect opacity=\"0.3\" x=\"12.75\" y=\"4.25\" width=\"12\"\r\n                                                                          height=\"2\" rx=\"1\" transform=\"rotate(90 12.75 4.25)\"\r\n                                                                          fill=\"black\" />\r\n                                                                    <path\r\n                                                                        d=\"M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z\"\r\n                                                                        fill=\"black\" />\r\n                                                                    <path\r\n                                                                        d=\"M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z\"\r\n                                                                        fill=\"#C4C4C4\" />\r\n                                                                </svg>\r\n                                                            </span>\r\n                                                            <!--end::Svg Icon-->Export\r\n                                                            <span class=\"svg-icon svg-icon-5 m-0\">\r\n                                                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\"\r\n                                                                     height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                                                    <path\r\n                                                                        d=\"M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z\"\r\n                                                                        fill=\"black\" />\r\n                                                                </svg>\r\n                                                            </span>\r\n                                                        </a>\r\n                                                    </div>\r\n                                                    <div class=\"menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4\"\r\n                                                         data-kt-menu=\"true\">\r\n                                                        <div class=\"menu-item px-3\">\r\n                                                            <a href=\"#\" class=\"menu-link px-3\">\r\n                                                                <span class=\"menu-icon\">\r\n                                                                    <i class=\"la la-file-pdf-o\"></i>\r\n                                                                </span>PDF\r\n                                                            </a>\r\n                                                        </div>\r\n                                                        <div class=\"menu-item px-3\">\r\n                                                            <a href=\"#\" class=\"menu-link px-3\">\r\n                                                                <span class=\"menu-icon\">\r\n                                                                    <i class=\"la la-file-excel-o\"></i>\r\n                                                                </span>Excel\r\n                                                            </a>\r\n                                                        </div>\r\n                                                    </div>\r\n                                                    <!--end::Export-->\r\n                                                </div>\r\n                                                <!--end::Toolbar-->\r\n                                            </div>\r\n                                            <!--end::Card toolbar-->\r\n                                        </div>\r\n                                        <!--end::Card header-->\r\n                                        <!--begin::Card body-->\r\n                                        <div class=\"card-body pt-0\">\r\n                                            <div class=\"table-responsive\">\r\n                                                <table class=\"table align-middle table-row-dashed fs-6 gy-5\"\r\n                                                       id=\"kt_table_users\">\r\n                                                @if ($freelancerData['freelancer_ams']->isNotEmpty())\r\n                                                    <!--begin::Table head-->\r\n                                                        <thead>\r\n                                                        <tr\r\n                                                            class=\"text-start text-muted fw-bolder fs-7 text-uppercase gs-0\">\r\n                                                            <th class=\"min-w-10px\">Sr No.</th>\r\n                                                            <th class=\"min-w-75px\">Freelancer Name</th>\r\n                                                            <th class=\"min-w-75px\">Freelancer Email</th>\r\n                                                            <th class=\"text-end min-w-100px\">View Clients</th>\r\n                                                        </tr>\r\n                                                        </thead>\r\n                                                        <tbody class=\"text-gray-600 fw-bold\" id=\"activeCallTable\">\r\n                                                        @php\r\n                                                            $i=1;\r\n                                                        @endphp\r\n                                                        @foreach($freelancerData['freelancer_ams'] as $freelancer)\r\n                                                            <tr>\r\n                                                                <td>{{$i++}}</td>\r\n                                                                <td> {{$freelancer->name}} </td>\r\n                                                                <td> {{$freelancer->email}}</td>\r\n                                                                <td class=\"\">\r\n                                                                    <div class=\"d-flex justify-content-center\">\r\n                                                                        <div class=\"menu-item\">\r\n                                                                            <a href=\"{{url('/monitor_call/'.$freelancer->id)}}\" class=\"menu-link p-1\" target=\"_blank\">\r\n                                                                                <i class=\"fa fa-plus text-dark fa-2x\"></i>\r\n                                                                            </a>\r\n                                                                        </div>\r\n                                                                    </div>\r\n                                                                </td>\r\n                                                            </tr>\r\n                                                        @endforeach\r\n                                                        </tbody>\r\n                                                    @else\r\n                                                        <h3>there's no AMS Freelancer.</h3>\r\n                                                @endif\r\n                                                <!--end::Table body-->\r\n                                                </table>\r\n                                            </div>\r\n                                            <!--end::Table-->\r\n                                        </div>\r\n                                        <!--end::Card body-->\r\n                                    </div>\r\n                                    <!--end::Card-->\r\n                                </div>\r\n                                <div class=\"tab-pane fade show\" id=\"freelancerprivate\" aria-labelledby=\"active-tab\"\r\n                                     role=\"tabpanel\">\r\n                                    <!--begin::Card-->\r\n                                    <div class=\"card\">\r\n                                        <!--begin::Card header-->\r\n                                        <div class=\"card-header border-0 pt-6\">\r\n                                            <!--begin::Card title-->\r\n                                            <div class=\"card-title\">\r\n                                                <!--begin::Search-->\r\n                                                <div class=\"d-flex align-items-center position-relative my-1\">\r\n                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->\r\n                                                    <span class=\"svg-icon svg-icon-1 position-absolute ms-6\">\r\n                                                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\"\r\n                                                             viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                                            <rect opacity=\"0.5\" x=\"17.0365\" y=\"15.1223\" width=\"8.15546\"\r\n                                                                  height=\"2\" rx=\"1\" transform=\"rotate(45 17.0365 15.1223)\"\r\n                                                                  fill=\"black\" />\r\n                                                            <path\r\n                                                                d=\"M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z\"\r\n                                                                fill=\"black\" />\r\n                                                        </svg>\r\n                                                    </span>\r\n                                                    <!--end::Svg Icon-->\r\n                                                    <input type=\"text\" data-kt-user-table-filter=\"search\"\r\n                                                           class=\"form-control form-control-solid w-250px ps-14\"\r\n                                                           placeholder=\"Search user\" />\r\n                                                </div>\r\n                                                <!--end::Search-->\r\n                                            </div>\r\n                                            <!--begin::Card title-->\r\n                                            <!--begin::Card toolbar-->\r\n\r\n                                            <div class=\"card-toolbar\">\r\n                                                <!--begin::Toolbar-->\r\n                                                <div class=\"d-flex justify-content-end\" data-kt-user-table-toolbar=\"base\">\r\n                                                    <div class=\"d-flex justify-content-between\">\r\n                                                        <!--begin::Export-->\r\n                                                        <a href=\"#\" class=\"btn btn-light-primary\"\r\n                                                           data-kt-menu-trigger=\"click\"\r\n                                                           data-kt-menu-placement=\"bottom-end\">\r\n                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->\r\n                                                            <span class=\"svg-icon svg-icon-2\">\r\n                                                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\"\r\n                                                                     height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                                                    <rect opacity=\"0.3\" x=\"12.75\" y=\"4.25\" width=\"12\"\r\n                                                                          height=\"2\" rx=\"1\" transform=\"rotate(90 12.75 4.25)\"\r\n                                                                          fill=\"black\" />\r\n                                                                    <path\r\n                                                                        d=\"M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z\"\r\n                                                                        fill=\"black\" />\r\n                                                                    <path\r\n                                                                        d=\"M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z\"\r\n                                                                        fill=\"#C4C4C4\" />\r\n                                                                </svg>\r\n                                                            </span>\r\n                                                            <!--end::Svg Icon-->Export\r\n                                                            <span class=\"svg-icon svg-icon-5 m-0\">\r\n                                                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\"\r\n                                                                     height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                                                    <path\r\n                                                                        d=\"M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z\"\r\n                                                                        fill=\"black\" />\r\n                                                                </svg>\r\n                                                            </span>\r\n                                                        </a>\r\n                                                    </div>\r\n                                                    <div class=\"menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4\"\r\n                                                         data-kt-menu=\"true\">\r\n                                                        <div class=\"menu-item px-3\">\r\n                                                            <a href=\"#\" class=\"menu-link px-3\">\r\n                                                                <span class=\"menu-icon\">\r\n                                                                    <i class=\"la la-file-pdf-o\"></i>\r\n                                                                </span>PDF\r\n                                                            </a>\r\n                                                        </div>\r\n                                                        <div class=\"menu-item px-3\">\r\n                                                            <a href=\"#\" class=\"menu-link px-3\">\r\n                                                                <span class=\"menu-icon\">\r\n                                                                    <i class=\"la la-file-excel-o\"></i>\r\n                                                                </span>Excel\r\n                                                            </a>\r\n                                                        </div>\r\n                                                    </div>\r\n                                                    <!--end::Export-->\r\n                                                </div>\r\n                                                <!--end::Toolbar-->\r\n                                            </div>\r\n                                            <!--end::Card toolbar-->\r\n                                        </div>\r\n                                        <!--end::Card header-->\r\n                                        <!--begin::Card body-->\r\n                                        <div class=\"card-body pt-0\">\r\n                                            <div class=\"table-responsive\">\r\n                                                <table class=\"table align-middle table-row-dashed fs-6 gy-5\"\r\n                                                       id=\"kt_table_users\">\r\n                                                @if ($freelancerData['freelancer_prime']->isNotEmpty())\r\n                                                    <!--begin::Table head-->\r\n                                                        <thead>\r\n                                                        <tr\r\n                                                            class=\"text-start text-muted fw-bolder fs-7 text-uppercase gs-0\">\r\n                                                            <th class=\"min-w-10px\">Sr No.</th>\r\n                                                            <th class=\"min-w-75px\">Freelancer Name</th>\r\n                                                            <th class=\"min-w-75px\">Freelancer Email</th>\r\n                                                            <th class=\"text-end min-w-100px\">View Clients</th>\r\n                                                        </tr>\r\n                                                        </thead>\r\n                                                        <tbody class=\"text-gray-600 fw-bold\" id=\"activeCallTable\">\r\n                                                        @php\r\n                                                            $i=1;\r\n                                                        @endphp\r\n                                                        @foreach($freelancerData['freelancer_prime'] as $freelancer)\r\n                                                            <tr>\r\n                                                                <td>{{$i++}}</td>\r\n                                                                <td> {{$freelancer->name}} </td>\r\n                                                                <td> {{$freelancer->email}}</td>\r\n                                                                <td class=\"\">\r\n                                                                    <div class=\"d-flex justify-content-center\">\r\n                                                                        <div class=\"menu-item\">\r\n                                                                            <a href=\"{{url('/monitor_call/'.$freelancer->id)}}\" class=\"menu-link p-1\" target=\"_blank\">\r\n                                                                                <i class=\"fa fa-plus text-dark fa-2x\"></i>\r\n                                                                            </a>\r\n                                                                        </div>\r\n                                                                    </div>\r\n                                                                </td>\r\n                                                            </tr>\r\n                                                        @endforeach\r\n                                                        </tbody>\r\n                                                    @else\r\n                                                        <h3>there's no Prime Freelancer.</h3>\r\n                                                @endif\r\n                                                <!--end::Table body-->\r\n                                                </table>\r\n                                            </div>\r\n                                            <!--end::Table-->\r\n                                        </div>\r\n                                        <!--end::Card body-->\r\n                                    </div>\r\n                                    <!--end::Card-->\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <!--end::Container-->\r\n                    </div>\r\n                    <!--end::Post-->\r\n                </div>\r\n                <!--end::Content-->\r\n                <!--begin::Footer-->\r\n            @include(\"footer\")\r\n            <!--end::Footer-->\r\n            </div>\r\n            <!--end::Wrapper-->\r\n        </div>\r\n        <!--end::Page-->\r\n    </div>\r\n    <!--begin::Modals-->\r\n\r\n\r\n    <!--end::Modals-->\r\n    <!--begin::Scrolltop-->\r\n    <div id=\"kt_scrolltop\" class=\"scrolltop\" data-kt-scrolltop=\"true\">\r\n        <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->\r\n        <span class=\"svg-icon\">\r\n            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                <rect opacity=\"0.5\" x=\"13\" y=\"6\" width=\"13\" height=\"2\" rx=\"1\" transform=\"rotate(90 13 6)\" fill=\"black\" />\r\n                <path d=\"M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z\" fill=\"black\" />\r\n            </svg>\r\n        </span>\r\n        <!--end::Svg Icon-->\r\n    </div>\r\n@endsection\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/resources/views/freelancer/freelancer.blade.php b/resources/views/freelancer/freelancer.blade.php
+--- a/resources/views/freelancer/freelancer.blade.php	(revision c6a0857fe61094ff08c2f4bb8835e29fc5eed08e)
++++ b/resources/views/freelancer/freelancer.blade.php	(date 1646889572097)
+@@ -1,5 +1,5 @@
+ @extends('layout')
+-@section("page-title","Analysis")
++@section("page-title","Freelancer")
+ @section("freelancer","active")
+ @section("content")
+     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
+@@ -206,8 +206,8 @@
+                                                                 <td class="">
+                                                                     <div class="d-flex justify-content-center">
+                                                                         <div class="menu-item">
+-                                                                            <a href="{{url('/monitor_call/'.$freelancer->id)}}" class="menu-link p-1" target="_blank">
+-                                                                                <i class="fa fa-plus text-dark fa-2x"></i>
++                                                                            <a href="{{url('/freelancer/clients/'.$freelancer->id)}}" class="menu-link p-1" target="_blank">
++                                                                                <i class="fa fa-eye text-dark fa-2x"></i>
+                                                                             </a>
+                                                                         </div>
+                                                                     </div>
+@@ -345,8 +345,8 @@
+                                                                 <td class="">
+                                                                     <div class="d-flex justify-content-center">
+                                                                         <div class="menu-item">
+-                                                                            <a href="{{url('/monitor_call/'.$freelancer->id)}}" class="menu-link p-1" target="_blank">
+-                                                                                <i class="fa fa-plus text-dark fa-2x"></i>
++                                                                            <a href="{{url('/freelancer/clients/'.$freelancer->id)}}" class="menu-link p-1" target="_blank">
++                                                                                <i class="fa fa-eye text-dark fa-2x"></i>
+                                                                             </a>
+                                                                         </div>
+                                                                     </div>
+Index: app/services/ClientServices.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Services;\r\n\r\nuse App\\Models\\Client;\r\nuse App\\Models\\ClientDemat;\r\nuse App\\Models\\ClientPayment;\r\nuse App\\Models\\Screenshots;\r\nuse Illuminate\\Support\\Facades\\Auth;\r\nuse Illuminate\\Support\\Facades\\Hash;\r\nuse App\\Services\\CommonService;\r\nuse Illuminate\\Support\\Facades\\Storage;\r\n\r\nclass ClientServices\r\n{\r\n    public static function create($request)\r\n    {\r\n        $request->session()->put(\"password\", $request->password);\r\n        $client = $request->validate([\r\n            \"name\"=>\"required|alpha_spaces\",\r\n            \"number\"=>\"required\",\r\n            \"communication_with\"=>\"required|alpha_spaces\",\r\n            \"profession\"=>\"required|alpha_spaces\",\r\n        ]);\r\n        if(!isset($request->wpsameascontact) || $request->wpsameascontact!=1){\r\n            $request->validate([\r\n                \"wp_number\"=>\"required|numeric\",\r\n            ]);\r\n            $client['wp_number']=$request->wp_number;\r\n        }else{\r\n            $client['wp_number']=$client['number'];\r\n        }\r\n\r\n        $client['created_by'] = Auth::id();\r\n        $client['channel_partner_id'] = ($request->channel_partner_id != '') ? $request->channel_partner_id : 0;\r\n\r\n        $client = Client::create($client);\r\n\r\n        $demat = $request->validate([\r\n            \"st_sg.*\"=>\"required|alpha_spaces\",\r\n            \"serial_number.*\"=>\"required\",\r\n            \"service_type.*\"=>\"required|numeric\",\r\n            \"pan_number.*\"=>\"required\",\r\n            \"holder_name.*\"=>\"required|alpha_spaces\",\r\n            \"broker.*\"=>\"required|alpha_spaces\",\r\n            \"user_id.*\"=>\"required\",\r\n            \"password.*\"=>\"required\",\r\n            \"mpin.*\"=>\"required\",\r\n            \"capital.*\"=>\"required\",\r\n        ],\r\n        [\r\n            \"st_sg.*.required\"=>\"Smart ID is required\",\r\n            \"serial_number.*.required\"=>\"Serial Number is required\",\r\n            \"service_type.*.required\"=>\"Service Type is required\",\r\n            \"pan_number.*.required\"=>\"PAN Number is required\",\r\n            \"holder_name.*.required\"=>\"Demat Holder's Name is required\",\r\n            \"holder_name.*.alpha_spaces\"=>\"Demat Holder's Name Shold contain alphabate and spaces only\",\r\n            \"broker.*.required\"=>\"Broker is required\",\r\n            \"user_id.*.required\"=>\"User ID is required\",\r\n            \"password.*.required\"=>\"Password is required\",\r\n            \"mpin.*.required\"=>\"Mpin is required\",\r\n            \"capital.*.required\"=>\"Capital is required\",\r\n        ]\r\n        );\r\n        $demat['client_id'] = array();\r\n\r\n        // hash all passwords\r\n        foreach($request->password as $key => $password){\r\n            $demat[\"password\"][$key] = Hash::make($password);\r\n            $demat[\"mpin\"][$key] = Hash::make($request->mpin[$key]);\r\n            array_push($demat['client_id'],$client->id);\r\n        }\r\n\r\n        // insert one by one\r\n        foreach($demat['st_sg'] as $key => $value){\r\n            $array = array();\r\n            $array['st_sg']=$demat['st_sg'][$key];\r\n            $array['serial_number']=$demat['serial_number'][$key];\r\n            $array['service_type']=$demat['service_type'][$key];\r\n            $array['pan_number']=$demat['pan_number'][$key];\r\n            $array['holder_name']=$demat['holder_name'][$key];\r\n            $array['broker']=$demat['broker'][$key];\r\n            $array['user_id']=$demat['user_id'][$key];\r\n            $array['password']=$demat['password'][$key];\r\n            $array['mpin']=$demat['mpin'][$key];\r\n            $array['capital']=$demat['capital'][$key];\r\n            $array['client_id']=$demat['client_id'][$key];\r\n\r\n            ClientDemat::insert($array);\r\n        }\r\n\r\n        foreach($request->mode as $key => $mode){\r\n            if($request->mode[$key]==\"2\"){\r\n                $request->validate([\r\n                    \"bank.*\"=>\"required|alpha_spaces\",\r\n                    \"mode.*\"=>\"required|numeric\",\r\n                    \"joining_date\"=>\"required\",\r\n                    \"pending_payment.*\"=>\"required|numeric\",\r\n                ],\r\n                [\r\n                    \"bank.*.alpha_spaces\"=>\"Invalid Bank\",\r\n                    \"joining_date.required\"=>\"Joining Date is Required\",\r\n                    \"pending_payment.*.numeric\"=>\"Invalid Pending Payment Mark\",\r\n                ]);\r\n                if($request->pending_payment[$key]==\"0\"){\r\n                    $request->validate([\r\n                        \"fees\"=>\"required\",\r\n                    ],\r\n                    [\r\n                        \"fees.required\"=>\"Fees is required\",\r\n                    ]);\r\n                }\r\n                $payment['joining_date']=$request->joining_date[$key];\r\n                $payment['bank']=$request->bank[$key];\r\n                $payment['fees']=$request->fees[$key];\r\n                $payment['mode']=$request->mode[$key];\r\n                $payment['pending_payment']=$request->pending_payment[$key];\r\n                $payment['updated_by']=Auth::id();\r\n                $payment['updated_at']=date(\"Y-m-d H:i:s\");\r\n                $payment['client_id']=$client->id;\r\n                $payment_id = ClientPayment::create($payment);\r\n                // $payment = ClientPayment::create($payment);\r\n            }else{\r\n                $request->validate([\r\n                    \"mode.*\"=>\"required|numeric\",\r\n                ]);\r\n                $payment['mode']=$request->mode[$key];\r\n                $payment['updated_by']=Auth::id();\r\n                $payment['updated_at']=date(\"Y-m-d H:i:s\");\r\n                $payment['client_id']=$client->id;\r\n                $payment_id = ClientPayment::create($payment);\r\n            }\r\n\r\n            // file upload\r\n            if($request->mode[$key]==\"2\" && $request->pending_payment[$key]!=\"1\" && isset($request->screenshot[$key]) && !empty($request->screenshot[$key])){\r\n                foreach($request->screenshot[$key] as $index => $file){\r\n                    $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.SCREENSHOTS'));\r\n                    if($newName['status']){\r\n                        Screenshots::create([\"client_payment_id\"=>$payment_id->id,\"file\"=>$newName['data']['filename'],\"mime_type\"=>$newName['data']['mimeType']]);\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        return $client->id?$client->id: CommonService::throwError(\"Unable to create client\");\r\n    }\r\n    public static function all(){\r\n        return Client::with('clientDemat')->get();\r\n    }\r\n    public static function get($id){\r\n        $client = Client::with(['clientDemat','clientPayment','clientPayment.Screenshots'])->where(\"id\",$id)->first();\r\n        if (!$client)\r\n            CommonService::throwError(\"Client not found\");\r\n        return $client;\r\n    }\r\n    public static function update($request,$id){\r\n        $request->session()->put(\"password\", $request->password);\r\n        $client = $request->validate([\r\n            \"name\"=>\"required|alpha_spaces\",\r\n            \"number\"=>\"required\",\r\n            \"communication_with\"=>\"required|alpha_spaces\",\r\n            \"profession\"=>\"required|alpha_spaces\",\r\n        ]);\r\n        if(!isset($request->wpsameascontact) || $request->wpsameascontact!=1){\r\n            $request->validate([\r\n                \"wp_number\"=>\"required|numeric\",\r\n            ]);\r\n            $client['wp_number']=$request->wp_number;\r\n        }else{\r\n            $client['wp_number']=$client['number'];\r\n        }\r\n        $client['updated_by'] = Auth::id();\r\n        $client['status'] = 0;\r\n        $client['channel_partner_id'] = ($request->channel_partner_id != '') ? $request->channel_partner_id : 0;\r\n        if(isset($request->payment_verified) && $request->payment_verified==\"1\"){\r\n            $auth_user = Auth::user();\r\n            if($auth_user->hasRole([8,1])){\r\n                $client['status']=1;\r\n            }\r\n        }\r\n        $user = Client::where(\"id\",$id)->update($client);\r\n\r\n        $demat = $request->validate([\r\n            \"st_sg.*\"=>\"required|alpha_spaces\",\r\n            \"serial_number.*\"=>\"required\",\r\n            \"service_type.*\"=>\"required|numeric\",\r\n            \"pan_number.*\"=>\"required\",\r\n            \"holder_name.*\"=>\"required|alpha_spaces\",\r\n            \"broker.*\"=>\"required|alpha_spaces\",\r\n            \"user_id.*\"=>\"required\",\r\n            \"password.*\"=>\"required\",\r\n            \"mpin.*\"=>\"required\",\r\n            \"capital.*\"=>\"required\",\r\n        ],\r\n        [\r\n            \"st_sg.*.required\"=>\"Smart ID is required\",\r\n            \"serial_number.*.required\"=>\"Serial Number is required\",\r\n            \"service_type.*.required\"=>\"Service Type is required\",\r\n            \"pan_number.*.required\"=>\"PAN Number is required\",\r\n            \"holder_name.*.required\"=>\"Demat Holder's Name is required\",\r\n            \"holder_name.*.alpha_spaces\"=>\"Demat Holder's Name Shold contain alphabate and spaces only\",\r\n            \"broker.*.required\"=>\"Broker is required\",\r\n            \"user_id.*.required\"=>\"User ID is required\",\r\n            \"password.*.required\"=>\"Password is required\",\r\n            \"mpin.*.required\"=>\"Mpin is required\",\r\n            \"capital.*.required\"=>\"Capital is required\",\r\n        ]\r\n        );\r\n        $demat['client_id'] = array();\r\n\r\n        // remove all existing accounts\r\n        ClientDemat::where(\"client_id\",$id)->forceDelete();\r\n        // remove all existing payments\r\n        ClientPayment::where(\"client_id\",$id)->forceDelete();\r\n\r\n        // insert one by one\r\n        foreach($demat['st_sg'] as $key => $value){\r\n\r\n            $array = array();\r\n            $array['st_sg']=$demat['st_sg'][$key];\r\n            $array['serial_number']=$demat['serial_number'][$key];\r\n            $array['service_type']=$demat['service_type'][$key];\r\n            $array['pan_number']=$demat['pan_number'][$key];\r\n            $array['holder_name']=$demat['holder_name'][$key];\r\n            $array['broker']=$demat['broker'][$key];\r\n            $array['user_id']=$demat['user_id'][$key];\r\n            $array['password']=$demat['password'][$key];\r\n            $array['mpin']=$demat['mpin'][$key];\r\n            $array['capital']=$demat['capital'][$key];\r\n            $array['client_id']=$id;\r\n            $array['updated_by']=Auth::id();\r\n            $array['updated_at']=date(\"Y-m-d H:i:s\");\r\n\r\n            ClientDemat::insert($array);\r\n        }\r\n        foreach($request->mode as $key => $mode){\r\n            if($request->mode[$key]==\"2\"){\r\n                $request->validate([\r\n                    \"bank.*\"=>\"required|alpha_spaces\",\r\n                    \"mode.*\"=>\"required|numeric\",\r\n                    \"joining_date\"=>\"required\",\r\n                    \"pending_payment.*\"=>\"required|numeric\",\r\n                ],\r\n                [\r\n                    \"bank.*.required\"=>\"Please select Bank\",\r\n                    \"bank.*.alpha_spaces\"=>\"Invalid Bank\",\r\n                    \"mode.*.required\"=>\"Invalid Payment mode\",\r\n                    \"joining_date.required\"=>\"Joining Date is Required\",\r\n                    \"pending_payment.*.required\"=>\"Invalid Pending Payment Mark\",\r\n                    \"pending_payment.*.numeric\"=>\"Invalid Pending Payment Mark\",\r\n                ]);\r\n                if($request->pending_payment[$key]==\"0\"){\r\n                    $request->validate([\r\n                        \"fees\"=>\"required\",\r\n                    ],\r\n                    [\r\n                        \"fees.required\"=>\"Fees is required\",\r\n                    ]);\r\n                }\r\n                $payment['joining_date']=$request->joining_date[$key];\r\n                $payment['bank']=$request->bank[$key];\r\n                $payment['fees']=$request->fees[$key];\r\n                $payment['mode']=$request->mode[$key];\r\n                $payment['pending_payment']=$request->pending_payment[$key];\r\n                $payment['updated_by']=Auth::id();\r\n                $payment['updated_at']=date(\"Y-m-d H:i:s\");\r\n                $payment['client_id']=$id;\r\n                $payment_id = ClientPayment::create($payment);\r\n            }else{\r\n                $request->validate([\r\n                    \"mode.*\"=>\"required|numeric\",\r\n                ]);\r\n                $payment['mode']=$request->mode[$key];\r\n                $payment['updated_by']=Auth::id();\r\n                $payment['updated_at']=date(\"Y-m-d H:i:s\");\r\n                $payment['client_id']=$id;\r\n                $payment_id = ClientPayment::create($payment);\r\n            }\r\n\r\n            // file upload\r\n            if($request->mode[$key]==\"2\" && $request->pending_payment[$key]!=\"1\" && isset($request->screenshot[$key]) && !empty($request->screenshot[$key])){\r\n                foreach($request->screenshot[$key] as $index => $file){\r\n                    $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.SCREENSHOTS'));\r\n                    if($newName['status']){\r\n                        Screenshots::create([\"client_payment_id\"=>$payment_id->id,\"file\"=>$newName['data']['filename'],\"mime_type\"=>$newName['data']['mimeType']]);\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        return Client::with(['clientDemat','clientPayment',\"clientPayment.Screenshots\"])->where(\"id\",$id)->first();\r\n    }\r\n    public static function remove($id){\r\n        return client::where(\"id\",$id)->delete();\r\n    }\r\n    public static function removePaymentScreenshot($ss){\r\n        return Screenshots::where(\"id\",$ss)->delete();\r\n    }\r\n\r\n    public static function updateAssignTo($id,$request)\r\n    {\r\n        return Client::where(\"id\", $id)->update($request);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/services/ClientServices.php b/app/services/ClientServices.php
+--- a/app/services/ClientServices.php	(revision c6a0857fe61094ff08c2f4bb8835e29fc5eed08e)
++++ b/app/services/ClientServices.php	(date 1646889278312)
+@@ -299,4 +299,21 @@
+     {
+         return Client::where("id", $id)->update($request);
+     }
++
++    public static function freelancerClientList($id){
++        return Client::where("freelancer_id",$id)->get();
++    }
++
++    public static function channelPartnerClientList($id){
++
++        $clientList["prime"] = Client::where("channel_partner_id",$id)
++            ->leftJoin('client_demat', 'clients.id', '=', 'client_demat.client_id')
++            ->where("client_demat.service_type",1)->get();
++
++        $clientList["ams"] = Client::where("channel_partner_id",$id)
++            ->leftJoin('client_demat', 'clients.id', '=', 'client_demat.client_id')
++            ->where("client_demat.service_type",2)->get();
++
++        return $clientList;
++    }
+ }
+Index: routes/web.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nuse Illuminate\\Support\\Facades\\Route;\r\nuse App\\Http\\Controllers\\LoginController;\r\nuse App\\Http\\Controllers\\RegisterController;\r\nuse App\\Http\\Controllers\\UserController;\r\nuse App\\Http\\Controllers\\RolesController;\r\nuse App\\Http\\Controllers\\ClientController;\r\nuse App\\Http\\Controllers\\AnalystController;\r\nuse App\\Http\\Controllers\\CallController;\r\nuse App\\Http\\Controllers\\AccountTypesController;\r\nuse App\\Http\\Controllers\\ProfessionController;\r\nuse App\\Http\\Controllers\\BrokerController;\r\nuse App\\Http\\Controllers\\BankDetailsController;\r\nuse App\\Http\\Controllers\\TraderController;\r\nuse App\\Http\\Controllers\\FreelancerController;\r\n// login\r\nRoute::get(\"/login\",function(){\r\n    return view(\"auth.login\");\r\n})->name(\"login\");\r\nRoute::post(\"/login\",[LoginController::class,\"login\"])->name(\"loginUser\");\r\n// register\r\nRoute::get(\"/register\",function(){\r\n    return view(\"auth.register\");\r\n})->name(\"register\");\r\nRoute::post(\"/register\",[RegisterController::class,\"register\"])->name(\"registerUser\");\r\n// resetPassword\r\nRoute::get(\"/reset\",function(){\r\n    return view(\"auth.reset-password\");\r\n})->name(\"resetPassword\");\r\n\r\n\r\nRoute::group(['middleware' => ['auth']], function() {\r\n    // dashboard\r\n    Route::get(\"/\",function(){\r\n        return view(\"dashboard\");\r\n    })->name(\"dashboard\");\r\n\r\n    // clients\r\n    Route::get(\"/clients\",[ClientController::class,\"all\"])->name(\"clients\");\r\n    // read client\r\n    Route::get(\"/client/view/{client_id}\",[ClientController::class,\"get\"])->name(\"clientView\");\r\n    // create client\r\n    Route::get(\"/client/add\",[ClientController::class,\"createClientForm\"])->name(\"createClientForm\");\r\n    Route::post(\"/clients/add\",[ClientController::class,\"create\"])->name(\"clientCreate\");\r\n    // edit client\r\n    Route::get(\"/client/edit/{id}\",[ClientController::class,\"updateForm\"])->name(\"updateClientForm\");\r\n    Route::POST(\"/client/update/{id}\",[ClientController::class,\"update\"])->name(\"updateClient\");\r\n    // remove client\r\n    Route::get(\"/client/remove/{id}\",[ClientController::class,\"remove\"])->name(\"removeClient\");\r\n    // remove client\r\n    Route::get(\"'/client/edit/{client_id}/remove/screenshot/{screenshot_id}\",[ClientController::class,\"removePaymentScreenshot\"])->name(\"removePaymentScreenshot\");\r\n    Route::POST(\"/freelancer/client/assign\",[ClientController::class,'assignClientToFreelancer'])->name('assignClientToFreelancer');\r\n\r\n    // users\r\n    Route::get(\"/users\",[UserController::class,\"all\"])->name(\"users\");\r\n    // view users\r\n    Route::get(\"/user/view/{id}\",[UserController::class,\"view\"])->name(\"viewUser\");\r\n    // create user\r\n    Route::get(\"/user/create/\",[UserController::class,\"createForm\"])->name(\"createUserForm\");\r\n    Route::POST(\"/user/create/\",[UserController::class,\"create\"])->name(\"createUser\");\r\n    // edit user\r\n    Route::get(\"/user/edit/{id}\",[UserController::class,\"updateForm\"])->name(\"updateUserForm\");\r\n    Route::POST(\"/user/update/{id}\",[UserController::class,\"update\"])->name(\"updateUser\");\r\n    // remove user\r\n    Route::get(\"/user/delete/{id}\",[UserController::class,\"delete\"])->name(\"deleteUser\");\r\n\r\n    // list roles\r\n    Route::get(\"/roles\",[RolesController::class, \"view\"])->name(\"roles\");\r\n    // create role\r\n    Route::get(\"/roles/add\",[RolesController::class, \"addRolesForm\"])->name(\"addRoles\");\r\n    Route::post(\"/role/add\",[RolesController::class, \"createRole\"])->name(\"createRole\");\r\n    // edit role\r\n    Route::get(\"/role/edit/{id}\",[RolesController::class, \"editRoleForm\"])->name(\"editRoleForm\");\r\n    Route::post(\"/role/edit/{id}\",[RolesController::class, \"editRole\"])->name(\"editRole\");\r\n    // remove role\r\n    Route::get(\"/role/remove/{id}\",[RolesController::class, \"removeRole\"])->name(\"removeRole\");\r\n\r\n    // list analyst\r\n    Route::get(\"/analyst\", [AnalystController::class, \"view\"])->name(\"analysts\");\r\n    // create analyst\r\n    Route::get(\"/analyst/create/\",[AnalystController::class,\"createForm\"])->name(\"createAnalystForm\");\r\n    Route::POST(\"/analyst/create/\",[AnalystController::class,\"create\"])->name(\"createAnalyst\");\r\n    // get analyst\r\n    Route::get(\"/analyst/{id}\", [AnalystController::class, \"getAnalyst\"])->name(\"getAnalysts\");\r\n    // edit analyst\r\n    Route::POST(\"/analyst/edit\",[AnalystController::class, \"editAnalyst\"])->name(\"editAnalyst\");\r\n    Route::POST(\"/analyst/editAnalystAssignTo\",[AnalystController::class, \"editAnalystAssignTo\"])->name(\"editAnalystAssignTo\");\r\n    // list monitor\r\n    Route::get(\"/monitor\", [AnalystController::class, \"viewMonitor\"])->name(\"viewMonitor\");\r\n    Route::get(\"/monitor_analysts\", [AnalystController::class, \"viewMonitorAnalysts\"])->name(\"viewMonitorAnalysts\");\r\n    Route::get(\"/monitor_analysts/{id}\", [AnalystController::class, \"viewMonitorAnalystsById\"])->name(\"viewMonitorAnalystsById\");\r\n    Route::get(\"/monitor_data\", [AnalystController::class, \"viewMonitorData\"])->name(\"viewMonitorData\");\r\n    Route::get(\"/monitor_call/{id}\", [AnalystController::class, \"createMonitorDataForm\"])->name(\"createMonitorDataForm\");\r\n    Route::POST(\"/monitor_call\", [AnalystController::class, \"createMonitorData\"])->name(\"createMonitorData\");\r\n    Route::get(\"/monitor_call_edit/{id}\", [AnalystController::class, \"editMonitorDataForm\"])->name(\"editMonitorDataForm\");\r\n    Route::POST(\"/monitor_call_edit\", [AnalystController::class, \"editMonitorData\"])->name(\"editMonitorData\");\r\n    Route::get(\"/report\", [AnalystController::class, \"report\"])->name(\"report\");\r\n\r\n\r\n    // list calls\r\n    Route::get(\"/calls\",[CallController::class, \"view\"])->name('calls');\r\n    // create call\r\n    Route::POST(\"/call/create/\",[CallController::class,\"create\"])->name(\"createCall\");\r\n    // remove call\r\n    Route::POST(\"/call/remove/\",[CallController::class,\"remove\"])->name(\"deleteCall\");\r\n    // get calls\r\n    Route::POST(\"/call/view/\",[CallController::class, \"get\"])->name('getCall');\r\n    // edit call\r\n    Route::POST(\"/call/edit/\",[CallController::class,\"edit\"])->name(\"editCall\");\r\n\r\n\r\n    // users settings\r\n    Route::get(\"/settings/users/\",[AccountTypesController::class,\"view\"])->name(\"viewUsersAccountType\");\r\n    // create AccountType\r\n    Route::POST(\"/settings/users/createAccountType\",[AccountTypesController::class, \"create\"])->name(\"createAccountType\");\r\n    // removeAccountType\r\n    Route::get(\"/settings/users/removeAccountType/{id}\",[AccountTypesController::class,\"remove\"])->name(\"removeAccountType\");\r\n    // get AccountType\r\n    Route::POST(\"/settings/users/getAccountType\",[AccountTypesController::class,\"get\"])->name(\"getAccountType\");\r\n    // edit AccountType\r\n    Route::POST(\"/settings/users/editAccountType\",[AccountTypesController::class,\"edit\"])->name(\"editAccountType\");\r\n\r\n\r\n    // clients settings\r\n    Route::get(\"/settings/clients\",[ProfessionController::class,\"view\"])->name(\"viewClientsProfession\");\r\n    // create Profession\r\n    Route::POST(\"/settings/clients/createProfession\",[ProfessionController::class, \"create\"])->name(\"createProfession\");\r\n    // getProfession\r\n    Route::POST(\"/settings/clients/getProfession\",[ProfessionController::class,\"get\"])->name(\"getProfession\");\r\n    // edit AccountType\r\n    Route::POST(\"/settings/clients/editProfession\",[ProfessionController::class,\"edit\"])->name(\"editProfession\");\r\n    // removeProfession\r\n    Route::get(\"/settings/clients/removeProfession/{id}\",[ProfessionController::class,\"remove\"])->name(\"removeProfession\");\r\n\r\n    // viewClientsBroker\r\n    Route::get(\"/settings/clients/broker\",[BrokerController::class,\"view\"])->name(\"viewClientsBroker\");\r\n    // createBroker\r\n    Route::POST(\"/settings/clients/createBroker\", [BrokerController::class, \"create\"])->name(\"createBroker\");\r\n    // getBroker\r\n    Route::POST(\"/settings/clients/getBroker\", [BrokerController::class, \"get\"])->name(\"getBroker\");\r\n    // editBroker\r\n    Route::POST(\"/settings/clients/editBroker\", [BrokerController::class, \"edit\"])->name(\"editBroker\");\r\n    // removeBroker\r\n    Route::get(\"/settings/clients/removeBroker/{id}\", [BrokerController::class, \"remove\"])->name(\"removeBroker\");\r\n\r\n    // viewClientsBanks\r\n    Route::get(\"/settings/clients/viewClientsBanks\",[BankDetailsController::class,\"view\"])->name(\"viewClientsBanks\");\r\n    // createBank\r\n    Route::POST(\"/settings/clients/createBank\", [BankDetailsController::class, \"create\"])->name(\"createBank\");\r\n    // getBank\r\n    Route::POST(\"/settings/clients/getBank\", [BankDetailsController::class, \"get\"])->name(\"getBank\");\r\n    // editBank\r\n    Route::POST(\"/settings/clients/editBank\", [BankDetailsController::class, \"edit\"])->name(\"editBank\");\r\n    // removeBank\r\n    Route::get(\"/settings/clients/removeBank/{id}\", [BankDetailsController::class, \"remove\"])->name(\"removeBank\");\r\n\r\n    // trader\r\n    Route::get(\"/trader\",[TraderController::class, \"view\"])->name(\"viewTrader\");\r\n    Route::POST(\"/trader/client/assign\",[TraderController::class,'create'])->name('assignClientToTrader');\r\n    // logout\r\n    Route::get(\"/logout\",[LoginController::class,\"logout\"])->name(\"logout\");\r\n    // display file\r\n    Route::get('/common/displayFile/{id}/{type}/{name}', [App\\Http\\Controllers\\CommonController::class,'displayFile'])->name('displayFile');\r\n\r\n    // freelancer\r\n    Route::get(\"/freelancer\",[FreelancerController::class, \"freelancerData\"])->name(\"freelancerData\");\r\n});\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/routes/web.php b/routes/web.php
+--- a/routes/web.php	(revision c6a0857fe61094ff08c2f4bb8835e29fc5eed08e)
++++ b/routes/web.php	(date 1646887966662)
+@@ -14,6 +14,7 @@
+ use App\Http\Controllers\BankDetailsController;
+ use App\Http\Controllers\TraderController;
+ use App\Http\Controllers\FreelancerController;
++use App\Http\Controllers\ChannelPartnerController;
+ // login
+ Route::get("/login",function(){
+     return view("auth.login");
+@@ -165,4 +166,10 @@
+ 
+     // freelancer
+     Route::get("/freelancer",[FreelancerController::class, "freelancerData"])->name("freelancerData");
++    Route::get("/freelancer/clients/{id}",[FreelancerController::class, "freelancerClientData"])->name("freelancerClientData");
++
++    // Channel Partner
++    Route::get("/channelPartner",[ChannelPartnerController::class, "channelPartnerData"])->name("channelPartnerData");
++    Route::get("/channelPartner/clients/{id}",[ChannelPartnerController::class, "channelPartnerClientData"])->name("channelPartnerClientData");
++
+ });
+Index: resources/views/channelPartner/channel_partner.blade.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/resources/views/channelPartner/channel_partner.blade.php b/resources/views/channelPartner/channel_partner.blade.php
+new file mode 100644
+--- /dev/null	(date 1646889603830)
++++ b/resources/views/channelPartner/channel_partner.blade.php	(date 1646889603830)
+@@ -0,0 +1,211 @@
++@extends('layout')
++@section("page-title","Channel Partner")
++@section("channelPartner","active")
++@section("content")
++    <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
++    <!--begin::Body-->
++    <!--begin::Main-->
++    <!--begin::Root-->
++    <div class="d-flex flex-column flex-root">
++        <!--begin::Page-->
++        <div class="page d-flex flex-row flex-column-fluid">
++        @include("sidebar")
++        <!--end::Aside-->
++            <!--begin::Wrapper-->
++            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
++            @include("header")
++            <!--begin::Content-->
++                <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
++                    @if(session("info"))
++                        <div class="container">
++                            <h6 class="alert alert-info">{{session("info")}}</h6>
++                        </div>
++                @endif
++                <!--begin::Toolbar-->
++                    <div class="toolbar" id="kt_toolbar">
++                        <!--begin::Container-->
++                        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
++                            <!--begin::Page title-->
++                            <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
++                                <!--begin::Title-->
++                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Channel Partner</h1>
++                                <!--end::Title-->
++                                <!--begin::Separator-->
++                                <span class="h-20px border-gray-200 border-start mx-4"></span>
++                                <!--end::Separator-->
++                                <!--begin::Breadcrumb-->
++                                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
++                                    <!--begin::Item-->
++                                    <li class="breadcrumb-item text-muted">
++                                        <a href="profinext/dist/index.html" class="text-muted text-hover-primary">Home</a>
++                                    </li>
++                                    <!--end::Item-->
++                                    <!--begin::Item-->
++                                    <li class="breadcrumb-item">
++                                        <span class="bullet bg-gray-200 w-5px h-2px"></span>
++                                    </li>
++                                    <!--end::Item-->
++                                    <!--begin::Item-->
++                                    <li class="breadcrumb-item text-dark">Channel Partner</li>
++                                    <!--end::Item-->
++                                </ul>
++                                <!--end::Breadcrumb-->
++                            </div>
++                            <!--end::Page title-->
++                        </div>
++                        <!--end::Container-->
++                    </div>
++                    <!--end::Toolbar-->
++                    <!--begin::Post-->
++                    <div class="post d-flex flex-column-fluid" id="kt_post">
++                        <!--begin::Container-->
++                        <div id="kt_content_container" class="container-xxl">
++                            <!--begin::Card-->
++                            <div class="card">
++                                <!--begin::Card header-->
++                                <div class="card-header border-0 pt-6">
++                                    <!--begin::Card title-->
++                                    <div class="card-title">
++                                        <!--begin::Search-->
++                                        <div class="d-flex align-items-center position-relative my-1">
++                                            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
++                                            <span class="svg-icon svg-icon-1 position-absolute ms-6">
++												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
++													<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />
++													<path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black" />
++												</svg>
++											</span>
++                                            <!--end::Svg Icon-->
++                                            <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Search user" />
++                                        </div>
++                                        <!--end::Search-->
++                                    </div>
++                                    <!--begin::Card title-->
++                                    <!--begin::Card toolbar-->
++
++                                    <div class="card-toolbar">
++                                        <!--begin::Toolbar-->
++                                        <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
++                                            <div class="d-flex justify-content-between">
++                                                <!--begin::Export-->
++                                                <a href="#" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
++                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
++                                                    <span class="svg-icon svg-icon-2">
++													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
++														<rect opacity="0.3" x="12.75" y="4.25" width="12" height="2" rx="1" transform="rotate(90 12.75 4.25)" fill="black" />
++														<path d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z" fill="black" />
++														<path d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z" fill="#C4C4C4" />
++													</svg>
++												</span>
++                                                    <!--end::Svg Icon-->Export
++                                                    <span class="svg-icon svg-icon-5 m-0">
++													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
++														<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
++													</svg>
++												</span>
++                                                </a>
++                                            </div>
++                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
++                                                <div class="menu-item px-3">
++                                                    <a href="#" class="menu-link px-3">
++														<span class="menu-icon">
++															<i class="la la-file-pdf-o"></i>
++														</span>PDF
++                                                    </a>
++                                                </div>
++                                                <div class="menu-item px-3">
++                                                    <a href="#" class="menu-link px-3">
++														<span class="menu-icon">
++															<i class="la la-file-excel-o"></i>
++														</span>Excel
++                                                    </a>
++                                                </div>
++                                            </div>
++                                            <!--end::Export-->
++                                        </div>
++                                        <!--end::Toolbar-->
++                                    </div>
++                                    <!--end::Card toolbar-->
++                                </div>
++                                <!--end::Card header-->
++                                <!--begin::Card body-->
++                                <div class="card-body pt-0">
++                                    <div class="table-responsive">
++                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
++                                            <!--begin::Table head-->
++                                            <thead>
++                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
++                                                <th class="min-w-10px">Sr No.</th>
++                                                <th class="min-w-75px">Channel Partner Name</th>
++                                                <th class="min-w-75px">Channel Partner Email</th>
++                                                <th class="text-end min-w-100px">View Clients</th>
++                                            </tr>
++                                            </thead>
++                                            <tbody class="text-gray-600 fw-bold">
++                                            @can("role-read")
++                                                @php
++                                                    $i=1;
++                                                @endphp
++                                                @forelse ($channelPartnerData as $partner)
++                                                    <tr>
++                                                        <td>{{$i++}}</td>
++                                                        <td> {{$partner->name}} </td>
++                                                        <td> {{$partner->email}}</td>
++                                                        <td class="">
++                                                            <div class="d-flex justify-content-center">
++                                                                <div class="menu-item">
++                                                                    <a href="{{url('/channelPartner/clients/'.$partner->id)}}" class="menu-link p-1" target="_blank">
++                                                                        <i class="fa fa-eye text-dark fa-2x"></i>
++                                                                    </a>
++                                                                </div>
++                                                            </div>
++                                                        </td>
++                                                    </tr>
++                                                @empty
++                                                    <tr>
++                                                        <td colspan="4">No Clients Found</td>
++                                                    </tr>
++                                                @endforelse
++                                            @else
++                                                <h1>Unauthorised</h1>
++                                            @endcan
++                                            <!--end::Table row-->
++                                            </tbody>
++                                            <!--end::Table body-->
++                                        </table>
++                                    </div>
++                                    <!--end::Table-->
++                                </div>
++                                <!--end::Card body-->
++                            </div>
++                            <!--end::Card-->
++                        </div>
++                        <!--end::Container-->
++                    </div>
++                    <!--end::Post-->
++                </div>
++                <!--end::Content-->
++                <!--begin::Footer-->
++            @include("footer")
++            <!--end::Footer-->
++            </div>
++            <!--end::Wrapper-->
++        </div>
++        <!--end::Page-->
++    </div>
++    <!--begin::Modals-->
++
++
++    <!--end::Modals-->
++    <!--begin::Scrolltop-->
++    <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
++        <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
++        <span class="svg-icon">
++            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
++                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" fill="black" />
++                <path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" fill="black" />
++            </svg>
++        </span>
++        <!--end::Svg Icon-->
++    </div>
++@endsection
+Index: resources/views/channelPartner/channel_partner_client.blade.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/resources/views/channelPartner/channel_partner_client.blade.php b/resources/views/channelPartner/channel_partner_client.blade.php
+new file mode 100644
+--- /dev/null	(date 1646889629755)
++++ b/resources/views/channelPartner/channel_partner_client.blade.php	(date 1646889629755)
+@@ -0,0 +1,395 @@
++@extends('layout')
++@section("page-title","Channel Partner")
++@section("channelPartner","active")
++@section("content")
++    <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
++    <!--begin::Body-->
++    <!--begin::Main-->
++    <!--begin::Root-->
++    <div class="d-flex flex-column flex-root">
++        <!--begin::Page-->
++        <div class="page d-flex flex-row flex-column-fluid">
++        @include("sidebar")
++        <!--end::Aside-->
++            <!--begin::Wrapper-->
++            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
++            @include("header")
++            <!--begin::Content-->
++                <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
++                    @if(session("info"))
++                        <div class="container">
++                            <h6 class="alert alert-info">{{session("info")}}</h6>
++                        </div>
++                @endif
++                <!--begin::Toolbar-->
++                    <div class="toolbar" id="kt_toolbar">
++                        <!--begin::Container-->
++                        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
++                            <!--begin::Page title-->
++                            <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
++                                <!--begin::Title-->
++                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Channel Partner Clients</h1>
++                                <!--end::Title-->
++                                <!--begin::Separator-->
++                                <span class="h-20px border-gray-200 border-start mx-4"></span>
++                                <!--end::Separator-->
++                                <!--begin::Breadcrumb-->
++                                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
++                                    <!--begin::Item-->
++                                    <li class="breadcrumb-item text-muted">
++                                        <a href="profinext/dist/index.html" class="text-muted text-hover-primary">Home</a>
++                                    </li>
++                                    <!--end::Item-->
++                                    <!--begin::Item-->
++                                    <li class="breadcrumb-item">
++                                        <span class="bullet bg-gray-200 w-5px h-2px"></span>
++                                    </li>
++                                    <!--end::Item-->
++                                    <!--begin::Item-->
++                                    <li class="breadcrumb-item text-dark">Channel Partner Clients</li>
++                                    <!--end::Item-->
++                                </ul>
++                                <!--end::Breadcrumb-->
++                            </div>
++                            <!--end::Page title-->
++                            <!--begin::Actions-->
++                            <div class="d-flex align-items-center py-1">
++                            </div>
++                            <!--end::Actions-->
++                        </div>
++                        <!--end::Container-->
++                    </div>
++                    <!--end::Toolbar-->
++                    <!--begin::Post-->
++
++
++                    <div class="post d-flex flex-column-fluid" id="kt_post">
++                        <!--begin::Container-->
++                        <div id="kt_content_container" class="container-xxl">
++
++                            <!--begin:::Tabs-->
++                            <ul
++                                class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
++
++                                <!--begin:::Tab item-->
++                                <li class="nav-item">
++                                    <a class="nav-link text-active-primary pb-1 active" data-bs-toggle="tab"
++                                       href="#freelancerams">Channel Partner Clients AMS</a>
++                                </li>
++                                <!--end:::Tab item-->
++
++                                <!--begin:::Tab item-->
++                                <li class="nav-item">
++                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
++                                       href="#freelancerprivate">Channel Partner Clients Private</a>
++                                </li>
++                                <!--end:::Tab item-->
++                            </ul>
++                            <!--end:::Tabs-->
++
++                            <div class="tab-content">
++                                <div class="tab-pane fade show active" id="freelancerams" aria-labelledby="active-tab"
++                                     role="tabpanel">
++                                    <!--begin::Card-->
++                                    <div class="card">
++                                        <!--begin::Card header-->
++                                        <div class="card-header border-0 pt-6">
++                                            <!--begin::Card title-->
++                                            <div class="card-title">
++                                                <!--begin::Search-->
++                                                <div class="d-flex align-items-center position-relative my-1">
++                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
++                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
++                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
++                                                             viewBox="0 0 24 24" fill="none">
++                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
++                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
++                                                                  fill="black" />
++                                                            <path
++                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
++                                                                fill="black" />
++                                                        </svg>
++                                                    </span>
++                                                    <!--end::Svg Icon-->
++                                                    <input type="text" data-kt-user-table-filter="search"
++                                                           class="form-control form-control-solid w-250px ps-14"
++                                                           placeholder="Search user" />
++                                                </div>
++                                                <!--end::Search-->
++                                            </div>
++                                            <!--begin::Card title-->
++                                            <!--begin::Card toolbar-->
++
++                                            <div class="card-toolbar">
++                                                <!--begin::Toolbar-->
++                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
++                                                    <div class="d-flex justify-content-between">
++                                                        <!--begin::Export-->
++                                                        <a href="#" class="btn btn-light-primary"
++                                                           data-kt-menu-trigger="click"
++                                                           data-kt-menu-placement="bottom-end">
++                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
++                                                            <span class="svg-icon svg-icon-2">
++                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
++                                                                     height="24" viewBox="0 0 24 24" fill="none">
++                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
++                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
++                                                                          fill="black" />
++                                                                    <path
++                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
++                                                                        fill="black" />
++                                                                    <path
++                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
++                                                                        fill="#C4C4C4" />
++                                                                </svg>
++                                                            </span>
++                                                            <!--end::Svg Icon-->Export
++                                                            <span class="svg-icon svg-icon-5 m-0">
++                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
++                                                                     height="24" viewBox="0 0 24 24" fill="none">
++                                                                    <path
++                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
++                                                                        fill="black" />
++                                                                </svg>
++                                                            </span>
++                                                        </a>
++                                                    </div>
++                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
++                                                         data-kt-menu="true">
++                                                        <div class="menu-item px-3">
++                                                            <a href="#" class="menu-link px-3">
++                                                                <span class="menu-icon">
++                                                                    <i class="la la-file-pdf-o"></i>
++                                                                </span>PDF
++                                                            </a>
++                                                        </div>
++                                                        <div class="menu-item px-3">
++                                                            <a href="#" class="menu-link px-3">
++                                                                <span class="menu-icon">
++                                                                    <i class="la la-file-excel-o"></i>
++                                                                </span>Excel
++                                                            </a>
++                                                        </div>
++                                                    </div>
++                                                    <!--end::Export-->
++                                                </div>
++                                                <!--end::Toolbar-->
++                                            </div>
++                                            <!--end::Card toolbar-->
++                                        </div>
++                                        <!--end::Card header-->
++                                        <!--begin::Card body-->
++                                        <div class="card-body pt-0">
++                                            <div class="table-responsive">
++                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
++                                                       id="kt_table_users">
++                                                @if ($channelPartnerClient['ams']->isNotEmpty())
++                                                    <!--begin::Table head-->
++                                                        <thead>
++                                                        <tr
++                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
++                                                            <th class="min-w-10px">Sr No.</th>
++                                                            <th class="min-w-75px">Client Name</th>
++                                                            <th class="min-w-75px">Number</th>
++                                                            <th class="min-w-75px">Whatsapp Number</th>
++                                                        </tr>
++                                                        </thead>
++                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
++                                                        @php
++                                                            $i=1;
++                                                        @endphp
++                                                        @foreach($channelPartnerClient['ams'] as $client)
++                                                            <tr>
++                                                                <td>{{$i++}}</td>
++                                                                <td class="d-flex align-items-center">
++                                                                    {{$client->name}}
++                                                                </td>
++                                                                <td>
++                                                                    {{$client->number}}
++                                                                </td>
++                                                                <td>
++                                                                    {{$client->wp_number}}
++                                                                </td>
++                                                            </tr>
++                                                        @endforeach
++                                                        </tbody>
++                                                    @else
++                                                        <h3>No Clients Found</h3>
++                                                @endif
++                                                <!--end::Table body-->
++                                                </table>
++                                            </div>
++                                            <!--end::Table-->
++                                        </div>
++                                        <!--end::Card body-->
++                                    </div>
++                                    <!--end::Card-->
++                                </div>
++                                <div class="tab-pane fade show" id="freelancerprivate" aria-labelledby="active-tab"
++                                     role="tabpanel">
++                                    <!--begin::Card-->
++                                    <div class="card">
++                                        <!--begin::Card header-->
++                                        <div class="card-header border-0 pt-6">
++                                            <!--begin::Card title-->
++                                            <div class="card-title">
++                                                <!--begin::Search-->
++                                                <div class="d-flex align-items-center position-relative my-1">
++                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
++                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
++                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
++                                                             viewBox="0 0 24 24" fill="none">
++                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
++                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
++                                                                  fill="black" />
++                                                            <path
++                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
++                                                                fill="black" />
++                                                        </svg>
++                                                    </span>
++                                                    <!--end::Svg Icon-->
++                                                    <input type="text" data-kt-user-table-filter="search"
++                                                           class="form-control form-control-solid w-250px ps-14"
++                                                           placeholder="Search user" />
++                                                </div>
++                                                <!--end::Search-->
++                                            </div>
++                                            <!--begin::Card title-->
++                                            <!--begin::Card toolbar-->
++
++                                            <div class="card-toolbar">
++                                                <!--begin::Toolbar-->
++                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
++                                                    <div class="d-flex justify-content-between">
++                                                        <!--begin::Export-->
++                                                        <a href="#" class="btn btn-light-primary"
++                                                           data-kt-menu-trigger="click"
++                                                           data-kt-menu-placement="bottom-end">
++                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
++                                                            <span class="svg-icon svg-icon-2">
++                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
++                                                                     height="24" viewBox="0 0 24 24" fill="none">
++                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
++                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
++                                                                          fill="black" />
++                                                                    <path
++                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
++                                                                        fill="black" />
++                                                                    <path
++                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
++                                                                        fill="#C4C4C4" />
++                                                                </svg>
++                                                            </span>
++                                                            <!--end::Svg Icon-->Export
++                                                            <span class="svg-icon svg-icon-5 m-0">
++                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
++                                                                     height="24" viewBox="0 0 24 24" fill="none">
++                                                                    <path
++                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
++                                                                        fill="black" />
++                                                                </svg>
++                                                            </span>
++                                                        </a>
++                                                    </div>
++                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
++                                                         data-kt-menu="true">
++                                                        <div class="menu-item px-3">
++                                                            <a href="#" class="menu-link px-3">
++                                                                <span class="menu-icon">
++                                                                    <i class="la la-file-pdf-o"></i>
++                                                                </span>PDF
++                                                            </a>
++                                                        </div>
++                                                        <div class="menu-item px-3">
++                                                            <a href="#" class="menu-link px-3">
++                                                                <span class="menu-icon">
++                                                                    <i class="la la-file-excel-o"></i>
++                                                                </span>Excel
++                                                            </a>
++                                                        </div>
++                                                    </div>
++                                                    <!--end::Export-->
++                                                </div>
++                                                <!--end::Toolbar-->
++                                            </div>
++                                            <!--end::Card toolbar-->
++                                        </div>
++                                        <!--end::Card header-->
++                                        <!--begin::Card body-->
++                                        <div class="card-body pt-0">
++                                            <div class="table-responsive">
++                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
++                                                       id="kt_table_users">
++                                                @if ($channelPartnerClient['prime']->isNotEmpty())
++                                                    <!--begin::Table head-->
++                                                        <thead>
++                                                        <tr
++                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
++                                                            <th class="min-w-10px">Sr No.</th>
++                                                            <th class="min-w-75px">Client Name</th>
++                                                            <th class="min-w-75px">Number</th>
++                                                            <th class="min-w-75px">Whatsapp Number</th>
++                                                        </tr>
++                                                        </thead>
++                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
++                                                        @php
++                                                            $i=1;
++                                                        @endphp
++                                                        @foreach($channelPartnerClient['prime'] as $client)
++                                                            <tr>
++                                                                <td>{{$i++}}</td>
++                                                                <td class="d-flex align-items-center">
++                                                                    {{$client->name}}
++                                                                </td>
++                                                                <td>
++                                                                    {{$client->number}}
++                                                                </td>
++                                                                <td>
++                                                                    {{$client->wp_number}}
++                                                                </td>
++                                                            </tr>
++                                                        @endforeach
++                                                        </tbody>
++                                                    @else
++                                                        <h3>No Clients Found</h3>
++                                                @endif
++                                                <!--end::Table body-->
++                                                </table>
++                                            </div>
++                                            <!--end::Table-->
++                                        </div>
++                                        <!--end::Card body-->
++                                    </div>
++                                    <!--end::Card-->
++                                </div>
++                            </div>
++                        </div>
++                        <!--end::Container-->
++                    </div>
++                    <!--end::Post-->
++                </div>
++                <!--end::Content-->
++                <!--begin::Footer-->
++            @include("footer")
++            <!--end::Footer-->
++            </div>
++            <!--end::Wrapper-->
++        </div>
++        <!--end::Page-->
++    </div>
++    <!--begin::Modals-->
++
++
++    <!--end::Modals-->
++    <!--begin::Scrolltop-->
++    <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
++        <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
++        <span class="svg-icon">
++            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
++                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" fill="black" />
++                <path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" fill="black" />
++            </svg>
++        </span>
++        <!--end::Svg Icon-->
++    </div>
++@endsection
+Index: app/Http/Controllers/ChannelPartnerController.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/Http/Controllers/ChannelPartnerController.php b/app/Http/Controllers/ChannelPartnerController.php
+new file mode 100644
+--- /dev/null	(date 1646888486115)
++++ b/app/Http/Controllers/ChannelPartnerController.php	(date 1646888486115)
+@@ -0,0 +1,27 @@
++<?php
++
++namespace App\Http\Controllers;
++
++use Illuminate\Http\Request;
++use Illuminate\Support\Facades\Redirect;
++use App\Services\ClientServices;
++use App\Services\UserServices;
++
++class ChannelPartnerController extends Controller
++{
++    function __construct()
++    {
++
++    }
++    // View all channel Partner data
++    public function channelPartnerData(){
++        $channelPartnerData = UserServices::getChannelPartnerData();
++        return view("channelPartner.channel_partner", compact('channelPartnerData'));
++    }
++    // view all the channel Partner client list
++    public function channelPartnerClientData(Request $request,$id){
++        $channelPartnerClient = ClientServices::channelPartnerClientList($id);
++        return view("channelPartner.channel_partner_client", compact('channelPartnerClient'));
++    }
++
++}
+Index: app/Http/Controllers/FreelancerController.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Http\\Controllers;\r\n\r\nuse Illuminate\\Http\\Request;\r\nuse Illuminate\\Support\\Facades\\Redirect;\r\nuse App\\Services\\ClirntServices;\r\nuse App\\Services\\UserServices;\r\n\r\nclass FreelancerController extends Controller\r\n{\r\n    function __construct()\r\n    {\r\n\r\n    }\r\n    // create client form\r\n    public function freelancerData(){\r\n        $freelancerData = UserServices::getFreelancerData();\r\n        return view(\"freelancer.freelancer\", compact('freelancerData'));\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/Http/Controllers/FreelancerController.php b/app/Http/Controllers/FreelancerController.php
+--- a/app/Http/Controllers/FreelancerController.php	(revision c6a0857fe61094ff08c2f4bb8835e29fc5eed08e)
++++ b/app/Http/Controllers/FreelancerController.php	(date 1646886532216)
+@@ -4,7 +4,7 @@
+ 
+ use Illuminate\Http\Request;
+ use Illuminate\Support\Facades\Redirect;
+-use App\Services\ClirntServices;
++use App\Services\ClientServices;
+ use App\Services\UserServices;
+ 
+ class FreelancerController extends Controller
+@@ -13,10 +13,15 @@
+     {
+ 
+     }
+-    // create client form
++    // View all freelancer data
+     public function freelancerData(){
+         $freelancerData = UserServices::getFreelancerData();
+         return view("freelancer.freelancer", compact('freelancerData'));
+     }
++    // view all the freelancer client list
++    public function freelancerClientData(Request $request,$id){
++        $freelancerClient = ClientServices::freelancerClientList($id);
++        return view("freelancer.freelancer_client", compact('freelancerClient'));
++    }
+ 
+ }
+Index: app/services/UserServices.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Services;\r\n\r\nuse App\\Models\\User;\r\nuse App\\Models\\UserNumbers;\r\nuse Illuminate\\Support\\Facades\\Auth;\r\nuse Illuminate\\Support\\Facades\\Hash;\r\nuse App\\Services\\CommonService;\r\nclass UserServices\r\n{\r\n    public static function clients($request)\r\n    {\r\n        return UserServices::activeClients();\r\n    }\r\n\r\n    public static function roles($request)\r\n    {\r\n        return UserServices::activeClients();\r\n    }\r\n    public static function activeClients(){\r\n        return User::where(\"status\",\"1\")->get();\r\n    }\r\n    public static function all(){\r\n        return User::withTrashed()->get();\r\n    }\r\n    public static function validateUsersData($data){\r\n        $data->validate([\r\n            \"name\"=>\"required|alpha_spaces\",\r\n            \"account_type\"=>\"required\",\r\n            \"number\"=>\"required|array\",\r\n            \"number.*\"=>\"numeric\",\r\n            \"ifsc_code\"=>\"required\",\r\n            \"user_type\"=>\"required\",\r\n            \"job_description\"=>\"required\",\r\n            \"role\"=>\"required\",\r\n        ]);\r\n        if($data->user_type=='2'){\r\n            $data->validate([\r\n                \"salary\"=>\"required|numeric\",\r\n                \"joining_date\"=>\"required|date\"\r\n            ]);\r\n        }\r\n    }\r\n    public static function create($request){\r\n        self::validateUsersData($request);\r\n        $request->validate([\r\n            \"email\"=>\"required|email|unique:users,email\",\r\n            \"account_number\"=>\"required|numeric|unique:users,account_number\",\r\n        ]);\r\n        $user_data = $request->all();\r\n        $user_data['password'] = Hash::make($request->password);\r\n        $user_data['created_by'] = Auth::id();\r\n\t\t$userRoles = implode(\",\", $request->role);\r\n        $user_data['role'] = $userRoles;\r\n        $user_data['company_first'] = isset($request->company_1) ? 1 : null ;\r\n        $user_data['profit_percentage_first'] = isset($request->profit_company_1) ? $request->profit_company_1 : null ;\r\n        $user_data['company_second'] = isset($request->company_2) ? 1 : null ;\r\n        $user_data['profit_percentage_second'] = isset($request->profit_company_2) ? $request->profit_company_2 : null ;\r\n        $user_data['ams_new_client_percentage'] = isset($request->ams_new_client_percentage) ? $request->ams_new_client_percentage : null ;\r\n        $user_data['ams_renewal_client_percentage'] = isset($request->ams_renewal_client_percentage) ? $request->ams_renewal_client_percentage : null;\r\n        $user_data['prime_new_client_percentage'] = isset($request->prime_new_client_percentage) ? $request->prime_new_client_percentage : null;\r\n        $user_data['prime_renewal_client_percentage'] = isset($request->prime_renewal_client_percentage) ? $request->prime_renewal_client_percentage : null;\r\n        $user_data['ams_limit'] = isset($request->limit) ? $request->limit : null;\r\n        $user_data['fees_percentage'] = isset($request->fees_percentage) ? $request->fees_percentage : null;\r\n        $user = User::create($user_data);\r\n\r\n        $user->assignRole($request->role);\r\n        $numbers = $request->number;\r\n        foreach($numbers as $number){\r\n            UserNumbers::create([\"user_id\"=>$user->id, \"number\"=>$number,\"updated_by\"=>Auth::id()]);\r\n        }\r\n        return $user->id;\r\n    }\r\n    public static function user($id){\r\n        $user = User::where(\"id\",$id)->first();\r\n        if(null === $user) return false;\r\n        $user['numbers'] = UserNumbers::where(\"user_id\",$id)->pluck(\"number\");\r\n        return $user;\r\n    }\r\n    public static function update($request,$id){\r\n\r\n        try {\r\n            self::validateUsersData($request);\r\n            $request->validate([\r\n                \"email\"=>\"required|email\",\r\n                \"account_number\"=>\"required|numeric\",\r\n            ]);\r\n            $user_data = $request->except(['_token',\"number\"]);\r\n            // remove old numbers\r\n            UserNumbers::where(\"user_id\",$id)->delete();\r\n            // add new numbers\r\n            foreach($request->number as $number){\r\n                if($number){\r\n                    UserNumbers::create([\"user_id\"=>$id, \"number\"=>$number,\"updated_by\"=>Auth::id()]);\r\n                }\r\n            }\r\n\r\n\t\t\t$userRoles = implode(\",\", $request->role);\r\n            $user_data['role'] = $userRoles;\r\n            $user_data['updated_by'] = Auth::id();\r\n\r\n            User::where(\"id\",$id)->update($user_data);\r\n            // update role\r\n            $user = User::find($id);\r\n            $user->syncRoles($request->role);\r\n            return UserServices::user($id);\r\n        } catch (\\Throwable $th) {\r\n            return false;\r\n        }\r\n    }\r\n    public static function delete($id){\r\n        User::where(\"id\",$id)->delete();\r\n        return User::withTrashed()->get();\r\n    }\r\n    public static function getByRole(String $role=\"\"){\r\n        $user = User::with(['count'])->where(\"role\",$role)->get();\r\n        if(null === $user){\r\n            abort(500);\r\n        }\r\n        return $user;\r\n    }\r\n    public static function getByType($type)\r\n    {\r\n        return User::where(\"user_type\",$type)->get();\r\n    }\r\n\r\n    public static function getFreelancerData()\r\n    {\r\n        $freelancer['freelancer_ams'] =  User::where(\"user_type\",4)->get();\r\n        $freelancer['freelancer_prime'] =  User::where(\"user_type\",5)->get();\r\n        return $freelancer;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/services/UserServices.php b/app/services/UserServices.php
+--- a/app/services/UserServices.php	(revision c6a0857fe61094ff08c2f4bb8835e29fc5eed08e)
++++ b/app/services/UserServices.php	(date 1646888141105)
+@@ -130,5 +130,10 @@
+         $freelancer['freelancer_ams'] =  User::where("user_type",4)->get();
+         $freelancer['freelancer_prime'] =  User::where("user_type",5)->get();
+         return $freelancer;
++    }
++    public static function getChannelPartnerData()
++    {
++        return User::where("user_type",3)->get();
++
+     }
+ }
+Index: resources/views/freelancer/freelancer_client.blade.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/resources/views/freelancer/freelancer_client.blade.php b/resources/views/freelancer/freelancer_client.blade.php
+new file mode 100644
+--- /dev/null	(date 1646889615765)
++++ b/resources/views/freelancer/freelancer_client.blade.php	(date 1646889615765)
+@@ -0,0 +1,210 @@
++@extends('layout')
++@section("page-title","Freelancer")
++@section("freelancer","active")
++@section("content")
++    <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
++    <!--begin::Body-->
++    <!--begin::Main-->
++    <!--begin::Root-->
++    <div class="d-flex flex-column flex-root">
++        <!--begin::Page-->
++        <div class="page d-flex flex-row flex-column-fluid">
++        @include("sidebar")
++        <!--end::Aside-->
++            <!--begin::Wrapper-->
++            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
++            @include("header")
++            <!--begin::Content-->
++                <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
++                    @if(session("info"))
++                        <div class="container">
++                            <h6 class="alert alert-info">{{session("info")}}</h6>
++                        </div>
++                @endif
++                <!--begin::Toolbar-->
++                    <div class="toolbar" id="kt_toolbar">
++                        <!--begin::Container-->
++                        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
++                            <!--begin::Page title-->
++                            <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
++                                <!--begin::Title-->
++                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Freelancer Clients</h1>
++                                <!--end::Title-->
++                                <!--begin::Separator-->
++                                <span class="h-20px border-gray-200 border-start mx-4"></span>
++                                <!--end::Separator-->
++                                <!--begin::Breadcrumb-->
++                                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
++                                    <!--begin::Item-->
++                                    <li class="breadcrumb-item text-muted">
++                                        <a href="profinext/dist/index.html" class="text-muted text-hover-primary">Home</a>
++                                    </li>
++                                    <!--end::Item-->
++                                    <!--begin::Item-->
++                                    <li class="breadcrumb-item">
++                                        <span class="bullet bg-gray-200 w-5px h-2px"></span>
++                                    </li>
++                                    <!--end::Item-->
++                                    <!--begin::Item-->
++                                    <li class="breadcrumb-item text-dark">Freelancer</li>
++                                    <li class="breadcrumb-item text-dark">Client</li>
++                                    <!--end::Item-->
++                                </ul>
++                                <!--end::Breadcrumb-->
++                            </div>
++                            <!--end::Page title-->
++                        </div>
++                        <!--end::Container-->
++                    </div>
++                    <!--end::Toolbar-->
++                    <!--begin::Post-->
++                    <div class="post d-flex flex-column-fluid" id="kt_post">
++                        <!--begin::Container-->
++                        <div id="kt_content_container" class="container-xxl">
++                            <!--begin::Card-->
++                            <div class="card">
++                                <!--begin::Card header-->
++                                <div class="card-header border-0 pt-6">
++                                    <!--begin::Card title-->
++                                    <div class="card-title">
++                                        <!--begin::Search-->
++                                        <div class="d-flex align-items-center position-relative my-1">
++                                            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
++                                            <span class="svg-icon svg-icon-1 position-absolute ms-6">
++												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
++													<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />
++													<path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black" />
++												</svg>
++											</span>
++                                            <!--end::Svg Icon-->
++                                            <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Search user" />
++                                        </div>
++                                        <!--end::Search-->
++                                    </div>
++                                    <!--begin::Card title-->
++                                    <!--begin::Card toolbar-->
++
++                                    <div class="card-toolbar">
++                                        <!--begin::Toolbar-->
++                                        <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
++                                            <div class="d-flex justify-content-between">
++                                                <!--begin::Export-->
++                                                <a href="#" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
++                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
++                                                    <span class="svg-icon svg-icon-2">
++													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
++														<rect opacity="0.3" x="12.75" y="4.25" width="12" height="2" rx="1" transform="rotate(90 12.75 4.25)" fill="black" />
++														<path d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z" fill="black" />
++														<path d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z" fill="#C4C4C4" />
++													</svg>
++												</span>
++                                                    <!--end::Svg Icon-->Export
++                                                    <span class="svg-icon svg-icon-5 m-0">
++													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
++														<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
++													</svg>
++												</span>
++                                                </a>
++                                            </div>
++                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
++                                                <div class="menu-item px-3">
++                                                    <a href="#" class="menu-link px-3">
++														<span class="menu-icon">
++															<i class="la la-file-pdf-o"></i>
++														</span>PDF
++                                                    </a>
++                                                </div>
++                                                <div class="menu-item px-3">
++                                                    <a href="#" class="menu-link px-3">
++														<span class="menu-icon">
++															<i class="la la-file-excel-o"></i>
++														</span>Excel
++                                                    </a>
++                                                </div>
++                                            </div>
++                                            <!--end::Export-->
++                                        </div>
++                                        <!--end::Toolbar-->
++                                    </div>
++                                    <!--end::Card toolbar-->
++                                </div>
++                                <!--end::Card header-->
++                                <!--begin::Card body-->
++                                <div class="card-body pt-0">
++                                    <div class="table-responsive">
++                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
++                                            <!--begin::Table head-->
++                                            <thead>
++                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
++                                                <th class="min-w-10px">Sr No.</th>
++                                                <th class="min-w-75px">Client Name</th>
++                                                <th class="min-w-75px">Number</th>
++                                                <th class="min-w-75px">Whatsapp Number</th>
++                                            </tr>
++                                            </thead>
++                                            <tbody class="text-gray-600 fw-bold">
++                                            @can("role-read")
++                                                @php
++                                                    $i=1;
++                                                @endphp
++                                                @forelse ($freelancerClient as $client)
++                                                    <tr>
++                                                        <td>{{$i++}}</td>
++                                                        <td class="d-flex align-items-center">
++                                                            {{$client->name}}
++                                                        </td>
++                                                        <td>
++                                                            {{$client->number}}
++                                                        </td>
++                                                        <td>
++                                                            {{$client->wp_number}}
++                                                        </td>
++                                                    </tr>
++                                                @empty
++                                                    <tr>
++                                                        <td colspan="4">No Clients Found</td>
++                                                    </tr>
++                                                @endforelse
++                                            @else
++                                                <h1>Unauthorised</h1>
++                                            @endcan
++                                            <!--end::Table row-->
++                                            </tbody>
++                                            <!--end::Table body-->
++                                        </table>
++                                    </div>
++                                    <!--end::Table-->
++                                </div>
++                                <!--end::Card body-->
++                            </div>
++                            <!--end::Card-->
++                        </div>
++                        <!--end::Container-->
++                    </div>
++                    <!--end::Post-->
++                </div>
++                <!--end::Content-->
++                <!--begin::Footer-->
++            @include("footer")
++            <!--end::Footer-->
++            </div>
++            <!--end::Wrapper-->
++        </div>
++        <!--end::Page-->
++    </div>
++    <!--begin::Modals-->
++
++
++    <!--end::Modals-->
++    <!--begin::Scrolltop-->
++    <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
++        <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
++        <span class="svg-icon">
++            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
++                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" fill="black" />
++                <path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" fill="black" />
++            </svg>
++        </span>
++        <!--end::Svg Icon-->
++    </div>
++@endsection
+Index: resources/views/sidebar.blade.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!--begin::Aside-->\r\n<div id=\"kt_aside\" class=\"aside aside-dark aside-hoverable\" data-kt-drawer=\"true\" data-kt-drawer-name=\"aside\" data-kt-drawer-activate=\"{default: true, lg: false}\" data-kt-drawer-overlay=\"true\" data-kt-drawer-width=\"{default:'200px', '300px': '250px'}\" data-kt-drawer-direction=\"start\" data-kt-drawer-toggle=\"#kt_aside_mobile_toggle\">\r\n    <!--begin::Brand-->\r\n    <div class=\"aside-logo flex-column-auto\" id=\"kt_aside_logo\">\r\n        <!--begin::Logo-->\r\n        <a href=\"{{url(\"/\")}}\">\r\n            <img alt=\"Logo\" src=\"{{asset(\"assets/media/logos/logo-1-dark.svg\")}}\" class=\"h-25px logo\" />\r\n        </a>\r\n        <!--end::Logo-->\r\n        <!--begin::Aside toggler-->\r\n        <div id=\"kt_aside_toggle\" class=\"btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle\" data-kt-toggle=\"true\" data-kt-toggle-state=\"active\" data-kt-toggle-target=\"body\" data-kt-toggle-name=\"aside-minimize\">\r\n            <!--begin::Svg Icon | path: icons/duotune/arrows/arr079.svg-->\r\n            <span class=\"svg-icon svg-icon-1 rotate-180\">\r\n                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                    <path opacity=\"0.5\" d=\"M14.2657 11.4343L18.45 7.25C18.8642 6.83579 18.8642 6.16421 18.45 5.75C18.0358 5.33579 17.3642 5.33579 16.95 5.75L11.4071 11.2929C11.0166 11.6834 11.0166 12.3166 11.4071 12.7071L16.95 18.25C17.3642 18.6642 18.0358 18.6642 18.45 18.25C18.8642 17.8358 18.8642 17.1642 18.45 16.75L14.2657 12.5657C13.9533 12.2533 13.9533 11.7467 14.2657 11.4343Z\" fill=\"black\" />\r\n                    <path d=\"M8.2657 11.4343L12.45 7.25C12.8642 6.83579 12.8642 6.16421 12.45 5.75C12.0358 5.33579 11.3642 5.33579 10.95 5.75L5.40712 11.2929C5.01659 11.6834 5.01659 12.3166 5.40712 12.7071L10.95 18.25C11.3642 18.6642 12.0358 18.6642 12.45 18.25C12.8642 17.8358 12.8642 17.1642 12.45 16.75L8.2657 12.5657C7.95328 12.2533 7.95328 11.7467 8.2657 11.4343Z\" fill=\"black\" />\r\n                </svg>\r\n            </span>\r\n            <!--end::Svg Icon-->\r\n        </div>\r\n        <!--end::Aside toggler-->\r\n    </div>\r\n    <!--end::Brand-->\r\n    <!--begin::Aside menu-->\r\n    <div class=\"aside-menu flex-column-fluid\">\r\n        <!--begin::Aside Menu-->\r\n        <div class=\"hover-scroll-overlay-y my-5 my-lg-5\" id=\"kt_aside_menu_wrapper\" data-kt-scroll=\"true\" data-kt-scroll-activate=\"{default: false, lg: true}\" data-kt-scroll-height=\"auto\" data-kt-scroll-dependencies=\"#kt_aside_logo, #kt_aside_footer\" data-kt-scroll-wrappers=\"#kt_aside_menu\" data-kt-scroll-offset=\"0\">\r\n            <!--begin::Menu-->\r\n            <div class=\"menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500\" id=\"#kt_aside_menu\" data-kt-menu=\"true\">\r\n                <div class=\"menu-item\">\r\n                    <a class=\"menu-link @yield('dashboard')\" href=\"{{route('dashboard')}}\">\r\n                        <span class=\"menu-icon\">\r\n                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->\r\n                            <span class=\"svg-icon svg-icon-2\">\r\n                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                    <rect x=\"2\" y=\"2\" width=\"9\" height=\"9\" rx=\"2\" fill=\"black\" />\r\n                                    <rect opacity=\"0.3\" x=\"13\" y=\"2\" width=\"9\" height=\"9\" rx=\"2\" fill=\"black\" />\r\n                                    <rect opacity=\"0.3\" x=\"13\" y=\"13\" width=\"9\" height=\"9\" rx=\"2\" fill=\"black\" />\r\n                                    <rect opacity=\"0.3\" x=\"2\" y=\"13\" width=\"9\" height=\"9\" rx=\"2\" fill=\"black\" />\r\n                                </svg>\r\n                            </span>\r\n                            <!--end::Svg Icon-->\r\n                        </span>\r\n                        <span class=\"menu-title\">Dashboard</span>\r\n                    </a>\r\n                </div>\r\n                <div class=\"menu-item\">\r\n                    <a class=\"menu-link @yield('clients')\" href=\"{{route('clients')}}\">\r\n                        <span class=\"menu-icon\">\r\n                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->\r\n                            <span class=\"svg-icon svg-icon-2\">\r\n                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                    <path d=\"M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z\" fill=\"black\"></path>\r\n                                    <rect opacity=\"0.3\" x=\"8\" y=\"3\" width=\"8\" height=\"8\" rx=\"4\" fill=\"black\"></rect>\r\n                                </svg>\r\n                            </span>\r\n                            <!--end::Svg Icon-->\r\n                        </span>\r\n                        <span class=\"menu-title\">Client</span>\r\n                    </a>\r\n                </div>\r\n                <div class=\"menu-item\">\r\n                    <a class=\"menu-link @yield('roles')\" href=\"{{route('roles')}}\">\r\n                        <span class=\"menu-icon\">\r\n                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->\r\n                            <span class=\"svg-icon svg-icon-2\">\r\n                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                    <path d=\"M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z\" fill=\"black\"></path>\r\n                                    <rect opacity=\"0.3\" x=\"8\" y=\"3\" width=\"8\" height=\"8\" rx=\"4\" fill=\"black\"></rect>\r\n                                </svg>\r\n                            </span>\r\n                            <!--end::Svg Icon-->\r\n                        </span>\r\n                        <span class=\"menu-title\">Roles</span>\r\n                    </a>\r\n                </div>\r\n                <div class=\"menu-item\">\r\n                    <a class=\"menu-link @yield('users')\" href=\"{{route('users')}}\">\r\n                        <span class=\"menu-icon\">\r\n                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->\r\n                            <span class=\"svg-icon svg-icon-2\">\r\n                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                    <path d=\"M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z\" fill=\"black\"></path>\r\n                                    <rect opacity=\"0.3\" x=\"8\" y=\"3\" width=\"8\" height=\"8\" rx=\"4\" fill=\"black\"></rect>\r\n                                </svg>\r\n                            </span>\r\n                            <!--end::Svg Icon-->\r\n                        </span>\r\n                        <span class=\"menu-title\">Users</span>\r\n                    </a>\r\n                </div>\r\n{{--                <div class=\"menu-item\">--}}\r\n{{--                    <a class=\"menu-link @yield('analyst')\" href=\"{{route('analysts')}}\">--}}\r\n{{--                        <span class=\"menu-icon\">--}}\r\n{{--                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->--}}\r\n{{--                            <span class=\"svg-icon svg-icon-2\">--}}\r\n{{--                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">--}}\r\n{{--                                    <path d=\"M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z\" fill=\"black\"></path>--}}\r\n{{--                                    <rect opacity=\"0.3\" x=\"8\" y=\"3\" width=\"8\" height=\"8\" rx=\"4\" fill=\"black\"></rect>--}}\r\n{{--                                </svg>--}}\r\n{{--                            </span>--}}\r\n{{--                            <!--end::Svg Icon-->--}}\r\n{{--                        </span>--}}\r\n{{--                        <span class=\"menu-title\">Analysis</span>--}}\r\n{{--                    </a>--}}\r\n{{--                </div>--}}\r\n\r\n                <div data-kt-menu-trigger=\"click\" class=\"menu-item menu-accordion @yield('analysis')\">\r\n                    <span class=\"menu-link\">\r\n                        <span class=\"menu-icon\">\r\n                            <!--begin::Svg Icon | path: icons/duotune/communication/com013.svg-->\r\n                            <span class=\"svg-icon svg-icon-2\">\r\n                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                    <path d=\"M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z\" fill=\"black\" />\r\n                                    <rect opacity=\"0.3\" x=\"8\" y=\"3\" width=\"8\" height=\"8\" rx=\"4\" fill=\"black\" />\r\n                                </svg>\r\n                            </span>\r\n                            <!--end::Svg Icon-->\r\n                        </span>\r\n                        <span class=\"menu-title\">Analysis</span>\r\n                        <span class=\"menu-arrow\"></span>\r\n                    </span>\r\n                    <div class=\"menu-sub menu-sub-accordion menu-active-bg\">\r\n                        <div class=\"menu-item\">\r\n                            <a class=\"menu-link @yield('analysis.analysis')\" href=\"{{route('analysts')}}\">\r\n                                <span class=\"menu-bullet\">\r\n                                    <span class=\"bullet bullet-dot\"></span>\r\n                                </span>\r\n                                <span class=\"menu-title\">Analyst</span>\r\n                            </a>\r\n                        </div>\r\n                        <div class=\"menu-item\">\r\n                            <a class=\"menu-link @yield('analysis.monitor.data')\" href=\"{{route('viewMonitor')}}\">\r\n                                <span class=\"menu-bullet\">\r\n                                    <span class=\"bullet bullet-dot\"></span>\r\n                                </span>\r\n                                <span class=\"menu-title\">Monitor Data</span>\r\n                            </a>\r\n                        </div>\r\n                        <div class=\"menu-item\">\r\n                            <a class=\"menu-link @yield('analysis.report')\" href=\"{{route('report')}}\">\r\n                                <span class=\"menu-bullet\">\r\n                                    <span class=\"bullet bullet-dot\"></span>\r\n                                </span>\r\n                                <span class=\"menu-title\">Report</span>\r\n                            </a>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"menu-item\">\r\n                    <a class=\"menu-link @yield('freelancer')\" href=\"{{route('freelancerData')}}\">\r\n                        <span class=\"menu-icon\">\r\n                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->\r\n                            <span class=\"svg-icon svg-icon-2\">\r\n                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                    <path d=\"M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z\" fill=\"black\"></path>\r\n                                    <rect opacity=\"0.3\" x=\"8\" y=\"3\" width=\"8\" height=\"8\" rx=\"4\" fill=\"black\"></rect>\r\n                                </svg>\r\n                            </span>\r\n                            <!--end::Svg Icon-->\r\n                        </span>\r\n                        <span class=\"menu-title\">Freelancer</span>\r\n                    </a>\r\n                </div>\r\n\r\n                <div class=\"menu-item\">\r\n                    <a class=\"menu-link @yield('analysis.monitor')\" href=\"{{route('viewMonitorData')}}\">\r\n                        <span class=\"menu-icon\">\r\n                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->\r\n                            <span class=\"svg-icon svg-icon-2\">\r\n                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                    <path d=\"M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z\" fill=\"black\"></path>\r\n                                    <rect opacity=\"0.3\" x=\"8\" y=\"3\" width=\"8\" height=\"8\" rx=\"4\" fill=\"black\"></rect>\r\n                                </svg>\r\n                            </span>\r\n                            <!--end::Svg Icon-->\r\n                        </span>\r\n                        <span class=\"menu-title\">Monitor</span>\r\n                    </a>\r\n                </div>\r\n\r\n                <div data-kt-menu-trigger=\"click\" class=\"menu-item menu-accordion @yield('accordion')\">\r\n                    <span class=\"menu-link\">\r\n                        <span class=\"menu-icon\">\r\n                            <!--begin::Svg Icon | path: icons/duotune/communication/com013.svg-->\r\n                            <span class=\"svg-icon svg-icon-2\">\r\n                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                    <path d=\"M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z\" fill=\"black\" />\r\n                                    <rect opacity=\"0.3\" x=\"8\" y=\"3\" width=\"8\" height=\"8\" rx=\"4\" fill=\"black\" />\r\n                                </svg>\r\n                            </span>\r\n                            <!--end::Svg Icon-->\r\n                        </span>\r\n                        <span class=\"menu-title\">Settings</span>\r\n                        <span class=\"menu-arrow\"></span>\r\n                    </span>\r\n                    <div class=\"menu-sub menu-sub-accordion menu-active-bg\">\r\n                        <div class=\"menu-item\">\r\n                            <a class=\"menu-link @yield('settings.users')\" href=\"{{route('viewUsersAccountType')}}\">\r\n                                <span class=\"menu-bullet\">\r\n                                    <span class=\"bullet bullet-dot\"></span>\r\n                                </span>\r\n                                <span class=\"menu-title\">Users Account Type</span>\r\n                            </a>\r\n                        </div>\r\n                        <div class=\"menu-item\">\r\n                            <a class=\"menu-link @yield('settings.clients')\" href=\"{{route('viewClientsProfession')}}\">\r\n                                <span class=\"menu-bullet\">\r\n                                    <span class=\"bullet bullet-dot\"></span>\r\n                                </span>\r\n                                <span class=\"menu-title\">Client Profession</span>\r\n                            </a>\r\n                        </div>\r\n                        <div class=\"menu-item\">\r\n                            <a class=\"menu-link @yield('settings.clients.broker')\" href=\"{{route('viewClientsBroker')}}\">\r\n                                <span class=\"menu-bullet\">\r\n                                    <span class=\"bullet bullet-dot\"></span>\r\n                                </span>\r\n                                <span class=\"menu-title\">Client Broker</span>\r\n                            </a>\r\n                        </div>\r\n                        <div class=\"menu-item\">\r\n                            <a class=\"menu-link @yield('settings.clients.bank_details')\" href=\"{{route('viewClientsBanks')}}\">\r\n                                <span class=\"menu-bullet\">\r\n                                    <span class=\"bullet bullet-dot\"></span>\r\n                                </span>\r\n                                <span class=\"menu-title\">bank details</span>\r\n                            </a>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n\r\n                <div data-kt-menu-trigger=\"click\" class=\"menu-item menu-accordion @yield('trading')\">\r\n                    <span class=\"menu-link\">\r\n                        <span class=\"menu-icon\">\r\n                            <span class=\"svg-icon svg-icon-2\">\r\n                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                    <path d=\"M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z\" fill=\"black\" />\r\n                                    <rect opacity=\"0.3\" x=\"8\" y=\"3\" width=\"8\" height=\"8\" rx=\"4\" fill=\"black\" />\r\n                                </svg>\r\n                            </span>\r\n                        </span>\r\n                        <span class=\"menu-title\">Trading</span>\r\n                        <span class=\"menu-arrow\"></span>\r\n                    </span>\r\n                    <div class=\"menu-sub menu-sub-accordion menu-active-bg\">\r\n                        <div class=\"menu-item\">\r\n                            <a class=\"menu-link @yield('calls')\" href=\"{{route('calls')}}\">\r\n                                <span class=\"menu-bullet\">\r\n                                    <span class=\"bullet bullet-dot\"></span>\r\n                                </span>\r\n                                <span class=\"menu-title\">Trade</span>\r\n                            </a>\r\n                        </div>\r\n                        <div class=\"menu-item\">\r\n                             <a class=\"menu-link @yield('trader')\" href=\"{{route('viewTrader')}}\">\r\n                                <span class=\"menu-bullet\">\r\n                                    <span class=\"bullet bullet-dot\"></span>\r\n                                </span>\r\n                                <span class=\"menu-title\">Trader Data</span>\r\n                            </a>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <!--div class=\"menu-item\">\r\n                    <a class=\"menu-link @yield('trader')\" href=\"{{route('viewTrader')}}\">\r\n                        <span class=\"menu-icon\">\r\n                            <span class=\"svg-icon svg-icon-2\">\r\n                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\r\n                                    <path d=\"M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z\" fill=\"black\"></path>\r\n                                    <rect opacity=\"0.3\" x=\"8\" y=\"3\" width=\"8\" height=\"8\" rx=\"4\" fill=\"black\"></rect>\r\n                                </svg>\r\n                            </span>\r\n                        </span>\r\n                        <span class=\"menu-title\">Trader</span>\r\n                    </a>\r\n                </div-->\r\n            </div>\r\n            <!--end::Menu-->\r\n        </div>\r\n        <!--end::Aside Menu-->\r\n    </div>\r\n    <!--end::Aside menu-->\r\n</div>\r\n<!--end::Aside-->\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/resources/views/sidebar.blade.php b/resources/views/sidebar.blade.php
+--- a/resources/views/sidebar.blade.php	(revision c6a0857fe61094ff08c2f4bb8835e29fc5eed08e)
++++ b/resources/views/sidebar.blade.php	(date 1646888211801)
+@@ -164,6 +164,22 @@
+                     </a>
+                 </div>
+ 
++                <div class="menu-item">
++                    <a class="menu-link @yield('channelPartner')" href="{{route('channelPartnerData')}}">
++                        <span class="menu-icon">
++                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
++                            <span class="svg-icon svg-icon-2">
++                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
++                                    <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="black"></path>
++                                    <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="black"></rect>
++                                </svg>
++                            </span>
++                            <!--end::Svg Icon-->
++                        </span>
++                        <span class="menu-title">Channel Partner</span>
++                    </a>
++                </div>
++
+                 <div class="menu-item">
+                     <a class="menu-link @yield('analysis.monitor')" href="{{route('viewMonitorData')}}">
+                         <span class="menu-icon">

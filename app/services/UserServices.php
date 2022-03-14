@@ -7,6 +7,7 @@ use App\Models\UserNumbers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Services\CommonService;
+use App\Services\RoleServices;
 class UserServices
 {
     public static function clients($request)
@@ -64,12 +65,23 @@ class UserServices
         $user_data['prime_renewal_client_percentage'] = isset($request->prime_renewal_client_percentage) ? $request->prime_renewal_client_percentage : null;
         $user_data['ams_limit'] = isset($request->limit) ? $request->limit : null;
         $user_data['fees_percentage'] = isset($request->fees_percentage) ? $request->fees_percentage : null;
-        $user = User::create($user_data);
 
+        // check permissions
+        $direct_permissions=[];
+        if(isset($user_data['role']) && trim($user_data['role'])!=""){
+            $role_permissions = RoleServices::getRoleByName($user_data['role']);
+            $role_permissions = $role_permissions->permissions->pluck('name')->toArray();
+            $direct_permissions = array_diff($role_permissions,$user_data['permissions']);
+        }
+        $user = User::create($user_data);
         $user->assignRole($request->role);
         $numbers = $request->number;
         foreach($numbers as $number){
             UserNumbers::create(["user_id"=>$user->id, "number"=>$number,"updated_by"=>Auth::id()]);
+        }
+        // revoke permissions
+        foreach($direct_permissions as $permission){
+            $user->revokePermissionTo($permission);
         }
         return $user->id;
     }
@@ -82,34 +94,34 @@ class UserServices
     }
     public static function update($request,$id){
 
-        try {
-            self::validateUsersData($request);
-            $request->validate([
-                "email"=>"required|email",
-                "account_number"=>"required|numeric",
-            ]);
-            $user_data = $request->except(['_token',"number"]);
-            // remove old numbers
-            UserNumbers::where("user_id",$id)->delete();
-            // add new numbers
-            foreach($request->number as $number){
-                if($number){
-                    UserNumbers::create(["user_id"=>$id, "number"=>$number,"updated_by"=>Auth::id()]);
-                }
+        self::validateUsersData($request);
+        $request->validate([
+            "email"=>"required|email",
+            "account_number"=>"required|numeric",
+        ]);
+        $user_data = $request->except(['_token',"number","permissions"]);
+        // remove old numbers
+        UserNumbers::where("user_id",$id)->delete();
+        // add new numbers
+        foreach($request->number as $number){
+            if($number){
+                UserNumbers::create(["user_id"=>$id, "number"=>$number,"updated_by"=>Auth::id()]);
             }
-
-			$userRoles = implode(",", $request->role);
-            $user_data['role'] = $userRoles;
-            $user_data['updated_by'] = Auth::id();
-
-            User::where("id",$id)->update($user_data);
-            // update role
-            $user = User::find($id);
-            $user->syncRoles($request->role);
-            return UserServices::user($id);
-        } catch (\Throwable $th) {
-            return false;
         }
+
+        $userRoles = implode(",", $request->role);
+        $user_data['role'] = $userRoles;
+        $user_data['updated_by'] = Auth::id();
+
+        User::where("id",$id)->update($user_data);
+        // update role
+        $user = User::find($id);
+        $user->syncRoles($request->role);
+        return UserServices::user($id);
+        // try {
+        // } catch (\Throwable $th) {
+        //     return false;
+        // }
     }
     public static function delete($id){
         User::where("id",$id)->delete();

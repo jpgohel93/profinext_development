@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\RoleServices;
 use Illuminate\Support\Facades\Redirect;
+use App\Services\CommonService;
 class RolesController extends Controller
 {
     function __construct()
     {
         $this->middleware('permission:role-create', ['only' => ['createRole', 'addRolesForm']]);
         $this->middleware('permission:role-write', ['only' => ['editRoleForm', 'editRoleForm']]);
-        $this->middleware('permission:role-read', ['only' => ['view', 'view']]);
+        $this->middleware('permission:role-read', ['only' => ['view', 'getPermissions']]);
         $this->middleware('permission:role-delete', ['only' => ['removeRole']]);
     }
     public function view(Request $request){
@@ -38,5 +39,10 @@ class RolesController extends Controller
     public function removeRole(Request $request,$id){
         RoleServices::remove($id);
         return Redirect::route("roles")->with("info","Role removed successfully");
+    }
+    public function getPermissions(Request $request,$role){
+        $permissions = RoleServices::getPermissions($role);
+        $allPermissions = RoleServices::permissions();
+        return CommonService::ajaxResponse(200,["permissions"=>$permissions,"all_permissions"=>$allPermissions],"success");
     }
 }

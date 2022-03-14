@@ -173,7 +173,6 @@
 
 										</div>
 									</div>
-
 									<!--begin::Actions-->
 									<div class="d-flex flex-stack pt-10">
 										<!--begin::Wrapper-->

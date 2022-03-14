@@ -80,6 +80,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post("/role/edit/{id}",[RolesController::class, "editRole"])->name("editRole");
     // remove role
     Route::get("/role/remove/{id}",[RolesController::class, "removeRole"])->name("removeRole");
+    // get permissions for role
+    Route::get("/permissionByRole/{role}",[RolesController::class, "getPermissions"])->name("permissionByRole");
+
 
     // list analyst
     Route::get("/analyst", [AnalystController::class, "view"])->name("analysts");

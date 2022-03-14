@@ -281,7 +281,7 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" {{(old('user_type')== 1?"checked":old('user_type')!=2?"checked":"")}} value="1">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" {{(old('user_type')== 1?"checked":(old('user_type')!=2?"checked":""))}} value="1">
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
@@ -307,7 +307,7 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" {{(old('user_type')== 2?"checked":old('user_type')!=1?"checked":"")}} value="2">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" {{(old('user_type')== 2?"checked":(old('user_type')!=1?"checked":""))}} value="2">
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
@@ -471,7 +471,7 @@
                                                 <!--end::Input group-->
                                             </div>
 
-                                            <div class="row" id="employeeDiv" style="display:{{(old('user_type')==2)?"flex":old('user_type')!=1?"flex":"none"}};">
+                                            <div class="row" id="employeeDiv" style="display:{{(old('user_type')==2)?"flex":(old('user_type')!=1?"flex":"none")}};">
 
                                                 <!--begin::Input group-->
 												<div class="col-md-6 mb-5">
@@ -652,7 +652,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-                                                    <select name="role[]" id="user_role" aria-label="Select a role" multiple class="form-control" data-placeholder="Select Role">
+                                                    <select name="role[]" id="user_role" aria-label="Select a role" class="form-control" data-placeholder="Select Role">
                                                         <option></option>
 														@forelse ($roles as $role)
                                                         	<option value="{{$role->name}}" {{old('role')==$role->name?"selected":""}}>{{$role->name}}</option>
@@ -661,6 +661,8 @@
 														@endforelse
                                                     </select>
 													<!--end::Input-->
+												</div>
+												<div class="col-12" id="manual_permission">
 												</div>
 												<!--end::Input group-->
                                             </div>
@@ -2668,6 +2670,92 @@
                         $("#profit_company_2").hide();
                     }
                 });
+				const getPermissionByRole = async role =>{
+					let permissions = null;
+					let allpermissions = null;
+					if(typeof role == "string" && role != ""){
+						await $.ajax(`/permissionByRole/${role}`,{
+							type: "GET",
+						})
+						.done(data=>{
+							if(data.status == 200 && data.data!=""){
+								permissions = data.data.permissions;
+								allpermissions = data.data.all_permissions;
+							}else{
+								window.alert(`Unable to get permissions for ${role} Role`);
+							}
+						})
+					}
+					// getPermissionByRole.resolve(permissions,allpermissions)
+					return {permissions:permissions,allpermissions:allpermissions};
+				};
+				// on role change
+				$(document).on("change", "#user_role",function(e){
+					const role = $(this).val();
+					if(role){
+						$("#manual_permission").html("");
+						const modules = ["Client","Role","User","Analysis","Call","Trader","Monitor"];
+						let module_index = 0;
+						getPermissionByRole(role).then((response)=>{
+							if(typeof response['permissions'] != null){
+								let html = `
+									<div class="row">
+										<div class="col-12">
+											<h4>${role}</h4>
+										</div>
+										<div class="col-12">`;
+											html += `
+												<div class="row">
+													<div class="col-md-4">
+														<label>Module</label>
+													</div>
+													<div class="col-md-2">
+														<label>Read</label>
+													</div>
+													<div class="col-md-2">
+														<label>Write</label>
+													</div>
+													<div class="col-md-2">
+														<label>Create</label>
+													</div>
+													<div class="col-md-2">
+														<label>Delete</label>
+													</div>
+												</div>
+											`;
+											response['allpermissions'].forEach((value,key)=>{
+												if(key%4==0){
+													if(modules[module_index]){
+														html+=` <div class='row form-check form-check-custom form-check-solid my-2'>
+																	<div class="col-md-4">
+																		<label>${modules[module_index]}</label>
+																	</div>`;
+																module_index++;
+																html +=`	
+																<div class="col-md-2">
+																	<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key].name}' ${($.inArray(response['allpermissions'][key].name, response['permissions']) !== -1)?"checked":""}>
+																</div>
+																<div class="col-md-2">
+																	<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key+1].name}' ${($.inArray(response['allpermissions'][key+1].name, response['permissions']) !== -1)?"checked":""}>
+																</div>
+																<div class="col-md-2">
+																	<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key+2].name}' ${($.inArray(response['allpermissions'][key+2].name, response['permissions']) !== -1)?"checked":""}>
+																</div>
+																<div class="col-md-2">
+																	<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key+3].name}' ${($.inArray(response['allpermissions'][key+3].name, response['permissions']) !== -1)?"checked":""}>
+																</div>
+															</div>`;
+													}
+												}
+											})
+								html += `</div></div>`;
+								// display permissions
+								$("#manual_permission").append(html);
+							}
+							module_index=0;
+						});
+					}
+				})
 			</script>
 		@endsection
 @endsection

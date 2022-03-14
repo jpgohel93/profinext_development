@@ -44,7 +44,10 @@ class UserController extends Controller
             return Redirect::route("users")->with("info", "User not found");
         $roles = RoleServices::all();
         $account_types = AccountTypeServices::view(['id', 'account_type']);
-        return view("users.edit",["user"=>$user,"roles"=>$roles,"account_types"=>$account_types]);
+        $permissions = $user->permissions->pluck("name")->toArray();
+        $rolePermissions = RoleServices::getPermissions($user->role);
+        $all_permissions = RoleServices::permissions()->pluck("name")->toArray();
+        return view("users.edit",["user"=>$user,"roles"=>$roles,"account_types"=>$account_types,"permissions"=>$permissions,"rolePermissions"=>$rolePermissions,"all_permissions"=>$all_permissions]);
     }
 
     public function assignTraderRoles(Request $request)
@@ -86,11 +89,31 @@ class UserController extends Controller
         $request['prime_renewal_client_percentage'] = isset($request->prime_renewal_client_percentage) ? $request->prime_renewal_client_percentage : null;
         $request['ams_limit'] = isset($request->limit) ? $request->limit : null;
         $request['fees_percentage'] = isset($request->fees_percentage) ? $request->fees_percentage : null;
+        $userRoles = implode(",", $request->role);
         unset($request["profit_company_1"]);
         unset($request["profit_company_2"]);
         unset($request["company_1"]);
         unset($request["company_2"]);
         unset($request["limit"]);
+        // check permissions
+        $direct_permissions=[];
+        if(isset($request->role) && trim($request->role[0])!="" && isset($request->permissions)){
+            // $role_permissions = RoleServices::getRoleByName($request->role[0]);
+            // $role_permissions = $role_permissions->permissions->pluck('name')->toArray();
+            $role_permissions = RoleServices::permissions()->pluck("name")->toArray();
+            $direct_permissions = array_diff($role_permissions,$request->permissions);
+        }
+        // revoke permissions
+        $user = UserServices::user($id);
+        $param = array();
+        foreach($role_permissions as $permission){
+            if(!in_array($permission,$direct_permissions)){
+                array_push($param,$permission);
+                // $user->givePermissionTo($permission);
+            }
+        }
+        // dd($param);
+        $user->syncPermissions($param);
         $user = UserServices::update($request,$id);
         if (!$user)
             return Redirect::route("users")->with("info", "Unable to update user");

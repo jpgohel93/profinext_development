@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+
 class RoleServices
 {
     public static function create($request)
@@ -42,6 +43,10 @@ class RoleServices
         $role = Role::where("id",$id)->first();
         return ($role)?$role: CommonService::throwError("Role not found");
     }
+    public static function getRoleByName($role){
+        $role = Role::findByName($role);
+        return ($role)?$role: CommonService::throwError("Role not found");
+    }
     public static function permissionsByRole($id){
         $role = Role::where("id",$id)->first();
         return $role->permissions->pluck("id")->toArray();
@@ -66,5 +71,11 @@ class RoleServices
             CommonService::throwError("Unable to update this role");
         }
 
+    }
+    public static function getPermissions($role){
+        $permissions = Role::findByName($role)->permissions->pluck("name");
+        return $permissions->toArray();
+        // get collection
+        // return $role->permissions;
     }
 }
