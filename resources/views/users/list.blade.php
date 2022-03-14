@@ -110,10 +110,11 @@
 											<!--begin::Info-->
 											<div class="d-flex justify-content-between mt-4">
 												<!--begin::Col-->
+                                                @if($user->user_type==1 && $user->deleted_at==null)
 												<div class="">
 													<!--begin::Option-->
 													<input type="checkbox" class="btn-check" name="account_type" value="partner" {{($user->user_type==1 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_partner">
-													<label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center mb-10 p-0" for="kt_create_account_form_account_type_partner" style="width: min-content;">
+													<label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_partner">
 														<!--begin::Info-->
 														Partner
 														{{-- <span class="d-block fw-bold text-start">
@@ -122,13 +123,15 @@
 														<!--end::Info-->
 													</label>
 													<!--end::Option-->
-												<div class="fv-plugins-message-container invalid-feedback"></div></div>
+												<div class=""></div></div>
+                                                @endif
 												<!--end::Col-->
 												<!--begin::Col-->
+                                                @if($user->user_type==2 && $user->deleted_at==null)
 												<div class="">
 													<!--begin::Option-->
 													<input type="checkbox" class="btn-check" name="account_type" value="employee" {{($user->user_type==2 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
-													<label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee" style="width: min-content;">
+													<label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">
 														<!--begin::Info-->
 														Employee
 														<!-- <span class="d-block fw-bold text-start">
@@ -138,12 +141,14 @@
 													</label>
 													<!--end::Option-->
 												</div>
+                                            @endif
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
+                                                @if($user->user_type==3 && $user->deleted_at==null)
                                                 <div class="">
                                                     <!--begin::Option-->
                                                     <input type="checkbox" class="btn-check" name="account_type" value="employee" {{($user->user_type==3 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
-                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee" style="width: min-content;">
+                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">
                                                         <!--begin::Info-->
                                                         Channel Partner
                                                         <!-- <span class="d-block fw-bold text-start">
@@ -153,14 +158,16 @@
                                                     </label>
                                                     <!--end::Option-->
                                                 </div>
+                                            @endif
                                                 <!--end::Col-->
                                             </div>
                                             <div class="d-flex justify-content-between mt-4">
                                                 <!--begin::Col-->
+                                                @if($user->user_type==4 && $user->deleted_at==null)
                                                 <div class="">
                                                     <!--begin::Option-->
                                                     <input type="checkbox" class="btn-check" name="account_type" value="employee" {{($user->user_type==4 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
-                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee" style="width: min-content;">
+                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">
                                                         <!--begin::Info-->
                                                         Freelancer AMS
                                                         <!-- <span class="d-block fw-bold text-start">
@@ -170,12 +177,14 @@
                                                     </label>
                                                     <!--end::Option-->
                                                 </div>
+                                            @endif
                                                 <!--end::Col-->
                                                 <!--begin::Col-->
+                                                @if($user->user_type==5 && $user->deleted_at==null)
                                                 <div class="">
                                                     <!--begin::Option-->
                                                     <input type="checkbox" class="btn-check" name="account_type" value="employee" {{($user->user_type==5 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
-                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee" style="width: min-content;">
+                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">
                                                         <!--begin::Info-->
                                                         Freelancer Prime
                                                         <!-- <span class="d-block fw-bold text-start">
@@ -185,13 +194,15 @@
                                                     </label>
                                                     <!--end::Option-->
                                                 </div>
+                                            @endif
                                                 <!--end::Col-->
 
 												<!--begin::Col-->
+                                                @if($user->deleted_at!=null)
 												<div class="">
 													<!--begin::Option-->
 													<input type="checkbox" class="btn-check" name="account_type" value="terminated" {{($user->deleted_at!=null)?"checked":""}} id="kt_create_account_form_account_type_terminated">
-													<label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_terminated" style="width: min-content;">
+													<label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_terminated">
 														<!--begin::Info-->
 														Terminated
 														<!-- <span class="d-block fw-bold text-start">
@@ -201,6 +212,7 @@
 													</label>
 													<!--end::Option-->
 												</div>
+                                            @endif
 												<!--end::Col-->
 											</div>
 											<!--end::Info-->

@@ -40,7 +40,7 @@ class AnalystController extends Controller
                     $totalProfitCall = $totalProfitCall + 1;
                 }
 
-                if(($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
                     $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
                     $totalReward = $totalReward + $reward;
                 }
@@ -66,7 +66,7 @@ class AnalystController extends Controller
                 if($pl > 0){
                     $totalProfitCall = $totalProfitCall + 1;
                 }
-                if(($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
                     $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
                     $totalReward = $totalReward + $reward;
                 }
@@ -91,7 +91,7 @@ class AnalystController extends Controller
                 if($pl > 0){
                     $totalProfitCall = $totalProfitCall + 1;
                 }
-                if(($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
                     $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
                     $totalReward = $totalReward + $reward;
                 }
@@ -116,7 +116,7 @@ class AnalystController extends Controller
                 if($pl > 0){
                     $totalProfitCall = $totalProfitCall + 1;
                 }
-                if(($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
                     $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
                     $totalReward = $totalReward + $reward;
                 }
@@ -141,7 +141,7 @@ class AnalystController extends Controller
                 if($pl > 0){
                     $totalProfitCall = $totalProfitCall + 1;
                 }
-                if(($monitorCall['entry_price'] != $monitorCall['sl'])) {
+                if(($monitorCall['entry_price'] != $monitorCall['exit_price']) && ($monitorCall['entry_price'] != $monitorCall['sl'])) {
                     $reward = (-($monitorCall['entry_price'] - $monitorCall['exit_price']) * $monitorCall['exit_price']) / (($monitorCall['entry_price'] - $monitorCall['sl']) * $monitorCall['exit_price']);
                     $totalReward = $totalReward + $reward;
                 }

@@ -8,8 +8,9 @@
             <!--begin::Content-->
             <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
                 <!--begin::Logo-->
-                <a href="{{route('dashboard')}}" class="mb-12">
-                    <img alt="Logo" src="{{asset('assets/media/logos/logo-1.svg')}}" class="h-40px" />
+                <a href="{{route('dashboard')}}" class="mb-12" style="color: #0b0b10;">
+{{--                    <img alt="Logo" src="{{asset('assets/media/logos/logo-1.svg')}}" class="h-40px" />--}}
+                    <h1>ProfiNext</h1>
                 </a>
                 <!--end::Logo-->
                 <!--begin::Wrapper-->
@@ -67,7 +68,7 @@
                                 <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>
-                            <!--end::Submit button--> 
+                            <!--end::Submit button-->
                         </div>
                         <!--end::Actions-->
                     </form>
@@ -81,7 +82,7 @@
                 <!--begin::Links-->
                 <div class="d-flex align-items-center fw-bold fs-6">
                     <a href="https://keenthemes.com" class="text-muted text-hover-primary px-2">About</a>
-                    <a href="mailto:support@keenthemes.com" class="text-muted text-hover-primary px-2">Contact</a>
+{{--                    <a href="mailto:support@keenthemes.com" class="text-muted text-hover-primary px-2">Contact</a>--}}
                     <a href="https://1.envato.market/EA4JP" class="text-muted text-hover-primary px-2">Contact Us</a>
                 </div>
                 <!--end::Links-->
