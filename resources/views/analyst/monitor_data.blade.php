@@ -20,7 +20,11 @@
                         <div class="container">
                             <h6 class="alert alert-info">{{session("info")}}</h6>
                         </div>
-                @endif
+                    @elseif($errors->any())
+                        <div class="container">
+                            <h6 class="alert alert-danger">{{$errors->first()}}</h6>
+                        </div>
+                    @endif
                 <!--begin::Toolbar-->
                     <div class="toolbar" id="kt_toolbar">
                         <!--begin::Container-->
@@ -376,6 +380,9 @@
                                                                         <a data-monitor_id="{{ $monitor->id }}" class="menu-link p-1 deleteCall">
                                                                             <i class="fa fa-trash text-dark fa-2x"></i>
                                                                         </a>
+                                                                        <a data-monitor_id="{{ $monitor->id }}" class="menu-link p-1 updateCall">
+                                                                            <i class="fa fa-close text-dark fa-2x"></i>
+                                                                        </a>
                                                                     </td>
 
                                                                 </tr>
@@ -692,6 +699,66 @@
 			</form>
 		</div>
 	</div>
+	<div class="modal fade" id="closeCallMdl" tabindex="-1" aria-hidden="true" data-backdrop="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<form id="closeCallFrm" class="form" method="POST" action="{{route('closeMonitorData')}}">
+				@csrf
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="fw-bolder">Close Call</h2>
+						<button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+							<span class="svg-icon svg-icon-1">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+									<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+								</svg>
+							</span>
+						</button>
+					</div>
+
+					<div class="modal-body mx-md-10">
+						<input type="hidden" name="call_id" id="call_id" value="">
+						<input type="hidden" name="status" value="close">
+
+						<div class="row mb-12">
+                            <!--begin::Col-->
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Exit Price : </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                </label>
+                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="exit_price" id="exit_price" placeholder="Exit Price" value="{{old('exit_price')}}" />
+                            </div>
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Exit Time : </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                </label>
+								<select name="exit_time" class="form-select form-select-solid" id="exit_time" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
+									<option value="yes" {{old('exit_time')=="yes"?"selected":""}}>Yes</option>
+									<option value="no" {{old('exit_time')=="no"?"selected":""}}>No</option>
+								</select>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+
+					</div>
+
+					<div class="modal-footer text-center">
+						<p id="err_msg"></p>
+						<button type="button" class="btn btn-primary" id="closeModel">
+							<span class="indicator-label">Cancel</span>
+						</button>
+						<button type="submit" id="closeCall" class="btn btn-primary">
+							<span class="indicator-label">Save</span>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 
     <!--end::Modals-->
     <!--begin::Scrolltop-->
@@ -869,5 +936,35 @@
             });
         }
     });
+    
+    $(document).on("click", ".updateCall", function() {
+        const edit_id = $(this).data("monitor_id");
+        $("#call_id").val(edit_id);
+        $("#closeCallMdl").modal("show");         
+    });
+    // $("#closeCall").on("click",function(){
+    //     const edit_id = $("#call_id").val(edit_id);
+    //     const exit_time = $("#exit_time").val();
+    //     const exit_price = $("#exit_price").val();
+
+	// 	$.ajax({
+	// 		type: 'POST',
+	// 		url: "{{ route('closeMonitorData') }}",
+	// 		data: {id : edit_id,exit_time : exit_time,exit_price : exit_price},
+	// 		dataType: 'json',
+	// 		headers: {
+	// 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	// 		},
+	// 		success: function(data) {
+    //             console.log(data);
+	// 			// $("#editCallMdl .modal-dialog").html(data.message);
+	// 			$("#closeCall").modal("show");
+	// 		},
+	// 		error: function(data) {
+	// 			alert("There is an error, Please try again.");
+	// 			//location.reload(true);
+	// 		}
+	// 	});
+    // })
 	</script>
 @endsection

@@ -491,6 +491,11 @@ class AnalystController extends Controller
         return true;
     }
 
+    public function closeMonitorData(Request $request){
+        MonitorDataServices::close($request);
+        return Redirect::route('viewMonitorData')->with("info", "Call has been updated succesfully.");
+    }
+
     public function report(){
         return view("analyst.report");
     }

@@ -107,6 +107,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/monitor_call_edit", [AnalystController::class, "editMonitorData"])->name("editMonitorData");
     Route::get("/report", [AnalystController::class, "report"])->name("report");
     Route::POST("/monitor_call_delete", [AnalystController::class, "deleteMonitorData"])->name("deleteMonitorData");
+    Route::POST("/monitor_call_close", [AnalystController::class, "closeMonitorData"])->name("closeMonitorData");
 
 
     // list calls

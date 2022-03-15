@@ -100,4 +100,15 @@ class MonitorDataServices{
     public static function remove($id){
         return MonitorData::where("id",$id)->delete();
     }
+    public static function close($request){
+        $request->validate([
+            "call_id"=>"required",
+            "status"=>"required",
+            "exit_price"=>"required",
+            "exit_time"=>"required",
+        ]);
+        $call = $request->except(["call_id","_token"]);
+        // dd($request);
+        return MonitorData::where("id",$request->call_id)->update($call);
+    }
 }
