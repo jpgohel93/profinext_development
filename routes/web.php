@@ -30,7 +30,7 @@ Route::post("/register",[RegisterController::class,"register"])->name("registerU
 Route::get("/reset",function(){
     return view("auth.reset-password");
 })->name("resetPassword");
-Route::post("/checkUser",[LoginController::class,"checkUser"])->name("checkUser");
+Route::post("/checkUser",[RegisterController::class,"checkUser"])->name("checkUser");
 Route::post("/reset",[RegisterController::class,"resetPassword"])->name("resetPassword");
 
 
@@ -106,6 +106,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/monitor_call_edit_data", [AnalystController::class, "editMonitorDataForm"])->name("editMonitorDataForm");
     Route::POST("/monitor_call_edit", [AnalystController::class, "editMonitorData"])->name("editMonitorData");
     Route::get("/report", [AnalystController::class, "report"])->name("report");
+    Route::POST("/monitor_call_delete", [AnalystController::class, "deleteMonitorData"])->name("deleteMonitorData");
 
 
     // list calls

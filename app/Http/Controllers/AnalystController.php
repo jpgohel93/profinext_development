@@ -263,6 +263,8 @@ class AnalystController extends Controller
             }
         }
 
+        $analysts = Analyst::where("id",$request->analysts_id)->first();
+
 		$main = MonitorData::create([
             'monitor_id'	=> $auth_user->id,
             'analysts_id'   => $request->analysts_id,
@@ -274,6 +276,7 @@ class AnalystController extends Controller
             'buy_sell' 		=> $request->buy_sell,
             'sl' 			=> $request->sl,
             'status' 		=> "open",
+            'analyst_status' => $analysts->status,
             'created_by' 	=> Auth::id()
         ]);
 
@@ -481,6 +484,11 @@ class AnalystController extends Controller
     public function editAnalystAssignTo(Request $request){
         AnalystServices::updateAssignTo($request);
         return Redirect::route('viewMonitor')->with("info", "Analyst has been Updated");
+    }
+
+    public function deleteMonitorData(Request $request){
+        MonitorDataServices::remove($request->id);
+        return true;
     }
 
     public function report(){

@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Services\CommonService;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Redirect;
 
 class registerServices{
     public static function register($request){
@@ -37,5 +37,14 @@ class registerServices{
             return false;
         else
             return true;
+    }
+
+    public static function updatePassword($request){
+        try{
+            $data['password'] = Hash::make($request->password);
+            return User::where("email",$request->email)->update($data);
+        } catch (\Throwable $th) {
+            CommonService::throwError("Unable to update this password");
+        }
     }
 }

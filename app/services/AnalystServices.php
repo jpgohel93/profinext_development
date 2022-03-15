@@ -3,6 +3,7 @@
 namespace App\Services;
 use App\Models\Analyst;
 use App\Models\AnalystNumbers;
+use App\Models\Keyword;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CommonService;
 class AnalystServices{

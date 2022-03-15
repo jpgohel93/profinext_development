@@ -11,7 +11,7 @@ class MonitorDataServices{
 	{
 		$auth_user = Auth::user();
 		$explRole = explode(",", $auth_user->role);
-		
+
 		if(in_array("super-admin", $explRole)) {
 			$monitorData['open'] = MonitorData::where("status", "open")->get();
 			$monitorData['close'] = MonitorData::where("status", "close")->get();
@@ -95,5 +95,9 @@ class MonitorDataServices{
 
     public static function getAnalystCallData($id){
         return MonitorData::where("status","close")->where("analysts_id",$id)->get();
+    }
+
+    public static function remove($id){
+        return MonitorData::where("id",$id)->delete();
     }
 }

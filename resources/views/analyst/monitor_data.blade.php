@@ -355,7 +355,7 @@
                                                                 <th class="min-w-75px">Script Name</th>
                                                                 <th class="min-w-75px">Entry Price</th>
                                                                 <th class="min-w-75px">Target</th>
-                                                                <th class="text-end min-w-100px">Actions</th>
+                                                                <th class="min-w-75px">Actions</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody class="text-gray-600 fw-bold" id="activeCallTable">
@@ -369,19 +369,15 @@
                                                                     <td> {{$monitor->script_name}} </td>
                                                                     <td> {{$monitor->entry_price}} </td>
                                                                     <td> {{$monitor->target}} </td>
-                                                                    <td class="">
-                                                                        <div class="d-flex justify-content-center">
-                                                                            <div class="menu-item">
-                                                                                <!--a href="{{url('/monitor_call_edit/'.$monitor->id)}}" class="menu-link p-1" target="_blank">
-                                                                                    <i class="fa fa-edit text-dark fa-2x"></i>
-                                                                                </a-->
-																				
-																				<a data-monitor_id="{{ $monitor->id }}" class="editCall menu-link p-1" target="_blank">
-                                                                                    <i class="fa fa-edit text-dark fa-2x"></i>
-                                                                                </a>
-                                                                            </div>
-                                                                        </div>
+                                                                    <td>
+                                                                        <a data-monitor_id="{{ $monitor->id }}" class="editCall menu-link p-1" target="_blank">
+                                                                            <i class="fa fa-edit text-dark fa-2x"></i>
+                                                                        </a>
+                                                                        <a data-monitor_id="{{ $monitor->id }}" class="menu-link p-1 deleteCall">
+                                                                            <i class="fa fa-trash text-dark fa-2x"></i>
+                                                                        </a>
                                                                     </td>
+
                                                                 </tr>
                                                             @endforeach
                                                             </tbody>
@@ -500,7 +496,7 @@
                                                                 <th class="min-w-75px">Script Name</th>
                                                                 <th class="min-w-75px">P / L</th>
                                                                 <th class="min-w-75px">Status</th>
-                                                                <th class="min-w-75px">action</th>
+                                                                <th class="min-w-75px">Action</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody class="text-gray-600 fw-bold" id="closedCallTable">
@@ -529,14 +525,23 @@
                                                                             <td>{{$monitor->sl_status}}</td>
                                                                         @endif
 
-                                                                    <td class="">
-                                                                        <div class="d-flex justify-content-center">
-                                                                            <div class="menu-item">
-                                                                                <a href="{{url('/monitor_call_edit/'.$monitor->id)}}" class="menu-link p-1" target="_blank">
-                                                                                    <i class="fa fa-edit text-dark fa-2x"></i>
-                                                                                </a>
-                                                                            </div>
-                                                                        </div>
+{{--                                                                    <td class="">--}}
+{{--                                                                        <div class="d-flex justify-content-center">--}}
+{{--                                                                            <div class="menu-item">--}}
+{{--                                                                                <a href="{{url('/monitor_call_edit/'.$monitor->id)}}" class="menu-link p-1" target="_blank">--}}
+{{--                                                                                    <i class="fa fa-edit text-dark fa-2x"></i>--}}
+{{--                                                                                </a>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </td>--}}
+
+                                                                    <td>
+                                                                        <a href="{{url('/monitor_call_edit/'.$monitor->id)}}" class="editCall menu-link p-1">
+                                                                            <i class="fa fa-edit text-dark fa-2x"></i>
+                                                                        </a>
+                                                                        <a data-monitor_id="{{ $monitor->id }}" class="menu-link p-1 deleteCall">
+                                                                            <i class="fa fa-trash text-dark fa-2x"></i>
+                                                                        </a>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -566,7 +571,7 @@
 
 	<div class="modal fade" id="editCallMdl" tabindex="-1" aria-hidden="true" data-backdrop="true">
 		<div class="modal-dialog modal-lg" role="document">
-			
+
 		</div>
 	</div>
 
@@ -598,7 +603,7 @@
 								<input type="text" value="{{date("Y-m-d",strtotime("now"))}}" class="form-control form-control-lg form-control-solid bdr-ccc" name="date" placeholder="" value="{{date('d-m-Y')}}" />
                             </div>
                         </div>
-						
+
 						<div class="row mb-12">
                             <!--begin::Col-->
                             <div class="col-md-6">
@@ -626,7 +631,7 @@
                             </div>
                             <!--end::Col-->
                         </div>
-						
+
 						<div class="row mb-12">
                             <!--begin::Col-->
                             <div class="col-md-6">
@@ -650,7 +655,7 @@
                             </div>
                             <!--end::Col-->
                         </div>
-						
+
 						<div class="row mb-12">
                             <!--begin::Col-->
                             <div class="col-md-6">
@@ -671,7 +676,7 @@
                             </div>
                             <!--end::Col-->
                         </div>
-						
+
 					</div>
 
 					<div class="modal-footer text-center">
@@ -718,7 +723,7 @@
 			$("#submitCall").prop('disabled', true);
 			var form_data = new FormData($("#addCallFrm")[0]);
 			var formSubmitUrl = $("#addCallFrm").attr('action');
-			
+
 			$.ajax({
 				type: 'POST',
 				url: formSubmitUrl,
@@ -727,36 +732,36 @@
 				processData: false,
 				contentType: false,
 				success: function(data) {
-					
+
 					if(data.success == true) {
 						$("#err_msg").html(data.message).css("color", "green");
-						
+
 						setTimeout( function(){
 							location.reload(true);
-						}, 2500);		
+						}, 2500);
 					} else {
 						$("#err_msg").html("There is an error, Please correct data.").css("color", "red");
 						$("#submitCall").prop('disabled', false);
-						
+
 						setTimeout( function(){
 							$("#err_msg").html("");
-						}, 2500);	
+						}, 2500);
 						return false;
-					}	
-				}, 
+					}
+				},
 				error: function(data) {
 					$("#err_msg").html("There is an error, Please correct data.").css("color", "red");
 					$("#submitCall").prop('disabled', false);
-					
+
 					setTimeout( function(){
 						$("#err_msg").html("");
-					}, 2500);	
+					}, 2500);
 					return false;
 				}
 			});
 		}
 	});
-		
+
 	 $(document).on('click',"#submitEditCall",function() {
 		$("#editCallFrm").validate({
 			rules: {
@@ -773,7 +778,7 @@
 				$("#submitEditCall").prop('disabled', true);
 				var form_data = new FormData($("#editCallFrm")[0]);
 				var formSubmitUrl = $("#editCallFrm").attr('action');
-				
+
 				$.ajax({
 					type: 'POST',
 					url: formSubmitUrl,
@@ -782,50 +787,50 @@
 					processData: false,
 					contentType: false,
 					success: function(data) {
-						
+
 						if(data.success == true) {
 							$("#err_msg1").html(data.message).css("color", "green");
-							
+
 							setTimeout( function(){
 								location.reload(true);
-							}, 2500);		
+							}, 2500);
 						} else {
 							$("#err_msg1").html("There is an error, Please correct data.").css("color", "red");
 							$("#submitEditCall").prop('disabled', false);
-							
+
 							setTimeout( function(){
 								$("#err_msg1").html("");
-							}, 2500);	
+							}, 2500);
 							return false;
-						}	
-					}, 
+						}
+					},
 					error: function(data) {
 						$("#err_msg1").html("There is an error, Please correct data.").css("color", "red");
 						$("#submitEditCall").prop('disabled', false);
-						
+
 						setTimeout( function(){
 							$("#err_msg1").html("");
-						}, 2500);	
+						}, 2500);
 						return false;
 					}
 				});
 			}
 		});
 	});
-	
+
 	$("#addCallMdl").on('shown.bs.modal', function(){
 		$("#addCallFrm")[0].reset();
 	});
-	
+
 	$(document).on("click", ".addCall", function() {
 		var analysts_id = $(this).data("analysts_id");
 		$("#addCallMdl").modal("show");
 		$("#analysts_id").val(analysts_id);
 	});
-	
+
 	$(document).on("click", ".editCall", function() {
 		var edit_id = $(this).data("monitor_id");
-		
+
 		$.ajax({
 			type: 'POST',
 			url: "{{ route('editMonitorDataForm') }}",
@@ -835,15 +840,34 @@
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
 			success: function(data) {
-				
+
 				$("#editCallMdl .modal-dialog").html(data.message);
 				$("#editCallMdl").modal("show");
-			}, 
+			},
 			error: function(data) {
 				alert("There is an error, Please try again.");
 				//location.reload(true);
 			}
 		});
 	});
+
+    $(document).on("click", ".deleteCall", function() {
+        var delete_id = $(this).data("monitor_id");
+
+        if(confirm("Do you want to delete?")) {
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('deleteMonitorData') }}",
+                data: {id : delete_id},
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    window.location.href = "monitor_data";
+                }
+            });
+        }
+    });
 	</script>
 @endsection
