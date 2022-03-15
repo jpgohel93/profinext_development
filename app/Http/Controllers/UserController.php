@@ -97,6 +97,7 @@ class UserController extends Controller
         unset($request["limit"]);
         // check permissions
         $direct_permissions=[];
+        $role_permissions = [];
         if(isset($request->role) && trim($request->role[0])!="" && isset($request->permissions)){
             // $role_permissions = RoleServices::getRoleByName($request->role[0]);
             // $role_permissions = $role_permissions->permissions->pluck('name')->toArray();

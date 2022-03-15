@@ -20,6 +20,10 @@ class ClientController extends Controller
         $this->middleware('permission:client-write', ['only' => ['updateForm', 'update']]);
         $this->middleware('permission:client-read', ['only' => ['get', 'all']]);
         $this->middleware('permission:client-delete', ['only' => ['remove', 'removePaymentScreenshot']]);
+        $this->middleware('permission:freelancer-data-write', ['only' => ['assignClientToFreelancer', 'removePaymentScreenshot']]);
+        $this->middleware('permission:client-demat-read', ['only' => ['clientDematAccount']]);
+        $this->middleware('permission:client-demat-write', ['only' => ['editClientDematAccount','makeAsPreferred','updateDematStatus','assignTraderToDemat']]);
+        $this->middleware('permission:setup-read', ['only' => ['setup']]);
     }
     // read all clients
     public function all(){

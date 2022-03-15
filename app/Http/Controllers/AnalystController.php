@@ -166,7 +166,8 @@ class AnalystController extends Controller
             $analysts['free_trade'][$key]['reward'] = $rewardCount != 0 ? number_format($totalReward/$rewardCount,2) : 0;
         }
 
-        return view("analyst.analyst",compact('analysts'));
+        $monitor = User::where("role",'like', "%monitor%")->get();
+        return view("analyst.analyst",compact('analysts','monitor'));
     }
     public function createForm(){
         $monitor = User::where("role",'like', "%monitor%")->get();
@@ -227,7 +228,7 @@ class AnalystController extends Controller
     public function createMonitorData(Request $request){
         $auth_user = Auth::user();
         $request['monitor_id'] = $auth_user->id;
-		
+
 		$rules =
 		[
 			'date' => 'required',
@@ -238,7 +239,7 @@ class AnalystController extends Controller
 			'target' => 'required',
 			'sl' => 'required'
 		];
-		
+
         $input = $request->only(
             'date',
             'script_name',
@@ -261,7 +262,7 @@ class AnalystController extends Controller
                 KeywordServices::create($keyword);
             }
         }
-		
+
 		$main = MonitorData::create([
             'monitor_id'	=> $auth_user->id,
             'analysts_id'   => $request->analysts_id,
@@ -275,23 +276,23 @@ class AnalystController extends Controller
             'status' 		=> "open",
             'created_by' 	=> Auth::id()
         ]);
-		
+
 		$data["message"] = "Call has been Added succesfully. Please wait...";
         $data["status"] = true;
         return JsonReturn::success($data);
     }
 
     public function editMonitorDataForm(Request $request){
-		
+
 		$id = $request->id;
-		
+
         $monitorData = MonitorDataServices::getMonitorData($id);
         $auth_user = Auth::user();
         $analysts = AnalystServices::allUserAnalysts($auth_user->id);
         $keywords = KeywordServices::all();
-		
+
 		$html = '';
-		
+
 		$html .= '<form id="editCallFrm" class="form" method="POST" action="'.route('editMonitorData').'">
 			@csrf
 			<div class="modal-content">
@@ -309,7 +310,7 @@ class AnalystController extends Controller
 
 				<div class="modal-body mx-md-10">
 					<input type="hidden" name="monitor_data_id" placeholder="" value="'.$monitorData->id.'" />
-					
+
 					<div class="row mb-12">
 						<div class="col-md-6">
 							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -337,7 +338,7 @@ class AnalystController extends Controller
 							<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="date" placeholder="" value="'.$monitorData->date.'" />
 						</div>
 					</div>
-					
+
 					<div class="row mb-12">
 						<div class="col-md-6">
 							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -361,7 +362,7 @@ class AnalystController extends Controller
 							<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="buy_sell" placeholder="Buy / Sell" value="'.$monitorData->buy_sell.'" />
 						</div>
 					</div>
-					
+
 					<div class="row mb-12">
 						<div class="col-md-6">
 							<!--begin::Label-->
@@ -384,14 +385,14 @@ class AnalystController extends Controller
 									}
 									if(isset($monitorData->entry_time) && $monitorData->entry_time == "no") {
 										$sel_no = "selected";
-									}	
-									
+									}
+
 									$html .= '<option value="yes" '.$sel_yes.' >Yes</option>';
 									$html .= '<option value="no" '.$sel_no.' >No</option>
 							</select>
 						</div>
 					</div>
-					
+
 					<div class="row mb-12">
 						<div class="col-md-6">
 							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -409,7 +410,7 @@ class AnalystController extends Controller
 							<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="target" placeholder="Enter Target" value="'.$monitorData->target.'" />
 						</div>
 					</div>
-					
+
 				</div>
 
 				<div class="modal-footer text-center">
@@ -423,7 +424,7 @@ class AnalystController extends Controller
 				</div>
 			</div>
 		</form>';
-		
+
 		$data["message"] = $html;
         $data["status"] = true;
         return JsonReturn::success($data);
@@ -452,7 +453,7 @@ class AnalystController extends Controller
                 }
             }
         } */
-		
+
         if(isset($request->script_name) &&  $request->script_name != ''){
             $keyword['name'] = $request->script_name;
             $keywordData = KeywordServices::getKeywordByName($request->script_name);
@@ -460,7 +461,7 @@ class AnalystController extends Controller
                 KeywordServices::create($keyword);
             }
         }
-        
+
 		$monitor['analysts_id'] = $request->analysts_id;
 		$monitor['monitor_id'] = $auth_user->id;
 		$monitor['date'] = $request->date;
@@ -471,7 +472,7 @@ class AnalystController extends Controller
         $monitor['buy_sell'] = $request->buy_sell;
         $monitor['sl'] = $request->sl;
         MonitorData::where("id", $request->monitor_data_id)->update($monitor);
-		
+
 		$data["message"] = "Call has been updated succesfully.";
         $data["status"] = true;
         return JsonReturn::success($data);

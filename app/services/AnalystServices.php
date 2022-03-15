@@ -66,6 +66,7 @@ class AnalystServices{
 //                "trading_capacity"=>"required",
                 "status"=>"required"
             ]);
+            $analyst['assign_user_id'] = $request->assign_user_id;
             return Analyst::where("id", $request->analyst_id)->update($analyst);
         }
         return Analyst::where("id", $request->analyst_id)->update(["status"=> "Terminated"]);

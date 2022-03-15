@@ -30,6 +30,8 @@ Route::post("/register",[RegisterController::class,"register"])->name("registerU
 Route::get("/reset",function(){
     return view("auth.reset-password");
 })->name("resetPassword");
+Route::post("/checkUser",[LoginController::class,"checkUser"])->name("checkUser");
+Route::post("/reset",[RegisterController::class,"resetPassword"])->name("resetPassword");
 
 
 Route::group(['middleware' => ['auth']], function() {
@@ -175,6 +177,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/traders/clients/{id}",[TraderController::class, "viewTraderClientList"])->name("viewTraderClientList");
     Route::get("/trader/accounts",[TraderController::class, "viewTraderAccounts"])->name("viewTraderAccounts");
     Route::POST("/trader/client/assign",[TraderController::class,'create'])->name('assignClientToTrader');
+    Route::POST("/traders/clients",[TraderController::class, "viewTraderClient"])->name("viewTraderClient");
+
     // logout
     Route::get("/logout",[LoginController::class,"logout"])->name("logout");
     // display file

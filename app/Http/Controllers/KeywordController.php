@@ -10,7 +10,10 @@ class KeywordController extends Controller
 {
     function __construct()
     {
-
+        $this->middleware('permission:keyword-read', ['only' => ['keywordData']]);
+        $this->middleware('permission:keyword-write', ['only' => ['editKeyword']]);
+        $this->middleware('permission:keyword-create', ['only' => ['addKeyword']]);
+        $this->middleware('permission:keyword-delete', ['only' => ['deleteKeyword']]);
     }
     // View all Keyword
     public function keywordData(){

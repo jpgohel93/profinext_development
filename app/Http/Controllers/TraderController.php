@@ -16,7 +16,7 @@ class TraderController extends Controller
     {
         $this->middleware('permission:trader-create', ['only' => ['create']]);
         $this->middleware('permission:trader-write', ['only' => ['edit']]);
-        $this->middleware('permission:trader-read', ['only' => ['view', 'get']]);
+        $this->middleware('permission:trader-read', ['only' => ['view', 'get','view_trader_client','getTraderList','viewTraderClientList']]);
         $this->middleware('permission:trader-delete', ['only' => ['remove', 'removePaymentScreenshot']]);
     }
     public function view()
@@ -60,8 +60,9 @@ class TraderController extends Controller
         $auth_user = Auth::user();
 
         $dematAccount = TraderServices::traderClientList($auth_user->id);
+        $traders = UserServices::getByRole('trader');
 
-        return view('trader.view_trader_client', compact('dematAccount'));
+        return view('trader.view_trader_client', compact('dematAccount','traders'));
     }
 
     public function getTraderList(){
@@ -72,7 +73,16 @@ class TraderController extends Controller
     public function viewTraderClientList(Request $request,$id)
     {
         $dematAccount = TraderServices::traderClientList($id);
+        $traders = UserServices::getByRole('trader');
 
-        return view('trader.view_trader_client', compact('dematAccount'));
+        return view('trader.view_trader_client', compact('dematAccount','traders'));
+    }
+
+    public function viewTraderClient(Request $request)
+    {
+        $dematAccount = TraderServices::traderClientList($request->trader_id);
+        $traders = UserServices::getByRole('trader');
+
+        return view('trader.view_trader_client', compact('dematAccount','traders'));
     }
 }

@@ -793,6 +793,19 @@
                                         <option value="Terminated" {{(old('status')=="Terminated")?"selected":""}}>Terminated</option>
                                     </select>
                                 </div>
+                            </div><br>
+                            <div class="form-group row mb-0">
+                                <label for="assign_user" class="col-3 col-form-label">Monitor</label>
+                                <div class="col-9">
+                                    <select name="assign_user_id" id="assign_user" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Monitor">
+                                        <option></option>
+                                        @if(!empty($monitor))
+                                            @foreach($monitor as $monitorData)
+                                                <option value="{{$monitorData->id}}">{{$monitorData->name}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <!--end::Modal body-->
@@ -839,6 +852,7 @@
             const trading_capacity = $("#trading_capacity");
             const editAnalystId = $("#editAnalystId");
             const editAnalyst = $("#editAnalyst");
+            const assignUser = $("#assign_user");
 
             $(document).on("click",".viewAnalyst",function(){
                 $.ajax("/analyst/"+$(this).attr("data-id"),{
@@ -854,6 +868,8 @@
                     $(trading_capacity).val(data.trading_capacity);
                     $(analyst_status).val(data.status);
                     $(analyst_status).trigger("change");
+                    $(assignUser).val(data.assign_user_id);
+                    $(assignUser).trigger("change");
                     $(editAnalyst).val(data.id);
                     $(editAnalystId).val(data.id);
                     $("#viewAnalyst").modal("show");

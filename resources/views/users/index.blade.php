@@ -2694,8 +2694,8 @@
 					const role = $(this).val();
 					if(role){
 						$("#manual_permission").html("");
-						const modules = ["Client","Role","User","Analysis","Call","Trader","Monitor"];
-						let module_index = 0;
+                        const modules = ["Client","Role","User","Analysis","Call","Trader","Monitor","Client Demat","Monitor Data","Report","Freelancer Data","Freelancer","Channel Partner Data","Channel Partner","Keyword","Trader Data","Setup"];
+                        let module_index = 0;
 						getPermissionByRole(role).then((response)=>{
 							if(typeof response['permissions'] != null){
 								let html = `
@@ -2731,7 +2731,7 @@
 																		<label>${modules[module_index]}</label>
 																	</div>`;
 																module_index++;
-																html +=`	
+																html +=`
 																<div class="col-md-2">
 																	<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key].name}' ${($.inArray(response['allpermissions'][key].name, response['permissions']) !== -1)?"checked":""}>
 																</div>

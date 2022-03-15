@@ -12,7 +12,8 @@ class FreelancerController extends Controller
 {
     function __construct()
     {
-
+        $this->middleware('permission:freelancer-data-read', ['only' => ['freelancerData', 'freelancerClientData']]);
+        $this->middleware('permission:freelancer-read', ['only' => ['freelancerUserData']]);
     }
     // View all freelancer data
     public function freelancerData(){

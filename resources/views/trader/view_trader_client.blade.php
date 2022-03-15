@@ -52,6 +52,10 @@
                                 <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->
+                            <div class="d-flex align-items-center py-1">
+                                <button type="button" class="btn btn-primary jump" id="jump">Jump</button>
+                            </div>
+                        <!--end::Actions-->
                         </div>
                         <!--end::Container-->
                     </div>
@@ -1296,6 +1300,55 @@
     </div>
     <!--end::Modal - View Client Details-->
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="jumpModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px" role="document">
+            <div class="modal-content">
+                <!--begin::Form-->
+                <form id="" class="form" method="POST" action="{{route('viewTraderClient')}}">
+                    @csrf
+                    <div class="modal-header">
+                        <h2 class="fw-bolder">Jump To Trader Client List</h2>
+                        <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span class="svg-icon svg-icon-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                            </svg>
+                                        </span>
+                        </button>
+                    </div>
+
+                    <!--begin::Modal body-->
+                    <div class="modal-body mx-md-10">
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Trader</label>
+                            <select class="form-select form-select-solid" id='trader_id' name="trader_id" data-control="select2" data-hide-search="true" data-placeholder="Select Trader">
+                                <option value="">Select Trader</option>
+                                @forelse ($traders as $trader)
+                                    <option value="{{$trader->id}}">{{$trader->name}}</option>
+                                @empty
+                                @endforelse
+                            </select>
+                        </div>
+                    </div>
+                    <!--end::Modal body-->
+                    <div class="modal-footer text-center">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                            <span class="indicator-label">Submit</span>
+                            <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+        </div>
+    </div>
+    <!--end::Modal - View Client Details-->
+
     <!--end::Modals-->
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
@@ -1414,6 +1467,10 @@
                 }else{
                     $("#other_problem").hide();
                 }
+            });
+
+            $(document).on("click",'.jump',function(e){
+                $("#jumpModal").modal("show");
             });
         });
         function copyToClipboard(text) {
