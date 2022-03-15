@@ -543,7 +543,7 @@
 {{--                                                                    </td>--}}
 
                                                                     <td>
-                                                                        <a href="{{url('/monitor_call_edit/'.$monitor->id)}}" class="editCall menu-link p-1">
+                                                                        <a data-monitor_id="{{ $monitor->id }}" class="editCall menu-link p-1">
                                                                             <i class="fa fa-edit text-dark fa-2x"></i>
                                                                         </a>
                                                                         <a data-monitor_id="{{ $monitor->id }}" class="menu-link p-1 deleteCall">
@@ -936,11 +936,11 @@
             });
         }
     });
-    
+
     $(document).on("click", ".updateCall", function() {
         const edit_id = $(this).data("monitor_id");
         $("#call_id").val(edit_id);
-        $("#closeCallMdl").modal("show");         
+        $("#closeCallMdl").modal("show");
     });
     // $("#closeCall").on("click",function(){
     //     const edit_id = $("#call_id").val(edit_id);

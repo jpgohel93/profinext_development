@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c1e2fdd1-681d-4aef-b180-5fd805f2dd3c" name="Changes" comment="-solve the analyst error">
-      <change afterPath="$PROJECT_DIR$/resources/views/auth/set_password.blade.php" afterDir="false" />
+    <list default="true" id="c1e2fdd1-681d-4aef-b180-5fd805f2dd3c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AnalystController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AnalystController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/MonitorData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/MonitorData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/AnalystServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/AnalystServices.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/MonitorDataServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/MonitorDataServices.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/registerServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/registerServices.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/analyst/monitor_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analyst/monitor_data.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/reset-password.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/reset-password.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -358,7 +349,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647342181551</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="-solve the analyst error">
+      <created>1647349186462</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1647349186462</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
