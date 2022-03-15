@@ -68,20 +68,26 @@ class UserServices
 
         // check permissions
         $direct_permissions=[];
-        if(isset($user_data['role']) && trim($user_data['role'])!=""){
-            $role_permissions = RoleServices::getRoleByName($user_data['role']);
-            $role_permissions = $role_permissions->permissions->pluck('name')->toArray();
-            $direct_permissions = array_diff($role_permissions,$user_data['permissions']);
+        $role_permissions = [];
+        if(isset($request->role) && trim($request->role[0])!="" && isset($request->permissions)){
+            $role_permissions = RoleServices::permissions()->pluck("name")->toArray();
+            $direct_permissions = array_diff($role_permissions,$request->permissions);
         }
+        // revoke permissions
+        $param = array();
+        foreach($role_permissions as $permission){
+            if(!in_array($permission,$direct_permissions)){
+                array_push($param,$permission);
+            }
+        }
+        $user_data['permission'] = json_encode($param);
         $user = User::create($user_data);
-        $user->assignRole($request->role);
+        $user->syncRoles($request->role);
+        $user->syncPermissions($param);
+
         $numbers = $request->number;
         foreach($numbers as $number){
             UserNumbers::create(["user_id"=>$user->id, "number"=>$number,"updated_by"=>Auth::id()]);
-        }
-        // revoke permissions
-        foreach($direct_permissions as $permission){
-            $user->revokePermissionTo($permission);
         }
         return $user->id;
     }
@@ -112,6 +118,7 @@ class UserServices
         $userRoles = implode(",", $request->role);
         $user_data['role'] = $userRoles;
         $user_data['updated_by'] = Auth::id();
+        $user_data['permission'] = json_encode($request->permissions);
 
         User::where("id",$id)->update($user_data);
         // update role

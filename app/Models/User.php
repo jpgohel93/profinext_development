@@ -33,6 +33,7 @@ class User extends Authenticatable
         "prime_renewal_client_percentage","ams_limit","fees_percentage","ams_new_client_profit",
         "created_by",
         "updated_by",
+        "permission"
     ];
     protected $hidden = ['password','remember_token'];
     protected $casts = ['email_verified_at' => 'datetime'];

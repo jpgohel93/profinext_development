@@ -663,13 +663,16 @@
 																	</tr>
 																</thead>
 																<tbody role="rowgroup">
+																	@php
+																		$user_permissions = json_decode($user->permission);
+																	@endphp
 																	<tr role="row" class="">
 																		<td aria-colindex="1" role="cell" class=""> Client </td>
 																		{{-- client permissions from 1 to 4 --}}
 																		@for($i=0;$i<=3;$i++)
 																			<td aria-colindex="2" role="cell" class="">
 																				<div class="form-check form-check-custom form-check-solid">
-																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
 																					<label class="custom-control-label" for="__BVID__675"></label>
 																				</div>
 																			</td>
@@ -681,7 +684,7 @@
 																		@for($i=4;$i<=7;$i++)
 																			<td aria-colindex="2" role="cell" class="">
 																				<div class="form-check form-check-custom form-check-solid">
-																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions	[$i]) && in_array($all_permissions	[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
 																					<label class="custom-control-label" for="__BVID__675"></label>
 																				</div>
 																			</td>
@@ -693,7 +696,7 @@
 																		@for($i=8;$i<12;$i++)
 																			<td aria-colindex="2" role="cell" class="">
 																				<div class="form-check form-check-custom form-check-solid">
-																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
 																					<label class="custom-control-label" for="__BVID__675"></label>
 																				</div>
 																			</td>
@@ -705,7 +708,7 @@
 																		@for($i=12;$i<16;$i++)
 																			<td aria-colindex="2" role="cell" class="">
 																				<div class="form-check form-check-custom form-check-solid">
-																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
 																					<label class="custom-control-label" for="__BVID__675"></label>
 																				</div>
 																			</td>
@@ -717,7 +720,7 @@
 																		@for($i=16;$i<20;$i++)
 																			<td aria-colindex="2" role="cell" class="">
 																				<div class="form-check form-check-custom form-check-solid">
-																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
 																					<label class="custom-control-label" for="__BVID__675"></label>
 																				</div>
 																			</td>
@@ -729,7 +732,7 @@
 																		@for($i=20;$i<24;$i++)
 																			<td aria-colindex="2" role="cell" class="">
 																				<div class="form-check form-check-custom form-check-solid">
-																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
 																					<label class="custom-control-label" for="__BVID__675"></label>
 																				</div>
 																			</td>
@@ -741,7 +744,7 @@
 																		@for($i=24;$i<28;$i++)
 																			<td aria-colindex="2" role="cell" class="">
 																				<div class="form-check form-check-custom form-check-solid">
-																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+																					<input type="checkbox" class="form-check-input permissionCheckBox" name='permissions[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
 																					<label class="custom-control-label" for="__BVID__675"></label>
 																				</div>
 																			</td>
@@ -753,7 +756,7 @@
                                                                         @for($i=28;$i<32;$i++)
                                                                             <td aria-colindex="2" role="cell" class="">
                                                                                 <div class="form-check form-check-custom form-check-solid">
-                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
                                                                                     <label class="custom-control-label" for="__BVID__675"></label>
                                                                                 </div>
                                                                             </td>
@@ -765,7 +768,7 @@
                                                                         @for($i=32;$i<36;$i++)
                                                                             <td aria-colindex="2" role="cell" class="">
                                                                                 <div class="form-check form-check-custom form-check-solid">
-                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
                                                                                     <label class="custom-control-label" for="__BVID__675"></label>
                                                                                 </div>
                                                                             </td>
@@ -777,7 +780,7 @@
                                                                         @for($i=36;$i<40;$i++)
                                                                             <td aria-colindex="2" role="cell" class="">
                                                                                 <div class="form-check form-check-custom form-check-solid">
-                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
                                                                                     <label class="custom-control-label" for="__BVID__675"></label>
                                                                                 </div>
                                                                             </td>
@@ -789,7 +792,7 @@
                                                                         @for($i=40;$i<44;$i++)
                                                                             <td aria-colindex="2" role="cell" class="">
                                                                                 <div class="form-check form-check-custom form-check-solid">
-                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
                                                                                     <label class="custom-control-label" for="__BVID__675"></label>
                                                                                 </div>
                                                                             </td>
@@ -802,7 +805,7 @@
                                                                         @for($i=44;$i<48;$i++)
                                                                             <td aria-colindex="2" role="cell" class="">
                                                                                 <div class="form-check form-check-custom form-check-solid">
-                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
                                                                                     <label class="custom-control-label" for="__BVID__675"></label>
                                                                                 </div>
                                                                             </td>
@@ -815,7 +818,7 @@
                                                                         @for($i=48;$i<52;$i++)
                                                                             <td aria-colindex="2" role="cell" class="">
                                                                                 <div class="form-check form-check-custom form-check-solid">
-                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
                                                                                     <label class="custom-control-label" for="__BVID__675"></label>
                                                                                 </div>
                                                                             </td>
@@ -828,7 +831,7 @@
                                                                         @for($i=52;$i<56;$i++)
                                                                             <td aria-colindex="2" role="cell" class="">
                                                                                 <div class="form-check form-check-custom form-check-solid">
-                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
                                                                                     <label class="custom-control-label" for="__BVID__675"></label>
                                                                                 </div>
                                                                             </td>
@@ -841,7 +844,7 @@
                                                                         @for($i=56;$i<60;$i++)
                                                                             <td aria-colindex="2" role="cell" class="">
                                                                                 <div class="form-check form-check-custom form-check-solid">
-                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
                                                                                     <label class="custom-control-label" for="__BVID__675"></label>
                                                                                 </div>
                                                                             </td>
@@ -854,7 +857,7 @@
                                                                         @for($i=60;$i<64;$i++)
                                                                             <td aria-colindex="2" role="cell" class="">
                                                                                 <div class="form-check form-check-custom form-check-solid">
-                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
                                                                                     <label class="custom-control-label" for="__BVID__675"></label>
                                                                                 </div>
                                                                             </td>
@@ -867,7 +870,7 @@
                                                                         @for($i=64;$i<68;$i++)
                                                                             <td aria-colindex="2" role="cell" class="">
                                                                                 <div class="form-check form-check-custom form-check-solid">
-                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($permissions[$i]) && in_array($permissions[$i],$all_permissions))? 'checked':""}} id="__BVID__675">
+                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && in_array($all_permissions[$i],$user_permissions))? 'checked':""}} id="__BVID__675">
                                                                                     <label class="custom-control-label" for="__BVID__675"></label>
                                                                                 </div>
                                                                             </td>
