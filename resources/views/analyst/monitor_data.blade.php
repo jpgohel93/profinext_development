@@ -73,7 +73,6 @@
                     <!--end::Toolbar-->
                     <!--begin::Post-->
 
-
                     <div class="post d-flex flex-column-fluid" id="kt_post">
                             <!--begin::Container-->
                             <div id="kt_content_container" class="container-xxl">
@@ -227,7 +226,10 @@
                                                                     <td class="">
                                                                         <div class="d-flex justify-content-center">
                                                                             <div class="menu-item">
-                                                                                <a href="{{url('/monitor_call/'.$monitor->id)}}" class="menu-link p-1" target="_blank">
+                                                                                <!--a href="{{url('/monitor_call/'.$monitor->id)}}" class="menu-link p-1" target="_blank">
+                                                                                    <i class="fa fa-plus text-dark fa-2x"></i>
+                                                                                </a-->
+                                                                                <a data-analysts_id="{{ $monitor->id }}" class="addCall menu-link p-1" target="_blank">
                                                                                     <i class="fa fa-plus text-dark fa-2x"></i>
                                                                                 </a>
                                                                             </div>
@@ -370,7 +372,11 @@
                                                                     <td class="">
                                                                         <div class="d-flex justify-content-center">
                                                                             <div class="menu-item">
-                                                                                <a href="{{url('/monitor_call_edit/'.$monitor->id)}}" class="menu-link p-1" target="_blank">
+                                                                                <!--a href="{{url('/monitor_call_edit/'.$monitor->id)}}" class="menu-link p-1" target="_blank">
+                                                                                    <i class="fa fa-edit text-dark fa-2x"></i>
+                                                                                </a-->
+																				
+																				<a data-monitor_id="{{ $monitor->id }}" class="editCall menu-link p-1" target="_blank">
                                                                                     <i class="fa fa-edit text-dark fa-2x"></i>
                                                                                 </a>
                                                                             </div>
@@ -553,17 +559,134 @@
                         </div>
                     <!--end::Post-->
                 </div>
-                <!--end::Content-->
-                <!--begin::Footer-->
             @include("footer")
-            <!--end::Footer-->
             </div>
-            <!--end::Wrapper-->
         </div>
-        <!--end::Page-->
     </div>
-    <!--begin::Modals-->
 
+	<div class="modal fade" id="editCallMdl" tabindex="-1" aria-hidden="true" data-backdrop="true">
+		<div class="modal-dialog modal-lg" role="document">
+			
+		</div>
+	</div>
+
+	<div class="modal fade" id="addCallMdl" tabindex="-1" aria-hidden="true" data-backdrop="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<form id="addCallFrm" class="form" method="POST" action="{{route('createMonitorData')}}">
+				@csrf
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="fw-bolder">Add Monitor Data</h2>
+						<button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+							<span class="svg-icon svg-icon-1">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+									<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+								</svg>
+							</span>
+						</button>
+					</div>
+
+					<div class="modal-body mx-md-10">
+						<input type="hidden" name="analysts_id" id="analysts_id" value="">
+						<div class="row mb-12">
+                            <div class="col-md-6">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Date : </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                </label>
+								<input type="text" value="{{date("Y-m-d",strtotime("now"))}}" class="form-control form-control-lg form-control-solid bdr-ccc" name="date" placeholder="" value="{{date('d-m-Y')}}" />
+                            </div>
+                        </div>
+						
+						<div class="row mb-12">
+                            <!--begin::Col-->
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Script Name : </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                </label>
+                                <input list="script_name"  class="form-control form-control-lg form-control-solid bdr-ccc" id="script_name" name="script_name">
+								<datalist id="script_name">
+									@if(!empty($keywords))
+										@foreach($keywords as $keyword)
+											<option value="{{$keyword->name}}">{{$keyword->name}}</option>
+										@endforeach
+									@endif
+								</datalist>
+                            </div>
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Buy / Sell : </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                </label>
+								<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="buy_sell" id="buy_sell" placeholder="Buy / Sell" value="{{old('buy_sell')}}" />
+                            </div>
+                            <!--end::Col-->
+                        </div>
+						
+						<div class="row mb-12">
+                            <!--begin::Col-->
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Entry Price : </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                </label>
+                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="entry_price" placeholder="Entry Price" value="{{old('entry_price')}}" />
+                            </div>
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Entry Time : </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                </label>
+								<select name="entry_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
+									<option value="yes">Yes</option>
+									<option value="no">No</option>
+								</select>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+						
+						<div class="row mb-12">
+                            <!--begin::Col-->
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">sl : </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                </label>
+                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="sl" placeholder="Enter SL" value="{{old('sl')}}" />
+                            </div>
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Target : </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                </label>
+								<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="target" placeholder="Enter Target" value="{{(old('target'))?old('target'):""}}" />
+                            </div>
+                            <!--end::Col-->
+                        </div>
+						
+					</div>
+
+					<div class="modal-footer text-center">
+						<p id="err_msg"></p>
+						<button type="button" class="btn btn-primary" id="closeModel">
+							<span class="indicator-label">Cancel</span>
+						</button>
+						<button type="submit" id="submitCall" class="btn btn-primary">
+							<span class="indicator-label">Save</span>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 
     <!--end::Modals-->
     <!--begin::Scrolltop-->
@@ -577,4 +700,147 @@
         </span>
         <!--end::Svg Icon-->
     </div>
+@endsection
+
+@section('jscript')
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js" ></script>
+	<script>
+	$("#addCallFrm").validate({
+		rules: {
+			script_name: "required",
+			buy_sell: "required",
+			entry_price: "required",
+			entry_time: "required",
+			sl: "required",
+			target: "required",
+		},
+		submitHandler: function(form) {
+			$("#submitCall").prop('disabled', true);
+			var form_data = new FormData($("#addCallFrm")[0]);
+			var formSubmitUrl = $("#addCallFrm").attr('action');
+			
+			$.ajax({
+				type: 'POST',
+				url: formSubmitUrl,
+				data: form_data,
+				dataType: 'json',
+				processData: false,
+				contentType: false,
+				success: function(data) {
+					
+					if(data.success == true) {
+						$("#err_msg").html(data.message).css("color", "green");
+						
+						setTimeout( function(){
+							location.reload(true);
+						}, 2500);		
+					} else {
+						$("#err_msg").html("There is an error, Please correct data.").css("color", "red");
+						$("#submitCall").prop('disabled', false);
+						
+						setTimeout( function(){
+							$("#err_msg").html("");
+						}, 2500);	
+						return false;
+					}	
+				}, 
+				error: function(data) {
+					$("#err_msg").html("There is an error, Please correct data.").css("color", "red");
+					$("#submitCall").prop('disabled', false);
+					
+					setTimeout( function(){
+						$("#err_msg").html("");
+					}, 2500);	
+					return false;
+				}
+			});
+		}
+	});
+		
+	 $(document).on('click',"#submitEditCall",function() {
+		$("#editCallFrm").validate({
+			rules: {
+				analysts_id: "required",
+				date: "required",
+				script_name: "required",
+				buy_sell: "required",
+				entry_price: "required",
+				entry_time: "required",
+				sl: "required",
+				target: "required",
+			},
+			submitHandler: function(form) {
+				$("#submitEditCall").prop('disabled', true);
+				var form_data = new FormData($("#editCallFrm")[0]);
+				var formSubmitUrl = $("#editCallFrm").attr('action');
+				
+				$.ajax({
+					type: 'POST',
+					url: formSubmitUrl,
+					data: form_data,
+					dataType: 'json',
+					processData: false,
+					contentType: false,
+					success: function(data) {
+						
+						if(data.success == true) {
+							$("#err_msg1").html(data.message).css("color", "green");
+							
+							setTimeout( function(){
+								location.reload(true);
+							}, 2500);		
+						} else {
+							$("#err_msg1").html("There is an error, Please correct data.").css("color", "red");
+							$("#submitEditCall").prop('disabled', false);
+							
+							setTimeout( function(){
+								$("#err_msg1").html("");
+							}, 2500);	
+							return false;
+						}	
+					}, 
+					error: function(data) {
+						$("#err_msg1").html("There is an error, Please correct data.").css("color", "red");
+						$("#submitEditCall").prop('disabled', false);
+						
+						setTimeout( function(){
+							$("#err_msg1").html("");
+						}, 2500);	
+						return false;
+					}
+				});
+			}
+		});
+	});
+	
+	$("#addCallMdl").on('shown.bs.modal', function(){
+		$("#addCallFrm")[0].reset();
+	});
+	
+	$(document).on("click", ".addCall", function() {
+		var analysts_id = $(this).data("analysts_id");
+		$("#addCallMdl").modal("show");
+		$("#analysts_id").val(analysts_id);
+	});
+	
+	$(document).on("click", ".editCall", function() {
+		var edit_id = $(this).data("monitor_id");
+		
+		$.ajax({
+			type: 'POST',
+			url: "{{ route('editMonitorDataForm') }}",
+			data: {id : edit_id},
+			dataType: 'json',
+			success: function(data) {
+				
+				$("#editCallMdl .modal-dialog").html(data.message);
+				$("#editCallMdl").modal("show");
+			}, 
+			error: function(data) {
+				alert("There is an error, Please try again.");
+				//location.reload(true);
+			}
+		});
+	});
+	</script>
 @endsection

@@ -101,7 +101,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/monitor_data", [AnalystController::class, "viewMonitorData"])->name("viewMonitorData");
     Route::get("/monitor_call/{id}", [AnalystController::class, "createMonitorDataForm"])->name("createMonitorDataForm");
     Route::POST("/monitor_call", [AnalystController::class, "createMonitorData"])->name("createMonitorData");
-    Route::get("/monitor_call_edit/{id}", [AnalystController::class, "editMonitorDataForm"])->name("editMonitorDataForm");
+    Route::POST("/monitor_call_edit_data", [AnalystController::class, "editMonitorDataForm"])->name("editMonitorDataForm");
     Route::POST("/monitor_call_edit", [AnalystController::class, "editMonitorData"])->name("editMonitorData");
     Route::get("/report", [AnalystController::class, "report"])->name("report");
 

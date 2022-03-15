@@ -10,8 +10,10 @@ use App\Services\MonitorDataServices;
 use App\Services\KeywordServices;
 use Illuminate\Http\Request;
 use App\Services\AnalystServices;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\JsonReturn;
 
 class AnalystController extends Controller
 {
@@ -203,6 +205,8 @@ class AnalystController extends Controller
     public function viewMonitorData(Request $request){
         $auth_user = Auth::user();
 
+		$analysts = Analyst::get();
+		$keywords = KeywordServices::all();
         $monitorData = MonitorDataServices::all($auth_user->id);
         if(isset($monitorData['analyst']) && !empty($monitorData['analyst'])) {
             foreach ($monitorData['analyst'] as $key => $data) {
@@ -211,7 +215,7 @@ class AnalystController extends Controller
                 $monitorData['analyst'][$key]['open_call'] = $countData['open_call'];
             }
         }
-        return view("analyst.monitor_data",compact('monitorData'));
+        return view("analyst.monitor_data",compact('analysts','keywords','monitorData'));
     }
 
     public function createMonitorDataForm(Request $request,$id){
@@ -223,6 +227,32 @@ class AnalystController extends Controller
     public function createMonitorData(Request $request){
         $auth_user = Auth::user();
         $request['monitor_id'] = $auth_user->id;
+		
+		$rules =
+		[
+			'date' => 'required',
+			'script_name' => 'required',
+			'entry_time' => 'required',//|regex:/^\d{3}-\d{3}-\d{4}$/
+			'entry_price' => 'required',
+			'buy_sell' => 'required',
+			'target' => 'required',
+			'sl' => 'required'
+		];
+		
+        $input = $request->only(
+            'date',
+            'script_name',
+            'entry_time',
+            'entry_price',
+            'buy_sell',
+            'target',
+            'sl'
+        );
+
+        $validator = Validator::make($input, $rules);
+        if ($validator->fails()) {
+            return JsonReturn::error($validator->messages());
+        }
 
         if(isset($request->script_name) &&  $request->script_name != ''){
             $keyword['name'] = $request->script_name;
@@ -231,23 +261,178 @@ class AnalystController extends Controller
                 KeywordServices::create($keyword);
             }
         }
-
-        MonitorDataServices::create($request);
-        return Redirect::route('viewMonitorData')->with("info","Monitor Data has been created");
+		
+		$main = MonitorData::create([
+            'monitor_id'	=> $auth_user->id,
+            'analysts_id'   => $request->analysts_id,
+            'date'          => $request->date,
+            'script_name'   => $request->script_name,
+            'entry_time'    => $request->entry_time,
+            'entry_price' 	=> $request->entry_price,
+            'target' 		=> $request->target,
+            'buy_sell' 		=> $request->buy_sell,
+            'sl' 			=> $request->sl,
+            'status' 		=> "open",
+            'created_by' 	=> Auth::id()
+        ]);
+		
+		$data["message"] = "Call has been Added succesfully. Please wait...";
+        $data["status"] = true;
+        return JsonReturn::success($data);
     }
 
-    public function editMonitorDataForm(Request $request,$id){
+    public function editMonitorDataForm(Request $request){
+		
+		$id = $request->id;
+		
         $monitorData = MonitorDataServices::getMonitorData($id);
         $auth_user = Auth::user();
         $analysts = AnalystServices::allUserAnalysts($auth_user->id);
         $keywords = KeywordServices::all();
-        return view("analyst.monitor_data_edit",compact('monitorData','analysts','keywords'));
+		
+		$html = '';
+		
+		$html .= '<form id="editCallFrm" class="form" method="POST" action="'.route('editMonitorData').'">
+			@csrf
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="fw-bolder">Add Monitor Data</h2>
+					<button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+					</button>
+				</div>
+
+				<div class="modal-body mx-md-10">
+					<input type="hidden" name="monitor_data_id" placeholder="" value="'.$monitorData->id.'" />
+					
+					<div class="row mb-12">
+						<div class="col-md-6">
+							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+								<span class="required">Analyst : </span>
+								<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+							</label>
+							<select name="analysts_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Analyst">
+								<option value="">Select Anylst</option>';
+								if(!empty($analysts)) {
+									foreach($analysts as $analyst) {
+										$sel = "";
+										if($analyst->id == $monitorData->analysts_id) {
+											$sel = "selected";
+										}
+										$html .= '<option value="'.$analyst->id.'" '.$sel.'>'.$analyst->analyst.'</option>';
+									}
+								}
+							$html .= '</select>
+						</div>
+						<div class="col-md-6">
+							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+								<span class="required">Date : </span>
+								<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+							</label>
+							<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="date" placeholder="" value="'.$monitorData->date.'" />
+						</div>
+					</div>
+					
+					<div class="row mb-12">
+						<div class="col-md-6">
+							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+								<span class="required">Script Name : </span>
+								<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+							</label>
+							<input list="script_name"  class="form-control form-control-lg form-control-solid bdr-ccc" name="script_name" value="'.$monitorData->script_name.'">
+							<datalist id="script_name">';
+								if(!empty($keywords)) {
+									foreach($keywords as $keyword) {
+										$html .= '<option value="'. $keyword->name .'">'.$keyword->name.'</option>';
+									}
+								}
+							$html .= '</datalist>
+						</div>
+						<div class="col-md-6">
+							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+								<span class="required">Buy / Sell : </span>
+								<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+							</label>
+							<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="buy_sell" placeholder="Buy / Sell" value="'.$monitorData->buy_sell.'" />
+						</div>
+					</div>
+					
+					<div class="row mb-12">
+						<div class="col-md-6">
+							<!--begin::Label-->
+							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+								<span class="required">Entry Price : </span>
+								<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+							</label>
+							<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="entry_price" placeholder="Entry Price" value="'.$monitorData->entry_price.'" />
+						</div>
+						<div class="col-md-6">
+							<!--begin::Label-->
+							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+								<span class="required">Entry Time : </span>
+								<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+							</label>
+							<select name="entry_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">';
+									$sel_yes = $sel_no = "";
+									if(isset($monitorData->entry_time) && $monitorData->entry_time == "yes") {
+										$sel_yes = "selected";
+									}
+									if(isset($monitorData->entry_time) && $monitorData->entry_time == "no") {
+										$sel_no = "selected";
+									}	
+									
+									$html .= '<option value="yes" '.$sel_yes.' >Yes</option>';
+									$html .= '<option value="no" '.$sel_no.' >No</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="row mb-12">
+						<div class="col-md-6">
+							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+								<span class="required">sl : </span>
+								<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+							</label>
+							<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="sl" placeholder="Enter SL" value="'.$monitorData->sl.'" />
+						</div>
+						<div class="col-md-6">
+							<!--begin::Label-->
+							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+								<span class="required">Target : </span>
+								<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+							</label>
+							<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="target" placeholder="Enter Target" value="'.$monitorData->target.'" />
+						</div>
+					</div>
+					
+				</div>
+
+				<div class="modal-footer text-center">
+					<p id="err_msg1"></p>
+					<button type="button" class="btn btn-primary" id="closeModel">
+						<span class="indicator-label">Cancel</span>
+					</button>
+					<button type="submit" id="submitEditCall" class="btn btn-primary">
+						<span class="indicator-label">Save</span>
+					</button>
+				</div>
+			</div>
+		</form>';
+		
+		$data["message"] = $html;
+        $data["status"] = true;
+        return JsonReturn::success($data);
     }
 
     public function editMonitorData(Request $request){
         $auth_user = Auth::user();
         $request['monitor_id'] = $auth_user->id;
-        $request['sl_status'] = null;
+        /* $request['sl_status'] = null;
         if($request['status'] == "close"){
             if($request['entry_price'] <= $request['exit_price']) {
                 if ($request['exit_price'] == $request['target']) {
@@ -266,7 +451,8 @@ class AnalystController extends Controller
                     $request['sl_status'] = "Trapped";
                 }
             }
-        }
+        } */
+		
         if(isset($request->script_name) &&  $request->script_name != ''){
             $keyword['name'] = $request->script_name;
             $keywordData = KeywordServices::getKeywordByName($request->script_name);
@@ -274,8 +460,21 @@ class AnalystController extends Controller
                 KeywordServices::create($keyword);
             }
         }
-        MonitorDataServices::update($request);
-        return Redirect::route('viewMonitorData')->with("info","Monitor Data has been updated");
+        
+		$monitor['analysts_id'] = $request->analysts_id;
+		$monitor['monitor_id'] = $auth_user->id;
+		$monitor['date'] = $request->date;
+        $monitor['script_name'] = $request->script_name;
+        $monitor['entry_time'] = $request->entry_time;
+        $monitor['entry_price'] = $request->entry_price;
+        $monitor['target'] = $request->target;
+        $monitor['buy_sell'] = $request->buy_sell;
+        $monitor['sl'] = $request->sl;
+        MonitorData::where("id", $request->monitor_data_id)->update($monitor);
+		
+		$data["message"] = "Call has been updated succesfully.";
+        $data["status"] = true;
+        return JsonReturn::success($data);
     }
 
     public function editAnalystAssignTo(Request $request){
