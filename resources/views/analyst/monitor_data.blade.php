@@ -831,6 +831,9 @@
 			url: "{{ route('editMonitorDataForm') }}",
 			data: {id : edit_id},
 			dataType: 'json',
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
 			success: function(data) {
 				
 				$("#editCallMdl .modal-dialog").html(data.message);
