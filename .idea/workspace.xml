@@ -2,25 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1e2fdd1-681d-4aef-b180-5fd805f2dd3c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/public/assets/media/logo_image.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AnalystController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AnalystController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ClientController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ClientController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/ClientServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/ClientServices.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/MonitorDataServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/MonitorDataServices.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/analyst/analyst.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analyst/analyst.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/analyst/monitor.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analyst/monitor.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/analyst/monitor_analysts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analyst/monitor_analysts.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/analyst/monitor_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analyst/monitor_data.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RolesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RolesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/RoleServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/RoleServices.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/calls/setup.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/calls/setup.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/channelPartner/channel_partner.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/channelPartner/channel_partner.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/channelPartner/channel_partner_user_client.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/channelPartner/channel_partner_user_client.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/clients/add.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/add.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/clients/client_demat.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/client_demat.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/freelancer/freelancer_client.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/freelancer/freelancer_client.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/freelancer/freelancer_user_client.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/freelancer/freelancer_user_client.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/keyword/keyword.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/keyword/keyword.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/clients/client.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/client.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/roles/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/roles/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/users/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/users/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/list.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
@@ -172,12 +165,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/channelPartner" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets/media" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\xampp\htdocs\profinext_development\public\assets\media" />
       <recent name="D:\xampp\htdocs\profinext_development\resources\views\channelPartner" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -212,7 +206,7 @@
       <workItem from="1646974008155" duration="32245000" />
       <workItem from="1647057404624" duration="32686000" />
       <workItem from="1647230251511" duration="18714000" />
-      <workItem from="1647402779151" duration="17463000" />
+      <workItem from="1647402779151" duration="31726000" />
     </task>
     <task id="LOCAL-00001" summary="- view monitor tab">
       <created>1646371499484</created>
@@ -396,7 +390,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647407867405</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="-solve the monitor tab error">
+      <created>1647423600969</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1647423600969</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -419,6 +420,18 @@
     <MESSAGE value="-add the trader Data tab" />
     <MESSAGE value="-solve the client error" />
     <MESSAGE value="-solve the analyst error" />
-    <option name="LAST_COMMIT_MESSAGE" value="-solve the analyst error" />
+    <MESSAGE value="-solve the monitor tab error" />
+    <option name="LAST_COMMIT_MESSAGE" value="-solve the monitor tab error" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/FreelancerController.php</url>
+          <line>4</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

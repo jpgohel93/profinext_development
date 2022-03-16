@@ -8,9 +8,16 @@
             <!--begin::Content-->
             <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
                 <!--begin::Logo-->
-                <a href="{{route('dashboard')}}" class="mb-12" style="color: #0b0b10;">
+{{--                <a href="{{route('dashboard')}}" class="mb-12" style="color: #0b0b10;">--}}
 {{--                    <img alt="Logo" src="{{asset('assets/media/logos/logo-1.svg')}}" class="h-40px" />--}}
-                    <h1>ProfiNext</h1>
+{{--                    <h1>ProfiNext</h1>--}}
+{{--                </a>--}}
+
+                <a href="{{route('dashboard')}}" >
+                    <span>
+                    <div style="float: left;"><img alt="Logo" src="{{asset("assets/media/logo_image.png")}}" class="h-50px logo"/></div>
+                    <small style="color: #0b0b10; font-size: xx-large; margin-left: 5px; ">ProfiNext</small>
+                    </span>
                 </a>
                 <!--end::Logo-->
                 <!--begin::Wrapper-->
@@ -56,16 +63,16 @@
                             <input class="form-control form-control-lg form-control-solid" name="password" type="password" name="password" autocomplete="off" />
                             <!--end::Input-->
                         </div>
-                        <div class="fv-row mb-10">
-                             <div class="d-flex flex-stack mb-2">
-                                 <!--begin::Label-->
-                                 <label class="form-label fw-bolder text-dark fs-6 mb-0"></label>
-                                 <!--end::Label-->
-                                 <!--begin::Link-->
-                                 <a href="{{route("resetPassword")}}" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
-                                 <!--end::Link-->
-                             </div>
-                        </div>
+{{--                        <div class="fv-row mb-10">--}}
+{{--                             <div class="d-flex flex-stack mb-2">--}}
+{{--                                 <!--begin::Label-->--}}
+{{--                                 <label class="form-label fw-bolder text-dark fs-6 mb-0"></label>--}}
+{{--                                 <!--end::Label-->--}}
+{{--                                 <!--begin::Link-->--}}
+{{--                                 <a href="{{route("resetPassword")}}" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>--}}
+{{--                                 <!--end::Link-->--}}
+{{--                             </div>--}}
+{{--                        </div>--}}
                         <!--end::Input group-->
                         <!--begin::Actions-->
                         <div class="text-center">

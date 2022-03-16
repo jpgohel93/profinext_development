@@ -41,7 +41,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="role" placeholder="" value="{{$role->name}}" readonly/>
+													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="role" placeholder="" value="{{$role->name}}" {{isset($userRole) && $userRole == "super-admin" ? '' : 'readonly'}}/>
 													<!--end::Input-->
 												</div>
 												<div class="col-md-6 align-self-center">

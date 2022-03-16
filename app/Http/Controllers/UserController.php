@@ -89,6 +89,11 @@ class UserController extends Controller
         $request['prime_renewal_client_percentage'] = isset($request->prime_renewal_client_percentage) ? $request->prime_renewal_client_percentage : null;
         $request['ams_limit'] = isset($request->limit) ? $request->limit : null;
         $request['fees_percentage'] = isset($request->fees_percentage) ? $request->fees_percentage : null;
+        if(isset($request->password) && $request->password != ''){
+            $request['password'] = Hash::make($request->password);
+        }else{
+            unset($request['password']);
+        }
         $userRoles = implode(",", $request->role);
         unset($request["profit_company_1"]);
         unset($request["profit_company_2"]);

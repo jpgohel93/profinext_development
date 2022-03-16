@@ -58,6 +58,9 @@ class RoleServices
             ["permission.required" => "Please select atleast one permission to edit or create role"]
         );
         try {
+            $roleName['name'] = $request->role;
+            Role::where("id",$id)->update($roleName);
+
             $role = RoleServices::get($id);
             if(!$role)
                 return false;

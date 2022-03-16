@@ -82,6 +82,19 @@
 
 
 												<div class="row d-flex align-items-end mb-5 custom_appendDiv">
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 col-sm-12 mb-5">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="">Password</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old('password')}}" name="password" />
+                                                        <!--end::Input-->
+                                                    </div>
+
+                                                    <div class="col-md-6 col-sm-12 mb-5">
                                                     <!--begin::Label-->
                                                     <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                         <span class="required">Mobile Number <span class="compCount"></span></span>
@@ -89,7 +102,7 @@
                                                     <!--end::Label-->
                                                     @forelse ($user->numbers as $number)
                                                         <!--begin::Input group-->
-                                                        <div class="col-md-6 col-sm-12 mb-5">
+                                                        <div class="col-md-12 col-sm-12 mb-5">
                                                             <div class="d-flex justify-conetent-end">
                                                                 <!--begin::Input-->
                                                                 <input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc" style="border-radius:5px 0px 0px 5px;" name="number[]" value="{{$number}}" style="display: inline; width: 90%;" />
@@ -113,7 +126,7 @@
                                                         </div>
                                                         <!--end::Input group-->
                                                     @empty
-                                                        <div class="col-md-6 col-sm-12 mb-5">
+                                                        <div class="col-md-12 col-sm-12 mb-5">
                                                             <div class="d-flex justify-conetent-end">
                                                                 <!--begin::Input-->
                                                                 <input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc" style="border-radius:5px 0px 0px 5px;" name="number[]" placeholder="" value="" style="    display: inline;
@@ -137,6 +150,7 @@
                                                             </div>
                                                         </div>
                                                     @endforelse
+                                                    </div>
 												</div>
                                                 <div id="appendDivWp"></div>
 											</div>

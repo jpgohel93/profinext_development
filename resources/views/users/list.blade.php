@@ -67,174 +67,224 @@
 						<!--end::Toolbar-->
 						<!--begin::Row-->
 						<div class="row g-6 g-xl-9 mx-4">
-							@forelse ($users as $user)
-								<!--begin::Col-->
-								<div class="col-md-6 col-xl-4">
-									<!--begin::Card-->
-									<div class="card border border-2 border-gray-300 border-hover">
-										<!--begin::Card header-->
-										<div class="card-header border-0 pt-9">
-											<!--begin::Card Title-->
-											<div class="card-title m-0">
-												<!--begin::Avatar-->
-												<div class="symbol symbol-50px w-50px bg-light">
-													<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172"
-														style=" fill:#000000;">
-														<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
-															stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
-															font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-															<path d="M0,172v-172h172v172z" fill="none"></path>
-															<g fill="#ef305e">
-																<path
-																	d="M86,6.88c-43.69832,0 -79.12,35.42168 -79.12,79.12c0,43.69832 35.42168,79.12 79.12,79.12c43.69832,0 79.12,-35.42168 79.12,-79.12c0,-43.69832 -35.42168,-79.12 -79.12,-79.12zM116.50936,116.96h-7.21024v-47.28624h-0.516l-19.52544,46.85968h-6.52224l-19.52544,-46.85968h-0.516v47.28624h-7.21024v-61.92h8.96808l21.20416,51.23536h0.688l21.19728,-51.23536h8.96808z">
-																</path>
-															</g>
-														</g>
-													</svg>
-												</div>
-												<!--end::Avatar-->
-											</div>
-											<!--end::Car Title-->
-											<!--begin::Card toolbar-->
-											<div class="card-toolbar">
-												<span class="badge badge-light-primary fw-bolder me-auto px-4 py-3 mx-2">{{$user->role}}</span>
-											</div>
-											<!--end::Card toolbar-->
-										</div>
-										<!--end:: Card header-->
-										<!--begin:: Card body-->
-										<div class="card-body p-9">
-											<!--begin::Name-->
-											<div class="fs-3 fw-bolder text-dark">{{$user->name}}</div>
-											<!--end::Name-->
-											<!--begin::Info-->
-											<div class="d-flex justify-content-between mt-4">
-												<!--begin::Col-->
-                                                @if($user->user_type==1 && $user->deleted_at==null)
-												<div class="">
-													<!--begin::Option-->
-													<input type="checkbox" class="btn-check" name="account_type" value="partner" {{($user->user_type==1 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_partner">
-													<label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_partner">
-														<!--begin::Info-->
-														Partner
-														{{-- <span class="d-block fw-bold text-start">
-															<span class="text-dark fw-bolder d-block fs-4 mb-2">Partner</span>
-														</span> --}}
-														<!--end::Info-->
-													</label>
-													<!--end::Option-->
-												<div class=""></div></div>
-                                                @endif
-												<!--end::Col-->
-												<!--begin::Col-->
-                                                @if($user->user_type==2 && $user->deleted_at==null)
-												<div class="">
-													<!--begin::Option-->
-													<input type="checkbox" class="btn-check" name="account_type" value="employee" {{($user->user_type==2 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
-													<label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">
-														<!--begin::Info-->
-														Employee
-														<!-- <span class="d-block fw-bold text-start">
-															<span class="text-dark fw-bolder d-block fs-4 mb-2">Employee</span>
-														</span> -->
-														<!--end::Info-->
-													</label>
-													<!--end::Option-->
-												</div>
-                                            @endif
-                                                <!--end::Col-->
-                                                <!--begin::Col-->
-                                                @if($user->user_type==3 && $user->deleted_at==null)
-                                                <div class="">
-                                                    <!--begin::Option-->
-                                                    <input type="checkbox" class="btn-check" name="account_type" value="channel_partner" {{($user->user_type==3 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
-                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">
-                                                        <!--begin::Info-->
-                                                        Channel Partner
-                                                        <!-- <span class="d-block fw-bold text-start">
-                                                            <span class="text-dark fw-bolder d-block fs-4 mb-2">Employee</span>
-                                                        </span> -->
-                                                        <!--end::Info-->
-                                                    </label>
-                                                    <!--end::Option-->
+                            @forelse ($users as $user)
+                                <div class="col-md-6 col-xxl-3">
+                                <!--begin::Card-->
+                                <div class="card border border-2 border-gray-300">
+                                    <!--begin::Card body-->
+                                    <div class="card-body d-flex flex-center flex-column p-9">
+                                        <!--begin::Avatar-->
+                                        <div class="symbol symbol-65px symbol-circle mb-5" style="background: #009ef7;">
+                                            <span class="symbol-label fs-2x fw-bold text-primary bg-light-primary"><?php echo ucwords($user->name[0]); ?></span>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <!--begin::Name-->
+                                        <a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bolder mb-0">{{$user->name}}</a>
+                                        <!--end::Name-->
+                                        <!--begin::Position-->
+                                        <div class="fw-bold text-gray-400 mb-6">
+                                            <span class="badge badge-light-primary fw-bolder me-auto px-4 py-3 mx-2">{{$user->role}}</span>
+                                        </div>
+                                        <!--end::Position-->
+                                        <!--begin::Info-->
+                                        <div class="d-flex flex-center flex-wrap mb-5">
+                                            <!--begin::Stats-->
+                                            @can("user-write")
+                                                <div class="d-flex align-items-left py-1" style="margin-right:10px;">
+                                                    <a href="{{url('/user/edit',$user->id)}}" target="_blank" class="btn btn-sm btn-primary">
+                                                        Edit User
+                                                    </a>
                                                 </div>
-                                            @endif
-                                                <!--end::Col-->
-                                            </div>
-                                            <div class="d-flex justify-content-between mt-4">
-                                                <!--begin::Col-->
-                                                @if($user->user_type==4 && $user->deleted_at==null)
-                                                <div class="">
-                                                    <!--begin::Option-->
-                                                    <input type="checkbox" class="btn-check" name="account_type" value="freelancer_ams" {{($user->user_type==4 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
-                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">
-                                                        <!--begin::Info-->
-                                                        Freelancer AMS
-                                                        <!-- <span class="d-block fw-bold text-start">
-                                                            <span class="text-dark fw-bolder d-block fs-4 mb-2">Employee</span>
-                                                        </span> -->
-                                                        <!--end::Info-->
-                                                    </label>
-                                                    <!--end::Option-->
-                                                </div>
-                                            @endif
-                                                <!--end::Col-->
-                                                <!--begin::Col-->
-                                                @if($user->user_type==5 && $user->deleted_at==null)
-                                                <div class="">
-                                                    <!--begin::Option-->
-                                                    <input type="checkbox" class="btn-check" name="account_type" value="freelancer_prime" {{($user->user_type==5 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">
-                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">
-                                                        <!--begin::Info-->
-                                                        Freelancer Prime
-                                                        <!-- <span class="d-block fw-bold text-start">
-                                                            <span class="text-dark fw-bolder d-block fs-4 mb-2">Employee</span>
-                                                        </span> -->
-                                                        <!--end::Info-->
-                                                    </label>
-                                                    <!--end::Option-->
-                                                </div>
-                                            @endif
-                                                <!--end::Col-->
+                                            @endcan
+                                            <!--end::Stats-->
+                                            <!--begin::Stats-->
 
-												<!--begin::Col-->
-                                                @if($user->deleted_at!=null)
-												<div class="">
-													<!--begin::Option-->
-													<input type="checkbox" class="btn-check" name="account_type" value="terminated" {{($user->deleted_at!=null)?"checked":""}} id="kt_create_account_form_account_type_terminated">
-													<label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_terminated">
-														<!--begin::Info-->
-														Terminated
-														<!-- <span class="d-block fw-bold text-start">
-															<span class="text-dark fw-bolder d-block fs-4 mb-2">Terminated</span>
-														</span> -->
-														<!--end::Info-->
-													</label>
-													<!--end::Option-->
-												</div>
-                                            @endif
-												<!--end::Col-->
-											</div>
-											<!--end::Info-->
-										<!--begin::Details toggle-->
+                                            <div class="d-flex align-items-right py-1">
+                                                <a href="{{route('viewUser',$user->id)}}" target="_blank"
+                                                   class="btn btn-sm btn-primary">View More</a>
+                                            </div>
+                                            <!--end::Stats-->
+                                        </div>
+                                        <!--end::Info-->
+
+
+                                    </div>
+                                    <!--begin::Card body-->
+                                </div>
+                                <!--begin::Card-->
+                            </div>
+                            @empty
+                                <h1>No Users</h1>
+                            @endforelse
+
+{{--							@forelse ($users as $user)--}}
+{{--								<!--begin::Col-->--}}
+{{--								<div class="col-md-6 col-xl-4">--}}
+{{--									<!--begin::Card-->--}}
+{{--									<div class="card border border-2 border-gray-300 border-hover">--}}
+{{--										<!--begin::Card header-->--}}
+{{--										<div class="card-header border-0 pt-9">--}}
+{{--											<!--begin::Card Title-->--}}
+{{--											<div class="card-title m-0">--}}
+{{--												<!--begin::Avatar-->--}}
+{{--												<div class="symbol symbol-50px w-50px bg-light">--}}
+{{--													<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172"--}}
+{{--														style=" fill:#000000;">--}}
+{{--														<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"--}}
+{{--															stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"--}}
+{{--															font-size="none" text-anchor="none" style="mix-blend-mode: normal">--}}
+{{--															<path d="M0,172v-172h172v172z" fill="none"></path>--}}
+{{--															<g fill="#ef305e">--}}
+{{--																<path--}}
+{{--																	d="M86,6.88c-43.69832,0 -79.12,35.42168 -79.12,79.12c0,43.69832 35.42168,79.12 79.12,79.12c43.69832,0 79.12,-35.42168 79.12,-79.12c0,-43.69832 -35.42168,-79.12 -79.12,-79.12zM116.50936,116.96h-7.21024v-47.28624h-0.516l-19.52544,46.85968h-6.52224l-19.52544,-46.85968h-0.516v47.28624h-7.21024v-61.92h8.96808l21.20416,51.23536h0.688l21.19728,-51.23536h8.96808z">--}}
+{{--																</path>--}}
+{{--															</g>--}}
+{{--														</g>--}}
+{{--													</svg>--}}
+{{--												</div>--}}
+{{--												<!--end::Avatar-->--}}
+{{--											</div>--}}
+{{--											<!--end::Car Title-->--}}
+{{--											<!--begin::Card toolbar-->--}}
+{{--											<div class="card-toolbar">--}}
+{{--												<span class="badge badge-light-primary fw-bolder me-auto px-4 py-3 mx-2">{{$user->role}}</span>--}}
+{{--											</div>--}}
+{{--											<!--end::Card toolbar-->--}}
+{{--										</div>--}}
+{{--										<!--end:: Card header-->--}}
+{{--										<!--begin:: Card body-->--}}
+{{--										<div class="card-body p-9">--}}
+{{--											<!--begin::Name-->--}}
+{{--											<div class="fs-3 fw-bolder text-dark">{{$user->name}}</div>--}}
+{{--											<!--end::Name-->--}}
+{{--											<!--begin::Info-->--}}
+{{--											<div class="d-flex justify-content-between mt-4">--}}
+{{--												<!--begin::Col-->--}}
+{{--                                                @if($user->user_type==1 && $user->deleted_at==null)--}}
+{{--												<div class="">--}}
+{{--													<!--begin::Option-->--}}
+{{--													<input type="checkbox" class="btn-check" name="account_type" value="partner" {{($user->user_type==1 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_partner">--}}
+{{--													<label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_partner">--}}
+{{--														<!--begin::Info-->--}}
+{{--														Partner--}}
+{{--														--}}{{-- <span class="d-block fw-bold text-start">--}}
+{{--															<span class="text-dark fw-bolder d-block fs-4 mb-2">Partner</span>--}}
+{{--														</span> --}}
+{{--														<!--end::Info-->--}}
+{{--													</label>--}}
+{{--													<!--end::Option-->--}}
+{{--												<div class=""></div></div>--}}
+{{--                                                @endif--}}
+{{--												<!--end::Col-->--}}
+{{--												<!--begin::Col-->--}}
+{{--                                                @if($user->user_type==2 && $user->deleted_at==null)--}}
+{{--												<div class="">--}}
+{{--													<!--begin::Option-->--}}
+{{--													<input type="checkbox" class="btn-check" name="account_type" value="employee" {{($user->user_type==2 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">--}}
+{{--													<label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">--}}
+{{--														<!--begin::Info-->--}}
+{{--														Employee--}}
+{{--														<!-- <span class="d-block fw-bold text-start">--}}
+{{--															<span class="text-dark fw-bolder d-block fs-4 mb-2">Employee</span>--}}
+{{--														</span> -->--}}
+{{--														<!--end::Info-->--}}
+{{--													</label>--}}
+{{--													<!--end::Option-->--}}
+{{--												</div>--}}
+{{--                                            @endif--}}
+{{--                                                <!--end::Col-->--}}
+{{--                                                <!--begin::Col-->--}}
+{{--                                                @if($user->user_type==3 && $user->deleted_at==null)--}}
+{{--                                                <div class="">--}}
+{{--                                                    <!--begin::Option-->--}}
+{{--                                                    <input type="checkbox" class="btn-check" name="account_type" value="channel_partner" {{($user->user_type==3 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">--}}
+{{--                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">--}}
+{{--                                                        <!--begin::Info-->--}}
+{{--                                                        Channel Partner--}}
+{{--                                                        <!-- <span class="d-block fw-bold text-start">--}}
+{{--                                                            <span class="text-dark fw-bolder d-block fs-4 mb-2">Employee</span>--}}
+{{--                                                        </span> -->--}}
+{{--                                                        <!--end::Info-->--}}
+{{--                                                    </label>--}}
+{{--                                                    <!--end::Option-->--}}
+{{--                                                </div>--}}
+{{--                                            @endif--}}
+{{--                                                <!--end::Col-->--}}
+{{--                                            </div>--}}
+{{--                                            <div class="d-flex justify-content-between mt-4">--}}
+{{--                                                <!--begin::Col-->--}}
+{{--                                                @if($user->user_type==4 && $user->deleted_at==null)--}}
+{{--                                                <div class="">--}}
+{{--                                                    <!--begin::Option-->--}}
+{{--                                                    <input type="checkbox" class="btn-check" name="account_type" value="freelancer_ams" {{($user->user_type==4 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">--}}
+{{--                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">--}}
+{{--                                                        <!--begin::Info-->--}}
+{{--                                                        Freelancer AMS--}}
+{{--                                                        <!-- <span class="d-block fw-bold text-start">--}}
+{{--                                                            <span class="text-dark fw-bolder d-block fs-4 mb-2">Employee</span>--}}
+{{--                                                        </span> -->--}}
+{{--                                                        <!--end::Info-->--}}
+{{--                                                    </label>--}}
+{{--                                                    <!--end::Option-->--}}
+{{--                                                </div>--}}
+{{--                                            @endif--}}
+{{--                                                <!--end::Col-->--}}
+{{--                                                <!--begin::Col-->--}}
+{{--                                                @if($user->user_type==5 && $user->deleted_at==null)--}}
+{{--                                                <div class="">--}}
+{{--                                                    <!--begin::Option-->--}}
+{{--                                                    <input type="checkbox" class="btn-check" name="account_type" value="freelancer_prime" {{($user->user_type==5 && $user->deleted_at==null)?"checked":""}} id="kt_create_account_form_account_type_employee">--}}
+{{--                                                    <label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_employee">--}}
+{{--                                                        <!--begin::Info-->--}}
+{{--                                                        Freelancer Prime--}}
+{{--                                                        <!-- <span class="d-block fw-bold text-start">--}}
+{{--                                                            <span class="text-dark fw-bolder d-block fs-4 mb-2">Employee</span>--}}
+{{--                                                        </span> -->--}}
+{{--                                                        <!--end::Info-->--}}
+{{--                                                    </label>--}}
+{{--                                                    <!--end::Option-->--}}
+{{--                                                </div>--}}
+{{--                                            @endif--}}
+{{--                                                <!--end::Col-->--}}
+
+{{--												<!--begin::Col-->--}}
+{{--                                                @if($user->deleted_at!=null)--}}
+{{--												<div class="">--}}
+{{--													<!--begin::Option-->--}}
+{{--													<input type="checkbox" class="btn-check" name="account_type" value="terminated" {{($user->deleted_at!=null)?"checked":""}} id="kt_create_account_form_account_type_terminated">--}}
+{{--													<label class="btn btn-outline btn-outline-dashed btn-outline-default p-2 d-flex align-items-center" for="kt_create_account_form_account_type_terminated">--}}
+{{--														<!--begin::Info-->--}}
+{{--														Terminated--}}
+{{--														<!-- <span class="d-block fw-bold text-start">--}}
+{{--															<span class="text-dark fw-bolder d-block fs-4 mb-2">Terminated</span>--}}
+{{--														</span> -->--}}
+{{--														<!--end::Info-->--}}
+{{--													</label>--}}
+{{--													<!--end::Option-->--}}
+{{--												</div>--}}
+{{--                                            @endif--}}
+{{--												<!--end::Col-->--}}
+{{--											</div>--}}
+{{--											<!--end::Info-->--}}
+{{--										<!--begin::Details toggle-->--}}
 {{--										<div class="d-flex justify-content-center align-items-center fs-4 py-3">--}}
 {{--											<span data-bs-toggle="tooltip" data-bs-trigger="hover" title="" data-bs-original-title="View More Details">--}}
 {{--												<a href="{{route('viewUser',$user->id)}}" target="_blank" class="btn btn-sm btn-light-primary">View More</a>--}}
 {{--											</span>--}}
 {{--										</div>--}}
-										<!--end::Details toggle-->
+{{--										<!--end::Details toggle-->--}}
 
-										<div class="d-flex justify-content-between">
-											@can("user-write")
-											<div class="d-flex align-items-center py-1">
-												<a href="{{url('/user/edit',$user->id)}}" target="_blank" class="btn btn-lg btn-primary">
-												Edit User
-												</a>
-											</div>
-											@endcan
-                                                <div class="d-flex align-items-center py-1">
-                                                    <a href="{{route('viewUser',$user->id)}}" target="_blank" class="btn btn-lg btn-primary">View More</a>
-                                                </div>
+{{--										<div class="d-flex justify-content-between">--}}
+{{--											@can("user-write")--}}
+{{--											<div class="d-flex align-items-center py-1">--}}
+{{--												<a href="{{url('/user/edit',$user->id)}}" target="_blank" class="btn btn-lg btn-primary">--}}
+{{--												Edit User--}}
+{{--												</a>--}}
+{{--											</div>--}}
+{{--											@endcan--}}
+{{--                                                <div class="d-flex align-items-center py-1">--}}
+{{--                                                    <a href="{{route('viewUser',$user->id)}}" target="_blank" class="btn btn-lg btn-primary">View More</a>--}}
+{{--                                                </div>--}}
 
 {{--											@can("user-delete")--}}
 {{--											<div class="d-flex align-items-center py-1">--}}
@@ -243,16 +293,16 @@
 {{--												</a>--}}
 {{--											</div>--}}
 {{--											@endcan--}}
-										</div>
-										</div>
-										<!--end:: Card body-->
-									</div>
-									<!--end::Card-->
-								</div>
-								<!--end::Col-->
-							@empty
-								<h1>No Users</h1>
-							@endforelse
+{{--										</div>--}}
+{{--										</div>--}}
+{{--										<!--end:: Card body-->--}}
+{{--									</div>--}}
+{{--									<!--end::Card-->--}}
+{{--								</div>--}}
+{{--								<!--end::Col-->--}}
+{{--							@empty--}}
+{{--								<h1>No Users</h1>--}}
+{{--							@endforelse--}}
 						</div>
 						<!-- Row Ends -->
 					</div>

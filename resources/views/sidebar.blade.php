@@ -3,9 +3,14 @@
     <!--begin::Brand-->
     <div class="aside-logo flex-column-auto" id="kt_aside_logo">
         <!--begin::Logo-->
-        <a href="{{url("/")}}">
-            <img alt="Logo" src="{{asset("assets/media/logos/logo-1-dark.svg")}}" class="h-25px logo" />
+        <a href="{{url("/")}}" >
+            <span>
+            <div style="float: left;"><img alt="Logo" src="{{asset("assets/media/logo_image.png")}}" class="h-25px logo"/></div>
+            <small style="color: #FFFFFF; font-size: large; margin-left: 5px; ">ProfiNext</small>
+            </span>
         </a>
+
+
         <!--end::Logo-->
         <!--begin::Aside toggler-->
         <div id="kt_aside_toggle" class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="aside-minimize">

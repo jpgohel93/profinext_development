@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Services\RoleServices;
 use Illuminate\Support\Facades\Redirect;
 use App\Services\CommonService;
+use Illuminate\Support\Facades\Auth;
+
 class RolesController extends Controller
 {
     function __construct()
@@ -30,7 +32,9 @@ class RolesController extends Controller
     public static function editRoleForm(Request $request,$id){
         $role = RoleServices::get($id);
         $permissions = RoleServices::permissionsByRole($id);
-        return view("roles.edit", ["role" => $role,"rolePermissions" => $permissions,"permissions"=>RoleServices::permissions()]);
+        $auth_user = Auth::user();
+        $userRole = $auth_user->role;
+        return view("roles.edit", ["role" => $role,"rolePermissions" => $permissions,"permissions"=>RoleServices::permissions(),"userRole" => $userRole]);
     }
     public function editRole(Request $request,$id){
         $role = RoleServices::update($request,$id);
