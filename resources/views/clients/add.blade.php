@@ -61,12 +61,19 @@
                                                     </label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <select name="client_type" id="client_type" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select User Type">
-                                                        <option></option>
-                                                        <option value="1">Account Handling</option>
-                                                        <option value="2">Mutual Fund</option>
-                                                        <option value="3">Unlisted Shares</option>
-                                                    </select>
+                                                    <input type="hidden" name="form_type" value="{{isset($formType) && $formType ? $formType : ''}}" >
+                                                    @if(isset($formType) && $formType == "channelPartner")
+                                                        <select name="client_type" id="client_type" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
+                                                            <option value="1">Account Handling</option>
+                                                        </select>
+                                                    @else
+                                                        <select name="client_type" id="client_type" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select User Type">
+                                                            <option></option>
+                                                            <option value="1">Account Handling</option>
+                                                            <option value="2">Mutual Fund</option>
+                                                            <option value="3">Unlisted Shares</option>
+                                                        </select>
+                                                    @endif
                                                     <!--end::Input-->
                                                 </div>
                                             </div>
@@ -162,6 +169,11 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
+                                                        @if(isset($formType) && $formType == "channelPartner")
+                                                            <select name="channel_partner_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
+                                                                <option value="{{$channelPartner->id}}" >{{$channelPartner->name}}</option>
+                                                            </select>
+                                                        @else
                                                         <select name="channel_partner_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Channel Partner">
                                                             <option></option>
                                                             @forelse ($channelPartner as $partner)
@@ -170,6 +182,7 @@
 
                                                             @endforelse
                                                         </select>
+                                                        @endif
                                                         <!--end::Input-->
                                                     </div>
 
@@ -380,107 +393,109 @@
                                                 </div>
                                                 <!--end::Step 2-->
                                                 <!--begin::Step 3-->
-                                                <div class="d-block card p-7 my-5 payment_details" data-kt-stepper-element="content">
-                                                    <div class="w-100">
-                                                        <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
-                                                            <h3 class="stepper-title text-primary">Payment Details</h3>
-                                                        </div>
+                                                <div id="paymentDetailsDiv">
+                                                    <div class="d-block card p-7 my-5 payment_details" data-kt-stepper-element="content">
+                                                        <div class="w-100">
+                                                            <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
+                                                                <h3 class="stepper-title text-primary">Payment Details</h3>
+                                                            </div>
 
-                                                        <!--begin::Input group-->
-                                                        <div class="fv-row mb-8 col-md-6">
-                                                            <!--begin::Label-->
-                                                            <label class="required fs-5 fw-bold mb-2">Mode</label>
-                                                            <!--end::Label-->
-                                                            <div class="row col-md-6 mb-4">
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6">
-                                                                    <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
-                                                                        <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
-                                                                        <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" checked="checked" />
-                                                                        <input class="form-check-input" type="hidden" name="mode[]" value="2" />
+                                                            <!--begin::Input group-->
+                                                            <div class="fv-row mb-8 col-md-6">
+                                                                <!--begin::Label-->
+                                                                <label class="required fs-5 fw-bold mb-2">Mode</label>
+                                                                <!--end::Label-->
+                                                                <div class="row col-md-6 mb-4">
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6">
+                                                                        <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
+                                                                            <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
+                                                                            <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" checked="checked" />
+                                                                            <input class="form-check-input" type="hidden" name="mode[]" value="2" />
 
-                                                                        <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
-                                                                    </label>
+                                                                            <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                </div>
+                                                            </div>
+                                                            <!--end::Input group-->
+
+
+                                                            <div class="row mb-4 PaymentSection joining_date" style="display:block;" id="BankDiv">
+                                                                <!--begin::Col-->
+                                                                <div class="col-md-5 fv-row mb-4 hideonpending">
+                                                                    <!--begin::Label-->
+                                                                    <label class="required fs-6 fw-bold form-label mb-2">Bank Details</label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input wrapper-->
+                                                                    <div class="position-relative">
+                                                                        <!--begin::Input-->
+                                                                        <select name="bank[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
+                                                                            <option></option>
+                                                                            @forelse ($banks as $bank)
+                                                                                <option value="{{$bank->bank}}" {{(old('bank') && old('bank')==$bank->bank)?"selected":""}}>{{$bank->bank}}</option>
+                                                                            @empty
+                                                                                <option>Selecte Bank</option>
+                                                                            @endforelse
+                                                                        </select>
+                                                                    </div>
+                                                                    <!--end::Input wrapper-->
+                                                                </div>
+                                                                <!--end::Col-->
+
+                                                                <div class="row">
+                                                                    <!--begin::Input group-->
+                                                                <div class="col-md-6 mb-4">
+                                                                    <!--begin::Label-->
+                                                                    <label class="required fs-5 fw-bold mb-2">Joining Date</label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date"/>
+                                                                    <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Input group-->
-                                                            </div>
-                                                        </div>
-                                                        <!--end::Input group-->
-
-
-                                                        <div class="row mb-4 PaymentSection joining_date" style="display:block;" id="BankDiv">
-                                                            <!--begin::Col-->
-                                                            <div class="col-md-5 fv-row mb-4 hideonpending">
-                                                                <!--begin::Label-->
-                                                                <label class="required fs-6 fw-bold form-label mb-2">Bank Details</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input wrapper-->
-                                                                <div class="position-relative">
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 mb-4 hideonpending" id="FeesDiv">
+                                                                    <!--begin::Label-->
+                                                                    <label class="required fs-5 fw-bold mb-2">Fees</label>
+                                                                    <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <select name="bank[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
-                                                                        <option></option>
-                                                                        @forelse ($banks as $bank)
-                                                                            <option value="{{$bank->bank}}" {{(old('bank') && old('bank')==$bank->bank)?"selected":""}}>{{$bank->bank}}</option>
-                                                                        @empty
-                                                                            <option>Selecte Bank</option>
-                                                                        @endforelse
-                                                                    </select>
+                                                                    <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="25,000" />
+                                                                    <!--end::Input-->
                                                                 </div>
-                                                                <!--end::Input wrapper-->
-                                                            </div>
-                                                            <!--end::Col-->
-
-                                                            <div class="row">
-                                                                <!--begin::Input group-->
-                                                            <div class="col-md-6 mb-4">
-                                                                <!--begin::Label-->
-                                                                <label class="required fs-5 fw-bold mb-2">Joining Date</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date"/>
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <!--begin::Input group-->
-                                                            <div class="col-md-6 mb-4 hideonpending" id="FeesDiv">
-                                                                <!--begin::Label-->
-                                                                <label class="required fs-5 fw-bold mb-2">Fees</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="25,000" />
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            </div>
-                                                            <div class="row mb-8 " id="UploadDiv">
-                                                                <!--begin::Input group-->
-                                                            <div class="col-md-6 mb-4 hideonpending">
-                                                                <!--begin::Label-->
-                                                                <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="file" name="screenshot[0][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <!--begin::Input group-->
-                                                            <div class="col-md-6 d-flex justify-content-between">
-                                                                <!--begin::Label-->
-                                                                <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <div>
-                                                                    <!--begin::Checkbox-->
-                                                                    <label class="form-check form-check-custom form-check-solid me-10">
-                                                                        <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" value="0">
-                                                                        <input class="form-check-input h-20px w-20px PendingMark" type="hidden" name="pending_payment[]" value="0">
-                                                                        <span class="form-check-label fw-bold">Pending</span>
-                                                                    </label>
-                                                                    <!--end::Checkbox-->
+                                                                <!--end::Input group-->
                                                                 </div>
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
+                                                                <div class="row mb-8 " id="UploadDiv">
+                                                                    <!--begin::Input group-->
+                                                                <div class="col-md-6 mb-4 hideonpending">
+                                                                    <!--begin::Label-->
+                                                                    <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <input type="file" name="screenshot[0][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 d-flex justify-content-between">
+                                                                    <!--begin::Label-->
+                                                                    <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <div>
+                                                                        <!--begin::Checkbox-->
+                                                                        <label class="form-check form-check-custom form-check-solid me-10">
+                                                                            <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" value="0">
+                                                                            <input class="form-check-input h-20px w-20px PendingMark" type="hidden" name="pending_payment[]" value="0">
+                                                                            <span class="form-check-label fw-bold">Pending</span>
+                                                                        </label>
+                                                                        <!--end::Checkbox-->
+                                                                    </div>
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1315,6 +1330,15 @@
 				$("#personalDetail").hide();
 				$("#accountHandlingDetail").hide();
 				$("#submitSmsButton").hide();
+                var formType = "{{ isset($formType) ? $formType: 0}}";
+
+                if(formType == "channelPartner"){
+                    $("#personalDetail").show();
+                    $("#accountHandlingDetail").show();
+                    $("#submitSmsButton").show();
+                    $("#channelPartnerDiv").show();
+                    $("#paymentDetailsDiv").hide();
+                }
 			});
 			$(document).on('change',"#client_type", function () {
 				var selectVal = $(this).val();

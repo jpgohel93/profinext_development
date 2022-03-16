@@ -55,7 +55,7 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center py-1">
-                            @can("role-create")
+                            @can("monitor-data-create")
                                 <!--begin::Button-->
                                     <a href="{{route('users')}}" class="btn btn-sm btn-primary" id="kt_toolbar_primary_button">
 									<span class="svg-icon svg-icon-2">
@@ -154,11 +154,13 @@
                                                 <th class="min-w-10px">Sr No.</th>
                                                 <th class="min-w-75px">Monitor Name</th>
                                                 <th class="min-w-75px">Total Analyst</th>
+                                                @can("monitor-data-write")
                                                 <th class="min-w-75px">Action</th>
+                                                @endcan
                                             </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold">
-                                            @can("role-read")
+                                            @can("monitor-data-read")
                                                 @php
                                                     $i=1;
                                                 @endphp
@@ -173,6 +175,7 @@
                                                         <td>
                                                             {{$user->total_analyst}}
                                                         </td>
+                                                        @can("monitor-data-write")
                                                         <td>
                                                             <div class="d-flex justify-content-center">
                                                                 <div class="menu-item">
@@ -182,6 +185,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
+                                                        @endcan
                                                     </tr>
                                                 @empty
                                                     <tr>

@@ -147,7 +147,6 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody class="text-gray-600 fw-bold">
-                                                @can("role-read")
                                                     @php
                                                         $i=1;
                                                     @endphp
@@ -177,9 +176,6 @@
                                                             <td colspan="4">No Monitor Found</td>
                                                         </tr>
                                                     @endforelse
-                                                @else
-                                                    <h1>Unauthorised</h1>
-                                                @endcan
                                                 <!--end::Table row-->
                                                 </tbody>
                                                 <!--end::Table body-->

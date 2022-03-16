@@ -11,6 +11,7 @@ use App\Services\CommonService;
 use App\Services\UserServices;
 use App\Models\ClientDemat;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 class ClientController extends Controller
 {
@@ -63,7 +64,11 @@ class ClientController extends Controller
     // create client data
     public function create(Request $request){
         $client = ClientServices::create($request);
-        return Redirect::route("clients")->with("info","Client have been created");
+        if($request->form_type == "channelPartner"){
+            return Redirect::route("channelPartnerUserData")->with("info","Client have been created");
+        }else{
+            return Redirect::route("clients")->with("info","Client have been created");
+        }
     }
     // read client
     public function get(Request $request,$id){
@@ -200,5 +205,33 @@ class ClientController extends Controller
             ->select('client_demat.*','clients.name')->
             where("client_demat.id", $id)->first();
         return $dematAccount;
+    }
+
+    // create client form
+    public function channelPartnerClientForm(){
+
+        $auth_user = Auth::user();
+        $getLastSGNo = ClientDemat::select("serial_number")->where("st_sg", "SG")->orderBy("id", "DESC")->first();
+
+        if(!empty($getLastSGNo)) {
+            $newSGNo = $getLastSGNo->serial_number;
+        } else {
+            $newSGNo = "000";
+        }
+
+        $getLastSTNo = ClientDemat::select("serial_number")->where("st_sg", "ST")->orderBy("id", "DESC")->first();
+
+        if(!empty($getLastSTNo)) {
+            $newSTNo = $getLastSTNo->serial_number;
+        } else {
+            $newSTNo = "000";
+        }
+
+        $professions = ProfessionServices::view(['id', 'profession']);
+        $banks = BankDetailsServices::view(['id', 'bank']);
+        $brokers = BrokerServices::view(['id', 'broker']);
+        $channelPartner = $auth_user;
+        $formType = "channelPartner";
+        return view("clients.add", compact('professions', 'banks','brokers','channelPartner','newSTNo','newSGNo','formType'));
     }
 }

@@ -142,7 +142,7 @@
                                             </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold">
-                                            @can("role-read")
+                                            @can("channelpartner-data-read")
                                                 @php
                                                     $i=1;
                                                 @endphp

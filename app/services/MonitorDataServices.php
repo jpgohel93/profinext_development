@@ -106,10 +106,10 @@ class MonitorDataServices{
             "status"=>"required",
             "exit_price"=>"required",
             "exit_time"=>"required",
-            "sl_status"=>"required",
             "exit_date"=>"required",
         ]);
         $call = $request->except(["call_id","_token"]);
+        $call['sl_status'] = $request['sl_status'];
         // dd($request);
         return MonitorData::where("id",$request->call_id)->update($call);
     }

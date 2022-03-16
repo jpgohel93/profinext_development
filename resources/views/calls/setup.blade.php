@@ -190,7 +190,9 @@
                                                             <th class="min-w-75px">Available Fund</th>
                                                             <th class="min-w-75px">Profit / Loss</th>
                                                             <th class="min-w-75px">Day of Joining</th>
+                                                            @can("setup-write")
                                                             <th class="min-w-75px">Action</th>
+                                                            @endcan
                                                         </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold" id="activeCallTable">
@@ -221,12 +223,10 @@
                                                                             </span>
                                                                     </a>
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @can("client-write")
+                                                                        @can("setup-write")
                                                                             <div class="menu-item px-3">
                                                                                 <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
                                                                             </div>
-                                                                        @endcan
-
 																		<div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
                                                                         </div>
@@ -252,6 +252,7 @@
 {{--                                                                        <div class="menu-item px-3">--}}
 {{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 assignFreelancer">Allocate to Trader</a>--}}
 {{--                                                                        </div>--}}
+                                                                        @endcan
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -377,7 +378,9 @@
                                                             <th class="min-w-75px">Available Fund</th>
                                                             <th class="min-w-75px">Profit / Loss</th>
                                                             <th class="min-w-75px">Day of Joining</th>
+                                                            @can("setup-write")
                                                             <th class="min-w-75px">Action</th>
+                                                            @endcan
                                                         </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold" id="activeCallTable">
@@ -408,11 +411,10 @@
                                                                             </span>
                                                                     </a>
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @can("client-write")
+                                                                        @can("setup-write")
                                                                             <div class="menu-item px-3">
                                                                                 <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
                                                                             </div>
-                                                                        @endcan
 																		<div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
                                                                         </div>
@@ -428,6 +430,7 @@
 {{--                                                                        <div class="menu-item px-3">--}}
 {{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 assignFreelancer">Allocate to Trader</a>--}}
 {{--                                                                        </div>--}}
+                                                                        @endcan
                                                                     </div>
 
                                                                 </td>

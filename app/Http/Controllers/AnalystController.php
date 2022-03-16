@@ -236,8 +236,8 @@ class AnalystController extends Controller
 			'entry_time' => 'required',//|regex:/^\d{3}-\d{3}-\d{4}$/
 			'entry_price' => 'required',
 			'buy_sell' => 'required',
-			'target' => 'required',
-			'sl' => 'required'
+//			'target' => 'required',
+//			'sl' => 'required'
 		];
 
         $input = $request->only(
@@ -432,7 +432,7 @@ class AnalystController extends Controller
                     $html .= '<div class="row mb-12">
 						<div class="col-md-6">
 							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-								<span class="required">sl : </span>
+								<span class="">sl : </span>
 								<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
 							</label>
 							<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="sl" placeholder="Enter SL" value="'.$monitorData->sl.'" />
@@ -440,7 +440,7 @@ class AnalystController extends Controller
 						<div class="col-md-6">
 							<!--begin::Label-->
 							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-								<span class="required">Target : </span>
+								<span class="">Target : </span>
 								<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
 							</label>
 							<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="target" placeholder="Enter Target" value="'.$monitorData->target.'" />
@@ -473,7 +473,7 @@ class AnalystController extends Controller
 
                             $html .= '</div><div class="modal-footer text-center">
                                 <p id="err_msg1"></p>
-                                <button type="button" class="btn btn-primary" id="closeModel">
+                                <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">
                                     <span class="indicator-label">Cancel</span>
                                 </button>
                                 <button type="submit" id="submitEditCall" class="btn btn-primary">
@@ -493,7 +493,7 @@ class AnalystController extends Controller
         $request['monitor_id'] = $auth_user->id;
          $request['sl_status'] = null;
         if($request->status == "close"){
-            if($request->entry_price <= $request->exit_price) {
+            if($request->entry_price <= $request->exit_price && $request->target != '') {
                 if ($request->exit_price == $request->target) {
                     $request['sl_status'] = "Target";
                 } else if ($request->exit_price > $request->target) {
@@ -501,7 +501,7 @@ class AnalystController extends Controller
                 } else if ($request->exit_price < $request->target) {
                     $request['sl_status'] = "Early Target";
                 }
-            }else if($request->entry_price  > $request->exit_price) {
+            }else if($request->entry_price  > $request->exit_price && $request->sl != '') {
                 if ($request->exit_price == $request->sl) {
                     $request['sl_status'] = "SL";
                 } else if ($request->exit_price > $request->sl) {
@@ -509,6 +509,8 @@ class AnalystController extends Controller
                 } else if ($request->exit_price < $request->sl) {
                     $request['sl_status'] = "Trapped";
                 }
+            }else{
+                $request['sl_status'] = " ";
             }
             $monitor['exit_time'] = $request->exit_time;
             $monitor['exit_price'] = $request->exit_price;
@@ -555,7 +557,7 @@ class AnalystController extends Controller
         $id = $request->call_id;
         $monitorData = MonitorDataServices::getMonitorData($id);
         if(!empty($monitorData)){
-            if($monitorData->entry_price <= $request->exit_price) {
+            if($monitorData->entry_price <= $request->exit_price && $monitorData->target) {
                 if ($request->exit_price == $monitorData->target) {
                     $request['sl_status'] = "Target";
                 } else if ($request->exit_price > $monitorData->target) {
@@ -563,7 +565,7 @@ class AnalystController extends Controller
                 } else if ($request->exit_price < $monitorData->target) {
                     $request['sl_status'] = "Early Target";
                 }
-            }else if($monitorData->entry_price  > $request->exit_price) {
+            }else if($monitorData->entry_price  > $request->exit_price && $monitorData->sl) {
                 if ($request->exit_price == $monitorData->sl) {
                     $request['sl_status'] = "SL";
                 } else if ($request->exit_price > $monitorData->sl) {
@@ -571,6 +573,8 @@ class AnalystController extends Controller
                 } else if ($request->exit_price < $monitorData->sl) {
                     $request['sl_status'] = "Trapped";
                 }
+            }else{
+                $request['sl_status'] = " ";
             }
         }
         MonitorDataServices::close($request);

@@ -188,7 +188,9 @@
                                                                 <th class="min-w-125px">No of Calls</th>
                                                                 <th class="min-w-75px">Accuracy</th>
                                                                 <th class="min-w-75px">Risk Reward</th>
+                                                                @can('analyst-write')
                                                                 <th class="text-end min-w-100px">Actions</th>
+                                                                @endcan
                                                             </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold">
@@ -206,6 +208,7 @@
                                                                     <td>{{$analyst->total_calls}}</td>
                                                                     <td>{{$analyst->accuracy}}</td>
                                                                     <td>{{$analyst->reward}}</td>
+                                                                    @can('analyst-write')
                                                                     <td class="text-end">
                                                                         <div class="d-flex justify-content-end align-items-center">
                                                                             <div class="menu-item px-3">
@@ -215,6 +218,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
+                                                                    @endcan
                                                                 </tr>
                                                             @empty
                                                                 <h3>There's no Active Analysts. click <a href='{{route('createAnalystForm')}}'>here</a> to Add new Analyst</h3>
@@ -311,7 +315,9 @@
                                                                 <th class="min-w-125px">No of Calls</th>
                                                                 <th class="min-w-75px">Accuracy</th>
                                                                 <th class="min-w-75px">Risk Reward</th>
+                                                                @can('analyst-write')
                                                                 <th class="text-end min-w-100px">Actions</th>
+                                                                @endcan
                                                             </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold">
@@ -329,6 +335,7 @@
                                                                     <td>{{$analyst->total_calls}}</td>
                                                                     <td>{{$analyst->accuracy}}</td>
                                                                     <td>{{$analyst->reward}}</td>
+                                                                    @can('analyst-write')
                                                                     <td class="text-end">
                                                                         <div class="d-flex justify-content-end align-items-center">
                                                                             <div class="menu-item px-3">
@@ -338,6 +345,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
+                                                                    @endcan
                                                                 </tr>
                                                             @empty
                                                                 <h3>There's no Active Analysts. click <a href='{{route('createAnalystForm')}}'>here</a> to Add new Analyst</h3>
@@ -434,7 +442,9 @@
                                                                 <th class="min-w-125px">No of Calls</th>
                                                                 <th class="min-w-75px">Accuracy</th>
                                                                 <th class="min-w-75px">Risk Reward</th>
+                                                                @can('analyst-write')
                                                                 <th class="text-end min-w-100px">Actions</th>
+                                                                @endcan
                                                             </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold">
@@ -452,6 +462,7 @@
                                                                     <td>{{$analyst->total_calls}}</td>
                                                                     <td>{{$analyst->accuracy}}</td>
                                                                     <td>{{$analyst->reward}}</td>
+                                                                    @can('analyst-write')
                                                                     <td class="text-end">
                                                                         <div class="d-flex justify-content-end align-items-center">
                                                                             <div class="menu-item px-3">
@@ -461,6 +472,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
+                                                                    @endcan
                                                                 </tr>
                                                             @empty
                                                                 <h3>There's no Experiment Analysts. click <a href='{{route('createAnalystForm')}}'>here</a> to Add new Analyst</h3>
@@ -557,7 +569,9 @@
                                                                     <th class="min-w-125px">No of Calls</th>
                                                                     <th class="min-w-75px">Accuracy</th>
                                                                     <th class="min-w-75px">Risk Reward</th>
+                                                                    @can('analyst-write')
                                                                     <th class="text-end min-w-100px">Actions</th>
+                                                                    @endcan
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-gray-600 fw-bold">
@@ -575,6 +589,7 @@
                                                                         <td>{{$analyst->total_calls}}</td>
                                                                         <td>{{$analyst->accuracy}}</td>
                                                                         <td>{{$analyst->reward}}</td>
+                                                                        @can('analyst-write')
                                                                         <td class="text-end">
                                                                             <div class="d-flex justify-content-end align-items-center">
                                                                                 <div class="menu-item px-3">
@@ -584,6 +599,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </td>
+                                                                        @endcan
                                                                     </tr>
                                                                 @endforeach
                                                             </tbody>
@@ -680,7 +696,9 @@
                                                                 <th class="min-w-125px">No of Calls</th>
                                                                 <th class="min-w-75px">Accuracy</th>
                                                                 <th class="min-w-75px">Risk Reward</th>
+                                                                @can('analyst-write')
                                                                 <th class="text-end min-w-100px">Actions</th>
+                                                                @endcan
                                                             </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold">
@@ -698,6 +716,7 @@
                                                                     <td>{{$analyst->total_calls}}</td>
                                                                     <td>{{$analyst->accuracy}}</td>
                                                                     <td>{{$analyst->reward}}</td>
+                                                                    @can('analyst-write')
                                                                     <td class="text-end">
                                                                         <div class="d-flex justify-content-end align-items-center">
                                                                             <div class="menu-item px-3">
@@ -707,6 +726,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
+                                                                    @endcan
                                                                 </tr>
                                                             @empty
                                                                 <h3>There's no Terminated Analysts. click <a href='{{route('createAnalystForm')}}'>here</a> to Add new Analyst</h3>

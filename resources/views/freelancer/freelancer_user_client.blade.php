@@ -142,7 +142,9 @@
                                                 <th class="min-w-75px">Holder Name</th>
                                                 <th class="min-w-75px">Service Type</th>
                                                 <th class="min-w-75px">Broker</th>
+                                                @can('freelancer-write')
                                                 <th class="text-end min-w-100px">Action</th>
+                                                @endcan
                                             </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold">
@@ -164,6 +166,7 @@
                                                             @endif
                                                         </td>
                                                         <td> {{$client->broker}}</td>
+                                                        @can('freelancer-write')
                                                         <td class="text-end">
                                                             <div class="d-flex justify-content-center">
                                                                 <div class="menu-item">
@@ -173,6 +176,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
+                                                        @endcan
                                                     </tr>
                                                 @empty
                                                     <tr>

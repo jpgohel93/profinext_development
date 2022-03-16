@@ -50,14 +50,21 @@
                                 <!--begin::Label-->
                                 <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
                                 <!--end::Label-->
-                                <!--begin::Link-->
-                                <a href="{{route("resetPassword")}}" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
-                                <!--end::Link-->
                             </div>
                             <!--end::Wrapper-->
                             <!--begin::Input-->
                             <input class="form-control form-control-lg form-control-solid" name="password" type="password" name="password" autocomplete="off" />
                             <!--end::Input-->
+                        </div>
+                        <div class="fv-row mb-10">
+                             <div class="d-flex flex-stack mb-2">
+                                 <!--begin::Label-->
+                                 <label class="form-label fw-bolder text-dark fs-6 mb-0"></label>
+                                 <!--end::Label-->
+                                 <!--begin::Link-->
+                                 <a href="{{route("resetPassword")}}" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
+                                 <!--end::Link-->
+                             </div>
                         </div>
                         <!--end::Input group-->
                         <!--begin::Actions-->

@@ -195,6 +195,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/channelPartner",[ChannelPartnerController::class, "channelPartnerData"])->name("channelPartnerData");
     Route::get("/channelPartner/clients/{id}",[ChannelPartnerController::class, "channelPartnerClientData"])->name("channelPartnerClientData");
     Route::get("/user/channelPartner",[ChannelPartnerController::class, "channelPartnerUserData"])->name("channelPartnerUserData");
+    Route::get("/channelPartner/client/add",[ClientController::class,"channelPartnerClientForm"])->name("channelPartnerClientForm");
 
     // keyword
     Route::get("/keyword",[KeywordController::class, "keywordData"])->name("keywordData");

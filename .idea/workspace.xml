@@ -3,7 +3,25 @@
   <component name="ChangeListManager">
     <list default="true" id="c1e2fdd1-681d-4aef-b180-5fd805f2dd3c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/users/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AnalystController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AnalystController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ClientController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ClientController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/ClientServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/ClientServices.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/MonitorDataServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/MonitorDataServices.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/analyst/analyst.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analyst/analyst.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/analyst/monitor.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analyst/monitor.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/analyst/monitor_analysts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analyst/monitor_analysts.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/analyst/monitor_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analyst/monitor_data.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/calls/setup.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/calls/setup.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/channelPartner/channel_partner.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/channelPartner/channel_partner.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/channelPartner/channel_partner_user_client.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/channelPartner/channel_partner_user_client.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/clients/add.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/add.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/clients/client_demat.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/client_demat.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/freelancer/freelancer_client.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/freelancer/freelancer_client.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/freelancer/freelancer_user_client.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/freelancer/freelancer_user_client.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/keyword/keyword.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/keyword/keyword.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -194,7 +212,7 @@
       <workItem from="1646974008155" duration="32245000" />
       <workItem from="1647057404624" duration="32686000" />
       <workItem from="1647230251511" duration="18714000" />
-      <workItem from="1647402779151" duration="4838000" />
+      <workItem from="1647402779151" duration="17463000" />
     </task>
     <task id="LOCAL-00001" summary="- view monitor tab">
       <created>1646371499484</created>
@@ -371,7 +389,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647405704877</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="-solve the analyst error">
+      <created>1647407867405</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1647407867405</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -227,18 +227,20 @@
                                                                     <td> {{$monitor->status}} </td>
                                                                     <td> {{$monitor->open_call}} </td>
                                                                     <td> {{$monitor->close_call}} </td>
+                                                                    @can('monitor-write')
                                                                     <td class="">
                                                                         <div class="d-flex justify-content-center">
                                                                             <div class="menu-item">
                                                                                 <!--a href="{{url('/monitor_call/'.$monitor->id)}}" class="menu-link p-1" target="_blank">
                                                                                     <i class="fa fa-plus text-dark fa-2x"></i>
                                                                                 </a-->
-                                                                                <a data-analysts_id="{{ $monitor->id }}" class="addCall menu-link p-1" target="_blank">
+                                                                                <a data-analysts_id="{{ $monitor->id }}" data-name="{{$monitor->analyst}}" class="addCall menu-link p-1">
                                                                                     <i class="fa fa-plus text-dark fa-2x"></i>
                                                                                 </a>
                                                                             </div>
                                                                         </div>
                                                                     </td>
+                                                                    @endcan
                                                                 </tr>
                                                             @endforeach
                                                             </tbody>
@@ -374,15 +376,19 @@
                                                                     <td> {{$monitor->entry_price}} </td>
                                                                     <td> {{$monitor->target}} </td>
                                                                     <td>
-                                                                        <a data-monitor_id="{{ $monitor->id }}" data-call_type="openCall" class="editCall menu-link p-1" target="_blank">
+                                                                        @can('monitor-write')
+                                                                        <a data-monitor_id="{{ $monitor->id }}" data-call_type="openCall" class="editCall menu-link p-1" target="_blank" title="Edit call">
                                                                             <i class="fa fa-edit text-dark fa-2x"></i>
                                                                         </a>
-                                                                        <a data-monitor_id="{{ $monitor->id }}" class="menu-link p-1 deleteCall">
+                                                                        <a data-monitor_id="{{ $monitor->id }}" class="menu-link p-1 updateCall" title="Square off call">
+                                                                            <i class="fa fa-power-off text-dark fa-2x"></i>
+                                                                        </a>
+                                                                        @endcan
+                                                                        @can('monitor-delete')
+                                                                        <a data-monitor_id="{{ $monitor->id }}" class="menu-link p-1 deleteCall" title="Delete call">
                                                                             <i class="fa fa-trash text-dark fa-2x"></i>
                                                                         </a>
-                                                                        <a data-monitor_id="{{ $monitor->id }}" class="menu-link p-1 updateCall">
-                                                                            <i class="fa fa-close text-dark fa-2x"></i>
-                                                                        </a>
+                                                                        @endcan
                                                                     </td>
 
                                                                 </tr>
@@ -543,12 +549,16 @@
 {{--                                                                    </td>--}}
 
                                                                     <td>
-                                                                        <a data-monitor_id="{{ $monitor->id }}" data-call_type="closeCall" class="editCall menu-link p-1">
+                                                                        @can('monitor-write')
+                                                                        <a data-monitor_id="{{ $monitor->id }}" data-call_type="closeCall" class="editCall menu-link p-1" title="Edit call">
                                                                             <i class="fa fa-edit text-dark fa-2x"></i>
                                                                         </a>
-                                                                        <a data-monitor_id="{{ $monitor->id }}" class="menu-link p-1 deleteCall">
+                                                                        @endcan
+                                                                        @can('monitor-delete')
+                                                                        <a data-monitor_id="{{ $monitor->id }}" class="menu-link p-1 deleteCall" title="Delete call">
                                                                             <i class="fa fa-trash text-dark fa-2x"></i>
                                                                         </a>
+                                                                        @endcan
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -609,6 +619,15 @@
                                 </label>
 								<input type="text" value="{{date("Y-m-d",strtotime("now"))}}" class="form-control form-control-lg form-control-solid bdr-ccc" name="date" placeholder="" value="{{date('d-m-Y')}}" />
                             </div>
+
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Analyst</span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                </label>
+                                <p class="form-control form-control-lg form-control-solid bdr-ccc" id="analyst_name"></p>
+                            </div>
                         </div>
 
 						<div class="row mb-12">
@@ -668,7 +687,7 @@
                             <div class="col-md-6">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">sl : </span>
+                                    <span class="">sl : </span>
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
                                 </label>
                                 <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="sl" placeholder="Enter SL" value="{{old('sl')}}" />
@@ -676,7 +695,7 @@
                             <div class="col-md-6">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Target : </span>
+                                    <span class="">Target : </span>
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
                                 </label>
 								<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="target" placeholder="Enter Target" value="{{(old('target'))?old('target'):""}}" />
@@ -688,7 +707,7 @@
 
 					<div class="modal-footer text-center">
 						<p id="err_msg"></p>
-						<button type="button" class="btn btn-primary" id="closeModel">
+						<button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">
 							<span class="indicator-label">Cancel</span>
 						</button>
 						<button type="submit" id="submitCall" class="btn btn-primary">
@@ -757,7 +776,7 @@
 
 					<div class="modal-footer text-center">
 						<p id="err_msg"></p>
-						<button type="button" class="btn btn-primary" id="closeModel">
+						<button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">
 							<span class="indicator-label">Cancel</span>
 						</button>
 						<button type="submit" id="closeCall" class="btn btn-primary">
@@ -792,8 +811,8 @@
 			buy_sell: "required",
 			entry_price: "required",
 			entry_time: "required",
-			sl: "required",
-			target: "required",
+			// sl: "required",
+			// target: "required",
 		},
 		submitHandler: function(form) {
 			$("#submitCall").prop('disabled', true);
@@ -847,8 +866,8 @@
 				buy_sell: "required",
 				entry_price: "required",
 				entry_time: "required",
-				sl: "required",
-				target: "required",
+				// sl: "required",
+				// target: "required",
 			},
 			submitHandler: function(form) {
 				$("#submitEditCall").prop('disabled', true);
@@ -900,8 +919,10 @@
 
 	$(document).on("click", ".addCall", function() {
 		var analysts_id = $(this).data("analysts_id");
+		var analystName = $(this).data("name");
 		$("#addCallMdl").modal("show");
 		$("#analysts_id").val(analysts_id);
+		$("#analyst_name").text(analystName);
 	});
 
 	$(document).on("click", ".editCall", function() {

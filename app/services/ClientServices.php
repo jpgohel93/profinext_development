@@ -95,54 +95,56 @@ class ClientServices
             ClientDemat::insert($array);
         }
 
-        foreach($request->mode as $key => $mode){
-            if($request->mode[$key]=="2"){
-                $request->validate([
-                    "bank.*"=>"required|alpha_spaces",
-                    "mode.*"=>"required|numeric",
-                    "joining_date"=>"required",
-                    "pending_payment.*"=>"required|numeric",
-                ],
-                [
-                    "bank.*.alpha_spaces"=>"Invalid Bank",
-                    "joining_date.required"=>"Joining Date is Required",
-                    "pending_payment.*.numeric"=>"Invalid Pending Payment Mark",
-                ]);
-                if($request->pending_payment[$key]=="0"){
+        if($request->form_type != "channelPartner") {
+            foreach ($request->mode as $key => $mode) {
+                if ($request->mode[$key] == "2") {
                     $request->validate([
-                        "fees"=>"required",
+                        "bank.*" => "required|alpha_spaces",
+                        "mode.*" => "required|numeric",
+                        "joining_date" => "required",
+                        "pending_payment.*" => "required|numeric",
                     ],
-                    [
-                        "fees.required"=>"Fees is required",
+                        [
+                            "bank.*.alpha_spaces" => "Invalid Bank",
+                            "joining_date.required" => "Joining Date is Required",
+                            "pending_payment.*.numeric" => "Invalid Pending Payment Mark",
+                        ]);
+                    if ($request->pending_payment[$key] == "0") {
+                        $request->validate([
+                            "fees" => "required",
+                        ],
+                            [
+                                "fees.required" => "Fees is required",
+                            ]);
+                    }
+                    $payment['joining_date'] = $request->joining_date[$key];
+                    $payment['bank'] = $request->bank[$key];
+                    $payment['fees'] = $request->fees[$key];
+                    $payment['mode'] = $request->mode[$key];
+                    $payment['pending_payment'] = $request->pending_payment[$key];
+                    $payment['updated_by'] = Auth::id();
+                    $payment['updated_at'] = date("Y-m-d H:i:s");
+                    $payment['client_id'] = $client->id;
+                    $payment_id = ClientPayment::create($payment);
+                    // $payment = ClientPayment::create($payment);
+                } else {
+                    $request->validate([
+                        "mode.*" => "required|numeric",
                     ]);
+                    $payment['mode'] = $request->mode[$key];
+                    $payment['updated_by'] = Auth::id();
+                    $payment['updated_at'] = date("Y-m-d H:i:s");
+                    $payment['client_id'] = $client->id;
+                    $payment_id = ClientPayment::create($payment);
                 }
-                $payment['joining_date']=$request->joining_date[$key];
-                $payment['bank']=$request->bank[$key];
-                $payment['fees']=$request->fees[$key];
-                $payment['mode']=$request->mode[$key];
-                $payment['pending_payment']=$request->pending_payment[$key];
-                $payment['updated_by']=Auth::id();
-                $payment['updated_at']=date("Y-m-d H:i:s");
-                $payment['client_id']=$client->id;
-                $payment_id = ClientPayment::create($payment);
-                // $payment = ClientPayment::create($payment);
-            }else{
-                $request->validate([
-                    "mode.*"=>"required|numeric",
-                ]);
-                $payment['mode']=$request->mode[$key];
-                $payment['updated_by']=Auth::id();
-                $payment['updated_at']=date("Y-m-d H:i:s");
-                $payment['client_id']=$client->id;
-                $payment_id = ClientPayment::create($payment);
-            }
 
-            // file upload
-            if($request->mode[$key]=="2" && $request->pending_payment[$key]!="1" && isset($request->screenshot[$key]) && !empty($request->screenshot[$key])){
-                foreach($request->screenshot[$key] as $index => $file){
-                    $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.SCREENSHOTS'));
-                    if($newName['status']){
-                        Screenshots::create(["client_payment_id"=>$payment_id->id,"file"=>$newName['data']['filename'],"mime_type"=>$newName['data']['mimeType']]);
+                // file upload
+                if ($request->mode[$key] == "2" && $request->pending_payment[$key] != "1" && isset($request->screenshot[$key]) && !empty($request->screenshot[$key])) {
+                    foreach ($request->screenshot[$key] as $index => $file) {
+                        $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.SCREENSHOTS'));
+                        if ($newName['status']) {
+                            Screenshots::create(["client_payment_id" => $payment_id->id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
+                        }
                     }
                 }
             }
