@@ -374,7 +374,7 @@
                                                                     <td> {{$monitor->entry_price}} </td>
                                                                     <td> {{$monitor->target}} </td>
                                                                     <td>
-                                                                        <a data-monitor_id="{{ $monitor->id }}" class="editCall menu-link p-1" target="_blank">
+                                                                        <a data-monitor_id="{{ $monitor->id }}" data-call_type="openCall" class="editCall menu-link p-1" target="_blank">
                                                                             <i class="fa fa-edit text-dark fa-2x"></i>
                                                                         </a>
                                                                         <a data-monitor_id="{{ $monitor->id }}" class="menu-link p-1 deleteCall">
@@ -543,7 +543,7 @@
 {{--                                                                    </td>--}}
 
                                                                     <td>
-                                                                        <a data-monitor_id="{{ $monitor->id }}" class="editCall menu-link p-1">
+                                                                        <a data-monitor_id="{{ $monitor->id }}" data-call_type="closeCall" class="editCall menu-link p-1">
                                                                             <i class="fa fa-edit text-dark fa-2x"></i>
                                                                         </a>
                                                                         <a data-monitor_id="{{ $monitor->id }}" class="menu-link p-1 deleteCall">
@@ -588,7 +588,7 @@
 				@csrf
 				<div class="modal-content">
 					<div class="modal-header">
-						<h2 class="fw-bolder">Add Monitor Data</h2>
+						<h2 class="fw-bolder">Add Call</h2>
 						<button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
 							<span class="svg-icon svg-icon-1">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -719,6 +719,15 @@
 					<div class="modal-body mx-md-10">
 						<input type="hidden" name="call_id" id="call_id" value="">
 						<input type="hidden" name="status" value="close">
+                        <div class="row mb-12">
+                            <div class="col-md-6">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Date : </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                </label>
+                                <input type="text" value="{{date("Y-m-d",strtotime("now"))}}" class="form-control form-control-lg form-control-solid bdr-ccc" name="exit_date" placeholder="" value="{{date('d-m-Y')}}" />
+                            </div>
+                        </div>
 
 						<div class="row mb-12">
                             <!--begin::Col-->
@@ -897,11 +906,12 @@
 
 	$(document).on("click", ".editCall", function() {
 		var edit_id = $(this).data("monitor_id");
+		var call_type = $(this).data("call_type");
 
 		$.ajax({
 			type: 'POST',
 			url: "{{ route('editMonitorDataForm') }}",
-			data: {id : edit_id},
+			data: {id : edit_id,call_type:call_type},
 			dataType: 'json',
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

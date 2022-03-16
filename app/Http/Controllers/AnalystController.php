@@ -288,6 +288,7 @@ class AnalystController extends Controller
     public function editMonitorDataForm(Request $request){
 
 		$id = $request->id;
+		$callType = $request->call_type;
 
         $monitorData = MonitorDataServices::getMonitorData($id);
         $auth_user = Auth::user();
@@ -300,7 +301,7 @@ class AnalystController extends Controller
 			@csrf
 			<div class="modal-content">
 				<div class="modal-header">
-					<h2 class="fw-bolder">Add Monitor Data</h2>
+					<h2 class="fw-bolder">Edit Call</h2>
 					<button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
 						<span class="svg-icon svg-icon-1">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -394,9 +395,41 @@ class AnalystController extends Controller
 									$html .= '<option value="no" '.$sel_no.' >No</option>
 							</select>
 						</div>
-					</div>
+					</div>';
 
-					<div class="row mb-12">
+					if($callType == "closeCall"){
+                        $html .= '<div class="row mb-12">
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Exit Price : </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                </label>
+                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="exit_price" placeholder="Exit Price" value="'.$monitorData->exit_price.'" />
+                            </div>
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Exit Time : </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                </label>
+                                <select name="exit_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">';
+                            $sel_yes = $sel_no = "";
+                            if(isset($monitorData->exit_time) && $monitorData->exit_time == "yes") {
+                                $sel_yes = "selected";
+                            }
+                            if(isset($monitorData->exit_time) && $monitorData->exit_time == "no") {
+                                $sel_no = "selected";
+                            }
+
+                            $html .= '<option value="yes" '.$sel_yes.' >Yes</option>';
+                            $html .= '<option value="no" '.$sel_no.' >No</option>
+                                </select>
+                            </div>
+                        </div>';
+                    }
+
+                    $html .= '<div class="row mb-12">
 						<div class="col-md-6">
 							<label class="d-flex align-items-center fs-6 fw-bold mb-2">
 								<span class="required">sl : </span>
@@ -412,21 +445,43 @@ class AnalystController extends Controller
 							</label>
 							<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="target" placeholder="Enter Target" value="'.$monitorData->target.'" />
 						</div>
-					</div>
+					</div>';
 
-				</div>
+                if ($callType == "closeCall") {
+                    $html .= '<div class="row mb-12">
+                                    <div class="col-md-6">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Call Status : </span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
+                                        </label>
+                                        <select name="status" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">';
+                                                $sel_open = $sel_close = "";
+                                                if (isset($monitorData->status) && $monitorData->status == "open") {
+                                                    $sel_open = "selected";
+                                                }
+                                                if (isset($monitorData->status) && $monitorData->status == "close") {
+                                                    $sel_close = "selected";
+                                                }
 
-				<div class="modal-footer text-center">
-					<p id="err_msg1"></p>
-					<button type="button" class="btn btn-primary" id="closeModel">
-						<span class="indicator-label">Cancel</span>
-					</button>
-					<button type="submit" id="submitEditCall" class="btn btn-primary">
-						<span class="indicator-label">Save</span>
-					</button>
-				</div>
-			</div>
-		</form>';
+                                                $html .= '<option value="open" ' . $sel_open . ' >Open</option>';
+                                                $html .= '<option value="close" ' . $sel_close . ' >Close</option>
+                                        </select>
+                                    </div>
+                             </div>';
+                }
+
+                            $html .= '</div><div class="modal-footer text-center">
+                                <p id="err_msg1"></p>
+                                <button type="button" class="btn btn-primary" id="closeModel">
+                                    <span class="indicator-label">Cancel</span>
+                                </button>
+                                <button type="submit" id="submitEditCall" class="btn btn-primary">
+                                    <span class="indicator-label">Save</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>';
 
 		$data["message"] = $html;
         $data["status"] = true;
@@ -436,26 +491,31 @@ class AnalystController extends Controller
     public function editMonitorData(Request $request){
         $auth_user = Auth::user();
         $request['monitor_id'] = $auth_user->id;
-        /* $request['sl_status'] = null;
-        if($request['status'] == "close"){
-            if($request['entry_price'] <= $request['exit_price']) {
-                if ($request['exit_price'] == $request['target']) {
+         $request['sl_status'] = null;
+        if($request->status == "close"){
+            if($request->entry_price <= $request->exit_price) {
+                if ($request->exit_price == $request->target) {
                     $request['sl_status'] = "Target";
-                } else if ($request['exit_price'] > $request['target']) {
+                } else if ($request->exit_price > $request->target) {
                     $request['sl_status'] = "Access Target";
-                } else if ($request['exit_price'] < $request['target']) {
+                } else if ($request->exit_price < $request->target) {
                     $request['sl_status'] = "Early Target";
                 }
-            }else if($request['entry_price'] > $request['exit_price']) {
-                if ($request['exit_price'] == $request['sl']) {
+            }else if($request->entry_price  > $request->exit_price) {
+                if ($request->exit_price == $request->sl) {
                     $request['sl_status'] = "SL";
-                } else if ($request['exit_price'] > $request['sl']) {
+                } else if ($request->exit_price > $request->sl) {
                     $request['sl_status'] = "Early SL";
-                } else if ($request['exit_price'] < $request['sl']) {
+                } else if ($request->exit_price < $request->sl) {
                     $request['sl_status'] = "Trapped";
                 }
             }
-        } */
+            $monitor['exit_time'] = $request->exit_time;
+            $monitor['exit_price'] = $request->exit_price;
+            $monitor['sl_status'] = $request['sl_status'];
+        }elseif($request->status != ""){
+            $monitor['status'] = $request->status;
+        }
 
         if(isset($request->script_name) &&  $request->script_name != ''){
             $keyword['name'] = $request->script_name;
@@ -492,6 +552,27 @@ class AnalystController extends Controller
     }
 
     public function closeMonitorData(Request $request){
+        $id = $request->call_id;
+        $monitorData = MonitorDataServices::getMonitorData($id);
+        if(!empty($monitorData)){
+            if($monitorData->entry_price <= $request->exit_price) {
+                if ($request->exit_price == $monitorData->target) {
+                    $request['sl_status'] = "Target";
+                } else if ($request->exit_price > $monitorData->target) {
+                    $request['sl_status'] = "Access Target";
+                } else if ($request->exit_price < $monitorData->target) {
+                    $request['sl_status'] = "Early Target";
+                }
+            }else if($monitorData->entry_price  > $request->exit_price) {
+                if ($request->exit_price == $monitorData->sl) {
+                    $request['sl_status'] = "SL";
+                } else if ($request->exit_price > $monitorData->sl) {
+                    $request['sl_status'] = "Early SL";
+                } else if ($request->exit_price < $monitorData->sl) {
+                    $request['sl_status'] = "Trapped";
+                }
+            }
+        }
         MonitorDataServices::close($request);
         return Redirect::route('viewMonitorData')->with("info", "Call has been updated succesfully.");
     }

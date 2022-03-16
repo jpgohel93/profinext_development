@@ -106,6 +106,8 @@ class MonitorDataServices{
             "status"=>"required",
             "exit_price"=>"required",
             "exit_time"=>"required",
+            "sl_status"=>"required",
+            "exit_date"=>"required",
         ]);
         $call = $request->except(["call_id","_token"]);
         // dd($request);
