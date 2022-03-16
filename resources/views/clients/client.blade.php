@@ -54,7 +54,7 @@
                                 </div>
                                 <!--end::Page title-->
                                 <!--begin::Actions-->
-                                @if(in_array("client-create",json_decode(auth()->user()->permission)))
+                                @can("client-create")
                                     <div class="d-flex align-items-center py-1">
                                         <!--begin::Button-->
                                         <a href="{{route('createClientForm')}}" class="btn btn-sm btn-primary" target="_blank">
@@ -66,7 +66,7 @@
                                         </span>Add Client
                                         </a>
                                     </div>
-                                @endif
+                            @endcan
                             <!--end::Actions-->
                             </div>
                             <!--end::Container-->
@@ -247,24 +247,24 @@
                                                                             </span>
                                                                     </a>
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @if(in_array("client-read",json_decode(auth()->user()->permission)))
+                                                                        @can("client-read")
                                                                             <div class="menu-item px-3">
                                                                                 <a href="{{route('clientView',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">View</a>
                                                                             </div>
-                                                                        @endif
-                                                                        @if(in_array("client-write",json_decode(auth()->user()->permission)))
+                                                                        @endcan
+                                                                        @can("client-write")
                                                                             <div class="menu-item px-3">
                                                                                 <a href="{{route('updateClientForm',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Edit</a>
                                                                             </div>
-                                                                        @endif
+                                                                        @endcan
                                                                         <!--div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$client->id}}' data-name='{{$client->name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
                                                                         </div-->
-                                                                        @if(in_array("client-delete",json_decode(auth()->user()->permission)))
+                                                                        @can("client-delete")
                                                                             <div class="menu-item px-3">
                                                                                 <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3 removeClient">Remove</a>
                                                                             </div>
-                                                                        @endif
+                                                                        @endcan
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -421,24 +421,24 @@
                                                                             </span>
                                                                     </a>
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @if(in_array("client-read",json_decode(auth()->user()->permission)))
+                                                                        @can("client-read")
                                                                             <div class="menu-item px-3">
                                                                                 <a href="{{route('clientView',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">View</a>
                                                                             </div>
-                                                                        @endif
-                                                                        @if(in_array("client-write",json_decode(auth()->user()->permission)))
+                                                                        @endcan
+                                                                        @can("client-write")
                                                                             <div class="menu-item px-3">
                                                                                 <a href="{{route('updateClientForm',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Edit</a>
                                                                             </div>
-                                                                        @endif
+                                                                        @endcan
                                                                         <!--div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$client->id}}' data-name='{{$client->name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
                                                                         </div-->
-                                                                        @if(in_array("client-delete",json_decode(auth()->user()->permission)))
+                                                                        @can("client-delete")
                                                                             <div class="menu-item px-3">
                                                                                 <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3 removeClient">Remove</a>
                                                                             </div>
-                                                                        @endif
+                                                                        @endcan
                                                                     </div>
                                                                 </td>
                                                             </tr>
