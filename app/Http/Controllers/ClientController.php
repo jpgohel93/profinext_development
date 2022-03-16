@@ -9,6 +9,7 @@ use App\Services\BankDetailsServices;
 use App\Services\BrokerServices;
 use App\Services\CommonService;
 use App\Services\UserServices;
+use App\Services\PermissionServices;
 use App\Models\ClientDemat;
 
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,7 @@ class ClientController extends Controller
     }
     // read all clients
     public function all(){
+        PermissionServices::has("client-read");
         $clients = ClientServices::allClientTypeWise();
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = BankDetailsServices::view(['id', 'bank']);
@@ -39,6 +41,7 @@ class ClientController extends Controller
     }
     // create client form
     public function createClientForm(){
+        PermissionServices::has("client-create");
         $getLastSGNo = ClientDemat::select("serial_number")->where("st_sg", "SG")->orderBy("id", "DESC")->first();
 
 		if(!empty($getLastSGNo)) {
@@ -72,6 +75,7 @@ class ClientController extends Controller
     }
     // read client
     public function get(Request $request,$id){
+        PermissionServices::has("client-read");
         $client =  ClientServices::get($id);
         if(!$client)
             CommonService::throwError("Client not found");
@@ -79,6 +83,7 @@ class ClientController extends Controller
     }
     // edit client
     public function updateForm(Request $request,$id){
+        PermissionServices::has("client-write");
         $client =  ClientServices::get($id);
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = BankDetailsServices::view(['id', 'bank']);
@@ -87,11 +92,13 @@ class ClientController extends Controller
         return view("clients.edit", compact('client','professions', 'banks', 'brokers','channelPartner'));
     }
     public function update(Request $request,$id){
+        PermissionServices::has("client-write");
         $client =  ClientServices::update($request,$id);
         return Redirect::route("clientView",$id)->with("info","Client have been updated");
     }
     // remove client
     public function remove(Request $request,$id){
+        PermissionServices::has("client-delete");
         $client =  ClientServices::remove($id);
         return Redirect::route("clients")->with("info","Client Removed");
     }

@@ -113,7 +113,6 @@ class UserController extends Controller
                 // $user->givePermissionTo($permission);
             }
         }
-        // dd($param);
         $user->syncPermissions($param);
         $user = UserServices::update($request,$id);
         if (!$user)
