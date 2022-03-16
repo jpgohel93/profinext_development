@@ -6,8 +6,13 @@ class PermissionServices
 {
     public static function has($permission)
     {
-        if(!in_array($permission,json_decode(auth()->user()->permission))){
-            abort(403);
-        }
+        // if(json_decode(auth()->user()->permission)){
+        //     $permissions = json_decode(auth()->user()->permission);
+        // }else{
+        //     $permissions = [];
+        // }
+        // if(!in_array($permission,$permissions)){
+        //     abort(403);
+        // }
     }
 }
