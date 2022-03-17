@@ -4,6 +4,11 @@
 @section("clientsData","hover show")
 @section("content")
     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
+	<style>
+	.select2-container {
+		z-index: 9 !important;
+	}
+	</style>
     <!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
