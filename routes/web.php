@@ -16,6 +16,7 @@ use App\Http\Controllers\TraderController;
 use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\ChannelPartnerController;
 use App\Http\Controllers\KeywordController;
+use App\Http\Controllers\BlogController;
 // login
 Route::get("/login",function(){
     return view("auth.login");
@@ -84,7 +85,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/role/remove/{id}",[RolesController::class, "removeRole"])->name("removeRole");
     // get permissions for role
     Route::get("/permissionByRole/{role}",[RolesController::class, "getPermissions"])->name("permissionByRole");
-
 
     // list analyst
     Route::get("/analyst", [AnalystController::class, "view"])->name("analysts");
@@ -202,5 +202,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/addKeyword",[KeywordController::class, "addKeyword"])->name("addKeyword");
     Route::POST("/editKeyword",[KeywordController::class, "editKeyword"])->name("editKeyword");
     Route::get("/deleteKeyword/{id}",[KeywordController::class, "deleteKeyword"])->name("deleteKeyword");
+    
+    // Blogs Admin
+    Route::get("/blogAdmin",[BlogController::class, "blogAdmin"])->name("blogAdmin");
+    Route::get("/blogUser",[BlogController::class, "getBlogByUser"])->name("blogUser");
+    Route::POST("/addBlog",[BlogController::class, "addBlogFrm"])->name("addBlogFrm");
+    Route::get("/editBlogForm",[BlogController::class, "editBlogForm"])->name("editBlogForm");
+    Route::get("/removeBlog",[BlogController::class, "removeBlog"])->name("removeBlog");
+    Route::POST("/addTab",[BlogController::class, "addTab"])->name("addTab");
+    Route::POST("/setTargetFrm",[BlogController::class, "setTargetFrm"])->name("setTargetFrm");
 
 });

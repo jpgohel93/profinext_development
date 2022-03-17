@@ -105,11 +105,11 @@ class UserController extends Controller
         // check permissions
         $direct_permissions=[];
         $role_permissions = [];
-        if(isset($request->role) && trim($request->role[0])!="" && isset($request->permissions)){
+        if(isset($request->role) && trim($request->role[0])!="" && isset($request->permission)){
             // $role_permissions = RoleServices::getRoleByName($request->role[0]);
             // $role_permissions = $role_permissions->permissions->pluck('name')->toArray();
             $role_permissions = RoleServices::permissions()->pluck("name")->toArray();
-            $direct_permissions = array_diff($role_permissions,$request->permissions);
+            $direct_permissions = array_diff($role_permissions,$request->permission);
         }
         // revoke permissions
         $user = UserServices::user($id);
@@ -121,6 +121,7 @@ class UserController extends Controller
             }
         }
         $user->syncPermissions($param);
+        // dd($user->permissions);
         $user = UserServices::update($request,$id);
         if (!$user)
             return Redirect::route("users")->with("info", "Unable to update user");

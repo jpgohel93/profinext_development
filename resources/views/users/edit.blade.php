@@ -892,6 +892,18 @@
                                                                             </td>
                                                                         @endfor
                                                                     </tr>
+
+                                                                    <tr role="row" class="">
+                                                                        <td aria-colindex="1" role="cell" class=""> Blog </td>
+                                                                        @for($i=68;$i<72;$i++)
+                                                                            <td aria-colindex="2" role="cell" class="">
+                                                                                <div class="form-check form-check-custom form-check-solid">
+                                                                                    <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{isset($all_permissions[$i])?$all_permissions[$i]:""}}" {{(isset($all_permissions[$i]) && !empty($user_permissions)) ? ((in_array($all_permissions[$i],$user_permissions))? 'checked' : ''):""}} id="__BVID__675">
+                                                                                    <label class="custom-control-label" for="__BVID__675"></label>
+                                                                                </div>
+                                                                            </td>
+                                                                        @endfor
+                                                                    </tr>
 																</tbody>
 																<!---->
 															</table>
@@ -2982,7 +2994,7 @@
 					const role = $("#user_role").val();
 					if(role){
 						$("#manual_permission").html("");
-						const modules = ["Client","Role","User","Analysis","Call","Trader","Monitor","Client Demat","Monitor Data","Report","Freelancer Data","Freelancer","Channel Partner Data","Channel Partner","Keyword","Trader Data","Setup"];
+						const modules = ["Client","Role","User","Analysis","Call","Trader","Monitor","Client Demat","Monitor Data","Report","Freelancer Data","Freelancer","Channel Partner Data","Channel Partner","Keyword","Trader Data","Setup","Blog"];
 						let module_index = 0;
 						getPermissionByRole(role).then((response)=>{
 							if(typeof response['permissions'] != null){
@@ -3021,16 +3033,16 @@
 																module_index++;
 																html +=`
 																<div class="col-md-2">
-																	<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key].name}' ${($.inArray(response['allpermissions'][key].name, response['permissions']) !== -1)?"checked":""}>
+																	<input type="checkbox" class='form-check-input' name="permission[]" value='${response['allpermissions'][key].name}' ${($.inArray(response['allpermissions'][key].name, response['permissions']) !== -1)?"checked":""}>
 																</div>
 																<div class="col-md-2">
-																	<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key+1].name}' ${($.inArray(response['allpermissions'][key+1].name, response['permissions']) !== -1)?"checked":""}>
+																	<input type="checkbox" class='form-check-input' name="permission[]" value='${response['allpermissions'][key+1].name}' ${($.inArray(response['allpermissions'][key+1].name, response['permissions']) !== -1)?"checked":""}>
 																</div>
 																<div class="col-md-2">
-																	<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key+2].name}' ${($.inArray(response['allpermissions'][key+2].name, response['permissions']) !== -1)?"checked":""}>
+																	<input type="checkbox" class='form-check-input' name="permission[]" value='${response['allpermissions'][key+2].name}' ${($.inArray(response['allpermissions'][key+2].name, response['permissions']) !== -1)?"checked":""}>
 																</div>
 																<div class="col-md-2">
-																	<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key+3].name}' ${($.inArray(response['allpermissions'][key+3].name, response['permissions']) !== -1)?"checked":""}>
+																	<input type="checkbox" class='form-check-input' name="permission[]" value='${response['allpermissions'][key+3].name}' ${($.inArray(response['allpermissions'][key+3].name, response['permissions']) !== -1)?"checked":""}>
 																</div>
 															</div>`;
 													}

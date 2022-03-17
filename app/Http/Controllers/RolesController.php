@@ -47,6 +47,6 @@ class RolesController extends Controller
     public function getPermissions(Request $request,$role){
         $permissions = RoleServices::getPermissions($role);
         $allPermissions = RoleServices::permissions();
-        return CommonService::ajaxResponse(200,["permissions"=>$permissions,"all_permissions"=>$allPermissions],"success");
+        return CommonService::ajaxResponse(200,["permissions"=>$permissions,"all_permissions"=>$allPermissions->toArray()],"success");
     }
 }

@@ -118,7 +118,7 @@ class UserServices
         $userRoles = implode(",", $request->role);
         $user_data['role'] = $userRoles;
         $user_data['updated_by'] = Auth::id();
-        $user_data['permission'] = json_encode($request->permissions);
+        $user_data['permission'] = json_encode($request->permission);
 
         User::where("id",$id)->update($user_data);
         // update role

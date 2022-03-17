@@ -329,7 +329,7 @@
                 @endcan
 
                 @can("blog-read")
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('clientsData')">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('blogTab')">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com013.svg-->
@@ -345,9 +345,9 @@
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        @role("blogAdmin")
+                        @hasanyrole("blogAdmin|super-admin")
                             <div class="menu-item">
-                                <a class="menu-link @yield('clientsData.clients')" href="{{route('clients')}}">
+                                <a class="menu-link @yield('blogs.admin')" href="{{route('blogAdmin')}}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -356,7 +356,7 @@
                             </div>
                         @else
                             <div class="menu-item">
-                                <a class="menu-link @yield('clientsData.clients.demat')" href="{{route('clientDematAccount')}}">
+                                <a class="menu-link @yield('blogs.user')" href="{{route('blogUser')}}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>

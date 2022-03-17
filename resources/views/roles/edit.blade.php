@@ -296,7 +296,7 @@
                                                         <tr role="row" class="">
                                                             {{-- role permissions from 5 to 8 --}}
                                                             <td aria-colindex="1" role="cell" class=""> Blog </td>
-                                                            @for($i=68;$i<71;$i++)
+                                                            @for($i=68;$i<72;$i++)
                                                                 <td aria-colindex="2" role="cell" class="">
                                                                     <div class="form-check form-check-custom form-check-solid">
                                                                         <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$permissions[$i]->name}}" {{(in_array($permissions[$i]->id,$rolePermissions))? 'checked':""}} id="__BVID__675">
