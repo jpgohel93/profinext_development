@@ -336,9 +336,9 @@ class ClientServices
     }
 
     public static function allClientTypeWise(){
-        $client['account_handling'] = Client::where("client_type",1)->with('clientDemat')->get();
-        $client['mutual_fund'] = Client::where("client_type",2)->with('clientDemat')->get();
-        $client['unlisted_shares'] = Client::where("client_type",3)->with('clientDemat')->get();
+        $client['account_handling'] = Client::where("client_type",1)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
+        $client['mutual_fund'] = Client::where("client_type",2)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
+        $client['unlisted_shares'] = Client::where("client_type",3)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
         return $client;
     }
 

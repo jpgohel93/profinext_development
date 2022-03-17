@@ -47,7 +47,9 @@ class UserController extends Controller
         $permissions = $user->permissions->pluck("name")->toArray();
         $rolePermissions = RoleServices::getPermissions($user->role);
         $all_permissions = RoleServices::permissions()->pluck("name")->toArray();
-        return view("users.edit",["user"=>$user,"roles"=>$roles,"account_types"=>$account_types,"permissions"=>$permissions,"rolePermissions"=>$rolePermissions,"all_permissions"=>$all_permissions]);
+        $auth_user = Auth::user();
+        $userRole = $auth_user->role;
+        return view("users.edit",["user"=>$user,"roles"=>$roles,"account_types"=>$account_types,"permissions"=>$permissions,"rolePermissions"=>$rolePermissions,"all_permissions"=>$all_permissions,"userRole"=>$userRole]);
     }
 
     public function assignTraderRoles(Request $request)

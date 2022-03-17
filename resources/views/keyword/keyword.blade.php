@@ -176,7 +176,7 @@
                                                                 @endcan
                                                                 @can("keyword-delete")
                                                                     <div class="menu-item">
-                                                                        <a href="{{route('deleteKeyword',$keyword->id)}}" data-id="{{$keyword->id}}" class="menu-link px-2 removeRole">
+                                                                        <a href="javascript:void(0)" data-id="{{$keyword->id}}" class="menu-link px-2 removeRole">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#009ef7"><path d="M74.53333,17.2c-1.53406,-0.02082 -3.01249,0.574 -4.10468,1.65146c-1.09219,1.07746 -1.70703,2.54767 -1.70704,4.08187h-34.32161c-2.06765,-0.02924 -3.99087,1.05709 -5.03322,2.843c-1.04236,1.78592 -1.04236,3.99474 0,5.78066c1.04236,1.78592 2.96558,2.87225 5.03322,2.843h103.2c2.06765,0.02924 3.99087,-1.05709 5.03322,-2.843c1.04236,-1.78592 1.04236,-3.99474 0,-5.78066c-1.04236,-1.78592 -2.96558,-2.87225 -5.03322,-2.843h-34.32161c-0.00001,-1.53421 -0.61486,-3.00442 -1.70704,-4.08187c-1.09219,-1.07746 -2.57061,-1.67228 -4.10468,-1.65146zM34.4,45.86667v91.73333c0,6.33533 5.13133,11.46667 11.46667,11.46667h80.26667c6.33533,0 11.46667,-5.13133 11.46667,-11.46667v-91.73333z"></path></g></g></svg>
                                                                         </a>
                                                                     </div>
@@ -288,7 +288,45 @@
     </div>
     <!--end::Modal - View Client Details-->
     <!--end::Modals-->
+    <!-- delete model -->
+    <div class="modal fade" id="confirmDelete" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mw-650px" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="fw-bolder">Delete</h2>
+                    <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                    </button>
+                </div>
 
+                <!--begin::Modal body-->
+                <div class="modal-body mx-md-10" style="text-align: -webkit-center;">
+                    <div class="d-felx justify-content-center align-items-center">
+                        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_jcuhm71r.json"  background="transparent"  speed="0.5"  style="width: 200px; height: 200px;"  loop autoplay></lottie-player>
+                        <h4>Are you sure you want to Delete this keyword?</h4>
+                    </div>
+                </div>
+
+                <!--end::Modal body-->
+                <div class="modal-footer text-center">
+                    <!-- <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button> -->
+                    <button type="submit" class="btn btn-primary" id="confirmDeleteCallBtn">Yes</button>
+                    <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit" data-bs-dismiss="modal">
+                        <span class="indicator-label">No</span>
+                        <span class="indicator-progress">Please wait...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Modals-->
 
     <!--end::Modals-->
     <!--begin::Scrolltop-->
@@ -302,7 +340,7 @@
         </span>
         <!--end::Svg Icon-->
     </div>
-
+@section("jscript")
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(document).on("click",'.addKeyword',function(e){
@@ -321,6 +359,34 @@
                     window.alert("Unable to Load this Client");
                 }
             });
+
+            $(document).on("click",".removeRole",function(e){
+                const id = $(this).attr("data-id");
+                if(id){
+                    $("#confirmDeleteCallBtn").attr("data-id",id);
+                    $("#confirmDelete").modal("show");
+
+                }else{
+                    window.alert("Unable to delete this keyword");
+                }
+            });
+        });
+        $("#confirmDeleteCallBtn").on("click", function(e){
+            const id = e.target.getAttribute("data-id");
+            if(id){
+                $.ajax("/deleteKeyword/"+id,{
+                    type:"GET",
+                    headers: {
+                        'X-CSRF-TOKEN': $("input[name='_token']").val()
+                    }
+                })
+                    .done(data=>{
+                        window.location.href = "keyword";
+                    })
+            }else{
+                window.alert("Unable to delete this keyword");
+            }
         })
     </script>
+@endsection
 @endsection

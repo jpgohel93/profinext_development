@@ -2,20 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1e2fdd1-681d-4aef-b180-5fd805f2dd3c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/media/logo_image.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RolesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RolesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CallController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CallController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/RoleServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/RoleServices.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/clients/client.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/client.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/roles/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/roles/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/ClientServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/ClientServices.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/MonitorDataServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/MonitorDataServices.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/UserServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/UserServices.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/analyst/analyst.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analyst/analyst.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/analyst/monitor_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analyst/monitor_data.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/calls/calls.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/calls/calls.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/clients/add.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/add.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/clients/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/keyword/keyword.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/keyword/keyword.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/roles/roles.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/roles/roles.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/users/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/users/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/list.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +208,8 @@
       <workItem from="1646974008155" duration="32245000" />
       <workItem from="1647057404624" duration="32686000" />
       <workItem from="1647230251511" duration="18714000" />
-      <workItem from="1647402779151" duration="31726000" />
+      <workItem from="1647402779151" duration="31959000" />
+      <workItem from="1647489232391" duration="16324000" />
     </task>
     <task id="LOCAL-00001" summary="- view monitor tab">
       <created>1646371499484</created>
@@ -397,7 +400,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647423600969</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="-change the user design&#10;- set the logo&#10;- solve the error">
+      <created>1647442679411</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1647442679411</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,7 +431,8 @@
     <MESSAGE value="-solve the client error" />
     <MESSAGE value="-solve the analyst error" />
     <MESSAGE value="-solve the monitor tab error" />
-    <option name="LAST_COMMIT_MESSAGE" value="-solve the monitor tab error" />
+    <MESSAGE value="-change the user design&#10;- set the logo&#10;- solve the error" />
+    <option name="LAST_COMMIT_MESSAGE" value="-change the user design&#10;- set the logo&#10;- solve the error" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

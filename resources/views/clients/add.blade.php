@@ -222,7 +222,6 @@
                                                     <div class="w-100">
                                                         <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                             <h3 class="stepper-title text-primary">Demate Details</h3>
-                                                            <button type="button" class="btn btn-primary" id="addmore">Add More</button>
                                                         </div>
                                                         <div class="row mb-8">
                                                             <label class="d-flex align-items-center fs-5 fw-bold mb-3">
@@ -343,7 +342,7 @@
                                                                 </label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="user_id[]" placeholder="" value="" />
+                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="user_id[]" placeholder="" autocomplete="off"/>
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Col-->
@@ -355,7 +354,7 @@
                                                                 </label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
-                                                                <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" value="" />
+                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" autocomplete="off"/>
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Col-->
@@ -371,7 +370,7 @@
                                                                 </label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
-                                                                <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
+                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Col-->
@@ -650,12 +649,11 @@
                                                                 <!--begin::Input-->
                                                                 <select name="broker[]" class="form-select form-select-solid">
                                                                     <option></option>
-                                                                    <option value="Business Man" {{($demate_account['broker']=="Business Man")?"selected":""}}>Business Man</option>
-                                                                    <option value="Professional" {{($demate_account['broker']=="Professional")?"selected":""}}>Professional</option>
-                                                                    <option value="Govt Job" {{($demate_account['broker']=="Govt Job")?"selected":""}}>Govt Job</option>
-                                                                    <option value="Private Job" {{($demate_account['broker']=="Private Job")?"selected":""}}>Private Job</option>
-                                                                    <option value="Student" {{($demate_account['broker']=="Student")?"selected":""}}>Student</option>
-                                                                    <option value="House wife" {{($demate_account['broker']=="House wife")?"selected":""}}>House wife</option>
+                                                                    @forelse ($brokers as $broker)
+                                                                        <option value="{{$broker->broker}}" {{(old('broker') && old('broker')==$broker->broker)?"selected":""}}>{{$broker->broker}}</option>
+                                                                    @empty
+                                                                        <option>Selecte Broker</option>
+                                                                    @endforelse
                                                                 </select>
                                                                 <!--end::Input-->
                                                             </div>
@@ -682,7 +680,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="password[]" value="{{(session('password')[$key])?session('password')[$key]:""}}" />
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="password[]" value="{{(session('password')[$key])?session('password')[$key]:""}}" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Col-->
@@ -698,7 +696,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Col-->
@@ -841,6 +839,13 @@
                                         @endif
                                     </div>
                                     <div id="appendDiv1"></div>
+                                        <div id="addMoreDiv">
+                                            <div class="stepper-label d-flex justify-content-between mt-0" style="float: right;margin-top:30px;margin-bottom:20px;">
+                                                 <button type="button" class="btn btn-primary" id="addmore">Add More</button>
+                                            </div>
+                                        </div>
+
+
                                     <!--begin::Wrapper-->
                                     <div id="submitSmsButton">
                                         <button type="submit" class="btn btn-lg btn-primary">
@@ -867,7 +872,7 @@
                                         <div class="d-block card p-7 my-5" data-kt-stepper-element="content">
                                             <div class="w-100">
                                                 <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
-                                                    <h3 class="stepper-title text-primary">Demate Details</h3>
+                                                    <h3 class="stepper-title text-primary">Demate Detail</h3>
                                                     <button type="button" class="btn btn-primary" id="addmore">Add More</button>
                                                 </div>
                                                 <!--begin::Input group-->
@@ -1003,12 +1008,11 @@
                                                     <!--begin::Input-->
                                                     <select name="broker[]" class="form-select form-select-solid">
                                                         <option></option>
-                                                        <option value="Business Man">Business Man</option>
-                                                        <option value="Professional">Professional</option>
-                                                        <option value="Govt Job">Govt Job</option>
-                                                        <option value="Private Job">Private Job</option>
-                                                        <option value="Student">Student</option>
-                                                        <option value="House wife">House wife</option>
+                                                        @forelse ($brokers as $broker)
+                                                            <option value="{{$broker->broker}}" {{(old('broker') && old('broker')==$broker->broker)?"selected":""}}>{{$broker->broker}}</option>
+                                                        @empty
+                                                            <option>Selecte Broker</option>
+                                                        @endforelse
                                                     </select>
                                                     <!--end::Input-->
                                                 </div>
@@ -1245,6 +1249,7 @@
 				$(rem).removeAttr('id');
 				$(rem).addClass('btn-pink remove-btn');
 				$(rem).text('Remove');
+                $('#appendDiv1').append("<hr>");
 				$('#appendDiv1').append(clone);
 				resetCounter();
 			});
@@ -1330,6 +1335,7 @@
 				$("#personalDetail").hide();
 				$("#accountHandlingDetail").hide();
 				$("#submitSmsButton").hide();
+				$("#addMoreDiv").hide();
                 var formType = "{{ isset($formType) ? $formType: 0}}";
 
                 if(formType == "channelPartner"){
@@ -1338,6 +1344,7 @@
                     $("#submitSmsButton").show();
                     $("#channelPartnerDiv").show();
                     $("#paymentDetailsDiv").hide();
+                    $("#addMoreDiv").hide();
                 }
 			});
 			$(document).on('change',"#client_type", function () {
@@ -1347,16 +1354,19 @@
 					$("#accountHandlingDetail").show();
 					$("#submitSmsButton").show();
 					$("#channelPartnerDiv").show();
+					$("#addMoreDiv").show();
 				}else if(selectVal == 2){
 					$("#personalDetail").show();
 					$("#accountHandlingDetail").hide();
 					$("#channelPartnerDiv").hide();
 					$("#submitSmsButton").show();
+                    $("#addMoreDiv").hide();
 				}else if(selectVal == 3){
 					$("#personalDetail").show();
 					$("#accountHandlingDetail").hide();
 					$("#submitSmsButton").show();
 					$("#channelPartnerDiv").hide();
+					$("#addMoreDiv").hide();
 				}
 			});
         })

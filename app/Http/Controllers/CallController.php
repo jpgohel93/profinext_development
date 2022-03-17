@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\CallServices;
+use App\Services\KeywordServices;
 use App\Services\CommonService;
 use Illuminate\Support\Facades\Redirect;
 class CallController extends Controller
 {
     public function view(){
         $calls = CallServices::view();
-        return view('calls.calls',compact("calls"));
+        $keywords = KeywordServices::all();
+        return view('calls.calls',compact("calls","keywords"));
     }
     public function create(Request $request){
         CallServices::create($request);

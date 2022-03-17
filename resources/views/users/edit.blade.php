@@ -82,6 +82,7 @@
 
 
 												<div class="row d-flex align-items-end mb-5 custom_appendDiv">
+                                                    @if(isset($userRole) && $userRole == "super-admin")
                                                     <!--begin::Input group-->
                                                     <div class="col-md-6 col-sm-12 mb-5">
                                                         <!--begin::Label-->
@@ -93,6 +94,7 @@
                                                         <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old('password')}}" name="password" />
                                                         <!--end::Input-->
                                                     </div>
+                                                    @endif
 
                                                     <div class="col-md-6 col-sm-12 mb-5">
                                                     <!--begin::Label-->

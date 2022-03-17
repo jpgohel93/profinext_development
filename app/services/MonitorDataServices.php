@@ -13,12 +13,12 @@ class MonitorDataServices{
 		$explRole = explode(",", $auth_user->role);
 
 		if(in_array("super-admin", $explRole)) {
-			$monitorData['open'] = MonitorData::where("status", "open")->get();
-			$monitorData['close'] = MonitorData::where("status", "close")->get();
+			$monitorData['open'] = MonitorData::where("status", "open")->orderBy('date', 'DESC')->get();
+			$monitorData['close'] = MonitorData::where("status", "close")->orderBy('exit_date', 'DESC')->get();
 			$monitorData['analyst'] = Analyst::where('status', '!=' , "Terminated")->get();
 		} else {
-			$monitorData['open'] = MonitorData::where("monitor_id", $id)->where("status", "open")->get();
-			$monitorData['close'] = MonitorData::where("monitor_id", $id)->where("status", "close")->get();
+			$monitorData['open'] = MonitorData::where("monitor_id", $id)->where("status", "open")->orderBy('date', 'DESC')->get();
+			$monitorData['close'] = MonitorData::where("monitor_id", $id)->where("status", "close")->orderBy('exit_date', 'DESC')->get();
 			$monitorData['analyst'] = Analyst::where("assign_user_id", $id)->where('status', '!=' , "Terminated")->get();
         }
 		return $monitorData;

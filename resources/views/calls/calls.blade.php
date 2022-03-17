@@ -61,8 +61,14 @@
                         <!--begin::Actions-->
                         @can("calls-create")
                             <div class="d-flex align-items-center py-1">
-                                <a href="#" class="btn btn-lg btn-primary" data-bs-toggle="modal"
+                                <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#call_modal">
+                                    <span class="svg-icon svg-icon-2">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<rect x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
+											<rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
+										</svg>
+									</span>
                                     Add Trade
                                 </a>
                             </div>
@@ -237,7 +243,7 @@
                                                                             <a href="javascript:void(0);" class="menu-link p-1" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                                                 <i class="fa fa-ellipsis-v text-dark fa-2x"></i>
                                                                             </a>
-                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
+                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                                 <div class="menu-item ">
                                                                                     <a href="#" class="menu-link " data-bs-toggle="modal" data-bs-target="#add_call">Add Call</a>
                                                                                 </div>
@@ -402,7 +408,7 @@
                                                                             <a href="javascript:void(0);" class="menu-link p-1" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                                                 <i class="fa fa-ellipsis-v text-dark fa-2x"></i>
                                                                             </a>
-                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true"> 
+                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                                 <div class="menu-item ">
                                                                                     <a href="#" class="menu-link " data-bs-toggle="modal" data-bs-target="#add_call">Add Call</a>
                                                                                 </div>
@@ -523,25 +529,33 @@
                         <div class="col-9">
                             <input class="form-control" type="text" value="Put" id="example-email-input" />
                         </div>
-                    </div> 
+                    </div>
                     <div class="form-group row">
                         <label for="example-tel-input" class="col-3 col-form-label">Script Name</label>
                         <div class="col-9">
-                            <input class="form-control" type="text" value="{{old('script_name')}}" name="script_name" id="script_name" />
+{{--                            <input class="form-control" type="text" value="{{old('script_name')}}" name="script_name" id="script_name" />--}}
+                            <input type="type" class="form-control" id="script_name"  name="script_name" list="listValue" value="{{old('script_name')}}"/>
+                            <datalist id="listValue">
+                                @if(!empty($keywords))
+                                    @foreach($keywords as $keyword)
+                                        <option value="{{$keyword->name}}">{{$keyword->name}}</option>
+                                    @endforeach
+                                @endif
+                            </datalist>
                         </div>
-                    </div> 
+                    </div>
                     <div class="form-group row">
                         <label for="no-of-demat" class="col-3 col-form-label">Entry Price</label>
                         <div class="col-9">
                             <input class="form-control" type="text" value="{{old('entry_price')}}" name="entry_price" id="entry_price" />
                         </div>
-                    </div> 
+                    </div>
                     <div class="form-group row">
                         <label for="no-of-demat" class="col-3 col-form-label">Target</label>
                         <div class="col-9">
                             <input class="form-control" type="text" value="{{old('target_price')}}" name="target_price" id="target_price" />
                         </div>
-                    </div> 
+                    </div>
                     <div class="form-group row">
                         <label for="no-of-demat" class="col-3 col-form-label">Stoploss</label>
                         <div class="col-9">
@@ -556,17 +570,17 @@
                         <span class="indicator-label">Edit</span>
                         <span class="indicator-progress">Please wait...
                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button> 
+                    </button>
                     <button type="button" class="btn btn-primary" data-kt-users-modal-action="submit">
                         <span class="indicator-label">Add</span>
                         <span class="indicator-progress">Please wait...
                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button> 
+                    </button>
                     <button type="button" class="btn btn-primary" data-kt-users-modal-action="submit">
                         <span class="indicator-label">Sqaure Off</span>
                         <span class="indicator-progress">Please wait...
                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button> 
+                    </button>
                 </div>
             </form>
         </div>
@@ -654,12 +668,21 @@
                             <span class="required">Script Name</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a script name"></i>
                         </label>
-                        <!--end::Label-->
-                        <input type="text" class="form-control form-control-solid" placeholder="Enter script name" name="script_name" />
+{{--                        <!--end::Label-->--}}
+{{--                        <input type="text" class="form-control form-control-solid" placeholder="Enter script name" name="script_name" />--}}
+
+                        <input type="type" class="form-control form-control-solid" id="script_name"  name="script_name" list="listValue"/>
+                        <datalist id="listValue">
+                            @if(!empty($keywords))
+                                @foreach($keywords as $keyword)
+                                    <option value="{{$keyword->name}}">{{$keyword->name}}</option>
+                                @endforeach
+                            @endif
+                        </datalist>
 
                     </div>
                     <!--end::Col-->
-                    
+
                     <!--begin::Input group-->
                     <div class="col-md-6">
                         <!--begin::Label-->
@@ -672,7 +695,7 @@
                     </div>
                     <!--end::Input group-->
                     </div>
-                    
+
                     <!--begin::Input group-->
                     <div class="row g-9 mb-8">
                         <!--begin::Col-->
@@ -712,7 +735,7 @@
                             <input type="text" class="form-control form-control-solid" placeholder="Enter stop loss" name="stop_loss" />
                         </div>
                         <!--end::Col-->
-                        
+
                         <!--begin::Col-->
                         <div class="col-md-6 fv-row">
                             <!--begin::Label-->
@@ -726,7 +749,7 @@
                         <!--end::Col-->
                     </div>
                     <!--end::Input group-->
-                    
+
                     <!--begin::Actions-->
                     <div class="text-center">
                         <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>

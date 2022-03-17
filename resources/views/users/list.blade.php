@@ -56,8 +56,13 @@
 								<!--end::Page title-->
 								@can("user-create")
 								<div class="d-flex align-items-center py-1">
-                                    <a href="{{route('createUserForm')}}" class="btn btn-lg btn-primary">
-                                    Add User
+                                    <a href="{{route('createUserForm')}}" class="btn btn-sm btn-primary">
+                                        <span class="svg-icon svg-icon-2">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<rect x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
+											<rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
+										</svg>
+									</span>Add User
                                     </a>
 								</div>
 								@endcan
@@ -72,7 +77,7 @@
                                 <!--begin::Card-->
                                 <div class="card border border-2 border-gray-300">
                                     <!--begin::Card body-->
-                                    <div class="card-body d-flex flex-center flex-column p-9">
+                                    <div class="card-body d-flex flex-center flex-column p-1">
                                         <!--begin::Avatar-->
                                         <div class="symbol symbol-65px symbol-circle mb-5" style="background: #009ef7;">
                                             <span class="symbol-label fs-2x fw-bold text-primary bg-light-primary"><?php echo ucwords($user->name[0]); ?></span>

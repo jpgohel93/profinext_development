@@ -638,14 +638,15 @@
                                     <span class="required">Script Name : </span>
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Specify a Account Type" aria-label="Specify a Account Type"></i>
                                 </label>
-                                <input list="script_name"  class="form-control form-control-lg form-control-solid bdr-ccc" id="script_name" name="script_name">
-								<datalist id="script_name">
-									@if(!empty($keywords))
-										@foreach($keywords as $keyword)
-											<option value="{{$keyword->name}}">{{$keyword->name}}</option>
-										@endforeach
-									@endif
-								</datalist>
+
+                                <input type="type" class="form-control form-control-lg form-control-solid bdr-ccc" id="script_name"  name="script_name" list="listValue"/>
+                                <datalist id="listValue">
+                                    @if(!empty($keywords))
+                                        @foreach($keywords as $keyword)
+                                            <option value="{{$keyword->name}}">{{$keyword->name}}</option>
+                                        @endforeach
+                                    @endif
+                                </datalist>
                             </div>
                             <div class="col-md-6">
                                 <!--begin::Label-->
@@ -787,6 +788,46 @@
 			</form>
 		</div>
 	</div>
+
+    <!-- delete model -->
+    <div class="modal fade" id="confirmDelete" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mw-650px" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="fw-bolder">Delete</h2>
+                    <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                    </button>
+                </div>
+
+                <!--begin::Modal body-->
+                <div class="modal-body mx-md-10" style="text-align: -webkit-center;">
+                    <div class="d-felx justify-content-center align-items-center">
+                        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_jcuhm71r.json"  background="transparent"  speed="0.5"  style="width: 200px; height: 200px;"  loop autoplay></lottie-player>
+                        <h4>Are you sure you want to Delete this call?</h4>
+                    </div>
+                </div>
+
+                <!--end::Modal body-->
+                <div class="modal-footer text-center">
+                    <!-- <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button> -->
+                    <button type="submit" class="btn btn-primary" id="confirmDeleteCallBtn">Yes</button>
+                    <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit" data-bs-dismiss="modal">
+                        <span class="indicator-label">No</span>
+                        <span class="indicator-progress">Please wait...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Modals-->
 
     <!--end::Modals-->
     <!--begin::Scrolltop-->
@@ -950,13 +991,23 @@
 	});
 
     $(document).on("click", ".deleteCall", function() {
-        var delete_id = $(this).data("monitor_id");
+        var id = $(this).data("monitor_id");
 
-        if(confirm("Do you want to delete?")) {
+        if(id){
+            $("#confirmDeleteCallBtn").attr("data-id",id);
+            $("#confirmDelete").modal("show");
+        }else{
+            window.alert("Unable to delete this keyword");
+        }
+    });
+
+    $("#confirmDeleteCallBtn").on("click", function(e){
+        const id = e.target.getAttribute("data-id");
+        if(id){
             $.ajax({
                 type: 'POST',
                 url: "{{ route('deleteMonitorData') }}",
-                data: {id : delete_id},
+                data: {id : id},
                 dataType: 'json',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -965,6 +1016,8 @@
                     window.location.href = "monitor_data";
                 }
             });
+        }else{
+            window.alert("Unable to delete this keyword");
         }
     });
 
