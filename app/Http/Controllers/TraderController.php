@@ -60,20 +60,66 @@ class TraderController extends Controller
         $auth_user = Auth::user();
 
         $dematAccount = TraderServices::traderClientList($auth_user->id);
-        $traders = UserServices::getByRole('trader');
+        //$traders = UserServices::getByRole('trader');
+
+        $users = User::get();
+        $userIdArray = [];
+        foreach ($users as $userData){
+            $permission = json_decode($userData->permission,true);
+            if(!empty($permission)) {
+                if (in_array("trader-read", $permission) ||
+                    in_array("trader-write", $permission) ||
+                    in_array("trader-create", $permission) ||
+                    in_array("trader-delete", $permission)) {
+                    $userIdArray[] = $userData->id;
+                }
+            }
+        }
+        $traders = User::wherein('id',$userIdArray)->get();
 
         return view('trader.view_trader_client', compact('dematAccount','traders'));
     }
 
     public function getTraderList(){
-        $traders = UserServices::getByRole('trader');
+        $users = User::get();
+        $userIdArray = [];
+        foreach ($users as $userData){
+            $permission = json_decode($userData->permission,true);
+            if(!empty($permission)) {
+                if (in_array("trader-read", $permission) ||
+                    in_array("trader-write", $permission) ||
+                    in_array("trader-create", $permission) ||
+                    in_array("trader-delete", $permission)) {
+                    $userIdArray[] = $userData->id;
+                }
+            }
+        }
+        $traders = User::wherein('id',$userIdArray)->get();
+
+        //$traders = UserServices::getByRole('trader');
         return  view('trader.trader_list', compact('traders'));;
     }
 
     public function viewTraderClientList(Request $request,$id)
     {
         $dematAccount = TraderServices::traderClientList($id);
-        $traders = UserServices::getByRole('trader');
+
+        $users = User::get();
+        $userIdArray = [];
+        foreach ($users as $userData){
+            $permission = json_decode($userData->permission,true);
+            if(!empty($permission)) {
+                if (in_array("trader-read", $permission) ||
+                    in_array("trader-write", $permission) ||
+                    in_array("trader-create", $permission) ||
+                    in_array("trader-delete", $permission)) {
+                    $userIdArray[] = $userData->id;
+                }
+            }
+        }
+        $traders = User::wherein('id',$userIdArray)->get();
+
+        //$traders = UserServices::getByRole('trader');
 
         return view('trader.view_trader_client', compact('dematAccount','traders'));
     }
@@ -81,7 +127,23 @@ class TraderController extends Controller
     public function viewTraderClient(Request $request)
     {
         $dematAccount = TraderServices::traderClientList($request->trader_id);
-        $traders = UserServices::getByRole('trader');
+
+        $users = User::get();
+        $userIdArray = [];
+        foreach ($users as $userData){
+            $permission = json_decode($userData->permission,true);
+            if(!empty($permission)) {
+                if (in_array("trader-read", $permission) ||
+                    in_array("trader-write", $permission) ||
+                    in_array("trader-create", $permission) ||
+                    in_array("trader-delete", $permission)) {
+                    $userIdArray[] = $userData->id;
+                }
+            }
+        }
+        $traders = User::wherein('id',$userIdArray)->get();
+
+        //$traders = UserServices::getByRole('trader');
 
         return view('trader.view_trader_client', compact('dematAccount','traders'));
     }

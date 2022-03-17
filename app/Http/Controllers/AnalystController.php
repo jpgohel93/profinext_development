@@ -24,6 +24,7 @@ class AnalystController extends Controller
         $this->middleware('permission:analyst-read', ['only' => ['view', 'getAnalyst']]);
         $this->middleware('permission:analyst-delete', ['only' => ['editAnalyst']]);
         $this->middleware('permission:monitor-read', ['only' => ['viewMonitorData']]);
+        $this->middleware('permission:monitor-data-read', ['only' => ['viewMonitor']]);
     }
     public function view(Request $request){
         $analysts = AnalystServices::all();
@@ -166,11 +167,41 @@ class AnalystController extends Controller
             $analysts['free_trade'][$key]['reward'] = $rewardCount != 0 ? number_format($totalReward/$rewardCount,2) : 0;
         }
 
-        $monitor = User::where("role",'like', "%monitor%")->get();
+       // $monitor = User::where("role",'like', "%monitor%")->get();
+        $users = User::get();
+        $userIdArray = [];
+        foreach ($users as $userData){
+            $permission = json_decode($userData->permission,true);
+            if(!empty($permission)) {
+                if (in_array("monitor-read", $permission) ||
+                    in_array("monitor-write", $permission) ||
+                    in_array("monitor-create", $permission) ||
+                    in_array("monitor-delete", $permission)) {
+                    $userIdArray[] = $userData->id;
+                }
+            }
+        }
+        $monitor = User::wherein('id',$userIdArray)->get();
+
         return view("analyst.analyst",compact('analysts','monitor'));
     }
     public function createForm(){
-        $monitor = User::where("role",'like', "%monitor%")->get();
+        //$monitor = User::where("role",'like', "%monitor%")->get();
+        $users = User::get();
+        $userIdArray = [];
+        foreach ($users as $userData){
+            $permission = json_decode($userData->permission,true);
+            if(!empty($permission)) {
+                if (in_array("monitor-read", $permission) ||
+                    in_array("monitor-write", $permission) ||
+                    in_array("monitor-create", $permission) ||
+                    in_array("monitor-delete", $permission)) {
+                    $userIdArray[] = $userData->id;
+                }
+            }
+        }
+        $monitor = User::wherein('id',$userIdArray)->get();
+
         return view("analyst.add",compact('monitor'));
     }
     public function create(Request $request){
@@ -186,7 +217,21 @@ class AnalystController extends Controller
         return Redirect::route('analysts')->with("info", "Analyst has been Updated");
     }
     public function viewMonitor(Request $request){
-        $users = User::where("role",'like', "%monitor%")->get();
+        //$users = User::where("role",'like', "%monitor%")->get();
+        $users = User::get();
+        $userIdArray = [];
+        foreach ($users as $userData){
+           $permission = json_decode($userData->permission,true);
+           if(!empty($permission)) {
+               if (in_array("monitor-read", $permission) ||
+                   in_array("monitor-write", $permission) ||
+                   in_array("monitor-create", $permission) ||
+                   in_array("monitor-delete", $permission)) {
+                   $userIdArray[] = $userData->id;
+               }
+           }
+        }
+        $users = User::wherein('id',$userIdArray)->get();
         foreach ($users as $key => $data){
             $users[$key]['total_analyst'] = MonitorDataServices::countMonitorData($data['id']);
         }
@@ -199,7 +244,21 @@ class AnalystController extends Controller
     }
     public function viewMonitorAnalystsById(Request $request,$id){
         $analysts = MonitorDataServices::allUserAnalysts($id);
-        $monitor = User::where("role",'like', "%monitor%")->get();
+        //$monitor = User::where("role",'like', "%monitor%")->get();
+        $users = User::get();
+        $userIdArray = [];
+        foreach ($users as $userData){
+            $permission = json_decode($userData->permission,true);
+            if(!empty($permission)) {
+                if (in_array("monitor-read", $permission) ||
+                    in_array("monitor-write", $permission) ||
+                    in_array("monitor-create", $permission) ||
+                    in_array("monitor-delete", $permission)) {
+                    $userIdArray[] = $userData->id;
+                }
+            }
+        }
+        $monitor = User::wherein('id',$userIdArray)->get();
         return view("analyst.monitor_analysts",compact('analysts','monitor'));
     }
 

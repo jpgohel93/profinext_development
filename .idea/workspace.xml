@@ -3,21 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c1e2fdd1-681d-4aef-b180-5fd805f2dd3c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CallController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CallController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/ClientServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/ClientServices.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/MonitorDataServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/MonitorDataServices.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/UserServices.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/UserServices.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/analyst/analyst.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analyst/analyst.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/analyst/monitor_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analyst/monitor_data.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/calls/calls.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/calls/calls.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/clients/add.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/add.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/clients/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/keyword/keyword.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/keyword/keyword.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/roles/roles.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/roles/roles.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/users/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/users/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AnalystController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AnalystController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ClientController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ClientController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TraderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TraderController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/85/5f/855f92484c8c414d36c1b25cb24876e30229cbbf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +199,7 @@
       <workItem from="1647057404624" duration="32686000" />
       <workItem from="1647230251511" duration="18714000" />
       <workItem from="1647402779151" duration="31959000" />
-      <workItem from="1647489232391" duration="16324000" />
+      <workItem from="1647489232391" duration="21050000" />
     </task>
     <task id="LOCAL-00001" summary="- view monitor tab">
       <created>1646371499484</created>
@@ -407,7 +397,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647442679411</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="- solve the error &#10;- add the delete alert">
+      <created>1647510382166</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1647510382166</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -432,7 +429,8 @@
     <MESSAGE value="-solve the analyst error" />
     <MESSAGE value="-solve the monitor tab error" />
     <MESSAGE value="-change the user design&#10;- set the logo&#10;- solve the error" />
-    <option name="LAST_COMMIT_MESSAGE" value="-change the user design&#10;- set the logo&#10;- solve the error" />
+    <MESSAGE value="- solve the error &#10;- add the delete alert" />
+    <option name="LAST_COMMIT_MESSAGE" value="- solve the error &#10;- add the delete alert" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

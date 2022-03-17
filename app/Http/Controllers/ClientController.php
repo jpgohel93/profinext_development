@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\ClientServices;
 use App\Services\ProfessionServices;
@@ -119,7 +120,23 @@ class ClientController extends Controller
         $freelancerAms= UserServices::getByType(4);
         $freelancerPrime = UserServices::getByType(5);
         $dematAccount = ClientServices::getClientDematAccount($filter_type, $filter_id);
-		$traders = UserServices::getByRole('trader');
+
+//		$traders = UserServices::getByRole('trader');
+        $users = User::get();
+        $userIdArray = [];
+        foreach ($users as $userData){
+            $permission = json_decode($userData->permission,true);
+            if(!empty($permission)) {
+                if (in_array("trader-read", $permission) ||
+                    in_array("trader-write", $permission) ||
+                    in_array("trader-create", $permission) ||
+                    in_array("trader-delete", $permission)) {
+                    $userIdArray[] = $userData->id;
+                }
+            }
+        }
+        $traders = User::wherein('id',$userIdArray)->get();
+
         return view("clients.client_demat",compact('dematAccount','freelancerAms','freelancerPrime','traders','filter_type','filter_id'));
     }
 
@@ -185,7 +202,23 @@ class ClientController extends Controller
     // set up
     public function setup(){
         $dematAccount = ClientServices::getClientForSetUp();
-		$traders = UserServices::getByRole('trader');
+
+		//$traders = UserServices::getByRole('trader');
+        $users = User::get();
+        $userIdArray = [];
+        foreach ($users as $userData){
+            $permission = json_decode($userData->permission,true);
+            if(!empty($permission)) {
+                if (in_array("trader-read", $permission) ||
+                    in_array("trader-write", $permission) ||
+                    in_array("trader-create", $permission) ||
+                    in_array("trader-delete", $permission)) {
+                    $userIdArray[] = $userData->id;
+                }
+            }
+        }
+        $traders = User::wherein('id',$userIdArray)->get();
+
         return view("calls.setup",compact('dematAccount','traders'));
     }
 
