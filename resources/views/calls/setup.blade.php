@@ -68,6 +68,13 @@
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary pb-1 active" data-bs-toggle="tab"
+                                       href="#makeAsPreferredAccounr">Make As Preferred Account</a>
+                                </li>
+                                <!--end:::Tab item-->
+
+                                <!--begin:::Tab item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
                                        href="#normalAccount">Normal Account</a>
                                 </li>
                                 <!--end:::Tab item-->
@@ -75,202 +82,42 @@
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#makeAsPreferredAccounr">Make As Preferred Account</a>
+                                       href="#holding">Holding</a>
+                                </li>
+                                <!--end:::Tab item-->
+
+                                <!--begin:::Tab item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
+                                       href="#trader">Trader</a>
+                                </li>
+                                <!--end:::Tab item-->
+
+                                <!--begin:::Tab item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
+                                       href="#freelancer">Freelancer</a>
+                                </li>
+                                <!--end:::Tab item-->
+
+                                <!--begin:::Tab item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
+                                       href="#all">All</a>
+                                </li>
+                                <!--end:::Tab item-->
+
+                                <!--begin:::Tab item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
+                                       href="#unallotted">Unallotted</a>
                                 </li>
                                 <!--end:::Tab item-->
                             </ul>
                             <!--end:::Tabs-->
 
                             <div class="tab-content">
-                                <div class="tab-pane fade show active" id="normalAccount" aria-labelledby="active-tab"
-                                     role="tabpanel">
-                                    <!--begin::Card-->
-                                    <div class="card">
-                                        <!--begin::Card header-->
-                                        <div class="card-header border-0 pt-6">
-                                            <!--begin::Card title-->
-                                            <div class="card-title">
-                                                <!--begin::Search-->
-                                                <div class="d-flex align-items-center position-relative my-1">
-                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                             viewBox="0 0 24 24" fill="none">
-                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                                  fill="black" />
-                                                            <path
-                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                                                fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                    <!--end::Svg Icon-->
-                                                    <input type="text" data-kt-user-table-filter="search"
-                                                           class="form-control form-control-solid w-250px ps-14"
-                                                           placeholder="Search user" />
-                                                </div>
-                                                <!--end::Search-->
-                                            </div>
-                                            <!--begin::Card title-->
-                                            <!--begin::Card toolbar-->
-
-                                            <div class="card-toolbar">
-                                                <!--begin::Toolbar-->
-                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                                    <div class="d-flex justify-content-between">
-                                                        <!--begin::Export-->
-                                                        <a href="#" class="btn btn-light-primary"
-                                                           data-kt-menu-trigger="click"
-                                                           data-kt-menu-placement="bottom-end">
-                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
-                                                            <span class="svg-icon svg-icon-2">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                     height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
-                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
-                                                                          fill="black" />
-                                                                    <path
-                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
-                                                                        fill="#C4C4C4" />
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon-->Export
-                                                            <span class="svg-icon svg-icon-5 m-0">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                     height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <path
-                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                                        fill="black" />
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
-                                                         data-kt-menu="true">
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">
-                                                                <span class="menu-icon">
-                                                                    <i class="la la-file-pdf-o"></i>
-                                                                </span>PDF
-                                                            </a>
-                                                        </div>
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">
-                                                                <span class="menu-icon">
-                                                                    <i class="la la-file-excel-o"></i>
-                                                                </span>Excel
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Export-->
-                                                </div>
-                                                <!--end::Toolbar-->
-                                            </div>
-                                            <!--end::Card toolbar-->
-                                        </div>
-                                        <!--end::Card header-->
-                                        <!--begin::Card body-->
-                                        <div class="card-body pt-0">
-                                            <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
-                                                       id="kt_table_users">
-                                                @if ($dematAccount['normal']->isNotEmpty())
-                                                    <!--begin::Table head-->
-                                                        <thead>
-                                                        <tr
-                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                            <th class="min-w-10px">Sr No.</th>
-                                                            <th class="min-w-10px">Serial Number</th>
-                                                            <th class="min-w-75px">Client name</th>
-                                                            <th class="min-w-75px">Holder Name</th>
-                                                            <th class="min-w-75px">Broker</th>
-                                                            <th class="min-w-75px">Available Fund</th>
-                                                            <th class="min-w-75px">Profit / Loss</th>
-                                                            <th class="min-w-75px">Day of Joining</th>
-                                                            @can("setup-write")
-                                                            <th class="min-w-75px">Action</th>
-                                                            @endcan
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        @php
-                                                            $i=1;
-                                                        @endphp
-                                                        @foreach($dematAccount['normal'] as $account)
-                                                            @php
-                                                                $datetime1 = strtotime($account->created_at);
-                                                                $datetime2 = strtotime(date("Y-m-d"));
-                                                                $days = (int)(($datetime2 - $datetime1)/86400);
-                                                            @endphp
-                                                            <tr>
-                                                                <td>{{$i++}}</td>
-                                                                <td> {{$account->st_sg."-".$account->serial_number}} </td>
-                                                                <td> {{$account->name}}</td>
-                                                                <td> {{$account->holder_name}}</td>
-                                                                <td> {{$account->broker}}</td>
-                                                                <td> {{$account->available_balance}}</td>
-                                                                <td> {{$account->pl}}</td>
-                                                                <td> {{ $days }}</td>
-                                                                <td class="text-end">
-                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                        <span class="svg-icon svg-icon-5 m-0">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                                </svg>
-                                                                            </span>
-                                                                    </a>
-                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @can("setup-write")
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
-                                                                            </div>
-																		<div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
-                                                                        </div>
-
-																		<div class="menu-item px-3">
-																			<a href="javascript:void(0)"
-																			   data-id='{{$account->id}}'
-																			   class="menu-link px-3 makeAsPreferred"
-																			   data-value="1">Make as Preferred</a>
-																		</div>
-																		<div class="menu-item px-3">
-																			<a href="javascript:void(0)"
-																			   data-id='{{$account->id}}'
-																			   class="menu-link px-3 loginInfo">Login
-																				Info</a>
-																		</div>
-																		<div class="menu-item px-3">
-																			<a href="javascript:void(0)"
-																			   class="menu-link px-3"
-																			   onclick="myFunction({{$account->id}})">Copy
-																				Login Info</a>
-																		</div>
-{{--                                                                        <div class="menu-item px-3">--}}
-{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 assignFreelancer">Allocate to Trader</a>--}}
-{{--                                                                        </div>--}}
-                                                                        @endcan
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                        </tbody>
-                                                    @else
-                                                        <h3>there's no normal account.</h3>
-                                                @endif
-                                                <!--end::Table body-->
-                                                </table>
-                                            </div>
-                                            <!--end::Table-->
-                                        </div>
-                                        <!--end::Card body-->
-                                    </div>
-                                    <!--end::Card-->
-                                </div>
-                                <div class="tab-pane fade show" id="makeAsPreferredAccounr" aria-labelledby="active-tab"
+                                <div class="tab-pane fade show active" id="makeAsPreferredAccounr" aria-labelledby="active-tab"
                                      role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
@@ -372,9 +219,9 @@
                                                             class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Sr No.</th>
                                                             <th class="min-w-10px">Serial Number</th>
-                                                            <th class="min-w-75px">Client name</th>
+{{--                                                            <th class="min-w-75px">Client name</th>--}}
                                                             <th class="min-w-75px">Holder Name</th>
-                                                            <th class="min-w-75px">Broker</th>
+{{--                                                            <th class="min-w-75px">Broker</th>--}}
                                                             <th class="min-w-75px">Available Fund</th>
                                                             <th class="min-w-75px">Profit / Loss</th>
                                                             <th class="min-w-75px">Day of Joining</th>
@@ -396,13 +243,13 @@
                                                             <tr>
                                                                 <td>{{$i++}}</td>
                                                                 <td> {{$account->st_sg."-".$account->serial_number}} </td>
-                                                                <td> {{$account->name}}</td>
+{{--                                                                <td> {{$account->name}}</td>--}}
                                                                 <td> {{$account->holder_name}}</td>
-                                                                <td> {{$account->broker}}</td>
+{{--                                                                <td> {{$account->broker}}</td>--}}
                                                                 <td> {{$account->available_balance}}</td>
                                                                 <td> {{$account->pl}}</td>
                                                                 <td> {{ $days }}</td>
-                                                                <td class="text-end">
+                                                                <td class="">
                                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                         <span class="svg-icon svg-icon-5 m-0">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -413,23 +260,23 @@
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                         @can("setup-write")
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Update Status</a>
                                                                             </div>
-																		<div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="0">Remove as Preferred</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 loginInfo">Login Info</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="myFunction({{$account->id}})" >Copy Login Info</a>
-                                                                        </div>
-{{--                                                                        <div class="menu-item px-3">--}}
-{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 assignFreelancer">Allocate to Trader</a>--}}
-{{--                                                                        </div>--}}
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="0">Remove as Preferred</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                    <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}' data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 loginInfo">Login Info</a>
+                                                                            </div>
+{{--                                                                            <div class="menu-item px-3">--}}
+{{--                                                                                <a href="javascript:void(0)" class="menu-link px-3" onclick="myFunction({{$account->id}})" >Copy Login Info</a>--}}
+{{--                                                                            </div>--}}
                                                                         @endcan
                                                                     </div>
 
@@ -439,6 +286,1119 @@
                                                         </tbody>
                                                     @else
                                                         <h3>there's no make as preferred account.</h3>
+                                                @endif
+                                                <!--end::Table body-->
+                                                </table>
+                                            </div>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card-->
+                                </div>
+                                <div class="tab-pane fade show" id="normalAccount" aria-labelledby="active-tab"
+                                     role="tabpanel">
+                                    <!--begin::Card-->
+                                    <div class="card">
+                                        <!--begin::Card header-->
+                                        <div class="card-header border-0 pt-6">
+                                            <!--begin::Card title-->
+                                            <div class="card-title">
+                                                <!--begin::Search-->
+                                                <div class="d-flex align-items-center position-relative my-1">
+                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                             viewBox="0 0 24 24" fill="none">
+                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+                                                                  fill="black" />
+                                                            <path
+                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                                                fill="black" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                    <input type="text" data-kt-user-table-filter="search"
+                                                           class="form-control form-control-solid w-250px ps-14"
+                                                           placeholder="Search user" />
+                                                </div>
+                                                <!--end::Search-->
+                                            </div>
+                                            <!--begin::Card title-->
+                                            <!--begin::Card toolbar-->
+
+                                            <div class="card-toolbar">
+                                                <!--begin::Toolbar-->
+                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                                                    <div class="d-flex justify-content-between">
+                                                        <!--begin::Export-->
+                                                        <a href="#" class="btn btn-light-primary"
+                                                           data-kt-menu-trigger="click"
+                                                           data-kt-menu-placement="bottom-end">
+                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
+                                                            <span class="svg-icon svg-icon-2">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                     height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
+                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
+                                                                          fill="black" />
+                                                                    <path
+                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
+                                                                        fill="#C4C4C4" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->Export
+                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                     height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path
+                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
+                                                         data-kt-menu="true">
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-3">
+                                                                <span class="menu-icon">
+                                                                    <i class="la la-file-pdf-o"></i>
+                                                                </span>PDF
+                                                            </a>
+                                                        </div>
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-3">
+                                                                <span class="menu-icon">
+                                                                    <i class="la la-file-excel-o"></i>
+                                                                </span>Excel
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Export-->
+                                                </div>
+                                                <!--end::Toolbar-->
+                                            </div>
+                                            <!--end::Card toolbar-->
+                                        </div>
+                                        <!--end::Card header-->
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                       id="kt_table_users">
+                                                @if ($dematAccount['normal']->isNotEmpty())
+                                                    <!--begin::Table head-->
+                                                        <thead>
+                                                        <tr
+                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-10px">Serial Number</th>
+{{--                                                            <th class="min-w-75px">Client name</th>--}}
+                                                            <th class="min-w-75px">Holder Name</th>
+{{--                                                            <th class="min-w-75px">Broker</th>--}}
+                                                            <th class="min-w-75px">Available Fund</th>
+                                                            <th class="min-w-75px">Profit / Loss</th>
+                                                            <th class="min-w-75px">Day of Joining</th>
+                                                            @can("setup-write")
+                                                                <th class="min-w-75px">Action</th>
+                                                            @endcan
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @php
+                                                            $i=1;
+                                                        @endphp
+                                                        @foreach($dematAccount['normal'] as $account)
+                                                            @php
+                                                                $datetime1 = strtotime($account->created_at);
+                                                                $datetime2 = strtotime(date("Y-m-d"));
+                                                                $days = (int)(($datetime2 - $datetime1)/86400);
+                                                            @endphp
+                                                            <tr>
+                                                                <td>{{$i++}}</td>
+                                                                <td> {{$account->st_sg."-".$account->serial_number}} </td>
+{{--                                                                <td> {{$account->name}}</td>--}}
+                                                                <td> {{$account->holder_name}}</td>
+{{--                                                                <td> {{$account->broker}}</td>--}}
+                                                                <td> {{$account->available_balance}}</td>
+                                                                <td> {{$account->pl}}</td>
+                                                                <td> {{ $days }}</td>
+                                                                <td class="">
+                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        @can("setup-write")
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Update Status</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)"
+                                                                                   data-id='{{$account->id}}'
+                                                                                   class="menu-link px-3 makeAsPreferred"
+                                                                                   data-value="1">Make as Preferred</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}' data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)"
+                                                                                   data-id='{{$account->id}}'
+                                                                                   class="menu-link px-3 loginInfo">Login
+                                                                                    Info</a>
+                                                                            </div>
+{{--                                                                            <div class="menu-item px-3">--}}
+{{--                                                                                <a href="javascript:void(0)"--}}
+{{--                                                                                   class="menu-link px-3"--}}
+{{--                                                                                   onclick="myFunction({{$account->id}})">Copy--}}
+{{--                                                                                    Login Info</a>--}}
+{{--                                                                            </div>--}}
+
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    @else
+                                                        <h3>there's no normal account.</h3>
+                                                @endif
+                                                <!--end::Table body-->
+                                                </table>
+                                            </div>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card-->
+                                </div>
+                                <div class="tab-pane fade show" id="holding" aria-labelledby="active-tab"
+                                     role="tabpanel">
+                                    <!--begin::Card-->
+                                    <div class="card">
+                                        <!--begin::Card header-->
+                                        <div class="card-header border-0 pt-6">
+                                            <!--begin::Card title-->
+                                            <div class="card-title">
+                                                <!--begin::Search-->
+                                                <div class="d-flex align-items-center position-relative my-1">
+                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                             viewBox="0 0 24 24" fill="none">
+                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+                                                                  fill="black" />
+                                                            <path
+                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                                                fill="black" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                    <input type="text" data-kt-user-table-filter="search"
+                                                           class="form-control form-control-solid w-250px ps-14"
+                                                           placeholder="Search user" />
+                                                </div>
+                                                <!--end::Search-->
+                                            </div>
+                                            <!--begin::Card title-->
+                                            <!--begin::Card toolbar-->
+
+                                            <div class="card-toolbar">
+                                                <!--begin::Toolbar-->
+                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                                                    <div class="d-flex justify-content-between">
+                                                        <!--begin::Export-->
+                                                        <a href="#" class="btn btn-light-primary"
+                                                           data-kt-menu-trigger="click"
+                                                           data-kt-menu-placement="bottom-end">
+                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
+                                                            <span class="svg-icon svg-icon-2">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                     height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
+                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
+                                                                          fill="black" />
+                                                                    <path
+                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
+                                                                        fill="#C4C4C4" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->Export
+                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                     height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path
+                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
+                                                         data-kt-menu="true">
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-3">
+                                                                <span class="menu-icon">
+                                                                    <i class="la la-file-pdf-o"></i>
+                                                                </span>PDF
+                                                            </a>
+                                                        </div>
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-3">
+                                                                <span class="menu-icon">
+                                                                    <i class="la la-file-excel-o"></i>
+                                                                </span>Excel
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Export-->
+                                                </div>
+                                                <!--end::Toolbar-->
+                                            </div>
+                                            <!--end::Card toolbar-->
+                                        </div>
+                                        <!--end::Card header-->
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                       id="kt_table_users">
+                                                @if ($dematAccount['holding']->isNotEmpty())
+                                                    <!--begin::Table head-->
+                                                        <thead>
+                                                        <tr
+                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-10px">Serial Number</th>
+                                                            <th class="min-w-75px">Holder Name</th>
+                                                            <th class="min-w-75px">Available Fund</th>
+                                                            <th class="min-w-75px">Profit / Loss</th>
+                                                            <th class="min-w-75px">Day of Joining</th>
+                                                            @can("setup-write")
+                                                                <th class="min-w-75px">Action</th>
+                                                            @endcan
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @php
+                                                            $i=1;
+                                                        @endphp
+                                                        @foreach($dematAccount['holding'] as $account)
+                                                            @php
+                                                                $datetime1 = strtotime($account->created_at);
+                                                                $datetime2 = strtotime(date("Y-m-d"));
+                                                                $days = (int)(($datetime2 - $datetime1)/86400);
+                                                            @endphp
+                                                            <tr>
+                                                                <td>{{$i++}}</td>
+                                                                <td> {{$account->st_sg."-".$account->serial_number}} </td>
+                                                                <td> {{$account->holder_name}}</td>
+                                                                <td> {{$account->available_balance}}</td>
+                                                                <td> {{$account->pl}}</td>
+                                                                <td> {{ $days }}</td>
+                                                                <td class="">
+                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        @can("setup-write")
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Update Status</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)"
+                                                                                   data-id='{{$account->id}}'
+                                                                                   class="menu-link px-3 makeAsPreferred"
+                                                                                   data-value="1">Make as Preferred</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}' data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)"
+                                                                                   data-id='{{$account->id}}'
+                                                                                   class="menu-link px-3 loginInfo">Login
+                                                                                    Info</a>
+                                                                            </div>
+{{--                                                                            <div class="menu-item px-3">--}}
+{{--                                                                                <a href="javascript:void(0)"--}}
+{{--                                                                                   class="menu-link px-3"--}}
+{{--                                                                                   onclick="myFunction({{$account->id}})">Copy--}}
+{{--                                                                                    Login Info</a>--}}
+{{--                                                                            </div>--}}
+
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    @else
+                                                        <h3>there's no normal account.</h3>
+                                                @endif
+                                                <!--end::Table body-->
+                                                </table>
+                                            </div>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card-->
+                                </div>
+                                <div class="tab-pane fade show" id="all" aria-labelledby="active-tab"
+                                     role="tabpanel">
+                                    <!--begin::Card-->
+                                    <div class="card">
+                                        <!--begin::Card header-->
+                                        <div class="card-header border-0 pt-6">
+                                            <!--begin::Card title-->
+                                            <div class="card-title">
+                                                <!--begin::Search-->
+                                                <div class="d-flex align-items-center position-relative my-1">
+                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                             viewBox="0 0 24 24" fill="none">
+                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+                                                                  fill="black" />
+                                                            <path
+                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                                                fill="black" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                    <input type="text" data-kt-user-table-filter="search"
+                                                           class="form-control form-control-solid w-250px ps-14"
+                                                           placeholder="Search user" />
+                                                </div>
+                                                <!--end::Search-->
+                                            </div>
+                                            <!--begin::Card title-->
+                                            <!--begin::Card toolbar-->
+
+                                            <div class="card-toolbar">
+                                                <!--begin::Toolbar-->
+                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                                                    <div class="d-flex justify-content-between">
+                                                        <!--begin::Export-->
+                                                        <a href="#" class="btn btn-light-primary"
+                                                           data-kt-menu-trigger="click"
+                                                           data-kt-menu-placement="bottom-end">
+                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
+                                                            <span class="svg-icon svg-icon-2">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                     height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
+                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
+                                                                          fill="black" />
+                                                                    <path
+                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
+                                                                        fill="#C4C4C4" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->Export
+                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                     height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path
+                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
+                                                         data-kt-menu="true">
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-3">
+                                                                <span class="menu-icon">
+                                                                    <i class="la la-file-pdf-o"></i>
+                                                                </span>PDF
+                                                            </a>
+                                                        </div>
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-3">
+                                                                <span class="menu-icon">
+                                                                    <i class="la la-file-excel-o"></i>
+                                                                </span>Excel
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Export-->
+                                                </div>
+                                                <!--end::Toolbar-->
+                                            </div>
+                                            <!--end::Card toolbar-->
+                                        </div>
+                                        <!--end::Card header-->
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                       id="kt_table_users">
+                                                @if ($dematAccount['all']->isNotEmpty())
+                                                    <!--begin::Table head-->
+                                                        <thead>
+                                                        <tr
+                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-10px">Serial Number</th>
+                                                            <th class="min-w-75px">Holder Name</th>
+                                                            <th class="min-w-75px">Available Fund</th>
+                                                            <th class="min-w-75px">Profit / Loss</th>
+                                                            <th class="min-w-75px">Service Type </th>
+                                                            @can("setup-write")
+                                                                <th class="min-w-75px">Action</th>
+                                                            @endcan
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @php
+                                                            $i=1;
+                                                        @endphp
+                                                        @foreach($dematAccount['all'] as $account)
+                                                            @php
+                                                                $datetime1 = strtotime($account->created_at);
+                                                                $datetime2 = strtotime(date("Y-m-d"));
+                                                                $days = (int)(($datetime2 - $datetime1)/86400);
+                                                            @endphp
+                                                            <tr>
+                                                                <td>{{$i++}}</td>
+                                                                <td> {{$account->st_sg."-".$account->serial_number}} </td>
+                                                                <td> {{$account->holder_name}}</td>
+                                                                <td> {{$account->available_balance}}</td>
+                                                                <td> {{$account->pl}}</td>
+                                                                <td> @if($account->service_type == 1)
+                                                                         PRIME
+                                                                     @elseif($account->service_type == 2)
+                                                                        AMS
+                                                                     @endif
+                                                                </td>
+                                                                <td class="">
+                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        @can("setup-write")
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Update Status</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)"
+                                                                                   data-id='{{$account->id}}'
+                                                                                   class="menu-link px-3 makeAsPreferred"
+                                                                                   data-value="1">Make as Preferred</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}' data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)"
+                                                                                   data-id='{{$account->id}}'
+                                                                                   class="menu-link px-3 loginInfo">Login
+                                                                                    Info</a>
+                                                                            </div>
+{{--                                                                            <div class="menu-item px-3">--}}
+{{--                                                                                <a href="javascript:void(0)"--}}
+{{--                                                                                   class="menu-link px-3"--}}
+{{--                                                                                   onclick="myFunction({{$account->id}})">Copy--}}
+{{--                                                                                    Login Info</a>--}}
+{{--                                                                            </div>--}}
+
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    @else
+                                                        <h3>there's no normal account.</h3>
+                                                @endif
+                                                <!--end::Table body-->
+                                                </table>
+                                            </div>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card-->
+                                </div>
+                                <div class="tab-pane fade show" id="trader" aria-labelledby="active-tab"
+                                     role="tabpanel">
+                                    <!--begin::Card-->
+                                    <div class="card">
+                                        <!--begin::Card header-->
+                                        <div class="card-header border-0 pt-6">
+                                            <!--begin::Card title-->
+                                            <div class="card-title">
+                                                <!--begin::Search-->
+                                                <div class="d-flex align-items-center position-relative my-1">
+                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                             viewBox="0 0 24 24" fill="none">
+                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+                                                                  fill="black" />
+                                                            <path
+                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                                                fill="black" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                    <input type="text" data-kt-user-table-filter="search"
+                                                           class="form-control form-control-solid w-250px ps-14"
+                                                           placeholder="Search user" />
+                                                </div>
+                                                <!--end::Search-->
+                                            </div>
+                                            <!--begin::Card title-->
+                                            <!--begin::Card toolbar-->
+
+                                            <div class="card-toolbar">
+                                                <!--begin::Toolbar-->
+                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                                                    <div class="d-flex justify-content-between">
+                                                        <!--begin::Export-->
+                                                        <a href="#" class="btn btn-light-primary"
+                                                           data-kt-menu-trigger="click"
+                                                           data-kt-menu-placement="bottom-end">
+                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
+                                                            <span class="svg-icon svg-icon-2">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                     height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
+                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
+                                                                          fill="black" />
+                                                                    <path
+                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
+                                                                        fill="#C4C4C4" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->Export
+                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                     height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path
+                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
+                                                         data-kt-menu="true">
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-3">
+                                                                <span class="menu-icon">
+                                                                    <i class="la la-file-pdf-o"></i>
+                                                                </span>PDF
+                                                            </a>
+                                                        </div>
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-3">
+                                                                <span class="menu-icon">
+                                                                    <i class="la la-file-excel-o"></i>
+                                                                </span>Excel
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Export-->
+                                                </div>
+                                                <!--end::Toolbar-->
+                                            </div>
+                                            <!--end::Card toolbar-->
+                                        </div>
+                                        <!--end::Card header-->
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                       id="kt_table_users">
+                                                @if ($dematAccount['trader']->isNotEmpty())
+                                                    <!--begin::Table head-->
+                                                        <thead>
+                                                        <tr
+                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-10px">Serial Number</th>
+                                                            <th class="min-w-75px">Holder Name</th>
+                                                            <th class="min-w-75px">Trader Name</th>
+                                                            <th class="min-w-75px">Available Fund</th>
+                                                            <th class="min-w-75px">Profit / Loss</th>
+                                                            <th class="min-w-75px">Day of Joining</th>
+                                                            @can("setup-write")
+                                                                <th class="min-w-75px">Action</th>
+                                                            @endcan
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @php
+                                                            $i=1;
+                                                        @endphp
+                                                        @foreach($dematAccount['trader'] as $account)
+                                                            @php
+                                                                $datetime1 = strtotime($account->created_at);
+                                                                $datetime2 = strtotime(date("Y-m-d"));
+                                                                $days = (int)(($datetime2 - $datetime1)/86400);
+                                                            @endphp
+                                                            <tr>
+                                                                <td>{{$i++}}</td>
+                                                                <td> {{$account->st_sg."-".$account->serial_number}} </td>
+                                                                <td> {{$account->holder_name}}</td>
+                                                                <td> {{$account->trader_name}}</td>
+                                                                <td> {{$account->available_balance}}</td>
+                                                                <td> {{$account->pl}}</td>
+                                                                <td> {{ $days }}</td>
+                                                                <td class="">
+                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        @can("setup-write")
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Update Status</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)"
+                                                                                   data-id='{{$account->id}}'
+                                                                                   class="menu-link px-3 makeAsPreferred"
+                                                                                   data-value="1">Make as Preferred</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}' data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+                                                                            </div>
+
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)"
+                                                                                   data-id='{{$account->id}}'
+                                                                                   class="menu-link px-3 loginInfo">Login
+                                                                                    Info</a>
+                                                                            </div>
+{{--                                                                            <div class="menu-item px-3">--}}
+{{--                                                                                <a href="javascript:void(0)"--}}
+{{--                                                                                   class="menu-link px-3"--}}
+{{--                                                                                   onclick="myFunction({{$account->id}})">Copy--}}
+{{--                                                                                    Login Info</a>--}}
+{{--                                                                            </div>--}}
+
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    @else
+                                                        <h3>there's no normal account.</h3>
+                                                @endif
+                                                <!--end::Table body-->
+                                                </table>
+                                            </div>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card-->
+                                </div>
+                                <div class="tab-pane fade show" id="freelancer" aria-labelledby="active-tab"
+                                     role="tabpanel">
+                                    <!--begin::Card-->
+                                    <div class="card">
+                                        <!--begin::Card header-->
+                                        <div class="card-header border-0 pt-6">
+                                            <!--begin::Card title-->
+                                            <div class="card-title">
+                                                <!--begin::Search-->
+                                                <div class="d-flex align-items-center position-relative my-1">
+                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                             viewBox="0 0 24 24" fill="none">
+                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+                                                                  fill="black" />
+                                                            <path
+                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                                                fill="black" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                    <input type="text" data-kt-user-table-filter="search"
+                                                           class="form-control form-control-solid w-250px ps-14"
+                                                           placeholder="Search user" />
+                                                </div>
+                                                <!--end::Search-->
+                                            </div>
+                                            <!--begin::Card title-->
+                                            <!--begin::Card toolbar-->
+
+                                            <div class="card-toolbar">
+                                                <!--begin::Toolbar-->
+                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                                                    <div class="d-flex justify-content-between">
+                                                        <!--begin::Export-->
+                                                        <a href="#" class="btn btn-light-primary"
+                                                           data-kt-menu-trigger="click"
+                                                           data-kt-menu-placement="bottom-end">
+                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
+                                                            <span class="svg-icon svg-icon-2">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                     height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
+                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
+                                                                          fill="black" />
+                                                                    <path
+                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
+                                                                        fill="#C4C4C4" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->Export
+                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                     height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path
+                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
+                                                         data-kt-menu="true">
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-3">
+                                                                <span class="menu-icon">
+                                                                    <i class="la la-file-pdf-o"></i>
+                                                                </span>PDF
+                                                            </a>
+                                                        </div>
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-3">
+                                                                <span class="menu-icon">
+                                                                    <i class="la la-file-excel-o"></i>
+                                                                </span>Excel
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Export-->
+                                                </div>
+                                                <!--end::Toolbar-->
+                                            </div>
+                                            <!--end::Card toolbar-->
+                                        </div>
+                                        <!--end::Card header-->
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                       id="kt_table_users">
+                                                @if ($dematAccount['freelancer']->isNotEmpty())
+                                                    <!--begin::Table head-->
+                                                        <thead>
+                                                        <tr
+                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-10px">Serial Number</th>
+                                                            <th class="min-w-75px">Holder Name</th>
+                                                            <th class="min-w-75px">Freelancer Name</th>
+                                                            <th class="min-w-75px">Available Fund</th>
+                                                            <th class="min-w-75px">Profit / Loss</th>
+                                                            <th class="min-w-75px">Day of Joining</th>
+                                                            @can("setup-write")
+                                                                <th class="min-w-75px">Action</th>
+                                                            @endcan
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @php
+                                                            $i=1;
+                                                        @endphp
+                                                        @foreach($dematAccount['freelancer'] as $account)
+                                                            @php
+                                                                $datetime1 = strtotime($account->created_at);
+                                                                $datetime2 = strtotime(date("Y-m-d"));
+                                                                $days = (int)(($datetime2 - $datetime1)/86400);
+                                                            @endphp
+                                                            <tr>
+                                                                <td>{{$i++}}</td>
+                                                                <td> {{$account->st_sg."-".$account->serial_number}} </td>
+                                                                <td> {{$account->holder_name}}</td>
+                                                                <td> {{$account->freelancer_name}}</td>
+                                                                <td> {{$account->available_balance}}</td>
+                                                                <td> {{$account->pl}}</td>
+                                                                <td> {{ $days }}</td>
+                                                                <td class="">
+                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        @can("setup-write")
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Update Status</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)"
+                                                                                   data-id='{{$account->id}}'
+                                                                                   class="menu-link px-3 makeAsPreferred"
+                                                                                   data-value="1">Make as Preferred</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}' data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+                                                                            </div>
+
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)"
+                                                                                   data-id='{{$account->id}}'
+                                                                                   class="menu-link px-3 loginInfo">Login
+                                                                                    Info</a>
+                                                                            </div>
+{{--                                                                            <div class="menu-item px-3">--}}
+{{--                                                                                <a href="javascript:void(0)"--}}
+{{--                                                                                   class="menu-link px-3"--}}
+{{--                                                                                   onclick="myFunction({{$account->id}})">Copy--}}
+{{--                                                                                    Login Info</a>--}}
+{{--                                                                            </div>--}}
+
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    @else
+                                                        <h3>there's no normal account.</h3>
+                                                @endif
+                                                <!--end::Table body-->
+                                                </table>
+                                            </div>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card-->
+                                </div>
+                                <div class="tab-pane fade show" id="unallotted" aria-labelledby="active-tab"
+                                     role="tabpanel">
+                                    <!--begin::Card-->
+                                    <div class="card">
+                                        <!--begin::Card header-->
+                                        <div class="card-header border-0 pt-6">
+                                            <!--begin::Card title-->
+                                            <div class="card-title">
+                                                <!--begin::Search-->
+                                                <div class="d-flex align-items-center position-relative my-1">
+                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                             viewBox="0 0 24 24" fill="none">
+                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+                                                                  fill="black" />
+                                                            <path
+                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                                                fill="black" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                    <input type="text" data-kt-user-table-filter="search"
+                                                           class="form-control form-control-solid w-250px ps-14"
+                                                           placeholder="Search user" />
+                                                </div>
+                                                <!--end::Search-->
+                                            </div>
+                                            <!--begin::Card title-->
+                                            <!--begin::Card toolbar-->
+
+                                            <div class="card-toolbar">
+                                                <!--begin::Toolbar-->
+                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                                                    <div class="d-flex justify-content-between">
+                                                        <!--begin::Export-->
+                                                        <a href="#" class="btn btn-light-primary"
+                                                           data-kt-menu-trigger="click"
+                                                           data-kt-menu-placement="bottom-end">
+                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
+                                                            <span class="svg-icon svg-icon-2">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                     height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
+                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
+                                                                          fill="black" />
+                                                                    <path
+                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
+                                                                        fill="#C4C4C4" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->Export
+                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                     height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path
+                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
+                                                         data-kt-menu="true">
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-3">
+                                                                <span class="menu-icon">
+                                                                    <i class="la la-file-pdf-o"></i>
+                                                                </span>PDF
+                                                            </a>
+                                                        </div>
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-3">
+                                                                <span class="menu-icon">
+                                                                    <i class="la la-file-excel-o"></i>
+                                                                </span>Excel
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Export-->
+                                                </div>
+                                                <!--end::Toolbar-->
+                                            </div>
+                                            <!--end::Card toolbar-->
+                                        </div>
+                                        <!--end::Card header-->
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                       id="kt_table_users">
+                                                @if ($dematAccount['unallotted']->isNotEmpty())
+                                                    <!--begin::Table head-->
+                                                        <thead>
+                                                        <tr
+                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-10px">Serial Number</th>
+                                                            <th class="min-w-75px">Holder Name</th>
+                                                            <th class="min-w-75px">Capital</th>
+                                                            <th class="min-w-75px">Date of Joining</th>
+                                                            @can("setup-write")
+                                                                <th class="min-w-75px">Action</th>
+                                                            @endcan
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @php
+                                                            $i=1;
+                                                        @endphp
+                                                        @foreach($dematAccount['unallotted'] as $account)
+                                                            <tr>
+                                                                <td>{{$i++}}</td>
+                                                                <td> {{$account->st_sg."-".$account->serial_number}} </td>
+                                                                <td> {{$account->holder_name}}</td>
+                                                                <td> {{$account->capital}}</td>
+                                                                <td> {{ $account->created_at->format('d-m-Y') }}</td>
+                                                                <td class="">
+                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        @can("setup-write")
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Update Status</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)"
+                                                                                   data-id='{{$account->id}}'
+                                                                                   class="menu-link px-3 makeAsPreferred"
+                                                                                   data-value="1">Make as Preferred</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-clname='{{$account->name}}' data-name='{{$account->holder_name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}' data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+                                                                            </div>
+
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)"
+                                                                                   data-id='{{$account->id}}'
+                                                                                   class="menu-link px-3 loginInfo">Login
+                                                                                    Info</a>
+                                                                            </div>
+{{--                                                                            <div class="menu-item px-3">--}}
+{{--                                                                                <a href="javascript:void(0)"--}}
+{{--                                                                                   class="menu-link px-3"--}}
+{{--                                                                                   onclick="myFunction({{$account->id}})">Copy--}}
+{{--                                                                                    Login Info</a>--}}
+{{--                                                                            </div>--}}
+
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    @else
+                                                        <h3>there's no normal account.</h3>
                                                 @endif
                                                 <!--end::Table body-->
                                                 </table>
@@ -529,6 +1489,7 @@
         </div>
     </div>
 
+    <!-- Modal -->
     <div class="modal fade" id="assignFreelancerModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog mw-650px" role="document">
             <div class="modal-content">
@@ -552,14 +1513,14 @@
                         <div class="form-group row">
                             <label class="col-3 col-form-label">Client</label>
                             <div class="col-9">
-                                <input class="form-control" type="text" id="client_Name" readonly/>
+                                <input class="form-control" type="text" id="freelancer_client_Name" readonly/>
                                 <input class="form-control" type="hidden" value="" name='client_demate_id' id="assignFreelancerId" readonly />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-3 col-form-label">Account Holder Name</label>
                             <div class="col-9">
-                                <input class="form-control" type="text" id="holder_name" readonly/>
+                                <input class="form-control" type="text" id="freelancer_holder_name" readonly/>
                             </div>
                         </div>
                         <div class="form-group row" id="ams_freelancer">
@@ -567,10 +1528,28 @@
                             <div class="col-9">
                                 <select class="form-select form-select-solid" name='freelancer_id' data-control="select2" data-hide-search="true" data-placeholder="Select AMS freelancer">
                                     <option></option>
+                                    @forelse ($freelancerAms as $freelancer)
+                                        <option value="{{$freelancer->id}}">{{$freelancer->name}}</option>
+                                    @empty
+                                        <option>Select AMS freelancer</option>
+                                    @endforelse
                                 </select>
                             </div>
                         </div>
 
+                        <div class="form-group row" id="prime_freelancer">
+                            <label for="example-email-input" class="col-3 col-form-label"> Prime freelancer</label>
+                            <div class="col-9">
+                                <select class="form-select form-select-solid" name='ams_freelancer_id' data-control="select2" data-hide-search="true" data-placeholder="Select Prime freelancer">
+                                    <option></option>
+                                    @forelse ($freelancerPrime as $freelancer)
+                                        <option value="{{$freelancer->id}}">{{$freelancer->name}}</option>
+                                    @empty
+                                        <option>Select Prime freelancer</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <!--end::Modal body-->
                     <div class="modal-footer text-center">
@@ -732,8 +1711,17 @@
                 const service = e.target.getAttribute("data-service");
                 if(id){
                     $("#assignFreelancerId").val(id);
-                    $("#client_Name").val(name);
-                    $("#holder_name").val(holderName);
+                    $("#freelancer_client_Name").val(name);
+                    $("#freelancer_holder_name").val(holderName);
+                    $("#prime_freelancer").hide();
+                    $("#ams_freelancer").hide();
+                    if(service == 1){
+                        $("#prime_freelancer").show();
+                        $("#ams_freelancer").hide();
+                    }else if(service == 2){
+                        $("#ams_freelancer").show();
+                        $("#prime_freelancer").hide();
+                    }
                     $("#assignFreelancerModal").modal("show");
                 }else{
                     window.alert("Unable to Load this Client");

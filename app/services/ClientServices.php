@@ -371,6 +371,37 @@ class ClientServices
         where("client_demat.is_make_as_preferred",1)->
         where("client_demat.freelancer_id",0)->
         select('client_demat.*','clients.name')->get();
+
+        $dematAccount['holding'] = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("client_demat.account_status","holding")->
+        select('client_demat.*','clients.name')->get();
+
+        $dematAccount['all'] = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("client_demat.account_status","!=","problem")->
+        where("client_demat.account_status","!=","renew")->
+        where("client_demat.is_make_as_preferred",0)->
+        select('client_demat.*','clients.name')->get();
+
+        $dematAccount['trader'] = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        leftJoin('users', 'client_demat.trader_id', '=', 'users.id')->
+        where("client_demat.trader_id","!=",0)->
+        select('client_demat.*','clients.name','users.name as trader_name')->get();
+
+        $dematAccount['freelancer'] = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        leftJoin('users', 'client_demat.freelancer_id', '=', 'users.id')->
+        where("client_demat.freelancer_id","!=",0)->
+        select('client_demat.*','clients.name','users.name as freelancer_name')->get();
+
+        $dematAccount['unallotted'] = ClientDemat::
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("client_demat.freelancer_id","==",0)->
+        where("client_demat.trader_id","==",0)->
+        select('client_demat.*','clients.name')->get();
+
         return $dematAccount;
     }
 }

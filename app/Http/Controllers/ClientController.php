@@ -219,7 +219,10 @@ class ClientController extends Controller
         }
         $traders = User::wherein('id',$userIdArray)->get();
 
-        return view("calls.setup",compact('dematAccount','traders'));
+        $freelancerAms =  User::where("user_type",4)->get();
+        $freelancerPrime =  User::where("user_type",5)->get();
+
+        return view("calls.setup",compact('dematAccount','traders','freelancerAms','freelancerPrime'));
     }
 
     public function assignTraderToDemat(Request $request)
