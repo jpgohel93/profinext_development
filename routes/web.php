@@ -96,6 +96,9 @@ Route::group(['middleware' => ['auth']], function() {
     // edit analyst
     Route::POST("/analyst/edit",[AnalystController::class, "editAnalyst"])->name("editAnalyst");
     Route::POST("/analyst/editAnalystAssignTo",[AnalystController::class, "editAnalystAssignTo"])->name("editAnalystAssignTo");
+    Route::POST("/getAnalyst", [AnalystController::class, "getAnalystData"])->name("getAnalystData");
+    Route::POST("/getActiveCall", [AnalystController::class, "getActiveCallData"])->name("getActiveCallData");
+    Route::POST("/getCloseCall", [AnalystController::class, "getCloseCallData"])->name("getCloseCallData");
     // list monitor
     Route::get("/monitor", [AnalystController::class, "viewMonitor"])->name("viewMonitor");
     Route::get("/monitor_analysts", [AnalystController::class, "viewMonitorAnalysts"])->name("viewMonitorAnalysts");

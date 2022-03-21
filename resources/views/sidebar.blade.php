@@ -345,7 +345,7 @@
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        @hasanyrole("blogAdmin|super-admin")
+                        @can("blogAdmin-read")
                             <div class="menu-item">
                                 <a class="menu-link @yield('blogs.admin')" href="{{route('blogAdmin')}}">
                                     <span class="menu-bullet">
@@ -354,7 +354,8 @@
                                     <span class="menu-title">Blog Admin</span>
                                 </a>
                             </div>
-                        @else
+                        @endcan
+                        @can("blog-read")
                             <div class="menu-item">
                                 <a class="menu-link @yield('blogs.user')" href="{{route('blogUser')}}">
                                     <span class="menu-bullet">
@@ -363,7 +364,7 @@
                                     <span class="menu-title">Blog User</span>
                                 </a>
                             </div>
-                        @endrole
+                        @endcan
                     </div>
                 </div>
                 @endcan
