@@ -12,8 +12,24 @@ class BlogAdminServices{
 
     }
     public static function index(){
-        $users = User::role('blogUser')->get()->toArray();
+        //$users = User::role('blogUser')->get()->toArray();
         // $blogs = Blog::with(["withBlogger"])->get()->toArray();
+
+        $users = User::get();
+        $userIdArray = [];
+        foreach ($users as $userData){
+            $permission = json_decode($userData->permission,true);
+            if(!empty($permission)) {
+                if (in_array("blog-read", $permission) ||
+                    in_array("blog-write", $permission) ||
+                    in_array("blog-create", $permission) ||
+                    in_array("blog-delete", $permission)) {
+                    $userIdArray[] = $userData->id;
+                }
+            }
+        }
+        $users = User::wherein('id',$userIdArray)->get();
+
         foreach($users as $user_index => $user){
             $tg = blogTarget::where(["user_id"=>$user['id']])->get(["tab_id","target"])->toArray();
             $users[$user_index]['target'] = $tg;
@@ -23,7 +39,7 @@ class BlogAdminServices{
                 $users[$user_index]['target'][$tab_index]['total_blogs'] = $achivement;
             }
         }
-        return $users; 
+        return $users;
     }
     public static function getBlogByUser(){
         $id = Auth::user()->id;
