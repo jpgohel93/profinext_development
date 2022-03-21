@@ -49,4 +49,20 @@ class CallController extends Controller
         $call = CallServices::get($request->id);
         return response($call)->header('Content-type', "application/json");
     }
+
+    // read client
+    public function getScriptCall(Request $request){
+        if($request->type == "open") {
+            $callData = Calls::leftJoin('client_demat', 'calls.client_demate_id', '=', 'client_demat.id')
+                ->select('calls.*','client_demat.holder_name')
+                ->where("script_name", $request->scriptName)
+                ->get()->toArray();
+        }elseif ($request->type == "close"){
+            $callData = Calls::leftJoin('client_demat', 'calls.client_demate_id', '=', 'client_demat.id')
+                ->select('calls.*','client_demat.holder_name')
+                ->where("script_name", $request->scriptName)
+                ->onlyTrashed()->get()->toArray();
+        }
+        return $callData;
+    }
 }
