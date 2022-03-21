@@ -101,9 +101,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/monitor_analysts", [AnalystController::class, "viewMonitorAnalysts"])->name("viewMonitorAnalysts");
     Route::get("/monitor_analysts/{id}", [AnalystController::class, "viewMonitorAnalystsById"])->name("viewMonitorAnalystsById");
     Route::get("/monitor_data", [AnalystController::class, "viewMonitorData"])->name("viewMonitorData");
-    Route::POST("/getAnalyst", [AnalystController::class, "getAnalystData"])->name("getAnalystData");
-    Route::POST("/getActiveCall", [AnalystController::class, "getActiveCallData"])->name("getActiveCallData");
-    Route::POST("/getCloseCall", [AnalystController::class, "getCloseCallData"])->name("getCloseCallData");
     Route::get("/monitor_call/{id}", [AnalystController::class, "createMonitorDataForm"])->name("createMonitorDataForm");
     Route::POST("/monitor_call", [AnalystController::class, "createMonitorData"])->name("createMonitorData");
     Route::POST("/monitor_call_edit_data", [AnalystController::class, "editMonitorDataForm"])->name("editMonitorDataForm");
@@ -128,6 +125,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/call/assignDematTrader",[ClientController::class,'assignTraderToDemat'])->name('assignTraderToDemat');
     Route::POST("/makeAsPreferred",[ClientController::class,"makeAsPreferred"])->name("makeAsPreferred");
     Route::POST("/updateDematStatus",[ClientController::class,"updateDematStatus"])->name("updateDematStatus");
+    Route::POST("/addDematHolding",[CallController::class,"create"])->name("addDematHolding");
 
 
 
@@ -205,7 +203,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/addKeyword",[KeywordController::class, "addKeyword"])->name("addKeyword");
     Route::POST("/editKeyword",[KeywordController::class, "editKeyword"])->name("editKeyword");
     Route::get("/deleteKeyword/{id}",[KeywordController::class, "deleteKeyword"])->name("deleteKeyword");
-    
+
     // Blogs Admin
     Route::get("/blogAdmin",[BlogController::class, "blogAdmin"])->name("blogAdmin");
     Route::get("/blogUser",[BlogController::class, "getBlogByUser"])->name("blogUser");

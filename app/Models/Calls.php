@@ -20,6 +20,8 @@ class Calls extends Model
         "margin_value",
         "deleted_at",
         "created_by",
+        "client_demate_id",
+        "quantity",
     ];
     protected $hidden = ["analyst_id"];
 
