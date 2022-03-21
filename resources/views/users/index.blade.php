@@ -207,7 +207,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("account_number")}}" name="account_number" placeholder=""  />
+													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("account_number")}}" name="account_number" placeholder=""  />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->

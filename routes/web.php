@@ -207,9 +207,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/blogAdmin",[BlogController::class, "blogAdmin"])->name("blogAdmin");
     Route::get("/blogUser",[BlogController::class, "getBlogByUser"])->name("blogUser");
     Route::POST("/addBlog",[BlogController::class, "addBlogFrm"])->name("addBlogFrm");
-    Route::get("/editBlogForm",[BlogController::class, "editBlogForm"])->name("editBlogForm");
+    Route::get("/editBlogForm/{id}",[BlogController::class, "editBlogForm"])->name("editBlogForm");
+    Route::get("/editBlog/{id}",[BlogController::class, "editBlog"])->name("editBlog");
+    Route::get("/approveBlog/{id}",[BlogController::class, "approveBlog"])->name("approveBlog");
+    Route::POST("/updateBlogFrm",[BlogController::class, "updateBlogFrm"])->name("updateBlogFrm");
     Route::get("/removeBlog",[BlogController::class, "removeBlog"])->name("removeBlog");
+    Route::POST("/getNotes",[BlogController::class, "getNotes"])->name("getNotes");
     Route::POST("/addTab",[BlogController::class, "addTab"])->name("addTab");
     Route::POST("/setTargetFrm",[BlogController::class, "setTargetFrm"])->name("setTargetFrm");
-
+    Route::POST("/addNoteFrm",[BlogController::class, "addNoteFrm"])->name("addNoteFrm");
 });

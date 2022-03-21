@@ -45,7 +45,10 @@ class UserController extends Controller
         $roles = RoleServices::all();
         $account_types = AccountTypeServices::view(['id', 'account_type']);
         $permissions = $user->permissions->pluck("name")->toArray();
-        $rolePermissions = RoleServices::getPermissions($user->role);
+        $rolePermissions=array();
+        if($user->role){
+            $rolePermissions = RoleServices::getPermissions($user->role);
+        }
         $all_permissions = RoleServices::permissions()->pluck("name")->toArray();
         $auth_user = Auth::user();
         $userRole = $auth_user->role;
