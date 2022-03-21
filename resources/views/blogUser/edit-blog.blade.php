@@ -74,7 +74,7 @@
                                     </div>
                                     <!--end::Modal body-->
                                     <div class="modal-footer text-center">
-                                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                                        <button type="button" class="btn btn-light me-3" id="discard">Discard</button>
                                         <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
                                             <span class="indicator-label"> Reapproved </span>
                                             <span class="indicator-progress">Please wait...
@@ -95,4 +95,13 @@
         </div>
         <!--end::Page-->
     </div>
+    <script>
+        window.addEventListener("DOMContentLoaded",function(){
+            $(()=>{
+                $("#discard").on("click",function(){
+                    window.history.back();
+                })
+            },jQuery)
+        })
+    </script>
 @endsection

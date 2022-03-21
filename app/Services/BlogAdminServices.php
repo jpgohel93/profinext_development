@@ -48,6 +48,8 @@ class BlogAdminServices{
         foreach($tg as $tab_index => $tab_id){
             // total post in this tab
             $achivement = Blog::where(["blogger"=>$user['id'],"tab_id"=>$tab_id['tab_id']])->count();
+            // tab name
+            $user['target'][$tab_index]['tab_name'] = blogTabs::where("id",$tab_id['tab_id'])->pluck("name")->first();
             $user['target'][$tab_index]['total_blogs'] = $achivement;
             $user['target'][$tab_index]['tab_blogs'][$tab_id['tab_id']] = Blog::where(["blogger"=>$user['id'],"tab_id"=>$tab_id['tab_id']])->with(["withBlogger"])->get()->toArray();
         }
@@ -74,6 +76,8 @@ class BlogAdminServices{
     public static function addTab($request){
         $tab = $request->validate([
             "name"=>"required"
+        ],[
+            "name.required"=>"Tab name is required"
         ]);
         $tab['created_by']=auth()->user()->id;
         return blogTabs::create($tab);

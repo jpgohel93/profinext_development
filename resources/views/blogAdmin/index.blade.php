@@ -162,7 +162,7 @@
                                                 </tr>
                                              </thead>
                                              <tbody class="text-gray-600 fw-bold">
-                                                @can("blog-read")
+                                                @can("blogAdmin-read")
                                                     @php
                                                         $i=1;
                                                     @endphp
@@ -247,9 +247,6 @@
     <div class="modal fade" id="addTabModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog mw-650px" role="document">
             <div class="modal-content">
-                @if ($errors->any())
-                    <h3 class="alert alert-danger">{{$errors->first()}}</h3>
-                @endif
                 <!--begin::Form-->
                 <form id="" class="form" method="POST" action="{{route('addTab')}}">
                     @csrf
@@ -260,7 +257,7 @@
                     <div class="modal-body mx-md-10">
                         <div class="form-group row">
                             <label class="col-3 col-form-label">Tab name</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder="Please Enter Tab Name" />
+                            <input type="text" name="name" value="{{old("name")}}" id="name" class="form-control" placeholder="Please Enter Tab Name" />
                         </div>
                     </div>
                     <!--end::Modal body-->
