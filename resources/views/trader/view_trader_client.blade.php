@@ -208,9 +208,11 @@
                                                             class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Sr No.</th>
                                                             <th class="min-w-10px">Serial Number</th>
-                                                            <th class="min-w-75px">Client name</th>
                                                             <th class="min-w-75px">Holder Name</th>
                                                             <th class="min-w-75px">Broker</th>
+                                                            <th class="min-w-75px">User Id</th>
+                                                            <th class="min-w-75px">Password</th>
+                                                            <th class="min-w-75px">MPIN</th>
                                                             <th class="min-w-75px">Available Fund</th>
                                                             <th class="min-w-75px">Profit / Loss</th>
                                                             <th class="min-w-75px">Day of Joining</th>
@@ -230,9 +232,11 @@
                                                             <tr>
                                                                 <td>{{$i++}}</td>
                                                                 <td> {{$account->st_sg."-".$account->serial_number}} </td>
-                                                                <td> {{$account->name}}</td>
                                                                 <td> {{$account->holder_name}}</td>
                                                                 <td> {{$account->broker}}</td>
+                                                                <td class="copy" style="cursor: copy;" title="copy text"> {{$account->user_id}}</td>
+                                                                <td class="copy" style="cursor: copy;" title="copy text"> {{$account->password}}</td>
+                                                                <td class="copy" style="cursor: copy;" title="copy text"> {{$account->mpin}}</td>
                                                                 <td> {{$account->available_balance}}</td>
                                                                 <td> {{$account->pl}}</td>
                                                                 <td> {{ $days }}</td>
@@ -245,29 +249,29 @@
                                                                             </span>
                                                                     </a>
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @can("client-write")
+                                                                        @can("client-demat-write")
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Update Status</a>
                                                                             </div>
                                                                         @endcan
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="0">Remove as Preferred</a>--}}
+{{--                                                                        </div>--}}
                                                                         <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="0">Remove as Preferred</a>
+                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 holdingDematAccount"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">Add Holding</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 holdingDematAccount"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">Make as Holding</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="renew">Make as Renew</a>
+                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="renew">Send for Renew</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
                                                                              <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 problemDematAccount" data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="problem">Make as Problem</a>
                                                                         </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 loginInfo">Login Info</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="myFunction({{$account->id}})" >Copy Login Info</a>
-                                                                        </div>
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 loginInfo">Login Info</a>--}}
+{{--                                                                        </div>--}}
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="myFunction({{$account->id}})" >Copy Login Info</a>--}}
+{{--                                                                        </div>--}}
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -387,9 +391,11 @@
                                                             class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Sr No.</th>
                                                             <th class="min-w-10px">Serial Number</th>
-                                                            <th class="min-w-75px">Client name</th>
                                                             <th class="min-w-75px">Holder Name</th>
                                                             <th class="min-w-75px">Broker</th>
+                                                            <th class="min-w-75px">User Id</th>
+                                                            <th class="min-w-75px">Password</th>
+                                                            <th class="min-w-75px">MPIN</th>
                                                             <th class="min-w-75px">Available Fund</th>
                                                             <th class="min-w-75px">Profit / Loss</th>
                                                             <th class="min-w-75px">Day of Joining</th>
@@ -409,9 +415,11 @@
                                                             <tr>
                                                                 <td>{{$i++}}</td>
                                                                 <td> {{$account->st_sg."-".$account->serial_number}} </td>
-                                                                <td> {{$account->name}}</td>
                                                                 <td> {{$account->holder_name}}</td>
                                                                 <td> {{$account->broker}}</td>
+                                                                <td class="copy" style="cursor: copy;" title="copy text"> {{$account->user_id}}</td>
+                                                                <td class="copy" style="cursor: copy;" title="copy text"> {{$account->password}}</td>
+                                                                <td class="copy" style="cursor: copy;" title="copy text"> {{$account->mpin}}</td>
                                                                 <td> {{$account->available_balance}}</td>
                                                                 <td> {{$account->pl}}</td>
                                                                 <td> {{ $days }}</td>
@@ -424,29 +432,29 @@
                                                                             </span>
                                                                     </a>
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @can("client-write")
+                                                                        @can("client-demat-write")
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Update Status</a>
                                                                             </div>
                                                                         @endcan
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>--}}
+{{--                                                                        </div>--}}
                                                                         <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>
+                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 holdingDematAccount"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">Add Holding</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 holdingDematAccount"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">Make as Holding</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="renew">Make as Renew</a>
+                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="renew">Send for Renew</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 problemDematAccount" data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="problem">Make as Problem</a>
                                                                         </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 loginInfo">Login Info</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="myFunction({{$account->id}})" >Copy Login Info</a>
-                                                                        </div>
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 loginInfo">Login Info</a>--}}
+{{--                                                                        </div>--}}
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="myFunction({{$account->id}})" >Copy Login Info</a>--}}
+{{--                                                                        </div>--}}
                                                                     </div>
 
                                                                 </td>
@@ -567,14 +575,14 @@
                                                             class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Sr No.</th>
                                                             <th class="min-w-10px">Serial Number</th>
-                                                            <th class="min-w-75px">Client name</th>
                                                             <th class="min-w-75px">Holder Name</th>
                                                             <th class="min-w-75px">Broker</th>
+                                                            <th class="min-w-75px">User Id</th>
+                                                            <th class="min-w-75px">Password</th>
+                                                            <th class="min-w-75px">MPIN</th>
                                                             <th class="min-w-75px">Available Fund</th>
                                                             <th class="min-w-75px">Profit / Loss</th>
                                                             <th class="min-w-75px">Day of Joining</th>
-                                                            <th class="min-w-75px">Entry Price</th>
-                                                            <th class="min-w-75px">Quantity</th>
                                                             <th class="min-w-75px">Action</th>
                                                         </tr>
                                                         </thead>
@@ -591,14 +599,14 @@
                                                             <tr>
                                                                 <td>{{$i++}}</td>
                                                                 <td> {{$account->st_sg."-".$account->serial_number}} </td>
-                                                                <td> {{$account->name}}</td>
                                                                 <td> {{$account->holder_name}}</td>
                                                                 <td> {{$account->broker}}</td>
+                                                                <td class="copy" style="cursor: copy;" title="copy text"> {{$account->user_id}}</td>
+                                                                <td class="copy" style="cursor: copy;" title="copy text"> {{$account->password}}</td>
+                                                                <td class="copy" style="cursor: copy;" title="copy text"> {{$account->mpin}}</td>
                                                                 <td> {{$account->available_balance}}</td>
                                                                 <td> {{$account->pl}}</td>
                                                                 <td> {{ $days }}</td>
-                                                                <td> {{ $account->entry_price }}</td>
-                                                                <td> {{ $account->quantity }}</td>
                                                                 <td class="text-end">
                                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                         <span class="svg-icon svg-icon-5 m-0">
@@ -608,29 +616,32 @@
                                                                             </span>
                                                                     </a>
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @can("client-write")
+                                                                        @can("client-demat-write")
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Update Status</a>
                                                                             </div>
                                                                         @endcan
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>
-                                                                        </div>
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>--}}
+{{--                                                                        </div>--}}
                                                                         <div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="normal">Remove as Holding</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="renew">Make as Renew</a>
+                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 holdingDematAccount"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">Add Holding</a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="renew">Send for Renew</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 problemDematAccount" data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="problem">Make as Problem</a>
                                                                         </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 loginInfo">Login Info</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="myFunction({{$account->id}})" >Copy Login Info</a>
-                                                                        </div>
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 loginInfo">Login Info</a>--}}
+{{--                                                                        </div>--}}
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="myFunction({{$account->id}})" >Copy Login Info</a>--}}
+{{--                                                                        </div>--}}
                                                                     </div>
 
                                                                 </td>
@@ -788,29 +799,29 @@
                                                                             </span>
                                                                     </a>
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @can("client-write")
+                                                                        @can("client-demat-write")
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Update Status</a>
                                                                             </div>
                                                                         @endcan
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 holdingDematAccount"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">Make as Holding</a>
-                                                                        </div>
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>--}}
+{{--                                                                        </div>--}}
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 holdingDematAccount"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">Add Holding</a>--}}
+{{--                                                                        </div>--}}
                                                                         <div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="normal">Remove as Renew</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 problemDematAccount" data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="problem">Make as Problem</a>
                                                                         </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 loginInfo">Login Info</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="myFunction({{$account->id}})" >Copy Login Info</a>
-                                                                        </div>
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 loginInfo">Login Info</a>--}}
+{{--                                                                        </div>--}}
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="myFunction({{$account->id}})" >Copy Login Info</a>--}}
+{{--                                                                        </div>--}}
                                                                     </div>
 
                                                                 </td>
@@ -970,29 +981,29 @@
                                                                             </span>
                                                                     </a>
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @can("client-write")
+                                                                        @can("client-demat-write")
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Update Status</a>
                                                                             </div>
                                                                         @endcan
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>--}}
+{{--                                                                        </div>--}}
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 holdingDematAccount"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">Add Holding</a>--}}
+{{--                                                                        </div>--}}
                                                                         <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 holdingDematAccount"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">Make as Holding</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="renew">Make as Renew</a>
+                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="renew">Send for Renew</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="normal">Remove as Problem</a>
                                                                         </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 loginInfo">Login Info</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="myFunction({{$account->id}})" >Copy Login Info</a>
-                                                                        </div>
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 loginInfo">Login Info</a>--}}
+{{--                                                                        </div>--}}
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="myFunction({{$account->id}})" >Copy Login Info</a>--}}
+{{--                                                                        </div>--}}
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -1240,7 +1251,7 @@
         <div class="modal-dialog mw-650px" role="document">
             <div class="modal-content">
                 <!--begin::Form-->
-                <form id="" class="form" method="POST" action="{{route('updateDematStatus')}}">
+                <form id="" class="form" method="POST" action="{{route('addDematHolding')}}">
                     @csrf
                     <div class="modal-header">
                         <h2 class="fw-bolder">Holding</h2>
@@ -1256,18 +1267,44 @@
 
                     <!--begin::Modal body-->
                     <div class="modal-body mx-md-10">
-                        <div class="form-group row">
-                            <label class="col-3 col-form-label">Client</label>
-                            <div class="col-9">
-                                <input class="form-control" type="text" id="holding_client_Name" readonly/>
-                                <input class="form-control" type="hidden" value="" name='id' id="holding_demate_id" readonly />
-                                <input class="form-control" type="hidden" value="holding" name='status' id="status" readonly />
-                            </div>
-                        </div>
+{{--                        <div class="form-group row">--}}
+{{--                            <label class="col-3 col-form-label">Client</label>--}}
+{{--                            <div class="col-9">--}}
+{{--                                <input class="form-control" type="text" id="holding_client_Name" readonly/>--}}
+{{--                                 </div>--}}
+{{--                        </div>--}}
                         <div class="form-group row">
                             <label class="col-3 col-form-label">Account Holder Name</label>
                             <div class="col-9">
                                 <input class="form-control" type="text" id="holding_holder_name" readonly/>
+                                <input class="form-control" type="hidden" value="" name='client_demate_id' id="holding_demate_id"/>
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Script Name</label>
+                            <div class="col-9">
+                                <input type="type" class="form-control form-control-solid" id="script_name"  name="script_name" list="listValue"/>
+                                <datalist id="listValue">
+                                    @if(!empty($keywords))
+                                        @foreach($keywords as $keyword)
+                                            <option value="{{$keyword->name}}">{{$keyword->name}}</option>
+                                        @endforeach
+                                    @endif
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Analysts</label>
+                            <div class="col-9">
+                                <select name="analyst_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Analysts">
+                                    <option></option>
+                                    @if(!empty($analysts))
+                                        @foreach($analysts as $analyst)
+                                            <option value="{{$analyst->id}}">{{$analyst->analyst}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -1364,6 +1401,21 @@
 
     <script>
         window.addEventListener("DOMContentLoaded",function(){
+            //for copy text
+            var copy = document.querySelectorAll(".copy");
+            for (const copied of copy) {
+                copied.onclick = function() {
+                    document.execCommand("copy");
+                };
+                copied.addEventListener("copy", function(event) {
+                    event.preventDefault();
+                    if (event.clipboardData) {
+                        event.clipboardData.setData("text/plain", copied.textContent);
+                    };
+                });
+            };
+            //for copy text end
+
             $("#other_problem").hide();
             $(document).on("click",'.editDematAccount',function(e){
                 const id = e.target.getAttribute("data-id");

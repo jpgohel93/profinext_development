@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Analyst;
+use App\Services\KeywordServices;
 use App\Services\UserServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,7 +79,10 @@ class TraderController extends Controller
         }
         $traders = User::wherein('id',$userIdArray)->get();
 
-        return view('trader.view_trader_client', compact('dematAccount','traders'));
+        $analysts = Analyst::where("status","Active")->orWhere("status","Experiment")->get();
+        $keywords = KeywordServices::all();
+
+        return view('trader.view_trader_client', compact('dematAccount','traders','keywords','analysts'));
     }
 
     public function getTraderList(){
@@ -119,9 +124,14 @@ class TraderController extends Controller
         }
         $traders = User::wherein('id',$userIdArray)->get();
 
+        $analysts = Analyst::where("status","Active")->orWhere("status","Experiment")->get();
+        print_r($analysts);
+        exit();
+        $keywords = KeywordServices::all();
+
         //$traders = UserServices::getByRole('trader');
 
-        return view('trader.view_trader_client', compact('dematAccount','traders'));
+        return view('trader.view_trader_client', compact('dematAccount','traders','keywords','analysts'));
     }
 
     public function viewTraderClient(Request $request)
@@ -143,8 +153,11 @@ class TraderController extends Controller
         }
         $traders = User::wherein('id',$userIdArray)->get();
 
+        $analysts = Analyst::where("status","Active")->orWhere("status","Experiment")->get();
+        $keywords = KeywordServices::all();
+
         //$traders = UserServices::getByRole('trader');
 
-        return view('trader.view_trader_client', compact('dematAccount','traders'));
+        return view('trader.view_trader_client', compact('dematAccount','traders','keywords','analysts'));
     }
 }

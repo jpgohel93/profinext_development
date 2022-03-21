@@ -125,6 +125,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/call/assignDematTrader",[ClientController::class,'assignTraderToDemat'])->name('assignTraderToDemat');
     Route::POST("/makeAsPreferred",[ClientController::class,"makeAsPreferred"])->name("makeAsPreferred");
     Route::POST("/updateDematStatus",[ClientController::class,"updateDematStatus"])->name("updateDematStatus");
+    Route::POST("/addDematHolding",[CallController::class,"create"])->name("addDematHolding");
 
 
 
@@ -202,7 +203,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/addKeyword",[KeywordController::class, "addKeyword"])->name("addKeyword");
     Route::POST("/editKeyword",[KeywordController::class, "editKeyword"])->name("editKeyword");
     Route::get("/deleteKeyword/{id}",[KeywordController::class, "deleteKeyword"])->name("deleteKeyword");
-    
+
     // Blogs Admin
     Route::get("/blogAdmin",[BlogController::class, "blogAdmin"])->name("blogAdmin");
     Route::get("/blogUser",[BlogController::class, "getBlogByUser"])->name("blogUser");
