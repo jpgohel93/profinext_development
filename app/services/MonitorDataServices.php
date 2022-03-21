@@ -7,20 +7,38 @@ use App\Services\CommonService;
 use Illuminate\Support\Facades\Auth;
 
 class MonitorDataServices{
-    public static function all($id)
+    public static function all($id, $filterDate = null)
 	{
 		$auth_user = Auth::user();
 		$explRole = explode(",", $auth_user->role);
+		
+		if($filterDate != "") {
+			$dates = explode("-", $filterDate);
+			$st_dt = str_replace("/","-", $dates[0]);
+			$en_dt = str_replace("/","-", $dates[1]);
+			$startDate = date("Y-m-d", strtotime($st_dt));
+			$endDate = date("Y-m-d", strtotime($en_dt));
 
-		if(in_array("super-admin", $explRole)) {
-			$monitorData['open'] = MonitorData::where("status", "open")->orderBy('date', 'DESC')->get();
-			$monitorData['close'] = MonitorData::where("status", "close")->orderBy('exit_date', 'DESC')->get();
-			$monitorData['analyst'] = Analyst::where('status', '!=' , "Terminated")->get();
+			if(in_array("super-admin", $explRole)) {
+				$monitorData['open'] = MonitorData::where("status", "open")->whereBetween('date', [$startDate, $endDate])->orderBy('date', 'DESC')->get();
+				$monitorData['close'] = MonitorData::where("status", "close")->whereBetween('date', [$startDate, $endDate])->orderBy('exit_date', 'DESC')->get();
+				$monitorData['analyst'] = Analyst::where('status', '!=' , "Terminated")->get();
+			} else {
+				$monitorData['open'] = MonitorData::where("monitor_id", $id)->whereBetween('date', [$startDate, $endDate])->where("status", "open")->orderBy('date', 'DESC')->get();
+				$monitorData['close'] = MonitorData::where("monitor_id", $id)->whereBetween('date', [$startDate, $endDate])->where("status", "close")->orderBy('exit_date', 'DESC')->get();
+				$monitorData['analyst'] = Analyst::where("assign_user_id", $id)->where('status', '!=' , "Terminated")->get();
+			}
 		} else {
-			$monitorData['open'] = MonitorData::where("monitor_id", $id)->where("status", "open")->orderBy('date', 'DESC')->get();
-			$monitorData['close'] = MonitorData::where("monitor_id", $id)->where("status", "close")->orderBy('exit_date', 'DESC')->get();
-			$monitorData['analyst'] = Analyst::where("assign_user_id", $id)->where('status', '!=' , "Terminated")->get();
-        }
+			if(in_array("super-admin", $explRole)) {
+				$monitorData['open'] = MonitorData::where("status", "open")->orderBy('date', 'DESC')->get();
+				$monitorData['close'] = MonitorData::where("status", "close")->orderBy('exit_date', 'DESC')->get();
+				$monitorData['analyst'] = Analyst::where('status', '!=' , "Terminated")->get();
+			} else {
+				$monitorData['open'] = MonitorData::where("monitor_id", $id)->where("status", "open")->orderBy('date', 'DESC')->get();
+				$monitorData['close'] = MonitorData::where("monitor_id", $id)->where("status", "close")->orderBy('exit_date', 'DESC')->get();
+				$monitorData['analyst'] = Analyst::where("assign_user_id", $id)->where('status', '!=' , "Terminated")->get();
+			}
+		}	
 		return $monitorData;
     }
     public static function create($request){

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\JsonReturn;
+use Datatables;
 
 class AnalystController extends Controller
 {
@@ -267,16 +268,150 @@ class AnalystController extends Controller
 
 		$analysts = Analyst::get();
 		$keywords = KeywordServices::all();
-        $monitorData = MonitorDataServices::all($auth_user->id);
+        /* $monitorData = MonitorDataServices::all($auth_user->id);
         if(isset($monitorData['analyst']) && !empty($monitorData['analyst'])) {
             foreach ($monitorData['analyst'] as $key => $data) {
                 $countData = MonitorDataServices::countAnalystCall($data['id']);
                 $monitorData['analyst'][$key]['close_call'] = $countData['close_call'];
                 $monitorData['analyst'][$key]['open_call'] = $countData['open_call'];
             }
-        }
-        return view("analyst.monitor_data",compact('analysts','keywords','monitorData'));
+        } */
+        return view("analyst.monitor_data",compact('analysts','keywords'));
     }
+	
+	public function getAnalystData(Request $request)
+	{
+		if ($request->ajax())
+		{  
+			$auth_user = Auth::user();
+			
+			$monitorData = MonitorDataServices::all($auth_user->id);
+            
+			$data_arr = array();
+			foreach($monitorData['analyst'] as $monitor)
+			{
+				$countData = MonitorDataServices::countAnalystCall($monitor['id']);
+				
+				$tempData = array(
+					'id' => $monitor->id,
+					'analyst' => $monitor->analyst,
+					'status' => $monitor->status,
+					'open_call' => $countData['open_call'],
+					'close_call' => $countData['close_call'],
+					'action' => ""
+				);
+				array_push($data_arr, $tempData);
+			}
+			
+            return Datatables::of($data_arr)
+				->addIndexColumn()
+				->addColumn('action', function($row){
+					$btn = "";
+					if (Auth::user()->can('monitor-write')) {
+						$btn = '<div class="d-flex justify-content-center">
+								<div class="menu-item">
+									<a data-analysts_id="'.$row['id'].'" data-name="'.$row['analyst'].'" class="addCall menu-link p-1">
+										<i class="fa fa-plus text-dark fa-2x"></i>
+									</a>
+								</div>
+							</div>';
+					}
+                    return $btn;
+                })
+				->rawColumns(['action'])
+                ->make(true);
+        }
+	}
+
+	public function getActiveCallData(Request $request)
+	{
+		if ($request->ajax())
+		{  
+			$auth_user = Auth::user();
+			$filterDate = $request->start_date;
+			$monitorData = MonitorDataServices::all($auth_user->id,$filterDate);
+            
+			$data_arr = array();
+			foreach($monitorData['open'] as $monitor)
+			{
+				$tempData = array(
+					'id' => $monitor->id,
+					'date' => $monitor->date,
+					'script_name' => $monitor->script_name,
+					'entry_price' => $monitor->entry_price,
+					'target' => $monitor->target,
+					'action' => ""
+				);
+				array_push($data_arr, $tempData);
+			}
+			
+            return Datatables::of($data_arr)
+				->addIndexColumn()
+				->addColumn('action', function($row){
+					$btn = "";
+					
+					if (Auth::user()->can('monitor-write')) {
+						$btn .= '<a data-monitor_id="'.$row['id'].'" data-call_type="openCall" class="editCall menu-link p-1" target="_blank" title="Edit call">
+									<i class="fa fa-edit text-dark fa-2x"></i>
+								</a>
+								<a data-monitor_id="'.$row['id'].'" class="menu-link p-1 updateCall" title="Square off call">
+									<i class="fa fa-power-off text-dark fa-2x"></i>
+								</a>';
+					}
+					if (Auth::user()->can('monitor-delete')) {
+						$btn .= '<a data-monitor_id="'.$row['id'].'" class="menu-link p-1 deleteCall" title="Delete call">
+									<i class="fa fa-trash text-dark fa-2x"></i>
+								</a>';
+					}
+                    return $btn;
+                })
+				->rawColumns(['action'])
+                ->make(true);
+        }
+	}
+
+	public function getCloseCallData(Request $request)
+	{
+		if ($request->ajax())
+		{  
+			$auth_user = Auth::user();
+			$filterDate = $request->start_date;
+			$monitorData = MonitorDataServices::all($auth_user->id,$filterDate);
+            
+			$data_arr = array();
+			foreach($monitorData['close'] as $monitor)
+			{
+				$tempData = array(
+					'id' => $monitor->id,
+					'script_name' => $monitor->script_name,
+					'exit_price' => $monitor->exit_price - $monitor->entry_price,
+					'sl_status' => $monitor->sl_status,
+					'action' => ""
+				);
+				array_push($data_arr, $tempData);
+			}
+			
+            return Datatables::of($data_arr)
+				->addIndexColumn()
+				->addColumn('action', function($row){
+					$btn = "";
+					
+					if (Auth::user()->can('monitor-write')) {
+						$btn .= '<a data-monitor_id="'.$row['id'].'" data-call_type="closeCall" class="editCall menu-link p-1" title="Edit call">
+									<i class="fa fa-edit text-dark fa-2x"></i>
+								</a>';
+					}
+					if (Auth::user()->can('monitor-delete')) {
+						$btn .= '<a data-monitor_id="'.$row['id'].'" class="menu-link p-1 deleteCall" title="Delete call">
+									<i class="fa fa-trash text-dark fa-2x"></i>
+								</a>';
+					}
+                    return $btn;
+                })
+				->rawColumns(['action'])
+                ->make(true);
+        }
+	}
 
     public function createMonitorDataForm(Request $request,$id){
         $keywords = KeywordServices::all();
