@@ -167,6 +167,7 @@
                                                         $i=1;
                                                     @endphp
                                                     @forelse ($blogs as $blog)
+                                                        {{-- {{dd($blog)}} --}}
                                                         <tr> 
                                                             <td>{{$blog['id']}}</td>
                                                             <td class="role-value-td">{{$blog['name']}}</td>
@@ -188,18 +189,19 @@
                                                                 <div class="d-flex justify-content-end align-items-end">
                                                                     @can("blog-read")
                                                                         <div class="menu-item">  
-                                                                            <a href="{{route('editBlogForm')}}" data-id="{{$blog['id']}}" class="menu-link px-3">
+                                                                            <a href="{{route('editBlogForm',$blog['id'])}}" data-id="{{$blog['id']}}" target="_blank" class="menu-link px-3">
                                                                                 View
                                                                             </a> 
                                                                         </div>
                                                                     @endcan
 
-                                                                    <div class="menu-item">  
-                                                                        <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 setTargetUrl">
-                                                                            Target
-                                                                        </a> 
-                                                                    </div>
-                                                                            
+                                                                    @can("blog-write")
+                                                                        <div class="menu-item">  
+                                                                            <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 setTargetUrl">
+                                                                                Target
+                                                                            </a> 
+                                                                        </div>
+                                                                    @endcan
                                                                     {{-- @can("blog-delete")
                                                                         <div class="menu-item">  
                                                                             <a href="{{route('removeBlog')}}" data-id="{{$blog['id']}}" class="menu-link px-2 removeRole">

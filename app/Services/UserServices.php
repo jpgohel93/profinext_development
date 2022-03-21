@@ -45,11 +45,24 @@ class UserServices
         }
     }
     public static function create($request){
-        self::validateUsersData($request);
         $request->validate([
+            "name"=>"required|alpha_spaces",
+            "account_type"=>"required",
+            "number"=>"required|array",
+            "number.*"=>"numeric",
+            "ifsc_code"=>"required",
+            "user_type"=>"required",
+            "job_description"=>"required",
+            "role"=>"required",
             "email"=>"required|email|unique:users,email",
-            "account_number"=>"required|numeric|unique:users,account_number",
+            "account_number"=>"required|unique:users,account_number",
         ]);
+        if($request->user_type=='2'){
+            $request->validate([
+                "salary"=>"required|numeric",
+                "joining_date"=>"required|date"
+            ]);
+        }
         $user_data = $request->all();
         $user_data['password'] = Hash::make($request->password);
         $user_data['created_by'] = Auth::id();
@@ -103,7 +116,7 @@ class UserServices
         self::validateUsersData($request);
         $request->validate([
             "email"=>"required|email",
-            "account_number"=>"required|numeric",
+            "account_number"=>"required",
         ]);
         $user_data = $request->except(['_token',"number","permissions"]);
         // remove old numbers

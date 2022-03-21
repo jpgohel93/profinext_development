@@ -96,14 +96,14 @@ Route::group(['middleware' => ['auth']], function() {
     // edit analyst
     Route::POST("/analyst/edit",[AnalystController::class, "editAnalyst"])->name("editAnalyst");
     Route::POST("/analyst/editAnalystAssignTo",[AnalystController::class, "editAnalystAssignTo"])->name("editAnalystAssignTo");
+    Route::POST("/getAnalyst", [AnalystController::class, "getAnalystData"])->name("getAnalystData");
+    Route::POST("/getActiveCall", [AnalystController::class, "getActiveCallData"])->name("getActiveCallData");
+    Route::POST("/getCloseCall", [AnalystController::class, "getCloseCallData"])->name("getCloseCallData");
     // list monitor
     Route::get("/monitor", [AnalystController::class, "viewMonitor"])->name("viewMonitor");
     Route::get("/monitor_analysts", [AnalystController::class, "viewMonitorAnalysts"])->name("viewMonitorAnalysts");
     Route::get("/monitor_analysts/{id}", [AnalystController::class, "viewMonitorAnalystsById"])->name("viewMonitorAnalystsById");
     Route::get("/monitor_data", [AnalystController::class, "viewMonitorData"])->name("viewMonitorData");
-    Route::POST("/getAnalyst", [AnalystController::class, "getAnalystData"])->name("getAnalystData");
-    Route::POST("/getActiveCall", [AnalystController::class, "getActiveCallData"])->name("getActiveCallData");
-    Route::POST("/getCloseCall", [AnalystController::class, "getCloseCallData"])->name("getCloseCallData");
     Route::get("/monitor_call/{id}", [AnalystController::class, "createMonitorDataForm"])->name("createMonitorDataForm");
     Route::POST("/monitor_call", [AnalystController::class, "createMonitorData"])->name("createMonitorData");
     Route::POST("/monitor_call_edit_data", [AnalystController::class, "editMonitorDataForm"])->name("editMonitorDataForm");
@@ -129,6 +129,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/call/assignDematTrader",[ClientController::class,'assignTraderToDemat'])->name('assignTraderToDemat');
     Route::POST("/makeAsPreferred",[ClientController::class,"makeAsPreferred"])->name("makeAsPreferred");
     Route::POST("/updateDematStatus",[ClientController::class,"updateDematStatus"])->name("updateDematStatus");
+    Route::POST("/addDematHolding",[CallController::class,"create"])->name("addDematHolding");
 
 
 
@@ -206,14 +207,18 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/addKeyword",[KeywordController::class, "addKeyword"])->name("addKeyword");
     Route::POST("/editKeyword",[KeywordController::class, "editKeyword"])->name("editKeyword");
     Route::get("/deleteKeyword/{id}",[KeywordController::class, "deleteKeyword"])->name("deleteKeyword");
-    
+
     // Blogs Admin
     Route::get("/blogAdmin",[BlogController::class, "blogAdmin"])->name("blogAdmin");
     Route::get("/blogUser",[BlogController::class, "getBlogByUser"])->name("blogUser");
     Route::POST("/addBlog",[BlogController::class, "addBlogFrm"])->name("addBlogFrm");
-    Route::get("/editBlogForm",[BlogController::class, "editBlogForm"])->name("editBlogForm");
+    Route::get("/editBlogForm/{id}",[BlogController::class, "editBlogForm"])->name("editBlogForm");
+    Route::get("/editBlog/{id}",[BlogController::class, "editBlog"])->name("editBlog");
+    Route::get("/approveBlog/{id}",[BlogController::class, "approveBlog"])->name("approveBlog");
+    Route::POST("/updateBlogFrm",[BlogController::class, "updateBlogFrm"])->name("updateBlogFrm");
     Route::get("/removeBlog",[BlogController::class, "removeBlog"])->name("removeBlog");
+    Route::POST("/getNotes",[BlogController::class, "getNotes"])->name("getNotes");
     Route::POST("/addTab",[BlogController::class, "addTab"])->name("addTab");
     Route::POST("/setTargetFrm",[BlogController::class, "setTargetFrm"])->name("setTargetFrm");
-
+    Route::POST("/addNoteFrm",[BlogController::class, "addNoteFrm"])->name("addNoteFrm");
 });

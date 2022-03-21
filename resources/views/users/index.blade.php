@@ -207,7 +207,7 @@
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("account_number")}}" name="account_number" placeholder=""  />
+													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("account_number")}}" name="account_number" placeholder=""  />
 													<!--end::Input-->
 												</div>
 												<!--end::Input group-->
@@ -2694,7 +2694,7 @@
 					const role = $(this).val();
 					if(role){
 						$("#manual_permission").html("");
-                        const modules = ["Client","Role","User","Analysis","Call","Trader","Monitor","Client Demat","Monitor Data","Report","Freelancer Data","Freelancer","Channel Partner Data","Channel Partner","Keyword","Trader Data","Setup","Blog"];
+                        const modules = ["Client","Role","User","Anaysis","Call","Trader","Monitor","Client Demat","Monitor Data","Report","Freelancer Data","Freelancer","Channel Partner Data","Channel Partner","Keyword","Trader Data","Setup","Blog","Blog-admin"];
                         let module_index = 0;
 						getPermissionByRole(role).then((response)=>{
 							if(typeof response['permissions'] != null){
@@ -2744,9 +2744,9 @@
 																	<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key+3].name}' ${($.inArray(response['allpermissions'][key+3].name, response['permissions']) !== -1)?"checked":""}>
 																</div>
 															</div>`;
+															module_index++;
 														}
 												}
-												module_index++;
 											})
 								html += `</div></div>`;
 								// display permissions
