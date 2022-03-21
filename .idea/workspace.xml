@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c1e2fdd1-681d-4aef-b180-5fd805f2dd3c" name="Changes" comment="- solve the error &#10;- add the delete alert">
+    <list default="true" id="c1e2fdd1-681d-4aef-b180-5fd805f2dd3c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CallController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CallController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/calls/calls.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/calls/calls.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/trader/view_trader_client.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/trader/view_trader_client.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -410,7 +409,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647861060047</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="- solve the error">
+      <created>1647867541552</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1647867541552</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -437,7 +443,8 @@
     <MESSAGE value="-change the user design&#10;- set the logo&#10;- solve the error" />
     <MESSAGE value="- solve the error &#10;- add the delete alert" />
     <MESSAGE value="- add the tread data in client" />
-    <option name="LAST_COMMIT_MESSAGE" value="- add the tread data in client" />
+    <MESSAGE value="- solve the error" />
+    <option name="LAST_COMMIT_MESSAGE" value="- solve the error" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

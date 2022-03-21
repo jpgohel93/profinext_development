@@ -62,6 +62,11 @@ class CallController extends Controller
                 ->select('calls.*','client_demat.holder_name')
                 ->where("script_name", $request->scriptName)
                 ->onlyTrashed()->get()->toArray();
+        }else{
+            $callData = Calls::leftJoin('client_demat', 'calls.client_demate_id', '=', 'client_demat.id')
+                ->select('calls.*','client_demat.holder_name')
+                ->where("calls.client_demate_id", $request->id)
+                ->get()->toArray();
         }
         return $callData;
     }
