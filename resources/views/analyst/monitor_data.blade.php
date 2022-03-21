@@ -723,9 +723,6 @@
 			}			
 		});	
 		
-		var startDate = new Date();
-		//endDate.setDate(startDate.getDate() - 30);
-		
 		$('#active_datefilter, #close_datefilter').daterangepicker({
 				opens: 'right',
 				startDate: moment().subtract(30, 'days'),
@@ -742,11 +739,6 @@
 		$(document).on('change','#close_datefilter',function(){
 			close_call_table.draw();
 		});
-			
-
-		/*$(document).on('change','#select-brand, #select-cat, #select-sup', function(){
-			table.draw();
-		});*/
 	});
 	
 	$("#addCallFrm").validate({

@@ -125,6 +125,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/call/edit/",[CallController::class,"edit"])->name("editCall");
     Route::get("/call/setup",[ClientController::class,"setup"])->name("setup");
 
+    Route::POST("/getPreferredAccount",[ClientController::class,'getPreferredAccountData'])->name('getPreferredAccountData');
     Route::POST("/call/assignDematTrader",[ClientController::class,'assignTraderToDemat'])->name('assignTraderToDemat');
     Route::POST("/makeAsPreferred",[ClientController::class,"makeAsPreferred"])->name("makeAsPreferred");
     Route::POST("/updateDematStatus",[ClientController::class,"updateDematStatus"])->name("updateDematStatus");
