@@ -228,7 +228,7 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        
+
                                                         </tbody>
                                                 </table>
                                             </div>
@@ -529,6 +529,7 @@
                                                             <th class="min-w-10px">Sr No.</th>
                                                             <th class="min-w-10px">Serial Number</th>
                                                             <th class="min-w-75px">Holder Name</th>
+                                                            <th class="min-w-75px">Positions</th>
                                                             <th class="min-w-75px">Available Fund</th>
                                                             <th class="min-w-75px">Profit / Loss</th>
                                                             <th class="min-w-75px">Day of Joining</th>
@@ -551,6 +552,7 @@
                                                                 <td>{{$i++}}</td>
                                                                 <td> {{$account->st_sg."-".$account->serial_number}} </td>
                                                                 <td> {{$account->holder_name}}</td>
+                                                                <td> {{isset($account->no_of_holding) && $account->no_of_holding > 0 ?  $account->no_of_holding : 0 }}</td>
                                                                 <td> {{$account->available_balance}}</td>
                                                                 <td> {{$account->pl}}</td>
                                                                 <td> {{ $days }}</td>
@@ -564,6 +566,9 @@
                                                                     </a>
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                         @can("setup-write")
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 viewDematHolding" data-value="holding">View Positions</a>
+                                                                            </div>
                                                                             <div class="menu-item px-3">
                                                                                 <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Update Status</a>
                                                                             </div>
@@ -1630,6 +1635,58 @@
     </div>
     <!--end::Modal - View Client Details-->
 
+    <!--begin::Modal - Call Modal-->
+    <div class="modal fade" id="script_modal" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content rounded">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                    <div class="table-responsive">
+                        <h3>Account Holding</h3>
+                        <table class="table align-middle table-row-dashed fs-6 gy-5"
+                               id="kt_table_users">
+                            <thead>
+                            <tr
+                                class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                <th class="min-w-10px">Sr No.</th>
+                                <th class="min-w-125px">Script Name</th>
+                                <th class="min-w-75px">Quantity</th>
+                                <th class="min-w-75px">Entry Price</th>
+                            </tr>
+                            </thead>
+                            <tbody class="text-gray-600 fw-bold" id="script_data">
+
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                    </div>
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+    <!--end::Modal - Call Modal-->
+
     <!--end::Modals-->
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
@@ -1757,10 +1814,10 @@
             });
         }
     </script>
-@endsection	
+@endsection
 
 @section('jscript')
-	<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>	
+	<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 	<script>
 	$(function() {
 		analyst_table = $('#preferred_table').DataTable({
@@ -1784,9 +1841,34 @@
 			],
 			"drawCallback": function(settings) {
 				KTMenu.createInstances();
-			}		
-		});	
-	});	
-	
-	</script>	
+			}
+		});
+	});
+
+    $(document).on("click",'.viewDematHolding',function(e){
+        const id = e.target.getAttribute("data-id");
+        const holderName = e.target.getAttribute("data-holder");
+        $.ajax("{!! route('getScriptCall') !!}", {
+            type: "POST",
+            data:{
+                id:id
+            }
+        })
+            .done(data => {
+                var html = "";
+                var counter = 1;
+                $.each(data, function(index) {
+                    html += " <tr>";
+                    html += "<td>"+ (counter++) + "</td>";
+                    html += "<td>"+ data[index]['script_name'] + "</td>";
+                    html += "<td>"+ data[index]['quantity'] + "</td>";
+                    html += "<td>"+ data[index]['entry_price'] + "</td>";
+                    html += " </tr>";
+                });
+                $("#script_data").html(html);
+                $("#script_modal").modal("show");
+            })
+    });
+
+	</script>
 @endsection

@@ -278,20 +278,20 @@ class AnalystController extends Controller
         } */
         return view("analyst.monitor_data",compact('analysts','keywords'));
     }
-	
+
 	public function getAnalystData(Request $request)
 	{
 		if ($request->ajax())
-		{  
+		{
 			$auth_user = Auth::user();
-			
+
 			$monitorData = MonitorDataServices::all($auth_user->id);
-            
+
 			$data_arr = array();
 			foreach($monitorData['analyst'] as $monitor)
 			{
 				$countData = MonitorDataServices::countAnalystCall($monitor['id']);
-				
+
 				$tempData = array(
 					'id' => $monitor->id,
 					'analyst' => $monitor->analyst,
@@ -302,7 +302,7 @@ class AnalystController extends Controller
 				);
 				array_push($data_arr, $tempData);
 			}
-			
+
             return Datatables::of($data_arr)
 				->addIndexColumn()
 				->addColumn('action', function($row){
@@ -326,11 +326,11 @@ class AnalystController extends Controller
 	public function getActiveCallData(Request $request)
 	{
 		if ($request->ajax())
-		{  
+		{
 			$auth_user = Auth::user();
 			$filterDate = $request->start_date;
 			$monitorData = MonitorDataServices::all($auth_user->id,$filterDate);
-            
+
 			$data_arr = array();
 			foreach($monitorData['open'] as $monitor)
 			{
@@ -344,12 +344,12 @@ class AnalystController extends Controller
 				);
 				array_push($data_arr, $tempData);
 			}
-			
+
             return Datatables::of($data_arr)
 				->addIndexColumn()
 				->addColumn('action', function($row){
 					$btn = "";
-					
+
 					if (Auth::user()->can('monitor-write')) {
 						$btn .= '<a data-monitor_id="'.$row['id'].'" data-call_type="openCall" class="editCall menu-link p-1" target="_blank" title="Edit call">
 									<i class="fa fa-edit text-dark fa-2x"></i>
@@ -373,11 +373,11 @@ class AnalystController extends Controller
 	public function getCloseCallData(Request $request)
 	{
 		if ($request->ajax())
-		{  
+		{
 			$auth_user = Auth::user();
 			$filterDate = $request->start_date;
 			$monitorData = MonitorDataServices::all($auth_user->id,$filterDate);
-            
+
 			$data_arr = array();
 			foreach($monitorData['close'] as $monitor)
 			{
@@ -395,7 +395,7 @@ class AnalystController extends Controller
 				->addIndexColumn()
 				->addColumn('action', function($row){
 					$btn = "";
-					
+
 					if (Auth::user()->can('monitor-write')) {
 						$btn .= '<a data-monitor_id="'.$row['id'].'" data-call_type="closeCall" class="editCall menu-link p-1" title="Edit call">
 									<i class="fa fa-edit text-dark fa-2x"></i>

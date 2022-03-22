@@ -3,7 +3,7 @@
 @section("blogs.admin","active")
 @section("blogTab","hover show")
 @section("content")
-    
+
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -43,7 +43,7 @@
                                      <li class="breadcrumb-item text-muted">
                                          <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
                                      </li>
-                                     <!--end::Item-->  
+                                     <!--end::Item-->
                                      <!--begin::Item-->
                                      <li class="breadcrumb-item">
                                          <span class="bullet bg-gray-200 w-5px h-2px"></span>
@@ -57,7 +57,7 @@
                              </div>
                              <!--end::Page title-->
                              <!--begin::Actions-->
-                             <div class="d-flex align-items-center py-1"> 
+                             <div class="d-flex align-items-center py-1">
                                  @can("blog-write")
                                  <!--begin::Button-->
                                  <a href="javascript:void(0)" class="btn btn-sm btn-primary" id="addTabBtn">
@@ -67,10 +67,10 @@
                                              <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                                          </svg>
                                      </span>Add Tab
-                                 </a> 
+                                 </a>
                                  @endcan
                              </div>
-                             <!--end::Actions--> 
+                             <!--end::Actions-->
                          </div>
                          <!--end::Container-->
                      </div>
@@ -101,12 +101,12 @@
                                      </div>
                                      <!--begin::Card title-->
                                      <!--begin::Card toolbar-->
-                                 
+
                                      <div class="card-toolbar">
                                          <!--begin::Toolbar-->
                                          <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                                  <div class="d-flex justify-content-between">
-                                             <!--begin::Export--> 
+                                             <!--begin::Export-->
                                              <a href="#" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                  <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                  <span class="svg-icon svg-icon-2">
@@ -121,26 +121,26 @@
                                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                          <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
                                                      </svg>
-                                                 </span> 
-                                             </a> 
+                                                 </span>
+                                             </a>
                                                  </div>
-                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true"> 
+                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
                                                  <div class="menu-item px-3">
                                                      <a href="#" class="menu-link px-3">
                                                          <span class="menu-icon">
                                                              <i class="la la-file-pdf-o"></i>
                                                          </span>PDF
-                                                     </a> 
-                                                 </div> 
+                                                     </a>
+                                                 </div>
                                                  <div class="menu-item px-3">
                                                      <a href="#" class="menu-link px-3">
                                                          <span class="menu-icon">
                                                              <i class="la la-file-excel-o"></i>
                                                          </span>Excel
-                                                     </a>  
-                                                 </div> 
-                                             </div> 
-                                             <!--end::Export--> 
+                                                     </a>
+                                                 </div>
+                                             </div>
+                                             <!--end::Export-->
                                          </div>
                                          <!--end::Toolbar-->
                                      </div>
@@ -168,7 +168,7 @@
                                                     @endphp
                                                     @forelse ($blogs as $blog)
                                                         {{-- {{dd($blog)}} --}}
-                                                        <tr> 
+                                                        <tr>
                                                             <td>{{$blog['id']}}</td>
                                                             <td class="role-value-td">{{$blog['name']}}</td>
                                                             @php
@@ -183,35 +183,35 @@
                                                                 $total_tabs = substr($total_tabs,1);
                                                                 $total_achieve = substr($total_achieve,1);
                                                             @endphp
-                                                            <td class="role-value-td">{{($total_achieve=="")?"-":$total_achieve}}</td> 
-                                                            <td class="role-value-td">{{$total_tabs}}</td> 
+                                                            <td class="role-value-td">{{($total_achieve=="")?"-":$total_achieve}}</td>
+                                                            <td class="role-value-td">{{$total_tabs}}</td>
                                                             <td class="text-end">
                                                                 <div class="d-flex justify-content-end align-items-end">
                                                                     @can("blog-read")
-                                                                        <div class="menu-item">  
+                                                                        <div class="menu-item">
                                                                             <a href="{{route('editBlogForm',$blog['id'])}}" data-id="{{$blog['id']}}" target="_blank" class="menu-link px-3">
                                                                                 View
-                                                                            </a> 
+                                                                            </a>
                                                                         </div>
                                                                     @endcan
 
                                                                     @can("blog-write")
-                                                                        <div class="menu-item">  
+                                                                        <div class="menu-item">
                                                                             <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 setTargetUrl">
                                                                                 Target
-                                                                            </a> 
+                                                                            </a>
                                                                         </div>
                                                                     @endcan
                                                                     {{-- @can("blog-delete")
-                                                                        <div class="menu-item">  
+                                                                        <div class="menu-item">
                                                                             <a href="{{route('removeBlog')}}" data-id="{{$blog['id']}}" class="menu-link px-2 removeRole">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#009ef7"><path d="M74.53333,17.2c-1.53406,-0.02082 -3.01249,0.574 -4.10468,1.65146c-1.09219,1.07746 -1.70703,2.54767 -1.70704,4.08187h-34.32161c-2.06765,-0.02924 -3.99087,1.05709 -5.03322,2.843c-1.04236,1.78592 -1.04236,3.99474 0,5.78066c1.04236,1.78592 2.96558,2.87225 5.03322,2.843h103.2c2.06765,0.02924 3.99087,-1.05709 5.03322,-2.843c1.04236,-1.78592 1.04236,-3.99474 0,-5.78066c-1.04236,-1.78592 -2.96558,-2.87225 -5.03322,-2.843h-34.32161c-0.00001,-1.53421 -0.61486,-3.00442 -1.70704,-4.08187c-1.09219,-1.07746 -2.57061,-1.67228 -4.10468,-1.65146zM34.4,45.86667v91.73333c0,6.33533 5.13133,11.46667 11.46667,11.46667h80.26667c6.33533,0 11.46667,-5.13133 11.46667,-11.46667v-91.73333z"></path></g></g></svg>
                                                                             </a>
                                                                         </div>
                                                                     @endcan --}}
                                                                 </div>
-                                                            </td> 
-                                                        </tr> 
+                                                            </td>
+                                                        </tr>
                                                     @empty
                                                         <tr>
                                                             <td colspan="4">No Blogs Found</td>
@@ -223,7 +223,7 @@
                                                 <!--end::Table row-->
                                              </tbody>
                                              <!--end::Table body-->
-                                         </table> 													
+                                         </table>
                                      </div>
                                      <!--end::Table-->
                                  </div>
