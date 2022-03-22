@@ -228,7 +228,7 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        
+
                                                         </tbody>
                                                 </table>
                                             </div>
@@ -529,6 +529,7 @@
                                                             <th class="min-w-10px">Sr No.</th>
                                                             <th class="min-w-10px">Serial Number</th>
                                                             <th class="min-w-75px">Holder Name</th>
+                                                            <th class="min-w-75px">Positions</th>
                                                             <th class="min-w-75px">Available Fund</th>
                                                             <th class="min-w-75px">Profit / Loss</th>
                                                             <th class="min-w-75px">Day of Joining</th>
@@ -551,6 +552,7 @@
                                                                 <td>{{$i++}}</td>
                                                                 <td> {{$account->st_sg."-".$account->serial_number}} </td>
                                                                 <td> {{$account->holder_name}}</td>
+                                                                <td> {{isset($account->no_of_holding) && $account->no_of_holding > 0 ?  $account->no_of_holding : 0 }}</td>
                                                                 <td> {{$account->available_balance}}</td>
                                                                 <td> {{$account->pl}}</td>
                                                                 <td> {{ $days }}</td>
@@ -1757,10 +1759,10 @@
             });
         }
     </script>
-@endsection	
+@endsection
 
 @section('jscript')
-	<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>	
+	<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 	<script>
 	$(function() {
 		analyst_table = $('#preferred_table').DataTable({
@@ -1784,9 +1786,9 @@
 			],
 			"drawCallback": function(settings) {
 				KTMenu.createInstances();
-			}		
-		});	
-	});	
-	
-	</script>	
+			}
+		});
+	});
+
+	</script>
 @endsection

@@ -373,9 +373,10 @@ class ClientServices
         select('client_demat.*','clients.name')->get();
 
         $dematAccount['holding'] = ClientDemat::
-        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        joinSub('select client_demate_id,count(*) as no_of_holding from calls group by client_demate_id', 'totalCalls', 'client_demat.id', '=', 'totalCalls.client_demate_id', 'left')
+        ->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
         where("client_demat.account_status","holding")->
-        select('client_demat.*','clients.name')->get();
+        select('client_demat.*','clients.name','totalCalls.no_of_holding')->get();
 
         $dematAccount['all'] = ClientDemat::
         leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
