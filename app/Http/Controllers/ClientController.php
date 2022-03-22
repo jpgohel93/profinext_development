@@ -263,68 +263,6 @@ class ClientController extends Controller
 				->addIndexColumn()
 				->addColumn('action', function($row){
 					$btn = "";
-					/* $btn = '
-					<button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span class="svg-icon svg-icon-md">
-								<!--begin::Svg Icon | path:assets/media/svg/icons/Design/PenAndRuller.svg-->
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										<rect x="0" y="0" width="24" height="24" />
-										<path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3" />
-										<path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000" />
-									</g>
-								</svg>
-								<!--end::Svg Icon-->
-							</span>Export</button>
-							<!--begin::Dropdown Menu-->
-							<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-								<!--begin::Navigation-->
-								<ul class="navi flex-column navi-hover py-2">
-									<li class="navi-header font-weight-bolder text-uppercase font-size-sm text-primary pb-2">Choose an option:</li>
-									<li class="navi-item">
-										<a href="#" class="navi-link">
-											<span class="navi-icon">
-												<i class="la la-print"></i>
-											</span>
-											<span class="navi-text">Print</span>
-										</a>
-									</li>
-									<li class="navi-item">
-										<a href="#" class="navi-link">
-											<span class="navi-icon">
-												<i class="la la-copy"></i>
-											</span>
-											<span class="navi-text">Copy</span>
-										</a>
-									</li>
-									<li class="navi-item">
-										<a href="#" class="navi-link">
-											<span class="navi-icon">
-												<i class="la la-file-excel-o"></i>
-											</span>
-											<span class="navi-text">Excel</span>
-										</a>
-									</li>
-									<li class="navi-item">
-										<a href="#" class="navi-link">
-											<span class="navi-icon">
-												<i class="la la-file-text-o"></i>
-											</span>
-											<span class="navi-text">CSV</span>
-										</a>
-									</li>
-									<li class="navi-item">
-										<a href="#" class="navi-link">
-											<span class="navi-icon">
-												<i class="la la-file-pdf-o"></i>
-											</span>
-											<span class="navi-text">PDF</span>
-										</a>
-									</li>
-								</ul>
-								<!--end::Navigation-->
-							</div>
-					'; */
 					
 					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
 						<span class="svg-icon svg-icon-5 m-0">
@@ -352,6 +290,487 @@ class ClientController extends Controller
 							<div class="menu-item px-3">
 								<a href="javascript:void(0)" data-id="'.$row['id'].'" class="menu-link px-3 loginInfo">Login Info</a>
 							</div>';
+						}
+					$btn .= '</div>';
+					
+                    return $btn;
+                })
+				->rawColumns(['action'])
+                ->make(true);
+        }
+	}
+	
+	public function getNormalAccountData(Request $request)
+	{
+		if ($request->ajax())
+		{  
+			$auth_user = Auth::user();
+			$service_type = $request->service_type;
+			
+			if($service_type != "") {
+				$normalAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+												where("client_demat.service_type",$service_type)->
+												where("client_demat.is_make_as_preferred",0)->
+												where("client_demat.freelancer_id",0)->
+												select('client_demat.*','clients.name')->get();
+			} else {
+				$normalAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+												where("client_demat.is_make_as_preferred",0)->
+												where("client_demat.freelancer_id",0)->
+												select('client_demat.*','clients.name')->get();
+            }
+			
+			$data_arr = array();
+			foreach($normalAccount as $data)
+			{
+				$datetime1 = strtotime($data->created_at);
+				$datetime2 = strtotime(date("Y-m-d"));
+				$days = (int)(($datetime2 - $datetime1)/86400);
+				
+				$tempData = array(
+					'id' => $data->id,
+					'name' => $data->name,
+					'service_type' => $data->service_type,
+					'serial_number' => $data->st_sg."-".$data->serial_number,
+					'holder_name' => $data->holder_name,
+					'available_balance' => $data->available_balance,
+					'pl' => $data->pl,
+					'days' => $days,
+					'action' => ""
+				);
+				array_push($data_arr, $tempData);
+			}
+			
+            return Datatables::of($data_arr)
+				->addIndexColumn()
+				->addColumn('action', function($data){
+					$btn = "";
+					
+					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+						<span class="svg-icon svg-icon-5 m-0">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+							</svg>
+						</span>
+					</a>';
+					
+					$btn .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">';
+						if (Auth::user()->can('setup-write')) 
+						{
+							$btn .= '<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-clname="'.$data['name'].'" data-name="'.$data['holder_name'].'" class="menu-link px-3 assignTrader">Assign Trader</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" data-service="'.$data['service_type'].'" class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 loginInfo">Login Info</a>
+								</div>';
+						}
+					$btn .= '</div>';
+					
+                    return $btn;
+                })
+				->rawColumns(['action'])
+                ->make(true);
+        }
+	}
+	
+	public function getHoldingData(Request $request)
+	{
+		if ($request->ajax())
+		{  
+			$auth_user = Auth::user();
+
+			$normalAccount = ClientDemat::joinSub('select client_demate_id,count(*) as no_of_holding from calls group by client_demate_id', 'totalCalls', 'client_demat.id', '=', 'totalCalls.client_demate_id', 'left')
+										->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+										where("client_demat.account_status","holding")->
+										select('client_demat.*','clients.name','totalCalls.no_of_holding')->get();
+            
+			$data_arr = array();
+			foreach($normalAccount as $data)
+			{
+				$datetime1 = strtotime($data->created_at);
+				$datetime2 = strtotime(date("Y-m-d"));
+				$days = (int)(($datetime2 - $datetime1)/86400);
+				
+				$tempData = array(
+					'id' => $data->id,
+					'name' => $data->name,
+					'service_type' => $data->service_type,
+					'serial_number' => $data->st_sg."-".$data->serial_number,
+					'holder_name' => $data->holder_name,
+					'no_of_holding' => (isset($data->no_of_holding) && $data->no_of_holding > 0) ?  $data->no_of_holding : 0,
+					'available_balance' => $data->available_balance,
+					'pl' => $data->pl,
+					'days' => $days,
+					'action' => ""
+				);
+				array_push($data_arr, $tempData);
+			}
+			
+            return Datatables::of($data_arr)
+				->addIndexColumn()
+				->addColumn('action', function($data){
+					$btn = "";
+					
+					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+						<span class="svg-icon svg-icon-5 m-0">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+							</svg>
+						</span>
+					</a>';
+					
+					$btn .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">';
+						if (Auth::user()->can('setup-write')) 
+						{
+							$btn .= '<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 viewDematHolding" data-value="holding">View Positions</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-clname="'.$data['name'].'" data-name="'.$data['holder_name'].'" class="menu-link px-3 assignTrader">Assign Trader</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" data-service="'.$data['service_type'].'" class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 loginInfo">Login Info</a>
+								</div>';
+						}
+					$btn .= '</div>';
+					
+                    return $btn;
+                })
+				->rawColumns(['action'])
+                ->make(true);
+        }
+	}
+	
+	public function getAllAcountData(Request $request)
+	{
+		if ($request->ajax())
+		{  
+			$auth_user = Auth::user();
+			$allotment_type = $request->allotment_type;
+			
+			if($allotment_type != "") {
+				
+				if($allotment_type == 1) {
+					$allAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+												where("client_demat.trader_id",">",0)->
+												where("client_demat.account_status","!=","problem")->
+												where("client_demat.account_status","!=","renew")->
+												where("client_demat.is_make_as_preferred",0)->
+												select('client_demat.*','clients.name')->get();
+				} else {	
+					$allAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+												where("client_demat.freelancer_id",">",0)->
+												where("client_demat.account_status","!=","problem")->
+												where("client_demat.account_status","!=","renew")->
+												where("client_demat.is_make_as_preferred",0)->
+												select('client_demat.*','clients.name')->get();
+				}
+			} else {	
+				$allAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+											where("client_demat.account_status","!=","problem")->
+											where("client_demat.account_status","!=","renew")->
+											where("client_demat.is_make_as_preferred",0)->
+											select('client_demat.*','clients.name')->get();
+			}
+			
+			$data_arr = array();
+			foreach($allAccount as $data)
+			{
+				$datetime1 = strtotime($data->created_at);
+				$datetime2 = strtotime(date("Y-m-d"));
+				$days = (int)(($datetime2 - $datetime1)/86400);
+				
+				if($data->service_type == 1) {
+					$serviceType = "PRIME";
+				} else if($data->service_type == 2) {
+					$serviceType = "AMS";
+				}
+				 
+				$tempData = array(
+					'id' => $data->id,
+					'name' => $data->name,
+					'service_type' => $data->service_type,
+					'serial_number' => $data->st_sg."-".$data->serial_number,
+					'holder_name' => $data->holder_name,
+					'available_balance' => $data->available_balance,
+					'pl' => $data->pl,
+					'serviceType' => $serviceType,
+					'action' => ""
+				);
+				array_push($data_arr, $tempData);
+			}
+			
+            return Datatables::of($data_arr)
+				->addIndexColumn()
+				->addColumn('action', function($data){
+					$btn = "";
+					
+					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+						<span class="svg-icon svg-icon-5 m-0">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+							</svg>
+						</span>
+					</a>';
+					
+					$btn .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">';
+						if (Auth::user()->can('setup-write')) 
+						{
+							$btn .= '<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-clname="'.$data['name'].'" data-name="'.$data['holder_name'].'" class="menu-link px-3 assignTrader">Assign Trader</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" data-service="'.$data['service_type'].'" class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 loginInfo">Login Info</a>
+								</div>';
+						}
+					$btn .= '</div>';
+					
+                    return $btn;
+                })
+				->rawColumns(['action'])
+                ->make(true);
+        }
+	}
+	
+	public function getTraderAcountData(Request $request)
+	{
+		if ($request->ajax())
+		{  
+			$auth_user = Auth::user();
+
+			$trderAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+										leftJoin('users', 'client_demat.trader_id', '=', 'users.id')->
+										where("client_demat.trader_id","!=",0)->
+										select('client_demat.*','clients.name','users.name as trader_name')->get();
+            
+			$data_arr = array();
+			foreach($trderAccount as $data)
+			{
+				$datetime1 = strtotime($data->created_at);
+				$datetime2 = strtotime(date("Y-m-d"));
+				$days = (int)(($datetime2 - $datetime1)/86400);
+				
+				$tempData = array(
+					'id' => $data->id,
+					'name' => $data->name,
+					'service_type' => $data->service_type,
+					'serial_number' => $data->st_sg."-".$data->serial_number,
+					'holder_name' => $data->holder_name,
+					'trader_name' => $data->trader_name,
+					'available_balance' => $data->available_balance,
+					'pl' => $data->pl,
+					'days' => $days,
+					'action' => ""
+				);
+				array_push($data_arr, $tempData);
+			}
+			
+            return Datatables::of($data_arr)
+				->addIndexColumn()
+				->addColumn('action', function($data){
+					$btn = "";
+					
+					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+						<span class="svg-icon svg-icon-5 m-0">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+							</svg>
+						</span>
+					</a>';
+					
+					$btn .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">';
+						if (Auth::user()->can('setup-write')) 
+						{
+							$btn .= '<div class="menu-item px-3">
+										<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
+									</div>
+									<div class="menu-item px-3">
+										<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>
+									</div>
+									<div class="menu-item px-3">
+										<a href="javascript:void(0)" data-id="'.$data['id'].'" data-clname="'.$data['name'].'" data-name="'.$data['holder_name'].'" class="menu-link px-3 assignTrader">Assign Trader</a>
+									</div>
+									<div class="menu-item px-3">
+										<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" data-service="'.$data['service_type'].'" class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+									</div>
+
+									<div class="menu-item px-3">
+										<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 loginInfo">Login Info</a>
+									</div>';
+						}
+					$btn .= '</div>';
+					
+                    return $btn;
+                })
+				->rawColumns(['action'])
+                ->make(true);
+        }
+	}
+	
+	public function getFreelancerAccountData(Request $request)
+	{
+		if ($request->ajax())
+		{  
+			$auth_user = Auth::user();
+
+			$freelancerAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+										leftJoin('users', 'client_demat.freelancer_id', '=', 'users.id')->
+										where("client_demat.freelancer_id","!=",0)->
+										select('client_demat.*','clients.name','users.name as freelancer_name')->get();
+            
+			$data_arr = array();
+			foreach($freelancerAccount as $data)
+			{
+				$datetime1 = strtotime($data->created_at);
+				$datetime2 = strtotime(date("Y-m-d"));
+				$days = (int)(($datetime2 - $datetime1)/86400);
+				
+				$tempData = array(
+					'id' => $data->id,
+					'name' => $data->name,
+					'service_type' => $data->service_type,
+					'serial_number' => $data->st_sg."-".$data->serial_number,
+					'holder_name' => $data->holder_name,
+					'freelancer_name' => $data->freelancer_name,
+					'available_balance' => $data->available_balance,
+					'pl' => $data->pl,
+					'days' => $days,
+					'action' => ""
+				);
+				array_push($data_arr, $tempData);
+			}
+			
+            return Datatables::of($data_arr)
+				->addIndexColumn()
+				->addColumn('action', function($data){
+					$btn = "";
+					
+					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+						<span class="svg-icon svg-icon-5 m-0">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+							</svg>
+						</span>
+					</a>';
+					
+					$btn .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">';
+						if (Auth::user()->can('setup-write')) 
+						{
+							$btn .= '<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-clname="'.$data['name'].'" data-name="'.$data['holder_name'].'" class="menu-link px-3 assignTrader">Assign Trader</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" data-service="'.$data['service_type'].'" class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 loginInfo">Login Info</a>
+								</div>';
+						}
+					$btn .= '</div>';
+					
+                    return $btn;
+                })
+				->rawColumns(['action'])
+                ->make(true);
+        }
+	}
+	
+	public function getUnallotedData(Request $request)
+	{
+		if ($request->ajax())
+		{  
+			$auth_user = Auth::user();
+
+			$unallotedAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+											where("client_demat.freelancer_id","==",0)->
+											where("client_demat.trader_id","==",0)->
+											select('client_demat.*','clients.name')->get();
+            
+			$data_arr = array();
+			foreach($unallotedAccount as $data)
+			{
+				$datetime1 = strtotime($data->created_at);
+				$datetime2 = strtotime(date("Y-m-d"));
+				$days = (int)(($datetime2 - $datetime1)/86400);
+				
+				$tempData = array(
+					'id' => $data->id,
+					'name' => $data->name,
+					'service_type' => $data->service_type,
+					'serial_number' => $data->st_sg."-".$data->serial_number,
+					'holder_name' => $data->holder_name,
+					'capital' => $data->capital,
+					'created_at' => $data->created_at->format('d-m-Y'),
+					'action' => ""
+				);
+				array_push($data_arr, $tempData);
+			}
+			
+            return Datatables::of($data_arr)
+				->addIndexColumn()
+				->addColumn('action', function($data){
+					$btn = "";
+					
+					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+						<span class="svg-icon svg-icon-5 m-0">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+							</svg>
+						</span>
+					</a>';
+					
+					$btn .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">';
+						if (Auth::user()->can('setup-write')) 
+						{
+							$btn .= '<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-clname="'.$data['name'].'" data-name="'.$data['holder_name'].'" class="menu-link px-3 assignTrader">Assign Trader</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" data-service="'.$data['service_type'].'" class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+								</div>
+
+								<div class="menu-item px-3">
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 loginInfo">Login Info</a>
+								</div>';
 						}
 					$btn .= '</div>';
 					

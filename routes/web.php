@@ -130,6 +130,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/getScriptCall",[CallController::class,"getScriptCall"])->name("getScriptCall");
 
     Route::POST("/getPreferredAccount",[ClientController::class,'getPreferredAccountData'])->name('getPreferredAccountData');
+    Route::POST("/getNormalAccount",[ClientController::class,'getNormalAccountData'])->name('getNormalAccountData');
+    Route::POST("/getHolding",[ClientController::class,'getHoldingData'])->name('getHoldingData');
+    Route::POST("/getAllAcount",[ClientController::class,'getAllAcountData'])->name('getAllAcountData');
+    Route::POST("/getTraderAcount",[ClientController::class,'getTraderAcountData'])->name('getTraderAcountData');
+    Route::POST("/getFreelancerAccount",[ClientController::class,'getFreelancerAccountData'])->name('getFreelancerAccountData');
+    Route::POST("/getUnalloted",[ClientController::class,'getUnallotedData'])->name('getUnallotedData');
+	
     Route::POST("/call/assignDematTrader",[ClientController::class,'assignTraderToDemat'])->name('assignTraderToDemat');
     Route::POST("/makeAsPreferred",[ClientController::class,"makeAsPreferred"])->name("makeAsPreferred");
     Route::POST("/updateDematStatus",[ClientController::class,"updateDematStatus"])->name("updateDematStatus");
