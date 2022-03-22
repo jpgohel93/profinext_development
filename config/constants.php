@@ -13,7 +13,28 @@ return [
     'Counsellor' => 5,
     'Teachers' => 6,
     'Students' => 7,
-    'Parents' => 8
+    'Parents' => 8,
+    'Permissions'=>[
+        'Analysis',
+        'Blog',
+        'Blog-admin',
+        'Call',
+        'Channel Partner',
+        'Channel Partner Data',
+        'Client',
+        'Client Demat',
+        'Freelancer',
+        'Freelancer Data',
+        'Keyword',
+        'Monitor',
+        'Monitor Data',
+        'Report',
+        'Role',
+        'Setup',
+        'Trader',
+        'Trader Data',
+        'User',
+    ]
 ];
 
 ?>

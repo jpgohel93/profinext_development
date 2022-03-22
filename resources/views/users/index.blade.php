@@ -2694,7 +2694,27 @@
 					const role = $(this).val();
 					if(role){
 						$("#manual_permission").html("");
-                        const modules = ["Client","Role","User","Anaysis","Call","Trader","Monitor","Client Demat","Monitor Data","Report","Freelancer Data","Freelancer","Channel Partner Data","Channel Partner","Keyword","Trader Data","Setup","Blog","Blog-admin"];
+                        const modules = [
+								'Analysis',
+								'Blog',
+								'Blog-admin',
+								'Call',
+								'Channel Partner',
+								'Channel Partner Data',
+								'Client',
+								'Client Demat',
+								'Freelancer',
+								'Freelancer Data',
+								'Keyword',
+								'Monitor',
+								'Monitor Data',
+								'Report',
+								'Role',
+								'Setup',
+								'Trader',
+								'Trader Data',
+								'User',
+							];
                         let module_index = 0;
 						getPermissionByRole(role).then((response)=>{
 							if(typeof response['permissions'] != null){
