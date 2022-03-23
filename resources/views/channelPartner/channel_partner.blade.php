@@ -16,12 +16,16 @@
             @include("header")
             <!--begin::Content-->
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-                    @if(session("info"))
+                    @if($errors->any())
                         <div class="container">
-                            <h6 class="alert alert-info">{{session("info")}}</h6>
+                            <h5 class="alert alert-danger">{{$errors->first()}}</h5>
                         </div>
-                @endif
-                <!--begin::Toolbar-->
+                    @elseif(session("info"))
+                        <div class="container">
+                            <h5 class="alert alert-info">{{session("info")}}</h5>
+                        </div>
+                    @endif
+                    <!--begin::Toolbar-->
                     <div class="toolbar" id="kt_toolbar">
                         <!--begin::Container-->
                         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">

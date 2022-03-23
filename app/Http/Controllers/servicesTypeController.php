@@ -23,4 +23,8 @@ class servicesTypeController extends Controller
         servicesTypeServices::remove($id);
         return Redirect::route("viewClientsServicesType")->with("info", "Service type Removed!");
     }
+    public function add(Request $request){
+        servicesTypeServices::add($request);
+        return Redirect::route("viewClientsServicesType")->with("info", "Service type Added!");
+    }
 }

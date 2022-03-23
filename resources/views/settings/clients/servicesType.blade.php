@@ -25,12 +25,12 @@
                     <div class="row">
                         <div class="container">
                             <div class="row my-3">
-                                <div class="col-md-12">
+                                <div class="col-md-3">
                                     <h3>Service types:</h3>
                                 </div>
-                                {{-- <div class="col-md-9 text-end">
-                                    <button type="button" class="btn btn-primary" id="add_client_profession_model">Add</button>
-                                </div> --}}
+                                <div class="col-md-9 text-end">
+                                    <button type="button" class="btn btn-primary" id="add_client_service_type_model">Add</button>
+                                </div>
                             </div>
                             <table class="table table-striped" id="serviceType">
                                 <thead>
@@ -82,7 +82,7 @@
         <!--end::Page-->
     </div>
     {{-- models --}}
-    <div class="modal fade" id="add_profession_model" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="add_service_type_model" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <div class="modal-dialog">
             <!--begin::Modal content-->
@@ -93,7 +93,7 @@
                     <!--begin::Heading-->
                         <div class="">
                             <!--begin::Title-->
-                            <h3 class="mb-3">Add Profession</h3>
+                            <h3 class="mb-3">Add Service Type</h3>
                             <!--end::Title-->
                         </div>
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -114,19 +114,76 @@
                     @if($errors->any())
                         <h5 class="alert alert-danger">{{$errors->first()}}</h5>
                     @endif
-                    <!--begin:Form-->
-                    <form id="add_profession_form" method="POST" action="{{route('createProfession')}}" class="form">
+                    <form id="add_serviceType_form" method="POST" action="{{route('addServiceType')}}" class="form">
                         @csrf
                         <div class="row mb-8">
                             <!--begin::Col-->
                             <div class="col-md-6">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Profession:</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Profession name"></i>
+                                    <span class="required">Service type:</span>
+                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
-                                <input type="text" value="{{old('profession')}}" class="form-control form-control-solid" name="profession" />
+                                <input type="text" value="{{old('name')}}" class="form-control form-control-solid" name="name" />
+                            </div>
+                            <!--begin::Col-->
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Renewal amount:</span>
+                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
+                                </label>
+                                <!--end::Label-->
+                                <input type="text" value="{{old('renewal_amount')}}" class="form-control form-control-solid" name="renewal_amount" />
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Cut off:</span>
+                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
+                                </label>
+                                <!--end::Label-->
+                                <input type="text" value="{{old('cutoff')}}" class="form-control form-control-solid" name="cutoff" />
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Sharing:</span>
+                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
+                                </label>
+                                <!--end::Label-->
+                                <input type="text" value="{{old('sharing')}}" class="form-control form-control-solid" name="sharing" />
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">GST Applicable:</span>
+                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
+                                </label>
+                                <!--end::Label-->
+                                <select id="edit_is_gst_applicable" class="form-control" name="is_gst_applicable">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                                {{-- <input type="text" value="{{old('is_gst_applicable')}}" class="form-control form-control-solid" id="edit_is_gst_applicable" name="is_gst_applicable" /> --}}
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">GST Rate:</span>
+                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
+                                </label>
+                                <!--end::Label-->
+                                <input type="text" value="{{old('gst_rate')}}" class="form-control form-control-solid" id="edit_gst_rate" name="gst_rate" />
                             </div>
                             <!--end::Col-->
                         </div>
@@ -134,8 +191,8 @@
                         
                         <!--begin::Actions-->
                         <div class="text-end">
-                            <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" id="call_modal_submit" class="btn btn-primary">
+                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">
                                 <span class="indicator-label">Add</span>
                                 <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -143,7 +200,6 @@
                         </div>
                         <!--end::Actions-->
                     </form>
-                    <!--end:Form-->
                 </div>
                 <!--end::Modal body-->
             </div>
@@ -151,7 +207,7 @@
         </div>
         <!--end::Modal dialog-->
     </div>
-    <div class="modal fade" id="edit_client_profession" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="edit_client_service_type" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <div class="modal-dialog">
             <!--begin::Modal content-->
@@ -282,14 +338,14 @@
     @if($errors->any() && null === old('id'))
         <script>
             window.addEventListener("DOMContentLoaded",function(){
-                $("#add_profession_model").modal("show");
+                $("#add_service_type_model").modal("show");
             });
         </script>
     @endif
     @if($errors->any() && null !== old('id'))
         <script>
             window.addEventListener("DOMContentLoaded",function(){
-                $("#edit_client_profession").modal("show");
+                $("#edit_client_service_type").modal("show");
             });
         </script>
     @endif
@@ -301,8 +357,8 @@
                     'X-CSRF-TOKEN': $("input[name='_token']").val()
                 }
             })
-            $("#add_client_profession_model").on("click",function(){
-                $("#add_profession_model").modal("show");
+            $("#add_client_service_type_model").on("click",function(){
+                $("#add_service_type_model").modal("show");
             })
             $(document).on("click",".removeServiceType",function(e){
                 if(!window.confirm("Are you sure you want to remove this Item?")){
@@ -323,15 +379,14 @@
                         if(data.errors){
                             window.alert(data.errors.profession[0]);
                         }
-                        console.log(data);
                         $("#edit_name").val(data.name);
                         $("#edit_renewal_amount").val(data.renewal_amount);
                         $("#edit_cutoff").val(data.cutoff);
                         $("#edit_sharing").val(data.sharing.replaceAll("%","")+"%");
-                        $("#edit_is_gst_applicable").val(data.is_gst_applicable);
+                        $("#edit_is_gst_applicable").val(data.is_gst_applicable).trigger('change');
                         $("#edit_gst_rate").val(data.gst_rate);
                         $("#editIdContainer").html(`<input type='hidden' name='id' value='${data.id}' />`);
-                        $("#edit_client_profession").modal("show");
+                        $("#edit_client_service_type").modal("show");
                     })
                 }else{
                     window.alert("Unable to Load this Profession");

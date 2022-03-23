@@ -54,4 +54,27 @@ class servicesTypeServices
         }
         return servicesTypeModel::where("id", $request->id)->update($service);
     }
+    public static function add($request){
+        $service = $request->validate([
+            "name" => "required|",
+            "renewal_amount" => "required",
+            "sharing" => "required",
+            "is_gst_applicable" => "required",
+        ], [
+            "name.required" => "The Service type field is required",
+            "renewal_amount.required" => "The Renewal amount field is required",
+            "sharing.required" => "The Sharing field is required",
+            "is_gst_applicable.required" => "The GST Applicable field is required",
+        ]);
+
+        if ($request->is_gst_applicable) {
+            $request->validate([
+                "gst_rate" => "required"
+            ], [
+                "gst_rate.required" => "The GST Rate field is required",
+            ]);
+            $service['gst_rate'] = $request->gst_rate;
+        }
+        return servicesTypeModel::create($service);
+    }
 }

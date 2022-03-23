@@ -19,6 +19,9 @@ use App\Http\Controllers\KeywordController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\servicesTypeController;
 
+// financeManagementControllers
+use App\Http\Controllers\financeManagementControllers\renewalStatusController;
+
 use Illuminate\Support\Facades\Artisan;
 Route::get('/clearCache', function () {
     Artisan::call('cache:clear');
@@ -156,8 +159,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/updateDematStatus",[ClientController::class,"updateDematStatus"])->name("updateDematStatus");
     Route::POST("/addDematHolding",[CallController::class,"create"])->name("addDematHolding");
 
-
-
     // users settings
     Route::get("/settings/users/",[AccountTypesController::class,"view"])->name("viewUsersAccountType");
     // create AccountType
@@ -168,7 +169,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/settings/users/getAccountType",[AccountTypesController::class,"get"])->name("getAccountType");
     // edit AccountType
     Route::POST("/settings/users/editAccountType",[AccountTypesController::class,"edit"])->name("editAccountType");
-
 
     // clients settings
     Route::get("/settings/clients",[ProfessionController::class,"view"])->name("viewClientsProfession");
@@ -181,13 +181,14 @@ Route::group(['middleware' => ['auth']], function() {
     // removeProfession
     Route::get("/settings/clients/removeProfession/{id}",[ProfessionController::class,"remove"])->name("removeProfession");
     // viewClientsServicesType
-    Route::get("/settings/clients/viewClientsServicesType",[servicesTypeController::class,"view"])->name("viewClientsServicesType");
+    Route::get("/settings/clients/viewClientsServicesType",[servicesTypeController::class,"view"])->name("viewClientsServicesType");    
+    // edit Service Type
     Route::POST("/settings/clients/viewClientsServicesType",[servicesTypeController::class, "editServiceType"])->name("editServiceType");
     // get Service Type
     Route::POST("/settings/clients/getServiceType",[servicesTypeController::class,"get"])->name("getServiceType");
     // delete Service Type
     Route::get("/settings/clients/removeServiceType/{id}",[servicesTypeController::class,"remove"])->name("removeServiceType");
-
+    Route::post("/settings/clients/addServiceType",[servicesTypeController::class,"add"])->name("addServiceType");
 
     // viewClientsBroker
     Route::get("/settings/clients/broker",[BrokerController::class,"view"])->name("viewClientsBroker");
@@ -252,4 +253,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/addTab",[BlogController::class, "addTab"])->name("addTab");
     Route::POST("/setTargetFrm",[BlogController::class, "setTargetFrm"])->name("setTargetFrm");
     Route::POST("/addNoteFrm",[BlogController::class, "addNoteFrm"])->name("addNoteFrm");
+
+    // Finance Management
+    Route::get("/financeManagement/renewal_status",[renewalStatusController::class,"view"])->name("renewal_status");
+    Route::get("/financeManagement/clientDematView/{id}",[renewalStatusController::class, "clientDematView"])->name("clientDematView");
+    Route::POST("/financeManagement/clientDemat/updatePL",[renewalStatusController::class, "updatePL"])->name("clientDematupdatePL");
 });

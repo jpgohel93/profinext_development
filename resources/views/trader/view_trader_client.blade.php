@@ -1573,9 +1573,18 @@
                         'X-CSRF-TOKEN': $("input[name='_token']").val()
                     },
                     success: function(response) {
-                        window.location.href = "/trader/accounts";
+                        if(response){
+                            window.location.href = "/trader/accounts";
+                        }else{
+                            window.alert("Something want wrong");
+                        }
                     }
-                });
+                })
+                .fail((err)=>{
+                    if(err.status===403){
+                        window.alert("Unauthorized Action");
+                    }
+                })
             });
 
             $(document).on("click",'.loginInfo',function(e){
