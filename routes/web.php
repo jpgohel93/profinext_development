@@ -20,7 +20,6 @@ use App\Http\Controllers\BlogController;
 
 use Illuminate\Support\Facades\Artisan;
 Route::get('/clearCache', function () {
-
     Artisan::call('cache:clear');
     Artisan::call('config:clear');
     Artisan::call('view:clear');
@@ -43,6 +42,8 @@ Route::get("/reset",function(){
 })->name("resetPassword");
 Route::post("/checkUser",[RegisterController::class,"checkUser"])->name("checkUser");
 Route::post("/reset",[RegisterController::class,"resetPassword"])->name("resetPassword");
+// logout
+Route::get("/logout", [LoginController::class, "logout"])->name("logout");
 
 
 Route::group(['middleware' => ['auth']], function() {
@@ -209,8 +210,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/trader/client/assign",[TraderController::class,'create'])->name('assignClientToTrader');
     Route::POST("/traders/clients",[TraderController::class, "viewTraderClient"])->name("viewTraderClient");
 
-    // logout
-    Route::get("/logout",[LoginController::class,"logout"])->name("logout");
     // display file
     Route::get('/common/displayFile/{id}/{type}/{name}', [App\Http\Controllers\CommonController::class,'displayFile'])->name('displayFile');
 

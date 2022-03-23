@@ -22,21 +22,23 @@ class UserController extends Controller
     }
     public function all(){
         $users = UserServices::all();
-        return view("users.list",["users"=>$users]);
+        return view("users.list",compact('users'));
     }
     public function create(Request $request){
-        $user = UserServices::create($request);
+        UserServices::create($request);
         return Redirect::route("users")->with("info","User Created!");
     }
-    public function view(Request $request,$id){
+    public function view($id){
         $user = UserServices::user($id);
+        $rolePermissions = RoleServices::getPermissions($user->role);
+        $permissions = RoleServices::permissions()->toArray();
         return !$user? Redirect::route("users")->with("info", "User not found")
-        : view("users.view", ["user" => $user]);
+        : view("users.view", compact("user","rolePermissions","permissions"));
     }
     public function createForm(){
        $roles = RoleServices::all();
        $account_types = AccountTypeServices::view(['id', 'account_type']);
-       return view("users.index",["roles"=>$roles,"account_types"=>$account_types]);
+       return view("users.index",compact("roles","account_types"));
     }
     public function updateForm($id){
         $user = UserServices::user($id);

@@ -51,6 +51,6 @@ class RolesController extends Controller
     }
     public function clearPermissionCache(){
         RoleServices::clearPermissionCache();
-        return "clear";
+        return Redirect::route("roles")->with("info","Permissions Cache Has been Cleared");
     }
 }
