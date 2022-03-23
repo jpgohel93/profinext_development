@@ -59,7 +59,7 @@
                                                 <a href="javascript:void(0)">
                                                     <i class="fa fa-edit fa-2x editServiceType" data-id="{{$serviceType->id}}"></i>
                                                 </a>
-                                                <a href="{{route('removeProfession',$serviceType->id)}}" class="removeProfession">
+                                                <a href="{{route('removeServiceType',$serviceType->id)}}" class="removeServiceType">
                                                     <i class="fa fa-trash text-danger fa-2x"></i>
                                                 </a>
                                             </td>
@@ -304,7 +304,7 @@
             $("#add_client_profession_model").on("click",function(){
                 $("#add_profession_model").modal("show");
             })
-            $(document).on("click",".removeProfession",function(e){
+            $(document).on("click",".removeServiceType",function(e){
                 if(!window.confirm("Are you sure you want to remove this Item?")){
                     e.preventDefault();
                 }

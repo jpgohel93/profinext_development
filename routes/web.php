@@ -185,6 +185,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/settings/clients/viewClientsServicesType",[servicesTypeController::class, "editServiceType"])->name("editServiceType");
     // get Service Type
     Route::POST("/settings/clients/getServiceType",[servicesTypeController::class,"get"])->name("getServiceType");
+    // delete Service Type
+    Route::get("/settings/clients/removeServiceType/{id}",[servicesTypeController::class,"remove"])->name("removeServiceType");
 
 
     // viewClientsBroker
