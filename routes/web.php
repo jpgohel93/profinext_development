@@ -17,6 +17,16 @@ use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\ChannelPartnerController;
 use App\Http\Controllers\KeywordController;
 use App\Http\Controllers\BlogController;
+
+use Illuminate\Support\Facades\Artisan;
+Route::get('/clearCache', function () {
+
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    return "Cleared!";
+});
+
 // login
 Route::get("/login",function(){
     return view("auth.login");
