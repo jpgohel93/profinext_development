@@ -49,4 +49,8 @@ class RolesController extends Controller
         $allPermissions = RoleServices::permissions();
         return CommonService::ajaxResponse(200,["permissions"=>$permissions,"all_permissions"=>$allPermissions->toArray()],"success");
     }
+    public function clearPermissionCache(){
+        RoleServices::clearPermissionCache();
+        return "clear";
+    }
 }

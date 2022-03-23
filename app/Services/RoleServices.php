@@ -81,4 +81,8 @@ class RoleServices
         // get collection
         // return $role->permissions;
     }
+    public static function clearPermissionCache(){
+        $permissions = Role::findByName("super-admin")->permissions;
+        return Role::findByName("super-admin")->givePermissionTo($permissions);
+    }
 }

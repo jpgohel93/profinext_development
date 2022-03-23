@@ -95,6 +95,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/role/remove/{id}",[RolesController::class, "removeRole"])->name("removeRole");
     // get permissions for role
     Route::get("/permissionByRole/{role}",[RolesController::class, "getPermissions"])->name("permissionByRole");
+    // clearPermissionCache
+    Route::get("/clearPermissionCache",[RolesController::class, "clearPermissionCache"]);
 
     // list analyst
     Route::get("/analyst", [AnalystController::class, "view"])->name("analysts");
