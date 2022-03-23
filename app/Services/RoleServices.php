@@ -82,7 +82,7 @@ class RoleServices
         // return $role->permissions;
     }
     public static function clearPermissionCache(){
-        $permissions = Role::findByName("super-admin")->permissions;
+        $permissions = Role::findByName("super-admin")->permissions->pluck("name")->first();
         return Role::findByName("super-admin")->givePermissionTo($permissions);
     }
 }
