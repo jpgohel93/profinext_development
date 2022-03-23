@@ -417,6 +417,14 @@
                                 <span class="menu-title">bank details</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                            <a class="menu-link @yield('settings.clients.services_type')" href="{{route('viewClientsServicesType')}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Service Type</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
 

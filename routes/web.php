@@ -17,6 +17,7 @@ use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\ChannelPartnerController;
 use App\Http\Controllers\KeywordController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\servicesTypeController;
 
 use Illuminate\Support\Facades\Artisan;
 Route::get('/clearCache', function () {
@@ -179,6 +180,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/settings/clients/editProfession",[ProfessionController::class,"edit"])->name("editProfession");
     // removeProfession
     Route::get("/settings/clients/removeProfession/{id}",[ProfessionController::class,"remove"])->name("removeProfession");
+    // viewClientsServicesType
+    Route::get("/settings/clients/viewClientsServicesType",[servicesTypeController::class,"view"])->name("viewClientsServicesType");
+    Route::POST("/settings/clients/viewClientsServicesType",[servicesTypeController::class, "editServiceType"])->name("editServiceType");
+    // get Service Type
+    Route::POST("/settings/clients/getServiceType",[servicesTypeController::class,"get"])->name("getServiceType");
+
 
     // viewClientsBroker
     Route::get("/settings/clients/broker",[BrokerController::class,"view"])->name("viewClientsBroker");
