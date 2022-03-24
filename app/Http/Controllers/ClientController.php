@@ -15,7 +15,7 @@ use App\Services\UserServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Yajra\Datatables\Facades\Datatables;
+use Datatables;
 
 class ClientController extends Controller
 {
