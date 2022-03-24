@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Services type settings")
-@section("settings.clients.services_type","active")
-@section("accordion","hover show")
+@section("page-title","Client Service Type - Settings")
+@section("settings_management.clients.services_type","active")
+@section("settings_management.accordion","hover show")
 @section("content")
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
     <!--begin::Main-->

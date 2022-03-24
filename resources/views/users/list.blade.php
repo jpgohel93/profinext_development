@@ -1,5 +1,6 @@
 @extends('layout')
-@section("page-title","Users")
+@section("page-title","Users - User Management")
+@section("user_management.accordion","hover show")
 @section("users","active")
 @section("content")
 		<div class="d-flex flex-column flex-root">

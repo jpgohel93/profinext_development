@@ -6,7 +6,7 @@ use App\Services\RoleServices;
 use Illuminate\Http\Request;
 use App\Services\UserServices;
 use Illuminate\Support\Facades\Redirect;
-use App\Services\AccountTypeServices;
+use App\Services\keywordAccountTypeServices;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -37,7 +37,7 @@ class UserController extends Controller
     }
     public function createForm(){
        $roles = RoleServices::all();
-       $account_types = AccountTypeServices::view(['id', 'account_type']);
+       $account_types = keywordAccountTypeServices::all();
        return view("users.index",compact("roles","account_types"));
     }
     public function updateForm($id){
@@ -45,7 +45,7 @@ class UserController extends Controller
         if (!$user)
             return Redirect::route("users")->with("info", "User not found");
         $roles = RoleServices::all();
-        $account_types = AccountTypeServices::view(['id', 'account_type']);
+        $account_types = keywordAccountTypeServices::all();
         $permissions = $user->permissions->pluck("name")->toArray();
         $rolePermissions=array();
         if($user->role){
@@ -81,59 +81,13 @@ class UserController extends Controller
 	}
 
 	public function update(Request $request,$id){
-        if($request->user_type == "6"){
-            $request['deleted_at'] = date('Y-m-d');
-        }else{
-            $request['deleted_at'] = null;
-        }
-        $request['company_first'] = isset($request->company_1) ? 1 : 0;
-        $request['profit_percentage_first'] = isset($request->profit_company_1) ? $request->profit_company_1 : null;
-        $request['company_second'] = isset($request->company_2) ? 1 : 0;
-        $request['profit_percentage_second'] = isset($request->profit_company_2) ? $request->profit_company_2 : null;
-        $request['ams_new_client_percentage'] = isset($request->ams_new_client_percentage) ? $request->ams_new_client_percentage : null;
-        $request['ams_renewal_client_percentage'] = isset($request->ams_renewal_client_percentage) ? $request->ams_renewal_client_percentage : null;
-        $request['prime_new_client_percentage'] = isset($request->prime_new_client_percentage) ? $request->prime_new_client_percentage : null;
-        $request['prime_renewal_client_percentage'] = isset($request->prime_renewal_client_percentage) ? $request->prime_renewal_client_percentage : null;
-        $request['ams_limit'] = isset($request->limit) ? $request->limit : null;
-        $request['fees_percentage'] = isset($request->fees_percentage) ? $request->fees_percentage : null;
-        if(isset($request->password) && $request->password != ''){
-            $request['password'] = Hash::make($request->password);
-        }else{
-            unset($request['password']);
-        }
-        $userRoles = implode(",", $request->role);
-        unset($request["profit_company_1"]);
-        unset($request["profit_company_2"]);
-        unset($request["company_1"]);
-        unset($request["company_2"]);
-        unset($request["limit"]);
-        // check permissions
-        $direct_permissions=[];
-        $role_permissions = [];
-        if(isset($request->role) && trim($request->role[0])!="" && isset($request->permission)){
-            // $role_permissions = RoleServices::getRoleByName($request->role[0]);
-            // $role_permissions = $role_permissions->permissions->pluck('name')->toArray();
-            $role_permissions = RoleServices::permissions()->pluck("name")->toArray();
-            $direct_permissions = array_diff($role_permissions,$request->permission);
-        }
-        // revoke permissions
-        $user = UserServices::user($id);
-        $param = array();
-        foreach($role_permissions as $permission){
-            if(!in_array($permission,$direct_permissions)){
-                array_push($param,$permission);
-                // $user->givePermissionTo($permission);
-            }
-        }
-        $user->syncPermissions($param);
-        // dd($user->permissions);
         $user = UserServices::update($request,$id);
         if (!$user)
             return Redirect::route("users")->with("info", "Unable to update user");
         return Redirect::route("users")->with("info","User Updated!");
     }
-    public function delete(Request $request,$id){
-        $user = UserServices::delete($id);
+    public function delete($id){
+        UserServices::delete($id);
         return Redirect::route("users")->with("info","User Terminated!");
     }
 }

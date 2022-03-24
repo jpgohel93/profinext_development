@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Blog Admin")
-@section("blogs.admin","active")
-@section("blogTab","hover show")
+@section("page-title","Blog Data - Blog Management")
+@section("blog_management.admin","active")
+@section("blog_management.accordion","hover show")
 @section("content")
 
     <!--begin::Main-->
@@ -255,6 +255,15 @@
                     </div>
                     <!--begin::Modal body-->
                     <div class="modal-body mx-md-10">
+                        <div class="row">
+                            <label class="col-3 col-form-label">Select Blogger</label>
+                            <select name="blogger" class="form-control" id="select2">
+                                <option value="">Select Blogger</option>
+                                @foreach ($bloggers as $blogger)
+                                    <option value="{{$blogger['id']}}">{{$blogger['name']}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="form-group row">
                             <label class="col-3 col-form-label">Tab name</label>
                             <input type="text" name="name" value="{{old("name")}}" id="name" class="form-control" placeholder="Please Enter Tab Name" />
@@ -323,7 +332,7 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
-            $(".select2").select2();
+            $("#select2").select2();
             $("#addTabBtn").on("click",function(){
                 $("#addTabModal").modal("show");
             })

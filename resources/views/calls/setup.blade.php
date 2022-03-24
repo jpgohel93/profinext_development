@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Setup")
+@section("page-title","Setup - Trade Management")
 @section("setup","active")
-@section("trading","hover show")
+@section("trade_management.accordion","hover show")
 @section("content")
     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">

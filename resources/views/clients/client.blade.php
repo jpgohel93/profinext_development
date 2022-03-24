@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Clients")
+@section("page-title","Clients - Client Management ")
 @section("clientsData.clients","active")
-@section("clientsData","hover show")
+@section("client_management.accordion","hover show")
 @section("content")
     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
     <!--begin::Body-->

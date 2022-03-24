@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Manage Settings")
-@section("settings.users","active")
-@section("accordion","hover show")
+@section("page-title","Users Account Type - Settings")
+@section("settings_management.users.account_type","active")
+@section("settings_management.accordion","hover show")
 @section("content")
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
     <!--begin::Main-->

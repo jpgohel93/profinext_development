@@ -9,10 +9,14 @@ use App\Models\blogTabs;
 use App\Models\Blog;
 class BlogController extends Controller
 {
+    public function __construct(){
+        $this->middleware('permission:blogAdmin-read', ['only' => ["blogAdmin"]]);
+    }
     public function blogAdmin(Request $request){
         $blogs = BlogAdminServices::index();
         $tabs = blogTabs::get();
-        return view("blogAdmin.index",compact("blogs","tabs"));
+        $bloggers = BlogAdminServices::getAllBloggers();
+        return view("blogAdmin.index",compact("blogs","tabs","bloggers"));
     }
     public function getBlogByUser(){
         $user = BlogAdminServices::getBlogByUser();

@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Analysis")
-@section("analysis.monitor.data","active")
-@section("analysis","hover show")
+@section("page-title","Monitor Data - Analyst Management")
+@section("analyst.monitorData","active")
+@section("analyst_management.accordion","hover show")
 @section("content")
     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
     <!--begin::Body-->
@@ -29,7 +29,7 @@
                             <!--begin::Page title-->
                             <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                                 <!--begin::Title-->
-                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Analysis</h1>
+                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Analyst</h1>
                                 <!--end::Title-->
                                 <!--begin::Separator-->
                                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -47,7 +47,7 @@
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
-                                    <li class="breadcrumb-item text-dark">Analysis</li>
+                                    <li class="breadcrumb-item text-dark">Monitor Data</li>
                                     <!--end::Item-->
                                 </ul>
                                 <!--end::Breadcrumb-->

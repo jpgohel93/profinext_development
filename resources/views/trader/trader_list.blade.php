@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Trader")
+@section("page-title","Trader Data - Trade Management")
 @section("trader","active")
-@section("trading","hover show")
+@section("trade_management.accordion","hover show")
 @section("content")
     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
     <!--begin::Body-->

@@ -1,6 +1,7 @@
 @extends('layout')
-@section("page-title","Channel Partner")
+@section("page-title","Channel Partner - Partner Management")
 @section("channelPartnerClient","active")
+@section("partner_management.accordion","hover show")
 @section("content")
     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
     <!--begin::Body-->

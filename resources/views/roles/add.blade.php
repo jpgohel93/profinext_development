@@ -1,6 +1,7 @@
 @extends('layout')
-@section("page-title","Add Roles")
-@section("create-roles","active")
+@section("page-title","Add Role - User Management")
+@section("user_management.accordion","hover show")
+@section("roles","active")
 @section("content")
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Page-->

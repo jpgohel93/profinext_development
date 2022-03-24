@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Add Client")
+@section("page-title","Add Client - Client Management ")
 @section("clientsData.clients","active")
-@section("clientsData","hover show")
+@section("client_management.accordion","hover show")
 @section("content")
 	<!--begin::Body-->
     <!--begin::Main-->
@@ -57,7 +57,7 @@
                                                 <div class="col-md-6 mb-4">
                                                     <!--begin::Label-->
                                                     <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                        <span class="required">User Type</span>
+                                                        <span class="required">Client Type</span>
                                                     </label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
@@ -229,7 +229,7 @@
                                                             </label>
                                                             <div class="col-md-6 mb-4 fv-row">
                                                                 <div class="position-relative">
-                                                                    <select name="st_sg[]" class="form-select form-select-solid">
+                                                                    <select name="st_sg[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
                                                                         <option value="">Select ID</option>
                                                                         <option value="ST">ST</option>
                                                                         <option value="SG">SG</option>
@@ -321,7 +321,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <select name="broker[]" class="form-select form-select-solid">
+                                                            <select name="broker[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
                                                                 <option></option>
                                                                 @forelse ($brokers as $broker)
                                                                     <option value="{{$broker->broker}}" {{(old('broker') && old('broker')==$broker->broker)?"selected":""}}>{{$broker->broker}}</option>
@@ -1217,6 +1217,7 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
+            $("[data-control='select2']").select2();
 			$(document).on("change","[name='st_sg[]']",function() {
 				var lastSGNo = parseInt("<?php echo $newSGNo;?>");
 				var lastSTNo = parseInt("<?php echo $newSTNo;?>");

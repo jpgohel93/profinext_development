@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Manage Banks")
-@section("settings.clients.bank_details","active")
-@section("accordion","hover show")
+@section("page-title","Client Banks - Settings")
+@section("settings_management.clients.bank_details","active")
+@section("settings_management.accordion","hover show")
 @section("content")
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
     <!--begin::Main-->

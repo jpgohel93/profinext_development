@@ -125,8 +125,8 @@ class TraderController extends Controller
         $traders = User::wherein('id',$userIdArray)->get();
 
         $analysts = Analyst::where("status","Active")->orWhere("status","Experiment")->get();
-        print_r($analysts);
-        exit();
+        // print_r($analysts);
+        // exit();
         $keywords = KeywordServices::all();
 
         //$traders = UserServices::getByRole('trader');

@@ -9,12 +9,9 @@ use App\Models\blogTarget;
 use App\Models\blogHasTabs;
 class BlogAdminServices{
     function __construct(){
-
+        
     }
     public static function index(){
-        //$users = User::role('blogUser')->get()->toArray();
-        // $blogs = Blog::with(["withBlogger"])->get()->toArray();
-
         $users = User::get();
         $userIdArray = [];
         foreach ($users as $userData){
@@ -65,6 +62,7 @@ class BlogAdminServices{
             // total post in this tab
             $achivement = Blog::where(["blogger"=>$user['id'],"tab_id"=>$tab_id['tab_id']])->count();
             $user['target'][$tab_index]['total_blogs'] = $achivement;
+            $user['target'][$tab_index]['tab_name'] = blogTabs::where("id", $tab_id['tab_id'])->pluck("name")->first();
             $user['target'][$tab_index]['tab_blogs'][$tab_id['tab_id']] = Blog::where(["blogger"=>$user['id'],"tab_id"=>$tab_id['tab_id']])->with(["withBlogger"])->get()->toArray();
         }
         // $user['blogs'] = Blog::where("blogger",$user['id'])->with(["withBlogger"])->get()->toArray();
@@ -80,7 +78,13 @@ class BlogAdminServices{
             "name.required"=>"Tab name is required"
         ]);
         $tab['created_by']=auth()->user()->id;
-        return blogTabs::create($tab);
+        $tab_id = blogTabs::create($tab);
+        if($request->blogger!=""){
+            $request->validate([
+                "blogger"=>"exists:users,id"
+            ]);
+            
+        }
     }
     public static function setTarget($request){
         $user = $request->validate([
@@ -137,5 +141,23 @@ class BlogAdminServices{
             "link"=>$request->link,
             "notes"=>null
         ]);
+    }
+    public static function getAllBloggers(){
+        $users = User::get();
+        $userIdArray = [];
+        foreach ($users as $userData) {
+            $permission = json_decode($userData->permission, true);
+            if (!empty($permission)) {
+                if (
+                    in_array("blog-read", $permission) ||
+                    in_array("blog-write", $permission) ||
+                    in_array("blog-create", $permission) ||
+                    in_array("blog-delete", $permission)
+                ) {
+                    $userIdArray[] = $userData->id;
+                }
+            }
+        }
+        return User::wherein('id', $userIdArray)->get()->toArray();
     }
 }

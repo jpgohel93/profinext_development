@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Client Demat")
+@section("page-title","Clients Demat - Finance Management")
 @section("clientsData.clients.demat","active")
-@section("clientsData","hover show")
+@section("client_management.accordion","hover show")
 @section("content")
     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
 	<style>

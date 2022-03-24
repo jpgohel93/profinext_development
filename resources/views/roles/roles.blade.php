@@ -1,5 +1,6 @@
 @extends('layout')
-@section("page-title","Roles")
+@section("page-title","Roles - User Management")
+@section("user_management.accordion","hover show")
 @section("roles","active")
 @section("content")
 <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">

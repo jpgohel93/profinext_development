@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Blog User")
-@section("blogs.user","active")
-@section("blogTab","hover show")
+@section("page-title","Blog - Blog Management")
+@section("blog_management.user","active")
+@section("blog_management.accordion","hover show")
 @section("content")
     
     <!--begin::Main-->

@@ -85,4 +85,8 @@ class RoleServices
         $permissions = Role::findByName("super-admin")->permissions->pluck("name")->first();
         return Role::findByName("super-admin")->givePermissionTo($permissions);
     }
+    public static function permissionsFallBack()
+    {
+        return auth()->user()->syncPermissions(Permission::get());
+    }
 }

@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Report")
-@section("analysis.report","active")
-@section("analysis","hover show")
+@section("page-title","Report - Analyst Management")
+@section("analyst.report","active")
+@section("analyst_management.accordion","hover show")
 @section("content")
     <!--begin::Body-->
     <!--begin::Main-->

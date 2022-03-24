@@ -1,6 +1,7 @@
 @extends('layout')
-@section("page-title","Users")
+@section("page-title","Add User - User Management")
 @section("users","active")
+@section("user_management.accordion","hover show")
 @section("content")
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Page-->
@@ -77,7 +78,6 @@
 														<!--end::Input-->
 													</div>
 												</div>
-
 												<div class="row d-flex align-items-end mb-5 custom_appendDiv">
 													<!--begin::Input group-->
 													<div class="col-md-6 col-sm-12 mb-5">
@@ -188,7 +188,7 @@
 												<div class="col-md-6 col-sm-12 mb-5">
 													<!--begin::Label-->
 													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">Bank Name</span>
+														<span>Bank Name</span>
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
@@ -203,7 +203,7 @@
 												<div class="col-md-6 col-sm-12 mb-5">
 													<!--begin::Label-->
 													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">Account Number</span>
+														<span>Account Number</span>
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
@@ -218,7 +218,7 @@
 												<div class="col-md-6 col-sm-12 mb-5">
 													<!--begin::Label-->
 													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">IFSC Code</span>
+														<span>IFSC Code</span>
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
@@ -231,18 +231,19 @@
 												<div class="col-md-6 col-sm-12 mb-5">
                                                     <!--begin::Label-->
 													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                        <span class="required">Account Type</span>
+                                                        <span>Account Type</span>
 													</label>
+													<input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("account_type")}}" name="account_type" placeholder=""  list="accountTypes"/>
 													<!--end::Label-->
-													<!--begin::Input-->
-                                                    <select name="account_type" data-control="select2" class="form-select form-select-sm form-select-solid">
-                                                        @forelse ($account_types as $account_type)
-															<option value="{{$account_type->account_type}}" {{(old('account_type') && old('account_type')==$account_type->account_type)?"selected":""}}>{{$account_type->account_type}}</option>
-														@empty
-															<option>Selecte Account Type</option>
-														@endforelse
-                                                    </select>
-													<!--end::Input-->
+													<datalist id="accountTypes">
+														@if(!empty($account_types))
+															@foreach($account_types as $account_type)
+																@if($account_type->name!="")
+																	<option value="{{$account_type->name}}">{{$account_type->name}}</option>
+																@endif
+															@endforeach
+														@endif
+													</datalist>
 												</div>
 												<!--end::Input group-->
                                             </div>
@@ -263,7 +264,7 @@
                                             <div class="row col-md-6 mb-8">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-5 fw-bold mb-3">
-                                                    <span class="required">User Type</span>
+                                                    <span class="required h4">User Type</span>
                                                 </label>
                                                 <!--end::Label-->
                                                 <!--begin::Col-->
@@ -281,7 +282,7 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" {{(old('user_type')== 1?"checked":(old('user_type')!=2?"checked":""))}} value="1">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" {{(old('user_type')== 1?"checked":"")}} value="1">
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
@@ -307,7 +308,7 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" {{(old('user_type')== 2?"checked":(old('user_type')!=1?"checked":""))}} value="2">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" {{(old('user_type')== 2?"checked":"")}} value="2">
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
@@ -331,7 +332,7 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" value="3">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" {{(old('user_type')== 3?"checked":"")}} value="3">
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
@@ -355,7 +356,7 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" value="4">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" {{(old('user_type')== 4?"checked":"")}} value="4">
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
@@ -379,7 +380,7 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" value="5">
+                                                            <input class="form-check-input toggleUserType" type="radio" name="user_type" {{(old('user_type')== 5?"checked":"")}} value="5">
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
@@ -417,20 +418,20 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="checkbox" id="company_1"  name="company_1" value="1">
+                                                            <input class="form-check-input toggleUserType" type="checkbox" id="company_1"  name="company_1" {{old("company_1")=="1"?"checked":""}} value="1">
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
                                                     <!--end::Option-->
 
-                                                    <div id="profit_company_1">
+                                                    <div id="profit_company_1" class="{{old("company_1")=="1"?"d-block":""}}">
                                                         <!--begin::Label-->
                                                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                             <span class="required">Profit Percentage</span>
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="profit_company_1" placeholder="Profit Percentage"  />
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("profit_company_1")}}" name="profit_company_1" placeholder="Profit Percentage"  />
                                                         <!--end::Input-->
                                                     </div>
 												</div>
@@ -451,13 +452,13 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <span class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input toggleUserType" type="checkbox" id="company_2" name="company_2" value="1">
+                                                            <input class="form-check-input toggleUserType" type="checkbox" id="company_2" {{old("company_2")=="1"?"checked":""}} name="company_2" value="1">
                                                         </span>
                                                         <!--end::Input-->
                                                     </label>
                                                     <!--end::Option-->
 
-                                                    <div id="profit_company_2">
+                                                    <div id="profit_company_2" class="{{old("company_2")=="1"?"d-block":""}}">
                                                         <!--begin::Label-->
                                                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                             <span class="required">Profit Percentage</span>
@@ -471,7 +472,7 @@
                                                 <!--end::Input group-->
                                             </div>
 
-                                            <div class="row" id="employeeDiv" style="display:{{(old('user_type')==2)?"flex":(old('user_type')!=1?"flex":"none")}};">
+                                            <div class="row" id="employeeDiv" style="display:{{(old('user_type')==2)?"flex":"none"}};">
 
                                                 <!--begin::Input group-->
 												<div class="col-md-6 mb-5">
@@ -498,7 +499,60 @@
 
                                             </div>
 
-                                            <div class="row" id="freelancerAmsDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
+											<div class="row" id="channelPartnerDiv" style="display:{{(old('user_type')==3)?"flex":"none"}};">
+
+                                                <div class="row">
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-5">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Percentage For AMS New Client</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("ams_new_client_percentage")}}" name="ams_new_client_percentage" placeholder="Percentage For AMS New Client"  />
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="required fs-5 fw-bold mb-2">Percentage For AMS Renewal Client</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="number" value="{{old('ams_renewal_client_percentage')}}" name="ams_renewal_client_percentage" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Percentage For AMS Renewal Client"/>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+
+                                                <div class="row">
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-5">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Percentage For Prime New Client</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("prime_new_client_percentage")}}" name="prime_new_client_percentage" placeholder="Percentage For Prime New Client"  />
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="required fs-5 fw-bold mb-2">Percentage For Prime Renewal Client</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="number" value="{{old('prime_renewal_client_percentage')}}" name="prime_renewal_client_percentage"  class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Percentage For Prime Renewal Client"/>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+                                            </div>
+
+                                            <div class="row" id="freelancerAmsDiv" style="display:{{(old('user_type')==4)?"flex":"none"}};">	
 
                                                 <div class="row">
                                                     <!--begin::Input group-->
@@ -509,7 +563,7 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="fees_percentage" placeholder="Percentage of fees"  />
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("fees_percentage")}}" name="fees_percentage" placeholder="Percentage of fees"  />
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -519,7 +573,7 @@
                                                         <label class="required fs-5 fw-bold mb-2">Limit</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" name="limit" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Limit"/>
+                                                        <input type="text" value="{{old('limit')}}" name="limit" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Limit"/>
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -534,7 +588,7 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="ams_new_client_profit" placeholder="Percentage For AMS New Client"  />
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("ams_new_client_profit")}}" name="ams_new_client_profit" placeholder="Percentage For AMS New Client"  />
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -551,7 +605,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row" id="freelancerPrimeDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
+                                            <div class="row" id="freelancerPrimeDiv" style="display:{{(old('user_type')==5)?"flex":"none"}};">
 
                                                 <!--begin::Input group-->
                                                 <div class="col-md-6 mb-5">
@@ -571,71 +625,19 @@
                                                     <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="text" name="joining_date" value="{{date("Y-m-d",strtotime("now"))}}" readonly class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select date"/>
+                                                    <input type="text" name="joining_date" value="{{old('joining_date')?old('joining_date'):date("Y-m-d",strtotime("now"))}}" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select date"/>
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
                                             </div>
-
-                                            <div class="row" id="channelPartnerDiv" style="display:{{(old('user_type')==1)?"flex":"none"}};">
-
-                                                <div class="row">
-                                                    <!--begin::Input group-->
-                                                    <div class="col-md-6 mb-5">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">Percentage For AMS New Client</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="ams_new_client_percentage" placeholder="Percentage For AMS New Client"  />
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Input group-->
-
-                                                    <div class="col-md-6 mb-4">
-                                                        <!--begin::Label-->
-                                                        <label class="required fs-5 fw-bold mb-2">Percentage For AMS Renewal Client</label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="number" name="ams_renewal_client_percentage" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Percentage For AMS Renewal Client"/>
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Input group-->
-                                                </div>
-
-                                                <div class="row">
-                                                    <!--begin::Input group-->
-                                                    <div class="col-md-6 mb-5">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">Percentage For Prime New Client</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("percentage")}}" name="prime_new_client_percentage" placeholder="Percentage For Prime New Client"  />
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Input group-->
-
-                                                    <div class="col-md-6 mb-4">
-                                                        <!--begin::Label-->
-                                                        <label class="required fs-5 fw-bold mb-2">Percentage For Prime Renewal Client</label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="number" name="prime_renewal_client_percentage"  class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Percentage For Prime Renewal Client"/>
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Input group-->
-                                                </div>
-                                            </div>
+                                            
 
                                             <div class="row">
 												<!--begin::Input group-->
 												<div class="col-md-8 col-sm-12 mb-5">
 													<!--begin::Label-->
 													<label class="d-flex align-items-center fs-5 fw-bold mb-2">
-														<span class="required">Job Description</span>
+														<span>Job Description</span>
 													</label>
 													<!--end::Label-->
 													<!--begin::Input-->
@@ -878,16 +880,20 @@
                 $('#company_1').click(function () {
                     if ($(this).is(':checked') == true) {
                        $("#profit_company_1").show();
+                       $("#profit_company_1").removeClass("d-none");
                     }else{
                         $("#profit_company_1").hide();
+						$("#profit_company_1").addClass("d-none");
                     }
                 });
 
                 $('#company_2').click(function () {
                     if ($(this).is(':checked') == true) {
                         $("#profit_company_2").show();
+						$("#profit_company_2").removeClass("d-none");
                     }else{
                         $("#profit_company_2").hide();
+						$("#profit_company_2").addClass("d-none");
                     }
                 });
 				const getPermissionByRole = async role =>{

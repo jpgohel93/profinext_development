@@ -85,7 +85,7 @@
                                     <!--begin:::Tab item-->
                                     <li class="nav-item">
                                         <a class="nav-link text-active-primary pb-1 {{($loop->first)?"active":""}}" data-bs-toggle="tab"
-                                        href="#tab{{$user['target'][$target_index]['tab_id']}}">({{$user['target'][$target_index]['total_blogs']."/".$user['target'][$target_index]['target']}})</a>
+                                        href="#tab{{$user['target'][$target_index]['tab_id']}}">{{$user['target'][$target_index]['tab_name']}} ({{$user['target'][$target_index]['total_blogs']."/".$user['target'][$target_index]['target']}})</a>
                                     </li>
                                     <!--end:::Tab item-->
                                 @empty
