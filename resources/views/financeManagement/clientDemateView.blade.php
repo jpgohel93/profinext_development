@@ -296,8 +296,9 @@
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
                 $(document).on("click",'.changeStatus',function(e){
-                    var id=e.target.getAttribute("data-id");
-                    var value=e.target.getAttribute("data-value");
+                    const id=e.target.getAttribute("data-id");
+                    // const value=e.target.getAttribute("data-value");
+                    const value="to_renew";
                     $.ajax("{!! route('updateDematStatus') !!}",{
                         type:"POST",
                         data:{

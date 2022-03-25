@@ -33,6 +33,7 @@ return [
         'Trader Data',
         'Blog-admin',
         'Blog',
+        "Business Management",
         'Call',
         'Keyword',
     ]

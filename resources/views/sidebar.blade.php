@@ -447,7 +447,7 @@
 {{--                </div>--}}
 
                 
-                @can("business_management-read")
+                @can("businessManagement-read")
                     <div class="menu-item">
                         <a class="menu-link @yield('business_management')" href="{{route('business_management')}}">
                             <span class="menu-icon">
@@ -462,37 +462,18 @@
                     </div>
                 @endcan
 
-                @canany(["keyword-read"])
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('keyword_management.accordion')">
-                        <span class="menu-link">
+                @can("keyword-read")
+                    <div class="menu-item">
+                        <a class="menu-link @yield('keyword')" href="{{route('keywordData')}}">
                             <span class="menu-icon">
-                                <!--begin::Svg Icon | path: icons/duotune/communication/com013.svg-->
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                                 <span class="svg-icon svg-icon-2">
                                     <i class="fas fa-solid fa-list"></i>
                                 </span>
                                 <!--end::Svg Icon-->
                             </span>
-                            <span class="menu-title">Keyword Management</span>
-                            <span class="menu-arrow"></span>
-                        </span>
-                        <div class="menu-sub menu-sub-accordion menu-active-bg">
-                            <div class="menu-item">
-                                <a class="menu-link @yield('keyword_management.admin')" href="{{route('blogAdmin')}}">
-                                    <span class="menu-bullet">
-                                        <span class="bullet bullet-dot"></span>
-                                    </span>
-                                    <span class="menu-title">Blog Data</span>
-                                </a>
-                            </div>
-                            <div class="menu-item">
-                                <a class="menu-link @yield('keyword_management.user')" href="{{route('blogUser')}}">
-                                    <span class="menu-bullet">
-                                        <span class="bullet bullet-dot"></span>
-                                    </span>
-                                    <span class="menu-title">Blog</span>
-                                </a>
-                            </div>
-                        </div>
+                            <span class="menu-title">Keyword</span>
+                        </a>
                     </div>
                 @endcan
 

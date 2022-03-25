@@ -3,6 +3,7 @@
 @section("keyword","active")
 @section("content")
     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
     <!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
@@ -146,7 +147,7 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="keyword_container">
                                             <!--begin::Table head-->
                                             <thead>
                                             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
@@ -341,12 +342,13 @@
         <!--end::Svg Icon-->
     </div>
 @section("jscript")
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(document).on("click",'.addKeyword',function(e){
                 $("#addKeywordModal").modal("show");
             });
-
+            $("#keyword_container").dataTable();
             $(document).on("click",'.editKeywordData',function(e){
                 var id = $(this).attr("data-id");
                 var name = $(this).attr("data-name");

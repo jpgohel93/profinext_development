@@ -12,7 +12,10 @@ class renewalStatusController extends Controller
     public function view(){
         $renewalStatus = renewalStatusService::view();
         $preRenewAccounts = renewalStatusService::preRenewAccounts();
-        return view("financeManagement.renewal-status",compact("renewalStatus", "preRenewAccounts"));
+        $toRenewAccounts = renewalStatusService::toRenewAccounts();
+        $renewedAccounts = renewalStatusService::renewedAccounts();
+        $newAccounts = renewalStatusService::newAccounts();
+        return view("financeManagement.renewal-status",compact("renewalStatus", "preRenewAccounts", "toRenewAccounts", "renewedAccounts", "newAccounts"));
     }
     public function clientDematView($id){
         $demateDetails = ClientDemateServices::getAccountByDemateId($id);

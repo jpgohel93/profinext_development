@@ -102,7 +102,7 @@ Route::group(['middleware' => ['auth']], function() {
     // get permissions for role
     Route::get("/permissionByRole/{role}",[RolesController::class, "getPermissions"])->name("permissionByRole");
     // clearPermissionCache
-    Route::get("/clearPermissionCache",[RolesController::class, "clearPermissionCache"]);
+    Route::get("/clearPermissionCache/{fallback}",[RolesController::class, "clearPermissionCache"]);
 
     // list analyst
     Route::get("/analyst", [AnalystController::class, "view"])->name("analysts");
@@ -259,4 +259,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/financeManagement/renewal_status",[renewalStatusController::class,"view"])->name("renewal_status");
     Route::get("/financeManagement/clientDematView/{id}",[renewalStatusController::class, "clientDematView"])->name("clientDematView");
     Route::POST("/financeManagement/clientDemat/updatePL",[renewalStatusController::class, "updatePL"])->name("clientDematupdatePL");
+    // Business Management
+    Route::get("/businessManagement",[renewalStatusController::class,"view"])->name("business_management");
 });

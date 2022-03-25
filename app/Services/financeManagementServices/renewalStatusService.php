@@ -17,6 +17,18 @@ class renewalStatusService
     {
         return ClientDemat::where("account_status", "renew")->get();
     }
+    public static function toRenewAccounts()
+    {
+        return ClientDemat::where("account_status", "to_renew")->get();
+    }
+    public static function renewedAccounts()
+    {
+        return ClientDemat::where("account_status", "renewed")->get();
+    }
+    public static function newAccounts()
+    {
+        return ClientDemat::where("is_new",1)->orWhere("is_new",2)->get();
+    }
     public static function create($request)
     {
         $type = $request->validate([

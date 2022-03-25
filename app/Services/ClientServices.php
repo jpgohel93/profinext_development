@@ -91,6 +91,8 @@ class ClientServices
             $array['pl']= "0";
             $array['is_make_as_preferred']= 0;
             $array['pan_number'] = null;
+            $array['is_new'] = 1;
+
             $demate_id = ClientDemat::create($array);
 
             if(null === $request->pan_number){
