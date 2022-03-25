@@ -104,6 +104,11 @@ class ClientController extends Controller
         ClientServices::removePaymentScreenshot($ss_id);
         return Redirect::route("updateClientForm",$client)->with("info","Screenshot Removed");
     }
+    // remove client pancard image
+    public function removeDematePancard($client_id,$pancard_id){
+        ClientServices::removeDematePancard($pancard_id);
+        return Redirect::route("updateClientForm", $client_id)->with("info","Pancard Removed");
+    }
     // assign client to freelancer
     public function assignClientToFreelancer(Request $request){
         $requestData['freelancer_id'] = (isset($request->freelancer_id) && $request->freelancer_id != '') ? $request->freelancer_id : $request->ams_freelancer_id;

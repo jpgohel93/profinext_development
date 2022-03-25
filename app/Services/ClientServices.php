@@ -6,11 +6,11 @@ use App\Models\Client;
 use App\Models\ClientDemat;
 use App\Models\ClientPayment;
 use App\Models\Screenshots;
+use App\Models\PancardImageModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Services\CommonService;
 use Illuminate\Support\Facades\Storage;
-
 class ClientServices
 {
     public static function create($request)
@@ -80,7 +80,6 @@ class ClientServices
             $array['st_sg']=$demat['st_sg'][$key];
             $array['serial_number']=$demat['serial_number'][$key];
             $array['service_type']=$demat['service_type'][$key];
-            $array['pan_number']=$demat['pan_number'][$key];
             $array['holder_name']=$demat['holder_name'][$key];
             $array['broker']=$demat['broker'][$key];
             $array['user_id']=$demat['user_id'][$key];
@@ -91,8 +90,22 @@ class ClientServices
             $array['available_balance']=$demat['capital'][$key];
             $array['pl']= "0";
             $array['is_make_as_preferred']= 0;
+            $array['pan_number'] = null;
+            $demate_id = ClientDemat::create($array);
 
-            ClientDemat::insert($array);
+            if(null === $request->pan_number){
+                $error = \Illuminate\Validation\ValidationException::withMessages([
+                    'pan_number' => "Pan card image is required",
+                ]);
+                throw $error;
+            }
+            // pan card image upload
+            foreach ($request->pan_number as $index => $file) {
+                $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.PANCARDS'));
+                if ($newName['status']) {
+                    PancardImageModel::create(["client_demat_id" => $demate_id->id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
+                }
+            }
         }
 
         if($request->form_type != "channelPartner") {
@@ -155,7 +168,7 @@ class ClientServices
         return Client::with('clientDemat')->get();
     }
     public static function get($id){
-        $client = Client::with(['clientDemat','clientPayment','clientPayment.Screenshots'])->where("id",$id)->first();
+        $client = Client::with(['clientDemat','clientPayment','clientPayment.Screenshots', 'clientDemat.Pancards'])->where("id",$id)->first();
         if (!$client)
             CommonService::throwError("Client not found");
         return $client;
@@ -191,7 +204,6 @@ class ClientServices
             "st_sg.*"=>"required|alpha_spaces",
             "serial_number.*"=>"required",
             "service_type.*"=>"required|numeric",
-            "pan_number.*"=>"required",
             "holder_name.*"=>"required|alpha_spaces",
             "broker.*"=>"required|alpha_spaces",
             "user_id.*"=>"required",
@@ -203,7 +215,6 @@ class ClientServices
             "st_sg.*.required"=>"Smart ID is required",
             "serial_number.*.required"=>"Serial Number is required",
             "service_type.*.required"=>"Service Type is required",
-            "pan_number.*.required"=>"PAN Number is required",
             "holder_name.*.required"=>"Demat Holder's Name is required",
             "holder_name.*.alpha_spaces"=>"Demat Holder's Name Shold contain alphabate and spaces only",
             "broker.*.required"=>"Broker is required",
@@ -214,11 +225,11 @@ class ClientServices
         ]
         );
         $demat['client_id'] = array();
-
+        
         // remove all existing accounts
-        ClientDemat::where("client_id",$id)->forceDelete();
+        ClientDemat::where("client_id",$id)->delete();
         // remove all existing payments
-        ClientPayment::where("client_id",$id)->forceDelete();
+        ClientPayment::where("client_id",$id)->delete();
 
         // insert one by one
         foreach($demat['st_sg'] as $key => $value){
@@ -227,7 +238,7 @@ class ClientServices
             $array['st_sg']=$demat['st_sg'][$key];
             $array['serial_number']=$demat['serial_number'][$key];
             $array['service_type']=$demat['service_type'][$key];
-            $array['pan_number']=$demat['pan_number'][$key];
+            // $array['pan_number']=$demat['pan_number'][$key];
             $array['holder_name']=$demat['holder_name'][$key];
             $array['broker']=$demat['broker'][$key];
             $array['user_id']=$demat['user_id'][$key];
@@ -237,8 +248,16 @@ class ClientServices
             $array['client_id']=$id;
             $array['updated_by']=Auth::id();
             $array['updated_at']=date("Y-m-d H:i:s");
-
-            ClientDemat::insert($array);
+            $demate_id = ClientDemat::create($array);
+            if(null !== $request->pan_number){
+                // pan card image upload
+                foreach ($request->pan_number as $index => $file) {
+                    $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.PANCARDS'));
+                    if ($newName['status']) {
+                        PancardImageModel::create(["client_demat_id" => $demate_id->id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
+                    }
+                }
+            }
         }
         foreach($request->mode as $key => $mode){
             if($request->mode[$key]=="2"){
@@ -301,6 +320,9 @@ class ClientServices
     }
     public static function removePaymentScreenshot($ss){
         return Screenshots::where("id",$ss)->delete();
+    }
+    public static function removeDematePancard($id){
+        return PancardImageModel::where("id",$id)->delete();
     }
 
     public static function updateAssignTo($id,$request)

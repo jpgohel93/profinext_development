@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Update Client")
+@section("page-title","Edit Client - Client Management ")
 @section("clientsData.clients","active")
-@section("clientsData","hover show")
+@section("client_management.accordion","hover show")
 @section("content")
 	<!--begin::Body-->
     <!--begin::Main-->
@@ -328,11 +328,25 @@
                                                                         <div class="col-md-6 mb-4">
                                                                             <!--begin::Label-->
                                                                             <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                                <span class="required">PAN Number</span>
+                                                                                <span class="required">Upload Demat Holder’s PAN Card</span>
                                                                             </label>
+                                                                            <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[]" multiple placeholder="" />
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
-                                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number[]" placeholder="" value="{{(old('pan_number'))?old('pan_number')[$key]:$demate_account['pan_number']}}" />
+                                                                            <div class="row">
+                                                                            @if (isset($client->clientDemat[$key]))
+                                                                                @foreach($client->clientDemat[$key]->Pancards as $pancard)
+                                                                                    <div class="form-group col-3">
+                                                                                        <label>
+                                                                                            <a href="{{route('removeDematePancard',[$client->id,$pancard->id])}}" class="removeDematePancard">Remove</a>
+                                                                                        </label>
+                                                                                        {{-- <img style="height: 100px;width:auto" loading="lazy" class="m-3 d-block" src="{{url('common/displayFile/'.Crypt::encryptString($ss->id).'/'.Crypt::encryptString('screenshots').'/'.$ss->file)}}" > --}}
+                                                                                        <img style="max-width: 200px;width:100%;" loading="lazy" class="m-3" src="{{url('common/displayFile/'.Crypt::encryptString($pancard->id).'/'.Crypt::encryptString('pancard').'/'.$pancard->file)}}" >
+                                                                                    </div>
+                                                                                @endforeach
+                                                                            @endif
+                                                                        </div>
+                                                                            {{-- <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number[]" placeholder="" value="{{(old('pan_number'))?old('pan_number')[$key]:$demate_account['pan_number']}}" /> --}}
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input group-->
@@ -444,7 +458,7 @@
                                                                                 <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                                                     <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
                                                                                     <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" {{((old('mode') && isset(old('mode')[$key]))?old('mode')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?"checked":""}} />
-                                                                                    <input class="form-check-input" type="hidden" name="mode[]" value="2" />
+                                                                                    <input class="form-check-input" type="hidden" name="mode[]" value="{{((old('mode') && isset(old('mode')[$key]))?old('mode')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?"2":"1"}}" />
 
                                                                                     <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
                                                                                 </label>
@@ -660,11 +674,11 @@
                                                                         <div class="col-md-6 mb-4">
                                                                             <!--begin::Label-->
                                                                             <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                                <span class="required">PAN Number</span>
+                                                                                <span class="required">Upload Demat Holder’s PAN Card</span>
                                                                             </label>
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
-                                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number[]" placeholder="" value="{{$demate_account['pan_number']}}" />
+                                                                            <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[]" multiple placeholder="" />
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input group-->
@@ -1351,6 +1365,11 @@
                 });
             $(document).on("click",".removePaymentScreenshot",function(e){
                 if(!window.confirm("This cannot be undone!\r\nAre you sure you want to remove this Screenshot?")){
+                    e.preventDefault();
+                }
+            })
+            $(document).on("click",".removeDematePancard",function(e){
+                if(!window.confirm("This cannot be undone!\r\nAre you sure you want to remove this Pancard image?")){
                     e.preventDefault();
                 }
             })

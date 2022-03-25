@@ -24,8 +24,14 @@
 		<!--end::Page Vendor Stylesheets-->
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
 		<link href="{{asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		{{-- font awesome 6 pro --}}
+		<link href="{{asset('assets/font-awesome/css/all.min.css')}}" rel="stylesheet" type="text/css" />
+		{{-- font awesome 6 free --}}
+		{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/> --}}
+		{{-- font awesome 5 pro --}}
+		{{-- <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet"> --}}
+		{{-- font awesome 4 free --}}
+		{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
 		
 		<link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{asset('assets/css/custom.css')}}" rel="stylesheet" type="text/css" />

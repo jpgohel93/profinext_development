@@ -16,4 +16,8 @@ class ClientDemat extends Model
     public function withClient(){
         return $this->hasOne(Client::class,"id","client_id")->latest();
     }
+    public function Pancards()
+    {
+        return $this->hasMany(PancardImageModel::class);
+    }
 }

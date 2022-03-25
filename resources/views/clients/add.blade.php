@@ -67,7 +67,7 @@
                                                             <option value="1">Account Handling</option>
                                                         </select>
                                                     @else
-                                                        <select name="client_type" id="client_type" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select User Type">
+                                                        <select name="client_type" id="client_type" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Client Type">
                                                             <option></option>
                                                             <option value="1">Account Handling</option>
                                                             <option value="2">Mutual Fund</option>
@@ -292,11 +292,11 @@
                                                             <div class="col-md-6 mb-4">
                                                                 <!--begin::Label-->
                                                                 <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                    <span class="required">PAN Number</span>
+                                                                    <span class="required">Upload Demat Holder’s PAN Card</span>
                                                                 </label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number[]" placeholder="" value="" />
+                                                                <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_card[0][]" multiple placeholder="" />
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Input group-->
@@ -511,7 +511,7 @@
                                                             <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                                 <h3 class="stepper-title text-primary">Demate Details</h3>
                                                                 @if ($key==0)
-                                                                    <button type="button" class="btn btn-primary" id="addmore">Add More</button>
+                                                                    <button type="button" class="btn btn-primary addmore">Add More</button>
                                                                 @else
                                                                     <button type="button" class="btn btn-primary btn-pink remove-btn">Remove</button>
                                                                 @endif
@@ -618,11 +618,11 @@
                                                                 <div class="col-md-6 mb-4">
                                                                     <!--begin::Label-->
                                                                     <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                        <span class="required">PAN Number</span>
+                                                                        <span class="required">Upload Demat Holder’s PAN Card</span>
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number[]" placeholder="" value="{{$demate_account['pan_number']}}" />
+                                                                    <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" multiple name="pan_number[]" placeholder="" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Input group-->
@@ -826,7 +826,6 @@
                                                                                 <label>
                                                                                     <a href="{{route('removePaymentScreenshot',[$client->id,$ss->id])}}" class="removePaymentScreenshot">Remove</a>
                                                                                 </label>
-                                                                                <img style="height: 100px;width:auto" loading="lazy" class="m-3 d-block" src="{{url('common/displayFile/'.Crypt::encryptString($ss->id).'/'.Crypt::encryptString('screenshots').'/'.$ss->file)}}" >
                                                                             </div>
                                                                         @endforeach
                                                                     @endif
@@ -841,7 +840,7 @@
                                     <div id="appendDiv1"></div>
                                         <div id="addMoreDiv">
                                             <div class="stepper-label d-flex justify-content-between mt-0" style="float: right;margin-top:30px;margin-bottom:20px;">
-                                                 <button type="button" class="btn btn-primary" id="addmore">Add More</button>
+                                                 <button type="button" class="btn btn-primary addmore">Add More</button>
                                             </div>
                                         </div>
 
@@ -873,7 +872,7 @@
                                             <div class="w-100">
                                                 <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                     <h3 class="stepper-title text-primary">Demate Detail</h3>
-                                                    <button type="button" class="btn btn-primary" id="addmore">Add More</button>
+                                                    <button type="button" class="btn btn-primary addmore">Add More</button>
                                                 </div>
                                                 <!--begin::Input group-->
                                                 <div class="row mb-8">
@@ -977,11 +976,11 @@
                                                     <div class="col-md-6 mb-4">
                                                         <!--begin::Label-->
                                                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">PAN Number</span>
+                                                            <span class="required">Upload Demat Holder’s PAN Card</span>
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number[]" placeholder="" value="" />
+                                                        <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[2][]" placeholder="" value="" />
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -1243,7 +1242,7 @@
 				});
 			});
 
-			$(document).on("click","#addmore",function() {
+			$(document).on("click",".addmore",function() {
 				// var newcomp1 = $('#hiddenaddmore').html();
 				var clone = $('#hiddenaddmore > .cloningSec').clone();
 				var rem = clone.find('#addmore');
@@ -1282,8 +1281,8 @@
 				counter = 1;
 				$.each($('#appendDiv1 .cloningSec'),(i,v)=> {
 					let elem = $(v)[0];
-					$(elem).find("[type='file']").first().attr("name","screenshot["+counter+"][]")
-					$(elem).find("[type='file']").first().attr("name","screenshot["+counter+"][]")
+					$(elem).find("[type='file'][name*='screenshot']").first().attr("name","screenshot["+counter+"][]")
+					$(elem).find("[type='file'][name*='pan_card']").first().attr("name","pan_card["+counter+"][]")
 					counter++;
 				})
 			}

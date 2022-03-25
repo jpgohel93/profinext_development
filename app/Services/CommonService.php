@@ -4,7 +4,7 @@ namespace App\Services;
 use Illuminate\Support\Facades\DB;
 class CommonService
 {
-    public static function checkValidFile($file)
+    public static function checkValidFile($file,$path)
     {
         $extension = $file->extension();
         if(!self::isAllowedExtension($extension)) {
@@ -42,7 +42,7 @@ class CommonService
             $image = imagecreatefromjpeg($tempPath);
         }
         if(isset($image)) {
-            imagejpeg($image,$tempPath);
+            imagejpeg($image,$path);
             imagedestroy($image);
         }
 
@@ -51,16 +51,16 @@ class CommonService
 
     public static function uploadfile($file, $path)
     {
-        $validFileResponse = self::checkValidFile($file);
+        $name = $file->getClientOriginalName();
+        $extension = $file->extension();
+        $filename = $file->hashName(); //uniqid().'.'.$extension;
+        $mimeType = $file->getMimeType();
+        $file->storeAs($path, $filename);
+
+        $validFileResponse = self::checkValidFile($file,"$path/$filename");
         if(!$validFileResponse['status']) {
             return $validFileResponse;
         }
-
-        $name = $file->getClientOriginalName();
-        $extension = $file->extension();
-        $filename = $file->hashName();//uniqid().'.'.$extension;
-        $mimeType = $file->getMimeType();
-        $file->storeAs($path, $filename);
         
         $responseData = [
             'name' => $name,
@@ -193,6 +193,23 @@ class CommonService
             $response = [
                 'filename' => $screenshots->file,
                 'mime_type' => $screenshots->mime_type,
+                "path"=> "screenshots"
+            ];
+
+            return self::ajaxResponse(true, $response, 'Success');
+        }
+
+        if($type == 'pancard') {
+            
+            $pan_card = DB::table("tbl_pancards")->where("id",$id)->first(['file', 'mime_type']);
+            
+            if(empty($pan_card)) {
+                return self::ajaxResponse(false, [], 'File not found.');
+            }
+            $response = [
+                'filename' => $pan_card->file,
+                'mime_type' => $pan_card->mime_type,
+                "path" => "pan_cards"
             ];
 
             return self::ajaxResponse(true, $response, 'Success');

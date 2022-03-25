@@ -1,7 +1,7 @@
 @extends('layout')
-@section("page-title","Add Clients")
+@section("page-title","View Client - Client Management ")
 @section("clientsData.clients","active")
-@section("clientsData","hover show")
+@section("client_management.accordion","hover show")
 @section("content")
 	<!--begin::Body-->
     <!--begin::Main-->
@@ -232,11 +232,18 @@
                                                         <div class="col-md-6 mb-4">
                                                             <!--begin::Label-->
                                                             <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                <span class="required">PAN Number</span>
+                                                                <span class="required">PAN Cards</span>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$demate_account->pan_number}}" />
+                                                            {{-- <img style="max-height: 200px;height:100%;width:auto" loading="lazy" class="m-3 d-block" src="{{url('common/displayFile/'.Crypt::encryptString($demate_account->id).'/'.Crypt::encryptString('pancard').'/image')}}" > --}}
+                                                            @if($client->clientDemat[$key]->Pancards)
+                                                                @foreach($client->clientDemat[$key]->Pancards as $pancard)
+                                                                    <img style="height: 100px;width:auto" loading="lazy" class="m-3" src="{{url('common/displayFile/'.Crypt::encryptString($pancard->id).'/'.Crypt::encryptString('pancard').'/'.$pancard->file)}}" >
+                                                                @endforeach
+                                                            @else
+                                                                <h6>Image not found</h6>
+                                                            @endif
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->
@@ -341,7 +348,7 @@
                                                             <div class="col-md-6">
                                                                 <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                                     <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
-                                                                    <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" {{$client->clientPayment[$key]->mode==2 ? 'checked' :""}} disabled/>
+                                                                    <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" {{(!isset($client->clientPayment[$key]))?"":($client->clientPayment[$key]->mode==2 ? 'checked' :"")}} disabled/>
                                                                     <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
                                                                 </label>
                                                             </div>
@@ -349,81 +356,86 @@
                                                         </div>
                                                     </div>
                                                     <!--end::Input group-->
-
-                                                    <div class="row mb-4 PaymentSection joining_date" style="display:{{$client->clientPayment[$key]->mode==2 ? 'block' :"none"}};" id="BankDiv">
-                                                        <!--begin::Col-->
-                                                        <div class="col-md-5 fv-row mb-4 hideonpending" style="display:{{$client->clientPayment[$key]->pending_payment==1?"none":"block"}}">
-                                                            <!--begin::Label-->
-                                                            <label class="required fs-6 fw-bold form-label mb-2">Bank Details</label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input wrapper-->
-                                                            <div class="position-relative">
-                                                                <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$client->clientPayment[$key]->bank}}" />
-                                                            </div>
-                                                            <!--end::Input wrapper-->
-                                                        </div>
-                                                        <!--end::Col-->
-
-                                                        <div class="row">
-                                                            <!--begin::Input group-->
-                                                            <div class="col-md-6 mb-4">
+                                                    @if($client->clientPayment->isNotEmpty())
+                                                        <div class="row mb-4 PaymentSection joining_date" style="display:{{!isset($client->clientPayment[$key])?"":($client->clientPayment[$key]->mode==2 ? 'block' :"none")}};" id="BankDiv">
+                                                            <!--begin::Col-->
+                                                            <div class="col-md-5 fv-row mb-4 hideonpending" style="display:{{!isset($client->clientPayment[$key])?"none":($client->clientPayment[$key]->pending_payment==1?"none":"block")}}">
                                                                 <!--begin::Label-->
-                                                                <label class="required fs-5 fw-bold mb-2">Joining Date</label>
+                                                                <label class="required fs-6 fw-bold form-label mb-2">Bank Details</label>
                                                                 <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{date("Y-m-d",strtotime($client->clientPayment[$key]->joining_date))}}" />
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <!--begin::Input group-->
-                                                            <div class="col-md-6 mb-4 hideonpending" id="FeesDiv" style="display:{{$client->clientPayment[$key]->pending_payment==1?"none":"block"}}">
-                                                                <!--begin::Label-->
-                                                                <label class="required fs-5 fw-bold mb-2">Fees</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$client->clientPayment[$key]->fees}}" />
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                        </div>
-                                                        <div class="row mb-8 "  id="UploadDiv">
-                                                            <!--begin::Input group-->
-                                                            <div class="col-md-6 mb-4 hideonpending" style="display:{{$client->clientPayment[$key]->pending_payment==1?"none":"block"}}">
-                                                                <!--begin::Label-->
-                                                                <label class="required fs-5 fw-bold mb-2">Screenshot</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                {{-- <input type="file" name="screenshot[]" class="form-control form-control-lg form-control-solid bdr-ccc" readonly placeholder="Upload ScreenShot"/> --}}
-                                                                {{-- <img src="{{url('screenshots/'.$client->clientPayment[$key]->screenshots)}}" style="width: 200px" class="d-block"> --}}
-
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <!--begin::Input group-->
-                                                            <div class="col-md-6 d-flex justify-content-between">
-                                                                <!--begin::Label-->
-                                                                <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <div>
-                                                                    <!--begin::Checkbox-->
-                                                                    <label class="form-check form-check-custom form-check-solid me-10">
-                                                                        <input class="form-check-input h-20px w-20px PendingMark" type="checkbox" name="pending_payment[]" value="1" {{$client->clientPayment[$key]->pending_payment==1?"checked":""}} disabled>
-                                                                        <span class="form-check-label fw-bold">Pending</span>
-                                                                    </label>
-                                                                    <!--end::Checkbox-->
+                                                                <!--begin::Input wrapper-->
+                                                                <div class="position-relative">
+                                                                    <!--begin::Input-->
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{!isset($client->clientPayment[$key])?"":$client->clientPayment[$key]->bank}}" />
                                                                 </div>
-                                                                <!--end::Input-->
+                                                                <!--end::Input wrapper-->
                                                             </div>
-                                                            <!--end::Input group-->
+                                                            <!--end::Col-->
+
+                                                            <div class="row">
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 mb-4">
+                                                                    <!--begin::Label-->
+                                                                    <label class="required fs-5 fw-bold mb-2">Joining Date</label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{!isset($client->clientPayment[$key])?"":(date("Y-m-d",strtotime($client->clientPayment[$key]->joining_date)))}}" />
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 mb-4 hideonpending" id="FeesDiv" style="display:{{!isset($client->clientPayment[$key])?"none":($client->clientPayment[$key]->pending_payment==1?"none":"block")}}">
+                                                                    <!--begin::Label-->
+                                                                    <label class="required fs-5 fw-bold mb-2">Fees</label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{!isset($client->clientPayment[$key])?"":($client->clientPayment[$key]->fees)}}" />
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                            </div>
+                                                            <div class="row mb-8 "  id="UploadDiv">
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 mb-4 hideonpending" style="display:{{!isset($client->clientPayment[$key])?"none":($client->clientPayment[$key]->pending_payment==1?"none":"block")}}">
+                                                                    <!--begin::Label-->
+                                                                    <label class="required fs-5 fw-bold mb-2">Screenshot</label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    {{-- <input type="file" name="screenshot[]" class="form-control form-control-lg form-control-solid bdr-ccc" readonly placeholder="Upload ScreenShot"/> --}}
+                                                                    {{-- <img src="{{url('screenshots/'.$client->clientPayment[$key]->screenshots)}}" style="width: 200px" class="d-block"> --}}
+
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 d-flex justify-content-between">
+                                                                    <!--begin::Label-->
+                                                                    <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <div>
+                                                                        <!--begin::Checkbox-->
+                                                                        <label class="form-check form-check-custom form-check-solid me-10">
+                                                                            <input class="form-check-input h-20px w-20px PendingMark" type="checkbox" name="pending_payment[]" value="1" {{!isset($client->clientPayment[$key])?"":($client->clientPayment[$key]->pending_payment==1?"checked":"")}} disabled>
+                                                                            <span class="form-check-label fw-bold">Pending</span>
+                                                                        </label>
+                                                                        <!--end::Checkbox-->
+                                                                    </div>
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                            </div>
+                                                            <div class="row">
+                                                                @if($client->clientPayment->isNotEmpty())
+                                                                    @foreach($client->clientPayment[$key]->Screenshots as $ss)
+                                                                        <img style="height: 100px;width:auto" loading="lazy" class="m-3" src="{{url('common/displayFile/'.Crypt::encryptString($ss->id).'/'.Crypt::encryptString('screenshots').'/'.$ss->file)}}" >
+                                                                    @endforeach
+                                                                @else
+                                                                    <h6>Screenshot not found</h6>
+                                                                @endif
+                                                            </div>
                                                         </div>
-                                                        <div class="row">
-                                                            @foreach($client->clientPayment[$key]->Screenshots as $ss)
-                                                                <img style="height: 100px;width:auto" loading="lazy" class="m-3" src="{{url('common/displayFile/'.Crypt::encryptString($ss->id).'/'.Crypt::encryptString('screenshots').'/'.$ss->file)}}" >
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

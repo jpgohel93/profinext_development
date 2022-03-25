@@ -2,7 +2,8 @@
 
 return [
     'UPLOADS' => [
-        'SCREENSHOTS' => 'screenshots/'
+        'SCREENSHOTS' => 'screenshots/',
+        "PANCARDS"    => 'pan_cards/'
     ],
     'ALLOWED_EXTENSIONS' => ['png','jpeg','jpg','pdf','docx','doc','xlsx','xls'],
     'ALLOWED_MIMETYPES' => ['image/png','image/jpeg','application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/vnd.ms-excel','text/plain'],

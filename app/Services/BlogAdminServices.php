@@ -83,8 +83,14 @@ class BlogAdminServices{
             $request->validate([
                 "blogger"=>"exists:users,id"
             ]);
-            
+            $target=[
+                "user_id" => $request->blogger,
+                "tab_id"=>$tab_id->id,
+                "target"=>0
+            ];
+            blogTarget::create($target);
         }
+        return $tab_id;
     }
     public static function setTarget($request){
         $user = $request->validate([

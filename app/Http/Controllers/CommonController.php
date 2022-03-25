@@ -29,8 +29,12 @@ class CommonController extends Controller
         if(!$response['status']) {
             return Redirect::back()->with('error', $response['message']);
         }
-
-        $img = file_get_contents(public_path('screenshots/').$response['data']['filename']);
+        $path = $response["data"]['path']."/";
+        $img = file_get_contents(public_path($path).$response['data']['filename']);
+        if(file_exists(public_path($path) . $response['data']['filename'])){
+        }else{
+            abort(404);
+        }
         return response($img)->header('Content-type',$response['data']['mime_type']);
     }
 }

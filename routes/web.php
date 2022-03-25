@@ -70,7 +70,8 @@ Route::group(['middleware' => ['auth']], function() {
     // remove client
     Route::get("/client/remove/{id}",[ClientController::class,"remove"])->name("removeClient");
     // remove client
-    Route::get("'/client/edit/{client_id}/remove/screenshot/{screenshot_id}",[ClientController::class,"removePaymentScreenshot"])->name("removePaymentScreenshot");
+    Route::get("/client/edit/{client_id}/remove/screenshot/{screenshot_id}",[ClientController::class,"removePaymentScreenshot"])->name("removePaymentScreenshot");
+    Route::get("/client/edit/{client_id}/remove/pancard/{pancard_id}",[ClientController::class,"removeDematePancard"])->name("removeDematePancard");
     Route::POST("/freelancer/client/assign",[ClientController::class,'assignClientToFreelancer'])->name('assignClientToFreelancer');
     Route::POST("/clients/edit/Demat",[ClientController::class,"editClientDematAccount"])->name("editClientDematAccount");
     Route::get("/loginInfo/{id}", [ClientController::class, "getLoginInfo"])->name("getLoginInfo");

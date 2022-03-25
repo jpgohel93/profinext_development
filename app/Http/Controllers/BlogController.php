@@ -30,6 +30,7 @@ class BlogController extends Controller
     }
     public function addTab(Request $request){
         BlogAdminServices::addTab($request);
+        if($request->blogger) return Redirect::route("blogAdmin")->with("info", "New Tab Added and assing to blogger!");
         return Redirect::route("blogAdmin")->with("info","New Tab Added!");
     }
     public function setTargetFrm(Request $request){

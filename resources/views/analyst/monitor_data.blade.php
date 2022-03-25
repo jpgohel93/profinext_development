@@ -1,4 +1,8 @@
 @extends('layout')
+@section("page-title","Monitor - Analyst Management")
+@section("analysis.monitor","active")
+@section("analyst_management.accordion","hover show")
+
 @section("page-title","Analysis")
 @section("analysis.monitor","active")
 @section("content")
