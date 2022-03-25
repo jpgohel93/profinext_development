@@ -102,7 +102,7 @@
                         </div>
                     </div>
                 @endcan
-                
+
                 @canany(["client-read","client-demat-read"])
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('client_management.accordion')">
                         <span class="menu-link">
@@ -446,7 +446,7 @@
 {{--                    </a>--}}
 {{--                </div>--}}
 
-                
+
                 @can("business_management-read")
                     <div class="menu-item">
                         <a class="menu-link @yield('business_management')" href="{{route('business_management')}}">
@@ -587,13 +587,13 @@
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        
-                        
+
+
                     </div>
                 </div>
                 @endcan
 
-                
+
 
                 @canany(["trader-data-read","calls-read","setup-read"])
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('trading')">
