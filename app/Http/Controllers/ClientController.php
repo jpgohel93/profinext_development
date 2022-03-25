@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\User;
 use App\Models\ClientDemat;
 
@@ -67,11 +68,16 @@ class ClientController extends Controller
     }
     // create client data
     public function create(Request $request){
-        $client = ClientServices::create($request);
-        if($request->form_type == "channelPartner"){
-            return Redirect::route("channelPartnerUserData")->with("info","Client have been created");
+        $clientData = ClientServices::getClientUsingMobileNo($request->number,$request->client_type);
+        if(empty($clientData)) {
+            $client = ClientServices::create($request);
+            if ($request->form_type == "channelPartner") {
+                return Redirect::route("channelPartnerUserData")->with("info", "Client have been created");
+            } else {
+                return Redirect::route("clients")->with("info", "Client have been created");
+            }
         }else{
-            return Redirect::route("clients")->with("info","Client have been created");
+            CommonService::throwError("Account is already exits with this mobile number");
         }
     }
     // read client
@@ -225,25 +231,25 @@ class ClientController extends Controller
 
         return view("calls.setup",compact('dematAccount','traders','freelancerAms','freelancerPrime'));
     }
-	
+
 	public function getPreferredAccountData(Request $request)
 	{
 		if ($request->ajax())
-		{  
+		{
 			$auth_user = Auth::user();
 
 			$makeAsPreferred = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
 													where("client_demat.is_make_as_preferred",1)->
 													where("client_demat.freelancer_id",0)->
 													select('client_demat.*','clients.name')->get();
-            
+
 			$data_arr = array();
 			foreach($makeAsPreferred as $data)
 			{
 				$datetime1 = strtotime($data->created_at);
 				$datetime2 = strtotime(date("Y-m-d"));
 				$days = (int)(($datetime2 - $datetime1)/86400);
-				
+
 				$tempData = array(
 					'id' => $data->id,
 					'name' => $data->name,
@@ -257,12 +263,12 @@ class ClientController extends Controller
 				);
 				array_push($data_arr, $tempData);
 			}
-			
+
             return Datatables::of($data_arr)
 				->addIndexColumn()
 				->addColumn('action', function($row){
 					$btn = "";
-					
+
 					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
 						<span class="svg-icon svg-icon-5 m-0">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -270,9 +276,9 @@ class ClientController extends Controller
 							</svg>
 						</span>
 					</a>';
-					
+
 					$btn .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">';
-						if (Auth::user()->can('setup-write')) 
+						if (Auth::user()->can('setup-write'))
 						{
 							$btn .= '<div class="menu-item px-3">
 								<a href="javascript:void(0)" data-id="'.$row['id'].'" data-name="'.$row['name'].'" data-holder="'.$row['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
@@ -291,21 +297,21 @@ class ClientController extends Controller
 							</div>';
 						}
 					$btn .= '</div>';
-					
+
                     return $btn;
                 })
 				->rawColumns(['action'])
                 ->make(true);
         }
 	}
-	
+
 	public function getNormalAccountData(Request $request)
 	{
 		if ($request->ajax())
-		{  
+		{
 			$auth_user = Auth::user();
 			$service_type = $request->service_type;
-			
+
 			if($service_type != "") {
 				$normalAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
 												where("client_demat.service_type",$service_type)->
@@ -318,14 +324,14 @@ class ClientController extends Controller
 												where("client_demat.freelancer_id",0)->
 												select('client_demat.*','clients.name')->get();
             }
-			
+
 			$data_arr = array();
 			foreach($normalAccount as $data)
 			{
 				$datetime1 = strtotime($data->created_at);
 				$datetime2 = strtotime(date("Y-m-d"));
 				$days = (int)(($datetime2 - $datetime1)/86400);
-				
+
 				$tempData = array(
 					'id' => $data->id,
 					'name' => $data->name,
@@ -339,12 +345,12 @@ class ClientController extends Controller
 				);
 				array_push($data_arr, $tempData);
 			}
-			
+
             return Datatables::of($data_arr)
 				->addIndexColumn()
 				->addColumn('action', function($data){
 					$btn = "";
-					
+
 					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
 						<span class="svg-icon svg-icon-5 m-0">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -352,9 +358,9 @@ class ClientController extends Controller
 							</svg>
 						</span>
 					</a>';
-					
+
 					$btn .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">';
-						if (Auth::user()->can('setup-write')) 
+						if (Auth::user()->can('setup-write'))
 						{
 							$btn .= '<div class="menu-item px-3">
 									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
@@ -373,32 +379,32 @@ class ClientController extends Controller
 								</div>';
 						}
 					$btn .= '</div>';
-					
+
                     return $btn;
                 })
 				->rawColumns(['action'])
                 ->make(true);
         }
 	}
-	
+
 	public function getHoldingData(Request $request)
 	{
 		if ($request->ajax())
-		{  
+		{
 			$auth_user = Auth::user();
 
 			$normalAccount = ClientDemat::joinSub('select client_demate_id,count(*) as no_of_holding from calls group by client_demate_id', 'totalCalls', 'client_demat.id', '=', 'totalCalls.client_demate_id', 'left')
 										->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
 										where("client_demat.account_status","holding")->
 										select('client_demat.*','clients.name','totalCalls.no_of_holding')->get();
-            
+
 			$data_arr = array();
 			foreach($normalAccount as $data)
 			{
 				$datetime1 = strtotime($data->created_at);
 				$datetime2 = strtotime(date("Y-m-d"));
 				$days = (int)(($datetime2 - $datetime1)/86400);
-				
+
 				$tempData = array(
 					'id' => $data->id,
 					'name' => $data->name,
@@ -413,12 +419,12 @@ class ClientController extends Controller
 				);
 				array_push($data_arr, $tempData);
 			}
-			
+
             return Datatables::of($data_arr)
 				->addIndexColumn()
 				->addColumn('action', function($data){
 					$btn = "";
-					
+
 					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
 						<span class="svg-icon svg-icon-5 m-0">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -426,9 +432,9 @@ class ClientController extends Controller
 							</svg>
 						</span>
 					</a>';
-					
+
 					$btn .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">';
-						if (Auth::user()->can('setup-write')) 
+						if (Auth::user()->can('setup-write'))
 						{
 							$btn .= '<div class="menu-item px-3">
 									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 viewDematHolding" data-value="holding">View Positions</a>
@@ -450,23 +456,23 @@ class ClientController extends Controller
 								</div>';
 						}
 					$btn .= '</div>';
-					
+
                     return $btn;
                 })
 				->rawColumns(['action'])
                 ->make(true);
         }
 	}
-	
+
 	public function getAllAcountData(Request $request)
 	{
 		if ($request->ajax())
-		{  
+		{
 			$auth_user = Auth::user();
 			$allotment_type = $request->allotment_type;
-			
+
 			if($allotment_type != "") {
-				
+
 				if($allotment_type == 1) {
 					$allAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
 												where("client_demat.trader_id",">",0)->
@@ -474,7 +480,7 @@ class ClientController extends Controller
 												where("client_demat.account_status","!=","renew")->
 												where("client_demat.is_make_as_preferred",0)->
 												select('client_demat.*','clients.name')->get();
-				} else {	
+				} else {
 					$allAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
 												where("client_demat.freelancer_id",">",0)->
 												where("client_demat.account_status","!=","problem")->
@@ -482,27 +488,27 @@ class ClientController extends Controller
 												where("client_demat.is_make_as_preferred",0)->
 												select('client_demat.*','clients.name')->get();
 				}
-			} else {	
+			} else {
 				$allAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
 											where("client_demat.account_status","!=","problem")->
 											where("client_demat.account_status","!=","renew")->
 											where("client_demat.is_make_as_preferred",0)->
 											select('client_demat.*','clients.name')->get();
 			}
-			
+
 			$data_arr = array();
 			foreach($allAccount as $data)
 			{
 				$datetime1 = strtotime($data->created_at);
 				$datetime2 = strtotime(date("Y-m-d"));
 				$days = (int)(($datetime2 - $datetime1)/86400);
-				
+
 				if($data->service_type == 1) {
 					$serviceType = "PRIME";
 				} else if($data->service_type == 2) {
 					$serviceType = "AMS";
 				}
-				 
+
 				$tempData = array(
 					'id' => $data->id,
 					'name' => $data->name,
@@ -516,12 +522,12 @@ class ClientController extends Controller
 				);
 				array_push($data_arr, $tempData);
 			}
-			
+
             return Datatables::of($data_arr)
 				->addIndexColumn()
 				->addColumn('action', function($data){
 					$btn = "";
-					
+
 					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
 						<span class="svg-icon svg-icon-5 m-0">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -529,9 +535,9 @@ class ClientController extends Controller
 							</svg>
 						</span>
 					</a>';
-					
+
 					$btn .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">';
-						if (Auth::user()->can('setup-write')) 
+						if (Auth::user()->can('setup-write'))
 						{
 							$btn .= '<div class="menu-item px-3">
 									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
@@ -550,32 +556,32 @@ class ClientController extends Controller
 								</div>';
 						}
 					$btn .= '</div>';
-					
+
                     return $btn;
                 })
 				->rawColumns(['action'])
                 ->make(true);
         }
 	}
-	
+
 	public function getTraderAcountData(Request $request)
 	{
 		if ($request->ajax())
-		{  
+		{
 			$auth_user = Auth::user();
 
 			$trderAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
 										leftJoin('users', 'client_demat.trader_id', '=', 'users.id')->
 										where("client_demat.trader_id","!=",0)->
 										select('client_demat.*','clients.name','users.name as trader_name')->get();
-            
+
 			$data_arr = array();
 			foreach($trderAccount as $data)
 			{
 				$datetime1 = strtotime($data->created_at);
 				$datetime2 = strtotime(date("Y-m-d"));
 				$days = (int)(($datetime2 - $datetime1)/86400);
-				
+
 				$tempData = array(
 					'id' => $data->id,
 					'name' => $data->name,
@@ -590,12 +596,12 @@ class ClientController extends Controller
 				);
 				array_push($data_arr, $tempData);
 			}
-			
+
             return Datatables::of($data_arr)
 				->addIndexColumn()
 				->addColumn('action', function($data){
 					$btn = "";
-					
+
 					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
 						<span class="svg-icon svg-icon-5 m-0">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -603,9 +609,9 @@ class ClientController extends Controller
 							</svg>
 						</span>
 					</a>';
-					
+
 					$btn .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">';
-						if (Auth::user()->can('setup-write')) 
+						if (Auth::user()->can('setup-write'))
 						{
 							$btn .= '<div class="menu-item px-3">
 										<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
@@ -625,32 +631,32 @@ class ClientController extends Controller
 									</div>';
 						}
 					$btn .= '</div>';
-					
+
                     return $btn;
                 })
 				->rawColumns(['action'])
                 ->make(true);
         }
 	}
-	
+
 	public function getFreelancerAccountData(Request $request)
 	{
 		if ($request->ajax())
-		{  
+		{
 			$auth_user = Auth::user();
 
 			$freelancerAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
 										leftJoin('users', 'client_demat.freelancer_id', '=', 'users.id')->
 										where("client_demat.freelancer_id","!=",0)->
 										select('client_demat.*','clients.name','users.name as freelancer_name')->get();
-            
+
 			$data_arr = array();
 			foreach($freelancerAccount as $data)
 			{
 				$datetime1 = strtotime($data->created_at);
 				$datetime2 = strtotime(date("Y-m-d"));
 				$days = (int)(($datetime2 - $datetime1)/86400);
-				
+
 				$tempData = array(
 					'id' => $data->id,
 					'name' => $data->name,
@@ -665,12 +671,12 @@ class ClientController extends Controller
 				);
 				array_push($data_arr, $tempData);
 			}
-			
+
             return Datatables::of($data_arr)
 				->addIndexColumn()
 				->addColumn('action', function($data){
 					$btn = "";
-					
+
 					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
 						<span class="svg-icon svg-icon-5 m-0">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -678,9 +684,9 @@ class ClientController extends Controller
 							</svg>
 						</span>
 					</a>';
-					
+
 					$btn .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">';
-						if (Auth::user()->can('setup-write')) 
+						if (Auth::user()->can('setup-write'))
 						{
 							$btn .= '<div class="menu-item px-3">
 									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
@@ -699,32 +705,32 @@ class ClientController extends Controller
 								</div>';
 						}
 					$btn .= '</div>';
-					
+
                     return $btn;
                 })
 				->rawColumns(['action'])
                 ->make(true);
         }
 	}
-	
+
 	public function getUnallotedData(Request $request)
 	{
 		if ($request->ajax())
-		{  
+		{
 			$auth_user = Auth::user();
 
 			$unallotedAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
 											where("client_demat.freelancer_id","==",0)->
 											where("client_demat.trader_id","==",0)->
 											select('client_demat.*','clients.name')->get();
-            
+
 			$data_arr = array();
 			foreach($unallotedAccount as $data)
 			{
 				$datetime1 = strtotime($data->created_at);
 				$datetime2 = strtotime(date("Y-m-d"));
 				$days = (int)(($datetime2 - $datetime1)/86400);
-				
+
 				$tempData = array(
 					'id' => $data->id,
 					'name' => $data->name,
@@ -737,12 +743,12 @@ class ClientController extends Controller
 				);
 				array_push($data_arr, $tempData);
 			}
-			
+
             return Datatables::of($data_arr)
 				->addIndexColumn()
 				->addColumn('action', function($data){
 					$btn = "";
-					
+
 					$btn .= '<a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
 						<span class="svg-icon svg-icon-5 m-0">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -750,9 +756,9 @@ class ClientController extends Controller
 							</svg>
 						</span>
 					</a>';
-					
+
 					$btn .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">';
-						if (Auth::user()->can('setup-write')) 
+						if (Auth::user()->can('setup-write'))
 						{
 							$btn .= '<div class="menu-item px-3">
 									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
@@ -772,22 +778,22 @@ class ClientController extends Controller
 								</div>';
 						}
 					$btn .= '</div>';
-					
+
                     return $btn;
                 })
 				->rawColumns(['action'])
                 ->make(true);
         }
 	}
-	
+
 	public function getCloseCallData(Request $request)
 	{
 		if ($request->ajax())
-		{  
+		{
 			$auth_user = Auth::user();
 			$filterDate = $request->start_date;
 			$monitorData = MonitorDataServices::all($auth_user->id,$filterDate);
-            
+
 			$data_arr = array();
 			foreach($monitorData['close'] as $monitor)
 			{
@@ -800,12 +806,12 @@ class ClientController extends Controller
 				);
 				array_push($data_arr, $tempData);
 			}
-			
+
             return Datatables::of($data_arr)
 				->addIndexColumn()
 				->addColumn('action', function($row){
 					$btn = "";
-					
+
 					if (Auth::user()->can('monitor-write')) {
 						$btn .= '<a data-monitor_id="'.$row['id'].'" data-call_type="closeCall" class="editCall menu-link p-1" title="Edit call">
 									<i class="fa fa-edit text-dark fa-2x"></i>

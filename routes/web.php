@@ -154,7 +154,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/getTraderAcount",[ClientController::class,'getTraderAcountData'])->name('getTraderAcountData');
     Route::POST("/getFreelancerAccount",[ClientController::class,'getFreelancerAccountData'])->name('getFreelancerAccountData');
     Route::POST("/getUnalloted",[ClientController::class,'getUnallotedData'])->name('getUnallotedData');
-	
+
     Route::POST("/call/assignDematTrader",[ClientController::class,'assignTraderToDemat'])->name('assignTraderToDemat');
     Route::POST("/makeAsPreferred",[ClientController::class,"makeAsPreferred"])->name("makeAsPreferred");
     Route::POST("/updateDematStatus",[ClientController::class,"updateDematStatus"])->name("updateDematStatus");
@@ -182,7 +182,7 @@ Route::group(['middleware' => ['auth']], function() {
     // removeProfession
     Route::get("/settings/clients/removeProfession/{id}",[ProfessionController::class,"remove"])->name("removeProfession");
     // viewClientsServicesType
-    Route::get("/settings/clients/viewClientsServicesType",[servicesTypeController::class,"view"])->name("viewClientsServicesType");    
+    Route::get("/settings/clients/viewClientsServicesType",[servicesTypeController::class,"view"])->name("viewClientsServicesType");
     // edit Service Type
     Route::POST("/settings/clients/viewClientsServicesType",[servicesTypeController::class, "editServiceType"])->name("editServiceType");
     // get Service Type

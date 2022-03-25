@@ -227,7 +227,7 @@ class ClientServices
         ]
         );
         $demat['client_id'] = array();
-        
+
         // remove all existing accounts
         ClientDemat::where("client_id",$id)->delete();
         // remove all existing payments
@@ -428,5 +428,9 @@ class ClientServices
         select('client_demat.*','clients.name')->get();
 
         return $dematAccount;
+    }
+
+    public static function getClientUsingMobileNo($mobile_number,$client_type){
+        return Client::where('number',$mobile_number)->where('client_type',$client_type)->get()->toArray();
     }
 }
