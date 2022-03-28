@@ -31,7 +31,7 @@
                             <!--begin::Page title-->
                             <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                                 <!--begin::Title-->
-                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Roles</h1>
+                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Client Demate Details</h1>
                                 <!--end::Title-->
                                 <!--begin::Separator-->
                                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -49,7 +49,7 @@
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
-                                    <li class="breadcrumb-item text-dark">Roles</li>
+                                    <li class="breadcrumb-item text-dark">Client Demate Details</li>
                                     <!--end::Item-->
                                 </ul>
                                 <!--end::Breadcrumb-->
@@ -201,7 +201,7 @@
                                             <div class="d-flex flex-stack pt-10">
                                                 <div>
                                                     <button type="button" class="btn btn-sm btn-primary" id="calculationBtn">Rough Calculation</button>
-                                                    <button type="button" data-id='{{$demateDetails->id}}' id="backToTrade" class="btn btn-sm btn-primary changeStatus" data-value="normal">Back to trade</button>
+                                                    <button type="button" data-id='{{$demateDetails->id}}' id="backToTrade" class="btn btn-sm btn-primary" data-value="normal">Back to trade</button>
                                                 </div>
         									</div>
                                         </div>
@@ -275,8 +275,8 @@
                         
                         <!--begin::Actions-->
                         <div class="text-end">
-                            <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" id="call_modal_submit" class="btn btn-primary">
+                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary changeStatus">
                                 <span class="indicator-label">Update</span>
                                 <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -295,10 +295,9 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
-                $(document).on("click",'.changeStatus',function(e){
-                    const id=e.target.getAttribute("data-id");
-                    // const value=e.target.getAttribute("data-value");
-                    const value="to_renew";
+                $("#backToTrade").on("click",function(e){
+                    const id = $("#backToTrade").attr("data-id");
+                    const value="normal";
                     $.ajax("{!! route('updateDematStatus') !!}",{
                         type:"POST",
                         data:{

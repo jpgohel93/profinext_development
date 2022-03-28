@@ -25,4 +25,8 @@ class renewalStatusController extends Controller
         ClientDemateServices::updatePL($request);
         return Redirect::route("renewal_status")->with("info","PL Updated");
     }
+    public function mark_as_problem(Request $request){
+        ClientDemateServices::markAsProblem($request);
+        return Redirect::route("renewal_status")->with("info", "Account marked");
+    }
 }

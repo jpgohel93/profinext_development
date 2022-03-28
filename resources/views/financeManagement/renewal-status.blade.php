@@ -474,6 +474,7 @@
                                                                     <th class="min-w-75px">Smart Id</th>
                                                                     <th class="min-w-75px">Joining Date</th>
                                                                     <th class="min-w-75px">Demat Holder Name</th>
+                                                                    <th class="min-w-75px">Joining Capital</th>
                                                                     <th class="min-w-75px">Available Fund</th>
                                                                     <th class="min-w-75px">P / L</th>
                                                                     <th class="min-w-75px">Action</th>
@@ -489,11 +490,19 @@
                                                                         <td>{{$newAccount->st_sg}}</td>
                                                                         <td>{{date("Y-m-d",strtotime($newAccount->created_at))}}</td>
                                                                         <td>{{$newAccount->holder_name}}</td>
+                                                                        <td>{{$newAccount->capital}}</td>
                                                                         <td>{{$newAccount->available_balance}}</td>
                                                                         <td>{{$newAccount->pl}}</td>
                                                                         <td>
-                                                                            <a href="{{route('clientDematView',$newAccount->id)}}" target="_blank" class='newGenerateInvoice'>Generate Invoice</a><br/>
-                                                                            <a href="{{route('clientDematView',$newAccount->id)}}" target="_blank" class='mark_as_problem'>Mark as Problem</a><br/>
+                                                                            <a href="{{route('clientDematView',$newAccount->id)}}" target="_blank" class='newGenerateInvoice'>
+                                                                                <i class="fas fa-file text-primary fa-lg" data-id="{{$newAccount->id}}"></i>
+                                                                            </a>
+                                                                            <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
+                                                                                <i class="fas fa-exclamation-circle text-warning fa-lg" data-id="{{$newAccount->id}}"></i>
+                                                                            </a>
+                                                                            <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
+                                                                                <i class="fas fa-trash text-danger fa-lg" data-id="{{$newAccount->id}}"></i>
+                                                                            </a>
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
@@ -663,12 +672,139 @@
         </div>
         <!--end::Page-->
     </div>
+    <div class="modal fade" id="mark_as_problem_modal" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog">
+            <!--begin::Modal content-->
+            <div class="modal-content rounded">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0">
+                    <!--begin::Close-->
+                    <!--begin::Heading-->
+                        <div class="">
+                            <!--begin::Title-->
+                            <h3 class="mb-3">Mark as Problem</h3>
+                            <!--end::Title-->
+                        </div>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    @if($errors->any())
+                        <h5 class="alert alert-danger" id="modelError">{{$errors->first()}}</h5>
+                    @endif
+                    <!--begin:Form-->
+                    <form id="mark_as_problem_form" method="POST" action="{{route('mark_as_problem')}}" class="form">
+                        @csrf
+                        <div class="row mb-8">
+                            <!--begin::Col-->
+                            <div class="col-md-6">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Select options:</span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Profession name"></i>
+                                </label>
+                                <!--end::Label-->
+                                <div class="form-check form-check-custom form-check-solid m-2">
+                                    <input type="checkbox" class="form-check-input markAsProblemCheckbox mx-3" name='paymentPending' value="0" id="paymentPending">
+                                    <label class="custom-control-label" for="paymentPending">Payment Pending</label>
+                                </div>
+                                <div class="form-check form-check-custom form-check-solid m-2">
+                                    <input type="checkbox" class="form-check-input markAsProblemCheckbox mx-3" name='SegmentNotActive' value="0" id="SegmentNotActive">
+                                    <label class="custom-control-label" for="SegmentNotActive">Segment Not Active</label>
+                                </div>
+                                <div class="form-check form-check-custom form-check-solid m-2">
+                                    <input type="checkbox" class="form-check-input markAsProblemCheckbox mx-3" name='PANCardPending' value="0" id="PANCardPending">
+                                    <label class="custom-control-label" for="PANCardPending">PAN Card Pending</label>
+                                </div>
+                                <div class="form-check form-check-custom form-check-solid m-2">
+                                    <input type="checkbox" class="form-check-input markAsProblemCheckbox mx-3" name='WrongInformation' value="0" id="WrongInformation">
+                                    <label class="custom-control-label" for="WrongInformation">Wrong Information</label>
+                                </div>
+                                <div class="form-check form-check-custom form-check-solid m-2">
+                                    <input type="checkbox" class="form-check-input markAsProblemCheckbox mx-3" name='Other' value="0" id="Other">
+                                    <label class="custom-control-label" for="Other">Other</label>
+                                </div>
+                            </div>
+                            <div class="m-2" id="WrongInformationTextDiv">
+                                <label class="custom-control-label" for="Other">Wrong Information</label>
+                                <textarea type="text" class="form-control mx-3" name='WrongInformationText' value="" id="WrongInformationText"></textarea>
+                            </div>
+                            <div class="m-2" id="OtherTextDiv">
+                                <label class="custom-control-label" for="Other">Other</label>
+                                <textarea type="text" class="form-control mx-3" name='OtherText' value="" id="OtherText"></textarea>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        
+                        <!--begin::Actions-->
+                        <div class="text-end">
+                            <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" id="call_modal_submit" class="btn btn-primary">
+                                <span class="indicator-label">Add</span>
+                                <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    </form>
+                    <!--end:Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
+                $("[data-bs-toggle='tab'][href='#new']")[0].click();
                 $(document).on("click",".mark_as_problem",function(e){
-                    
+                    $("#modelError").remove();
+                    const id = $(e.target).data("id");
+                    if(id){
+                        $("#mark_as_problem_modal").modal("show");
+                        $("#mark_as_problem_form").append(`<input type="hidden" name="demat_id" value="${id}">`);
+                    }else{
+                        window.alert("invalid demat account");
+                    }
                 })
+                $(document).on("click",".markAsProblemCheckbox",function(e){
+                    if($(this).is(":checked")){
+                        $(this).val(1);
+                    }else{
+                        $(this).val(0);
+                    }
+                })
+                $("#WrongInformation").on("click",function(e){
+                    if($(this).is(":checked")){
+                        $("#WrongInformationTextDiv").show();
+                    }else{
+                        $("#WrongInformationTextDiv").hide();
+                    }
+                })
+                $("#WrongInformationTextDiv").hide();
+                $("#Other").on("click",function(e){
+                    if($(this).is(":checked")){
+                        $("#OtherTextDiv").show();
+                    }else{
+                        $("#OtherTextDiv").hide();
+                    }
+                })
+                $("#OtherTextDiv").hide();
             },jQuery)
         })
     </script>

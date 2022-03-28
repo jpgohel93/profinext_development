@@ -18,6 +18,7 @@ use App\Http\Controllers\ChannelPartnerController;
 use App\Http\Controllers\KeywordController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\servicesTypeController;
+use App\Http\Controllers\financeManagementControllers\BankControllers;
 
 // financeManagementControllers
 use App\Http\Controllers\financeManagementControllers\renewalStatusController;
@@ -259,6 +260,18 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/financeManagement/renewal_status",[renewalStatusController::class,"view"])->name("renewal_status");
     Route::get("/financeManagement/clientDematView/{id}",[renewalStatusController::class, "clientDematView"])->name("clientDematView");
     Route::POST("/financeManagement/clientDemat/updatePL",[renewalStatusController::class, "updatePL"])->name("clientDematupdatePL");
+    Route::POST("/financeManagement/clientDemat/markAsProblem",[renewalStatusController::class, "mark_as_problem"])->name("mark_as_problem");
+    
+    // finance Management Bank
+    Route::get("/financeManagement/bank",[BankControllers::class, "financeManagementBank"])->name("financeManagementBank");
+    Route::POST("/financeManagement/bank/add",[BankControllers::class, "addFinanceManagementBank"])->name("addFinanceManagementBank");
+    Route::POST("/financeManagement/bank/get",[BankControllers::class, "financeManagementGetBank"])->name("financeManagementGetBank");
+    Route::get("/financeManagement/bank/edit/{id?}",[BankControllers::class, "financeManagementEditBank"])->name("financeManagementEditBank");
+    Route::post("/financeManagement/bank/edit",[BankControllers::class, "editFinanceManagementBank"])->name("editFinanceManagementBank");
+    Route::post("/financeManagement/bank/setTarget",[BankControllers::class, "setTargetFinanceManagementBank"])->name("setTargetFinanceManagementBank");
+    Route::post("/financeManagement/bank/setPrimary",[BankControllers::class, "setPrimaryFinanceManagementBank"])->name("setPrimaryFinanceManagementBank");
+    Route::post("/financeManagement/bank/activateDeactivateAccount",[BankControllers::class, "activateDeactivateAccountFinanceManagementBank"])->name("activateDeactivateAccountFinanceManagementBank");
+
     // Business Management
     Route::get("/businessManagement",[renewalStatusController::class,"view"])->name("business_management");
 });

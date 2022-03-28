@@ -123,8 +123,7 @@ class ClientController extends Controller
     }
     // assign client to freelancer
     public function clientDematAccount($filter_type = null, $filter_id = null ){
-
-        $freelancerAms= UserServices::getByType(4);
+		$freelancerAms= UserServices::getByType(4);
         $freelancerPrime = UserServices::getByType(5);
         $dematAccount = ClientServices::getClientDematAccount($filter_type, $filter_id);
 

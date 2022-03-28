@@ -366,7 +366,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link @yield('finance_management.bank')" href="{{route('viewClientsProfession')}}">
+                            <a class="menu-link @yield('finance_management.bank')" href="{{route('financeManagementBank')}}">
                                 <span class="menu-bullet">
                                     <i class="fas fa-solid fa-building-columns"></i>
                                 </span>
