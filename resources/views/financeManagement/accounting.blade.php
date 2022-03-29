@@ -378,7 +378,8 @@
                                                                     <td>{{$incomeRecord->date}}</td>
                                                                     <td>{{$incomeRecord->sub_heading}}</td>
                                                                     <td>{{$incomeRecord->text_box}}</td>
-                                                                    <td>{{($incomeRecord->mode==0)?"Cash":$incomeRecord->bank}}</td>
+                                                                    <td>{{($incomeRecord->mode==0)?"Cash":"Bank"}}</td>
+                                                                    <td>{{$incomeRecord->amount}}</td>
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>
@@ -896,9 +897,9 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Text Box:</span> 
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" name="text_box" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
-                                    <textarea type="text" class="form-control mx-3" name=''></textarea>
+                                    <textarea type="text" class="form-control mx-3" name='text_box'></textarea>
                                 </div>
                                 <div class="form-group col-md-3">
                                      <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
