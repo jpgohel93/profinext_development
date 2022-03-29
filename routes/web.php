@@ -19,6 +19,7 @@ use App\Http\Controllers\KeywordController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\servicesTypeController;
 use App\Http\Controllers\financeManagementControllers\BankControllers;
+use App\Http\Controllers\financeManagementControllers\AccountingController;
 
 // financeManagementControllers
 use App\Http\Controllers\financeManagementControllers\renewalStatusController;
@@ -271,7 +272,17 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post("/financeManagement/bank/setTarget",[BankControllers::class, "setTargetFinanceManagementBank"])->name("setTargetFinanceManagementBank");
     Route::post("/financeManagement/bank/setPrimary",[BankControllers::class, "setPrimaryFinanceManagementBank"])->name("setPrimaryFinanceManagementBank");
     Route::post("/financeManagement/bank/activateDeactivateAccount",[BankControllers::class, "activateDeactivateAccountFinanceManagementBank"])->name("activateDeactivateAccountFinanceManagementBank");
-
+    
+    // finance Management Accounting
+    Route::get("/financeManagement/accounting", [AccountingController::class, "financeManagementAccounting"])->name("financeManagementAccounting");
+    // finance Management heading
+    Route::get("/financeManagement/headings", [AccountingController::class, "financeManagementHeadings"])->name("financeManagementHeadings");
+    Route::post("/financeManagement/heading/add", [AccountingController::class, "financeManagementAddHeadings"])->name("financeManagementAddHeadings");
+    Route::post("/financeManagement/heading/get", [AccountingController::class, "getHeadingById"])->name("financeManagementGetHeadings");
+    Route::post("/financeManagement/heading/edit", [AccountingController::class, "financeManagementEditHeadings"])->name("financeManagementEditHeadings");
+    Route::post("/financeManagement/heading/activateDeactivateHeading",[AccountingController::class, "activateDeactivateHeadingFinanceManagementAccounting"])->name("activateDeactivateHeadingFinanceManagementAccounting");
+    // finance Management income
+    Route::post("/financeManagement/income/add", [AccountingController::class, "financeManagementAddIncome"])->name("accounting.income");
     // Business Management
     Route::get("/businessManagement",[renewalStatusController::class,"view"])->name("business_management");
 });

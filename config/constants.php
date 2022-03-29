@@ -36,6 +36,12 @@ return [
         "Business Management",
         'Call',
         'Keyword',
+    ],
+    "LABEL_TYPES"=>[
+        "income",
+        "expense",
+        "transfer",
+        "loan"
     ]
 ];
 

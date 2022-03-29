@@ -881,12 +881,12 @@
                                 type:"POST",
                                 data:{
                                     id:id
-                                },
+                                }
                             })
                             .done(data=>{
                                 if(data['info']){
-                                    $("#currentPrimaryAccount").removeClass("fa-close").addClass("fa-check");
-                                    $("[data-id='"+id+"'].fa-check").addClass("fa-close").removeClass("fa-check");
+                                    $("#currentPrimaryAccount").removeClass("fa-close").addClass("fa-check").attr("id","");
+                                    $("[data-id='"+id+"'].fa-check").addClass("fa-close").removeClass("fa-check").attr("id","currentPrimaryAccount");
                                     $("#kt_toolbar").before(`<div class="container"><h5 class="alert alert-info">${data['info']}</h5></div>`);
                                 }
                             })
@@ -906,6 +906,9 @@
                             status:status
                         }
                     })
+                    .fail((err,code,xhr)=>{
+                        $("#kt_toolbar").before(`<div class="container"><h5 class="alert alert-info">Unable to update status</h5></div>`);
+                    })
                     .done(data=>{
                         if(status==0){
                             $("[data-id='"+id+"'].fa-unlock").removeClass("fa-unlock").addClass("fa-lock");
@@ -913,9 +916,6 @@
                             $("[data-id='"+id+"'].fa-lock").removeClass("fa-lock").addClass("fa-unlock");
                         }
                         $("#kt_toolbar").before(`<div class="container"><h5 class="alert alert-info">${data['info']}</h5></div>`);
-                    })
-                    .fail((err,code,xhr)=>{
-                        $("#kt_toolbar").before(`<div class="container"><h5 class="alert alert-info">Unable to update status</h5></div>`);
                     })
                 }
                 $(document).on("click",".fa-unlock",function(){

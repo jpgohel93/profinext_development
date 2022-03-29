@@ -197,7 +197,6 @@ class ClientController extends Controller
             }
         }
         ClientServices::updateClientDematAccount($request->id, $requestData);
-
         if ($request->status == "holding" || $request->status == "problem"){
             return Redirect::route("viewTraderAccounts")->with("info", "stactus change successfully.");
         }else{

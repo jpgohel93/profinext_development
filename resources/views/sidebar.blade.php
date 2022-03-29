@@ -358,7 +358,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link @yield('finance_management.accounting')" href="{{route('viewClientsProfession')}}">
+                            <a class="menu-link @yield('finance_management.accounting')" href="{{route('financeManagementAccounting')}}">
                                 <span class="menu-bullet">
                                     <i class="fas fa-solid fa-arrows-turn-to-dots"></i>
                                 </span>
