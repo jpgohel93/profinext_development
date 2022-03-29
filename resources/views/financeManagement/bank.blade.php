@@ -365,8 +365,8 @@
                                                                     <td>{{$forSalary->reserve_balance}}</td>
                                                                     <td>0</td>
                                                                     <td>
-                                                                        <a href="{{route('clientDematView',$forIncome->id)}}" target="_blank" class='verifyDemate'>
-                                                                            <i class="fas fa-eye fa-lg" data-bs-toggle="tooltip" title="View More"></i>
+                                                                        <a href="javascript:void(0)">
+                                                                            <i class="fas fa-eye fa-lg viewBankAccount" data-id="{{$forSalary->id}}" data-bs-toggle="tooltip" title="View More"></i>
                                                                         </a>
                                                                         @if($forSalary->is_active)
                                                                             <a href="javascript:void(0)">
@@ -842,8 +842,8 @@
                             $("#viewForIncomeFields").show();
                             $("#viewForSalaryFields").hide();
                         }else{
-                            $("#viewForSalaryFields").hide();
-                            $("#viewForIncomeFields").show();
+                            $("#viewForSalaryFields").show();
+                            $("#viewForIncomeFields").hide();                            
                         }
                         $("#view_title").val(data.title).prop("readonly",true);
                         $("#view_account_type").val(data.account_type).prop("readonly",true);
