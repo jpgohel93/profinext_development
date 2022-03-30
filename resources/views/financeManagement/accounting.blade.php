@@ -3,6 +3,9 @@
 @section("finance_management.accounting","active")
 @section("finance_management.accordion","hover show")
 @section("content")
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <div class="loading"></div>
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -141,7 +144,7 @@
                                                 <!--begin::Search-->
                                                 <div class="d-flex align-items-center position-relative my-1">
                                                     <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                                                    {{-- <span class="svg-icon svg-icon-1 position-absolute ms-6">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                              viewBox="0 0 24 24" fill="none">
                                                             <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
@@ -151,11 +154,25 @@
                                                                 d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
                                                                 fill="black" />
                                                         </svg>
-                                                    </span>
+                                                    </span> --}}
                                                     <!--end::Svg Icon-->
-                                                    <input type="text" data-kt-user-table-filter="search"
-                                                           class="form-control form-control-solid w-250px ps-14"
-                                                           placeholder="Search user" />
+                                                    {{-- <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Search user" /> --}}
+                                                    <!--end::Label-->
+                                                    <div class="form-group">
+                                                        <select class="form-select form-select-solid" multiple id="filterDropDown" style="width:100%" data-control="select2" data-placeholder="Select sub heading">
+                                                            <option value="all" selected>All</option>
+                                                            <option value="income">Income</option>
+                                                            <option value="expense">Expense</option>
+                                                            <option value="transfer">Transfer</option>
+                                                            <option value="loan">Loan</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                                            <i class="fa fa-calendar"></i>&nbsp;
+                                                            <span></span> <i class="fa fa-caret-down"></i>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <!--end::Search-->
                                             </div>
@@ -163,7 +180,7 @@
                                             <!--begin::Card toolbar-->
 
                                             <div class="card-toolbar">
-                                                <!--begin::Toolbar-->
+                                                {{-- <!--begin::Toolbar-->
                                                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                                     <div class="d-flex justify-content-between">
                                                         <!--begin::Export-->
@@ -213,7 +230,7 @@
                                                     </div>
                                                     <!--end::Export-->
                                                 </div>
-                                                <!--end::Toolbar-->
+                                                <!--end::Toolbar--> --}}
                                             </div>
                                             <!--end::Card toolbar-->
                                         </div>
@@ -221,35 +238,66 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                                    @if (isset($alls))
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="allTable">
+                                                    @if (isset($all))
                                                         <!--begin::Table head-->
                                                         <thead>
                                                             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                                 <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Smart Id</th>
-                                                                <th class="min-w-75px">Joining Date</th>
-                                                                <th class="min-w-75px">Demat Holder Name</th>
-                                                                <th class="min-w-75px">Available Fund</th>
-                                                                <th class="min-w-75px">P / L</th>
-                                                                <th class="min-w-75px">Action</th>
+                                                                <th class="min-w-75px">Date</th>
+                                                                <th class="min-w-75px">Heading</th>
+                                                                <th class="min-w-75px">Sub Heading</th>
+                                                                <th class="min-w-75px">Particular</th>
+                                                                <th class="min-w-75px">Mode</th>
+                                                                <th class="min-w-75px">Amount</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        <tbody class="text-gray-600 fw-bold">
                                                             @php
                                                                 $i=1;
                                                             @endphp
-                                                            @foreach($alls as $all)
+                                                            @foreach($incomeRecords as $incomeRecord)
                                                                 <tr>
-                                                                    <td>{{$all->serial_number}}</td>
-                                                                    <td>{{$all->st_sg}}</td>
-                                                                    <td>{{date("Y-m-d",strtotime($all->created_at))}}</td>
-                                                                    <td>{{$all->holder_name}}</td>
-                                                                    <td>{{$all->available_balance}}</td>
-                                                                    <td>{{$all->pl}}</td>
-                                                                    <td>
-                                                                        <a href="{{route('clientDematView',$all->id)}}" target="_blank"class='verifyDemate'>Verify</a>
-                                                                    </td>
+                                                                    <td>{{sprintf("%04d",$i++)}}</td>
+                                                                    <td data-sort="{{date("Ymdhis",strtotime($incomeRecord->created_at))}}">{{$incomeRecord->date}}</td>
+                                                                    <td>Income</td>
+                                                                    <td>{{$incomeRecord->sub_heading}}</td>
+                                                                    <td>{{$incomeRecord->text_box}}</td>
+                                                                    <td>{{($incomeRecord->mode==0)?"Cash":$incomeRecord->bank_name->title}}</td>
+                                                                    <td style="color:#3cba54">{{$incomeRecord->amount}}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                            @foreach($expensRecords as $expense)
+                                                                <tr>
+                                                                    <td>{{sprintf("%04d",$i++)}}</td>
+                                                                    <td data-sort="{{date("Ymdhis",strtotime($expense->created_at))}}">{{$expense->date}}</td>
+                                                                    <td>Expense</td>
+                                                                    <td>{{$expense->sub_heading}}</td>
+                                                                    <td>{{$expense->text_box}}</td>
+                                                                    <td>{{($expense->mode==0)?"Cash":$expense->bank_name->title}}</td>
+                                                                    <td style="color:#db3236">{{$expense->amount}}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                            @foreach($transferRecords as $transfer)
+                                                                <tr>
+                                                                    <td>{{sprintf("%04d",$i++)}}</td>
+                                                                    <td data-sort="{{date("Ymdhis",strtotime($transfer->created_at))}}">{{$transfer->date}}</td>
+                                                                    <td>Transfer</td>
+                                                                    <td>{{$transfer->purpose}}</td>
+                                                                    <td>{{$transfer->narration}}</td>
+                                                                    <td>{{$transfer->from}}</td>
+                                                                    <td style="color:#4885ed">{{$transfer->amount}}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                            @foreach($loanRecords as $loan)
+                                                                <tr>
+                                                                    <td>{{sprintf("%04d",$loan->id)}}</td>
+                                                                    <td data-sort="{{date("Ymdhis",strtotime($loan->created_at))}}">{{$loan->date}}</td>
+                                                                    <td>Loan</td>
+                                                                    <td>{{$loan->sub_heading}}</td>
+                                                                    <td>{{$loan->narration}}</td>
+                                                                    <td>{{($loan->mode==0)?"Cash":$loan->bank_name->title}}</td>
+                                                                    <td style="color:#f4c20d">{{$loan->amount}}</td>
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>
@@ -275,22 +323,12 @@
                                             <div class="card-title">
                                                 <!--begin::Search-->
                                                 <div class="d-flex align-items-center position-relative my-1">
-                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                             viewBox="0 0 24 24" fill="none">
-                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                                  fill="black" />
-                                                            <path
-                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                                                fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                    <!--end::Svg Icon-->
-                                                    <input type="text" data-kt-user-table-filter="search"
-                                                           class="form-control form-control-solid w-250px ps-14"
-                                                           placeholder="Search user" />
+                                                    <div class="form-group">
+                                                        <div id="incomeFilter" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                                            <i class="fa fa-calendar"></i>&nbsp;
+                                                            <span></span> <i class="fa fa-caret-down"></i>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <!--end::Search-->
                                             </div>
@@ -298,7 +336,7 @@
                                             <!--begin::Card toolbar-->
 
                                             <div class="card-toolbar">
-                                                <!--begin::Toolbar-->
+                                                {{-- <!--begin::Toolbar-->
                                                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                                     <div class="d-flex justify-content-between">
                                                         <!--begin::Export-->
@@ -350,7 +388,7 @@
                                                     </div>
                                                     <!--end::Export-->
                                                 </div>
-                                                <!--end::Toolbar-->
+                                                <!--end::Toolbar--> --}}
                                             </div>
                                             <!--end::Card toolbar-->
                                         </div>
@@ -358,7 +396,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="incomeTable">
                                                     @if (isset($incomeRecords))
                                                         <!--begin::Table head-->
                                                         <thead>
@@ -378,8 +416,8 @@
                                                                     <td>{{$incomeRecord->date}}</td>
                                                                     <td>{{$incomeRecord->sub_heading}}</td>
                                                                     <td>{{$incomeRecord->text_box}}</td>
-                                                                    <td>{{($incomeRecord->mode==0)?"Cash":"Bank"}}</td>
-                                                                    <td>{{$incomeRecord->amount}}</td>
+                                                                    <td>{{($incomeRecord->mode==0)?"Cash":$incomeRecord->bank_name->title}}</td>
+                                                                    <td style="color:#3cba54">{{$incomeRecord->amount}}</td>
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>
@@ -405,22 +443,12 @@
                                             <div class="card-title">
                                                 <!--begin::Search-->
                                                 <div class="d-flex align-items-center position-relative my-1">
-                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                             viewBox="0 0 24 24" fill="none">
-                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                                  fill="black" />
-                                                            <path
-                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                                                fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                    <!--end::Svg Icon-->
-                                                    <input type="text" data-kt-user-table-filter="search"
-                                                           class="form-control form-control-solid w-250px ps-14"
-                                                           placeholder="Search user" />
+                                                    <div class="form-group">
+                                                        <div id="expenseFilter" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                                            <i class="fa fa-calendar"></i>&nbsp;
+                                                            <span></span> <i class="fa fa-caret-down"></i>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <!--end::Search-->
                                             </div>
@@ -428,7 +456,7 @@
                                             <!--begin::Card toolbar-->
 
                                             <div class="card-toolbar">
-                                                <!--begin::Toolbar-->
+                                                {{-- <!--begin::Toolbar-->
                                                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                                     <div class="d-flex justify-content-between">
                                                         <!--begin::Export-->
@@ -480,7 +508,7 @@
                                                     </div>
                                                     <!--end::Export-->
                                                 </div>
-                                                <!--end::Toolbar-->
+                                                <!--end::Toolbar--> --}}
                                             </div>
                                             <!--end::Card toolbar-->
                                         </div>
@@ -488,51 +516,34 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                                    @if (isset($newAccounts))
-                                                            <!--begin::Table head-->
-                                                            <thead>
-                                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                    <th class="min-w-10px">Sr No.</th>
-                                                                    <th class="min-w-75px">Smart Id</th>
-                                                                    <th class="min-w-75px">Joining Date</th>
-                                                                    <th class="min-w-75px">Demat Holder Name</th>
-                                                                    <th class="min-w-75px">Joining Capital</th>
-                                                                    <th class="min-w-75px">Available Fund</th>
-                                                                    <th class="min-w-75px">P / L</th>
-                                                                    <th class="min-w-75px">Action</th>
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="expenseTable">
+                                                    @if (isset($expensRecords))
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                                <th class="min-w-10px">Sr No.</th>
+                                                                <th class="min-w-75px">Date</th>
+                                                                <th class="min-w-75px">Sub Heading</th>
+                                                                <th class="min-w-75px">Client Name</th>
+                                                                <th class="min-w-75px">Mode</th>
+                                                                <th class="min-w-75px">Amount</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold">
+                                                            @foreach($expensRecords as $expense)
+                                                                <tr>
+                                                                    <td>{{sprintf("%04d",$expense->id)}}</td>
+                                                                    <td>{{$expense->date}}</td>
+                                                                    <td>{{$expense->sub_heading}}</td>
+                                                                    <td>{{$expense->text_box}}</td>
+                                                                    <td>{{($expense->mode==0)?"Cash":$expense->bank_name->title}}</td>
+                                                                    <td style="color:#db3236">{{$expense->amount}}</td>
                                                                 </tr>
-                                                            </thead>
-                                                            <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                                @php
-                                                                    $i=1;
-                                                                @endphp
-                                                                @foreach($newAccounts as $newAccount)
-                                                                    <tr>
-                                                                        <td>{{$newAccount->serial_number}}</td>
-                                                                        <td>{{$newAccount->st_sg}}</td>
-                                                                        <td>{{date("Y-m-d",strtotime($newAccount->created_at))}}</td>
-                                                                        <td>{{$newAccount->holder_name}}</td>
-                                                                        <td>{{$newAccount->capital}}</td>
-                                                                        <td>{{$newAccount->available_balance}}</td>
-                                                                        <td>{{$newAccount->pl}}</td>
-                                                                        <td>
-                                                                            <a href="{{route('clientDematView',$newAccount->id)}}" target="_blank" class='newGenerateInvoice'>
-                                                                                <i class="fas fa-file text-primary fa-lg" data-id="{{$newAccount->id}}"></i>
-                                                                            </a>
-                                                                            <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
-                                                                                <i class="fas fa-exclamation-circle text-warning fa-lg" data-id="{{$newAccount->id}}"></i>
-                                                                            </a>
-                                                                            <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
-                                                                                <i class="fas fa-trash text-danger fa-lg" data-id="{{$newAccount->id}}"></i>
-                                                                            </a>
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        @else
-                                                            <h3>Records not available</h3>
-                                                        @endif
+                                                            @endforeach
+                                                        </tbody>
+                                                    @else
+                                                        <h3>Records not available</h3>
+                                                    @endif
                                                 <!--end::Table body-->
                                                 </table>
                                             </div>
@@ -552,22 +563,12 @@
                                             <div class="card-title">
                                                 <!--begin::Search-->
                                                 <div class="d-flex align-items-center position-relative my-1">
-                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                             viewBox="0 0 24 24" fill="none">
-                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                                  fill="black" />
-                                                            <path
-                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                                                fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                    <!--end::Svg Icon-->
-                                                    <input type="text" data-kt-user-table-filter="search"
-                                                           class="form-control form-control-solid w-250px ps-14"
-                                                           placeholder="Search user" />
+                                                    <div class="form-group">
+                                                        <div id="transferFilter" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                                            <i class="fa fa-calendar"></i>&nbsp;
+                                                            <span></span> <i class="fa fa-caret-down"></i>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <!--end::Search-->
                                             </div>
@@ -575,7 +576,7 @@
                                             <!--begin::Card toolbar-->
 
                                             <div class="card-toolbar">
-                                                <!--begin::Toolbar-->
+                                                {{-- <!--begin::Toolbar-->
                                                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                                     <div class="d-flex justify-content-between">
                                                         <!--begin::Export-->
@@ -627,7 +628,7 @@
                                                     </div>
                                                     <!--end::Export-->
                                                 </div>
-                                                <!--end::Toolbar-->
+                                                <!--end::Toolbar--> --}}
                                             </div>
                                             <!--end::Card toolbar-->
                                         </div>
@@ -635,36 +636,30 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                                    @if (isset($renewedAccounts))
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="transferTable">
+                                                    @if (isset($transferRecords))
                                                         <!--begin::Table head-->
                                                         <thead>
                                                             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                                 <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Smart Id</th>
-                                                                <th class="min-w-75px">Joining Date</th>
-                                                                <th class="min-w-75px">Demat Holder Name</th>
-                                                                <th class="min-w-75px">Available Fund</th>
-                                                                <th class="min-w-75px">P / L</th>
-                                                                <th class="min-w-75px">Action</th>
+                                                                <th class="min-w-75px">Date</th>
+                                                                <th class="min-w-75px">From</th>
+                                                                <th class="min-w-75px">Purpose</th>
+                                                                <th class="min-w-75px">To</th>
+                                                                <th class="min-w-75px">Narration</th>
+                                                                <th class="min-w-75px">Amount</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                            @php
-                                                                $i=1;
-                                                            @endphp
-                                                            @foreach($renewedAccounts as $renewedAccount)
+                                                        <tbody class="text-gray-600 fw-bold">
+                                                            @foreach($transferRecords as $transfer)
                                                                 <tr>
-                                                                    <td>{{$renewedAccount->serial_number}}</td>
-                                                                    <td>{{$renewedAccount->st_sg}}</td>
-                                                                    <td>{{date("Y-m-d",strtotime($renewedAccount->created_at))}}</td>
-                                                                    <td>{{$renewedAccount->holder_name}}</td>
-                                                                    <td>{{$renewedAccount->available_balance}}</td>
-                                                                    <td>{{$renewedAccount->pl}}</td>
-                                                                    <td>
-                                                                        <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>Edit</a><br/>
-                                                                        <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>View Invoice</a><br/>
-                                                                    </td>
+                                                                    <td>{{sprintf("%04d",$transfer->id)}}</td>
+                                                                    <td>{{$transfer->date}}</td>
+                                                                    <td>{{$transfer->from}}</td>
+                                                                    <td>{{$transfer->purpose}}</td>
+                                                                    <td>{{$transfer->to}}</td>
+                                                                    <td>{{$transfer->narration}}</td>
+                                                                    <td style="color:#4885ed">{{$transfer->amount}}</td>
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>
@@ -690,22 +685,12 @@
                                             <div class="card-title">
                                                 <!--begin::Search-->
                                                 <div class="d-flex align-items-center position-relative my-1">
-                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                             viewBox="0 0 24 24" fill="none">
-                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                                  fill="black" />
-                                                            <path
-                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                                                fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                    <!--end::Svg Icon-->
-                                                    <input type="text" data-kt-user-table-filter="search"
-                                                           class="form-control form-control-solid w-250px ps-14"
-                                                           placeholder="Search user" />
+                                                    <div class="form-group">
+                                                        <div id="loanFilter" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                                            <i class="fa fa-calendar"></i>&nbsp;
+                                                            <span></span> <i class="fa fa-caret-down"></i>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <!--end::Search-->
                                             </div>
@@ -713,7 +698,7 @@
                                             <!--begin::Card toolbar-->
 
                                             <div class="card-toolbar">
-                                                <!--begin::Toolbar-->
+                                                {{-- <!--begin::Toolbar-->
                                                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                                     <div class="d-flex justify-content-between">
                                                         <!--begin::Export-->
@@ -765,7 +750,7 @@
                                                     </div>
                                                     <!--end::Export-->
                                                 </div>
-                                                <!--end::Toolbar-->
+                                                <!--end::Toolbar--> --}}
                                             </div>
                                             <!--end::Card toolbar-->
                                         </div>
@@ -773,44 +758,43 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                                    @if (isset($renewedAccounts))
+                                                @if (isset($loanRecords))
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="loanTable">
                                                         <!--begin::Table head-->
                                                         <thead>
                                                             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                                 <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Smart Id</th>
-                                                                <th class="min-w-75px">Joining Date</th>
-                                                                <th class="min-w-75px">Demat Holder Name</th>
-                                                                <th class="min-w-75px">Available Fund</th>
-                                                                <th class="min-w-75px">P / L</th>
-                                                                <th class="min-w-75px">Action</th>
+                                                                <th class="min-w-75px">Date</th>
+                                                                <th class="min-w-75px">Sub Heading</th>
+                                                                <th class="min-w-75px">User</th>
+                                                                <th class="min-w-75px">Narration</th>
+                                                                <th class="min-w-75px">Mode</th>
+                                                                <th class="min-w-75px">Interest</th>
+                                                                <th class="min-w-75px">Amount</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold" id="activeCallTable">
                                                             @php
                                                                 $i=1;
                                                             @endphp
-                                                            @foreach($renewedAccounts as $renewedAccount)
+                                                            @foreach($loanRecords as $loan)
                                                                 <tr>
-                                                                    <td>{{$renewedAccount->serial_number}}</td>
-                                                                    <td>{{$renewedAccount->st_sg}}</td>
-                                                                    <td>{{date("Y-m-d",strtotime($renewedAccount->created_at))}}</td>
-                                                                    <td>{{$renewedAccount->holder_name}}</td>
-                                                                    <td>{{$renewedAccount->available_balance}}</td>
-                                                                    <td>{{$renewedAccount->pl}}</td>
-                                                                    <td>
-                                                                        <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>Edit</a><br/>
-                                                                        <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>View Invoice</a><br/>
-                                                                    </td>
+                                                                    <td>{{sprintf("%04d",$loan->id)}}</td>
+                                                                    <td>{{$loan->date}}</td>
+                                                                    <td>{{$loan->sub_heading}}</td>
+                                                                    <td>{{$loan->user_name->name}}</td>
+                                                                    <td>{{$loan->narration}}</td>
+                                                                    <td>{{($loan->mode==0)?"Cash":$loan->bank_name->title}}</td>
+                                                                    <td>{{$loan->interest}}</td>
+                                                                    <td style="color:#f4c20d">{{$loan->amount}}</td>
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>
-                                                    @else
-                                                        <h3>Records not available</h3>
-                                                    @endif
-                                                <!--end::Table body-->
-                                                </table>
+                                                    </table>
+                                                @else
+                                                    <h3>Records not available</h3>
+                                                @endif
+                                            <!--end::Table body-->
                                             </div>
                                             <!--end::Table-->
                                         </div>
@@ -904,11 +888,11 @@
                                 <div class="form-group col-md-3">
                                      <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                         <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
-                                        <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" name="mode" value="0" />
+                                        <input class="form-check-input togglePaymentMode" togglePaymentMode type="checkbox" name="mode" value="0" />
                                         <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
                                     </label>
                                 </div>
-                                <div class="form-group" id="incomeBankDropDown">
+                                <div class="form-group incomeBankDropDown" style="display:none">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Bank:</span>
@@ -963,23 +947,668 @@
         </div>
         <!--end::Modal dialog-->
     </div>
+    <div class="modal fade" id="expensesModel" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog">
+            <!--begin::Modal content-->
+            <div class="modal-content rounded">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0">
+                    <!--begin::Close-->
+                    <!--begin::Heading-->
+                        <div class="">
+                            <!--begin::Title-->
+                            <h3 class="mb-3">Expenses:</h3>
+                            <!--end::Title-->
+                        </div>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <!--begin:Form-->
+                    <form method="POST" action="{{route('accounting.expense')}}" class="form">
+                        @csrf
+                        <div class="row mb-8">
+                            <!--begin::Col-->
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Date:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
+                                </div>
+                                
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Sub Heading:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select form-select-solid" name="sub_heading" data-control="select2" data-placeholder="Select sub heading">
+                                        @forelse ($headings['expenses'] as $heading)
+                                            <option value="{{$heading->sub_heading}}">{{$heading->sub_heading}}</option>
+                                        @empty
+                                            <option value="">Select Heading</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Text Box:</span> 
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <textarea type="text" class="form-control mx-3" name='text_box'></textarea>
+                                </div>
+                                <div class="form-group col-md-3">
+                                     <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
+                                        <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
+                                        <input class="form-check-input togglePaymentMode" togglePaymentMode type="checkbox" name="mode" value="0" />
+                                        <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
+                                    </label>
+                                </div>
+                                <div class="form-group incomeBankDropDown" style="display:none">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Bank:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <select class="form-select form-select-solid" name="bank" data-control="select2">
+                                        @forelse ($incomeBanks as $bank)
+                                            <option value="{{$bank->id}}">{{$bank->title}}</option>
+                                        @empty
+                                            <option value="" selected>Select bank</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Amount:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" value="{{old('amount')}}" name="amount" class="form-control form-control-solid" value=""/>
+                                </div>
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Narration:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <textarea type="text" class="form-control mx-3" name='narration'></textarea   tarea>
+                                </div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        
+                        <!--begin::Actions-->
+                        <div class="text-end">
+                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="indicator-label">Add</span>
+                                <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    </form>
+                    <!--end:Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+    <div class="modal fade" id="transferModel" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog">
+            <!--begin::Modal content-->
+            <div class="modal-content rounded">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0">
+                    <!--begin::Close-->
+                    <!--begin::Heading-->
+                        <div class="">
+                            <!--begin::Title-->
+                            <h3 class="mb-3">Transfer:</h3>
+                            <!--end::Title-->
+                        </div>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <!--begin:Form-->
+                    <form method="POST" action="{{route('accounting.transfer')}}" class="form">
+                        @csrf
+                        <div class="row mb-8">
+                            <!--begin::Col-->
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Date:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
+                                </div>
+                                
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">From:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select form-select-solid" name="from" id="transferFrom" data-control="select2" data-placeholder="Select sub heading">
+                                        @forelse ($incomeBanks as $bank)
+                                        <option value="cash">Cash</option>
+                                            <option value="{{$bank->title}}">{{$bank->title}}</option>
+                                        @empty
+                                            <option value="">Select option</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Purpose:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select form-select-solid" name="purpose" id="transferPurpose" data-control="select2" data-placeholder="Select sub heading">
+                                        @forelse ($headings['income'] as $heading)
+                                            <option value="{{$heading->sub_heading}}">{{$heading->sub_heading}}</option>
+                                        @empty
+                                            <option value="">Select Heading</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">To:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select form-select-solid" name="to" id="transferTo" data-control="select2" data-placeholder="Select Bank"></select>
+                                </div>
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Narration:</span> 
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <textarea type="text" class="form-control mx-3" name='narration'></textarea>
+                                </div>
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Amount:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" value="{{old('amount')}}" name="amount" class="form-control form-control-solid" value=""/>
+                                </div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        
+                        <!--begin::Actions-->
+                        <div class="text-end">
+                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="indicator-label">Add</span>
+                                <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    </form>
+                    <!--end:Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+    <div class="modal fade" id="loanModel" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog">
+            <!--begin::Modal content-->
+            <div class="modal-content rounded">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0">
+                    <!--begin::Close-->
+                    <!--begin::Heading-->
+                        <div class="">
+                            <!--begin::Title-->
+                            <h3 class="mb-3">Loan:</h3>
+                            <!--end::Title-->
+                        </div>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <!--begin:Form-->
+                    <form method="POST" action="{{route('accounting.loan')}}" class="form">
+                        @csrf
+                        <div class="row mb-8">
+                            <!--begin::Col-->
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Date:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
+                                </div>
+                                
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Sub Heading:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select form-select-solid" name="sub_heading" data-control="select2" data-placeholder="Select sub heading">
+                                        @forelse ($headings['loan'] as $loan)
+                                            <option value="{{$loan->sub_heading}}">{{$loan->sub_heading}}</option>
+                                        @empty
+                                            <option value="">Select option</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Users:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <select class="form-select form-select-solid" name="user" data-control="select2" data-placeholder="Select sub heading">
+                                        @forelse ($users as $user)
+                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                        @empty
+                                            <option value="">Select User</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Narration:</span> 
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <textarea type="text" class="form-control mx-3" name='narration'></textarea>
+                                </div>
+                                <div class="form-group col-md-3">
+                                     <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
+                                        <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
+                                        <input class="form-check-input togglePaymentMode" togglePaymentMode type="checkbox" name="mode" value="0" />
+                                        <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
+                                    </label>
+                                </div>
+                                <div class="form-group incomeBankDropDown" style="display:none">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Bank:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <select class="form-select form-select-solid" name="bank" data-control="select2">
+                                        @forelse ($incomeBanks as $bank)
+                                            <option value="{{$bank->id}}">{{$bank->title}}</option>
+                                        @empty
+                                            <option value="" selected>Select bank</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Interest:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" value="{{old('interest')}}" name="interest" class="form-control form-control-solid" value=""/>
+                                </div>
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Amount:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" value="{{old('amount')}}" name="amount" class="form-control form-control-solid" value=""/>
+                                </div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        
+                        <!--begin::Actions-->
+                        <div class="text-end">
+                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="indicator-label">Add</span>
+                                <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    </form>
+                    <!--end:Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
+                $(".loading").hide();
+                var table = $("table.datatable").DataTable({
+                    "order": [[1, "DESC" ]]
+                });
                 $("#incomeBtn").on("click",function(e){
                     $("#incomeModel").modal("show");
                 })
-                $("#togglePaymentMode").on("click",function(){
+                $("#expenseBtn").on("click",function(e){
+                    $("#expensesModel").modal("show");
+                })
+                $("#transferBtn").on("click",function(e){
+                    $("#transferModel").modal("show");
+                })
+                $("#loanBtn").on("click",function(e){
+                    $("#loanModel").modal("show");
+                })
+                $(document).on("click",".togglePaymentMode",function(){
                     if($(this).is(":checked")){
                         $(this).val(1);
-                        $("#incomeBankDropDown").show();
+                        $(this).parents("div.form-group").next(".incomeBankDropDown").show();
                     }else{
                         $(this).val(0);
-                        $("#incomeBankDropDown").hide();
+                        $(this).parents("div.form-group").next(".incomeBankDropDown").hide();
                     }
                 })
-                $("#incomeBankDropDown").hide();
+                // transfer
+                $("#transferPurpose").on("change",function(){
+                    const purpose = $(this).val();
+                    // get user's bank
+                    $.ajax("{{route('accounting.TransferGetUsersBank')}}",{
+                        type:"POST",
+                        data:{
+                            purpose:purpose
+                        }
+                    })
+                    .done(data=>{
+                        let options = `<option value="">Select option</option>`;
+                        if(data.length > 0){
+                            $.each(data,(i,v)=>{
+                                options+=`<option value='${v}'>${v}</option>`;
+                            })
+                        }
+                        $("#transferTo").html(options);
+                    })
+                    .fail((err)=>{
+                        // window.alert("Unable to get bank details");
+                    })
+                })
+                // filters
+                var start = moment().startOf('month');
+                var end = moment().endOf('month');
+
+                function cb(start, end) {
+                    $('#reportrange span,#incomeFilter span,#expenseFilter span,#transferFilter span,#loanFilter span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                }
+
+                $('#reportrange,#incomeFilter,#expenseFilter,#transferFilter,#loanFilter').daterangepicker({
+                    startDate: start,
+                    endDate: end,
+                    ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    }
+                }, cb);
+                cb(start, end);                
+                var drp = $('#reportrange').data('daterangepicker');
+                $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+                    let startDate = picker.startDate.format('YYYY-MM-DD');
+                    let endDate = picker.endDate.format('YYYY-MM-DD');
+                    table.draw();
+                });
+                $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
+                    $('#reportrange').data('daterangepicker').setStartDate("");
+                    $('#reportrange').data('daterangepicker').setEndDate("");
+                    table.draw();
+                    $('#reportrange').data('daterangepicker').setStartDate(new Date());
+                    $('#reportrange').data('daterangepicker').setEndDate(new Date());
+                });
+
+                $("#filterDropDown").on("change",function(){
+                    table.draw();
+                })
+
+                // income daterangepicker
+                var incomeFilter = $('#incomeFilter').data('daterangepicker');
+                var incomeTableApi = $("#incomeTable").dataTable().api();
+                $('#incomeFilter').on('apply.daterangepicker', function(ev, picker) {
+                    let startDate = picker.startDate.format('YYYY-MM-DD');
+                    let endDate = picker.endDate.format('YYYY-MM-DD');
+                    incomeTableApi.draw();
+                });
+
+                // expense daterangepicker
+                var expenseFilter = $('#expenseFilter').data('daterangepicker');
+                var expenseTableApi = $("#expenseTable").dataTable().api();
+
+                $('#expenseFilter').on('apply.daterangepicker', function(ev, picker) {
+                    let startDate = picker.startDate.format('YYYY-MM-DD');
+                    let endDate = picker.endDate.format('YYYY-MM-DD');
+                    expenseTableApi.draw();
+                });
+
+                // transfer daterangepicker
+                var transferFilter = $('#transferFilter').data('daterangepicker');
+                var transferTableApi = $("#transferTable").dataTable().api();
+
+                $('#transferFilter').on('apply.daterangepicker', function(ev, picker) {
+                    let startDate = picker.startDate.format('YYYY-MM-DD');
+                    let endDate = picker.endDate.format('YYYY-MM-DD');
+                    transferTableApi.draw();
+                });
+
+                // loan daterangepicker
+                var loanFilter = $('#loanFilter').data('daterangepicker');
+                var loanTableApi = $("#loanTable").dataTable().api();
+
+                $('#loanFilter').on('apply.daterangepicker', function(ev, picker) {
+                    let startDate = picker.startDate.format('YYYY-MM-DD');
+                    let endDate = picker.endDate.format('YYYY-MM-DD');
+                    loanTableApi.draw();
+                });
+
+
+                // date range filter api
+                $.fn.dataTable.ext.search.push(
+                    function( settings, data, dataIndex ) {
+                        if( settings.nTable.id == "allTable"){
+                            let filter = $("#filterDropDown").val();
+                            let min = drp.startDate.format("YYYY-MM-DD");
+                            let max = drp.endDate.format("YYYY-MM-DD");
+                            if(min=="Invalid date" || max=="Invalid date"){
+                                return true;
+                            }else{
+                                min = new Date(drp.startDate.format('YYYY-MM-DD'));
+                                max = new Date(drp.endDate.format('YYYY-MM-DD'));
+                                var date = new Date( data[1] );
+                                var heading = data[2];
+                                if(filter.length==1 && filter[0]=="all"){
+                                    if (
+                                        ( min === null && max === null ) ||
+                                        ( min === null && date <= max ) ||
+                                        ( min <= date   && max === null ) ||
+                                        ( min <= date   && date <= max )
+                                    ) {
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+                                }else{
+                                    if (
+                                        ( min === null && max === null ) ||
+                                        ( min === null && date <= max ) ||
+                                        ( min <= date   && max === null ) ||
+                                        ( min <= date   && date <= max ) && $.inArray(heading.toLowerCase(), filter) !== -1
+                                    ) {
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+                                }
+                            }
+                            return false;
+                        }else if(settings.nTable.id == "incomeTable"){
+                            let min = incomeFilter.startDate.format("YYYY-MM-DD");
+                            let max = incomeFilter.endDate.format("YYYY-MM-DD");
+                            var date = new Date( data[1] );
+                            if(min=="Invalid date" || max=="Invalid date"){
+                                return true;
+                            }
+                            min = new Date(incomeFilter.startDate.format('YYYY-MM-DD'));
+                            max = new Date(incomeFilter.endDate.format('YYYY-MM-DD'));
+                            if (
+                                ( min === null && max === null ) ||
+                                ( min === null && date <= max ) ||
+                                ( min <= date   && max === null ) ||
+                                ( min <= date   && date <= max )
+                            ) {
+                                return true;
+                            }else{
+                                return false;
+                            }
+                        }else if(settings.nTable.id == "expenseTable"){
+                            let min = expenseFilter.startDate.format("YYYY-MM-DD");
+                            let max = expenseFilter.endDate.format("YYYY-MM-DD");
+                            var date = new Date( data[1] );
+                            if(min=="Invalid date" || max=="Invalid date"){
+                                return true;
+                            }
+                            min = new Date(expenseFilter.startDate.format('YYYY-MM-DD'));
+                            max = new Date(expenseFilter.endDate.format('YYYY-MM-DD'));
+                            if (
+                                ( min === null && max === null ) ||
+                                ( min === null && date <= max ) ||
+                                ( min <= date   && max === null ) ||
+                                ( min <= date   && date <= max )
+                            ) {
+                                return true;
+                            }else{
+                                return false;
+                            }
+                        }else if(settings.nTable.id == "transferTable"){
+                            let min = transferFilter.startDate.format("YYYY-MM-DD");
+                            let max = transferFilter.endDate.format("YYYY-MM-DD");
+                            var date = new Date( data[1] );
+                            if(min=="Invalid date" || max=="Invalid date"){
+                                return true;
+                            }
+                            min = new Date(transferFilter.startDate.format('YYYY-MM-DD'));
+                            max = new Date(transferFilter.endDate.format('YYYY-MM-DD'));
+                            if (
+                                ( min === null && max === null ) ||
+                                ( min === null && date <= max ) ||
+                                ( min <= date   && max === null ) ||
+                                ( min <= date   && date <= max )
+                            ) {
+                                return true;
+                            }else{
+                                return false;
+                            }
+                        }else if(settings.nTable.id == "loanTable"){
+                            let min = loanFilter.startDate.format("YYYY-MM-DD");
+                            let max = loanFilter.endDate.format("YYYY-MM-DD");
+                            var date = new Date( data[1] );
+                            if(min=="Invalid date" || max=="Invalid date"){
+                                return true;
+                            }
+                            min = new Date(loanFilter.startDate.format('YYYY-MM-DD'));
+                            max = new Date(loanFilter.endDate.format('YYYY-MM-DD'));
+                            if (
+                                ( min === null && max === null ) ||
+                                ( min === null && date <= max ) ||
+                                ( min <= date   && max === null ) ||
+                                ( min <= date   && date <= max )
+                            ) {
+                                return true;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            return true;
+                        }
+                    }
+                );
+                
             },jQuery)
         })
     </script>
+    @section('jscript')
+        <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    @endsection
 @endsection

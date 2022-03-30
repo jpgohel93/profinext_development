@@ -24,6 +24,6 @@ class financeManagementIncomesServices{
         return financeManagementIncomesModel::create($income);
     }
     public static function getAllIncomeRows(){
-        return financeManagementIncomesModel::get();
+        return financeManagementIncomesModel::with(["bank_name"])->get();
     }
 }

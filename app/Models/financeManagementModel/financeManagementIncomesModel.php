@@ -22,4 +22,8 @@ class financeManagementIncomesModel extends Model
         "deleted_by",
         "deleted_at",
     ];
+    public function bank_name()
+    {
+        return $this->hasOne(BankModel::class, "id", "bank")->latest();
+    }
 }

@@ -20,6 +20,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\servicesTypeController;
 use App\Http\Controllers\financeManagementControllers\BankControllers;
 use App\Http\Controllers\financeManagementControllers\AccountingController;
+use App\Http\Controllers\financeManagementControllers\FinancialStatusController;
 
 // financeManagementControllers
 use App\Http\Controllers\financeManagementControllers\renewalStatusController;
@@ -283,6 +284,17 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post("/financeManagement/heading/activateDeactivateHeading",[AccountingController::class, "activateDeactivateHeadingFinanceManagementAccounting"])->name("activateDeactivateHeadingFinanceManagementAccounting");
     // finance Management income
     Route::post("/financeManagement/income/add", [AccountingController::class, "financeManagementAddIncome"])->name("accounting.income");
+    // finance Management expense
+    Route::post("/financeManagement/expense/add", [AccountingController::class, "financeManagementAddExpense"])->name("accounting.expense");
+    // finance Management transfer
+    Route::post("/financeManagement/transfer/add", [AccountingController::class, "financeManagementAddTransfer"])->name("accounting.transfer");
+    Route::post("/financeManagement/transfer/userBanks/get", [AccountingController::class, "financeManagementTransferGetUsersBank"])->name("accounting.TransferGetUsersBank");
+    // finance Management loan
+    Route::post("/financeManagement/loan/add", [AccountingController::class, "financeManagementAddLoan"])->name("accounting.loan");
+
+    // finance Management - Financial Status
+    Route::get("/financeManagement/FinancialStatus", [FinancialStatusController::class, "financialStatus"])->name("financeManagementFinancialStatus");
+    
     // Business Management
     Route::get("/businessManagement",[renewalStatusController::class,"view"])->name("business_management");
 });
