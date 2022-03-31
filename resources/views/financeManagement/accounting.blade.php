@@ -3,9 +3,8 @@
 @section("finance_management.accounting","active")
 @section("finance_management.accordion","hover show")
 @section("content")
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <div class="loading"></div>
+    
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -1195,7 +1194,6 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
-                $(".loading").hide();
                 var table = $("table.datatable").DataTable({
                     "order": [[1, "DESC" ]]
                 });
@@ -1482,7 +1480,6 @@
         })
     </script>
     @section('jscript')
-        <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     @endsection

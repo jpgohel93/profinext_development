@@ -42,4 +42,7 @@ class User extends Authenticatable
     public function count(){
         return $this->hasMany(TraderModal::class,'trader_id',"id");
     }
+    public function withNumber(){
+        return $this->belongsTo(UserNumbers::class,"id","user_id");
+    }
 }

@@ -25,3 +25,6 @@ $.ajaxSetup({
         disableLoader();
     }
 });
+window.addEventListener("DOMContentLoaded",function(){
+    $(".loading").hide();
+})

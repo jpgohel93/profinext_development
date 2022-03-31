@@ -3,7 +3,6 @@
 @section("settings_management.clients.services_type","active")
 @section("settings_management.accordion","hover show")
 @section("content")
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -394,7 +393,4 @@
             })
         })
     </script>
-    @section('jscript')
-        <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-    @endsection
 @endsection

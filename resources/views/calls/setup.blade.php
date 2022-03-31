@@ -3,13 +3,7 @@
 @section("setup","active")
 @section("trade_management.accordion","hover show")
 @section("content")
-    <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
-	<style>
-		#normal_acc_table, #holding_table, #all_table, #trader_table, #freelancer_table, #unallotted_table {
-			width: 100% !important;
-		}
-	</style>
+	
     <!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
@@ -858,224 +852,224 @@
 @endsection
 
 @section('jscript')
-	<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 	<script>
-	$(function() {
-		analyst_table = $('#preferred_table').DataTable({
-			processing: true,
-			serverSide: true,
-			"ordering": true,
-			"info":     false,
-			ajax: {
-				type: "POST",
-				url : "{{ route('getPreferredAccountData') }}",
-				data: {_token : "{{csrf_token()}}"}
-			},
-			columns: [
-				{data: 'DT_RowIndex', name: 'DT_RowIndex'},
-				{data: 'serial_number'},
-				{data: 'holder_name'},
-				{data: 'available_balance'},
-				{data: 'pl'},
-				{data: 'days'},
-				{data: 'action'},
-			],
-			"drawCallback": function(settings) {
-				KTMenu.createInstances();
-			}
-		});
-		
-		normal_acc_table = $('#normal_acc_table').DataTable({
-			processing: true,
-			serverSide: true,
-			"ordering": true,
-			"info":     false,
-			ajax: {
-				type: "POST",
-				url : "{{ route('getNormalAccountData') }}",
-				data: function(d){
-					var service_type = $('#service_type').val();
-                    return $.extend( {}, d, {
-						_token : "{{csrf_token()}}",
-						service_type : service_type
-					});
-				}
-			},
-			columns: [
-				{data: 'DT_RowIndex', name: 'DT_RowIndex'},
-				{data: 'serial_number'},
-				{data: 'holder_name'},
-				{data: 'available_balance'},
-				{data: 'pl'},
-				{data: 'days'},
-				{data: 'action'},
-			],
-			"drawCallback": function(settings) {
-				KTMenu.createInstances();
-			}
-		});
-		
-		holding_table = $('#holding_table').DataTable({
-			processing: true,
-			serverSide: true,
-			"ordering": true,
-			"info":     false,
-			ajax: {
-				type: "POST",
-				url : "{{ route('getHoldingData') }}",
-				data: {_token : "{{csrf_token()}}"}
-			},
-			columns: [
-				{data: 'DT_RowIndex', name: 'DT_RowIndex'},
-				{data: 'serial_number'},
-				{data: 'holder_name'},
-				{data: 'no_of_holding'},
-				{data: 'available_balance'},
-				{data: 'pl'},
-				{data: 'days'},
-				{data: 'action'},
-			],
-			"drawCallback": function(settings) {
-				KTMenu.createInstances();
-			}
-		});
-		
-		all_table = $('#all_table').DataTable({
-			processing: true,
-			serverSide: true,
-			"ordering": true,
-			"info":     false,
-			ajax: {
-				type: "POST",
-				url : "{{ route('getAllAcountData') }}",
-				data: function(d){
-					var allotment_type = $('#allotment_type').val();
-                    return $.extend( {}, d, {
-						_token : "{{csrf_token()}}",
-						allotment_type : allotment_type
-					});
-				}
-			},
-			columns: [
-				{data: 'DT_RowIndex', name: 'DT_RowIndex'},
-				{data: 'serial_number'},
-				{data: 'holder_name'},
-				{data: 'available_balance'},
-				{data: 'pl'},
-				{data: 'serviceType'},
-				{data: 'action'},
-			],
-			"drawCallback": function(settings) {
-				KTMenu.createInstances();
-			}
-		});
-		
-		trader_table = $('#trader_table').DataTable({
-			processing: true,
-			serverSide: true,
-			"ordering": true,
-			"info":     false,
-			ajax: {
-				type: "POST",
-				url : "{{ route('getTraderAcountData') }}",
-				data: {_token : "{{csrf_token()}}"}
-			},
-			columns: [
-				{data: 'DT_RowIndex', name: 'DT_RowIndex'},
-				{data: 'serial_number'},
-				{data: 'holder_name'},
-				{data: 'trader_name'},
-				{data: 'available_balance'},
-				{data: 'pl'},
-				{data: 'days'},
-				{data: 'action'},
-			],
-			"drawCallback": function(settings) {
-				KTMenu.createInstances();
-			}
-		});
-		
-		freelancer_table = $('#freelancer_table').DataTable({
-			processing: true,
-			serverSide: true,
-			"ordering": true,
-			"info":     false,
-			ajax: {
-				type: "POST",
-				url : "{{ route('getFreelancerAccountData') }}",
-				data: {_token : "{{csrf_token()}}"}
-			},
-			columns: [
-				{data: 'DT_RowIndex', name: 'DT_RowIndex'},
-				{data: 'serial_number'},
-				{data: 'holder_name'},
-				{data: 'freelancer_name'},
-				{data: 'available_balance'},
-				{data: 'pl'},
-				{data: 'days'},
-				{data: 'action'},
-			],
-			"drawCallback": function(settings) {
-				KTMenu.createInstances();
-			}
-		});
-		
-		unallotted_table = $('#unallotted_table').DataTable({
-			processing: true,
-			serverSide: true,
-			"ordering": true,
-			"info":     false,
-			ajax: {
-				type: "POST",
-				url : "{{ route('getUnallotedData') }}",
-				data: {_token : "{{csrf_token()}}"}
-			},
-			columns: [
-				{data: 'DT_RowIndex', name: 'DT_RowIndex'},
-				{data: 'serial_number'},
-				{data: 'holder_name'},
-				{data: 'capital'},
-				{data: 'created_at'},
-				{data: 'action'},
-			],
-			"drawCallback": function(settings) {
-				KTMenu.createInstances();
-			}
-		});
-		
-		$(document).on('change','#service_type',function(){
-			normal_acc_table.draw();
-		});
-		
-		$(document).on('change','#allotment_type',function(){
-			all_table.draw();
-		});
-	});
-
-    $(document).on("click",'.viewDematHolding',function(e){
-        const id = e.target.getAttribute("data-id");
-        const holderName = e.target.getAttribute("data-holder");
-        $.ajax("{!! route('getScriptCall') !!}", {
-            type: "POST",
-            data:{
-                id:id
-            }
-        })
-            .done(data => {
-                var html = "";
-                var counter = 1;
-                $.each(data, function(index) {
-                    html += " <tr>";
-                    html += "<td>"+ (counter++) + "</td>";
-                    html += "<td>"+ data[index]['script_name'] + "</td>";
-                    html += "<td>"+ data[index]['quantity'] + "</td>";
-                    html += "<td>"+ data[index]['entry_price'] + "</td>";
-                    html += " </tr>";
+        window.addEventListener("DOMContentLoaded",function(){
+            $(function() {
+                analyst_table = $('#preferred_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    "ordering": true,
+                    "info":     false,
+                    ajax: {
+                        type: "POST",
+                        url : "{{ route('getPreferredAccountData') }}",
+                        data: {_token : "{{csrf_token()}}"}
+                    },
+                    columns: [
+                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                        {data: 'serial_number'},
+                        {data: 'holder_name'},
+                        {data: 'available_balance'},
+                        {data: 'pl'},
+                        {data: 'days'},
+                        {data: 'action'},
+                    ],
+                    "drawCallback": function(settings) {
+                        KTMenu.createInstances();
+                    }
                 });
-                $("#script_data").html(html);
-                $("#script_modal").modal("show");
-            })
-    });
-
+                
+                normal_acc_table = $('#normal_acc_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    "ordering": true,
+                    "info":     false,
+                    ajax: {
+                        type: "POST",
+                        url : "{{ route('getNormalAccountData') }}",
+                        data: function(d){
+                            var service_type = $('#service_type').val();
+                            return $.extend( {}, d, {
+                                _token : "{{csrf_token()}}",
+                                service_type : service_type
+                            });
+                        }
+                    },
+                    columns: [
+                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                        {data: 'serial_number'},
+                        {data: 'holder_name'},
+                        {data: 'available_balance'},
+                        {data: 'pl'},
+                        {data: 'days'},
+                        {data: 'action'},
+                    ],
+                    "drawCallback": function(settings) {
+                        KTMenu.createInstances();
+                    }
+                });
+                
+                holding_table = $('#holding_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    "ordering": true,
+                    "info":     false,
+                    ajax: {
+                        type: "POST",
+                        url : "{{ route('getHoldingData') }}",
+                        data: {_token : "{{csrf_token()}}"}
+                    },
+                    columns: [
+                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                        {data: 'serial_number'},
+                        {data: 'holder_name'},
+                        {data: 'no_of_holding'},
+                        {data: 'available_balance'},
+                        {data: 'pl'},
+                        {data: 'days'},
+                        {data: 'action'},
+                    ],
+                    "drawCallback": function(settings) {
+                        KTMenu.createInstances();
+                    }
+                });
+                
+                all_table = $('#all_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    "ordering": true,
+                    "info":     false,
+                    ajax: {
+                        type: "POST",
+                        url : "{{ route('getAllAcountData') }}",
+                        data: function(d){
+                            var allotment_type = $('#allotment_type').val();
+                            return $.extend( {}, d, {
+                                _token : "{{csrf_token()}}",
+                                allotment_type : allotment_type
+                            });
+                        }
+                    },
+                    columns: [
+                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                        {data: 'serial_number'},
+                        {data: 'holder_name'},
+                        {data: 'available_balance'},
+                        {data: 'pl'},
+                        {data: 'serviceType'},
+                        {data: 'action'},
+                    ],
+                    "drawCallback": function(settings) {
+                        KTMenu.createInstances();
+                    }
+                });
+                
+                trader_table = $('#trader_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    "ordering": true,
+                    "info":     false,
+                    ajax: {
+                        type: "POST",
+                        url : "{{ route('getTraderAcountData') }}",
+                        data: {_token : "{{csrf_token()}}"}
+                    },
+                    columns: [
+                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                        {data: 'serial_number'},
+                        {data: 'holder_name'},
+                        {data: 'trader_name'},
+                        {data: 'available_balance'},
+                        {data: 'pl'},
+                        {data: 'days'},
+                        {data: 'action'},
+                    ],
+                    "drawCallback": function(settings) {
+                        KTMenu.createInstances();
+                    }
+                });
+                
+                freelancer_table = $('#freelancer_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    "ordering": true,
+                    "info":     false,
+                    ajax: {
+                        type: "POST",
+                        url : "{{ route('getFreelancerAccountData') }}",
+                        data: {_token : "{{csrf_token()}}"}
+                    },
+                    columns: [
+                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                        {data: 'serial_number'},
+                        {data: 'holder_name'},
+                        {data: 'freelancer_name'},
+                        {data: 'available_balance'},
+                        {data: 'pl'},
+                        {data: 'days'},
+                        {data: 'action'},
+                    ],
+                    "drawCallback": function(settings) {
+                        KTMenu.createInstances();
+                    }
+                });
+                
+                unallotted_table = $('#unallotted_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    "ordering": true,
+                    "info":     false,
+                    ajax: {
+                        type: "POST",
+                        url : "{{ route('getUnallotedData') }}",
+                        data: {_token : "{{csrf_token()}}"}
+                    },
+                    columns: [
+                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                        {data: 'serial_number'},
+                        {data: 'holder_name'},
+                        {data: 'capital'},
+                        {data: 'created_at'},
+                        {data: 'action'},
+                    ],
+                    "drawCallback": function(settings) {
+                        KTMenu.createInstances();
+                    }
+                });
+                
+                $(document).on('change','#service_type',function(){
+                    normal_acc_table.draw();
+                });
+                
+                $(document).on('change','#allotment_type',function(){
+                    all_table.draw();
+                });
+            });
+    
+            $(document).on("click",'.viewDematHolding',function(e){
+                const id = e.target.getAttribute("data-id");
+                const holderName = e.target.getAttribute("data-holder");
+                $.ajax("{!! route('getScriptCall') !!}", {
+                    type: "POST",
+                    data:{
+                        id:id
+                    }
+                })
+                .done(data => {
+                    var html = "";
+                    var counter = 1;
+                    $.each(data, function(index) {
+                        html += " <tr>";
+                        html += "<td>"+ (counter++) + "</td>";
+                        html += "<td>"+ data[index]['script_name'] + "</td>";
+                        html += "<td>"+ data[index]['quantity'] + "</td>";
+                        html += "<td>"+ data[index]['entry_price'] + "</td>";
+                        html += " </tr>";
+                    });
+                    $("#script_data").html(html);
+                    $("#script_modal").modal("show");
+                })
+            });
+        })
 	</script>
 @endsection

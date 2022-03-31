@@ -42,6 +42,13 @@ return [
         "expense",
         "transfer",
         "loan"
+    ],
+    "USERS_TYPE"=>[
+        1=>"Partner",
+        2=>"Employee",
+        3=>"Channel Partner",
+        4=>"Freelancer AMS",
+        5=>"Freelancer Prime" 
     ]
 ];
 

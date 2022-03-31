@@ -3,7 +3,7 @@
 @section("user_management.accordion","hover show")
 @section("roles","active")
 @section("content")
-<link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
+	
 	<!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
@@ -147,7 +147,7 @@
 								<!--begin::Card body-->
 								<div class="card-body pt-0">
 									<div class="table-responsive">
-										<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+										<table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
 											<!--begin::Table head-->
 											<thead>
 												<tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
@@ -224,117 +224,116 @@
         <!--end::Page-->
     </div>
     <!--begin::Modals-->
-			<!-- Modal - Edit Roles-->
-		<div class="modal fade" id="editRolesModal" tabindex="-1" aria-hidden="true">
-		    <div class="modal-dialog modal-dialog-centered mw-650px" role="document">
-		        <div class="modal-content">
-		            <div class="modal-header">
-						<h2 class="fw-bolder">Edit Roles</h2>
-						<button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
-							<span class="svg-icon svg-icon-1">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-									<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-									<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-								</svg>
-							</span>
-						</button>
-					</div>
+	<div class="modal fade" id="editRolesModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered mw-650px" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="fw-bolder">Edit Roles</h2>
+					<button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+					</button>
+				</div>
 
-					<!--begin::Modal body-->
-					<div class="modal-body mx-md-10">
-						<!--begin::Form-->
-						<form id="" class="form" action="#">
-							<!--begin::Scroll-->
-							<!-- <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px"> -->
-								<div class="form-group row">
-									<label for="example-tel-input" class="col-3 col-form-label">Person Name</label>
-									<div class="col-9">
-										<input class="form-control" type="text" value="Julie" id="example-tel-input" >
-									</div>
+				<!--begin::Modal body-->
+				<div class="modal-body mx-md-10">
+					<!--begin::Form-->
+					<form id="" class="form" action="#">
+						<!--begin::Scroll-->
+						<!-- <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px"> -->
+							<div class="form-group row">
+								<label for="example-tel-input" class="col-3 col-form-label">Person Name</label>
+								<div class="col-9">
+									<input class="form-control" type="text" value="Julie" id="example-tel-input" >
 								</div>
+							</div>
 
-								<!--begin::Input wrapper-->
-								<div class="position-relative">
-									<!--begin::Input-->
-									<select name="profession" class="form-select form-select-solid role-select" data-control="select2" data-hide-search="true" data-placeholder="Select Role">
-										<option></option>
-										<option value="Client">Client</option>
-										<option value="Analyst">Anlyst</option>
-										<option value="Call">Call</option>
-										<option value="Trader">Trader</option>
-									</select>
-								</div>
-								<!--end::Input wrapper-->
-							<!-- </div> -->
-							<!--end::Scroll-->
-						</form>
-						<!--end::Form-->
-					</div>
-					<!--end::Modal body-->
-					<div class="modal-footer text-center">
-						<!-- <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button> -->
-						<button type="submit" class="btn btn-primary" id="save-role-btn" data-kt-users-modal-action="submit" data-bs-dismiss="modal">
-							<span class="indicator-label">Save</span>
-							<span class="indicator-progress">Please wait...
-							<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-						</button>
-					</div>
-		        </div>
-		    </div>
+							<!--begin::Input wrapper-->
+							<div class="position-relative">
+								<!--begin::Input-->
+								<select name="profession" class="form-select form-select-solid role-select" data-control="select2" data-hide-search="true" data-placeholder="Select Role">
+									<option></option>
+									<option value="Client">Client</option>
+									<option value="Analyst">Anlyst</option>
+									<option value="Call">Call</option>
+									<option value="Trader">Trader</option>
+								</select>
+							</div>
+							<!--end::Input wrapper-->
+						<!-- </div> -->
+						<!--end::Scroll-->
+					</form>
+					<!--end::Form-->
+				</div>
+				<!--end::Modal body-->
+				<div class="modal-footer text-center">
+					<!-- <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button> -->
+					<button type="submit" class="btn btn-primary" id="save-role-btn" data-kt-users-modal-action="submit" data-bs-dismiss="modal">
+						<span class="indicator-label">Save</span>
+						<span class="indicator-progress">Please wait...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+					</button>
+				</div>
+			</div>
 		</div>
-		<!--end::Modal - Edit Roles-->
+	</div>
+	<!--end::Modal - Edit Roles-->
 
-		<!-- Modal View Roles -->
-		<div class="modal fade" id="viewRolesModal" tabindex="-1" aria-hidden="true">
-		    <div class="modal-dialog modal-dialog-centered mw-650px" role="document">
-		        <div class="modal-content">
-		            <div class="modal-header">
-						<h2 class="fw-bolder">View Role</h2>
-						<button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
-							<span class="svg-icon svg-icon-1">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-									<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-									<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-								</svg>
-							</span>
-						</button>
-					</div>
+	<!-- Modal View Roles -->
+	<div class="modal fade" id="viewRolesModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered mw-650px" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="fw-bolder">View Role</h2>
+					<button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+					</button>
+				</div>
 
-					<!--begin::Modal body-->
-					<div class="modal-body mx-md-10">
-						<!--begin::Form-->
-						<form id="" class="form" action="#">
-							<!--begin::Scroll-->
-							<!-- <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px"> -->
-								<div class="form-group row">
-									<label for="example-tel-input" class="col-3 col-form-label">Person Name</label>
-									<div class="col-9">
-										<input class="form-control" type="text" value="Julie" id="example-tel-input" disabled>
-									</div>
+				<!--begin::Modal body-->
+				<div class="modal-body mx-md-10">
+					<!--begin::Form-->
+					<form id="" class="form" action="#">
+						<!--begin::Scroll-->
+						<!-- <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px"> -->
+							<div class="form-group row">
+								<label for="example-tel-input" class="col-3 col-form-label">Person Name</label>
+								<div class="col-9">
+									<input class="form-control" type="text" value="Julie" id="example-tel-input" disabled>
 								</div>
-								<div class="form-group row">
-									<label for="example-tel-input" class="col-3 col-form-label">Role</label>
-									<div class="col-9">
-										<input class="form-control role-value-input" type="text" value="Anlyst" id="example-tel-input" disabled>
-									</div>
+							</div>
+							<div class="form-group row">
+								<label for="example-tel-input" class="col-3 col-form-label">Role</label>
+								<div class="col-9">
+									<input class="form-control role-value-input" type="text" value="Anlyst" id="example-tel-input" disabled>
 								</div>
-							<!-- </div> -->
-							<!--end::Scroll-->
-						</form>
-						<!--end::Form-->
-					</div>
-					<!--end::Modal body-->
-					<div class="modal-footer text-center">
-						<!-- <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button> -->
-						<button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit" data-bs-dismiss="modal">
-							<span class="indicator-label">ok</span>
-							<span class="indicator-progress">Please wait...
-							<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-						</button>
-					</div>
-		        </div>
-		    </div>
+							</div>
+						<!-- </div> -->
+						<!--end::Scroll-->
+					</form>
+					<!--end::Form-->
+				</div>
+				<!--end::Modal body-->
+				<div class="modal-footer text-center">
+					<!-- <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button> -->
+					<button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit" data-bs-dismiss="modal">
+						<span class="indicator-label">ok</span>
+						<span class="indicator-progress">Please wait...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+					</button>
+				</div>
+			</div>
 		</div>
+	</div>
 
 <!-- delete model -->
 <div class="modal fade" id="confirmDelete" tabindex="-1" aria-hidden="true">
@@ -399,25 +398,25 @@
                     }else{
                         window.alert("Unable to delete this role");
                     }
-
 				});
+				$("#confirmDeleteCallBtn").on("click", function(e){
+					const id = e.target.getAttribute("data-id");
+					if(id){
+						$.ajax("/role/remove/"+id,{
+							type:"GET",
+							headers: {
+								'X-CSRF-TOKEN': $("input[name='_token']").val()
+							}
+						})
+							.done(data=>{
+								window.location.href = "roles";
+							})
+					}else{
+						window.alert("Unable to delete this role");
+					}
+				})
+				$(".datatable").DataTable();
 			});
-            $("#confirmDeleteCallBtn").on("click", function(e){
-                const id = e.target.getAttribute("data-id");
-                if(id){
-                    $.ajax("/role/remove/"+id,{
-                        type:"GET",
-                        headers: {
-                            'X-CSRF-TOKEN': $("input[name='_token']").val()
-                        }
-                    })
-                        .done(data=>{
-                            window.location.href = "roles";
-                        })
-                }else{
-                    window.alert("Unable to delete this role");
-                }
-            })
 		</script>
 	@endsection
 @endsection

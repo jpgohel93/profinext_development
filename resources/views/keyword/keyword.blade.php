@@ -2,8 +2,6 @@
 @section("page-title","Keywords")
 @section("keyword","active")
 @section("content")
-    <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
     <!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
@@ -342,7 +340,6 @@
         <!--end::Svg Icon-->
     </div>
 @section("jscript")
-    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(document).on("click",'.addKeyword',function(e){
@@ -372,23 +369,23 @@
                     window.alert("Unable to delete this keyword");
                 }
             });
-        });
-        $("#confirmDeleteCallBtn").on("click", function(e){
-            const id = e.target.getAttribute("data-id");
-            if(id){
-                $.ajax("/deleteKeyword/"+id,{
-                    type:"GET",
-                    headers: {
-                        'X-CSRF-TOKEN': $("input[name='_token']").val()
-                    }
-                })
-                    .done(data=>{
-                        window.location.href = "keyword";
+            $("#confirmDeleteCallBtn").on("click", function(e){
+                const id = e.target.getAttribute("data-id");
+                if(id){
+                    $.ajax("/deleteKeyword/"+id,{
+                        type:"GET",
+                        headers: {
+                            'X-CSRF-TOKEN': $("input[name='_token']").val()
+                        }
                     })
-            }else{
-                window.alert("Unable to delete this keyword");
-            }
-        })
+                        .done(data=>{
+                            window.location.href = "keyword";
+                        })
+                }else{
+                    window.alert("Unable to delete this keyword");
+                }
+            })
+        });
     </script>
 @endsection
 @endsection

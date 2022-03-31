@@ -3,11 +3,7 @@
 @section("analysis.monitor","active")
 @section("analyst_management.accordion","hover show")
 
-@section("page-title","Analysis")
-@section("analysis.monitor","active")
 @section("content")
-    <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<style>
 	#active_call_table, #close_call_table {
@@ -633,7 +629,6 @@
 @endsection
 
 @section('jscript')
-	<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js" ></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

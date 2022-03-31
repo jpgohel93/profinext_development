@@ -16,6 +16,7 @@
 		<meta property="og:site_name" content="Keenthemes | Metronic" />
 		<link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
 		<link rel="shortcut icon" href="profinext/dist/assets/media/logos/favicon.ico" />
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
 		<!--end::Fonts-->
@@ -50,7 +51,7 @@
 	<!--end::Head-->
 	<!--begin::Body-->
 <body id="kt_body" class="bg-body">
-
+	<div class="loading"></div>
     @yield("content")
     
     <!--end::Scrolltop-->
@@ -60,6 +61,7 @@
     <!--begin::Global Javascript Bundle(used by all pages)-->
     <script src="{{asset('assets/plugins/global/plugins.bundle.js')}}"></script>
     <script src="{{asset('assets/js/scripts.bundle.js')}}"></script>
+	<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 	@yield("jscript")
     <!--end::Global Javascript Bundle-->
     <!--begin::Page Vendors Javascript(used by this page)-->
