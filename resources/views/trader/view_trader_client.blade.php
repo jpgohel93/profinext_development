@@ -2,9 +2,6 @@
 @section("page-title","Trader - Trade Management")
 @section("traders","active")
 @section("trade_management.accordion","hover show")
-
-@section("page-title","Trader")
-@section("traders","active")
 @section("content")
     <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
     <!--begin::Body-->

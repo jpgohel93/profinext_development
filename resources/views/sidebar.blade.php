@@ -139,7 +139,7 @@
                             @endcan
                             @can("client-demat-read")
                                 <div class="menu-item">
-                                    <a class="menu-link @yield('clientsData.clients.demat')" href="{{route('clientDematAccount')}}">
+                                    <a class="menu-link @yield('clientsData.clients.dematStatus')" href="{{route('clientDematAccountStatus')}}">
                                         <span class="menu-bullet">
                                             <i class="fas fa-solid fa-file-lines"></i>
                                         </span>

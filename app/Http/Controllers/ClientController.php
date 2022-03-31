@@ -879,4 +879,38 @@ class ClientController extends Controller
         $formType = "channelPartner";
         return view("clients.add", compact('professions', 'banks','brokers','channelPartner','newSTNo','newSGNo','formType'));
     }
+	public function clientDematAccountStatus(){
+		$dematAccount = ClientServices::getClientDematAccountStatus();
+
+		//		$traders = UserServices::getByRole('trader');
+		$users = User::get();
+		$userIdArray = [];
+		foreach ($users as $userData) {
+			$permission = json_decode($userData->permission, true);
+			if (!empty($permission)) {
+				if (
+					in_array("trader-read", $permission) ||
+					in_array("trader-write", $permission) ||
+					in_array("trader-create", $permission) ||
+					in_array("trader-delete", $permission)
+				) {
+					$userIdArray[] = $userData->id;
+				}
+			}
+		}
+		$traders = User::wherein('id', $userIdArray)->get();
+		return view("clients.client-status", compact('dematAccount', 'traders'));
+	}
+	public function viewDematProblem(Request $request){
+		$dematAccount = ClientServices::getDemat($request->id);
+		return response($dematAccount,200, ["Content-Type" => "Application/json"]);
+	}
+	public function issueWithDematAccount(Request $request){
+		$dematAccount = ClientServices::issueWithDematAccount($request->id);
+		return response($dematAccount,200, ["Content-Type" => "Application/json"]);
+	}
+	public function dematAccountRestore(Request $request){
+		ClientServices::dematAccountRestore($request->id);
+		return response(["info" =>"Account Restored"],200, ["Content-Type" => "Application/json"]);
+	}
 }

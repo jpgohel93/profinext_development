@@ -27,7 +27,7 @@ class renewalStatusService
     }
     public static function newAccounts()
     {
-        return ClientDemat::where("is_new",1)->orWhere("is_new",2)->get();
+        return ClientDemat::where("is_new",1)->orWhere("is_new",2)->whereNull("mark_as_problem")->get();
     }
     public static function create($request)
     {

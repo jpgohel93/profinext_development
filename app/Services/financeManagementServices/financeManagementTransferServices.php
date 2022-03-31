@@ -15,7 +15,31 @@ class financeManagementTransferServices
             "purpose" => "required",
             "to" => "required",
             "amount" => "required",
+            "income_form" => "required"
         ]);
+        if ($request->income_form === "both") {
+            $request->validate([
+                "st_amount" => "required",
+                "sg_amount" => "required",
+            ]);
+            $transfer['st_amount'] = $request->st_amount;
+            $transfer['sg_amount'] = $request->sg_amount;
+        } else if ($request->income_form === "st") {
+            $request->validate([
+                "st_amount" => "required"
+            ]);
+            $transfer['sg_amount'] = $request->st_amount;
+        } else if ($request->income_form == "sg") {
+            $request->validate([
+                "sg_amount" => "required"
+            ]);
+            $transfer['sg_amount'] = $request->sg_amount;
+        } else {
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                "income_form" => ["invalid income form"]
+            ]);
+            throw $error;
+        }
         $transfer['narration'] = $request->narration;
         $transfer['created_by'] = auth()->user()->id;
         return financeManagementTransferModel::create($transfer);

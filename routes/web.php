@@ -62,6 +62,10 @@ Route::group(['middleware' => ['auth']], function() {
     // clients
     Route::get("/clients",[ClientController::class,"all"])->name("clients");
     Route::get("/clients/Demat/{filter_type?}/{filter_id?}",[ClientController::class,"clientDematAccount"])->name("clientDematAccount");
+    Route::get("/clients/DematAccount/status",[ClientController::class, "clientDematAccountStatus"])->name("clientDematAccountStatus");
+    Route::POST("/clients/DematAccount/status/get",[ClientController::class, "viewDematProblem"])->name("viewDematProblem");
+    Route::POST("/clients/DematAccount/issue/get",[ClientController::class, "issueWithDematAccount"])->name("issueWithDematAccount");
+    Route::POST("/clients/DematAccount/account/restore",[ClientController::class, "dematAccountRestore"])->name("dematAccountRestore");
     // read client
     Route::get("/client/view/{client_id}",[ClientController::class,"get"])->name("clientView");
     // create client
@@ -261,8 +265,10 @@ Route::group(['middleware' => ['auth']], function() {
     // Finance Management
     Route::get("/financeManagement/renewal_status",[renewalStatusController::class,"view"])->name("renewal_status");
     Route::get("/financeManagement/clientDematView/{id}",[renewalStatusController::class, "clientDematView"])->name("clientDematView");
+    Route::get("/financeManagement/clientDematTerminate/{id}",[renewalStatusController::class, "clientDematTerminate"])->name("clientDematTerminate");
     Route::POST("/financeManagement/clientDemat/updatePL",[renewalStatusController::class, "updatePL"])->name("clientDematupdatePL");
     Route::POST("/financeManagement/clientDemat/markAsProblem",[renewalStatusController::class, "mark_as_problem"])->name("mark_as_problem");
+    Route::POST("/financeManagement/clientDemat/ProblemSolved",[renewalStatusController::class, "ProblemSolved"])->name("update_mark_as_problem");
     
     // finance Management Bank
     Route::get("/financeManagement/bank",[BankControllers::class, "financeManagementBank"])->name("financeManagementBank");

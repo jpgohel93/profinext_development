@@ -177,62 +177,6 @@
                                                 <!--end::Search-->
                                             </div>
                                             <!--begin::Card title-->
-                                            <!--begin::Card toolbar-->
-
-                                            <div class="card-toolbar">
-                                                {{-- <!--begin::Toolbar-->
-                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                                    <div class="d-flex justify-content-between">
-                                                        <!--begin::Export-->
-                                                        <a href="#" class="btn btn-light-primary"
-                                                           data-kt-menu-trigger="click"
-                                                           data-kt-menu-placement="bottom-end">
-                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
-                                                            <span class="svg-icon svg-icon-2">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                     height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
-                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
-                                                                          fill="black" />
-                                                                    <path
-                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
-                                                                        fill="#C4C4C4" />
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon-->Export
-                                                            <span class="svg-icon svg-icon-5 m-0">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                     height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
-                                                         data-kt-menu="true">
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">
-                                                                <span class="menu-icon">
-                                                                    <i class="la la-file-pdf-o"></i>
-                                                                </span>PDF
-                                                            </a>
-                                                        </div>
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">
-                                                                <span class="menu-icon">
-                                                                    <i class="la la-file-excel-o"></i>
-                                                                </span>Excel
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Export-->
-                                                </div>
-                                                <!--end::Toolbar--> --}}
-                                            </div>
-                                            <!--end::Card toolbar-->
                                         </div>
                                         <!--end::Card header-->
                                         <!--begin::Card body-->
@@ -333,64 +277,6 @@
                                                 <!--end::Search-->
                                             </div>
                                             <!--begin::Card title-->
-                                            <!--begin::Card toolbar-->
-
-                                            <div class="card-toolbar">
-                                                {{-- <!--begin::Toolbar-->
-                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                                    <div class="d-flex justify-content-between">
-                                                        <!--begin::Export-->
-                                                        <a href="#" class="btn btn-light-primary"
-                                                           data-kt-menu-trigger="click"
-                                                           data-kt-menu-placement="bottom-end">
-                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
-                                                            <span class="svg-icon svg-icon-2">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                     height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
-                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
-                                                                          fill="black" />
-                                                                    <path
-                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
-                                                                        fill="#C4C4C4" />
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon-->Export
-                                                            <span class="svg-icon svg-icon-5 m-0">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                     height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <path
-                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                                        fill="black" />
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
-                                                         data-kt-menu="true">
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">
-                                                                <span class="menu-icon">
-                                                                    <i class="la la-file-pdf-o"></i>
-                                                                </span>PDF
-                                                            </a>
-                                                        </div>
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">
-                                                                <span class="menu-icon">
-                                                                    <i class="la la-file-excel-o"></i>
-                                                                </span>Excel
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Export-->
-                                                </div>
-                                                <!--end::Toolbar--> --}}
-                                            </div>
-                                            <!--end::Card toolbar-->
                                         </div>
                                         <!--end::Card header-->
                                         <!--begin::Card body-->
@@ -453,64 +339,6 @@
                                                 <!--end::Search-->
                                             </div>
                                             <!--begin::Card title-->
-                                            <!--begin::Card toolbar-->
-
-                                            <div class="card-toolbar">
-                                                {{-- <!--begin::Toolbar-->
-                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                                    <div class="d-flex justify-content-between">
-                                                        <!--begin::Export-->
-                                                        <a href="#" class="btn btn-light-primary"
-                                                           data-kt-menu-trigger="click"
-                                                           data-kt-menu-placement="bottom-end">
-                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
-                                                            <span class="svg-icon svg-icon-2">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                     height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
-                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
-                                                                          fill="black" />
-                                                                    <path
-                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
-                                                                        fill="#C4C4C4" />
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon-->Export
-                                                            <span class="svg-icon svg-icon-5 m-0">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                     height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <path
-                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                                        fill="black" />
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
-                                                         data-kt-menu="true">
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">
-                                                                <span class="menu-icon">
-                                                                    <i class="la la-file-pdf-o"></i>
-                                                                </span>PDF
-                                                            </a>
-                                                        </div>
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">
-                                                                <span class="menu-icon">
-                                                                    <i class="la la-file-excel-o"></i>
-                                                                </span>Excel
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Export-->
-                                                </div>
-                                                <!--end::Toolbar--> --}}
-                                            </div>
-                                            <!--end::Card toolbar-->
                                         </div>
                                         <!--end::Card header-->
                                         <!--begin::Card body-->
@@ -573,64 +401,6 @@
                                                 <!--end::Search-->
                                             </div>
                                             <!--begin::Card title-->
-                                            <!--begin::Card toolbar-->
-
-                                            <div class="card-toolbar">
-                                                {{-- <!--begin::Toolbar-->
-                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                                    <div class="d-flex justify-content-between">
-                                                        <!--begin::Export-->
-                                                        <a href="#" class="btn btn-light-primary"
-                                                           data-kt-menu-trigger="click"
-                                                           data-kt-menu-placement="bottom-end">
-                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
-                                                            <span class="svg-icon svg-icon-2">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                     height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
-                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
-                                                                          fill="black" />
-                                                                    <path
-                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
-                                                                        fill="#C4C4C4" />
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon-->Export
-                                                            <span class="svg-icon svg-icon-5 m-0">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                     height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <path
-                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                                        fill="black" />
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
-                                                         data-kt-menu="true">
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">
-                                                                <span class="menu-icon">
-                                                                    <i class="la la-file-pdf-o"></i>
-                                                                </span>PDF
-                                                            </a>
-                                                        </div>
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">
-                                                                <span class="menu-icon">
-                                                                    <i class="la la-file-excel-o"></i>
-                                                                </span>Excel
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Export-->
-                                                </div>
-                                                <!--end::Toolbar--> --}}
-                                            </div>
-                                            <!--end::Card toolbar-->
                                         </div>
                                         <!--end::Card header-->
                                         <!--begin::Card body-->
@@ -695,64 +465,6 @@
                                                 <!--end::Search-->
                                             </div>
                                             <!--begin::Card title-->
-                                            <!--begin::Card toolbar-->
-
-                                            <div class="card-toolbar">
-                                                {{-- <!--begin::Toolbar-->
-                                                <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                                    <div class="d-flex justify-content-between">
-                                                        <!--begin::Export-->
-                                                        <a href="#" class="btn btn-light-primary"
-                                                           data-kt-menu-trigger="click"
-                                                           data-kt-menu-placement="bottom-end">
-                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
-                                                            <span class="svg-icon svg-icon-2">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                     height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <rect opacity="0.3" x="12.75" y="4.25" width="12"
-                                                                          height="2" rx="1" transform="rotate(90 12.75 4.25)"
-                                                                          fill="black" />
-                                                                    <path
-                                                                        d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z"
-                                                                        fill="#C4C4C4" />
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon-->Export
-                                                            <span class="svg-icon svg-icon-5 m-0">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                     height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <path
-                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                                        fill="black" />
-                                                                </svg>
-                                                            </span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4"
-                                                         data-kt-menu="true">
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">
-                                                                <span class="menu-icon">
-                                                                    <i class="la la-file-pdf-o"></i>
-                                                                </span>PDF
-                                                            </a>
-                                                        </div>
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">
-                                                                <span class="menu-icon">
-                                                                    <i class="la la-file-excel-o"></i>
-                                                                </span>Excel
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Export-->
-                                                </div>
-                                                <!--end::Toolbar--> --}}
-                                            </div>
-                                            <!--end::Card toolbar-->
                                         </div>
                                         <!--end::Card header-->
                                         <!--begin::Card body-->
@@ -906,14 +618,46 @@
                                         @endforelse
                                     </select>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group transactionFormDropDown">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Income form:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select form of income"></i>
+                                    </label>
+                                    <select class="form-select form-select-solid transactionForm" name="income_form" id="income_form" data-control="select2">
+                                        <option value="st" selected>ST</option>
+                                        <option value="sg">SG</option>
+                                        <option value="both">Both</option>
+                                    </select>
+                                </div>
+                                <div class="row bothFormOfIncome" id="bothFormOfIncome" style="display:none">
+                                    <div class="form-group">
+                                        <!--begin::Label-->
+                                       <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                           <span class="required">ST:</span>
+                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                       </label>
+                                       <!--end::Label-->
+                                       <input type="text" value="{{old('st_amount')}}" name="st_amount" class="form-control form-control-solid" value=""/>
+                                    </div>
+                                    <div class="form-group">
+                                        <!--begin::Label-->
+                                       <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                           <span class="required">SG:</span>
+                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                       </label>
+                                       <!--end::Label-->
+                                       <input type="text" value="{{old('sg_amount')}}" name="sg_amount" class="form-control form-control-solid" value=""/>
+                                    </div>
+                                </div>
+                                <div class="form-group mainAmount">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Amount:</span>
                                         <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" value="{{old('amount')}}" name="amount" class="form-control form-control-solid" value=""/>
+                                    <input type="text" value="{{old('amount')}}" name="amount" id="incomeAmount" class="form-control form-control-solid" value=""/>
                                 </div>
                                 <div class="form-group">
                                      <!--begin::Label-->
@@ -929,7 +673,7 @@
                         <!--end::Input group-->
                         
                         <!--begin::Actions-->
-                        <div class="text-end">
+                        <div class="text-left">
                             <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" id="call_modal_submit" class="btn btn-primary">
                                 <span class="indicator-label">Add</span>
@@ -1036,7 +780,39 @@
                                         @endforelse
                                     </select>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group transactionFormDropDown">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Income form:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select form of income"></i>
+                                    </label>
+                                    <select class="form-select form-select-solid transactionForm" name="income_form" id="income_form" data-control="select2">
+                                        <option value="st" selected>ST</option>
+                                        <option value="sg">SG</option>
+                                        <option value="both">Both</option>
+                                    </select>
+                                </div>
+                                <div class="row bothFormOfIncome" id="bothFormOfIncome" style="display:none">
+                                    <div class="form-group">
+                                        <!--begin::Label-->
+                                       <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                           <span class="required">ST:</span>
+                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                       </label>
+                                       <!--end::Label-->
+                                       <input type="text" value="{{old('st_amount')}}" name="st_amount" class="form-control form-control-solid" value=""/>
+                                    </div>
+                                    <div class="form-group">
+                                        <!--begin::Label-->
+                                       <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                           <span class="required">SG:</span>
+                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                       </label>
+                                       <!--end::Label-->
+                                       <input type="text" value="{{old('sg_amount')}}" name="sg_amount" class="form-control form-control-solid" value=""/>
+                                    </div>
+                                </div>
+                                <div class="form-group mainAmount">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Amount:</span>
@@ -1059,7 +835,7 @@
                         <!--end::Input group-->
                         
                         <!--begin::Actions-->
-                        <div class="text-end">
+                        <div class="text-left">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary">
                                 <span class="indicator-label">Add</span>
@@ -1164,15 +940,39 @@
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="to" id="transferTo" data-control="select2" data-placeholder="Select Bank"></select>
                                 </div>
-                                <div class="form-group">
-                                     <!--begin::Label-->
+                                <div class="form-group transactionFormDropDown">
+                                    <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Narration:</span> 
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                        <span class="required">Income form:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select form of income"></i>
                                     </label>
-                                    <textarea type="text" class="form-control mx-3" name='narration'></textarea>
+                                    <select class="form-select form-select-solid transactionForm" name="income_form" id="income_form" data-control="select2">
+                                        <option value="st" selected>ST</option>
+                                        <option value="sg">SG</option>
+                                        <option value="both">Both</option>
+                                    </select>
                                 </div>
-                                <div class="form-group">
+                                <div class="row bothFormOfIncome" id="bothFormOfIncome" style="display:none">
+                                    <div class="form-group">
+                                        <!--begin::Label-->
+                                       <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                           <span class="required">ST:</span>
+                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                       </label>
+                                       <!--end::Label-->
+                                       <input type="text" value="{{old('st_amount')}}" name="st_amount" class="form-control form-control-solid" value=""/>
+                                    </div>
+                                    <div class="form-group">
+                                        <!--begin::Label-->
+                                       <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                           <span class="required">SG:</span>
+                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                       </label>
+                                       <!--end::Label-->
+                                       <input type="text" value="{{old('sg_amount')}}" name="sg_amount" class="form-control form-control-solid" value=""/>
+                                    </div>
+                                </div>
+                                <div class="form-group mainAmount">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Amount:</span>
@@ -1181,13 +981,21 @@
                                     <!--end::Label-->
                                     <input type="text" value="{{old('amount')}}" name="amount" class="form-control form-control-solid" value=""/>
                                 </div>
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Narration:</span> 
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <textarea type="text" class="form-control mx-3" name='narration'></textarea>
+                                </div>
                             </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
                         
                         <!--begin::Actions-->
-                        <div class="text-end">
+                        <div class="text-left">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary">
                                 <span class="indicator-label">Add</span>
@@ -1281,14 +1089,6 @@
                                         @endforelse
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Narration:</span> 
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
-                                    </label>
-                                    <textarea type="text" class="form-control mx-3" name='narration'></textarea>
-                                </div>
                                 <div class="form-group col-md-3">
                                      <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                         <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
@@ -1310,6 +1110,38 @@
                                         @endforelse
                                     </select>
                                 </div>
+                                <div class="form-group transactionFormDropDown">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Income form:</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select form of income"></i>
+                                    </label>
+                                    <select class="form-select form-select-solid transactionForm" name="income_form" id="income_form" data-control="select2">
+                                        <option value="st" selected>ST</option>
+                                        <option value="sg">SG</option>
+                                        <option value="both">Both</option>
+                                    </select>
+                                </div>
+                                <div class="row bothFormOfIncome" id="bothFormOfIncome" style="display:none">
+                                    <div class="form-group">
+                                        <!--begin::Label-->
+                                       <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                           <span class="required">ST:</span>
+                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                       </label>
+                                       <!--end::Label-->
+                                       <input type="text" value="{{old('st_amount')}}" name="st_amount" class="form-control form-control-solid" value=""/>
+                                    </div>
+                                    <div class="form-group">
+                                        <!--begin::Label-->
+                                       <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                           <span class="required">SG:</span>
+                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                       </label>
+                                       <!--end::Label-->
+                                       <input type="text" value="{{old('sg_amount')}}" name="sg_amount" class="form-control form-control-solid" value=""/>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -1319,7 +1151,7 @@
                                     <!--end::Label-->
                                     <input type="text" value="{{old('interest')}}" name="interest" class="form-control form-control-solid" value=""/>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mainAmount">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Amount:</span>
@@ -1328,13 +1160,21 @@
                                     <!--end::Label-->
                                     <input type="text" value="{{old('amount')}}" name="amount" class="form-control form-control-solid" value=""/>
                                 </div>
+                                <div class="form-group">
+                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Narration:</span> 
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
+                                    </label>
+                                    <textarea type="text" class="form-control mx-3" name='narration'></textarea>
+                                </div>
                             </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
                         
                         <!--begin::Actions-->
-                        <div class="text-end">
+                        <div class="text-left">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary">
                                 <span class="indicator-label">Add</span>
@@ -1445,6 +1285,7 @@
                 // income daterangepicker
                 var incomeFilter = $('#incomeFilter').data('daterangepicker');
                 var incomeTableApi = $("#incomeTable").dataTable().api();
+
                 $('#incomeFilter').on('apply.daterangepicker', function(ev, picker) {
                     let startDate = picker.startDate.format('YYYY-MM-DD');
                     let endDate = picker.endDate.format('YYYY-MM-DD');
@@ -1602,7 +1443,41 @@
                         }
                     }
                 );
-                
+
+                // amount validations
+                $(document).on("change",".transactionForm",function(){
+                    const val = $(this).val();
+                    if(val==="both"){
+                        $(this).parents("div.form-group").next("div.bothFormOfIncome").show();
+                        $(this).parents("div.col-md-12").find("div.mainAmount").find("[name='amount']").trigger("input");
+                    }else{
+                        $(this).parents("div.form-group").next("div.bothFormOfIncome").hide();
+                        $(this).parents("div.col-md-12").find("div.mainAmount").find("[name='amount']").trigger("input");
+                    }
+                })
+                $("[name='st_amount']").on("input",function(){
+                    $(this).parents("div.col-md-12").find("div.mainAmount").find("[name='amount']").trigger("input");
+                })
+                $("[name='sg_amount']").on("input",function(){
+                    $(this).parents("div.col-md-12").find("div.mainAmount").find("[name='amount']").trigger("input");
+                })
+                $("[name='amount']").on("input",function(){
+                    if($(this).next("p.invalidAmount").length!=0){
+                        $(this).next("p.invalidAmount").remove();
+                    }
+                    const amount = $(this).val();
+                    const transactionTypeDropDown = $(this).parents("div.col-md-12").find(".transactionFormDropDown");
+                    const transactionType = $(transactionTypeDropDown).find("select").val();
+                    if(transactionType==="both"){
+                        const st = $(transactionTypeDropDown).next(".bothFormOfIncome").find("[name='st_amount']").val();
+                        const sg = $(transactionTypeDropDown).next(".bothFormOfIncome").find("[name='sg_amount']").val();                        
+                        if(Number(st)+Number(sg)===Number(amount)){
+                            $(this).next("p.invalidAmount").remove();
+                        }else{
+                            $(this).after(`<p class='invalidAmount h5 text-danger'>Invalid amount</p>`);
+                        }
+                    }
+                })
             },jQuery)
         })
     </script>

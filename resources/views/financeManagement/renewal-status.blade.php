@@ -190,7 +190,7 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                                    @if (isset($toRenewAccounts))
+                                                    @if (isset($preRenewAccounts))
                                                         <!--begin::Table head-->
                                                         <thead>
                                                             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
@@ -354,8 +354,8 @@
                                                                     <td>{{$toRenewAccount->available_balance}}</td>
                                                                     <td>{{$toRenewAccount->pl}}</td>
                                                                     <td>
-                                                                        <a href="{{route('clientDematView',$toRenewAccount->id)}}" target="_blank"class='verifyDemate'>Generate Invoice</a><br/>
-                                                                        <a href="{{route('clientDematView',$toRenewAccount->id)}}" target="_blank"class='verifyDemate'>Terminate</a>
+                                                                        <a href="{{route('clientDematView',$toRenewAccount->id)}}" target="_blank" class='verifyDemate'>Generate Invoice</a><br/>
+                                                                        <a href="{{route('clientDematTerminate',$toRenewAccount->id)}}" class='terminateDemate'>Terminate</a>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -701,15 +701,15 @@
                 <!--begin::Modal header-->
                 <!--begin::Modal body-->
                 <div class="modal-body">
-                    @if($errors->any())
-                        <h5 class="alert alert-danger" id="modelError">{{$errors->first()}}</h5>
-                    @endif
                     <!--begin:Form-->
                     <form id="mark_as_problem_form" method="POST" action="{{route('mark_as_problem')}}" class="form">
                         @csrf
                         <div class="row mb-8">
                             <!--begin::Col-->
                             <div class="col-md-6">
+                                <div id="editIdContainer">
+
+                                </div>
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Select options:</span>
@@ -772,11 +772,10 @@
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
                 $(document).on("click",".mark_as_problem",function(e){
-                    $("#modelError").remove();
                     const id = $(e.target).data("id");
                     if(id){
                         $("#mark_as_problem_modal").modal("show");
-                        $("#mark_as_problem_form").append(`<input type="hidden" name="demat_id" value="${id}">`);
+                        $("#editIdContainer").html(`<input type="hidden" name="demat_id" value="${id}">`);
                     }else{
                         window.alert("invalid demat account");
                     }
@@ -804,6 +803,11 @@
                     }
                 })
                 $("#OtherTextDiv").hide();
+                $(document).on("click",".terminateDemate",function(e){
+                    if(!window.confirm("Are you sure you want to terminate this account?")){
+                        e.preventDefault();
+                    }
+                })
             },jQuery)
         })
     </script>

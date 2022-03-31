@@ -269,8 +269,8 @@
                         <div class="form-group row" id="ams_freelancer">
                             <label for="example-email-input" class="col-3 col-form-label"> AMS freelancer</label>
                             <div class="col-9">
-                                <select class="form-select form-select-solid" name='freelancer_id' data-control="select2" data-hide-search="true" data-placeholder="Select AMS freelancer">
-                                    <option></option>
+                                <select class="form-select form-select-solid" name='freelancer_id'>
+                                    <option value="">Select option</option>
                                     @forelse ($freelancerAms as $freelancer)
                                         <option value="{{$freelancer->id}}">{{$freelancer->name}}</option>
                                     @empty
@@ -283,8 +283,8 @@
                         <div class="form-group row" id="prime_freelancer">
                             <label for="example-email-input" class="col-3 col-form-label"> Prime freelancer</label>
                             <div class="col-9">
-                                <select class="form-select form-select-solid" name='ams_freelancer_id' data-control="select2" data-hide-search="true" data-placeholder="Select Prime freelancer">
-                                    <option></option>
+                                <select class="form-select form-select-solid" name='ams_freelancer_id'>
+                                    <option value="">Select option</option>
                                     @forelse ($freelancerPrime as $freelancer)
                                         <option value="{{$freelancer->id}}">{{$freelancer->name}}</option>
                                     @empty

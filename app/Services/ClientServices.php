@@ -380,6 +380,30 @@ class ClientServices
 		$dematAccount = $query->get();
         return $dematAccount;
     }
+    // view mark as problem
+    public static function getDemat($id)
+	{
+        return ClientDemat::where("id",$id)->whereNotNull("mark_as_problem")->orWhere("account_status","terminated")->orWhereNotNull("problem")->pluck("mark_as_problem")->first();
+    }
+    // view problem marked by accountant
+    public static function issueWithDematAccount($id)
+	{
+        return ClientDemat::where("id",$id)->first("problem");
+    }
+    public static function getClientDematAccountStatus()
+	{
+        $dematAccount = ClientDemat::with(["withClient"])->orWhereNotNull("mark_as_problem")->orWhere("account_status", "terminated")->orWhere("account_status", "problem")->get();
+        return $dematAccount;
+    }
+    // restore demate account
+    public static function dematAccountRestore($id){
+        $status =[
+            "problem"=>null,
+            "mark_as_problem"=>null,
+            "account_status"=>"normal"
+        ];
+        return ClientDemat::where("id", $id)->update($status);
+    }
 
     public static function getClientForSetUp(){
         // return ClientDemat::with('clients')->get();
