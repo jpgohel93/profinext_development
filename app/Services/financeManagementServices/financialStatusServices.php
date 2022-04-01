@@ -31,8 +31,11 @@ class financialStatusServices
         $both_e['st'] = financeManagementExpensesModel::where("income_form","both")->sum("st_amount");
         $both_e['sg'] = financeManagementExpensesModel::where("income_form","both")->sum("sg_amount");
 
-        $firmTab['sg']['income'] += $both['sg']+$both['st'];
-        $firmTab['sg']['expense'] += $both_e['st']+$both_e['sg'];
+        $firmTab['st']['income'] += $both['st'];
+        $firmTab['sg']['income'] += $both['sg'];
+
+        $firmTab['st']['expense'] += $both_e['st'];
+        $firmTab['sg']['expense'] += $both_e['sg'];
         return $firmTab;
     }
     public static function getBanksDetails(){
