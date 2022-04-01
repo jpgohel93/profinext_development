@@ -23,6 +23,16 @@ class financialStatusServices
         $firmTab['sg']['clients'] = ClientDemat::distinct("client_id","st_sg")->where("st_sg", "SG")->count();
         $firmTab['sg']['users'] = User::whereNotNull("company_second")->count();
 
+        // both income
+        $both['st'] = financeManagementIncomesModel::where("income_form","both")->sum("st_amount");
+        $both['sg'] = financeManagementIncomesModel::where("income_form","both")->sum("sg_amount");
+
+        // both expense
+        $both_e['st'] = financeManagementExpensesModel::where("income_form","both")->sum("st_amount");
+        $both_e['sg'] = financeManagementExpensesModel::where("income_form","both")->sum("sg_amount");
+
+        $firmTab['sg']['income'] += $both['sg']+$both['st'];
+        $firmTab['sg']['expense'] += $both_e['st']+$both_e['sg'];
         return $firmTab;
     }
     public static function getBanksDetails(){
