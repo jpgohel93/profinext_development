@@ -3,7 +3,6 @@
 @section("traders","active")
 @section("trade_management.accordion","hover show")
 @section("content")
-    <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
     <!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
@@ -21,8 +20,8 @@
                         <div class="container">
                             <h6 class="alert alert-info">{{session("info")}}</h6>
                         </div>
-                @endif
-                <!--begin::Toolbar-->
+                    @endif
+                    <!--begin::Toolbar-->
                     <div class="toolbar" id="kt_toolbar">
                         <!--begin::Container-->
                         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">

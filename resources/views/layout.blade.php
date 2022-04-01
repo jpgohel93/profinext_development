@@ -75,6 +75,6 @@
     <script src="{{asset('assets/js/custom/modals/create-app.js')}}"></script>
     <script src="{{asset('assets/js/custom/documentation/search.js')}}"></script> --}}
     <!-- <script src="E:/xampp/htdocs/smart_trader/profinext/dist/assets/js/custom/apps/user-management/users/list/export-users.js"></script> -->
-    <script src="{{asset('js/main.js')}}" defer></script>
+    <script src="{{asset('js/main.js')}}"  defer></script>
 </body>
 </html>

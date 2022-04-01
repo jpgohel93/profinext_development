@@ -8,9 +8,24 @@ use App\Services\financeManagementServices\financialStatusServices;
 class FinancialStatusController extends Controller
 {
     public function financialStatus(){
+        // firm
+        $firmTab = financialStatusServices::getFirmsDetails();
+        // banktab
         $banksTab = financialStatusServices::getBanksDetails();
+        // usertab
         $usersTab = financialStatusServices::getUsersDetails();
+        // servicetab
         $servicesTab = financialStatusServices::getServicesDetails();
-        return view("financeManagement.financialStatus.index",compact("banksTab", "usersTab", "servicesTab"));
+        return view("financeManagement.financialStatus.index",compact("firmTab","banksTab", "usersTab", "servicesTab"));
+    }
+    public function viewMoreSt(){
+        return financialStatusServices::viewMoreSt();
+    }
+    public function viewMoreSg(){
+        return financialStatusServices::viewMoreSg();
+    }
+    public function dematDetailsFinancialStatus(Request $request){
+        $demats = financialStatusServices::dematDetailsFinancialStatus($request);
+        return response($demats,200, ["Content-Type" => "Application/json"]);
     }
 }

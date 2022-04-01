@@ -150,80 +150,81 @@
                                  <!--begin::Card body-->
                                  <div class="card-body pt-0">
                                      <div class="table-responsive">
-                                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                             <!--begin::Table head-->
-                                             <thead>
-                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                    <th class="min-w-10px">Sr No.</th>
-                                                    <th class="min-w-75px">Blogger name</th>
-                                                    <th class="min-w-75px">Achievement</th>
-                                                    <th class="min-w-100px">Target</th>
-                                                    <th class="text-end min-w-100px">Action</th>
-                                                </tr>
-                                             </thead>
-                                             <tbody class="text-gray-600 fw-bold">
-                                                @can("blogAdmin-read")
-                                                    @php
-                                                        $i=1;
-                                                    @endphp
-                                                    @forelse ($blogs as $blog)
-                                                        {{-- {{dd($blog)}} --}}
-                                                        <tr>
-                                                            <td>{{$blog['id']}}</td>
-                                                            <td class="role-value-td">{{$blog['name']}}</td>
-                                                            @php
-                                                                // total tabs
-                                                                $total_tabs = "";
-                                                                $total_pending = 0;
-                                                                $total_achieve = "";
-                                                                foreach ($blog['target'] as $key => $target) {
-                                                                    $total_tabs .= ",".$target["target"];
-                                                                    $total_achieve .= ",".$target["total_blogs"];
-                                                                }
-                                                                $total_tabs = substr($total_tabs,1);
-                                                                $total_achieve = substr($total_achieve,1);
-                                                            @endphp
-                                                            <td class="role-value-td">{{($total_achieve=="")?"-":$total_achieve}}</td>
-                                                            <td class="role-value-td">{{$total_tabs}}</td>
-                                                            <td class="text-end">
-                                                                <div class="d-flex justify-content-end align-items-end">
-                                                                    @can("blog-read")
-                                                                        <div class="menu-item">
-                                                                            <a href="{{route('editBlogForm',$blog['id'])}}" data-id="{{$blog['id']}}" target="_blank" class="menu-link px-3">
-                                                                                View
-                                                                            </a>
-                                                                        </div>
-                                                                    @endcan
+                                        @can("blogAdmin-read")
+                                            @if(isset($blogs))
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Blogger name</th>
+                                                            <th class="min-w-75px">Achievement</th>
+                                                            <th class="min-w-100px">Target</th>
+                                                            <th class="text-end min-w-100px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold">
+                                                        @php
+                                                            $i=1;
+                                                        @endphp
+                                                        @forelse ($blogs as $blog)
+                                                            <tr>
+                                                                <td>{{sprintf("%04d",$blog['id'])}}</td>
+                                                                <td class="role-value-td">{{$blog['name']}}</td>
+                                                                @php
+                                                                    // total tabs
+                                                                    $total_tabs = "";
+                                                                    $total_pending = 0;
+                                                                    $total_achieve = "";
+                                                                    foreach ($blog['target'] as $key => $target) {
+                                                                        $total_tabs .= ",".$target["target"];
+                                                                        $total_achieve .= ",".$target["total_blogs"];
+                                                                    }
+                                                                    $total_tabs = substr($total_tabs,1);
+                                                                    $total_achieve = substr($total_achieve,1);
+                                                                @endphp
+                                                                <td class="role-value-td">{{($total_achieve=="")?"-":$total_achieve}}</td>
+                                                                <td class="role-value-td">{{$total_tabs}}</td>
+                                                                <td class="text-end">
+                                                                    <div class="d-flex justify-content-end align-items-end">
+                                                                        @can("blog-read")
+                                                                            <div class="menu-item">
+                                                                                <a href="{{route('editBlogForm',$blog['id'])}}" data-id="{{$blog['id']}}" target="_blank" class="menu-link px-3">
+                                                                                    View
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
 
-                                                                    @can("blog-write")
-                                                                        <div class="menu-item">
-                                                                            <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 setTargetUrl">
-                                                                                Target
-                                                                            </a>
-                                                                        </div>
-                                                                    @endcan
-                                                                    {{-- @can("blog-delete")
-                                                                        <div class="menu-item">
-                                                                            <a href="{{route('removeBlog')}}" data-id="{{$blog['id']}}" class="menu-link px-2 removeRole">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#009ef7"><path d="M74.53333,17.2c-1.53406,-0.02082 -3.01249,0.574 -4.10468,1.65146c-1.09219,1.07746 -1.70703,2.54767 -1.70704,4.08187h-34.32161c-2.06765,-0.02924 -3.99087,1.05709 -5.03322,2.843c-1.04236,1.78592 -1.04236,3.99474 0,5.78066c1.04236,1.78592 2.96558,2.87225 5.03322,2.843h103.2c2.06765,0.02924 3.99087,-1.05709 5.03322,-2.843c1.04236,-1.78592 1.04236,-3.99474 0,-5.78066c-1.04236,-1.78592 -2.96558,-2.87225 -5.03322,-2.843h-34.32161c-0.00001,-1.53421 -0.61486,-3.00442 -1.70704,-4.08187c-1.09219,-1.07746 -2.57061,-1.67228 -4.10468,-1.65146zM34.4,45.86667v91.73333c0,6.33533 5.13133,11.46667 11.46667,11.46667h80.26667c6.33533,0 11.46667,-5.13133 11.46667,-11.46667v-91.73333z"></path></g></g></svg>
-                                                                            </a>
-                                                                        </div>
-                                                                    @endcan --}}
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @empty
-                                                        <tr>
-                                                            <td colspan="4">No Blogs Found</td>
-                                                        </tr>
-                                                    @endforelse
-                                                @else
-                                                    <h1>Unauthorised</h1>
-                                                @endcan
-                                                <!--end::Table row-->
-                                             </tbody>
-                                             <!--end::Table body-->
-                                         </table>
+                                                                        @can("blog-write")
+                                                                            <div class="menu-item">
+                                                                                <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 setTargetUrl">
+                                                                                    Target
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
+                                                                        {{-- @can("blog-delete")
+                                                                            <div class="menu-item">
+                                                                                <a href="{{route('removeBlog')}}" data-id="{{$blog['id']}}" class="menu-link px-2 removeRole">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#009ef7"><path d="M74.53333,17.2c-1.53406,-0.02082 -3.01249,0.574 -4.10468,1.65146c-1.09219,1.07746 -1.70703,2.54767 -1.70704,4.08187h-34.32161c-2.06765,-0.02924 -3.99087,1.05709 -5.03322,2.843c-1.04236,1.78592 -1.04236,3.99474 0,5.78066c1.04236,1.78592 2.96558,2.87225 5.03322,2.843h103.2c2.06765,0.02924 3.99087,-1.05709 5.03322,-2.843c1.04236,-1.78592 1.04236,-3.99474 0,-5.78066c-1.04236,-1.78592 -2.96558,-2.87225 -5.03322,-2.843h-34.32161c-0.00001,-1.53421 -0.61486,-3.00442 -1.70704,-4.08187c-1.09219,-1.07746 -2.57061,-1.67228 -4.10468,-1.65146zM34.4,45.86667v91.73333c0,6.33533 5.13133,11.46667 11.46667,11.46667h80.26667c6.33533,0 11.46667,-5.13133 11.46667,-11.46667v-91.73333z"></path></g></g></svg>
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan --}}
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="4">No Blogs Found</td>
+                                                            </tr>
+                                                        @endforelse
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                <h3>No Blogs Found</h3>
+                                            @endif
+                                        @else
+                                            <h1>Unauthorised</h1>
+                                        @endcan
                                      </div>
                                      <!--end::Table-->
                                  </div>
@@ -332,15 +333,18 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
-            $("#select2").select2();
-            $("#addTabBtn").on("click",function(){
-                $("#addTabModal").modal("show");
-            })
-            $(document).on("click",".setTargetUrl",function(){
-                const user_id = $(this).data("id");
-                $("#user_id").val(user_id);
-                $("#setTargetModal").modal("show");
-            })
+            $(()=>{
+                $(".datatable").DataTable();
+                $("#select2").select2();
+                $("#addTabBtn").on("click",function(){
+                    $("#addTabModal").modal("show");
+                })
+                $(document).on("click",".setTargetUrl",function(){
+                    const user_id = $(this).data("id");
+                    $("#user_id").val(user_id);
+                    $("#setTargetModal").modal("show");
+                })
+            },jQuery)
         })
     </script>
 @endsection

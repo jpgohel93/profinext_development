@@ -3,12 +3,6 @@
 @section("clientsData.clients.demat","active")
 @section("client_management.accordion","hover show")
 @section("content")
-    <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
-	<style>
-	.select2-container {
-		z-index: 9 !important;
-	}
-	</style>
     <!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
@@ -146,70 +140,74 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                            <!--begin::Table head-->
-                                            <thead>
-                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                <th class="min-w-10px">Sr No.</th>
-                                                <th class="min-w-10px">Serial Number</th>
-                                                <th class="min-w-75px">Client name</th>
-                                                <th class="min-w-75px">Holder Name</th>
-                                                <th class="min-w-75px">Service Type</th>
-                                                <th class="min-w-75px">Broker</th>
-                                                <th class="text-end min-w-100px">Action</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="text-gray-600 fw-bold">
-                                            @can("client-demat-read")
-                                                @php
-                                                    $i=1;
-                                                @endphp
-                                                @forelse ($dematAccount as $account)
-                                                    <tr>
-                                                        <td>{{$i++}}</td>
-                                                        <td> {{$account->st_sg."-".$account->serial_number}} </td>
-                                                        <td> {{$account->name}}</td>
-                                                        <td> {{$account->holder_name}}</td>
-                                                        <td>
-                                                            @if($account->service_type == 1)
-                                                                Prime
-                                                            @elseif($account->service_type == 2)
-                                                                AMS
-                                                            @endif
-                                                        </td>
-                                                        <td> {{$account->broker}}</td>
-                                                        <td class="text-end">
-                                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                <span class="svg-icon svg-icon-5 m-0">
-																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-																		<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-																	</svg>
-																</span>
-                                                            </a>
-                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                @can("client-demat-write")
+                                        @if(isset($dematAccount))
+                                            <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                <!--begin::Table head-->
+                                                <thead>
+                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-10px">Sr No.</th>
+                                                    <th class="min-w-10px">Serial Number</th>
+                                                    <th class="min-w-75px">Client name</th>
+                                                    <th class="min-w-75px">Holder Name</th>
+                                                    <th class="min-w-75px">Service Type</th>
+                                                    <th class="min-w-75px">Broker</th>
+                                                    <th class="text-end min-w-100px">Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="text-gray-600 fw-bold">
+                                                @can("client-demat-read")
+                                                    @php
+                                                        $i=1;
+                                                    @endphp
+                                                    @forelse ($dematAccount as $account)
+                                                        <tr>
+                                                            <td>{{$i++}}</td>
+                                                            <td> {{$account->st_sg."-".$account->serial_number}} </td>
+                                                            <td> {{$account->name}}</td>
+                                                            <td> {{$account->holder_name}}</td>
+                                                            <td>
+                                                                @if($account->service_type == 1)
+                                                                    Prime
+                                                                @elseif($account->service_type == 2)
+                                                                    AMS
+                                                                @endif
+                                                            </td>
+                                                            <td> {{$account->broker}}</td>
+                                                            <td class="text-end">
+                                                                <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                    <span class="svg-icon svg-icon-5 m-0">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                            <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                        </svg>
+                                                                    </span>
+                                                                </a>
+                                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                    @can("client-demat-write")
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
+                                                                        </div>
+                                                                    @endcan
                                                                     <div class="menu-item px-3">
-                                                                        <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
+                                                                        <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
                                                                     </div>
-                                                                @endcan
-                                                                <div class="menu-item px-3">
-                                                                    <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td colspan="4">No Demat Account  Found</td>
-                                                    </tr>
-                                                @endforelse
-                                            @else
-                                                <h1>Unauthorised</h1>
-                                            @endcan
-                                            <!--end::Table row-->
-                                            </tbody>
-                                            <!--end::Table body-->
-                                        </table>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="4">No Demat Account  Found</td>
+                                                        </tr>
+                                                    @endforelse
+                                                @else
+                                                    <h1>Unauthorised</h1>
+                                                @endcan
+                                                <!--end::Table row-->
+                                                </tbody>
+                                                <!--end::Table body-->
+                                            </table>
+                                        @else
+                                            <h3>No Clients Found</h3>
+                                        @endif
                                     </div>
                                     <!--end::Table-->
                                 </div>
@@ -397,73 +395,75 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
+            $(()=>{
+                $(".datatable").DataTable();
+                $(document).on("change",'#freelancer_type',function(e){
+                    var val = $(this).val();
+                    window.location.href = "{{ route('clientDematAccount') }}/freelancer/"+val;
+                });
 
-            $(document).on("change",'#freelancer_type',function(e){
-				var val = $(this).val();
-				window.location.href = "{{ route('clientDematAccount') }}/freelancer/"+val;
-			});
+                $(document).on("change",'#trader_id',function(e){
+                    var val = $(this).val();
+                    window.location.href = "{{ route('clientDematAccount') }}/trader/"+val;
+                });
+                $(document).on("click",'.clear_filter',function(e){
+                    window.location.href = "{{ route('clientDematAccount') }}";
+                });
 
-            $(document).on("change",'#trader_id',function(e){
-				var val = $(this).val();
-				window.location.href = "{{ route('clientDematAccount') }}/trader/"+val;
-			});
-            $(document).on("click",'.clear_filter',function(e){
-                window.location.href = "{{ route('clientDematAccount') }}";
-			});
-
-            $(document).on("click",'.assignFreelancer',function(e){
-                const id = e.target.getAttribute("data-id");
-                const name = e.target.getAttribute("data-name");
-                const holderName = e.target.getAttribute("data-holder");
-                const service = e.target.getAttribute("data-service");
-                if(id){
-                    $("#assignFreelancerId").val(id);
-                    $("#client_Name").val(name);
-                    $("#holder_name").val(holderName);
-                    $("#prime_freelancer").hide();
-                    $("#ams_freelancer").hide();
-                    if(service == 1){
-                        $("#prime_freelancer").show();
-                        $("#ams_freelancer").hide();
-                    }else if(service == 2){
-                        $("#ams_freelancer").show();
+                $(document).on("click",'.assignFreelancer',function(e){
+                    const id = e.target.getAttribute("data-id");
+                    const name = e.target.getAttribute("data-name");
+                    const holderName = e.target.getAttribute("data-holder");
+                    const service = e.target.getAttribute("data-service");
+                    if(id){
+                        $("#assignFreelancerId").val(id);
+                        $("#client_Name").val(name);
+                        $("#holder_name").val(holderName);
                         $("#prime_freelancer").hide();
-                    }
-                    $("#assignFreelancerModal").modal("show");
-                }else{
-                    window.alert("Unable to Load this Client");
-                }
-            });
-
-            $(document).on("click",'.editDematAccount',function(e){
-                const id = e.target.getAttribute("data-id");
-                const name = e.target.getAttribute("data-name");
-                const holderName = e.target.getAttribute("data-holder");
-                if(id){
-                    // $("#demate_id").val(id);
-                    // $("#demat_client_Name").val(name);
-                    // $("#demat_holder_name").val(holderName);
-
-                    $.ajax("/loginInfo/"+id,{
-                        type:"GET",
-                        headers: {
-                            'X-CSRF-TOKEN': $("input[name='_token']").val()
+                        $("#ams_freelancer").hide();
+                        if(service == 1){
+                            $("#prime_freelancer").show();
+                            $("#ams_freelancer").hide();
+                        }else if(service == 2){
+                            $("#ams_freelancer").show();
+                            $("#prime_freelancer").hide();
                         }
-                    })
-                        .done(data=>{
-                            $("#demate_id").val(data.id);
-                            $("#demat_client_Name").val(data.name);
-                            $("#demat_holder_name").val(data.holder_name);
-                            $("#available_balance").val(data.available_balance);
-                            $("#pl").val(data.pl);
-                            $("#notes").val(data.notes);
-                            $("#editDematModal").modal("show");
-                        })
+                        $("#assignFreelancerModal").modal("show");
+                    }else{
+                        window.alert("Unable to Load this Client");
+                    }
+                });
 
-                }else{
-                    window.alert("Unable to Load this Client");
-                }
-            });
+                $(document).on("click",'.editDematAccount',function(e){
+                    const id = e.target.getAttribute("data-id");
+                    const name = e.target.getAttribute("data-name");
+                    const holderName = e.target.getAttribute("data-holder");
+                    if(id){
+                        // $("#demate_id").val(id);
+                        // $("#demat_client_Name").val(name);
+                        // $("#demat_holder_name").val(holderName);
+
+                        $.ajax("/loginInfo/"+id,{
+                            type:"GET",
+                            headers: {
+                                'X-CSRF-TOKEN': $("input[name='_token']").val()
+                            }
+                        })
+                            .done(data=>{
+                                $("#demate_id").val(data.id);
+                                $("#demat_client_Name").val(data.name);
+                                $("#demat_holder_name").val(data.holder_name);
+                                $("#available_balance").val(data.available_balance);
+                                $("#pl").val(data.pl);
+                                $("#notes").val(data.notes);
+                                $("#editDematModal").modal("show");
+                            })
+
+                    }else{
+                        window.alert("Unable to Load this Client");
+                    }
+                });
+            },jQuery)
         })
     </script>
 @endsection

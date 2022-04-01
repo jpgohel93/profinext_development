@@ -2,7 +2,6 @@
 @section("page-title","Channel Partner")
 @section("channelPartner","active")
 @section("content")
-    <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
     <!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->

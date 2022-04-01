@@ -189,7 +189,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
                                                     @if (isset($preRenewAccounts))
                                                         <!--begin::Table head-->
                                                         <thead>
@@ -326,8 +326,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
-                                                       id="kt_table_users">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
                                                 @if (isset($toRenewAccounts))
                                                         <!--begin::Table head-->
                                                         <thead>
@@ -372,8 +371,7 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                                <div class="tab-pane fade show" id="new" aria-labelledby="active-tab"
-                                     role="tabpanel">
+                                <div class="tab-pane fade show" id="new" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
                                         <!--begin::Card header-->
@@ -465,7 +463,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
                                                     @if (isset($newAccounts))
                                                             <!--begin::Table head-->
                                                             <thead>
@@ -519,8 +517,7 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                                <div class="tab-pane fade show" id="renewed" aria-labelledby="active-tab"
-                                     role="tabpanel">
+                                <div class="tab-pane fade show" id="renewed" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
                                         <!--begin::Card header-->
@@ -612,7 +609,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
                                                     @if (isset($renewedAccounts))
                                                         <!--begin::Table head-->
                                                         <thead>
@@ -808,6 +805,7 @@
                         e.preventDefault();
                     }
                 })
+                $(".datatable").DataTable();
             },jQuery)
         })
     </script>

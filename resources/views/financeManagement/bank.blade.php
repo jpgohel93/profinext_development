@@ -185,7 +185,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
                                                     @if (isset($forIncomes))
                                                         <!--begin::Table head-->
                                                         <thead>
@@ -248,8 +248,7 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                                <div class="tab-pane fade show" id="forSalary" aria-labelledby="active-tab"
-                                     role="tabpanel">
+                                <div class="tab-pane fade show" id="forSalary" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
                                         <!--begin::Card header-->
@@ -341,8 +340,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
-                                                       id="kt_table_users">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
                                                 @if (isset($forSalaries))
                                                         <!--begin::Table head-->
                                                         <thead>
@@ -800,6 +798,7 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
+                $(".datatable").DataTable();
                 $("#add_bank").on("click",function(){
                     $("#add_bank_modal").modal("show");
                 });
@@ -912,8 +911,10 @@
                     .done(data=>{
                         if(status==0){
                             $("[data-id='"+id+"'].fa-unlock").removeClass("fa-unlock").addClass("fa-lock");
+                            $("[data-id='"+id+"'].fa-lock").attr("data-bs-original-title","Deactivated account");
                         }else{
                             $("[data-id='"+id+"'].fa-lock").removeClass("fa-lock").addClass("fa-unlock");
+                            $("[data-id='"+id+"'].fa-unlock").attr("data-bs-original-title","Deactivate this account");
                         }
                         $("#kt_toolbar").before(`<div class="container"><h5 class="alert alert-info">${data['info']}</h5></div>`);
                     })

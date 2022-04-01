@@ -7,7 +7,6 @@
 @section("blogs.user","active")
 @section("blogTab","hover show")
 @section("content")
-    
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -16,10 +15,10 @@
             @include("sidebar")
             <!--end::Aside-->
             <!--begin::Wrapper-->
-            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+            <div class="wrapper d-flex flex-column flex-row-fluid">
                 @include("header")
                 <!--begin::Content-->
-				<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+				<div class="content d-flex flex-column flex-column-fluid">
                     @if(session("info"))
                         <div class="container">
                             <h6 class="alert alert-info">{{session("info")}}</h6>
@@ -175,72 +174,72 @@
                                             <!--begin::Card body-->
                                             <div class="card-body pt-0">
                                                 <div class="table-responsive">
-                                                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Date</th>
-                                                                <th class="min-w-75px">Title</th>
-                                                                <th class="min-w-100px">Link</th>
-                                                                <th class="text-end min-w-100px">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold">
-                                                        @can("blog-read")
-                                                            @php
-                                                                $i=1;
-                                                                $blogs =array();
-                                                                $key = array_keys(array_column($user['target'], 'tab_id'),$user['target'][$target_index]['tab_id']);
-                                                            @endphp
-                                                            @if($user['target'][$target_index]['total_blogs']!="0")
-                                                                @foreach ($user['target'][$target_index]['tab_blogs'][$user['target'][$target_index]['tab_id']] as $blog_index => $blog)
-                                                                    <tr> 
-                                                                        <td>{{$blog['srno']}}</td>
-                                                                        <td class="role-value-td">{{$blog['date']}}</td> 
-                                                                        <td class="role-value-td">{{$blog['title']}}</td> 
-                                                                        <td class="role-value-td"><a href="{{$blog['link']}}" target="_blank">{{$blog['link']}}</a></td> 
-                                                                        <td class="text-end">
-                                                                            <div class="d-flex justify-content-end align-items-end">
-                                                                                @can("blog-write")
-                                                                                    <div class="menu-item">  
-                                                                                        <a href="{{route('approveBlog',$blog['id'])}}" data-id="{{$blog['id']}}" class="menu-link px-3">
-                                                                                            @if($blog['is_approve'])
-                                                                                                Approved
-                                                                                            @else
-                                                                                                Approve
-                                                                                            @endif
-                                                                                        </a> 
-                                                                                    </div>
-                                                                                    <div class="menu-item">  
-                                                                                        <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 addNotes">
-                                                                                            Add Notes
-                                                                                        </a> 
-                                                                                    </div>
-                                                                                @endcan
-                                                                                {{-- @can("blog-delete")
-                                                                                    <div class="menu-item">  
-                                                                                        <a href="{{route('removeBlog')}}" data-id="{{$blog['id']}}" class="menu-link px-2 removeRole">
-                                                                                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#009ef7"><path d="M74.53333,17.2c-1.53406,-0.02082 -3.01249,0.574 -4.10468,1.65146c-1.09219,1.07746 -1.70703,2.54767 -1.70704,4.08187h-34.32161c-2.06765,-0.02924 -3.99087,1.05709 -5.03322,2.843c-1.04236,1.78592 -1.04236,3.99474 0,5.78066c1.04236,1.78592 2.96558,2.87225 5.03322,2.843h103.2c2.06765,0.02924 3.99087,-1.05709 5.03322,-2.843c1.04236,-1.78592 1.04236,-3.99474 0,-5.78066c-1.04236,-1.78592 -2.96558,-2.87225 -5.03322,-2.843h-34.32161c-0.00001,-1.53421 -0.61486,-3.00442 -1.70704,-4.08187c-1.09219,-1.07746 -2.57061,-1.67228 -4.10468,-1.65146zM34.4,45.86667v91.73333c0,6.33533 5.13133,11.46667 11.46667,11.46667h80.26667c6.33533,0 11.46667,-5.13133 11.46667,-11.46667v-91.73333z"></path></g></g></svg>
-                                                                                        </a>
-                                                                                    </div>
-                                                                                @endcan --}}
-                                                                            </div>
-                                                                        </td> 
-                                                                    </tr> 
-                                                                @endforeach
-                                                            @else
-                                                                <tr>
-                                                                    <td colspan="4">No Blogs Found</td>
-                                                                </tr>
-                                                            @endif
+                                                    @can("blog-read")
+                                                        @php
+                                                            $i=1;
+                                                            $blogs =array();
+                                                            $key = array_keys(array_column($user['target'], 'tab_id'),$user['target'][$target_index]['tab_id']);
+                                                        @endphp
+                                                        @if($user['target'][$target_index]['total_blogs']!="0")
+                                                            <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                                <!--begin::Table head-->
+                                                                <thead>
+                                                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                                        <th class="min-w-10px">Sr No.</th>
+                                                                        <th class="min-w-75px">Date</th>
+                                                                        <th class="min-w-75px">Title</th>
+                                                                        <th class="min-w-100px">Link</th>
+                                                                        <th class="text-end min-w-100px">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="text-gray-600 fw-bold">
+                                                                    @foreach ($user['target'][$target_index]['tab_blogs'][$user['target'][$target_index]['tab_id']] as $blog_index => $blog)
+                                                                        <tr> 
+                                                                            <td>{{$blog['srno']}}</td>
+                                                                            <td class="role-value-td">{{$blog['date']}}</td> 
+                                                                            <td class="role-value-td">{{$blog['title']}}</td> 
+                                                                            <td class="role-value-td"><a href="{{$blog['link']}}" target="_blank">{{$blog['link']}}</a></td> 
+                                                                            <td class="text-end">
+                                                                                <div class="d-flex justify-content-end align-items-end">
+                                                                                    @can("blog-write")
+                                                                                        <div class="menu-item">  
+                                                                                            <a href="{{route('approveBlog',$blog['id'])}}" data-id="{{$blog['id']}}" class="menu-link px-3">
+                                                                                                @if($blog['is_approve'])
+                                                                                                    Approved
+                                                                                                @else
+                                                                                                    Approve
+                                                                                                @endif
+                                                                                            </a> 
+                                                                                        </div>
+                                                                                        <div class="menu-item">  
+                                                                                            <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 addNotes">
+                                                                                                Add Notes
+                                                                                            </a> 
+                                                                                        </div>
+                                                                                    @endcan
+                                                                                    {{-- @can("blog-delete")
+                                                                                        <div class="menu-item">  
+                                                                                            <a href="{{route('removeBlog')}}" data-id="{{$blog['id']}}" class="menu-link px-2 removeRole">
+                                                                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#009ef7"><path d="M74.53333,17.2c-1.53406,-0.02082 -3.01249,0.574 -4.10468,1.65146c-1.09219,1.07746 -1.70703,2.54767 -1.70704,4.08187h-34.32161c-2.06765,-0.02924 -3.99087,1.05709 -5.03322,2.843c-1.04236,1.78592 -1.04236,3.99474 0,5.78066c1.04236,1.78592 2.96558,2.87225 5.03322,2.843h103.2c2.06765,0.02924 3.99087,-1.05709 5.03322,-2.843c1.04236,-1.78592 1.04236,-3.99474 0,-5.78066c-1.04236,-1.78592 -2.96558,-2.87225 -5.03322,-2.843h-34.32161c-0.00001,-1.53421 -0.61486,-3.00442 -1.70704,-4.08187c-1.09219,-1.07746 -2.57061,-1.67228 -4.10468,-1.65146zM34.4,45.86667v91.73333c0,6.33533 5.13133,11.46667 11.46667,11.46667h80.26667c6.33533,0 11.46667,-5.13133 11.46667,-11.46667v-91.73333z"></path></g></g></svg>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    @endcan --}}
+                                                                                </div>
+                                                                            </td> 
+                                                                        </tr> 
+                                                                    @endforeach
+                                                                <!--end::Table row-->
+                                                                </tbody>
+                                                                <!--end::Table body-->
+                                                            </table> 
                                                         @else
-                                                            <h1>Unauthorised</h1>
-                                                        @endcan
-                                                        <!--end::Table row-->
-                                                        </tbody>
-                                                        <!--end::Table body-->
-                                                    </table> 													
+                                                            <tr>
+                                                                <td colspan="4">No Blogs Found</td>
+                                                            </tr>
+                                                        @endif
+                                                    @else
+                                                        <h1>Unauthorised</h1>
+                                                    @endcan													
                                                 </div>
                                                 <!--end::Table-->
                                             </div>
@@ -353,18 +352,21 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
-            $("#addArticleBtn").on("click",function(){
-                $("#addArticleModal").modal("show");
-            })
-            $(document).on("click",".addNotes",function(e){
-                const id = e.target.getAttribute("data-id");
-                if(id){
-                    $("#blog_id").val(id);
-                    $("#addNoteModal").modal("show");
-                }else{
-                    window.alert("Unable to get blog");
-                }
-            })
+            $(()=>{
+                $(".datatable").DataTable();
+                $("#addArticleBtn").on("click",function(){
+                    $("#addArticleModal").modal("show");
+                })
+                $(document).on("click",".addNotes",function(e){
+                    const id = e.target.getAttribute("data-id");
+                    if(id){
+                        $("#blog_id").val(id);
+                        $("#addNoteModal").modal("show");
+                    }else{
+                        window.alert("Unable to get blog");
+                    }
+                })
+            },jQuery)
         })
     </script>
 @endsection

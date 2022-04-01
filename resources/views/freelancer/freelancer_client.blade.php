@@ -2,7 +2,6 @@
 @section("page-title","Freelancer")
 @section("freelancer","active")
 @section("content")
-    <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
     <!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->

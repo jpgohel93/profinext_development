@@ -299,6 +299,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post("/financeManagement/loan/add", [AccountingController::class, "financeManagementAddLoan"])->name("accounting.loan");
     // finance Management - Financial Status
     Route::get("/financeManagement/FinancialStatus", [FinancialStatusController::class, "financialStatus"])->name("financeManagementFinancialStatus");
+    Route::get("/financeManagement/view/st", [FinancialStatusController::class, "viewMoreSt"])->name("viewMoreSt");
+    Route::get("/financeManagement/view/sg", [FinancialStatusController::class, "viewMoreSg"])->name("viewMoreSg");
+    Route::post("/financeManagement/view/st/demat", [FinancialStatusController::class, "dematDetailsFinancialStatus"])->name("dematDetailsFinancialStatus");
     // Business Management
     Route::get("/businessManagement",[renewalStatusController::class,"view"])->name("business_management");
 });

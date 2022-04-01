@@ -3,7 +3,6 @@
 @section("analyst.monitorData","active")
 @section("analyst_management.accordion","hover show")
 @section("content")
-    <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
     <!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
@@ -21,8 +20,8 @@
                         <div class="container">
                             <h6 class="alert alert-info">{{session("info")}}</h6>
                         </div>
-                @endif
-                <!--begin::Toolbar-->
+                    @endif
+                    <!--begin::Toolbar-->
                     <div class="toolbar" id="kt_toolbar">
                         <!--begin::Container-->
                         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
@@ -147,58 +146,60 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                            <!--begin::Table head-->
-                                            <thead>
-                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                <th class="min-w-10px">Sr No.</th>
-                                                <th class="min-w-75px">Monitor Name</th>
-                                                <th class="min-w-75px">Total Analyst</th>
-                                                @can("monitor-data-write")
-                                                <th class="min-w-75px">Action</th>
-                                                @endcan
-                                            </tr>
-                                            </thead>
-                                            <tbody class="text-gray-600 fw-bold">
-                                            @can("monitor-data-read")
-                                                @php
-                                                    $i=1;
-                                                @endphp
-                                                @forelse ($users as $user)
-                                                    <tr>
-                                                        <td>{{$i++}}</td>
-                                                        <td class="d-flex align-items-center">
-                                                            <div class="d-flex flex-column">
-                                                                <a href="#" target="_blank" class="text-gray-800 text-hover-primary mb-1">{{$user->name}}</a>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            {{$user->total_analyst}}
-                                                        </td>
-                                                        @can("monitor-data-write")
-                                                        <td>
-                                                            <div class="d-flex justify-content-center">
-                                                                <div class="menu-item">
-                                                                    <a href="{{url('monitor_analysts/'.$user->id)}}" class="menu-link p-1" target="_blank">
-                                                                        <i class="fa fa-edit text-dark fa-2x"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        @endcan
-                                                    </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td colspan="4">No Monitor Found</td>
-                                                    </tr>
-                                                @endforelse
+                                        @can("monitor-data-read")
+                                            @if(isset($users))
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Monitor Name</th>
+                                                            <th class="min-w-75px">Total Analyst</th>
+                                                            @can("monitor-data-write")
+                                                            <th class="min-w-75px">Action</th>
+                                                            @endcan
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold">
+                                                            @php
+                                                                $i=1;
+                                                            @endphp
+                                                            @forelse ($users as $user)
+                                                                <tr>
+                                                                    <td>{{$i++}}</td>
+                                                                    <td class="d-flex align-items-center">
+                                                                        <div class="d-flex flex-column">
+                                                                            <a href="#" target="_blank" class="text-gray-800 text-hover-primary mb-1">{{$user->name}}</a>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        {{$user->total_analyst}}
+                                                                    </td>
+                                                                    @can("monitor-data-write")
+                                                                    <td>
+                                                                        <div class="d-flex justify-content-center">
+                                                                            <div class="menu-item">
+                                                                                <a href="{{url('monitor_analysts/'.$user->id)}}" class="menu-link p-1" target="_blank">
+                                                                                    <i class="fa fa-edit text-dark fa-2x"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    @endcan
+                                                                </tr>
+                                                            @empty
+                                                                <tr>
+                                                                    <td colspan="4">No Monitor Found</td>
+                                                                </tr>
+                                                            @endforelse
+                                                    </tbody>
+                                                </table>
                                             @else
-                                                <h1>Unauthorised</h1>
-                                            @endcan
-                                            <!--end::Table row-->
-                                            </tbody>
-                                            <!--end::Table body-->
-                                        </table>
+                                                <h3>No Monitor Found</h3>
+                                            @endif
+                                        @else
+                                            <h1>Unauthorised</h1>
+                                        @endcan
                                     </div>
                                     <!--end::Table-->
                                 </div>
@@ -234,4 +235,11 @@
         </span>
         <!--end::Svg Icon-->
     </div>
+    <script>
+        window.addEventListener("DOMContentLoaded",function(){
+            $(()=>{
+                $(".datatable").DataTable();
+            },jQuery)
+        })
+    </script>
 @endsection

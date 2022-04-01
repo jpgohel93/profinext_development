@@ -3,12 +3,6 @@
 @section("clientsData.clients.dematStatus","active")
 @section("client_management.accordion","hover show")
 @section("content")
-    <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
-	<style>
-	.select2-container {
-		z-index: 9 !important;
-	}
-	</style>
     <!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
@@ -87,115 +81,62 @@
                                         <!--end::Search-->
                                     </div>
                                     <!--begin::Card title-->
-                                    <!--begin::Card toolbar-->
-
-                                    <div class="card-toolbar">
-                                        {{-- <!--begin::Toolbar-->
-                                        <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                            <div class="d-flex justify-content-between">
-
-												<select class="form-select form-select-solid" id='freelancer_type' data-control="select2" data-hide-search="true" data-placeholder="Select Freelancer" style="margin-left: 10px;">
-													<option value="">Select freelancer</option>
-													@forelse ($freelancerAms as $freelancer)
-														<option value="{{$freelancer->id}}" @if($filter_type == 'freelancer' && $filter_id == $freelancer->id) selected @endif >{{$freelancer->name}}</option>
-													@empty
-													@endforelse
-
-													@forelse ($freelancerPrime as $freelancer)
-														<option value="{{$freelancer->id}}" @if($filter_type == 'freelancer' && $filter_id == $freelancer->id) selected @endif >{{$freelancer->name}}</option>
-													@empty
-													@endforelse
-												</select>
-
-												<select class="form-select form-select-solid" id='trader_id' data-control="select2" data-hide-search="true" data-placeholder="Select Trader">
-													<option value="">Select Trader</option>
-													@forelse ($traders as $trader)
-														<option value="{{$trader->id}}" @if($filter_type == 'trader' && $filter_id == $dematAccount[0]->id) selected @endif >{{$trader->name}} - {{$trader->count->count()}} &nbsp; Client</option>
-													@empty
-													@endforelse
-												</select>
-
-                                                <!--begin::Export-->
-                                                <a href="javascript:;" class="btn btn-light-primary clear_filter" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" style="width: 300px; margin-left: 10px;">
-                                                    <!--end::Svg Icon-->Clear Filter
-                                                </a>
-                                            </div>
-                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
-                                                <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3">
-														<span class="menu-icon">
-															<i class="la la-file-pdf-o"></i>
-														</span>PDF
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3">
-														<span class="menu-icon">
-															<i class="la la-file-excel-o"></i>
-														</span>Excel
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <!--end::Export-->
-                                        </div>
-                                        <!--end::Toolbar--> --}}
-                                    </div>
-                                    <!--end::Card toolbar-->
                                 </div>
                                 <!--end::Card header-->
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                            <!--begin::Table head-->
-                                            <thead>
-                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                <th class="min-w-10px">Sr No.</th>
-                                                <th class="min-w-10px">Serial Number</th>
-                                                <th class="min-w-75px">Client name</th>
-                                                <th class="min-w-75px">Holder Name</th>
-                                                <th class="min-w-75px">Service Type</th>
-                                                <th class="min-w-75px">Broker</th>
-                                                <th class="text-end min-w-100px">Action</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="text-gray-600 fw-bold">
-                                            @can("client-demat-read")
-                                                @forelse ($dematAccount as $account)
-                                                    <tr>
-                                                        <td>{{sprintf("%04d",$account->id)}}</td>
-                                                        <td> {{$account->st_sg."-".$account->serial_number}} </td>
-                                                        <td> {{$account->withClient->name}}</td>
-                                                        <td> {{$account->holder_name}}</td>
-                                                        <td>
-                                                            @if($account->service_type == 1)
-                                                                Prime
-                                                            @elseif($account->service_type == 2)
-                                                                AMS
-                                                            @endif
-                                                        </td>
-                                                        <td> {{$account->broker}}</td>
-                                                        <td class="text-end">
-                                                            <a href="javascript:void(0)">
-                                                                <i class="fas fa-eye fa-2x {{$account->mark_as_problem!=null?"viewProblem":($account->account_status=="terminated"?"terminatedAccount":($account->account_status=="problem"?"issueWithAccount":"unknown"))}}" data-id="{{$account->id}}"></i>
-                                                            </a>
-                                                            <a href="javascript:void(0)">
-                                                                <i class="fas fa-redo-alt fa-2x backToNormal" data-id="{{$account->id}}" data-toggle="tooltip" title="Restore account"></i>
-                                                            </a>
-                                                        </td>
+                                        @if(isset($dematAccount))
+                                            <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                <thead>
+                                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                        <th class="min-w-10px">Sr No.</th>
+                                                        <th class="min-w-10px">Serial Number</th>
+                                                        <th class="min-w-75px">Client name</th>
+                                                        <th class="min-w-75px">Holder Name</th>
+                                                        <th class="min-w-75px">Service Type</th>
+                                                        <th class="min-w-75px">Broker</th>
+                                                        <th class="text-end min-w-100px">Action</th>
                                                     </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td colspan="4">No Demat Account  Found</td>
-                                                    </tr>
-                                                @endforelse
-                                            @else
-                                                <h1>Unauthorised</h1>
-                                            @endcan
-                                            <!--end::Table row-->
-                                            </tbody>
-                                            <!--end::Table body-->
-                                        </table>
+                                                </thead>
+                                                <tbody class="text-gray-600 fw-bold">
+                                                    @can("client-demat-read")
+                                                        @forelse ($dematAccount as $account)
+                                                            <tr>
+                                                                <td>{{sprintf("%04d",$account->id)}}</td>
+                                                                <td> {{$account->st_sg."-".$account->serial_number}} </td>
+                                                                <td> {{$account->withClient->name}}</td>
+                                                                <td> {{$account->holder_name}}</td>
+                                                                <td>
+                                                                    @if($account->service_type == 1)
+                                                                        Prime
+                                                                    @elseif($account->service_type == 2)
+                                                                        AMS
+                                                                    @endif
+                                                                </td>
+                                                                <td> {{$account->broker}}</td>
+                                                                <td class="text-end">
+                                                                    <a href="javascript:void(0)">
+                                                                        <i class="fas fa-eye fa-2x {{$account->mark_as_problem!=null?"viewProblem":($account->account_status=="terminated"?"terminatedAccount":($account->account_status=="problem"?"issueWithAccount":"unknown"))}}" data-id="{{$account->id}}"></i>
+                                                                    </a>
+                                                                    <a href="javascript:void(0)">
+                                                                        <i class="fas fa-redo-alt fa-2x backToNormal" data-id="{{$account->id}}" data-toggle="tooltip" title="Restore account"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="4">No Demat Account Found</td>
+                                                            </tr>
+                                                        @endforelse
+                                                    @else
+                                                        <h1>Unauthorised</h1>
+                                                    @endcan
+                                                </tbody>
+                                            </table>
+                                        @else
+                                            <h3>No Demat Account Found</h3>
+                                        @endif
                                     </div>
                                     <!--end::Table-->
                                 </div>
@@ -394,113 +335,116 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
-            $(document).on("click",'.viewProblem',function(e){
-                $("#mark_as_problem_form")[0].reset();
-                const id = e.target.getAttribute("data-id");
-                const name = e.target.getAttribute("data-name");
-                const holderName = e.target.getAttribute("data-holder");
-
-                if(id){
-                    $.ajax("{{route('viewDematProblem')}}",{
-                        type:"POST",
-                        data:{
-                            id:id
-                        }
-                    })
-                    .done(data=>{
-                        console.log(data);
-                        if(data?.paymentPending){
-                            $("#paymentPending").prop("checked",true);
-                        }
-                        if(data?.PANCardPending){
-                            $("#PANCardPending").prop("checked",true);
-                        }
-                        if(data?.WrongInformationText){
-                            $("#WrongInformation").prop("checked",true);
-                            $("#WrongInformationTextDiv").show();
-                            $("#WrongInformationText").val(data.WrongInformationText)
-                        }else{
-                            $("#WrongInformationTextDiv").hide();
-                        }
-                        if(data?.OtherText){
-                            $("#Other").prop("checked",true);
-                            $("#OtherTextDiv").show();
-                            $("#OtherText").val(data.OtherText)
-                        }else{
-                            $("#OtherTextDiv").hide();
-                        }
-                        $("#editIdContainer").html(`<input type="hidden" name="demat_id" value="${id}">`);
-                        $("#mark_as_problem_modal").modal("show");
-                    })
-                }else{
-                    window.alert("Unable to Load this Client");
-                }
-                $("#WrongInformation").on("click",function(e){
-                    if($(this).is(":checked")){
-                        $("#WrongInformationTextDiv").show();
-                    }else{
-                        $("#WrongInformationTextDiv").hide();
-                    }
-                })
-                $("#WrongInformationTextDiv").hide();
-                $("#Other").on("click",function(e){
-                    if($(this).is(":checked")){
-                        $("#OtherTextDiv").show();
-                    }else{
-                        $("#OtherTextDiv").hide();
-                    }
-                })
-                $("#OtherTextDiv").hide();
-            });
-            $(document).on("click",".terminatedAccount",function(){
-                window.alert("this account has been terminated by accountant");
-            })
-            $(document).on("click",".issueWithAccount",function(e){
-                const id = e.target.getAttribute("data-id");
-                if(id){
-                    $.ajax("{{route('issueWithDematAccount')}}",{
-                        type:"POST",
-                        data:{
-                            id:id
-                        }
-                    })
-                    .done(data=>{
-                        $("#demateAccountProblemForm #editIdContainer").html(`<input type="hidden" name="demat_id" value="${id}">`);
-                        if(data?.problem){
-                            $("#problemText").val(data?.problem);
-                            $("#demateAccountProblemModal").modal("show");
-                        }else{
-                            window.alert("Account status is unknown");
-                        }
-                    })
-                    .fail((err,code,xhr)=>{
-                        window.alert("Unknown error occured while loading this account");
-                    })
-                }else{
-                    window.alert("Unable to Load this Client");
-                }
-            })
-            $(document).on("click",".backToNormal",function(e){
-                const id = e.target.getAttribute("data-id");
-                if(id){
-                    if(window.confirm("Are  you sure you want to restore this account?")){
-                        $.ajax("{!! route('dematAccountRestore') !!}",{
+            $(()=>{
+                $(".datatable").DataTable();
+                $(document).on("click",'.viewProblem',function(e){
+                    $("#mark_as_problem_form")[0].reset();
+                    const id = e.target.getAttribute("data-id");
+                    const name = e.target.getAttribute("data-name");
+                    const holderName = e.target.getAttribute("data-holder");
+    
+                    if(id){
+                        $.ajax("{{route('viewDematProblem')}}",{
                             type:"POST",
-                            data: {
+                            data:{
                                 id:id
                             }
                         })
                         .done(data=>{
-                            window.location.reload();
+                            console.log(data);
+                            if(data?.paymentPending){
+                                $("#paymentPending").prop("checked",true);
+                            }
+                            if(data?.PANCardPending){
+                                $("#PANCardPending").prop("checked",true);
+                            }
+                            if(data?.WrongInformationText){
+                                $("#WrongInformation").prop("checked",true);
+                                $("#WrongInformationTextDiv").show();
+                                $("#WrongInformationText").val(data.WrongInformationText)
+                            }else{
+                                $("#WrongInformationTextDiv").hide();
+                            }
+                            if(data?.OtherText){
+                                $("#Other").prop("checked",true);
+                                $("#OtherTextDiv").show();
+                                $("#OtherText").val(data.OtherText)
+                            }else{
+                                $("#OtherTextDiv").hide();
+                            }
+                            $("#editIdContainer").html(`<input type="hidden" name="demat_id" value="${id}">`);
+                            $("#mark_as_problem_modal").modal("show");
+                        })
+                    }else{
+                        window.alert("Unable to Load this Client");
+                    }
+                    $("#WrongInformation").on("click",function(e){
+                        if($(this).is(":checked")){
+                            $("#WrongInformationTextDiv").show();
+                        }else{
+                            $("#WrongInformationTextDiv").hide();
+                        }
+                    })
+                    $("#WrongInformationTextDiv").hide();
+                    $("#Other").on("click",function(e){
+                        if($(this).is(":checked")){
+                            $("#OtherTextDiv").show();
+                        }else{
+                            $("#OtherTextDiv").hide();
+                        }
+                    })
+                    $("#OtherTextDiv").hide();
+                });
+                $(document).on("click",".terminatedAccount",function(){
+                    window.alert("this account has been terminated by accountant");
+                })
+                $(document).on("click",".issueWithAccount",function(e){
+                    const id = e.target.getAttribute("data-id");
+                    if(id){
+                        $.ajax("{{route('issueWithDematAccount')}}",{
+                            type:"POST",
+                            data:{
+                                id:id
+                            }
+                        })
+                        .done(data=>{
+                            $("#demateAccountProblemForm #editIdContainer").html(`<input type="hidden" name="demat_id" value="${id}">`);
+                            if(data?.problem){
+                                $("#problemText").val(data?.problem);
+                                $("#demateAccountProblemModal").modal("show");
+                            }else{
+                                window.alert("Account status is unknown");
+                            }
                         })
                         .fail((err,code,xhr)=>{
-                            window.alert("Unknown error occured")
+                            window.alert("Unknown error occured while loading this account");
                         })
+                    }else{
+                        window.alert("Unable to Load this Client");
                     }
-                }else{
-                    window.alert("Unable to Load this Client");
-                }
-            })
+                })
+                $(document).on("click",".backToNormal",function(e){
+                    const id = e.target.getAttribute("data-id");
+                    if(id){
+                        if(window.confirm("Are  you sure you want to restore this account?")){
+                            $.ajax("{!! route('dematAccountRestore') !!}",{
+                                type:"POST",
+                                data: {
+                                    id:id
+                                }
+                            })
+                            .done(data=>{
+                                window.location.reload();
+                            })
+                            .fail((err,code,xhr)=>{
+                                window.alert("Unknown error occured")
+                            })
+                        }
+                    }else{
+                        window.alert("Unable to Load this Client");
+                    }
+                })
+            },jQuery)
         })
     </script>
 @endsection

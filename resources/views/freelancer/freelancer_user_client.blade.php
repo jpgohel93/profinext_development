@@ -2,8 +2,7 @@
 @section("page-title","Freelancer - Partner Management")
 @section("freelancer_user","active")
 @section("partner_management.accordion","hover show")
-@section("content")
-    <link href="{{asset("assets/css/custom.css")}}" rel="stylesheet">
+@section("content")    
     <!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
@@ -133,64 +132,62 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                            <!--begin::Table head-->
-                                            <thead>
-                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                <th class="min-w-10px">Sr No.</th>
-                                                <th class="min-w-10px">Serial Number</th>
-                                                <th class="min-w-75px">Client name</th>
-                                                <th class="min-w-75px">Holder Name</th>
-                                                <th class="min-w-75px">Service Type</th>
-                                                <th class="min-w-75px">Broker</th>
-                                                @can('freelancer-write')
-                                                <th class="text-end min-w-100px">Action</th>
-                                                @endcan
-                                            </tr>
-                                            </thead>
-                                            <tbody class="text-gray-600 fw-bold">
-{{--                                            @can("call-read")--}}
-                                                @php
-                                                    $i=1;
-                                                @endphp
-                                                @forelse ($freelancerClient as $client)
-                                                    <tr>
-                                                        <td>{{$i++}}</td>
-                                                        <td> {{$client->st_sg."-".$client->serial_number}} </td>
-                                                        <td> {{$client->name}}</td>
-                                                        <td> {{$client->holder_name}}</td>
-                                                        <td>
-                                                            @if($client->service_type == 1)
-                                                                Prime
-                                                            @elseif($client->service_type == 2)
-                                                                AMS
-                                                            @endif
-                                                        </td>
-                                                        <td> {{$client->broker}}</td>
+                                        @if($freelancerClient)
+                                            <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                <!--begin::Table head-->
+                                                <thead>
+                                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                        <th class="min-w-10px">Sr No.</th>
+                                                        <th class="min-w-10px">Serial Number</th>
+                                                        <th class="min-w-75px">Client name</th>
+                                                        <th class="min-w-75px">Holder Name</th>
+                                                        <th class="min-w-75px">Service Type</th>
+                                                        <th class="min-w-75px">Broker</th>
                                                         @can('freelancer-write')
-                                                        <td class="text-end">
-                                                            <div class="d-flex justify-content-center">
-                                                                <div class="menu-item">
-                                                                    <a href="javascript:void(0)" data-id='{{$client->id}}' class="menu-link px-3 editDematAccount">
-                                                                        <i class="fa fa-edit text-dark fa-2x"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                                                            <th class="text-end min-w-100px">Action</th>
                                                         @endcan
                                                     </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td colspan="4">No Clients Found</td>
-                                                    </tr>
-                                                @endforelse
-{{--                                            @else--}}
-{{--                                                <h1>Unauthorised</h1>--}}
-{{--                                            @endcan--}}
-                                            <!--end::Table row-->
-                                            </tbody>
-                                            <!--end::Table body-->
-                                        </table>
+                                                </thead>
+                                                <tbody class="text-gray-600 fw-bold">
+                                                    @php
+                                                        $i=1;
+                                                    @endphp
+                                                    @forelse ($freelancerClient as $client)
+                                                        <tr>
+                                                            <td>{{$i++}}</td>
+                                                            <td> {{$client->st_sg."-".$client->serial_number}} </td>
+                                                            <td> {{$client->name}}</td>
+                                                            <td> {{$client->holder_name}}</td>
+                                                            <td>
+                                                                @if($client->service_type == 1)
+                                                                    Prime
+                                                                @elseif($client->service_type == 2)
+                                                                    AMS
+                                                                @endif
+                                                            </td>
+                                                            <td> {{$client->broker}}</td>
+                                                            @can('freelancer-write')
+                                                            <td class="text-end">
+                                                                <div class="d-flex justify-content-center">
+                                                                    <div class="menu-item">
+                                                                        <a href="javascript:void(0)" data-id='{{$client->id}}' class="menu-link px-3 editDematAccount">
+                                                                            <i class="fa fa-edit text-dark fa-2x"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            @endcan
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="4">No Clients Found</td>
+                                                        </tr>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                        @else
+                                            <h3>No Clients Found</h3>
+                                        @endif
                                     </div>
                                     <!--end::Table-->
                                 </div>
@@ -297,29 +294,32 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
-            $(document).on("click",'.editDematAccount',function(e){
-                const id = $(this).attr("data-id");
-                if(id){
-                    $.ajax("/loginInfo/"+id,{
-                        type:"GET",
-                        headers: {
-                            'X-CSRF-TOKEN': $("input[name='_token']").val()
-                        }
-                    })
-                        .done(data=>{
-                            $("#demate_id").val(data.id);
-                            $("#demat_client_Name").val(data.name);
-                            $("#demat_holder_name").val(data.holder_name);
-                            $("#available_balance").val(data.available_balance);
-                            $("#pl").val(data.pl);
-                            $("#notes").val(data.notes);
-                            $("#editDematModal").modal("show");
+            $(()=>{
+                $(".datatable").DataTable();
+                $(document).on("click",'.editDematAccount',function(e){
+                    const id = $(this).attr("data-id");
+                    if(id){
+                        $.ajax("/loginInfo/"+id,{
+                            type:"GET",
+                            headers: {
+                                'X-CSRF-TOKEN': $("input[name='_token']").val()
+                            }
                         })
-
-                }else{
-                    window.alert("Unable to Load this Client");
-                }
-            });
+                            .done(data=>{
+                                $("#demate_id").val(data.id);
+                                $("#demat_client_Name").val(data.name);
+                                $("#demat_holder_name").val(data.holder_name);
+                                $("#available_balance").val(data.available_balance);
+                                $("#pl").val(data.pl);
+                                $("#notes").val(data.notes);
+                                $("#editDematModal").modal("show");
+                            })
+    
+                    }else{
+                        window.alert("Unable to Load this Client");
+                    }
+                });
+            })
         })
     </script>
 @endsection

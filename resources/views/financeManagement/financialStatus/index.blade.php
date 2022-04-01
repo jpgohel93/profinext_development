@@ -79,7 +79,7 @@
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary pb-1 active" data-bs-toggle="tab"
-                                       href="#formTab">Form</a>
+                                       href="#formTab">Firm</a>
                                 </li>
                                 <!--end:::Tab item-->
 
@@ -106,8 +106,7 @@
                             </ul>
                             <!--end:::Tabs-->
                             <div class="tab-content">
-                                <div class="tab-pane fade show active" id="formTab" aria-labelledby="active-tab"
-                                     role="tabpanel">
+                                <div class="tab-pane fade show active" id="formTab" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
                                         <!--begin::Card header-->
@@ -200,11 +199,11 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                                    @if (isset($forIncomes))
+                                                    @if (isset($firmTab))
                                                         <!--begin::Table head-->
                                                         <thead>
                                                             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Form Name:</th>
+                                                                <th class="min-w-10px">Firm Name:</th>
                                                                 <th class="min-w-75px">Income</th>
                                                                 <th class="min-w-75px">Expense</th>
                                                                 <th class="min-w-75px">Clients</th>
@@ -213,43 +212,30 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold">
-                                                            @php
-                                                                $i=1;
-                                                            @endphp
-                                                            @foreach($forIncomes as $forIncome)
-                                                                <tr>
-                                                                    <td>{{sprintf("%04d",$forIncome->id)}}</td>
-                                                                    <td>{{$forIncome->title}}</td>
-                                                                    <td>{{$forIncome->available_balance}}</td>
-                                                                    <td>{{$forIncome->limit_utilize}}</td>
-                                                                    <td>
-                                                                        <a href="javascript:void(0)">
-                                                                            <i class="fas fa-eye fa-lg viewBankAccount" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="View More"></i>
-                                                                        </a>
-                                                                        <a href="javascript:void(0)">
-                                                                            <i class="fas fa-edit fa-lg setTarget" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Set Target"></i>
-                                                                        </a>
-                                                                        @if($forIncome->is_primary)
-                                                                            <a href="javascript:void(0)">
-                                                                                <i class="fas fa-close fa-lg makeAccountPrimary" id="currentPrimaryAccount" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Current primary account"></i>
-                                                                            </a>
-                                                                        @else
-                                                                            <a href="javascript:void(0)">
-                                                                                <i class="fas fa-check fa-lg makeAccountPrimary" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Make Account Primary"></i>
-                                                                            </a>
-                                                                        @endif
-                                                                        @if($forIncome->is_active)
-                                                                            <a href="javascript:void(0)">
-                                                                                <i class="fas fa-eye fa-lg" data-id="{{$forIncome->id}}"></i>
-                                                                            </a>
-                                                                        @else
-                                                                            <a href="javascript:void(0)">
-                                                                                <i class="fas fa-lock fa-lg" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Deactivated account"></i>
-                                                                            </a>
-                                                                        @endif
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
+                                                            <tr>
+                                                                <td>ST</td>
+                                                                <td>{{$firmTab['st']['income']}}</td>
+                                                                <td>{{$firmTab['st']['expense']}}</td>
+                                                                <td>{{$firmTab['st']['clients']}}</td>
+                                                                <td>{{$firmTab['st']['users']}}</td>
+                                                                <td>
+                                                                    <a href="{{route('viewMoreSt')}}" target="_blank">
+                                                                        View More
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>SG</td>
+                                                                <td>{{$firmTab['sg']['income']}}</td>
+                                                                <td>{{$firmTab['sg']['expense']}}</td>
+                                                                <td>{{$firmTab['sg']['clients']}}</td>
+                                                                <td>{{$firmTab['sg']['users']}}</td>
+                                                                <td>
+                                                                    <a href="{{route('viewMoreSg')}}" target="_blank">
+                                                                        View More
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
                                                         </tbody>
                                                     @else
                                                         <h3>Details not found</h3>
