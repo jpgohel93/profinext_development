@@ -7,6 +7,7 @@ use App\Services\BlogAdminServices;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\blogTabs;
 use App\Models\Blog;
+
 class BlogController extends Controller
 {
     public function __construct(){
@@ -34,8 +35,14 @@ class BlogController extends Controller
         return Redirect::route("blogAdmin")->with("info","New Tab Added!");
     }
     public function setTargetFrm(Request $request){
-        BlogAdminServices::setTarget($request);
-        return Redirect::route("blogAdmin")->with("info","New Target Assign!");
+        $blogData = BlogAdminServices::getBlogByTabId($request->tab_id,$request->user_id);
+        if(empty( $blogData)){
+            BlogAdminServices::setTarget($request);
+            return Redirect::route("blogAdmin")->with("info","New Target Assign!");
+        }else{
+            return Redirect::route("blogAdmin")->with("info","Tab target already set!");
+        }
+
     }
     public function editBlogForm(Request $request,$id){
         $user = BlogAdminServices::editBlogForm($id);

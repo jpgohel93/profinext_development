@@ -92,6 +92,7 @@ class ClientServices
             $array['is_make_as_preferred']= 0;
             $array['pan_number'] = null;
             $array['is_new'] = 1;
+            $array['joining_date'] = date('Y-m-d');
 
             $demate_id = ClientDemat::create($array);
 

@@ -55,163 +55,331 @@
                                 <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->
-                            <!--begin::Actions-->
-                            <div class="d-flex align-items-center py-1">
-                                @can("role-create")
-                                <!--begin::Button-->
-                                <a href="{{route('addRoles')}}" class="btn btn-sm btn-primary" id="kt_toolbar_primary_button">
-                                    <span class="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <rect x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                                            <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
-                                        </svg>
-                                    </span>Add Role
-                                </a>
-                                @endcan
-                            </div>
-                            <!--end::Actions-->
                         </div>
                         <!--end::Container-->
                     </div>
                     <!--end::Toolbar-->
-                    <!--begin::Post-->
-                    <div class="post d-flex flex-column-fluid" id="kt_post">
-                        <!--begin::Container-->
-                        <div id="kt_content_container" class="container-xxl">
-                            <div class="current d-block card p-7 my-5" data-kt-stepper-element="content">
-                                <div class="w-100">
-                                    <div class="stepper-label mt-0" style="margin-top:30px;margin-bottom:20px;">
-                                        <h3 class="stepper-title">Client Name:&nbsp;{{$demateDetails->withClient->name}}</h3>
-                                    </div>
-                                    <div class="my-4">
-                                        <div class="row">
-                                            <h3 class="stepper-title">Demat Details :</h3>
-                                            <!--begin::Input group-->
-                                            <div class="col-md-6 mb-5">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Smart Id</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->st_sg}}' readonly/>
-                                                <!--end::Input-->
-                                            </div>
-                                            <!--end::Input group-->
-
-                                            <!--begin::Input group-->
-                                            <div class="col-md-6 col-sm-12 mb-5">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Demat Holder Name</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->holder_name}}' readonly/>
-                                                <!--end::Input-->
-                                            </div>
-                                            <!--begin::Input group-->
-                                            <div class="col-md-6 col-sm-12 mb-5">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Broker</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->broker}}' readonly/>
-                                                <!--end::Input-->
-                                            </div>
-                                            <!--begin::Input group-->
-                                            <div class="col-md-6 col-sm-12 mb-5">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">User id</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->user_id}}' readonly/>
-                                                <!--end::Input-->
-                                            </div>
-                                            <!--begin::Input group-->
-                                            <div class="col-md-6 col-sm-12 mb-5">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Password</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->password}}' readonly/>
-                                                <!--end::Input-->
-                                            </div>
-                                            <!--begin::Input group-->
-                                            <div class="col-md-6 col-sm-12 mb-5">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Mpin</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->mpin}}' readonly/>
-                                                <!--end::Input-->
-                                            </div>
+                    <form method="POST" action="{{route('clientDematupdatePL')}}">
+                        @csrf
+                        <input type='hidden' name='id' value='{{$demateDetails->id}}'>
+                        <!--begin::Post-->
+                        <div class="post d-flex flex-column-fluid" id="kt_post">
+                            <!--begin::Container-->
+                            <div id="kt_content_container" class="container-xxl">
+                                <div class="current d-block card p-7 my-5" data-kt-stepper-element="content">
+                                    <div class="w-100">
+                                        <div class="stepper-label mt-0" style="margin-top:30px;margin-bottom:20px;">
+                                            <h3 class="stepper-title">Client Name:&nbsp;{{$demateDetails->withClient->name}}</h3>
                                         </div>
-                                    </div>
-                                    <div class="my-4">
-                                        <div class="row">
-                                            <h3 class="stepper-title">P / L Status :</h3>
-                                            <!--begin::Input group-->
-                                            <div class="col-md-6 mb-5">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Joining Capital</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->capital}}' readonly/>
-                                                <!--end::Input-->
-                                            </div>
-                                            <!--end::Input group-->
-
-                                            <!--begin::Input group-->
-                                            <div class="col-md-6 col-sm-12 mb-5">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Available Fund</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->available_balance}}' readonly/>
-                                                <!--end::Input-->
-                                            </div>
-                                            <!--begin::Input group-->
-                                            <div class="col-md-6 col-sm-12 mb-5">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">P / L</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->pl}}' id="current_pl" readonly/>
-                                                <!--end::Input-->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="my-4">
-                                        <div class="row">
-                                            <div class="d-flex flex-stack pt-10">
-                                                <div>
-                                                    <button type="button" class="btn btn-sm btn-primary" id="calculationBtn">Rough Calculation</button>
-                                                    <button type="button" data-id='{{$demateDetails->id}}' id="backToTrade" class="btn btn-sm btn-primary" data-value="normal">Back to trade</button>
+                                        <div class="my-4">
+                                            <div class="row">
+                                                <h3 class="stepper-title">Demat Details :</h3>
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Smart Id</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->st_sg}}' readonly/>
+                                                    <!--end::Input-->
                                                 </div>
-        									</div>
+                                                <!--end::Input group-->
+
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Demat Holder Name</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->holder_name}}' readonly/>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Broker</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->broker}}' readonly/>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">User id</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->user_id}}' readonly/>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Password</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->password}}' readonly/>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Mpin</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->mpin}}' readonly/>
+                                                    <!--end::Input-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="my-4">
+                                            <div class="row">
+                                                <h3 class="stepper-title">P / L Status :</h3>
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Joining Capital</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->capital}}' readonly/>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Available Fund</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->available_balance}}' readonly/>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--begin::Input group-->
+
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Joining Date</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                <?php $joining_date = date('Y-m-d',(strtotime(!empty($demateDetails->joining_date) && isset($demateDetails->joining_date) ? $demateDetails->joining_date : $demateDetails->created_at)));?>
+
+                                                <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="joining_date" value='{{$joining_date}}' readonly/>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">End Date</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="end_date" value='<?php echo date('Y-m-d') ;?>' readonly/>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--begin::Input group-->
+
+                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">P / L</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->pl}}' name="pl" id="current_pl"/>
+                                                    <!--end::Input-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="my-4">
+                                            <div class="row">
+                                                <h3 class="stepper-title">Payment Bank</h3>
+                                                @if(!empty($primary_bank))
+                                                    <input type="hidden" value="{{$primary_bank['id']}}" name="payment_bank_id">
+
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 col-sm-12 mb-5">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Bank Title</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$primary_bank['title']}}' readonly/>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--begin::Input group-->
+
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 col-sm-12 mb-5">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Bank Name</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$primary_bank['name']}}' readonly/>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--begin::Input group-->
+
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 col-sm-12 mb-5">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Account Name</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$primary_bank['account_name']}}' readonly/>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--begin::Input group-->
+
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 col-sm-12 mb-5">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Account No</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$primary_bank['account_no']}}' readonly/>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--begin::Input group-->
+
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 col-sm-12 mb-5">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">IFAC Code</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$primary_bank['ifsc_code']}}' readonly/>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--begin::Input group-->
+                                                @elseif(!empty($bankAccountList))
+                                                    <?php $count = 1;?>
+                                                    @foreach($bankAccountList as $bankAccount)
+                                                        <div class="col-md-4 col-sm-12 mb-5">
+                                                            <input type="radio" value="{{$bankAccount->id}}" name="payment_bank_id" data-id="{{$count++}}" class="bank_change"> {{$bankAccount->title}}
+                                                        </div>
+                                                    @endforeach
+                                                        <?php $count = 1;?>
+                                                        @foreach($bankAccountList as $bankAccount)
+                                                            <div class="row" id="bank_{{$count++}}">
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                        <span class="required">Bank Title</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$bankAccount->title}}' readonly/>
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--begin::Input group-->
+
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                        <span class="required">Bank Name</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$bankAccount->name}}' readonly/>
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--begin::Input group-->
+
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                        <span class="required">Account Name</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$bankAccount->account_name}}' readonly/>
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--begin::Input group-->
+
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                        <span class="required">Account No</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$bankAccount->account_no}}' readonly/>
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--begin::Input group-->
+
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                        <span class="required">IFAC Code</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$bankAccount->ifsc_code}}' readonly/>
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--begin::Input group-->
+                                                            </div>
+                                                        @endforeach
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="my-4">
+                                            <div class="row">
+                                                <div class="d-flex flex-stack pt-10">
+                                                    <div>
+                                                        <button type="submit" class="btn btn-sm btn-primary" id="verifyBtn">Verify</button>
+                                                        <button type="button" class="btn btn-sm btn-primary" id="calculationBtn">Rough Calculation</button>
+                                                        <button type="button" data-id='{{$demateDetails->id}}' id="backToTrade" class="btn btn-sm btn-primary" data-value="normal">Back to trade</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!--end::Container-->
                         </div>
-                        <!--end::Container-->
-                    </div>
-                    <!--end::Post-->
+                        <!--end::Post-->
+                    </form>
                 </div>
                 <!--end::Content-->
                 <!--begin::Footer-->
@@ -222,76 +390,7 @@
         </div>
         <!--end::Page-->
     </div>
-    <div class="modal fade" id="edit_client_demate_status" tabindex="-1" aria-hidden="true">
-        <!--begin::Modal dialog-->
-        <div class="modal-dialog">
-            <!--begin::Modal content-->
-            <div class="modal-content rounded">
-                <!--begin::Modal header-->
-                <div class="modal-header pb-0 border-0">
-                    <!--begin::Close-->
-                    <!--begin::Heading-->
-                        <div class="">
-                            <!--begin::Title-->
-                            <h3 class="mb-3">Edit P / L</h3>
-                            <!--end::Title-->
-                        </div>
-                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                        <span class="svg-icon svg-icon-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                    </div>
-                    <!--end::Close-->
-                </div>
-                <!--begin::Modal header-->
-                <!--begin::Modal body-->
-                <div class="modal-body">
-                    @if($errors->any())
-                        <h5 class="alert alert-danger">{{$errors->first()}}</h5>
-                    @endif
-                    <!--begin:Form-->
-                    <form method="POST" action="{{route('clientDematupdatePL')}}">
-                        @csrf
-                        <div id="editIdContainer"></div>
-                        <div class="row mb-8">
-                            <!--begin::Col-->
-                            <div class="col-md-6">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">P / L:</span>
-                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify P/L"></i>
-                                </label>
-                                <!--end::Label-->
-                                <input type="text" value="{{old('pl')}}" class="form-control form-control-solid" id="plfield" name="pl" />
-                            </div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input group-->
-                        
-                        <!--begin::Actions-->
-                        <div class="text-end">
-                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary changeStatus">
-                                <span class="indicator-label">Update</span>
-                                <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
-                        </div>
-                        <!--end::Actions-->
-                    </form>
-                    <!--end:Form-->
-                </div>
-                <!--end::Modal body-->
-            </div>
-            <!--end::Modal content-->
-        </div>
-        <!--end::Modal dialog-->
-    </div>
+
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
@@ -321,13 +420,39 @@
                         }
                     })
                 });
-                $("#calculationBtn").on("click",function(){
-                    $("#plfield").val($("#current_pl").val());
-                    const id = $("#backToTrade").attr("data-id");
-                    $("#editIdContainer").html(`<input type='hidden' name='id' value='${id}'>`);
-                    $("#edit_client_demate_status").modal("show");
-                })
+                // $("#verifyBtn").on("click",function(){
+                //     $("#plfield").val($("#current_pl").val());
+                //     const id = $("#backToTrade").attr("data-id");
+                //     $("#editIdContainer").html(`<input type='hidden' name='id' value='${id}'>`);
+                //     $("#edit_client_demate_status").modal("show");
+                // })
+
+                $(".bank_change").on("change",function(){
+                    var id = $(this).attr('data-id');
+                    if(id == 1){
+                        $("#bank_1").show();
+                        $("#bank_2").hide();
+                        $("#bank_3").hide();
+                    }else if(id == 2){
+                        $("#bank_1").hide();
+                        $("#bank_2").show();
+                        $("#bank_3").hide();
+                    }else if(id == 3){
+                        $("#bank_1").hide();
+                        $("#bank_2").hide();
+                        $("#bank_3").show();
+                    }
+                });
+
+                $(document).ready(function() {
+                   $("#bank_1").hide();
+                   $("#bank_2").hide();
+                   $("#bank_3").hide();
+                });
+
             },jQuery)
         })
+
+
     </script>
 @endsection

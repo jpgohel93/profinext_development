@@ -4,7 +4,7 @@
 @section("finance_management.accordion","hover show")
 @section("content")
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    
+
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -61,43 +61,60 @@
                         <!--end::Container-->
                     </div>
                     <!--end::Toolbar-->
-                    <!--begin::Post-->
-                    <div class="post d-flex flex-column-fluid" id="kt_post">
-                        <!--begin::Container-->
-                        <div id="kt_content_container" class="container-xxl">
+                    <div>
                             <!--begin:::Tabs-->
-                            <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold my-3 bg-light navpad">
+                            <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold my-3 bg-light navpad"
+                                style="float: right;">
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <button style="background-color:#3cba54" class="btn btn-sm mx-2 acountingBtns shadow text-light" id="incomeBtn">Income</button>
+                                    <button style="background-color:#3cba54"
+                                            class="btn btn-sm mx-2 acountingBtns shadow text-light" id="incomeBtn">
+                                        Income
+                                    </button>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <button style="background-color:#db3236" class="btn btn-sm mx-2 acountingBtns shadow text-light" id="expenseBtn">Expense</button>
+                                    <button style="background-color:#db3236"
+                                            class="btn btn-sm mx-2 acountingBtns shadow text-light" id="expenseBtn">
+                                        Expense
+                                    </button>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <button style="background-color:#4885ed" class="btn btn-sm mx-2 acountingBtns shadow text-light" id="transferBtn">Transfer</button>
+                                    <button style="background-color:#4885ed"
+                                            class="btn btn-sm mx-2 acountingBtns shadow text-light" id="transferBtn">
+                                        Transfer
+                                    </button>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <button style="background-color:#f4c20d" class="btn btn-sm mx-2 acountingBtns shadow text-light" id="loanBtn">Loan</button>
+                                    <button style="background-color:#f4c20d"
+                                            class="btn btn-sm mx-2 acountingBtns shadow text-light" id="loanBtn">Loan
+                                    </button>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <button style="background-color:#BEBEBE" class="btn btn-sm mx-2 acountingBtns shadow text-light" onclick="window.open('{{route('financeManagementHeadings')}}')">Headings</button>
+                                    <button style="background-color:#BEBEBE"
+                                            class="btn btn-sm mx-2 acountingBtns shadow text-light"
+                                            onclick="window.open('{{route('financeManagementHeadings')}}')">Headings
+                                    </button>
                                 </li>
                                 <!--end:::Tab item-->
                             </ul>
                             <!--end:::Tabs-->
+                        </div>
+                    <!--begin::Post-->
+                    <div class="post d-flex flex-column-fluid" id="kt_post">
+                        <!--begin::Container-->
+                        <div id="kt_content_container" class="container-xxl">
                             <!--begin:::Tabs-->
                             <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
                                 <!--begin:::Tab item-->
@@ -572,7 +589,7 @@
                                     <!--end::Label-->
                                     <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
                                 </div>
-                                
+
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -591,7 +608,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Text Box:</span> 
+                                        <span class="required">Text Box:</span>
                                         <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='text_box'></textarea>
@@ -670,7 +687,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-left">
                             <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -734,7 +751,7 @@
                                     <!--end::Label-->
                                     <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
                                 </div>
-                                
+
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -753,7 +770,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Text Box:</span> 
+                                        <span class="required">Text Box:</span>
                                         <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='text_box'></textarea>
@@ -832,7 +849,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-left">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -896,7 +913,7 @@
                                     <!--end::Label-->
                                     <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
                                 </div>
-                                
+
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -983,7 +1000,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Narration:</span> 
+                                        <span class="required">Narration:</span>
                                         <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='narration'></textarea>
@@ -992,7 +1009,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-left">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -1056,7 +1073,7 @@
                                     <!--end::Label-->
                                     <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
                                 </div>
-                                
+
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -1162,7 +1179,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Narration:</span> 
+                                        <span class="required">Narration:</span>
                                         <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='narration'></textarea>
@@ -1171,7 +1188,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-left">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -1261,7 +1278,7 @@
                     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
                     }
                 }, cb);
-                cb(start, end);                
+                cb(start, end);
                 var drp = $('#reportrange').data('daterangepicker');
                 $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
                     let startDate = picker.startDate.format('YYYY-MM-DD');
@@ -1468,7 +1485,7 @@
                     const transactionType = $(transactionTypeDropDown).find("select").val();
                     if(transactionType==="both"){
                         const st = $(transactionTypeDropDown).next(".bothFormOfIncome").find("[name='st_amount']").val();
-                        const sg = $(transactionTypeDropDown).next(".bothFormOfIncome").find("[name='sg_amount']").val();                        
+                        const sg = $(transactionTypeDropDown).next(".bothFormOfIncome").find("[name='sg_amount']").val();
                         if(Number(st)+Number(sg)===Number(amount)){
                             $(this).next("p.invalidAmount").remove();
                         }else{

@@ -9,7 +9,7 @@ use App\Models\blogTarget;
 use App\Models\blogHasTabs;
 class BlogAdminServices{
     function __construct(){
-        
+
     }
     public static function index(){
         $users = User::get();
@@ -165,5 +165,8 @@ class BlogAdminServices{
             }
         }
         return User::wherein('id', $userIdArray)->get()->toArray();
+    }
+    public static function getBlogByTabId($tab_id,$user_id){
+        return blogTarget::where("tab_id", $tab_id)->where("user_id", $user_id)->first()->toArray();
     }
 }

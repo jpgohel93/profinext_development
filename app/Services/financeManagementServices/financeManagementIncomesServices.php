@@ -50,4 +50,8 @@ class financeManagementIncomesServices{
     public static function getAllIncomeRows(){
         return financeManagementIncomesModel::with(["bank_name"])->get();
     }
+
+    public static function getAllIncomeRowsById($bank_id){
+        return financeManagementIncomesModel::where("bank",$bank_id)->with(["bank_name"])->get()->toArray();
+    }
 }

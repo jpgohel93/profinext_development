@@ -18,10 +18,8 @@ class ClientDemateServices{
         return ClientDemat::where("id",$id)->update(["account_status"=>"terminated"]);
     }
     public static function updatePL($request){
-        $pl = $request->validate([
-            "pl" => "required",
-        ]);
         $pl['account_status']="to_renew";
+        $pl['pl']=$request->pl;
         return ClientDemat::where("id",$request->id)->update($pl);
     }
     public static function markAsProblem($request){

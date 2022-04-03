@@ -208,10 +208,11 @@
                                                                 $i=1;
                                                             @endphp
                                                             @foreach($preRenewAccounts as $preRenewAccount)
+                                                                <?php $joining_date = !empty($preRenewAccount->joining_date) && isset($preRenewAccount->joining_date) ? $preRenewAccount->joining_date : $preRenewAccount->created_at;?>
                                                                 <tr>
                                                                     <td>{{$preRenewAccount->serial_number}}</td>
                                                                     <td>{{$preRenewAccount->st_sg}}</td>
-                                                                    <td>{{date("Y-m-d",strtotime($preRenewAccount->created_at))}}</td>
+                                                                    <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
                                                                     <td>{{$preRenewAccount->holder_name}}</td>
                                                                     <td>{{$preRenewAccount->available_balance}}</td>
                                                                     <td>{{$preRenewAccount->pl}}</td>
@@ -345,10 +346,11 @@
                                                                 $i=1;
                                                             @endphp
                                                             @foreach($toRenewAccounts as $toRenewAccount)
+                                                                <?php $joining_date = !empty($toRenewAccount->joining_date) && isset($toRenewAccount->joining_date) ? $toRenewAccount->joining_date : $toRenewAccount->created_at;?>
                                                                 <tr>
                                                                     <td>{{$toRenewAccount->serial_number}}</td>
                                                                     <td>{{$toRenewAccount->st_sg}}</td>
-                                                                    <td>{{date("Y-m-d",strtotime($toRenewAccount->created_at))}}</td>
+                                                                    <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
                                                                     <td>{{$toRenewAccount->holder_name}}</td>
                                                                     <td>{{$toRenewAccount->available_balance}}</td>
                                                                     <td>{{$toRenewAccount->pl}}</td>
@@ -483,10 +485,12 @@
                                                                     $i=1;
                                                                 @endphp
                                                                 @foreach($newAccounts as $newAccount)
+                                                                    <?php $joining_date = !empty($newAccount->joining_date) && isset($newAccount->joining_date) ? $newAccount->joining_date : $newAccount->created_at;?>
+
                                                                     <tr>
                                                                         <td>{{$newAccount->serial_number}}</td>
                                                                         <td>{{$newAccount->st_sg}}</td>
-                                                                        <td>{{date("Y-m-d",strtotime($newAccount->created_at))}}</td>
+                                                                        <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
                                                                         <td>{{$newAccount->holder_name}}</td>
                                                                         <td>{{$newAccount->capital}}</td>
                                                                         <td>{{$newAccount->available_balance}}</td>
@@ -628,10 +632,11 @@
                                                                 $i=1;
                                                             @endphp
                                                             @foreach($renewedAccounts as $renewedAccount)
+                                                                <?php $joining_date = !empty($renewedAccount->joining_date) && isset($renewedAccount->joining_date) ? $renewedAccount->joining_date : $renewedAccount->created_at;?>
                                                                 <tr>
                                                                     <td>{{$renewedAccount->serial_number}}</td>
                                                                     <td>{{$renewedAccount->st_sg}}</td>
-                                                                    <td>{{date("Y-m-d",strtotime($renewedAccount->created_at))}}</td>
+                                                                    <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
                                                                     <td>{{$renewedAccount->holder_name}}</td>
                                                                     <td>{{$renewedAccount->available_balance}}</td>
                                                                     <td>{{$renewedAccount->pl}}</td>
@@ -745,7 +750,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-end">
                             <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
