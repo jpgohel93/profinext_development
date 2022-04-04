@@ -170,6 +170,9 @@ class ClientServices
     public static function all(){
         return Client::with('clientDemat')->get();
     }
+    public static function active(){
+        return Client::with('clientDemat')->where("status","1")->get();
+    }
     public static function get($id){
         $client = Client::with(['clientDemat','clientPayment','clientPayment.Screenshots', 'clientDemat.Pancards'])->where("id",$id)->first();
         if (!$client)
@@ -342,8 +345,7 @@ class ClientServices
         $dematAccount = ClientDemat::
         leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
         where("client_demat.freelancer_id",$id)->
-        select('client_demat.*','clients.name')
-            ->get();
+        select('client_demat.*','clients.name')->get();
         return $dematAccount;
     }
 

@@ -59,7 +59,7 @@ class renewalStatusController extends Controller
     }
     public function clientDematTerminate($id){
         ClientDemateServices::terminateAccountByDemateId($id);
-        return Redirect::route("renewal_status")->with("info","Account Terminated");
+        return Redirect::back()->with("info","Account Terminated");
     }
     public function updatePL(Request $request){
         ClientDemateServices::updatePL($request);
@@ -67,7 +67,7 @@ class renewalStatusController extends Controller
     }
     public function mark_as_problem(Request $request){
         ClientDemateServices::markAsProblem($request);
-        return Redirect::route("renewal_status")->with("info", "Account marked");
+        return Redirect::back()->with("info", "Account marked");
     }
     public function ProblemSolved(Request $request){
         ClientDemateServices::ProblemSolved($request);

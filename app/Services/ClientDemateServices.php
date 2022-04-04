@@ -11,6 +11,18 @@ class ClientDemateServices{
     function __construct(){
 
     }
+    public static function active(){
+        return ClientDemat::where("account_status","normal")->whereNull("problem")->with(["withClient"])->get();
+    }
+    public static function toRenews(){
+        return ClientDemat::where("account_status", "to_renew")->whereNull("problem")->whereNull("mark_as_problem")->with(["withClient"])->get();
+    }
+    public static function problemAccounts(){
+        return ClientDemat::whereNotNull("problem")->with(["withClient"])->get();
+    }
+    public static function allAccounts(){
+        return Client::with(["clientDemat","clientPayment"])->get();
+    }
     public static function getAccountByDemateId($id){
         return ClientDemat::where("id",$id)->with(["withClient"])->first();
     }

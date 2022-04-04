@@ -6,9 +6,17 @@ const disableLoader = (elem=".loading")=>{
 }
 $(document).on("show.bs.modal",".modal",function(){
     enableLoader();
+    $( '.select2-container' ).each(function () {
+        this.style.setProperty( 'z-index', '1049', 'important' );
+    });
 })
 $(document).on("shown.bs.modal",".modal",function(){
     disableLoader();
+})
+$(document).on("hidden.bs.modal",".modal",function(){
+    $( '.select2-container' ).each(function () {
+        this.style.setProperty( 'z-index', '999999', 'important' );
+    });
 })
 $.ajaxSetup({
     headers: {

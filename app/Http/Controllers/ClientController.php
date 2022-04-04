@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\User;
 use App\Models\ClientDemat;
+use App\Models\Analyst;
 
 use App\Services\ClientServices;
 use App\Services\ProfessionServices;
 use App\Services\BankDetailsServices;
 use App\Services\BrokerServices;
+use App\Services\ClientDemateServices;
 use App\Services\CommonService;
 use App\Services\UserServices;
+use App\Services\TraderServices;
+use App\Services\KeywordServices;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +31,7 @@ class ClientController extends Controller
         $this->middleware('permission:client-read', ['only' => ['get', 'all']]);
         $this->middleware('permission:client-delete', ['only' => ['remove', 'removePaymentScreenshot']]);
         $this->middleware('permission:freelancer-data-write', ['only' => ['assignClientToFreelancer', 'removePaymentScreenshot']]);
-        $this->middleware('permission:client-demat-read', ['only' => ['clientDematAccount']]);
+        $this->middleware('permission:client-demat-read', ['only' => ['clientDematAccount', "get"]]);
         $this->middleware('permission:client-demat-write', ['only' => ['editClientDematAccount','makeAsPreferred','updateDematStatus','assignTraderToDemat']]);
         $this->middleware('permission:setup-read', ['only' => ['setup']]);
     }
@@ -85,6 +89,9 @@ class ClientController extends Controller
         $client =  ClientServices::get($id);
         if(!$client)
             CommonService::throwError("Client not found");
+		if($request->ajax()){
+			return response($client,200, ["Content-Type" => "Application/json"]);
+		}
         return view("clients.view",compact('client'));
     }
     // edit client
@@ -127,7 +134,7 @@ class ClientController extends Controller
         $freelancerPrime = UserServices::getByType(5);
         $dematAccount = ClientServices::getClientDematAccount($filter_type, $filter_id);
 
-//		$traders = UserServices::getByRole('trader');
+		//$traders = UserServices::getByRole('trader');
         $users = User::get();
         $userIdArray = [];
         foreach ($users as $userData){
@@ -162,7 +169,9 @@ class ClientController extends Controller
                 return Redirect::route("clientDematAccount")->with("info", "Client demat account update successful");
             }elseif ($request->form_type == "freelancer_demat"){
                 return Redirect::route("freelancerUserData")->with("info", "Client demat account update successful");
-            }
+            }elseif($request->form_type== "back"){
+				return Redirect::back()->with("info", "Client demat account update successful");
+			}
         }else{
             return Redirect::route("clientDematAccount")->with("info", "Please enter the  available fund or profit / loss");
         }
@@ -197,8 +206,10 @@ class ClientController extends Controller
             }
         }
         ClientServices::updateClientDematAccount($request->id, $requestData);
-        if ($request->status == "holding" || $request->status == "problem"){
-            return Redirect::route("viewTraderAccounts")->with("info", "stactus change successfully.");
+		if($request->ajax()){
+			return true;
+		} else if ($request->status == "holding" || $request->status == "problem") {
+			return Redirect::route("viewTraderAccounts")->with("info", "status change successfully.");
         }else{
             return true;
         }
@@ -880,9 +891,17 @@ class ClientController extends Controller
         return view("clients.add", compact('professions', 'banks','brokers','channelPartner','newSTNo','newSGNo','formType'));
     }
 	public function clientDematAccountStatus(){
-		$dematAccount = ClientServices::getClientDematAccountStatus();
+		$actives = ClientServices::active();
+		$demats = ClientDemateServices::active();
+		$toRenews = ClientDemateServices::toRenews();
+		$problemAccounts = ClientDemateServices::problemAccounts();
+		$allAccounts = ClientDemateServices::allAccounts();
 
-		//		$traders = UserServices::getByRole('trader');
+		$dematAccount = TraderServices::traderClientList(auth()->user()->id);
+
+		$analysts = Analyst::where("status", "Active")->orWhere("status", "Experiment")->get();
+		$keywords = KeywordServices::all();
+
 		$users = User::get();
 		$userIdArray = [];
 		foreach ($users as $userData) {
@@ -899,7 +918,7 @@ class ClientController extends Controller
 			}
 		}
 		$traders = User::wherein('id', $userIdArray)->get();
-		return view("clients.client-status", compact('dematAccount', 'traders'));
+		return view("clients.client-status", compact('analysts','keywords','traders','actives', 'demats', 'toRenews', 'problemAccounts', 'allAccounts'));
 	}
 	public function viewDematProblem(Request $request){
 		$dematAccount = ClientServices::getDemat($request->id);

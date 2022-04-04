@@ -812,9 +812,6 @@
             $(document).on("click",'.loginInfo',function(e){
                 $.ajax("/loginInfo/" + $(this).attr("data-id"), {
                     type: "GET",
-                    headers: {
-                        'X-CSRF-TOKEN': $("input[name='_token']").val()
-                    }
                 }).done(data => {
                     $("#broker_name").val(data.broker);
                     $("#password").val(data.password);

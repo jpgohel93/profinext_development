@@ -1267,15 +1267,7 @@
                                     </span>
                         </button>
                     </div>
-
-                    <!--begin::Modal body-->
                     <div class="modal-body mx-md-10">
-{{--                        <div class="form-group row">--}}
-{{--                            <label class="col-3 col-form-label">Client</label>--}}
-{{--                            <div class="col-9">--}}
-{{--                                <input class="form-control" type="text" id="holding_client_Name" readonly/>--}}
-{{--                                 </div>--}}
-{{--                        </div>--}}
                         <div class="form-group row">
                             <label class="col-3 col-form-label">Account Holder Name</label>
                             <div class="col-9">

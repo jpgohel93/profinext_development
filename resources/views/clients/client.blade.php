@@ -20,7 +20,7 @@
                         <div class="container">
                             <h6 class="alert alert-info">{{session("info")}}</h6>
                         </div>
-                @endif
+                    @endif
                     <!--begin::Toolbar-->
                         <div class="toolbar" id="kt_toolbar">
                             <!--begin::Container-->
@@ -726,9 +726,6 @@
                 $(document).on("click",".viewClient",function(){
                     $.ajax("/client/view/"+$(this).attr("data-id"),{
                         type:"GET",
-                        headers: {
-                            'X-CSRF-TOKEN': $("input[name='_token']").val()
-                        }
                     })
                     .done(data=>{
                         $(name).val(data.name);

@@ -35,7 +35,7 @@ class CallController extends Controller
         }
 
         CallServices::create($request);
-        return Redirect::route('viewTraderAccounts')->with("info","Trade has been created");
+        return Redirect::back()->with("info","Trade has been created");
     }
     public function remove(Request $request){
         CallServices::remove($request);
