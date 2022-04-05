@@ -28,4 +28,12 @@ class financeManagementExpensesModel extends Model
     public function bank_name(){
         return $this->hasOne(BankModel::class,"id","bank")->latest();
     }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('created_by', function (\Illuminate\Database\Eloquent\Builder $builder) {
+            $builder->where($builder->getModel()->getTable() . '.created_by', auth()->user()->id);
+        });
+    }
 }

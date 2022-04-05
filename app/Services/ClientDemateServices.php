@@ -12,19 +12,34 @@ class ClientDemateServices{
 
     }
     public static function active(){
-        return ClientDemat::where("account_status","normal")->whereNull("problem")->with(["withClient"])->get();
+        return ClientDemat::where("trader_id", auth()->user()->id)->where("account_status","normal")->whereNull("problem")->with(["withClient"])->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->select('client_demat.*', 'clients.name')->get();
+
+        //  ClientDemat::where("trader_id", auth()->user()->id)->where("account_status","normal")->whereNull("problem")->with(["withClient"])->get();
     }
     public static function toRenews(){
-        return ClientDemat::where("account_status", "to_renew")->whereNull("problem")->whereNull("mark_as_problem")->with(["withClient"])->get();
+        return ClientDemat::where("trader_id", auth()->user()->id)->where("account_status", "to_renew")->whereNull("problem")->whereNull("mark_as_problem")->with(["withClient"])->get();
     }
     public static function problemAccounts(){
-        return ClientDemat::whereNotNull("problem")->with(["withClient"])->get();
+        return ClientDemat::where("trader_id", auth()->user()->id)->whereNotNull("problem")->where('account_status','!=','terminated')->with(["withClient"])->get();
     }
     public static function allAccounts(){
-        return Client::with(["clientDemat","clientPayment"])->get();
+        $clients = ClientDemat::where("trader_id",auth()->user()->id)->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->select('client_demat.*', 'clients.name')->get();
+        // count demat accounts
+        $client_id =[];
+        foreach ($clients as $key => $client){
+            if(!in_array($client->client_id,$client_id)){
+                $count = ClientDemat::where("client_id",$client->client_id)->count();
+                $clients[$key]["total_demats"] = $count;
+                array_push($client_id,$client->client_id);
+            }
+        }
+        return $clients;
+    }
+    public static function terminatedAccounts(){
+        return ClientDemat::where("trader_id", auth()->user()->id)->where("account_status","terminated")->with(["withClient"])->withTrashed()->get();
     }
     public static function getAccountByDemateId($id){
-        return ClientDemat::where("id",$id)->with(["withClient"])->first();
+        return ClientDemat::where("id",$id)->with(["withClient", "withPayment"])->first();
     }
     public static function terminateAccountByDemateId($id){
         return ClientDemat::where("id",$id)->update(["account_status"=>"terminated"]);

@@ -19,7 +19,7 @@ class renewalStatusController extends Controller
         $newAccounts = renewalStatusService::newAccounts();
         return view("financeManagement.renewal-status",compact("renewalStatus", "preRenewAccounts", "toRenewAccounts", "renewedAccounts", "newAccounts"));
     }
-    public function clientDematView($id){
+    public function clientDematView(Request $request,$id){
         $primary_bank = bankServices::getPrimaryBankAccounts(1);
         $bankAccountList = array();
         $bankPerData = array();
@@ -55,10 +55,16 @@ class renewalStatusController extends Controller
             }
         }
         $demateDetails = ClientDemateServices::getAccountByDemateId($id);
+        if($request->ajax()){
+            return response($demateDetails,200, ["Content-Type" => "Application/json"]);
+        }
         return view("financeManagement.clientDemateView",compact("demateDetails","primary_bank","bankAccountList"));
     }
-    public function clientDematTerminate($id){
+    public function clientDematTerminate(Request $request,$id){
         ClientDemateServices::terminateAccountByDemateId($id);
+        if($request->ajax()){
+            return response(["info"=>"Account Terminated"], 200, ["Content-Type" => "Application/json"]);
+        }
         return Redirect::back()->with("info","Account Terminated");
     }
     public function updatePL(Request $request){

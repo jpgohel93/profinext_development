@@ -77,4 +77,7 @@ class servicesTypeServices
         }
         return servicesTypeModel::create($service);
     }
+    public static function getById($id){
+        return servicesTypeModel::where("id", $id)->first();
+    }
 }

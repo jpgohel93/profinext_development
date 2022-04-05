@@ -12,10 +12,13 @@ class ClientDemat extends Model
 
     protected $table = "client_demat";
     // protected $hidden = ["password","mpin"];
-    protected $fillable = ["client_id","st_sg","serial_number","service_type","pan_number","holder_name","broker","user_id","password","mpin","capital","updated_by","freelancer_id","trader_id","available_balance","pl","is_make_as_preferred","account_status","entry_price","quantity","problem","joining_date"];
+    protected $fillable = ["client_id","st_sg","serial_number","service_type","pan_number","holder_name","broker","user_id","password","mpin","capital","updated_by","freelancer_id","trader_id","available_balance","pl","is_make_as_preferred","account_status","entry_price","quantity","problem","joining_date", "created_by", "deleted_at", "end_date"];
 
     public function withClient(){
         return $this->hasOne(Client::class,"id","client_id")->latest();
+    }
+    public function withPayment(){
+        return $this->hasOne(ClientPayment::class, "demat_id", "id")->latest();
     }
     public function withClientByUser(){
         return $this->hasOne(Client::class,"id","client_id")->where("created_by", auth()->user()->id)->latest();
@@ -24,4 +27,5 @@ class ClientDemat extends Model
     {
         return $this->hasMany(PancardImageModel::class);
     }
+
 }

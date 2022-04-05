@@ -54,4 +54,11 @@ class financeManagementIncomesServices{
     public static function getAllIncomeRowsById($bank_id){
         return financeManagementIncomesModel::where("bank",$bank_id)->with(["bank_name"])->get()->toArray();
     }
+
+    public static function get($current_month = true){
+        if($current_month){
+            return financeManagementIncomesModel::whereYear("date", date("Y"))->whereMonth("date",date("m"))->with(["bank_name"])->get();
+        }
+        return financeManagementIncomesModel::with(["bank_name"])->get();
+    }
 }

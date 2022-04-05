@@ -161,6 +161,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/getTraderAcount",[ClientController::class,'getTraderAcountData'])->name('getTraderAcountData');
     Route::POST("/getFreelancerAccount",[ClientController::class,'getFreelancerAccountData'])->name('getFreelancerAccountData');
     Route::POST("/getUnalloted",[ClientController::class,'getUnallotedData'])->name('getUnallotedData');
+    Route::POST("/client/demate/activate",[ClientController::class, 'clientDematActivated'])->name('clientDematActivated');
+    Route::POST("/client/terminate",[ClientController::class, 'terminateClient'])->name('terminateClient');
+    Route::get("/client/ledger/{id}",[ClientController::class, 'viewLedger'])->name('viewLedger');
+    Route::get("/client/ledger/pdf/{id}",[ClientController::class, 'generatePdf'])->name('generatePdf');
+    Route::get("/client/ledger/doc/{id}",[ClientController::class, 'generateDoc'])->name('generateDoc');
 
     Route::POST("/call/assignDematTrader",[ClientController::class,'assignTraderToDemat'])->name('assignTraderToDemat');
     Route::POST("/makeAsPreferred",[ClientController::class,"makeAsPreferred"])->name("makeAsPreferred");
@@ -264,7 +269,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     // Finance Management
     Route::get("/financeManagement/renewal_status",[renewalStatusController::class,"view"])->name("renewal_status");
-    Route::get("/financeManagement/clientDematView/{id}",[renewalStatusController::class, "clientDematView"])->name("clientDematView");
+    Route::get("/financeManagement/clientDematView/{id?}",[renewalStatusController::class, "clientDematView"])->name("clientDematView");
     Route::get("/financeManagement/clientDematTerminate/{id}",[renewalStatusController::class, "clientDematTerminate"])->name("clientDematTerminate");
     Route::POST("/financeManagement/clientDemat/updatePL",[renewalStatusController::class, "updatePL"])->name("clientDematupdatePL");
     Route::POST("/financeManagement/clientDemat/markAsProblem",[renewalStatusController::class, "mark_as_problem"])->name("mark_as_problem");

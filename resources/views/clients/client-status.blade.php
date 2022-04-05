@@ -248,7 +248,7 @@
                                                                         <a href="javascript:void(0)" data-id="{{$active->id}}" class='viewClient'>
                                                                             view
                                                                         </a>
-                                                                        <a href="#" class="menu-link px-3">
+                                                                        <a href="{{route('viewLedger',$active->id)}}" target="_blank" class="menu-link px-3">
                                                                             Ledger
                                                                         </a>
                                                                     </td>
@@ -393,10 +393,10 @@
                                                                         </a>
                                                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$demat->id}}" data-name="{{$demat->withClient->name}}" data-holder="{{$demat->holder_name}}" class="menu-link px-3 editDematAccount">Update Status</a>
+                                                                                <a href="javascript:void(0)" data-id="{{$demat->id}}" data-name="{{isset($demat->withClient->name)?$demat->withClient->name:""}}" data-holder="{{$demat->holder_name}}" class="menu-link px-3 editDematAccount">Update Status</a>
                                                                             </div>
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$demat->id}}" data-name="{{$demat->withClient->name}}" data-holder="{{$demat->holder_name}}" class="menu-link px-3 holdingDematAccount">Add Holding</a>
+                                                                                <a href="javascript:void(0)" data-id="{{$demat->id}}" data-name="{{isset($demat->withClient->name)?$demat->withClient->name:""}}" data-holder="{{$demat->holder_name}}" class="menu-link px-3 holdingDematAccount">Add Holding</a>
                                                                             </div>
                                                                             <div class="menu-item px-3">
                                                                                 <a href="javascript:void(0)" data-id="{{$demat->id}}" data-value="renew" class="menu-link px-3 changeStatus">Send for Renewal</a>
@@ -405,7 +405,7 @@
                                                                                 <a href="javascript:void(0)" data-id="{{$demat->id}}" class="menu-link px-3 markAsProblem">Mark as Problem</a>
                                                                             </div>
                                                                             <div class="menu-item px-3">
-                                                                                <a href="{{route('clientDematTerminate',$demat->id)}}" class='menu-link px-3 terminateDemate'>Terminate</a>
+                                                                                <a href="{{route('clientDematTerminate',$demat->id)}}" class='menu-link px-3 terminateDemat'>Terminate</a>
                                                                             </div>
                                                                             <div class="menu-item px-3">
                                                                                 <a href="javascript:void(0)" data-id="{{$demat->id}}" class="menu-link px-3 loginInfo">View Log in Info</a>
@@ -555,7 +555,7 @@
                                                                                 <a href="javascript:void(0)" data-id="{{$toRenew->id}}" data-value="renew" class="menu-link px-3 changeStatus">Send for Renewal</a>
                                                                             </div>
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$toRenew->id}}" class="menu-link px-3 terminateDemat">Terminate</a>
+                                                                                <a href="{{route('clientDematTerminate',$toRenew->id)}}" class="menu-link px-3 terminateDemat">Terminate</a>
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -696,10 +696,10 @@
                                                                         </a>
                                                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$demat->id}}" data-name='{{$account->withClient->name}}'  data-holder='{{$account->holder_name}}' data-value="normal" data-problem='{{$account->problem}}' class="menu-link px-3 problemDematAccount">Issue Resolved</a>
+                                                                                <a href="javascript:void(0)" data-id="{{$account->id}}" data-name='{{$account->withClient->name}}'  data-holder='{{$account->holder_name}}' data-value="normal" data-problem='{{$account->problem}}' class="menu-link px-3 problemDematAccount">Issue Resolved</a>
                                                                             </div>
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$demat->id}}" class="menu-link px-3 terminateDemat">Terminate</a>
+                                                                                <a href="{{route('clientDematTerminate',$account->id)}}" class="menu-link px-3 terminateDemat">Terminate</a>
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -969,9 +969,9 @@
                                                             @foreach($allAccounts as $account)
                                                                 <tr>
                                                                     <td>{{sprintf("%04d",$account->id)}}</td>
-                                                                    <td>{{$account->name}}</td>
-                                                                    <td>{{$account->number}}</td>
-                                                                    <td>{{$account->clientDemat->count()}}</td>
+                                                                    <td>{{$account->withClient->name}}</td>
+                                                                    <td>{{$account->withClient->number}}</td>
+                                                                    <td>{{$account->total_demats}}</td>
                                                                     <td>
                                                                         <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                             <span class="svg-icon svg-icon-5 m-0">
@@ -982,13 +982,13 @@
                                                                         </a>
                                                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$account->id}}" class="menu-link px-3 activateDematAccount">View</a>
+                                                                                <a href="javascript:void(0)" data-id="{{$account->client_id}}" class="menu-link px-3 viewClient">View</a>
                                                                             </div>
                                                                             <div class="menu-item px-3">
                                                                                 <a href="javascript:void(0)" data-id="{{$account->id}}" class="menu-link px-3 renewAccount">Renew</a>
                                                                             </div>
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$account->id}}" class="menu-link px-3 renewAccount">Terminate</a>
+                                                                                <a href="javascript:void(0)" data-delete='true' data-id="{{$account->id}}" class="menu-link px-3 terminateClient">Terminate</a>
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -1568,6 +1568,126 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="viewClient" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mw-650px" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="fw-bolder">View Client Details</h2>
+                    <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <div class="text-end">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary editClientBtn">Edit</button>
+                    </div>
+                    @can("client-read")
+                        <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid" id="kt_modal_create_app_stepper">
+                            <!--begin::Content-->
+                            <div class="flex-row-fluid">
+                                <!--begin::Step 1-->
+                                <div class="current d-block card my-5" data-kt-stepper-element="content">
+                                    <div class="w-100">
+                                        <div class="stepper-label mt-0" style="margin-top:30px;margin-bottom:20px;">
+                                            <h3 class="stepper-title text-primary">Personal Details</h3>
+                                        </div>
+                                        <div class="row">
+                                            <!--begin::Input group-->
+                                            <div class="col-md-6 mb-4">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                    <span class="required">Client Name</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" id="name" readonly />
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="col-md-6 mb-4">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                    <span class="required">Mobile No.</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc client-mobile" id="number" readonly />
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+                                        </div>
+                                        <div class="row">
+
+                                        <!--begin::Input group-->
+                                        <div class="col-md-6 mb-4">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                <span class="required">Communication with</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" id="communication_with" readonly  />
+                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="col-md-6 mb-4">
+                                            <!--begin::Label-->
+                                            <label class="d-md-flex align-items-center fs-5 fw-bold mb-2">
+                                                <span class="required">WhatsApp No.</span>
+                                                <div class="form-check form-check-custom form-check-solid small" style="margin-left: auto;">
+                                                    <input class="form-check-input " id="wpsameascontact" type="checkbox" value="1" disabled/>
+                                                    <label class="form-check-label" for="wpsameascontact" style="font-size: x-small;">
+                                                        (Select if WhatsApp No. is same as Mobile No.)
+                                                    </label>
+                                                </div>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc wp" id="wp_number" readonly />
+                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Input group-->
+                                        </div>
+                                        <!--begin::Input group-->
+                                        <div class="col-md-6 mb-4">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                <span class="required">Profession</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input type="text" id="profession" class="form-control form-control-lg form-control-solid bdr-ccc" readonly />
+                                            <!--end::Input-->
+                                        </div>
+
+                                        <!--end::Input group-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Content-->
+                        </div>
+                @else
+                    <h1>Unauthorised</h1>
+                @endcan
+                </div>
+                <!--end::Modal body-->
+                <div class="modal-footer text-center">
+                    <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary editClientBtn">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
@@ -1577,8 +1697,8 @@
                 const profession = $("#client_profession");
                 const status = $("#client_status");
 
-                $(document).on("click",".viewClient",function(){
-                    $.ajax("/client/view/"+$(this).attr("data-id"),{
+                $(document).on("click",".viewClient",function(e){
+                $.ajax("/client/view/"+e.target.getAttribute("data-id"),{
                         type:"GET",
                         cache:false
                     })
@@ -1656,7 +1776,7 @@
                     }
                 })
                 $("#OtherTextDiv").hide();
-                $(document).on("click",".terminateDemate",function(e){
+                $(document).on("click",".terminateDemat",function(e){
                     if(!window.confirm("Are you sure you want to terminate this account?")){
                         e.preventDefault();
                     }
@@ -1773,6 +1893,84 @@
                     $("#problem_demate_id").val(id);
                     $("#dematProblemInput").val(problem);
                     $("#problemModal").modal("show");
+                })
+                // activate account
+                $(document).on("click",'.activateDematAccount',function(e){
+                    const id = e.target.getAttribute("data-id");
+                    if(id){
+                        if(window.confirm("Activate this account?")){
+                            $.ajax("{{route('clientDematActivated')}}",{
+                                type:"POST",
+                                data:{
+                                    id:id
+                                }
+                            })
+                            .done(data=>{
+                                if(data?.info){
+                                    window.alert(data.info);
+                                    window.location.reload();
+                                }else{
+                                    window.alert("Unable to update status");
+                                }
+                            })
+                            .fail((err)=>{
+                                if(err.status==500){
+                                    window.alert("Server Error");
+                                }else if(err.status==403){
+                                    window.alert("Unauthorized Action");
+                                }
+                            })
+                        }
+                    }else{
+                        window.alert("Unable to Load this Client")
+                    }
+                })
+                // terminate client
+                $(document).on("click",".terminateClient",function(e){
+                    const id = e.target.getAttribute("data-id");
+                    const trash = e.target.getAttribute("data-delete");
+                    if(id){
+                        if(window.confirm("terminate this account?")){
+                            $.ajax("{{route('terminateClient')}}",{
+                                type:"POST",
+                                data:{
+                                    id:id,
+                                    status:trash
+                                }
+                            })
+                            .done(data=>{
+                                if(data?.info){
+                                    window.alert(data.info);
+                                    window.location.reload();
+                                }else{
+                                    window.alert("Unable to terminate this Client");
+                                }
+                            })
+                            .fail(err=>{
+                                if(err.status===500){
+                                    window.alert("Server Error");
+                                }else if(err.status===403){
+                                    window.alert("Unauthorized Action");
+                                }
+                            })
+                        }
+                    }else{
+                        window.alert("Unable to Load this Client")
+                    }
+                })
+                // renew
+                $(document).on("click",".renewAccount",function(e){
+                    const id = e.target.getAttribute("data-id");
+                    if(id){
+                        $.ajax("{{route('clientDematView')}}/"+id,{
+                            type:"get",
+                        })
+                        .done(data=>{
+                            console.log(data);
+                        })
+                    }else{ 
+                        window.alert("Unable to Load this Client")
+                    }
                 })
             },jQuery)
         })

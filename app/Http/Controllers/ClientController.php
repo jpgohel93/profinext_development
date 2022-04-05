@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Datatables;
-
+use PDF;
 class ClientController extends Controller
 {
     function __construct()
@@ -209,7 +209,7 @@ class ClientController extends Controller
 		if($request->ajax()){
 			return true;
 		} else if ($request->status == "holding" || $request->status == "problem") {
-			return Redirect::route("viewTraderAccounts")->with("info", "status change successfully.");
+			return Redirect::back()->with("info", "status change successfully.");
         }else{
             return true;
         }
@@ -896,6 +896,8 @@ class ClientController extends Controller
 		$toRenews = ClientDemateServices::toRenews();
 		$problemAccounts = ClientDemateServices::problemAccounts();
 		$allAccounts = ClientDemateServices::allAccounts();
+		
+		$terminatedAccounts = ClientDemateServices::terminatedAccounts();
 
 		$dematAccount = TraderServices::traderClientList(auth()->user()->id);
 
@@ -918,7 +920,7 @@ class ClientController extends Controller
 			}
 		}
 		$traders = User::wherein('id', $userIdArray)->get();
-		return view("clients.client-status", compact('analysts','keywords','traders','actives', 'demats', 'toRenews', 'problemAccounts', 'allAccounts'));
+		return view("clients.client-status", compact('analysts','keywords','traders','actives', 'demats', 'toRenews', 'problemAccounts', 'allAccounts', 'terminatedAccounts'));
 	}
 	public function viewDematProblem(Request $request){
 		$dematAccount = ClientServices::getDemat($request->id);
@@ -931,5 +933,52 @@ class ClientController extends Controller
 	public function dematAccountRestore(Request $request){
 		ClientServices::dematAccountRestore($request->id);
 		return response(["info" =>"Account Restored"],200, ["Content-Type" => "Application/json"]);
+	}
+	public function clientDematActivated(Request $request){
+		ClientServices::clientDematActivated($request->id);
+		return response(["info" => "Account Activated"], 200, ["Content-Type" => "Application/json"]);
+	}
+	public function terminateClient(Request $request){
+		ClientServices::terminateClient($request);
+		return response(["info" => "Account Terminated"], 200, ["Content-Type" => "Application/json"]);
+	}
+	public function viewLedger($id){
+		$client_demates = ClientServices::viewLedger($id);
+		return view("clients.ledger",compact("client_demates"));
+	}
+	public function generatePdf($id){
+		$client_demates = ClientServices::generatePdf($id);
+		$client =  ClientServices::get($id);
+		$pdf = PDF::loadView('pdf', compact('client_demates'));
+		PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+		return $pdf->download('Ledger of '. $client->name .'.pdf');
+	}
+	public function generateDoc($id){
+		$client_demates = ClientServices::generatePdf($id);
+		$client =  ClientServices::get($id);
+
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        $section = $phpWord->addSection();
+	
+        $section->addText("Sr No");
+        $section->addText("Joining Date");
+        $section->addText("End Date");
+        $section->addText("No. Days");
+        $section->addText("Profit");
+        $section->addText("Fees");
+        $section->addText("Net Profit");
+
+		foreach ($client_demates as $client_demate){
+			$section->addText($client_demate->serial_number);
+			$section->addText(date("Y-m-d",strtotime($client_demate->joining_date)));
+			$section->addText(($client_demate->end_date)?date("Y-m-d",strtotime($client_demate->end_date)):"-");
+			$section->addText(round((time() - strtotime($client_demate->joining_date)) / (60 * 60 * 24)));
+			$section->addText($client_demate->profit);
+			$section->addText($client_demate->fees);
+			$section->addText($client_demate->net_profit);
+		}
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save(''. $client->name .'.docx');
+        return response()->download(public_path('' . $client->name . '.docx'));
 	}
 }

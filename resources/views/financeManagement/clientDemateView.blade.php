@@ -403,9 +403,6 @@
                             id:id,
                             status: value
                         },
-                        headers: {
-                            'X-CSRF-TOKEN': $("input[name='_token']").val()
-                        },
                         success: function(response) {
                             if(response){
                                 window.location.href = "{!! route('renewal_status') !!}";

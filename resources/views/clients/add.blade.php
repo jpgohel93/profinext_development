@@ -296,7 +296,7 @@
                                                                 </label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
-                                                                <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_card[0][]" multiple placeholder="" />
+                                                                <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[0][]" multiple placeholder="" />
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Input group-->
@@ -1282,7 +1282,7 @@
 				$.each($('#appendDiv1 .cloningSec'),(i,v)=> {
 					let elem = $(v)[0];
 					$(elem).find("[type='file'][name*='screenshot']").first().attr("name","screenshot["+counter+"][]")
-					$(elem).find("[type='file'][name*='pan_card']").first().attr("name","pan_card["+counter+"][]")
+					$(elem).find("[type='file'][name*='pan_number']").first().attr("name","pan_number["+counter+"][]")
 					counter++;
 				})
 			}

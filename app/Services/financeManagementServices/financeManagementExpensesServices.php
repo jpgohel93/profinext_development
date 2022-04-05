@@ -52,4 +52,10 @@ class financeManagementExpensesServices
     {
         return financeManagementExpensesModel::with(["bank_name"])->get();
     }
+    public static function get($current_month = true){
+        if($current_month){
+            return financeManagementExpensesModel::whereYear("date", date("Y"))->whereMonth("date", date("m"))->with(["bank_name"])->get();
+        }
+        return financeManagementExpensesModel::with(["bank_name"])->get();
+    }
 }
