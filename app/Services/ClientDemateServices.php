@@ -48,6 +48,7 @@ class ClientDemateServices{
     public static function updatePL($request){
         $pl['account_status']="to_renew";
         $pl['pl']=$request->pl;
+        $pl['final_pl']=$request->total_profit;
         $pl['end_date']=date('Y-m-d');
         return ClientDemat::where("id",$request->id)->update($pl);
     }
