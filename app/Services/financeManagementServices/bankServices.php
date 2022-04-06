@@ -180,4 +180,8 @@ class bankServices{
     public static function getPrimaryBankAccounts($type){
         return BankModel::where("type",$type)->where("is_primary",1)->where("is_active",1)->first();
     }
+
+    public static function getForIncomeAccountsArray(){
+        return BankModel::where("type",1)->where("is_primary","!=",1)->get()->toArray();
+    }
 }

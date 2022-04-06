@@ -354,7 +354,7 @@
                                 <span class="menu-bullet">
                                     <i class="fas fa-solid fa-money-check-dollar-pen"></i>
                                 </span>
-                                <span class="menu-title">Revenue Status</span>
+                                <span class="menu-title">Renew Status</span>
                             </a>
                         </div>
                         <div class="menu-item">
@@ -446,7 +446,7 @@
 {{--                    </a>--}}
 {{--                </div>--}}
 
-                
+
                 @can("businessManagement-read")
                     <div class="menu-item">
                         <a class="menu-link @yield('business_management')" href="{{route('business_management')}}">

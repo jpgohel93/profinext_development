@@ -74,4 +74,8 @@ class servicesTypeServices
     public static function getById($id){
         return servicesTypeModel::where("id", $id)->first();
     }
+
+    public static function getByType($type){
+        return servicesTypeModel::where("name",'like',$type)->first();
+    }
 }
