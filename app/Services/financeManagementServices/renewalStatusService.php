@@ -78,6 +78,8 @@ class renewalStatusService
             $request_data['final_amount'] = $request->total_payment + $request->round_of_amount;
         }elseif ($request->round_of_amount_type == "minus"){
             $request_data['final_amount'] = $request->total_payment - $request->round_of_amount;
+        }else{
+            $request_data['final_amount'] = $request->total_payment;
         }
         try {
             RenewDemat::create($request_data);
