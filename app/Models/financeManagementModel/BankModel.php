@@ -31,5 +31,7 @@ class BankModel extends Model
         "created_by",
         "updated_by",
         "deleted_by",
+        "invoice_code",
+        "pan_number",
     ];
 }

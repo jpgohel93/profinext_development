@@ -23,7 +23,10 @@ class ClientDemateServices{
         return ClientDemat::where("trader_id", auth()->user()->id)->whereNotNull("problem")->where('account_status','!=','terminated')->with(["withClient"])->get();
     }
     public static function allAccounts(){
-        $clients = ClientDemat::where("trader_id",auth()->user()->id)->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->select('client_demat.*', 'clients.name')->get();
+        $clients = ClientDemat::where("trader_id",auth()->user()->id)->leftJoin('clients as c', function ($join) {
+            $join->on('client_demat.client_id', '=', 'c.id')
+                ->where('c.client_type', '=', 1);
+        })->select('client_demat.*', 'c.name', 'c.number','c.deleted_at')->whereNull("c.deleted_at")->get();
         // count demat accounts
         $client_id =[];
         foreach ($clients as $key => $client){

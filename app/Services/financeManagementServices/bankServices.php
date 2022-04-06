@@ -49,6 +49,8 @@ class bankServices{
             ]);
             throw $error;;
         }
+        $bank['invoice_code'] = $request->invoice_code;
+        $bank['pan_number'] = $request->pan_number;
         $bank['created_by'] = auth()->user()->id;
         return BankModel::create($bank);
     }

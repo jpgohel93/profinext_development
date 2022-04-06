@@ -46,6 +46,15 @@ class ClientController extends Controller
         $freelancerPrime = UserServices::getByType(5);
         return view("clients.client",compact('clients','professions','banks','brokers','freelancerAms','freelancerPrime'));
     }
+	public function getMutualFundClient(){
+		return ClientServices::getMutualFundClient();
+	}
+	public function getUnlistedSharesClient(){
+		return ClientServices::getUnlistedSharesClient();
+	}
+	public function getInsuranceClients(){
+		return ClientServices::getInsuranceClients();
+	}
     // create client form
     public function createClientForm(){
         $getLastSGNo = ClientDemat::select("serial_number")->where("st_sg", "SG")->orderBy("id", "DESC")->first();
@@ -88,7 +97,7 @@ class ClientController extends Controller
     public function get(Request $request,$id){
         $client =  ClientServices::get($id);
         if(!$client)
-            CommonService::throwError("Client not found");
+			return response(["info" =>"Client not found"], 200, ["Content-Type" => "Application/json"]);
 		if($request->ajax()){
 			return response($client,200, ["Content-Type" => "Application/json"]);
 		}

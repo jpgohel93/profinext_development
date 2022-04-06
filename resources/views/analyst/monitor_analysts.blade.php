@@ -279,18 +279,15 @@
             $(document).on("click",".viewAnalyst",function(){
                 $.ajax("/analyst/"+$(this).attr("data-id"),{
                     type:"GET",
-                    headers: {
-                        'X-CSRF-TOKEN': $("input[name='_token']").val()
-                    }
                 })
-                    .done(data=>{
-                        $(analyst).val(data.analyst);
-                        $(editAnalyst).val(data.id);
-                        $(editAnalystId).val(data.id);
-                        $(assign_user_id).val(data.assign_user_id);
-                        $(assign_user_id).trigger("change");
-                        $("#viewAnalyst").modal("show");
-                    })
+                .done(data=>{
+                    $(analyst).val(data.analyst);
+                    $(editAnalyst).val(data.id);
+                    $(editAnalystId).val(data.id);
+                    $(assign_user_id).val(data.assign_user_id);
+                    $(assign_user_id).trigger("change");
+                    $("#viewAnalyst").modal("show");
+                })
             })
             $("#viewAnalyst").modal("hide");
             $("#closeModel").on("click",function(){

@@ -554,6 +554,22 @@
                                     <!--end::Label-->
                                     <input type="text" value="{{old('account_no')}}" name="account_no" class="form-control form-control-solid" />
                                 </div>
+                                <div class="form-group">
+                                    <label class="d-flex align-items-center fs-6 fw-bold">
+                                        <span class="required">Invoice Code:</span>
+                                        <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" value="{{old('invoice_code')}}" name="invoice_code" class="form-control form-control-solid" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="d-flex align-items-center fs-6 fw-bold">
+                                        <span class="required">PAN Number:</span>
+                                        <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" value="{{old('pan_number')}}" name="pan_number" class="form-control form-control-solid" />
+                                </div>
                             </div>
                             <!--end::Col-->
                         </div>

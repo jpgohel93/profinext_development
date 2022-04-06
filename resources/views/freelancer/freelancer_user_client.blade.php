@@ -301,9 +301,6 @@
                     if(id){
                         $.ajax("/loginInfo/"+id,{
                             type:"GET",
-                            headers: {
-                                'X-CSRF-TOKEN': $("input[name='_token']").val()
-                            }
                         })
                             .done(data=>{
                                 $("#demate_id").val(data.id);

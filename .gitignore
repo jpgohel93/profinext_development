@@ -29,3 +29,5 @@ Homestead.json
 .mkv
 
 /storage/*
+/public/pan_cards
+/public/screenshots

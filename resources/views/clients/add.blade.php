@@ -72,6 +72,7 @@
                                                             <option value="1" {{old('client_type') && old('client_type')==1?"selected":""}}>Account Handling</option>
                                                             <option value="2" {{old('client_type') && old('client_type')==2?"selected":""}}>Mutual Fund</option>
                                                             <option value="3" {{old('client_type') && old('client_type')==3?"selected":""}}>Unlisted Shares</option>
+                                                            <option value="4" {{old('client_type') && old('client_type')==4?"selected":""}}>Prime Next</option>
                                                         </select>
                                                     @endif
                                                     <!--end::Input-->
@@ -224,10 +225,10 @@
                                                             <h3 class="stepper-title text-primary">Demate Details</h3>
                                                         </div>
                                                         <div class="row mb-8">
-                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-3">
-                                                                <span class="required">Smart ID</span>
-                                                            </label>
                                                             <div class="col-md-6 mb-4 fv-row">
+                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-3">
+                                                                    <span class="required">Smart ID</span>
+                                                                </label>
                                                                 <div class="position-relative">
                                                                     <select name="st_sg[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
                                                                         <option value="">Select ID</option>
@@ -285,335 +286,31 @@
                                                                 <!--end::Option-->
                                                             </div>
                                                             <!--end::Col-->
+                                                            <div class="col-1"></div>
+                                                            <div class="col-md-6 mb-4 fv-row">
+                                                                <!--begin:Option-->
+                                                                <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                                    <!--begin::Label-->
+                                                                    <span class="d-flex align-items-center me-2">
+                                                                        <!--begin::Info-->
+                                                                        <span class="d-flex flex-column">
+                                                                            <span class="fw-bolder fs-6">Prime Next</span>
+                                                                        </span>
+                                                                        <!--end::Info-->
+                                                                    </span>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <span class="form-check form-check-custom form-check-solid">
+                                                                        <input class="form-check-input" type="radio" data-service_type value="3" />
+                                                                    </span>
+                                                                    <!--end::Input-->
+                                                                </label>
+                                                                <!--end::Option-->
+                                                            </div>
+                                                            <!--end::Col-->
                                                         </div>
                                                         <!--end::Input group-->
                                                             <div class="row mb-4">
-                                                            <!--begin::Input group-->
-                                                            <div class="col-md-6 mb-4">
-                                                                <!--begin::Label-->
-                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                    <span class="required">Upload Demat Holder’s PAN Card</span>
-                                                                </label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[0][]" multiple placeholder="" />
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <!--begin::Input group-->
-                                                            <div class="col-md-6 mb-4">
-                                                                <!--begin::Label-->
-                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                    <span class="required">Demat Holder's Name</span>
-                                                                </label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="holder_name[]" placeholder="" value="" />
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                        </div>
-                                                        <!--begin::Input group-->
-                                                        <div class="fv-row mb-8">
-                                                            <!--begin::Label-->
-                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                <span class="required">Broker</span>
-                                                            </label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <select name="broker[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
-                                                                <option></option>
-                                                                @forelse ($brokers as $broker)
-                                                                    <option value="{{$broker->broker}}">{{$broker->broker}}</option>
-                                                                @empty
-                                                                    <option>Selecte Broker</option>
-                                                                @endforelse
-                                                            </select>
-                                                            <!--end::Input-->
-                                                        </div>
-                                                        <!--end::Input group-->
-                                                        <!--begin::Input group-->
-                                                        <div class="row">
-                                                            <!--begin::Col-->
-                                                            <div class="col-md-6 mb-4 fv-row">
-                                                                <!--begin::Label-->
-                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                    <span class="required">User ID</span>
-                                                                </label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="user_id[]" placeholder="" autocomplete="off"/>
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Col-->
-                                                            <!--begin::Col-->
-                                                            <div class="col-md-6 mb-4 fv-row">
-                                                                <!--begin::Label-->
-                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                    <span class="required">Password</span>
-                                                                </label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" autocomplete="off"/>
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Col-->
-                                                        </div>
-                                                        <!--end::Input group-->
-                                                        <!--begin::Input group-->
-                                                        <div class="row mb-4">
-                                                            <!--begin::Col-->
-                                                            <div class="col-md-6 mb-4 fv-row">
-                                                                <!--begin::Label-->
-                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                    <span class="required">Mpin</span>
-                                                                </label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Col-->
-                                                            <!--begin::Col-->
-                                                            <div class="col-md-6 mb-4 fv-row">
-                                                                <!--begin::Label-->
-                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                    <span class="required">Capital</span>
-                                                                </label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="" />
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Col-->
-                                                        </div>
-                                                        <!--end::Input group-->
-                                                    </div>
-                                                </div>
-                                                <!--end::Step 2-->
-                                                <!--begin::Step 3-->
-                                                <div id="paymentDetailsDiv">
-                                                    <div class="d-block card p-7 my-5 payment_details" data-kt-stepper-element="content">
-                                                        <div class="w-100">
-                                                            <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
-                                                                <h3 class="stepper-title text-primary">Payment Details</h3>
-                                                            </div>
-
-                                                            <!--begin::Input group-->
-                                                            <div class="fv-row mb-8 col-md-6">
-                                                                <!--begin::Label-->
-                                                                <label class="required fs-5 fw-bold mb-2">Mode</label>
-                                                                <!--end::Label-->
-                                                                <div class="row col-md-6 mb-4">
-                                                                    <!--begin::Input group-->
-                                                                    <div class="col-md-6">
-                                                                        <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
-                                                                            <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
-                                                                            <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" checked="checked" />
-                                                                            <input class="form-check-input" type="hidden" name="mode[]" value="2" />
-
-                                                                            <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
-                                                                        </label>
-                                                                    </div>
-                                                                    <!--end::Input group-->
-                                                                </div>
-                                                            </div>
-                                                            <!--end::Input group-->
-
-
-                                                            <div class="row mb-4 PaymentSection joining_date" style="display:block;" id="BankDiv">
-                                                                <!--begin::Col-->
-                                                                <div class="col-md-5 fv-row mb-4 hideonpending">
-                                                                    <!--begin::Label-->
-                                                                    <label class="required fs-6 fw-bold form-label mb-2">Bank Details</label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input wrapper-->
-                                                                    <div class="position-relative">
-                                                                        <!--begin::Input-->
-                                                                        <select name="bank[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
-                                                                            <option></option>
-                                                                            @forelse ($banks as $bank)
-                                                                                <option value="{{$bank->bank}}" {{(old('bank') && old('bank')==$bank->bank)?"selected":""}}>{{$bank->bank}}</option>
-                                                                            @empty
-                                                                                <option>Selecte Bank</option>
-                                                                            @endforelse
-                                                                        </select>
-                                                                    </div>
-                                                                    <!--end::Input wrapper-->
-                                                                </div>
-                                                                <!--end::Col-->
-
-                                                                <div class="row">
-                                                                    <!--begin::Input group-->
-                                                                <div class="col-md-6 mb-4">
-                                                                    <!--begin::Label-->
-                                                                    <label class="required fs-5 fw-bold mb-2">Joining Date</label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
-                                                                    <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date"/>
-                                                                    <!--end::Input-->
-                                                                </div>
-                                                                <!--end::Input group-->
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 mb-4 hideonpending" id="FeesDiv">
-                                                                    <!--begin::Label-->
-                                                                    <label class="required fs-5 fw-bold mb-2">Fees</label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
-                                                                    <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="25,000" />
-                                                                    <!--end::Input-->
-                                                                </div>
-                                                                <!--end::Input group-->
-                                                                </div>
-                                                                <div class="row mb-8 " id="UploadDiv">
-                                                                    <!--begin::Input group-->
-                                                                <div class="col-md-6 mb-4 hideonpending">
-                                                                    <!--begin::Label-->
-                                                                    <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
-                                                                    <input type="file" name="screenshot[0][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
-                                                                    <!--end::Input-->
-                                                                </div>
-                                                                <!--end::Input group-->
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 d-flex justify-content-between">
-                                                                    <!--begin::Label-->
-                                                                    <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
-                                                                    <div>
-                                                                        <!--begin::Checkbox-->
-                                                                        <label class="form-check form-check-custom form-check-solid me-10">
-                                                                            <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" value="0">
-                                                                            <input class="form-check-input h-20px w-20px PendingMark" type="hidden" name="pending_payment[]" value="0">
-                                                                            <span class="form-check-label fw-bold">Pending</span>
-                                                                        </label>
-                                                                        <!--end::Checkbox-->
-                                                                    </div>
-                                                                    <!--end::Input-->
-                                                                </div>
-                                                                <!--end::Input group-->
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        @else
-                                            @foreach($main as $key => $demate_account)
-                                                <!--end::Step 1-->
-                                                <div class="cloningSec">
-                                                    <!--begin::Step 2-->
-                                                    <div class="d-block card p-7 my-5" data-kt-stepper-element="content">
-                                                        <div class="w-100">
-                                                            <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
-                                                                <h3 class="stepper-title text-primary">Demate Details</h3>
-                                                                @if ($key==0)
-                                                                    <button type="button" class="btn btn-primary addmore">Add More</button>
-                                                                @else
-                                                                    <button type="button" class="btn btn-primary btn-pink remove-btn">Remove</button>
-                                                                @endif
-                                                            </div>
-                                                            <!--begin::Input group-->
-                                                            <div class="row mb-8">
-                                                                <!--begin::Label-->
-                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-3">
-                                                                    <span class="required">Smart ID</span>
-                                                                </label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Col-->
-                                                                <div class="col-md-6 mb-4 fv-row">
-                                                                    <!--begin::Label-->
-                                                                    <label class="required fs-6 fw-bold form-label mb-2">ST/SG</label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input wrapper-->
-                                                                    <div class="position-relative">
-                                                                        <!--begin::Input-->
-                                                                        <select name="st_sg[]" class="form-select form-select-solid">
-                                                                            <option></option>
-                                                                            <option value="ST" {{$demate_account['st_sg']=="ST"?"selected":""}}>ST</option>
-                                                                            <option value="SG" {{$demate_account['st_sg']=="SG"?"selected":""}}>SG</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <!--end::Input wrapper-->
-                                                                </div>
-                                                                <!--end::Col-->
-                                                                <!--begin::Col-->
-                                                                <div class="col-md-6 mb-4 fv-row">
-                                                                    <!--begin::Label-->
-                                                                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                                                        <span class="required">Serial Number</span>
-                                                                    </label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input wrapper-->
-                                                                    <div class="position-relative">
-                                                                        <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-solid bdr-ccc" value="{{(old('serial_number'))?old('serial_number')[$key]:$demate_account['serial_number']}}" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
-                                                                        <!--end::Input-->
-                                                                    </div>
-                                                                    <!--end::Input wrapper-->
-                                                                </div>
-                                                                <!--end::Col-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <!--begin::Input group-->
-                                                            <div class="row col-md-6 mb-8">
-                                                                <!--begin::Label-->
-                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-3">
-                                                                    <span class="required">Service Type</span>
-                                                                </label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Col-->
-                                                                <div class="col-md-6 mb-4 fv-row">
-                                                                    <!--begin:Option-->
-                                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
-                                                                        <!--begin::Label-->
-                                                                        <span class="d-flex align-items-center me-2">
-                                                                            <!--begin::Info-->
-                                                                            <span class="d-flex flex-column">
-                                                                                <span class="fw-bolder fs-6">Prime</span>
-                                                                            </span>
-                                                                            <!--end::Info-->
-                                                                        </span>
-                                                                        <!--end::Label-->
-                                                                        <!--begin::Input-->
-                                                                        <span class="form-check form-check-custom form-check-solid">
-                                                                            <input class="form-check-input" type="radio" data-service_type {{$demate_account['service_type']=="1"?"checked":""}} value="1" />
-                                                                            <input class="form-check-input" type="hidden" name="service_type[]" value="{{$demate_account['service_type']=="1"?"1":"2"}}" />
-                                                                        </span>
-                                                                        <!--end::Input-->
-                                                                    </label>
-                                                                    <!--end::Option-->
-                                                                </div>
-                                                                <!--end::Col-->
-                                                                <div class="col-1"></div>
-                                                                <!--begin::Col-->
-                                                                <div class="col-md-6 mb-4 fv-row">
-                                                                    <!--begin:Option-->
-                                                                    <label class="d-flex flex-stack cursor-pointer mb-5">
-                                                                        <!--begin::Label-->
-                                                                        <span class="d-flex align-items-center me-2">
-                                                                            <!--begin::Info-->
-                                                                            <span class="d-flex flex-column">
-                                                                                <span class="fw-bolder fs-6">AMS</span>
-                                                                            </span>
-                                                                            <!--end::Info-->
-                                                                        </span>
-                                                                        <!--end::Label-->
-                                                                        <!--begin::Input-->
-                                                                        <span class="form-check form-check-custom form-check-solid">
-                                                                            <input class="form-check-input" type="radio" data-service_type {{$demate_account['service_type']=="2"?"checked":""}} value="2" />
-                                                                        </span>
-                                                                        <!--end::Input-->
-                                                                    </label>
-                                                                    <!--end::Option-->
-                                                                </div>
-                                                                <!--end::Col-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                                <div class="row mb-4">
                                                                 <!--begin::Input group-->
                                                                 <div class="col-md-6 mb-4">
                                                                     <!--begin::Label-->
@@ -622,7 +319,18 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" multiple name="pan_number[]" placeholder="" />
+                                                                    <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[0][]" multiple placeholder="" />
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                <div class="col-md-6 mb-4">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                        <span class="required">PAN Number</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Input group-->
@@ -634,12 +342,48 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="holder_name[]" placeholder="" value="{{$demate_account['holder_name']}}" />
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="holder_name[]" placeholder="" value="" />
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 mb-4">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                        <span class="required">Address</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="address[]" placeholder="City, District, State, Pin code" value="" />
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 mb-4">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                        <span class="required">Email ID</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="email_id[]" placeholder="Demat Holder’s Email ID" value="" />
+                                                                    <!--end::Input-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                <!--begin::Input group-->
+                                                                <div class="col-md-6 mb-4">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                        <span class="required">Mobile</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Input-->
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mobile[]" placeholder="Demat Holder’s Mobile Number" value="" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Input group-->
                                                             </div>
-                                                            <!--begin::Input group-->
+                                                                <!--begin::Input group-->
                                                             <div class="fv-row mb-8">
                                                                 <!--begin::Label-->
                                                                 <label class="d-flex align-items-center fs-5 fw-bold mb-2">
@@ -647,10 +391,10 @@
                                                                 </label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
-                                                                <select name="broker[]" class="form-select form-select-solid">
+                                                                <select name="broker[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
                                                                     <option></option>
                                                                     @forelse ($brokers as $broker)
-                                                                        <option value="{{$broker->broker}}" {{($demate_account['broker']==$broker->broker)?"selected":""}}>{{$broker->broker}}</option>
+                                                                        <option value="{{$broker->broker}}">{{$broker->broker}}</option>
                                                                     @empty
                                                                         <option>Selecte Broker</option>
                                                                     @endforelse
@@ -668,7 +412,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="user_id[]" value="{{$demate_account['user_id']}}" />
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="user_id[]" placeholder="" autocomplete="off"/>
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Col-->
@@ -680,7 +424,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="password[]" value="{{(session('password')[$key])?session('password')[$key]:""}}" />
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" autocomplete="off"/>
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Col-->
@@ -696,7 +440,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Col-->
@@ -708,490 +452,955 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="{{$demate_account['capital']}}" />
+                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Col-->
                                                             </div>
                                                             <!--end::Input group-->
                                                         </div>
-                                                    </div>
+                                                   </div>
                                                     <!--end::Step 2-->
                                                     <!--begin::Step 3-->
-                                                    <div class="d-block card p-7 my-5 payment_details" data-kt-stepper-element="content">
-                                                        <div class="w-100">
-                                                            <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
-                                                                <h3 class="stepper-title text-primary">Payment Details</h3>
-                                                            </div>
+                                                    <div id="paymentDetailsDiv">
+                                                        <div class="d-block card p-7 my-5 payment_details" data-kt-stepper-element="content">
+                                                            <div class="w-100">
+                                                                <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
+                                                                    <h3 class="stepper-title text-primary">Payment Details</h3>
+                                                                </div>
 
-                                                            <!--begin::Input group-->
-                                                            <div class="fv-row mb-8 col-md-6">
-                                                                <!--begin::Label-->
-                                                                <label class="required fs-5 fw-bold mb-2">Mode</label>
-                                                                <!--end::Label-->
-                                                                <div class="row col-md-6 mb-4">
+                                                                <!--begin::Input group-->
+                                                                <div class="fv-row mb-8 col-md-6">
+                                                                    <!--begin::Label-->
+                                                                    <label class="required fs-5 fw-bold mb-2">Mode</label>
+                                                                    <!--end::Label-->
+                                                                    <div class="row col-md-6 mb-4">
+                                                                        <!--begin::Input group-->
+                                                                        <div class="col-md-6">
+                                                                            <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
+                                                                                <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
+                                                                                <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" checked="checked" />
+                                                                                <input class="form-check-input" type="hidden" name="mode[]" value="2" />
+
+                                                                                <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <!--end::Input group-->
+                                                                    </div>
+                                                                </div>
+                                                                <!--end::Input group-->
+
+
+                                                                <div class="row mb-4 PaymentSection joining_date" style="display:block;" id="BankDiv">
+                                                                    <!--begin::Col-->
+                                                                    <div class="col-md-5 fv-row mb-4 hideonpending">
+                                                                        <!--begin::Label-->
+                                                                        <label class="required fs-6 fw-bold form-label mb-2">Bank Details</label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input wrapper-->
+                                                                        <div class="position-relative">
+                                                                            <!--begin::Input-->
+                                                                            <select name="bank[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
+                                                                                <option></option>
+                                                                                @forelse ($banks as $bank)
+                                                                                    <option value="{{$bank->bank}}" {{(old('bank') && old('bank')==$bank->bank)?"selected":""}}>{{$bank->bank}}</option>
+                                                                                @empty
+                                                                                    <option>Selecte Bank</option>
+                                                                                @endforelse
+                                                                            </select>
+                                                                        </div>
+                                                                        <!--end::Input wrapper-->
+                                                                    </div>
+                                                                    <!--end::Col-->
+
+                                                                    <div class="row">
+                                                                        <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-4">
+                                                                        <!--begin::Label-->
+                                                                        <label class="required fs-5 fw-bold mb-2">Joining Date</label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date"/>
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
                                                                     <!--begin::Input group-->
-                                                                    <div class="col-md-6">
-                                                                        <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
-                                                                            <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
-                                                                            <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" {{$demate_account['mode']=="2"?"checked":""}} />
-                                                                            <input class="form-check-input" type="hidden" name="mode[]" value="{{$demate_account['mode']=="2"?"2":"1"}}" />
-
-                                                                            <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
+                                                                    <div class="col-md-6 mb-4 hideonpending" id="FeesDiv">
+                                                                        <!--begin::Label-->
+                                                                        <label class="required fs-5 fw-bold mb-2">Fees</label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="25,000" />
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    </div>
+                                                                    <div class="row mb-8 " id="UploadDiv">
+                                                                        <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-4 hideonpending">
+                                                                        <!--begin::Label-->
+                                                                        <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="file" name="screenshot[0][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 d-flex justify-content-between">
+                                                                        <!--begin::Label-->
+                                                                        <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <div>
+                                                                            <!--begin::Checkbox-->
+                                                                            <label class="form-check form-check-custom form-check-solid me-10">
+                                                                                <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" value="0">
+                                                                                <input class="form-check-input h-20px w-20px PendingMark" type="hidden" name="pending_payment[]" value="0">
+                                                                                <span class="form-check-label fw-bold">Pending</span>
+                                                                            </label>
+                                                                            <!--end::Checkbox-->
+                                                                        </div>
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                @foreach($main as $key => $demate_account)
+                                                    <!--end::Step 1-->
+                                                    <div class="cloningSec">
+                                                        <!--begin::Step 2-->
+                                                        <div class="d-block card p-7 my-5" data-kt-stepper-element="content">
+                                                            <div class="w-100">
+                                                                <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
+                                                                    <h3 class="stepper-title text-primary">Demate Details</h3>
+                                                                    @if ($key==0)
+                                                                        <button type="button" class="btn btn-primary addmore">Add More</button>
+                                                                    @else
+                                                                        <button type="button" class="btn btn-primary btn-pink remove-btn">Remove</button>
+                                                                    @endif
+                                                                </div>
+                                                                <!--begin::Input group-->
+                                                                <div class="row mb-8">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-3">
+                                                                        <span class="required">Smart ID</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Col-->
+                                                                    <div class="col-md-6 mb-4 fv-row">
+                                                                        <!--begin::Label-->
+                                                                        <label class="required fs-6 fw-bold form-label mb-2">ST/SG</label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input wrapper-->
+                                                                        <div class="position-relative">
+                                                                            <!--begin::Input-->
+                                                                            <select name="st_sg[]" class="form-select form-select-solid">
+                                                                                <option></option>
+                                                                                <option value="ST" {{$demate_account['st_sg']=="ST"?"selected":""}}>ST</option>
+                                                                                <option value="SG" {{$demate_account['st_sg']=="SG"?"selected":""}}>SG</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <!--end::Input wrapper-->
+                                                                    </div>
+                                                                    <!--end::Col-->
+                                                                    <!--begin::Col-->
+                                                                    <div class="col-md-6 mb-4 fv-row">
+                                                                        <!--begin::Label-->
+                                                                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                                                            <span class="required">Serial Number</span>
                                                                         </label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input wrapper-->
+                                                                        <div class="position-relative">
+                                                                            <!--begin::Input-->
+                                                                            <input type="text" class="form-control form-control-solid bdr-ccc" value="{{(old('serial_number'))?old('serial_number')[$key]:$demate_account['serial_number']}}" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
+                                                                            <!--end::Input-->
+                                                                        </div>
+                                                                        <!--end::Input wrapper-->
+                                                                    </div>
+                                                                    <!--end::Col-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                <!--begin::Input group-->
+                                                                <div class="row col-md-6 mb-8">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-3">
+                                                                        <span class="required">Service Type</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+                                                                    <!--begin::Col-->
+                                                                    <div class="col-md-6 mb-4 fv-row">
+                                                                        <!--begin:Option-->
+                                                                        <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                                            <!--begin::Label-->
+                                                                            <span class="d-flex align-items-center me-2">
+                                                                                <!--begin::Info-->
+                                                                                <span class="d-flex flex-column">
+                                                                                    <span class="fw-bolder fs-6">Prime</span>
+                                                                                </span>
+                                                                                <!--end::Info-->
+                                                                            </span>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <span class="form-check form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="radio" data-service_type {{$demate_account['service_type']=="1"?"checked":""}} value="1" />
+                                                                                <input class="form-check-input" type="hidden" name="service_type[]" value="{{$demate_account['service_type']=="1"?"1":"2"}}" />
+                                                                            </span>
+                                                                            <!--end::Input-->
+                                                                        </label>
+                                                                        <!--end::Option-->
+                                                                    </div>
+                                                                    <!--end::Col-->
+                                                                    <div class="col-1"></div>
+                                                                    <!--begin::Col-->
+                                                                    <div class="col-md-6 mb-4 fv-row">
+                                                                        <!--begin:Option-->
+                                                                        <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                                            <!--begin::Label-->
+                                                                            <span class="d-flex align-items-center me-2">
+                                                                                <!--begin::Info-->
+                                                                                <span class="d-flex flex-column">
+                                                                                    <span class="fw-bolder fs-6">AMS</span>
+                                                                                </span>
+                                                                                <!--end::Info-->
+                                                                            </span>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <span class="form-check form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="radio" data-service_type {{$demate_account['service_type']=="2"?"checked":""}} value="2" />
+                                                                            </span>
+                                                                            <!--end::Input-->
+                                                                        </label>
+                                                                        <!--end::Option-->
+                                                                    </div>
+                                                                    <!--end::Col-->
+                                                                    <div class="col-1"></div>
+                                                                    <!--begin::Col-->
+                                                                    <div class="col-md-6 mb-4 fv-row">
+                                                                        <!--begin:Option-->
+                                                                        <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                                            <!--begin::Label-->
+                                                                            <span class="d-flex align-items-center me-2">
+                                                                                <!--begin::Info-->
+                                                                                <span class="d-flex flex-column">
+                                                                                    <span class="fw-bolder fs-6">Prime Next</span>
+                                                                                </span>
+                                                                                <!--end::Info-->
+                                                                            </span>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <span class="form-check form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="radio" data-service_type {{$demate_account['service_type']=="3"?"checked":""}} value="3" />
+                                                                            </span>
+                                                                            <!--end::Input-->
+                                                                        </label>
+                                                                        <!--end::Option-->
+                                                                    </div>
+                                                                    <!--end::Col-->
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                    <div class="row mb-4">
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-4">
+                                                                        <!--begin::Label-->
+                                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                            <span class="required">Upload Demat Holder’s PAN Card</span>
+                                                                        </label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" multiple name="pan_number[]" placeholder="" />
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-4">
+                                                                        <!--begin::Label-->
+                                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                            <span class="required">PAN Number</span>
+                                                                        </label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="{{$demate_account['pan_number_text']}}" />
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-4">
+                                                                        <!--begin::Label-->
+                                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                            <span class="required">Demat Holder's Name</span>
+                                                                        </label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="holder_name[]" placeholder="" value="{{$demate_account['holder_name']}}" />
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-4">
+                                                                        <!--begin::Label-->
+                                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                            <span class="required">Address</span>
+                                                                        </label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="address[]" placeholder="City, District, State, Pin code" value="{{$demate_account['address']}}" />
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-4">
+                                                                        <!--begin::Label-->
+                                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                            <span class="required">Email ID</span>
+                                                                        </label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="email_id[]" placeholder="Demat Holder’s Email ID" value="{{$demate_account['email_id']}}" />
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-4">
+                                                                        <!--begin::Label-->
+                                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                            <span class="required">Mobile</span>
+                                                                        </label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mobile[]" placeholder="Demat Holder’s Mobile Number" value="{{$demate_account['mobile']}}" />
+                                                                        <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
                                                                 </div>
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <div class="row mb-4 PaymentSection joining_date" style="display:{{$demate_account['mode']=="2"?"block":"none"}};" id="BankDiv">
-                                                                <!--begin::Col-->
-                                                                <div class="col-md-5 fv-row mb-4 hideonpending" style="display:{{$demate_account['pending_payment']=="1"?"none":""}};">
+                                                                <!--begin::Input group-->
+                                                                <div class="fv-row mb-8">
                                                                     <!--begin::Label-->
-                                                                    <label class="required fs-6 fw-bold form-label mb-2">Bank Details</label>
+                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                        <span class="required">Broker</span>
+                                                                    </label>
                                                                     <!--end::Label-->
-                                                                    <!--begin::Input wrapper-->
-                                                                    <div class="position-relative">
-                                                                        <!--begin::Input-->
-                                                                        <select name="bank[]" class="form-select form-select-solid" >
-                                                                            <option></option>
-                                                                            <option value="ICICI" {{$demate_account['bank']=="ICICI"?"selected":""}}>ICICI</option>
-                                                                            <option value="HDFC" {{$demate_account['bank']=="HDFC"?"selected":""}}>HDFC</option>
-                                                                            <option value="Canara" {{$demate_account['bank']=="Canara"?"selected":""}}>Canara</option>
-                                                                            <option value="Axis" {{$demate_account['bank']=="Axis"?"selected":""}}>Axis</option>
-                                                                            <option value="RBL" {{$demate_account['bank']=="RBL"?"selected":""}}>RBL</option>
-
-                                                                        </select>
-                                                                    </div>
-                                                                    <!--end::Input wrapper-->
+                                                                    <!--begin::Input-->
+                                                                    <select name="broker[]" class="form-select form-select-solid">
+                                                                        <option></option>
+                                                                        @forelse ($brokers as $broker)
+                                                                            <option value="{{$broker->broker}}" {{($demate_account['broker']==$broker->broker)?"selected":""}}>{{$broker->broker}}</option>
+                                                                        @empty
+                                                                            <option>Selecte Broker</option>
+                                                                        @endforelse
+                                                                    </select>
+                                                                    <!--end::Input-->
                                                                 </div>
-                                                                <!--end::Col-->
-
+                                                                <!--end::Input group-->
+                                                                <!--begin::Input group-->
                                                                 <div class="row">
-                                                                    <!--begin::Input group-->
-                                                                <div class="col-md-6 mb-4">
-                                                                    <!--begin::Label-->
-                                                                    <label class="required fs-5 fw-bold mb-2">Joining Date</label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
-                                                                    <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{$demate_account['mode']=="2"?($demate_account['joining_date']==""?"":date("Y-m-d",strtotime($demate_account['joining_date']))):""}}"/>
-                                                                    <!--end::Input-->
-                                                                </div>
-                                                                <!--end::Input group-->
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 mb-4 hideonpending" id="FeesDiv" style="display:{{$demate_account['pending_payment']=="1"?"none":""}};">
-                                                                    <!--begin::Label-->
-                                                                    <label class="required fs-5 fw-bold mb-2">Fees</label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
-                                                                    <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="{{$demate_account['mode']=="2"?$demate_account['fees']:""}}" />
-                                                                    <!--end::Input-->
-                                                                </div>
-                                                                <!--end::Input group-->
-                                                                </div>
-                                                                <div class="row mb-8 " id="UploadDiv">
-                                                                    <!--begin::Input group-->
-                                                                <div class="col-md-6 mb-4 hideonpending" style="display:{{$demate_account['pending_payment']=="1"?"none":""}};">
-                                                                    <!--begin::Label-->
-                                                                    <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
-                                                                    <input type="file" name="screenshot[{{$key}}][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
-                                                                    <!--end::Input-->
-                                                                </div>
-                                                                <!--end::Input group-->
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 d-flex justify-content-between">
-                                                                    <!--begin::Label-->
-                                                                    <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
-                                                                    <div>
-                                                                        <!--begin::Checkbox-->
-                                                                        <label class="form-check form-check-custom form-check-solid me-10">
-                                                                            <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" {{$demate_account['pending_payment']=="1"?"checked":""}} value="1">
-                                                                            <input type="hidden" name="pending_payment[]" value="{{$demate_account['pending_payment']=="1"?1:0}}">
-                                                                            <span class="form-check-label fw-bold">Pending</span>
+                                                                    <!--begin::Col-->
+                                                                    <div class="col-md-6 mb-4 fv-row">
+                                                                        <!--begin::Label-->
+                                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                            <span class="required">User ID</span>
                                                                         </label>
-                                                                        <!--end::Checkbox-->
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="user_id[]" value="{{$demate_account['user_id']}}" />
+                                                                        <!--end::Input-->
                                                                     </div>
-                                                                    <!--end::Input-->
+                                                                    <!--end::Col-->
+                                                                    <!--begin::Col-->
+                                                                    <div class="col-md-6 mb-4 fv-row">
+                                                                        <!--begin::Label-->
+                                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                            <span class="required">Password</span>
+                                                                        </label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="password[]" value="{{(session('password')[$key])?session('password')[$key]:""}}" />
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Col-->
                                                                 </div>
                                                                 <!--end::Input group-->
+                                                                <!--begin::Input group-->
+                                                                <div class="row mb-4">
+                                                                    <!--begin::Col-->
+                                                                    <div class="col-md-6 mb-4 fv-row">
+                                                                        <!--begin::Label-->
+                                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                            <span class="required">Mpin</span>
+                                                                        </label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Col-->
+                                                                    <!--begin::Col-->
+                                                                    <div class="col-md-6 mb-4 fv-row">
+                                                                        <!--begin::Label-->
+                                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                            <span class="required">Capital</span>
+                                                                        </label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="{{$demate_account['capital']}}" />
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Col-->
                                                                 </div>
-                                                                <div class="row">
-                                                                    @if (isset($client->clientPayment[$key]))
-                                                                        @foreach($client->clientPayment[$key]->Screenshots as $ss)
-                                                                            <div class="form-group col-3">
-                                                                                <label>
-                                                                                    <a href="{{route('removePaymentScreenshot',[$client->id,$ss->id])}}" class="removePaymentScreenshot">Remove</a>
-                                                                                </label>
-                                                                            </div>
-                                                                        @endforeach
-                                                                    @endif
+                                                                <!--end::Input group-->
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Step 2-->
+                                                        <!--begin::Step 3-->
+                                                        <div class="d-block card p-7 my-5 payment_details" data-kt-stepper-element="content">
+                                                            <div class="w-100">
+                                                                <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
+                                                                    <h3 class="stepper-title text-primary">Payment Details</h3>
+                                                                </div>
+
+                                                                <!--begin::Input group-->
+                                                                <div class="fv-row mb-8 col-md-6">
+                                                                    <!--begin::Label-->
+                                                                    <label class="required fs-5 fw-bold mb-2">Mode</label>
+                                                                    <!--end::Label-->
+                                                                    <div class="row col-md-6 mb-4">
+                                                                        <!--begin::Input group-->
+                                                                        <div class="col-md-6">
+                                                                            <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
+                                                                                <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
+                                                                                <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" {{$demate_account['mode']=="2"?"checked":""}} />
+                                                                                <input class="form-check-input" type="hidden" name="mode[]" value="{{$demate_account['mode']=="2"?"2":"1"}}" />
+
+                                                                                <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <!--end::Input group-->
+                                                                    </div>
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                <div class="row mb-4 PaymentSection joining_date" style="display:{{$demate_account['mode']=="2"?"block":"none"}};" id="BankDiv">
+                                                                    <!--begin::Col-->
+                                                                    <div class="col-md-5 fv-row mb-4 hideonpending" style="display:{{$demate_account['pending_payment']=="1"?"none":""}};">
+                                                                        <!--begin::Label-->
+                                                                        <label class="required fs-6 fw-bold form-label mb-2">Bank Details</label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input wrapper-->
+                                                                        <div class="position-relative">
+                                                                            <!--begin::Input-->
+                                                                            <select name="bank[]" class="form-select form-select-solid" >
+                                                                                <option></option>
+                                                                                <option value="ICICI" {{$demate_account['bank']=="ICICI"?"selected":""}}>ICICI</option>
+                                                                                <option value="HDFC" {{$demate_account['bank']=="HDFC"?"selected":""}}>HDFC</option>
+                                                                                <option value="Canara" {{$demate_account['bank']=="Canara"?"selected":""}}>Canara</option>
+                                                                                <option value="Axis" {{$demate_account['bank']=="Axis"?"selected":""}}>Axis</option>
+                                                                                <option value="RBL" {{$demate_account['bank']=="RBL"?"selected":""}}>RBL</option>
+
+                                                                            </select>
+                                                                        </div>
+                                                                        <!--end::Input wrapper-->
+                                                                    </div>
+                                                                    <!--end::Col-->
+
+                                                                    <div class="row">
+                                                                        <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-4">
+                                                                        <!--begin::Label-->
+                                                                        <label class="required fs-5 fw-bold mb-2">Joining Date</label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{$demate_account['mode']=="2"?($demate_account['joining_date']==""?"":date("Y-m-d",strtotime($demate_account['joining_date']))):""}}"/>
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-4 hideonpending" id="FeesDiv" style="display:{{$demate_account['pending_payment']=="1"?"none":""}};">
+                                                                        <!--begin::Label-->
+                                                                        <label class="required fs-5 fw-bold mb-2">Fees</label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="{{$demate_account['mode']=="2"?$demate_account['fees']:""}}" />
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    </div>
+                                                                    <div class="row mb-8 " id="UploadDiv">
+                                                                        <!--begin::Input group-->
+                                                                    <div class="col-md-6 mb-4 hideonpending" style="display:{{$demate_account['pending_payment']=="1"?"none":""}};">
+                                                                        <!--begin::Label-->
+                                                                        <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <input type="file" name="screenshot[{{$key}}][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Input group-->
+                                                                    <div class="col-md-6 d-flex justify-content-between">
+                                                                        <!--begin::Label-->
+                                                                        <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                        <div>
+                                                                            <!--begin::Checkbox-->
+                                                                            <label class="form-check form-check-custom form-check-solid me-10">
+                                                                                <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" {{$demate_account['pending_payment']=="1"?"checked":""}} value="1">
+                                                                                <input type="hidden" name="pending_payment[]" value="{{$demate_account['pending_payment']=="1"?1:0}}">
+                                                                                <span class="form-check-label fw-bold">Pending</span>
+                                                                            </label>
+                                                                            <!--end::Checkbox-->
+                                                                        </div>
+                                                                        <!--end::Input-->
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        @if (isset($client->clientPayment[$key]))
+                                                                            @foreach($client->clientPayment[$key]->Screenshots as $ss)
+                                                                                <div class="form-group col-3">
+                                                                                    <label>
+                                                                                        <a href="{{route('removePaymentScreenshot',[$client->id,$ss->id])}}" class="removePaymentScreenshot">Remove</a>
+                                                                                    </label>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                    </div>
-                                    <div id="appendDiv1"></div>
-                                        <div id="addMoreDiv">
-                                            <div class="stepper-label d-flex justify-content-between mt-0" style="float: right;margin-top:30px;margin-bottom:20px;">
-                                                 <button type="button" class="btn btn-primary addmore">Add More</button>
-                                            </div>
+                                                @endforeach
+                                            @endif
                                         </div>
-
-
-                                    <!--begin::Wrapper-->
-                                    <div id="submitSmsButton">
-                                        <button type="submit" class="btn btn-lg btn-primary">
-                                            <span class="indicator-label">Submit
-                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                            <span class="svg-icon svg-icon-3 ms-2 me-0">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                    <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="black" />
-                                                    <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="black" />
-                                                </svg>
-                                            </span>
-                                            <!--end::Svg Icon--></span>
-                                            <span class="indicator-progress">Please wait...
-                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                        </button>
-                                    </div>
-                                    <!--end::Wrapper-->
-                                    <!--end::Actions-->
-                                </form>
-                                <!--begin::Step 2 & 3 hidden for add more-->
-                                <div class="d-none" id="hiddenaddmore">
-                                    <div class="cloningSec">
-                                        <!--begin::Step 2-->
-                                        <div class="d-block card p-7 my-5" data-kt-stepper-element="content">
-                                            <div class="w-100">
-                                                <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
-                                                    <h3 class="stepper-title text-primary">Demate Detail</h3>
+                                        <div id="appendDiv1"></div>
+                                            <div id="addMoreDiv">
+                                                <div class="stepper-label d-flex justify-content-between mt-0" style="float: right;margin-top:30px;margin-bottom:20px;">
                                                     <button type="button" class="btn btn-primary addmore">Add More</button>
                                                 </div>
-                                                <!--begin::Input group-->
-                                                <div class="row mb-8">
-                                                    <!--begin::Label-->
-                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-3">
-                                                        <span class="required">Smart ID</span>
-                                                    </label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-6 mb-4 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="required fs-6 fw-bold form-label mb-2">ST/SG</label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input wrapper-->
-                                                        <div class="position-relative">
-                                                            <!--begin::Input-->
-                                                            <select name="st_sg[]" class="form-select form-select-solid">
-                                                                <option></option>
-                                                                <option value="ST">ST</option>
-                                                                <option value="SG">SG</option>
-                                                            </select>
-                                                        </div>
-                                                        <!--end::Input wrapper-->
-                                                    </div>
-                                                    <!--end::Col-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-6 mb-4 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                                            <span class="required">Serial Number</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input wrapper-->
-                                                        <div class="position-relative">
-                                                            <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-solid bdr-ccc" value="" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
-                                                            <!--end::Input-->
-                                                        </div>
-                                                        <!--end::Input wrapper-->
-                                                    </div>
-                                                    <!--end::Col-->
-                                                </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="row col-md-6 mb-8">
-                                                    <!--begin::Label-->
-                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-3">
-                                                        <span class="required">Service Type</span>
-                                                    </label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-6 mb-4 fv-row">
-                                                        <!--begin:Option-->
-                                                        <label class="d-flex flex-stack cursor-pointer mb-5">
-                                                            <!--begin::Label-->
-                                                            <span class="d-flex align-items-center me-2">
-                                                                <!--begin::Info-->
-                                                                <span class="d-flex flex-column">
-                                                                    <span class="fw-bolder fs-6">Prime</span>
-                                                                </span>
-                                                                <!--end::Info-->
-                                                            </span>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <span class="form-check form-check-custom form-check-solid">
-                                                                <input class="form-check-input" type="radio" data-service_type checked="checked" value="1" />
-                                                                <input class="form-check-input" type="hidden" name="service_type[]" value="1" />
-                                                            </span>
-                                                            <!--end::Input-->
-                                                        </label>
-                                                        <!--end::Option-->
-                                                    </div>
-                                                    <!--end::Col-->
-                                                    <div class="col-1"></div>
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-6 mb-4 fv-row">
-                                                        <!--begin:Option-->
-                                                        <label class="d-flex flex-stack cursor-pointer mb-5">
-                                                            <!--begin::Label-->
-                                                            <span class="d-flex align-items-center me-2">
-                                                                <!--begin::Info-->
-                                                                <span class="d-flex flex-column">
-                                                                    <span class="fw-bolder fs-6">AMS</span>
-                                                                </span>
-                                                                <!--end::Info-->
-                                                            </span>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <span class="form-check form-check-custom form-check-solid">
-                                                                <input class="form-check-input" type="radio" data-service_type value="2" />
-                                                            </span>
-                                                            <!--end::Input-->
-                                                        </label>
-                                                        <!--end::Option-->
-                                                    </div>
-                                                    <!--end::Col-->
-                                                </div>
-                                                <!--end::Input group-->
-                                                    <div class="row mb-4">
-                                                    <!--begin::Input group-->
-                                                    <div class="col-md-6 mb-4">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">Upload Demat Holder’s PAN Card</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[2][]" placeholder="" value="" />
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Input group-->
-                                                    <!--begin::Input group-->
-                                                    <div class="col-md-6 mb-4">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">Demat Holder's Name</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="holder_name[]" placeholder="" value="" />
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Input group-->
-                                                </div>
-                                                <!--begin::Input group-->
-                                                <div class="fv-row mb-8">
-                                                    <!--begin::Label-->
-                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                        <span class="required">Broker</span>
-                                                    </label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <select name="broker[]" class="form-select form-select-solid">
-                                                        <option></option>
-                                                        @forelse ($brokers as $broker)
-                                                            <option value="{{$broker->broker}}">{{$broker->broker}}</option>
-                                                        @empty
-                                                            <option>Selecte Broker</option>
-                                                        @endforelse
-                                                    </select>
-                                                    <!--end::Input-->
-                                                </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="row">
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-6 mb-4 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">User ID</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="user_id[]" placeholder="" value="" />
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Col-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-6 mb-4 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">Password</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" value="" />
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Col-->
-                                                </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="row mb-4">
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-6 mb-4 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">Mpin</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Col-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-6 mb-4 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">Capital</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="" />
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Col-->
-                                                </div>
-                                                <!--end::Input group-->
                                             </div>
+                                        <!--begin::Wrapper-->
+                                        <div id="submitSmsButton">
+                                            <button type="submit" class="btn btn-lg btn-primary">
+                                                <span class="indicator-label">Submit
+                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
+                                                <span class="svg-icon svg-icon-3 ms-2 me-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="black" />
+                                                        <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="black" />
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon--></span>
+                                                <span class="indicator-progress">Please wait...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                            </button>
                                         </div>
-                                        <!--end::Step 2-->
-                                        <!--begin::Step 3-->
-                                        <div class="d-block card p-7 my-5 payment_details" data-kt-stepper-element="content">
-                                            <div class="w-100">
-                                                <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
-                                                    <h3 class="stepper-title text-primary">Payment Details</h3>
-                                                </div>
-
-                                                <!--begin::Input group-->
-                                                <div class="fv-row mb-8 col-md-6">
-                                                    <!--begin::Label-->
-                                                    <label class="required fs-5 fw-bold mb-2">Mode</label>
-                                                    <!--end::Label-->
-                                                    <div class="row col-md-6 mb-4">
-                                                        <!--begin::Input group-->
-                                                        <div class="col-md-6">
-                                                            <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
-                                                                <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
-                                                                <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" checked="checked" />
-                                                                <input class="form-check-input" type="hidden" name="mode[]" value="2" />
-
-                                                                <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
+                                        <!--end::Wrapper-->
+                                        <!--end::Actions-->
+                                    </form>
+                                    <!--begin::Step 2 & 3 hidden for add more-->
+                                    <div class="d-none" id="hiddenaddmore">
+                                        <div class="cloningSec">
+                                            <!--begin::Step 2-->
+                                            <div class="d-block card p-7 my-5" data-kt-stepper-element="content">
+                                                <div class="w-100">
+                                                    <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
+                                                        <h3 class="stepper-title text-primary">Demate Detail</h3>
+                                                        <button type="button" class="btn btn-primary addmore">Add More</button>
+                                                    </div>
+                                                    <!--begin::Input group-->
+                                                    <div class="row mb-8">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-3">
+                                                            <span class="required">Smart ID</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Col-->
+                                                        <div class="col-md-6 mb-4 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="required fs-6 fw-bold form-label mb-2">ST/SG</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input wrapper-->
+                                                            <div class="position-relative">
+                                                                <!--begin::Input-->
+                                                                <select name="st_sg[]" class="form-select form-select-solid">
+                                                                    <option></option>
+                                                                    <option value="ST">ST</option>
+                                                                    <option value="SG">SG</option>
+                                                                </select>
+                                                            </div>
+                                                            <!--end::Input wrapper-->
+                                                        </div>
+                                                        <!--end::Col-->
+                                                        <!--begin::Col-->
+                                                        <div class="col-md-6 mb-4 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">Serial Number</span>
                                                             </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input wrapper-->
+                                                            <div class="position-relative">
+                                                                <!--begin::Input-->
+                                                                <input type="text" class="form-control form-control-solid bdr-ccc" value="" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input wrapper-->
+                                                        </div>
+                                                        <!--end::Col-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                    <!--begin::Input group-->
+                                                    <div class="row col-md-6 mb-8">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-3">
+                                                            <span class="required">Service Type</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Col-->
+                                                        <div class="col-md-6 mb-4 fv-row">
+                                                            <!--begin:Option-->
+                                                            <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                                <!--begin::Label-->
+                                                                <span class="d-flex align-items-center me-2">
+                                                                    <!--begin::Info-->
+                                                                    <span class="d-flex flex-column">
+                                                                        <span class="fw-bolder fs-6">Prime</span>
+                                                                    </span>
+                                                                    <!--end::Info-->
+                                                                </span>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <span class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="radio" data-service_type checked="checked" value="1" />
+                                                                    <input class="form-check-input" type="hidden" name="service_type[]" value="1" />
+                                                                </span>
+                                                                <!--end::Input-->
+                                                            </label>
+                                                            <!--end::Option-->
+                                                        </div>
+                                                        <!--end::Col-->
+                                                        <div class="col-1"></div>
+                                                        <!--begin::Col-->
+                                                        <div class="col-md-6 mb-4 fv-row">
+                                                            <!--begin:Option-->
+                                                            <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                                <!--begin::Label-->
+                                                                <span class="d-flex align-items-center me-2">
+                                                                    <!--begin::Info-->
+                                                                    <span class="d-flex flex-column">
+                                                                        <span class="fw-bolder fs-6">AMS</span>
+                                                                    </span>
+                                                                    <!--end::Info-->
+                                                                </span>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <span class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="radio" data-service_type value="2" />
+                                                                </span>
+                                                                <!--end::Input-->
+                                                            </label>
+                                                            <!--end::Option-->
+                                                        </div>
+                                                        <!--end::Col-->
+                                                        <div class="col-1"></div>
+                                                        <!--begin::Col-->
+                                                        <div class="col-md-6 mb-4 fv-row">
+                                                            <!--begin:Option-->
+                                                            <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                                <!--begin::Label-->
+                                                                <span class="d-flex align-items-center me-2">
+                                                                    <!--begin::Info-->
+                                                                    <span class="d-flex flex-column">
+                                                                        <span class="fw-bolder fs-6">Prime Next</span>
+                                                                    </span>
+                                                                    <!--end::Info-->
+                                                                </span>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <span class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="radio" data-service_type value="3" />
+                                                                </span>
+                                                                <!--end::Input-->
+                                                            </label>
+                                                            <!--end::Option-->
+                                                        </div>
+                                                        <!--end::Col-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                        <div class="row mb-4">
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Upload Demat Holder’s PAN Card</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[2][]" placeholder="" value="" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">PAN Number</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Demat Holder's Name</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="holder_name[]" placeholder="" value="" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Address</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="address[]" placeholder="City, District, State, Pin code" value="" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Email ID</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="email_id[]" placeholder="Demat Holder’s Email ID" value="" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Mobile</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mobile[]" placeholder="Demat Holder’s Mobile Number" value="" />
+                                                            <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->
                                                     </div>
-                                                </div>
-                                                <!--end::Input group-->
-
-
-                                                <div class="row mb-4 PaymentSection joining_date" style="display:block;" id="BankDiv">
-                                                    <!--begin::Col-->
-                                                    <div class="col-md-5 fv-row mb-4 hideonpending">
+                                                    <!--begin::Input group-->
+                                                    <div class="fv-row mb-8">
                                                         <!--begin::Label-->
-                                                        <label class="required fs-6 fw-bold form-label mb-2">Bank Details</label>
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Broker</span>
+                                                        </label>
                                                         <!--end::Label-->
-                                                        <!--begin::Input wrapper-->
-                                                        <div class="position-relative">
-                                                            <!--begin::Input-->
-                                                            <select name="bank[]" class="form-select form-select-solid" >
-                                                                <option></option>
-                                                                <option value="ICICI" selected >ICICI</option>
-                                                                <option value="HDFC">HDFC</option>
-                                                                <option value="Canara">Canara</option>
-                                                                <option value="Axis">Axis</option>
-                                                                <option value="RBL">RBL</option>
-
-                                                            </select>
-                                                        </div>
-                                                        <!--end::Input wrapper-->
+                                                        <!--begin::Input-->
+                                                        <select name="broker[]" class="form-select form-select-solid">
+                                                            <option></option>
+                                                            @forelse ($brokers as $broker)
+                                                                <option value="{{$broker->broker}}">{{$broker->broker}}</option>
+                                                            @empty
+                                                                <option>Selecte Broker</option>
+                                                            @endforelse
+                                                        </select>
+                                                        <!--end::Input-->
                                                     </div>
-                                                    <!--end::Col-->
-
+                                                    <!--end::Input group-->
+                                                    <!--begin::Input group-->
                                                     <div class="row">
-                                                        <!--begin::Input group-->
-                                                    <div class="col-md-6 mb-4">
-                                                        <!--begin::Label-->
-                                                        <label class="required fs-5 fw-bold mb-2">Joining Date</label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date"/>
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Input group-->
-                                                    <!--begin::Input group-->
-                                                    <div class="col-md-6 mb-4 hideonpending" id="FeesDiv">
-                                                        <!--begin::Label-->
-                                                        <label class="required fs-5 fw-bold mb-2">Fees</label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="25,000" />
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Input group-->
-                                                    </div>
-                                                    <div class="row mb-8 " id="UploadDiv">
-                                                        <!--begin::Input group-->
-                                                    <div class="col-md-6 mb-4 hideonpending">
-                                                        <!--begin::Label-->
-                                                        <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="file" name="screenshot[2][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Input group-->
-                                                    <!--begin::Input group-->
-                                                    <div class="col-md-6 d-flex justify-content-between">
-                                                        <!--begin::Label-->
-                                                        <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <div>
-                                                            <!--begin::Checkbox-->
-                                                            <label class="form-check form-check-custom form-check-solid me-10">
-                                                                <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" value="0">
-                                                                <input class="form-check-input h-20px w-20px PendingMark" type="hidden" name="pending_payment[]" value="0">
-                                                                <span class="form-check-label fw-bold">Pending</span>
+                                                        <!--begin::Col-->
+                                                        <div class="col-md-6 mb-4 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">User ID</span>
                                                             </label>
-                                                            <!--end::Checkbox-->
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="user_id[]" placeholder="" value="" />
+                                                            <!--end::Input-->
                                                         </div>
-                                                        <!--end::Input-->
+                                                        <!--end::Col-->
+                                                        <!--begin::Col-->
+                                                        <div class="col-md-6 mb-4 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Password</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" value="" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Col-->
                                                     </div>
                                                     <!--end::Input group-->
+                                                    <!--begin::Input group-->
+                                                    <div class="row mb-4">
+                                                        <!--begin::Col-->
+                                                        <div class="col-md-6 mb-4 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Mpin</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Col-->
+                                                        <!--begin::Col-->
+                                                        <div class="col-md-6 mb-4 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Capital</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Col-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+                                            </div>
+                                            <!--end::Step 2-->
+                                            <!--begin::Step 3-->
+                                            <div class="d-block card p-7 my-5 payment_details" data-kt-stepper-element="content">
+                                                <div class="w-100">
+                                                    <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
+                                                        <h3 class="stepper-title text-primary">Payment Details</h3>
+                                                    </div>
+
+                                                    <!--begin::Input group-->
+                                                    <div class="fv-row mb-8 col-md-6">
+                                                        <!--begin::Label-->
+                                                        <label class="required fs-5 fw-bold mb-2">Mode</label>
+                                                        <!--end::Label-->
+                                                        <div class="row col-md-6 mb-4">
+                                                            <!--begin::Input group-->
+                                                            <div class="col-md-6">
+                                                                <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
+                                                                    <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
+                                                                    <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" checked="checked" />
+                                                                    <input class="form-check-input" type="hidden" name="mode[]" value="2" />
+
+                                                                    <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
+                                                                </label>
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Input group-->
+
+
+                                                    <div class="row mb-4 PaymentSection joining_date" style="display:block;" id="BankDiv">
+                                                        <!--begin::Col-->
+                                                        <div class="col-md-5 fv-row mb-4 hideonpending">
+                                                            <!--begin::Label-->
+                                                            <label class="required fs-6 fw-bold form-label mb-2">Bank Details</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input wrapper-->
+                                                            <div class="position-relative">
+                                                                <!--begin::Input-->
+                                                                <select name="bank[]" class="form-select form-select-solid" >
+                                                                    <option></option>
+                                                                    <option value="ICICI" selected >ICICI</option>
+                                                                    <option value="HDFC">HDFC</option>
+                                                                    <option value="Canara">Canara</option>
+                                                                    <option value="Axis">Axis</option>
+                                                                    <option value="RBL">RBL</option>
+
+                                                                </select>
+                                                            </div>
+                                                            <!--end::Input wrapper-->
+                                                        </div>
+                                                        <!--end::Col-->
+
+                                                        <div class="row">
+                                                            <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="required fs-5 fw-bold mb-2">Joining Date</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date"/>
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4 hideonpending" id="FeesDiv">
+                                                            <!--begin::Label-->
+                                                            <label class="required fs-5 fw-bold mb-2">Fees</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="25,000" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        </div>
+                                                        <div class="row mb-8 " id="UploadDiv">
+                                                            <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4 hideonpending">
+                                                            <!--begin::Label-->
+                                                            <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="file" name="screenshot[2][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 d-flex justify-content-between">
+                                                            <!--begin::Label-->
+                                                            <label class="required fs-5 fw-bold mb-2">Pending Payment</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <div>
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid me-10">
+                                                                    <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" value="0">
+                                                                    <input class="form-check-input h-20px w-20px PendingMark" type="hidden" name="pending_payment[]" value="0">
+                                                                    <span class="form-check-label fw-bold">Pending</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <!--end::Step 2 & 3 hidden for add more ends-->
+                                    <!--end::Form-->
                                 </div>
-                                <!--end::Step 2 & 3 hidden for add more ends-->
-                                <!--end::Form-->
+                                <!--end::Content-->
                             </div>
-                            <!--end::Content-->
                         </div>
-                    </div>
-                @else
-                    <h5>Unauthorised</h5>
+                    @else
+                        <h5>Unauthorised</h5>
                 @endcan
                 <!--end::Content-->
                 <!--begin::Footer-->
@@ -1257,11 +1466,23 @@
 			$(document).on("click","input[data-service_type]",function(e){
 				if(e.target.value==1){
 					$(e.target).closest(".row").find("[data-service_type][value='2'][type='radio']").first().prop('checked', false)
+                    $(e.target).closest(".row").find("[data-service_type][value='3'][type='radio']").first().prop('checked', false)
+                    $(e.target).closest(".row").find("[data-service_type][value='1'][type='radio']").first().prop('checked', true)
+
 					$(e.target).closest(".row").find("[name='service_type[]'][type='hidden']").first().val("1");
-				}else{
-					$(e.target).closest(".row").find("[data-service_type][value='1'][type='radio']").first().prop('checked', false)
+				}else if(e.target.value==2){
+					$(e.target).closest(".row").find("[data-service_type][value='2'][type='radio']").first().prop('checked', true)
+                    $(e.target).closest(".row").find("[data-service_type][value='1'][type='radio']").first().prop('checked', false)
+                    $(e.target).closest(".row").find("[data-service_type][value='3'][type='radio']").first().prop('checked', false)
+
 					$(e.target).closest(".row").find("[name='service_type[]'][type='hidden']").first().val("2");
-				}
+				}else{
+                    $(e.target).closest(".row").find("[data-service_type][value='3'][type='radio']").first().prop('checked', true)
+                    $(e.target).closest(".row").find("[data-service_type][value='1'][type='radio']").first().prop('checked', false)
+                    $(e.target).closest(".row").find("[data-service_type][value='2'][type='radio']").first().prop('checked', false)
+
+					$(e.target).closest(".row").find("[name='service_type[]'][type='hidden']").first().val("3");
+                }
 			})
 			$(document).on("click","input[data-pending_payment]",function(e){
 				if($(e.target).is(":checked")){
@@ -1366,7 +1587,13 @@
 					$("#submitSmsButton").show();
 					$("#channelPartnerDiv").hide();
 					$("#addMoreDiv").hide();
-				}
+				}else if(selectVal == "4"){
+                    $("#personalDetail").show();
+					$("#accountHandlingDetail").hide();
+					$("#submitSmsButton").show();
+					$("#channelPartnerDiv").hide();
+					$("#addMoreDiv").hide();
+                }
 			});
             $("#client_type").trigger("change");
         })

@@ -368,7 +368,6 @@
                         dataType:"JSON"
                     })
                     .done(data=>{
-                        console.log(data);
                         if(data.errors){
                             window.alert(data.errors.profession[0]);
                         }

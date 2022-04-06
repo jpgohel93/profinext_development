@@ -12,7 +12,7 @@ class ClientDemat extends Model
 
     protected $table = "client_demat";
     // protected $hidden = ["password","mpin"];
-    protected $fillable = ["client_id","st_sg","serial_number","service_type","pan_number","holder_name","broker","user_id","password","mpin","capital","updated_by","freelancer_id","trader_id","available_balance","pl","is_make_as_preferred","account_status","entry_price","quantity","problem","joining_date", "created_by", "deleted_at", "end_date"];
+    protected $fillable = ["client_id","st_sg","serial_number","service_type", "pan_number_text","holder_name","broker","user_id","password","mpin","capital","updated_by","freelancer_id","trader_id","available_balance","pl","is_make_as_preferred","account_status","entry_price","quantity","problem","joining_date", "created_by", "deleted_at", "end_date","address","email_id","mobile"];
 
     public function withClient(){
         return $this->hasOne(Client::class,"id","client_id")->latest();
@@ -27,5 +27,12 @@ class ClientDemat extends Model
     {
         return $this->hasMany(PancardImageModel::class);
     }
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::addGlobalScope('created_by', function (\Illuminate\Database\Eloquent\Builder $builder) {
+            $builder->where($builder->getModel()->getTable() . '.created_by', auth()->user()->id);
+        });
+    }
 }

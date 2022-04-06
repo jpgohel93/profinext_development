@@ -441,7 +441,7 @@
                                         </div>
                                         <!--end::Actions-->
                                     @empty
-                                        <h1>No Accounts</h1>
+                                        <h1>No Demat Accounts</h1>
                                     @endforelse
                                     @if (isset($client))
                                         @hasanyrole('super-admin|Accountant')

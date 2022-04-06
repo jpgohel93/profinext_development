@@ -68,6 +68,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/clients/DematAccount/account/restore",[ClientController::class, "dematAccountRestore"])->name("dematAccountRestore");
     // read client
     Route::get("/client/view/{client_id}",[ClientController::class,"get"])->name("clientView");
+    Route::POST("/clients/mutual_fund/get",[ClientController::class, "getMutualFundClient"])->name("getMutualFundClient");
+    Route::POST("/clients/unlisted_shares/get",[ClientController::class, "getUnlistedSharesClient"])->name("getUnlistedSharesClient");
+    Route::POST("/clients/insurance/get",[ClientController::class, "getInsuranceClients"])->name("getInsuranceClients");
     // create client
     Route::get("/client/add",[ClientController::class,"createClientForm"])->name("createClientForm");
     Route::post("/clients/add",[ClientController::class,"create"])->name("clientCreate");
@@ -109,7 +112,7 @@ Route::group(['middleware' => ['auth']], function() {
     // get permissions for role
     Route::get("/permissionByRole/{role}",[RolesController::class, "getPermissions"])->name("permissionByRole");
     // clearPermissionCache
-    Route::get("/clearPermissionCache/{fallback}",[RolesController::class, "clearPermissionCache"]);
+    Route::get("/clearPermissionCache/{fallback?}",[RolesController::class, "clearPermissionCache"]);
 
     // list analyst
     Route::get("/analyst", [AnalystController::class, "view"])->name("analysts");
@@ -163,7 +166,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/getUnalloted",[ClientController::class,'getUnallotedData'])->name('getUnallotedData');
     Route::POST("/client/demate/activate",[ClientController::class, 'clientDematActivated'])->name('clientDematActivated');
     Route::POST("/client/terminate",[ClientController::class, 'terminateClient'])->name('terminateClient');
-    Route::get("/client/ledger/{id}",[ClientController::class, 'viewLedger'])->name('viewLedger');
+    Route::get("/client/ledger/{id?}",[ClientController::class, 'viewLedger'])->name('viewLedger');
     Route::get("/client/ledger/pdf/{id}",[ClientController::class, 'generatePdf'])->name('generatePdf');
     Route::get("/client/ledger/doc/{id}",[ClientController::class, 'generateDoc'])->name('generateDoc');
 

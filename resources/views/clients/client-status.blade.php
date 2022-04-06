@@ -226,7 +226,7 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 @if (isset($actives))
-                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="activeTable">
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="clientsTable">
                                                         <!--begin::Table head-->
                                                         <thead>
                                                             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
@@ -237,7 +237,7 @@
                                                                 <th class="min-w-75px">Action</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        <tbody class="text-gray-600 fw-bold" id="clientsBody">
                                                             @foreach($actives as $active)
                                                                 <tr>
                                                                     <td>{{sprintf("%04d",$active->id)}}</td>
@@ -969,8 +969,8 @@
                                                             @foreach($allAccounts as $account)
                                                                 <tr>
                                                                     <td>{{sprintf("%04d",$account->id)}}</td>
-                                                                    <td>{{$account->withClient->name}}</td>
-                                                                    <td>{{$account->withClient->number}}</td>
+                                                                    <td>{{$account->name}}</td>
+                                                                    <td>{{$account->number}}</td>
                                                                     <td>{{$account->total_demats}}</td>
                                                                     <td>
                                                                         <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -1698,7 +1698,7 @@
                 const status = $("#client_status");
 
                 $(document).on("click",".viewClient",function(e){
-                $.ajax("/client/view/"+e.target.getAttribute("data-id"),{
+                    $.ajax("/client/view/"+e.target.getAttribute("data-id"),{
                         type:"GET",
                         cache:false
                     })
@@ -1970,6 +1970,41 @@
                         })
                     }else{ 
                         window.alert("Unable to Load this Client")
+                    }
+                })
+                // filter client type
+                $(document).on("change","#client_type",function(e){
+                    const val = e.target.value;
+                    $('#clientsTable').DataTable().destroy();
+                    if(val==1){
+                        window.location.reload();
+                    }else if(val==2){
+                        $('#clientsTable').DataTable( {
+                            "processing": true,
+                            "serverSide": true,
+                            "ajax": {
+                                type:"POST",
+                                url: '{{route("getMutualFundClient")}}',
+                            }
+                        } );
+                    }else if(val==3){
+                        $('#clientsTable').DataTable( {
+                            "processing": true,
+                            "serverSide": true,
+                            "ajax": {
+                                type:"POST",
+                                url: '{{route("getUnlistedSharesClient")}}',
+                            }
+                        } );
+                    }else if(val==4){
+                        $('#clientsTable').DataTable( {
+                            "processing": true,
+                            "serverSide": true,
+                            "ajax": {
+                                type:"POST",
+                                url: '{{route("getInsuranceClients")}}',
+                            }
+                        } );
                     }
                 })
             },jQuery)

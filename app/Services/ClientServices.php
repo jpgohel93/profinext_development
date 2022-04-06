@@ -12,8 +12,6 @@ use App\Services\CommonService;
 use App\Services\financeManagementServices\financeManagementIncomesServices;
 use App\Services\financeManagementServices\financeManagementExpensesServices;
 use PDF;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Redirect;
 class ClientServices
 {
     public static function create($request)
@@ -24,7 +22,7 @@ class ClientServices
             "number"=>"required",
             "communication_with"=>"required|alpha_spaces",
             "profession"=>"required|alpha_spaces",
-            "client_type"=>"required|min:1|max:3",
+            "client_type"=>"required|min:1|max:4",
         ],[
             "client_type.required" =>"Invalid Client Type",
             "client_type.min" =>"Invalid Client Type",
@@ -47,7 +45,10 @@ class ClientServices
                     "st_sg.*" => "required|alpha_spaces",
                     "serial_number.*" => "required",
                     "service_type.*" => "required|numeric",
-                    "pan_number.*" => "required",
+                    "pan_number_text.*" => "required",
+                    "address.*" => "required",
+                    "email_id.*" => "required",
+                    "mobile.*" => "required",
                     "holder_name.*" => "required|alpha_spaces",
                     "broker.*" => "required|alpha_spaces",
                     "user_id.*" => "required",
@@ -59,7 +60,10 @@ class ClientServices
                     "st_sg.*.required" => "Smart ID is required",
                     "serial_number.*.required" => "Serial Number is required",
                     "service_type.*.required" => "Service Type is required",
-                    "pan_number.*.required" => "PAN Number is required",
+                    "pan_number_text.*.required" => "PAN Number is required",
+                    "address.*.required" => "Address is required",
+                    "email_id.*.required" => "Email ID is required",
+                    "mobile.*.required" => "Mobile is required",
                     "holder_name.*.required" => "Demat Holder's Name is required",
                     "holder_name.*.alpha_spaces" => "Demat Holder's Name Shold contain alphabate and spaces only",
                     "broker.*.required" => "Broker is required",
@@ -90,6 +94,10 @@ class ClientServices
                 $array['st_sg'] = $demat['st_sg'][$key];
                 $array['serial_number'] = $demat['serial_number'][$key];
                 $array['service_type'] = $demat['service_type'][$key];
+                $array['pan_number_text'] = $demat['pan_number_text'][$key];
+                $array['address'] = $demat['address'][$key];
+                $array['email_id'] = $demat['email_id'][$key];
+                $array['mobile'] = $demat['mobile'][$key];
                 $array['holder_name'] = $demat['holder_name'][$key];
                 $array['broker'] = $demat['broker'][$key];
                 $array['user_id'] = $demat['user_id'][$key];
@@ -200,22 +208,22 @@ class ClientServices
                 }
                 // create demat
                 $demat_id = ClientDemat::create($array);
-                array_push($demat_ids,["ss"=>$screenshots,"pan"=>$panCards,"demat"=>$demat_id,"payment"=> $payment_id->id]);
+                array_push($demat_ids,["ss"=>$screenshots,"pan"=>$panCards,"demat"=>$demat_id->id,"payment"=> $payment_id->id]);
             }
             // create client
             $client = Client::create($client);
             foreach ($demat_ids as $key => $demat_id){
                 // update pancard and payment screenshot id
                 foreach ($demat_ids[$key]['pan'] as $index => $panCardId) {
-                    PancardImageModel::where("id", $panCardId)->update(["client_demat_id" => $demat_id]);
+                    PancardImageModel::where("id", $panCardId)->update(["client_demat_id" => $demat_ids[$key]['demat']]);
                 }
                 foreach($demat_ids[$key]['ss'] as $index => $screenshotId) {
                     Screenshots::where("id", $screenshotId)->update(["client_payment_id" => $demat_ids[$key]['payment']]);
                 }
                 // update client id to demat id
-                ClientDemat::where("id", $demat_id)->update(["client_id" => $client->id]);
+                ClientDemat::where("id", $demat_ids[$key]['demat'])->update(["client_id" => $client->id]);
                 // update demat id to payment id
-                ClientPayment::where("id", $demat_ids[$key]['payment'])->update(["demat_id" => $demat_id, "client_id" => $client->id]);
+                ClientPayment::where("id", $demat_ids[$key]['payment'])->update(["demat_id" => $demat_ids[$key]['demat'], "client_id" => $client->id]);
             }
         }else{
             // create client
@@ -231,10 +239,8 @@ class ClientServices
         return Client::where("created_by",auth()->user()->id)->where("status", "1")->with('clientDemat')->get();
     }
     public static function get($id){
-        $client = Client::with(['clientDemat','clientPayment','clientPayment.Screenshots', 'clientDemat.Pancards'])->where("id",$id)->first();
-        if (!$client)
-            CommonService::throwError("Client not found");
-        return $client;
+        $client = Client::where("id",$id)->with(['clientDemat','clientPayment','clientPayment.Screenshots', 'clientDemat.Pancards'])->first();
+        return $client?$client : CommonService::throwError("Client not found");
     }
     public static function update($request,$id){
         $request->session()->put("password", $request->password);
@@ -423,7 +429,72 @@ class ClientServices
         $client['account_handling'] = Client::where("client_type",1)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
         $client['mutual_fund'] = Client::where("client_type",2)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
         $client['unlisted_shares'] = Client::where("client_type",3)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
+        $client['insurance'] = Client::where("client_type",4)->orderBy('created_at', 'DESC')->get();
         return $client;
+    }
+
+    public static function getMutualFundClient(){
+        $clients_data['data'] = array();
+
+        $clients = Client::where("client_type", 2)->select("name", "id", "number")->orderBy('created_at', 'DESC')->get()->toArray();
+
+        $i = 0;
+        foreach ($clients as $client) {
+            $arr = array();
+            array_push($arr, sprintf("%04d", $client['id']));
+            array_push($arr, $client['name']);
+            array_push($arr, $client['number']);
+            array_push($arr, 0);
+            array_push($arr, '<a href="javascript:void(0)" data-id="' . $client['id'] . '" class="viewClient">view</a><a href="' . route("viewLedger") . '"/' . $client['id'] . '" target="_blank" class="menu-link px-3">Ledger</a>');
+
+            array_push($clients_data['data'], $arr);
+            $i++;
+        }
+        $clients_data["recordsTotal"] = $i;
+        $clients_data["recordsFiltered"] = $i;
+        return $clients_data;
+    }
+    public static function getUnlistedSharesClient(){
+        $clients['data'] = array();
+
+        $clients = Client::where("client_type", 3)->select("name", "id", "number")->orderBy('created_at', 'DESC')->get()->toArray();
+
+        $i = 0;
+        foreach ($clients as $client) {
+            $arr = array();
+            array_push($arr, sprintf("%04d",$client['id']));
+            array_push($arr, $client['name']);
+            array_push($arr, $client['number']);
+            array_push($arr, 0);
+            array_push($arr, '<a href="javascript:void(0)" data-id="'.$client['id'].'" class="viewClient">view</a><a href="'.route("viewLedger").'"/'.$client['id'].'" target="_blank" class="menu-link px-3">Ledger</a>');
+
+            array_push($clients['data'], $arr);
+            $i++;
+        }
+        $clients["recordsTotal"] = $i;
+        $clients["recordsFiltered"] = $i;
+        return $clients;
+    }
+    public static function getInsuranceClients(){
+        $clients['data'] = array();
+
+        $clients_list = Client::where("client_type", 4)->select("name", "id", "number")->orderBy('created_at', 'DESC')->get()->toArray();
+        
+        $i = 0;
+        foreach ($clients_list as $client) {
+            $arr = array();
+            array_push($arr, sprintf("%04d",$client['id']));
+            array_push($arr, $client['name']);
+            array_push($arr, $client['number']);
+            array_push($arr, 0);
+            array_push($arr, '<a href="javascript:void(0)" data-id="'.$client['id'].'" class="viewClient">view</a><a href="'.route("viewLedger").'"/'.$client['id'].'" target="_blank" class="menu-link px-3">Ledger</a>');
+
+            array_push($clients['data'], $arr);
+            $i++;
+        }
+        $clients["recordsTotal"] = $i;
+        $clients["recordsFiltered"] = $i;
+        return $clients;
     }
 
     public static function getClientDematAccount($filter_type = null, $filter_id = null)
