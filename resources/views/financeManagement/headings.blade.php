@@ -218,7 +218,7 @@
                                                             @endphp
                                                             @foreach($headings['income'] as $income)
                                                                 <tr>
-                                                                    <td>{{sprintf("%04d",$income->id)}}</td>
+                                                                    <td>{{$i++}}</td>
                                                                     <td>{{$income->sub_heading}}</td>
                                                                     <td>
                                                                         <a href="javascript:void(0)">
@@ -358,7 +358,7 @@
                                                             @endphp
                                                             @foreach($headings['expenses'] as $expense)
                                                                 <tr>
-                                                                    <td>{{sprintf("%04d",$expense->id)}}</td>
+                                                                    <td>{{$i++}}</td>
                                                                     <td>{{$expense->sub_heading}}</td>
                                                                     <td>
                                                                         <a href="javascript:void(0)">
@@ -498,7 +498,7 @@
                                                             @endphp
                                                             @foreach($headings['transfer'] as $transfer)
                                                                 <tr>
-                                                                    <td>{{sprintf("%04d",$transfer->id)}}</td>
+                                                                    <td>{{$i++}}</td>
                                                                     <td>{{$transfer->sub_heading}}</td>
                                                                     <td>
                                                                         <a href="javascript:void(0)">
@@ -638,7 +638,7 @@
                                                             @endphp
                                                             @foreach($headings['loan'] as $loan)
                                                                 <tr>
-                                                                    <td>{{sprintf("%04d",$loan->id)}}</td>
+                                                                    <td>{{$i++}}</td>
                                                                     <td>{{$loan->sub_heading}}</td>
                                                                     <td>
                                                                         <a href="javascript:void(0)">
@@ -779,7 +779,7 @@
                                                             @endphp
                                                             @foreach($headings['deactivated'] as $deactivated)
                                                                 <tr>
-                                                                    <td>{{sprintf("%04d",$deactivated->id)}}</td>
+                                                                    <td>{{$i++}}</td>
                                                                     <td>{{ucwords($deactivated->label_type)}}</td>
                                                                     <td>{{$deactivated->sub_heading}}</td>
                                                                     <td>
@@ -889,7 +889,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-end">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -972,7 +972,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-end">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>

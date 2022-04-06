@@ -273,12 +273,36 @@
                                                 <h3 class="stepper-title">Payment Bank</h3>
                                                 @if(!empty($bankAccountList))
                                                     <?php $count = 1;?>
-                                                    @foreach($bankAccountList as $bankAccount)
-                                                        <div class="col-md-4 col-sm-12 mb-5">
-                                                            <input type="radio" value="{{$bankAccount['id']}}" name="payment_bank_id" data-id="{{$count++}}" class="bank_change"> {{$bankAccount['title']}} - {{$bankAccount['remain_limit']}} - {{$bankAccount['last_transaction_day']}}
+{{--                                                    @foreach($bankAccountList as $bankAccount)--}}
+{{--                                                        <div class="col-md-4 col-sm-12 mb-5">--}}
+{{--                                                            <input type="radio" value="{{$bankAccount['id']}}" name="payment_bank_id" data-id="{{$count++}}" class="bank_change"> {{$bankAccount['title']}} - {{$bankAccount['remain_limit']}} - {{$bankAccount['last_transaction_day']}}--}}
+{{--                                                        </div>--}}
+{{--                                                    @endforeach--}}
+
+                                                        <div class="row g-6 g-sm-9 mx-4">
+                                                            @foreach ($bankAccountList as $bankAccount)
+                                                                <div class="col-md-6 col-xl-4">
+                                                                    <!--begin::Card-->
+                                                                    <div class="card border border-2 border-gray-300">
+                                                                        <!--begin::Card body-->
+                                                                        <input type="radio"
+                                                                               value="{{$bankAccount['id']}}"
+                                                                               name="payment_bank_id"
+                                                                               class="bank_change">
+                                                                        <!--begin::Name-->
+                                                                        <h6 class="text-gray-800">Bank Name : {{$bankAccount['title']}}</h6>
+                                                                        <h6 class="text-gray-800">Remain Limit : {{$bankAccount['remain_limit']}}</h6>
+                                                                        <h6 class="text-gray-800">Last Transaction Before : {{$bankAccount['last_transaction_day']}} Days</h6>
+                                                                        <!--end::Name-->
+                                                                        <!--begin::Card body-->
+                                                                    </div>
+                                                                    <!--begin::Card-->
+                                                                </div>
+                                                            @endforeach
                                                         </div>
-                                                    @endforeach
                                                 @endif
+
+
                                             </div>
                                         </div>
                                         <div class="my-4">

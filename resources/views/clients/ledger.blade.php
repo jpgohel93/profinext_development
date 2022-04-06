@@ -112,7 +112,7 @@
                                         @can("client-demat-read")
                                             @forelse ($client_demates as $client_demate)
                                                 <tr>
-                                                    <td>{{$client_demate->serial_number}}</td>
+                                                    <td>{{$client_demate->st_sg."-".$client_demate->serial_number}}</td>
                                                     <td> {{date("Y-m-d",strtotime($client_demate->joining_date))}} </td>
                                                     <td> {{($client_demate->end_date)?date("Y-m-d",strtotime($client_demate->end_date)):"-" }} </td>
                                                     <td> {{round((time() - strtotime($client_demate->joining_date)) / (60 * 60 * 24))}} </td>

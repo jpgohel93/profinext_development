@@ -130,7 +130,7 @@ class ClientServices
                             "pending_payment.*.numeric" => "Invalid Pending Payment Mark",
                         ]
                     );
-                    
+
                     if ($request->pending_payment[$key] == "0") {
                         $payment = $request->validate(
                             [
@@ -479,7 +479,7 @@ class ClientServices
         $clients['data'] = array();
 
         $clients_list = Client::where("client_type", 4)->select("name", "id", "number")->orderBy('created_at', 'DESC')->get()->toArray();
-        
+
         $i = 0;
         foreach ($clients_list as $client) {
             $arr = array();
@@ -621,14 +621,38 @@ class ClientServices
             $income = financeManagementIncomesServices::get()->sum("amount");
             $expense = financeManagementExpensesServices::get()->sum("amount");
             $demats[$key]['profit'] = $income-$expense;
-            $service_type = servicesTypeServices::getById($demat->service_type);
-            $cutoffAmount = $service_type->cutoff;
-            $cutoffProfit = 0;
-            if($demats[$key]['profit']>$cutoffAmount){
-                $cutoffProfit = $demats[$key]['profit']*(str_replace("%","",$service_type->sharing))/100;
+            $service_type = '';
+            if($demat->service_type == 2){
+                $service_type = 'AMS';
+            }elseif ($demat->service_type == 1){
+                $service_type = 'Prime';
             }
-            $demats[$key]['fees'] += $service_type->renewal_amount+$cutoffProfit;
-            $demats[$key]['net_profit'] += $demats[$key]['fees'] * (str_replace("%", "", $service_type->sharing)) / 100;
+            $service_type =servicesTypeServices::getByType($service_type);
+
+            $cutoffAmount = $service_type->cutoff;
+            $sharing = $service_type->sharing;
+            $profit = $demat->final_pl;
+
+            $profit_sharing = 0;
+            $fees = 0;
+            $renewal_amount = 0;
+            if($demat->service_type == 2){
+                if($profit > $cutoffAmount){
+                    $access_profit = $profit - $cutoffAmount;
+                    $profit_sharing = ($sharing * $access_profit) / 100;
+                }
+                $renewal_amount =$service_type->renewal_amount;
+                $fees = $service_type->renewal_amount + $profit_sharing;
+            }elseif ($demat->service_type == 1){
+                $profit_sharing = ($sharing * $profit) / 100;
+                $fees = $profit_sharing;
+            }
+
+
+            $demats[$key]['cutoff'] = $service_type->cutoff;
+            $demats[$key]['profit'] = $profit;
+            $demats[$key]['fees'] = $fees;
+            $demats[$key]['net_profit'] = $renewal_amount+$profit;
         }
         return $demats;
     }

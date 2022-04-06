@@ -3,7 +3,7 @@
 @section("finance_management.financialStatus","active")
 @section("finance_management.accordion","hover show")
 @section("content")
-    
+
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
         <!--begin::Page-->
@@ -369,7 +369,7 @@
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>
-                                                    
+
                                                     <!--end::Table body-->
                                                     </table>
                                                 @else
@@ -487,9 +487,12 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold">
+                                                            @php
+                                                                $i=1;
+                                                            @endphp
                                                             @foreach($usersTab as $user)
                                                                 <tr>
-                                                                    <td>{{sprintf("%04d",$user->id)}}</td>
+                                                                    <td>{{$i++}}</td>
                                                                     <td>{{$user->name}}</td>
                                                                     <td>{{Config::get("constants.USERS_TYPE")[$user->user_type]}}</td>
                                                                     <td>0</td>
