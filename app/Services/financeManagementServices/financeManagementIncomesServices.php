@@ -51,8 +51,8 @@ class financeManagementIncomesServices{
         return financeManagementIncomesModel::with(["bank_name"])->get();
     }
 
-    public static function getAllIncomeRowsById($bank_id){
-        return financeManagementIncomesModel::where("bank",$bank_id)->with(["bank_name"])->get()->toArray();
+    public static function getAllIncomeRowsById($bank_id,$startDate,$endDate){
+        return financeManagementIncomesModel::where("bank",$bank_id)->where("date",">=",$startDate)->where("date","<=",$endDate)->with(["bank_name"])->get()->toArray();
     }
 
     public static function get($current_month = true){
@@ -60,5 +60,9 @@ class financeManagementIncomesServices{
             return financeManagementIncomesModel::whereYear("date", date("Y"))->whereMonth("date",date("m"))->with(["bank_name"])->get();
         }
         return financeManagementIncomesModel::with(["bank_name"])->get();
+    }
+
+    public static function getLastTransaction($bank_id){
+        return financeManagementIncomesModel::where("bank",$bank_id)->orderBy('date','DESC')->take(1)->with(["bank_name"])->first()->toArray();
     }
 }

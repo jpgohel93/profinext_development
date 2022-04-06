@@ -61,7 +61,7 @@
                     <!--end::Toolbar-->
                     <form method="POST" action="{{route('clientDematupdatePL')}}">
                         @csrf
-                        <input type='hidden' name='id' value='{{$demateDetails->id}}'>
+                        <input type='hidden' name='id' id="id" value='{{$demateDetails->id}}'>
                         <!--begin::Post-->
                         <div class="post d-flex flex-column-fluid" id="kt_post">
                             <!--begin::Container-->
@@ -82,7 +82,7 @@
                                                     </label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->st_sg}}' readonly/>
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$demateDetails->st_sg}}-{{$demateDetails->serial_number}}' readonly/>
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
@@ -183,7 +183,7 @@
                                                 <?php $joining_date = date('Y-m-d',(strtotime(!empty($demateDetails->joining_date) && isset($demateDetails->joining_date) ? $demateDetails->joining_date : $demateDetails->created_at)));?>
 
                                                 <!--begin::Input-->
-                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="joining_date" value='{{$joining_date}}' readonly/>
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" id="joining_date" name="joining_date" value='{{$joining_date}}' readonly/>
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
@@ -196,7 +196,7 @@
                                                     </label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="end_date" value='<?php echo date('Y-m-d') ;?>' readonly/>
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" id="end_date" name="end_date" value='<?php echo date('Y-m-d') ;?>' readonly/>
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--begin::Input group-->
@@ -215,150 +215,69 @@
                                         </div>
                                         <div class="my-4">
                                             <div class="row">
+                                                <h3 class="stepper-title">Calculation</h3>
+                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Final P / L</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" name="final_pl" id="final_pl"/>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span>Calculation Of Charges</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <button type="button" class="btn btn-sm btn-primary" id="calculation">Calculate</button>
+                                                </div>
+                                            </div>
+                                            <div class="row" id="profit_div">
+                                            </div>
+                                            <div class="row" id="payment_div">
+                                            </div>
+                                            <div class="row" id="message_div">
+                                            </div>
+                                            <div class="row" id="round_of_div">
+                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Round Of Amount Type</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <select name="round_of_amount_type" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Round Of Amount Type">
+                                                        <option>Select Round Of Amount Type</option>
+                                                        <option value="add">Round Of Amount Add</option>
+                                                        <option value="minus">Round Of Amount Minus</option>
+                                                    </select>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span class="required">Round Of Amount</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" name="round_of_amount" id="round_of_amount" value="0"/>
+                                                    <!--end::Input-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="my-4">
+                                            <div class="row">
                                                 <h3 class="stepper-title">Payment Bank</h3>
-                                                @if(!empty($primary_bank))
-                                                    <input type="hidden" value="{{$primary_bank['id']}}" name="payment_bank_id">
-
-                                                    <!--begin::Input group-->
-                                                    <div class="col-md-6 col-sm-12 mb-5">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">Bank Title</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$primary_bank['title']}}' readonly/>
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--begin::Input group-->
-
-                                                    <!--begin::Input group-->
-                                                    <div class="col-md-6 col-sm-12 mb-5">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">Bank Name</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$primary_bank['name']}}' readonly/>
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--begin::Input group-->
-
-                                                    <!--begin::Input group-->
-                                                    <div class="col-md-6 col-sm-12 mb-5">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">Account Name</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$primary_bank['account_name']}}' readonly/>
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--begin::Input group-->
-
-                                                    <!--begin::Input group-->
-                                                    <div class="col-md-6 col-sm-12 mb-5">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">Account No</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$primary_bank['account_no']}}' readonly/>
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--begin::Input group-->
-
-                                                    <!--begin::Input group-->
-                                                    <div class="col-md-6 col-sm-12 mb-5">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">IFAC Code</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$primary_bank['ifsc_code']}}' readonly/>
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--begin::Input group-->
-                                                @elseif(!empty($bankAccountList))
+                                                @if(!empty($bankAccountList))
                                                     <?php $count = 1;?>
                                                     @foreach($bankAccountList as $bankAccount)
                                                         <div class="col-md-4 col-sm-12 mb-5">
-                                                            <input type="radio" value="{{$bankAccount->id}}" name="payment_bank_id" data-id="{{$count++}}" class="bank_change"> {{$bankAccount->title}}
+                                                            <input type="radio" value="{{$bankAccount['id']}}" name="payment_bank_id" data-id="{{$count++}}" class="bank_change"> {{$bankAccount['title']}} - {{$bankAccount['remain_limit']}} - {{$bankAccount['last_transaction_day']}}
                                                         </div>
                                                     @endforeach
-                                                        <?php $count = 1;?>
-                                                        @foreach($bankAccountList as $bankAccount)
-                                                            <div class="row" id="bank_{{$count++}}">
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 col-sm-12 mb-5">
-                                                                    <!--begin::Label-->
-                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                        <span class="required">Bank Title</span>
-                                                                    </label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$bankAccount->title}}' readonly/>
-                                                                    <!--end::Input-->
-                                                                </div>
-                                                                <!--begin::Input group-->
-
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 col-sm-12 mb-5">
-                                                                    <!--begin::Label-->
-                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                        <span class="required">Bank Name</span>
-                                                                    </label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$bankAccount->name}}' readonly/>
-                                                                    <!--end::Input-->
-                                                                </div>
-                                                                <!--begin::Input group-->
-
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 col-sm-12 mb-5">
-                                                                    <!--begin::Label-->
-                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                        <span class="required">Account Name</span>
-                                                                    </label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$bankAccount->account_name}}' readonly/>
-                                                                    <!--end::Input-->
-                                                                </div>
-                                                                <!--begin::Input group-->
-
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 col-sm-12 mb-5">
-                                                                    <!--begin::Label-->
-                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                        <span class="required">Account No</span>
-                                                                    </label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$bankAccount->account_no}}' readonly/>
-                                                                    <!--end::Input-->
-                                                                </div>
-                                                                <!--begin::Input group-->
-
-                                                                <!--begin::Input group-->
-                                                                <div class="col-md-6 col-sm-12 mb-5">
-                                                                    <!--begin::Label-->
-                                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                        <span class="required">IFAC Code</span>
-                                                                    </label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" value='{{$bankAccount->ifsc_code}}' readonly/>
-                                                                    <!--end::Input-->
-                                                                </div>
-                                                                <!--begin::Input group-->
-                                                            </div>
-                                                        @endforeach
                                                 @endif
                                             </div>
                                         </div>
@@ -424,27 +343,51 @@
                 //     $("#edit_client_demate_status").modal("show");
                 // })
 
-                $(".bank_change").on("change",function(){
-                    var id = $(this).attr('data-id');
-                    if(id == 1){
-                        $("#bank_1").show();
-                        $("#bank_2").hide();
-                        $("#bank_3").hide();
-                    }else if(id == 2){
-                        $("#bank_1").hide();
-                        $("#bank_2").show();
-                        $("#bank_3").hide();
-                    }else if(id == 3){
-                        $("#bank_1").hide();
-                        $("#bank_2").hide();
-                        $("#bank_3").show();
-                    }
+                $("#calculation").on("click",function(){
+                   var demat_id = $("#id").val();
+                   var final_pl = $("#final_pl").val();
+                   var joining_date = $("#joining_date").val();
+                   var end_date = $("#end_date").val();
+
+                   if(final_pl != ''){
+                       $.ajax("{!! route('calculateAmount') !!}",{
+                           type:"POST",
+                           data:{
+                               demat_id:demat_id,
+                               final_pl: final_pl,
+                               joining_date: joining_date,
+                               end_date: end_date
+                           },
+                           dataType: 'json',
+                           success: function(response) {
+                               if(response.status){
+                                   $('#profit_div').html(response.profit_data);
+                                   $('#payment_div').html(response.payment_data);
+                                   $('#message_div').html(response.message);
+                                   $('#profit_div').show();
+                                   $('#payment_div').show();
+                                   $('#round_of_div').show();
+                                   $('#message_div').show();
+                               }else{
+                                   window.alert("Something want wrong");
+                               }
+                           }
+                       }).fail((err)=>{
+                            if(err.status===403){
+                                window.alert("Unauthorized Action");
+                            }
+                       })
+                   }else{
+                       window.alert("Please enter the amount in - Final P / L");
+                   }
+
                 });
 
                 $(document).ready(function() {
-                   $("#bank_1").hide();
-                   $("#bank_2").hide();
-                   $("#bank_3").hide();
+                    $('#profit_div').hide();
+                    $('#payment_div').hide();
+                    $('#round_of_div').hide();
+                    $('#message_div').hide();
                 });
 
             },jQuery)

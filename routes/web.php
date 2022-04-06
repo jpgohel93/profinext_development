@@ -275,9 +275,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/financeManagement/clientDematView/{id?}",[renewalStatusController::class, "clientDematView"])->name("clientDematView");
     Route::get("/financeManagement/clientDematTerminate/{id}",[renewalStatusController::class, "clientDematTerminate"])->name("clientDematTerminate");
     Route::POST("/financeManagement/clientDemat/updatePL",[renewalStatusController::class, "updatePL"])->name("clientDematupdatePL");
+    Route::POST("/financeManagement/clientDemat/calculateAmount",[renewalStatusController::class, "calculateAmount"])->name("calculateAmount");
     Route::POST("/financeManagement/clientDemat/markAsProblem",[renewalStatusController::class, "mark_as_problem"])->name("mark_as_problem");
     Route::POST("/financeManagement/clientDemat/ProblemSolved",[renewalStatusController::class, "ProblemSolved"])->name("update_mark_as_problem");
-    
+
     // finance Management Bank
     Route::get("/financeManagement/bank",[BankControllers::class, "financeManagementBank"])->name("financeManagementBank");
     Route::POST("/financeManagement/bank/add",[BankControllers::class, "addFinanceManagementBank"])->name("addFinanceManagementBank");
@@ -287,7 +288,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post("/financeManagement/bank/setTarget",[BankControllers::class, "setTargetFinanceManagementBank"])->name("setTargetFinanceManagementBank");
     Route::post("/financeManagement/bank/setPrimary",[BankControllers::class, "setPrimaryFinanceManagementBank"])->name("setPrimaryFinanceManagementBank");
     Route::post("/financeManagement/bank/activateDeactivateAccount",[BankControllers::class, "activateDeactivateAccountFinanceManagementBank"])->name("activateDeactivateAccountFinanceManagementBank");
-    
+
     // finance Management Accounting
     Route::get("/financeManagement/accounting", [AccountingController::class, "financeManagementAccounting"])->name("financeManagementAccounting");
     // finance Management heading

@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\ClientDemat;
 use App\Models\ClientPayment;
 use App\Models\Screenshots;
+use App\Models\RenewDemat;
 
 class ClientDemateServices{
     function __construct(){
@@ -50,6 +51,8 @@ class ClientDemateServices{
     public static function updatePL($request){
         $pl['account_status']="to_renew";
         $pl['pl']=$request->pl;
+        $pl['final_pl']=$request->total_profit;
+        $pl['end_date']=date('Y-m-d');
         return ClientDemat::where("id",$request->id)->update($pl);
     }
     public static function markAsProblem($request){
@@ -75,5 +78,10 @@ class ClientDemateServices{
         }else{
             return ClientDemat::where("id", $request->demat_id)->update(["mark_as_problem"=>$json]);
         }
+    }
+
+    public static function renewAccountList($bank_id,$startDate,$endDate){
+         return RenewDemat::where("bank_id",$bank_id)->where("status","to_renew")->where("created_at",">=",$startDate)->where("created_at","<=",$endDate)->with(["bank_name"])->get()->toArray();
+
     }
 }
