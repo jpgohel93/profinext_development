@@ -17,7 +17,7 @@ class servicesTypeController extends Controller
     }
     public function get(Request $request){
         $serviceType = servicesTypeServices::get($request)->toJson();
-        return Response($serviceType,200,["ContentType"=>"Application/json"]);
+        return Response($serviceType,200,["Content-Type" => "Application/json"]);
     }
     public function remove($id){
         servicesTypeServices::remove($id);

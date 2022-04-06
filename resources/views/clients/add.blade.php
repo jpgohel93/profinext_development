@@ -69,9 +69,9 @@
                                                     @else
                                                         <select name="client_type" id="client_type" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Client Type">
                                                             <option></option>
-                                                            <option value="1">Account Handling</option>
-                                                            <option value="2">Mutual Fund</option>
-                                                            <option value="3">Unlisted Shares</option>
+                                                            <option value="1" {{old('client_type') && old('client_type')==1?"selected":""}}>Account Handling</option>
+                                                            <option value="2" {{old('client_type') && old('client_type')==2?"selected":""}}>Mutual Fund</option>
+                                                            <option value="3" {{old('client_type') && old('client_type')==3?"selected":""}}>Unlisted Shares</option>
                                                         </select>
                                                     @endif
                                                     <!--end::Input-->
@@ -324,7 +324,7 @@
                                                             <select name="broker[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
                                                                 <option></option>
                                                                 @forelse ($brokers as $broker)
-                                                                    <option value="{{$broker->broker}}" {{(old('broker') && old('broker')==$broker->broker)?"selected":""}}>{{$broker->broker}}</option>
+                                                                    <option value="{{$broker->broker}}">{{$broker->broker}}</option>
                                                                 @empty
                                                                     <option>Selecte Broker</option>
                                                                 @endforelse
@@ -650,7 +650,7 @@
                                                                 <select name="broker[]" class="form-select form-select-solid">
                                                                     <option></option>
                                                                     @forelse ($brokers as $broker)
-                                                                        <option value="{{$broker->broker}}" {{(old('broker') && old('broker')==$broker->broker)?"selected":""}}>{{$broker->broker}}</option>
+                                                                        <option value="{{$broker->broker}}" {{($demate_account['broker']==$broker->broker)?"selected":""}}>{{$broker->broker}}</option>
                                                                     @empty
                                                                         <option>Selecte Broker</option>
                                                                     @endforelse
@@ -1008,7 +1008,7 @@
                                                     <select name="broker[]" class="form-select form-select-solid">
                                                         <option></option>
                                                         @forelse ($brokers as $broker)
-                                                            <option value="{{$broker->broker}}" {{(old('broker') && old('broker')==$broker->broker)?"selected":""}}>{{$broker->broker}}</option>
+                                                            <option value="{{$broker->broker}}">{{$broker->broker}}</option>
                                                         @empty
                                                             <option>Selecte Broker</option>
                                                         @endforelse
@@ -1331,37 +1331,36 @@
 			});
 			$("#viewClient").modal("hide");
 
-			$(document).ready(function() {
-				$("#personalDetail").hide();
-				$("#accountHandlingDetail").hide();
-				$("#submitSmsButton").hide();
-				$("#addMoreDiv").hide();
-                var formType = "{{ isset($formType) ? $formType: 0}}";
+            $("#personalDetail").hide();
+            $("#accountHandlingDetail").hide();
+            $("#submitSmsButton").hide();
+            $("#addMoreDiv").hide();
+            var formType = "{{ isset($formType) ? $formType: 0}}";
 
-                if(formType == "channelPartner"){
-                    $("#personalDetail").show();
-                    $("#accountHandlingDetail").show();
-                    $("#submitSmsButton").show();
-                    $("#channelPartnerDiv").show();
-                    $("#paymentDetailsDiv").hide();
-                    $("#addMoreDiv").hide();
-                }
-			});
-			$(document).on('change',"#client_type", function () {
-				var selectVal = $(this).val();
-				if(selectVal == 1){
+            if(formType == "channelPartner"){
+                $("#personalDetail").show();
+                $("#accountHandlingDetail").show();
+                $("#submitSmsButton").show();
+                $("#channelPartnerDiv").show();
+                $("#paymentDetailsDiv").hide();
+                $("#addMoreDiv").hide();
+            }
+			
+			$(document).on('change',"#client_type", function (e) {
+                var selectVal = e.target.value;
+				if(selectVal == "1"){
 					$("#personalDetail").show();
 					$("#accountHandlingDetail").show();
 					$("#submitSmsButton").show();
 					$("#channelPartnerDiv").show();
 					$("#addMoreDiv").show();
-				}else if(selectVal == 2){
+				}else if(selectVal == "2"){
 					$("#personalDetail").show();
 					$("#accountHandlingDetail").hide();
 					$("#channelPartnerDiv").hide();
 					$("#submitSmsButton").show();
                     $("#addMoreDiv").hide();
-				}else if(selectVal == 3){
+				}else if(selectVal == "3"){
 					$("#personalDetail").show();
 					$("#accountHandlingDetail").hide();
 					$("#submitSmsButton").show();
@@ -1369,10 +1368,10 @@
 					$("#addMoreDiv").hide();
 				}
 			});
+            $("#client_type").trigger("change");
         })
     </script>
     @section('jscript')
-
 		<script src="{{asset('assets/js/custom/modals/create-app.js')}}"></script>
     @endsection
 @endsection

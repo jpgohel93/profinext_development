@@ -294,7 +294,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{md5($demate_account->password)}}" />
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$demate_account->password}}" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->
@@ -310,7 +310,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{md5($demate_account->mpin)}}" />
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$demate_account->mpin}}" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->

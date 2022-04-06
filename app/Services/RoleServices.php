@@ -34,7 +34,7 @@ class RoleServices
         return Role::where("id", $id)->forcedelete();
     }
     public static function roles(){
-        return Role::orderBy('id','DESC')->get();
+        return Role::withCount("users")->orderBy('id','DESC')->get();
     }
     public static function all(){
         return Role::all();

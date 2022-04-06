@@ -145,7 +145,8 @@
 												<tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
 													<th class="min-w-10px">Sr No.</th>
 													<th class="min-w-75px">Role</th>
-													<th class="min-w-75px">Status</th>
+													<th class="min-w-75px">Users</th>
+													<th class="min-w-75px">Created Date</th>
 													<th class="text-end min-w-100px">Actions</th>
 												</tr>
 											</thead>
@@ -156,13 +157,10 @@
 												@endphp
 												@forelse ($roles as $role)
 													<tr>
-														<td>{{$i++}}</td>
+														<td>{{sprintf("%04d",$i++)}}</td>
 														<td class="role-value-td">{{$role->name}}</td>
-														<td>
-															<div class="form-check form-check-solid form-switch fv-row">
-																<input class="form-check-input w-30px h-15px" type="checkbox" data-id="{{$role->id}}" id="allowmarketing" checked="checked" />
-															</div>
-														</td>
+														<td class="role-value-td">{{$role->users_count}}</td>
+														<td class="role-value-td">{{date("Y-m-d",strtotime($role->created_at))}}</td>
 														<td class="text-end">
 															<div class="d-flex justify-content-end align-items-end">
 																@can("role-write")

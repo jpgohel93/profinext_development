@@ -11,14 +11,6 @@ class servicesTypeServices
     {
         return servicesTypeModel::get();
     }
-    public static function create($request)
-    {
-        $type = $request->validate([
-            "account_type" => "required|alpha_spaces|unique:user_account_types,account_type"
-        ]);
-        $type['created_by'] = Auth::id();
-        return servicesTypeModel::create($type);
-    }
     public static function remove($id)
     {
         return servicesTypeModel::where("id", $id)->delete();
@@ -37,6 +29,7 @@ class servicesTypeServices
             "renewal_amount"=>"required",
             "sharing"=>"required",
             "is_gst_applicable"=>"required",
+            "cutoff"=>"required",
         ],[
             "name.required"=> "The Service type field is required",
             "renewal_amount.required"=> "The Renewal amount field is required",
@@ -60,6 +53,7 @@ class servicesTypeServices
             "renewal_amount" => "required",
             "sharing" => "required",
             "is_gst_applicable" => "required",
+            "cutoff" => "required",
         ], [
             "name.required" => "The Service type field is required",
             "renewal_amount.required" => "The Renewal amount field is required",

@@ -167,11 +167,10 @@
                                     <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
-                                <select id="edit_is_gst_applicable" class="form-control" name="is_gst_applicable">
+                                <select class="form-control" name="is_gst_applicable">
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
-                                {{-- <input type="text" value="{{old('is_gst_applicable')}}" class="form-control form-control-solid" id="edit_is_gst_applicable" name="is_gst_applicable" /> --}}
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
@@ -182,7 +181,7 @@
                                     <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
-                                <input type="text" value="{{old('gst_rate')}}" class="form-control form-control-solid" id="edit_gst_rate" name="gst_rate" />
+                                <input type="text" value="{{old('gst_rate')}}" class="form-control form-control-solid" name="gst_rate" />
                             </div>
                             <!--end::Col-->
                         </div>
@@ -298,7 +297,6 @@
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
-                                {{-- <input type="text" value="{{old('is_gst_applicable')}}" class="form-control form-control-solid" id="edit_is_gst_applicable" name="is_gst_applicable" /> --}}
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
@@ -351,11 +349,6 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $('#serviceType').DataTable();
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $("input[name='_token']").val()
-                }
-            })
             $("#add_client_service_type_model").on("click",function(){
                 $("#add_service_type_model").modal("show");
             })
@@ -375,6 +368,7 @@
                         dataType:"JSON"
                     })
                     .done(data=>{
+                        console.log(data);
                         if(data.errors){
                             window.alert(data.errors.profession[0]);
                         }
