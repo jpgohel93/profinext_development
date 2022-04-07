@@ -65,7 +65,14 @@ class financialStatusServices
     }
     public static function viewMoreSg()
     {
-        return view("financeManagement.financialStatus.sg");
+        $income["day"] = financeManagementIncomesModel::where("created_by", auth()->user()->id)->whereDate("date", date("Y-m-d"))->sum("amount");
+        $expense["day"] = financeManagementExpensesModel::where("created_by", auth()->user()->id)->whereDate("date", date("Y-m-d"))->sum("amount");
+
+        $income["month"] = financeManagementIncomesModel::where("created_by", auth()->user()->id)->whereYear("date", date("Y"))->whereMonth("date", date("m"))->sum("amount");
+        $expense["month"] = financeManagementExpensesModel::where("created_by", auth()->user()->id)->whereYear("date", date("Y"))->whereMonth("date", date("m"))->sum("amount");
+        $demat['total'] = Client::where("created_by", auth()->user()->id)->count();
+        $demat['service_details'] = self::getServicesDetails();
+        return view("financeManagement.financialStatus.sg", compact("income", "expense", "demat"));
     }
     public static function dematDetailsFinancialStatus($request){
         $demat['data']= array();

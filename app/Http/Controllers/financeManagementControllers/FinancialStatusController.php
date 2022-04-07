@@ -22,7 +22,7 @@ class FinancialStatusController extends Controller
         return financialStatusServices::viewMoreSt();
     }
     public function viewMoreSg(){
-        return financialStatusServices::viewMoreSt();
+        return financialStatusServices::viewMoreSg();
     }
     public function dematDetailsFinancialStatus(Request $request){
         $demats = financialStatusServices::dematDetailsFinancialStatus($request);
