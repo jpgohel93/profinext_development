@@ -72,7 +72,7 @@
                                                             <option value="1" {{old('client_type') && old('client_type')==1?"selected":""}}>Account Handling</option>
                                                             <option value="2" {{old('client_type') && old('client_type')==2?"selected":""}}>Mutual Fund</option>
                                                             <option value="3" {{old('client_type') && old('client_type')==3?"selected":""}}>Unlisted Shares</option>
-                                                            <option value="4" {{old('client_type') && old('client_type')==4?"selected":""}}>Prime Next</option>
+                                                            <option value="4" {{old('client_type') && old('client_type')==4?"selected":""}}>Insurance</option>
                                                         </select>
                                                     @endif
                                                     <!--end::Input-->
@@ -1566,7 +1566,7 @@
                 $("#paymentDetailsDiv").hide();
                 $("#addMoreDiv").hide();
             }
-			
+
 			$(document).on('change',"#client_type", function (e) {
                 var selectVal = e.target.value;
 				if(selectVal == "1"){

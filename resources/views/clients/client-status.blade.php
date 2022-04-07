@@ -537,8 +537,8 @@
                                                             @foreach($toRenews as $toRenew)
                                                                 <tr>
                                                                     <td>{{$toRenew->serial_number}}</td>
-                                                                    <td>{{$toRenew->withClient->name}}</td>
-                                                                    <td>{{$toRenew->withClient->number}}</td>
+                                                                    <td>{{$toRenew->name}}</td>
+                                                                    <td>{{$toRenew->number}}</td>
                                                                     <td>{{$toRenew->holder_name}}</td>
                                                                     <td>{{$toRenew->available_balance}}</td>
                                                                     <td>{{$toRenew->pl}}</td>
@@ -552,10 +552,10 @@
                                                                         </a>
                                                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                             <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$toRenew->id}}" data-value="renew" class="menu-link px-3 changeStatus">Send for Renewal</a>
+                                                                                <a href="javascript:void(0)" data-id="{{$toRenew->client_demat_id}}" data-value="renew" class="menu-link px-3 changeStatus">Send for Renewal</a>
                                                                             </div>
                                                                             <div class="menu-item px-3">
-                                                                                <a href="{{route('clientDematTerminate',$toRenew->id)}}" class="menu-link px-3 terminateDemat">Terminate</a>
+                                                                                <a href="{{route('clientDematTerminate',$toRenew->client_demat_id)}}" class="menu-link px-3 terminateDemat">Terminate</a>
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -1201,7 +1201,7 @@
                             </div>
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-end">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -1713,7 +1713,7 @@
                         }else{
                             $("#wpsameascontact").prop("checked",false);
                         }
-                        $(".editClientBtn").each(function () { 
+                        $(".editClientBtn").each(function () {
                             $(this).attr("data-id",data.id);
                         });
                         $("#viewClient").modal("show");
@@ -1727,7 +1727,7 @@
                     }else{
                         window.alert("Unable to Load this Client");
                     }
-                })            
+                })
                 // get demat login info
                 $(document).on("click",".loginInfo",function(e){
                     $.ajax("/loginInfo/" + e.target.getAttribute("data-id"), {
@@ -1968,7 +1968,7 @@
                         .done(data=>{
                             console.log(data);
                         })
-                    }else{ 
+                    }else{
                         window.alert("Unable to Load this Client")
                     }
                 })

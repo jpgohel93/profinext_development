@@ -18,7 +18,12 @@ class ClientDemateServices{
         //  ClientDemat::where("trader_id", auth()->user()->id)->where("account_status","normal")->whereNull("problem")->with(["withClient"])->get();
     }
     public static function toRenews(){
-        return ClientDemat::where("trader_id", auth()->user()->id)->where("account_status", "to_renew")->whereNull("problem")->whereNull("mark_as_problem")->with(["withClient"])->get();
+       return RenewDemat::
+        leftJoin('client_demat', 'renewal_account.client_demat_id', '=', 'client_demat.id')->
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("renewal_account.status", "to_renew")->
+        select('clients.name','clients.number','client_demat.serial_number','client_demat.st_sg','client_demat.client_id','client_demat.holder_name','client_demat.available_balance','renewal_account.*')
+            ->get();
     }
     public static function problemAccounts(){
         return ClientDemat::where("trader_id", auth()->user()->id)->whereNotNull("problem")->where('account_status','!=','terminated')->with(["withClient"])->get();
