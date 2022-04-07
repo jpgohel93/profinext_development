@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\RenewalAccountImagesController;
 use App\Http\Controllers\AnalystController;
 use App\Http\Controllers\CallController;
 use App\Http\Controllers\AccountTypesController;
@@ -66,6 +67,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/clients/DematAccount/status/get",[ClientController::class, "viewDematProblem"])->name("viewDematProblem");
     Route::POST("/clients/DematAccount/issue/get",[ClientController::class, "issueWithDematAccount"])->name("issueWithDematAccount");
     Route::POST("/clients/DematAccount/account/restore",[ClientController::class, "dematAccountRestore"])->name("dematAccountRestore");
+    Route::POST("/clients/DematAccount/renewal_account/image_upload",[RenewalAccountImagesController::class, "create"])->name("renewalAccountImageUpload");
+    Route::POST("/clients/DematAccount/renewal_account/images/get",[RenewalAccountImagesController::class, "get"])->name("viewRenewalAccountImages");
     // read client
     Route::get("/client/view/{client_id}",[ClientController::class,"get"])->name("clientView");
     Route::POST("/clients/mutual_fund/get",[ClientController::class, "getMutualFundClient"])->name("getMutualFundClient");

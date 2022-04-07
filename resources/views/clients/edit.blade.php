@@ -221,6 +221,7 @@
                                                         <div class="cloningSec">
                                                             <!--begin::Step 2-->
                                                             <div class="d-block card p-7 my-5" data-kt-stepper-element="content">
+                                                                <input type="hidden" name="demate_id[]" value="{{$demate_account->id}}">
                                                                 <div class="w-100">
                                                                     <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                                         <h3 class="stepper-title text-primary">Demate Details</h3>
@@ -241,7 +242,7 @@
                                                                             <!--begin::Input wrapper-->
                                                                             <div class="position-relative">
                                                                                 <!--begin::Input-->
-                                                                                <select name="st_sg[]" class="form-select form-select-solid">
+                                                                                <select name="st_sg[]" class="form-select form-select-solid" data-control="select2">
                                                                                     <option></option>
                                                                                     <option value="ST" {{$demate_account['st_sg']=="ST"?"selected":""}}>ST</option>
                                                                                     <option value="SG" {{$demate_account['st_sg']=="SG"?"selected":""}}>SG</option>
@@ -321,32 +322,45 @@
                                                                             <!--end::Option-->
                                                                         </div>
                                                                         <!--end::Col-->
+                                                                        <div class="col-1"></div>
+                                                                        <!--begin::Col-->
+                                                                        <div class="col-md-6 mb-4 fv-row">
+                                                                            <!--begin:Option-->
+                                                                            <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                                                <!--begin::Label-->
+                                                                                <span class="d-flex align-items-center me-2">
+                                                                                    <!--begin::Info-->
+                                                                                    <span class="d-flex flex-column">
+                                                                                        <span class="fw-bolder fs-6">PRIME AMS</span>
+                                                                                    </span>
+                                                                                    <!--end::Info-->
+                                                                                </span>
+                                                                                <!--end::Label-->
+                                                                                <!--begin::Input-->
+                                                                                <span class="form-check form-check-custom form-check-solid">
+                                                                                    <input class="form-check-input" type="radio" data-service_type {{(old('service_type')?old('service_type')[$key]:$demate_account['service_type'])=="3"?"checked":""}} value="3" />
+                                                                                </span>
+                                                                                <!--end::Input-->
+                                                                            </label>
+                                                                            <!--end::Option-->
+                                                                        </div>
+                                                                        <!--end::Col-->
                                                                     </div>
                                                                     <!--end::Input group-->
                                                                         <div class="row mb-4">
-                                                                        <!--begin::Input group-->
-                                                                        <div class="col-md-6 mb-4">
-                                                                            <!--begin::Label-->
-                                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                                <span class="required">Upload Demat Holder’s PAN Card</span>
-                                                                            </label>
-                                                                            <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[]" multiple placeholder="" />
-                                                                            <!--end::Label-->
-                                                                            <!--begin::Input-->
-                                                                            <div class="row">
-                                                                            @if (isset($client->clientDemat[$key]))
-                                                                                @foreach($client->clientDemat[$key]->Pancards as $pancard)
-                                                                                    <div class="form-group col-3">
-                                                                                        <label>
-                                                                                            <a href="{{route('removeDematePancard',[$client->id,$pancard->id])}}" class="removeDematePancard">Remove</a>
-                                                                                        </label>
-                                                                                        {{-- <img style="height: 100px;width:auto" loading="lazy" class="m-3 d-block" src="{{url('common/displayFile/'.Crypt::encryptString($ss->id).'/'.Crypt::encryptString('screenshots').'/'.$ss->file)}}" > --}}
-                                                                                        <img style="max-width: 200px;width:100%;" loading="lazy" class="m-3" src="{{url('common/displayFile/'.Crypt::encryptString($pancard->id).'/'.Crypt::encryptString('pancard').'/'.$pancard->file)}}" >
-                                                                                    </div>
-                                                                                @endforeach
-                                                                            @endif
-                                                                        </div>
-                                                                            {{-- <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number[]" placeholder="" value="{{(old('pan_number'))?old('pan_number')[$key]:$demate_account['pan_number']}}" /> --}}
+                                                                            <!--begin::Input group-->
+                                                                            <div class="col-md-12 mb-4">
+                                                                                <!--begin::Label-->
+                                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                                    <span class="required">Upload Demat Holder’s PAN Card</span>
+                                                                                </label>
+                                                                                
+                                                                                <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[{{$key}}][]" multiple placeholder="" />
+                                                                                <!--end::Label-->
+                                                                                <!--begin::Input-->
+                                                                                <div class="row">
+                                                                            </div>
+                                                                                {{-- <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number[]" placeholder="" value="{{(old('pan_number'))?old('pan_number')[$key]:$demate_account['pan_number']}}" /> --}}
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input group-->
@@ -362,6 +376,42 @@
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input group-->
+                                                                        <!--begin::Input group-->
+                                                                        <div class="col-md-6 mb-4">
+                                                                            <!--begin::Label-->
+                                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                                <span class="required">Address</span>
+                                                                            </label>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="address[]" placeholder="" value="{{(old('address')?old('address')[$key]:$demate_account['address'])}}" />
+                                                                            <!--end::Input-->
+                                                                        </div>
+                                                                        <!--end::Input group-->
+                                                                        <!--begin::Input group-->
+                                                                        <div class="col-md-6 mb-4">
+                                                                            <!--begin::Label-->
+                                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                                <span class="required">Email ID</span>
+                                                                            </label>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="email_id[]" placeholder="" value="{{(old('email_id')?old('email_id')[$key]:$demate_account['email_id'])}}" />
+                                                                            <!--end::Input-->
+                                                                        </div>
+                                                                        <!--end::Input group-->
+                                                                        <!--begin::Input group-->
+                                                                        <div class="col-md-6 mb-4">
+                                                                            <!--begin::Label-->
+                                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                                <span class="required">Mobile</span>
+                                                                            </label>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mobile[]" placeholder="" value="{{(old('mobile')?old('mobile')[$key]:$demate_account['mobile'])}}" />
+                                                                            <!--end::Input-->
+                                                                        </div>
+                                                                        <!--end::Input group-->
                                                                     </div>
                                                                     <!--begin::Input group-->
                                                                     <div class="fv-row mb-8">
@@ -371,7 +421,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <select name="broker[]" class="form-select form-select-solid">
+                                                                        <select name="broker[]" class="form-select form-select-solid" data-control="select2">
                                                                             @forelse ($brokers as $broker)
                                                                                 <option value="{{$broker->broker}}" {{(old('broker') && old('broker')[$key]==$broker->broker)?"selected":($demate_account['broker']==$broker->broker?"selected":"")}}>{{$broker->broker}}</option>
                                                                             @empty
@@ -446,6 +496,7 @@
                                                                     <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                                         <h3 class="stepper-title text-primary">Payment Details</h3>
                                                                     </div>
+                                                                    <input type="hidden" name="payment_id[]" value="{{$client->clientPayment[$key]->id}}">
 
                                                                     <!--begin::Input group-->
                                                                     <div class="fv-row mb-8 col-md-6">
@@ -478,7 +529,7 @@
                                                                             <!--begin::Input wrapper-->
                                                                             <div class="position-relative">
                                                                                 <!--begin::Input-->
-                                                                                <select name="bank[]" class="form-select form-select-solid" >
+                                                                                <select name="bank[]" class="form-select form-select-solid" data-control="select2">
                                                                                     <option></option>
                                                                                     @forelse ($banks as $bank)
                                                                                         <option value="{{$bank->bank}}" {{(old('bank') && old('bank')[$key]==$bank->bank)?"selected":(isset($client->clientPayment[$key])?$client->clientPayment[$key]->bank:""==$bank->bank?"selected":"")}}>{{$bank->bank}}</option>
@@ -521,7 +572,7 @@
                                                                             <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
-                                                                            <input type="file" name="screenshot[{{$key}}][]" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
+                                                                            <input type="file" name="screenshot[{{$key}}][]" accept="image/*" class="form-control form-control-lg form-control-solid bdr-ccc" multiple placeholder="Upload ScreenShot"/>
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input group-->
@@ -587,7 +638,7 @@
                                                                             <!--begin::Input wrapper-->
                                                                             <div class="position-relative">
                                                                                 <!--begin::Input-->
-                                                                                <select name="st_sg[]" class="form-select form-select-solid">
+                                                                                <select name="st_sg[]" class="form-select form-select-solid" data-control="select2">
                                                                                     <option></option>
                                                                                     <option value="ST" {{$demate_account['st_sg']=="ST"?"selected":""}}>ST</option>
                                                                                     <option value="SG" {{$demate_account['st_sg']=="SG"?"selected":""}}>SG</option>
@@ -667,6 +718,29 @@
                                                                             <!--end::Option-->
                                                                         </div>
                                                                         <!--end::Col-->
+                                                                        <div class="col-1"></div>
+                                                                        <!--begin::Col-->
+                                                                        <div class="col-md-6 mb-4 fv-row">
+                                                                            <!--begin:Option-->
+                                                                            <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                                                <!--begin::Label-->
+                                                                                <span class="d-flex align-items-center me-2">
+                                                                                    <!--begin::Info-->
+                                                                                    <span class="d-flex flex-column">
+                                                                                        <span class="fw-bolder fs-6">PRIME AMS</span>
+                                                                                    </span>
+                                                                                    <!--end::Info-->
+                                                                                </span>
+                                                                                <!--end::Label-->
+                                                                                <!--begin::Input-->
+                                                                                <span class="form-check form-check-custom form-check-solid">
+                                                                                    <input class="form-check-input" type="radio" data-service_type {{$demate_account['service_type']=="3"?"checked":""}} value="3" />
+                                                                                </span>
+                                                                                <!--end::Input-->
+                                                                            </label>
+                                                                            <!--end::Option-->
+                                                                        </div>
+                                                                        <!--end::Col-->
                                                                     </div>
                                                                     <!--end::Input group-->
                                                                         <div class="row mb-4">
@@ -678,7 +752,7 @@
                                                                             </label>
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
-                                                                            <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[]" multiple placeholder="" />
+                                                                            <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[{{$key}}][]" multiple placeholder="" />
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input group-->
@@ -694,6 +768,42 @@
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input group-->
+                                                                        <!--begin::Input group-->
+                                                                        <div class="col-md-6 mb-4">
+                                                                            <!--begin::Label-->
+                                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                                <span class="required">Address</span>
+                                                                            </label>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="address[]" placeholder="" value="{{$demate_account['address']}}" />
+                                                                            <!--end::Input-->
+                                                                        </div>
+                                                                        <!--end::Input group-->
+                                                                        <!--begin::Input group-->
+                                                                        <div class="col-md-6 mb-4">
+                                                                            <!--begin::Label-->
+                                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                                <span class="required">Email ID</span>
+                                                                            </label>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="email_id[]" placeholder="" value="{{$demate_account['email_id']}}" />
+                                                                            <!--end::Input-->
+                                                                        </div>
+                                                                        <!--end::Input group-->
+                                                                        <!--begin::Input group-->
+                                                                        <div class="col-md-6 mb-4">
+                                                                            <!--begin::Label-->
+                                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                                <span class="required">Mobile</span>
+                                                                            </label>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mobile[]" placeholder="" value="{{$demate_account['mobile']}}" />
+                                                                            <!--end::Input-->
+                                                                        </div>
+                                                                        <!--end::Input group-->
                                                                     </div>
                                                                     <!--begin::Input group-->
                                                                     <div class="fv-row mb-8">
@@ -703,7 +813,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <select name="broker[]" class="form-select form-select-solid">
+                                                                        <select name="broker[]" class="form-select form-select-solid" data-control="select2">
                                                                             @forelse ($brokers as $broker)
                                                                                 <option value="{{$broker->broker}}" {{(old('broker') && old('broker')[$key]==$broker->broker)?"selected":($demate_account['broker']==$broker->broker?"selected":"")}}>{{$broker->broker}}</option>
                                                                             @empty
@@ -735,7 +845,7 @@
                                                                             </label>
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
-                                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="password[]" value="{{(session('password')[$key])?session('password')[$key]:""}}" />
+                                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="password[]" value="{{(session('password')[$key])?session('password')[$key]:""}}" />
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Col-->
@@ -751,7 +861,7 @@
                                                                             </label>
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
-                                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />
+                                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Col-->
@@ -808,7 +918,7 @@
                                                                             <!--begin::Input wrapper-->
                                                                             <div class="position-relative">
                                                                                 <!--begin::Input-->
-                                                                                <select name="bank[]" class="form-select form-select-solid" >
+                                                                                <select name="bank[]" class="form-select form-select-solid" data-control="select2">
                                                                                     @forelse ($banks as $bank)
                                                                                         <option value="{{$bank->bank}}" {{(old('bank') && old('bank')[$key]==$bank->bank)?"selected":($demate_account['bank']==$bank->bank?"selected":"")}}>{{$bank->bank}}</option>
                                                                                     @empty
@@ -827,7 +937,7 @@
                                                                             <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
-                                                                            <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{$demate_account['mode']=="2"?($demate_account['joining_date']==""?"":date("Y-m-d",strtotime($demate_account['joining_date']))):""}}"/>
+                                                                            <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{$demate_account['mode']=="2"?($demate_account['joining_date']==""?"":date("y-m-d",strtotime($demate_account['joining_date']))):""}}"/>
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input group-->
@@ -945,7 +1055,7 @@
                                                             <!--begin::Input wrapper-->
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
-                                                                <select name="st_sg[]" class="form-select form-select-solid">
+                                                                <select name="st_sg[]" class="form-select form-select-solid" data-control="select2">
                                                                     <option></option>
                                                                     <option value="ST">ST</option>
                                                                     <option value="SG">SG</option>
@@ -1025,9 +1135,42 @@
                                                             <!--end::Option-->
                                                         </div>
                                                         <!--end::Col-->
+                                                        <div class="col-1"></div>
+                                                        <!--begin::Col-->
+                                                        <div class="col-md-6 mb-4 fv-row">
+                                                            <!--begin:Option-->
+                                                            <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                                <!--begin::Label-->
+                                                                <span class="d-flex align-items-center me-2">
+                                                                    <!--begin::Info-->
+                                                                    <span class="d-flex flex-column">
+                                                                        <span class="fw-bolder fs-6">PRIME AMS</span>
+                                                                    </span>
+                                                                    <!--end::Info-->
+                                                                </span>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <span class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="radio" data-service_type value="3" />
+                                                                </span>
+                                                                <!--end::Input-->
+                                                            </label>
+                                                            <!--end::Option-->
+                                                        </div>
+                                                        <!--end::Col-->
                                                     </div>
                                                     <!--end::Input group-->
                                                         <div class="row mb-4">
+                                                            <!--begin::Input group-->
+                                                            <div class="col-md-6 mb-4">
+                                                                <!--begin::Label-->
+                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                    <span class="required">Upload Demat Holder’s PAN Card</span>
+                                                                </label>
+                                                                <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[2][]" multiple placeholder="" />
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                            </div>
                                                         <!--begin::Input group-->
                                                         <div class="col-md-6 mb-4">
                                                             <!--begin::Label-->
@@ -1036,7 +1179,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number[]" placeholder="" value="" />
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->
@@ -1061,14 +1204,12 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <select name="broker[]" class="form-select form-select-solid">
-                                                            <option></option>
-                                                            <option value="Business Man">Business Man</option>
-                                                            <option value="Professional">Professional</option>
-                                                            <option value="Govt Job">Govt Job</option>
-                                                            <option value="Private Job">Private Job</option>
-                                                            <option value="Student">Student</option>
-                                                            <option value="House wife">House wife</option>
+                                                        <select name="broker[]" class="form-select form-select-solid" data-control="select2">
+                                                            @forelse ($brokers as $broker)
+                                                                <option value="{{$broker->broker}}">{{$broker->broker}}</option>
+                                                            @empty
+                                                                <option>Selecte Bank</option>
+                                                            @endforelse
                                                         </select>
                                                         <!--end::Input-->
                                                     </div>
@@ -1095,7 +1236,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" value="" />
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->
@@ -1111,7 +1252,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->
@@ -1170,14 +1311,13 @@
                                                             <!--begin::Input wrapper-->
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
-                                                                <select name="bank[]" class="form-select form-select-solid" >
+                                                                <select name="bank[]" class="form-select form-select-solid" data-control="select2">
                                                                     <option></option>
-                                                                    <option value="ICICI" selected >ICICI</option>
-                                                                    <option value="HDFC">HDFC</option>
-                                                                    <option value="Canara">Canara</option>
-                                                                    <option value="Axis">Axis</option>
-                                                                    <option value="RBL">RBL</option>
-
+                                                                    @forelse ($banks as $bank)
+                                                                        <option value="{{$bank->bank}}">{{$bank->bank}}</option>
+                                                                    @empty
+                                                                        <option>Selecte Bank</option>
+                                                                    @endforelse
                                                                 </select>
                                                             </div>
                                                             <!--end::Input wrapper-->
@@ -1279,6 +1419,7 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(document).on("click","#addmore",function() {
+                    $("select[data-control='select2']").select2('destroy');
 					// var newcomp1 = $('#hiddenaddmore').html();
 					var clone = $('#hiddenaddmore > .cloningSec').clone();
 					var rem = clone.find('#addmore');
@@ -1286,6 +1427,7 @@
 					$(rem).addClass('btn-pink remove-btn');
 					$(rem).text('Remove');
 					$('#appendDiv1').append(clone);
+                    $("select[data-control='select2']").select2();
 					resetCounter();
    		 		});
                 // service type this is required else some values are not available server side
@@ -1420,7 +1562,6 @@
         })
     </script>
     @section('jscript')
-
 		<script src="{{asset('assets/js/custom/modals/create-app.js')}}"></script>
     @endsection
 @endsection

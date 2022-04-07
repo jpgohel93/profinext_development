@@ -164,6 +164,7 @@
 														<option value="">Select Service Type</option>
 														<option value="1">PRIME</option>
 														<option value="2">AMS</option>
+														<option value="3">PRIME NEXT</option>
 													</select>
                                                 </div>
                                             </div>

@@ -225,11 +225,34 @@
                                                             <!--end::Option-->
                                                         </div>
                                                         <!--end::Col-->
+                                                        <div class="col-1"></div>
+                                                        <!--begin::Col-->
+                                                        <div class="col-md-6 mb-4 fv-row">
+                                                            <!--begin:Option-->
+                                                            <label class="d-flex flex-stack cursor-pointer mb-5">
+                                                                <!--begin::Label-->
+                                                                <span class="d-flex align-items-center me-2">
+                                                                    <!--begin::Info-->
+                                                                    <span class="d-flex flex-column">
+                                                                        <span class="fw-bolder fs-6">PRIME AMS</span>
+                                                                    </span>
+                                                                    <!--end::Info-->
+                                                                </span>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <span class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="radio" {{$demate_account->service_type==3?"checked":"disabled"}} value="1" />
+                                                                </span>
+                                                                <!--end::Input-->
+                                                            </label>
+                                                            <!--end::Option-->
+                                                        </div>
+                                                        <!--end::Col-->
                                                     </div>
                                                     <!--end::Input group-->
                                                         <div class="row mb-4">
                                                         <!--begin::Input group-->
-                                                        <div class="col-md-6 mb-4">
+                                                        <div class="col-md-12 mb-4">
                                                             <!--begin::Label-->
                                                             <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                                 <span class="required">PAN Cards</span>
@@ -256,6 +279,42 @@
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
                                                             <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$demate_account->holder_name}}" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Address</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$demate_account->address}}" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Email ID</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$demate_account->email_id}}" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Mobile</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$demate_account->mobile}}" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->

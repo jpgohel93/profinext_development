@@ -894,13 +894,11 @@
                                                                         <div class="position-relative">
                                                                             <!--begin::Input-->
                                                                             <select name="bank[]" class="form-select form-select-solid" >
-                                                                                <option></option>
-                                                                                <option value="ICICI" {{$demate_account['bank']=="ICICI"?"selected":""}}>ICICI</option>
-                                                                                <option value="HDFC" {{$demate_account['bank']=="HDFC"?"selected":""}}>HDFC</option>
-                                                                                <option value="Canara" {{$demate_account['bank']=="Canara"?"selected":""}}>Canara</option>
-                                                                                <option value="Axis" {{$demate_account['bank']=="Axis"?"selected":""}}>Axis</option>
-                                                                                <option value="RBL" {{$demate_account['bank']=="RBL"?"selected":""}}>RBL</option>
-
+                                                                                @forelse ($banks as $bank)
+                                                                                    <option value="{{$bank->bank}}" {{$demate_account['bank']==$bank->bank?"selected":""}}>{{$bank->bank}}</option>
+                                                                                @empty
+                                                                                    <option>Selecte Bank</option>
+                                                                                @endforelse
                                                                             </select>
                                                                         </div>
                                                                         <!--end::Input wrapper-->
@@ -1323,13 +1321,11 @@
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
                                                                 <select name="bank[]" class="form-select form-select-solid" >
-                                                                    <option></option>
-                                                                    <option value="ICICI" selected >ICICI</option>
-                                                                    <option value="HDFC">HDFC</option>
-                                                                    <option value="Canara">Canara</option>
-                                                                    <option value="Axis">Axis</option>
-                                                                    <option value="RBL">RBL</option>
-
+                                                                    @forelse ($banks as $bank)
+                                                                        <option value="{{$bank->bank}}">{{$bank->bank}}</option>
+                                                                    @empty
+                                                                        <option>Selecte Bank</option>
+                                                                    @endforelse
                                                                 </select>
                                                             </div>
                                                             <!--end::Input wrapper-->

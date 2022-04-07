@@ -701,6 +701,9 @@
                                                                             <div class="menu-item px-3">
                                                                                 <a href="{{route('clientDematTerminate',$toRenew->client_demat_id)}}" class="menu-link px-3 terminateDemat">Terminate</a>
                                                                             </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id="{{$toRenew->id}}" class="menu-link px-3 addImage">Add image</a>
+                                                                            </div>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -1832,6 +1835,55 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="addImageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px" role="document">
+            <div class="modal-content">
+                <!--begin::Form-->
+                <form enctype="multipart/form-data" action="{{route('renewalAccountImageUpload')}}" method="POST">
+                    @csrf
+                    <div class="modal-header">
+                        <h2 class="fw-bolder">Upload image</h2>
+                        <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <div id="imageIdContainer"></div>
+                    <!--begin::Modal body-->
+                    <div class="modal-body mx-md-10">
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Title</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" name="title"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Image</label>
+                            <div class="col-9">
+                                <input type="file" name="image" id="image" accept="image/*" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Upload image"/>
+                            </div>
+                        </div>
+                        <div class="form-group row" id="previewImageContainer">
+                            <label class="col-3 col-form-label">preview</label>
+                            <div class="col-9" id="previewImage">
+                                <img src="" style="width:200px" id="prev_image">
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Modal body-->
+                    <div class="modal-footer text-center">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                        <button type="submit" class="btn btn-primary me-3">Upload</button>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+        </div>
+    </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
@@ -2151,6 +2203,33 @@
                         } );
                     }
                 })
+                // preview image
+                function readURL(input,id) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $("#previewImageContainer").show();
+                            $('#'+id).attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                // add image
+                $(document).on("click",".addImage",function(e){
+                    const id = e.target.getAttribute("data-id");
+                    if(id){
+                        $("#imageIdContainer").html(`<input type="hidden" name='renewal_account_id' value="${id}">`);
+                        $("#addImageModal").modal("show");
+                    }else{
+                        window.alert("Unable to Load this account");
+                    }
+                })
+                $("#image").on("change",function(){
+                    readURL(this,"prev_image");
+                })
+                $("#previewImageContainer").hide();
             },jQuery)
         })
     </script>

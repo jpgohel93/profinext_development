@@ -215,6 +215,22 @@ class CommonService
             return self::ajaxResponse(true, $response, 'Success');
         }
 
+        if($type == 'renewal_image') {
+            
+            $images = DB::table("renewal_account_images")->where("id",$id)->first(['image_url', 'mimeType']);
+            
+            if(empty($images)) {
+                return self::ajaxResponse(false, [], 'File not found.');
+            }
+            $response = [
+                'filename' => $images->image_url,
+                'mime_type' => $images->mimeType,
+                "path" => "renewal_account_images"
+            ];
+
+            return self::ajaxResponse(true, $response, 'Success');
+        }
+
         return self::ajaxResponse(false, [], 'Unknown file type.');
     }
     public static function throwError($err){

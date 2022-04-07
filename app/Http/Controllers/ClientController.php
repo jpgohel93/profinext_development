@@ -526,11 +526,13 @@ class ClientController extends Controller
 					$serviceType = "PRIME";
 				} else if($data->service_type == 2) {
 					$serviceType = "AMS";
+				}else{
+					$serviceType = "PRIME NEXT";
 				}
 
 				$tempData = array(
 					'id' => $data->id,
-					'name' => $data->name,
+					'client_name' => $data->name,
 					'service_type' => $data->service_type,
 					'serial_number' => $data->st_sg."-".$data->serial_number,
 					'holder_name' => $data->holder_name,
@@ -559,16 +561,16 @@ class ClientController extends Controller
 						if (Auth::user()->can('setup-write'))
 						{
 							$btn .= '<div class="menu-item px-3">
-									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['client_name'].'" data-holder="'.$data['holder_name'].'" class="menu-link px-3 editDematAccount">Update Status</a>
 								</div>
 								<div class="menu-item px-3">
 									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 makeAsPreferred" data-value="1">Make as Preferred</a>
 								</div>
 								<div class="menu-item px-3">
-									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-clname="'.$data['name'].'" data-name="'.$data['holder_name'].'" class="menu-link px-3 assignTrader">Assign Trader</a>
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-clname="'.$data['client_name'].'" data-name="'.$data['holder_name'].'" class="menu-link px-3 assignTrader">Assign Trader</a>
 								</div>
 								<div class="menu-item px-3">
-									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['name'].'" data-holder="'.$data['holder_name'].'" data-service="'.$data['service_type'].'" class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+									<a href="javascript:void(0)" data-id="'.$data['id'].'" data-name="'.$data['client_name'].'" data-holder="'.$data['holder_name'].'" data-service="'.$data['service_type'].'" class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
 								</div>
 								<div class="menu-item px-3">
 									<a href="javascript:void(0)" data-id="'.$data['id'].'" class="menu-link px-3 loginInfo">Login Info</a>

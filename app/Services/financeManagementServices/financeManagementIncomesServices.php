@@ -8,7 +8,6 @@ class financeManagementIncomesServices{
         $income = $request->validate([
             "date"=> "required|date",
             "sub_heading"=> "required",
-            "amount"=> "required",
             "income_form"=> "required"
         ]);
         if(isset($request->mode) && $request->mode==1){
@@ -29,14 +28,14 @@ class financeManagementIncomesServices{
             $income['sg_amount'] = $request->sg_amount;
         }else if($request->income_form==="st"){
             $request->validate([
-                "st_amount" => "required"
+                "amount" => "required",
             ]);
-            $income['sg_amount'] = $request->st_amount;
-        }else if($request->income_form=="sg"){
+            $income['amount'] = $request->amount;
+        }else if($request->income_form==="sg"){
             $request->validate([
-                "sg_amount" => "required"
+                "amount" => "required",
             ]);
-            $income['sg_amount'] = $request->sg_amount;
+            $income['amount'] = $request->amount;
         }else{
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 "income_form"=>["invalid income form"]

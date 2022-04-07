@@ -3,7 +3,8 @@
 return [
     'UPLOADS' => [
         'SCREENSHOTS' => 'screenshots/',
-        "PANCARDS"    => 'pan_cards/'
+        "PANCARDS"    => 'pan_cards/',
+        "RENEW_ACCOUNT_IMAGES"=>'renewal_account_images'
     ],
     'ALLOWED_EXTENSIONS' => ['png','jpeg','jpg','pdf','docx','doc','xlsx','xls'],
     'ALLOWED_MIMETYPES' => ['image/png','image/jpeg','application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/vnd.ms-excel','text/plain'],

@@ -365,8 +365,24 @@
                                                                             @endif
                                                                         </td>
                                                                     <td>
-                                                                        <a href="{{route('clientDematView',$toRenewAccount->id)}}" target="_blank" class='verifyDemate'>Generate Invoice</a><br/>
-                                                                        <a href="{{route('clientDematTerminate',$toRenewAccount->id)}}" class='terminateDemate'>Terminate</a>
+                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </a>
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="{{route('clientDematView',$toRenewAccount->id)}}" target="_blank" class='menu-link px-3 verifyDemate'>Generate Invoice</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="{{route('clientDematTerminate',$toRenewAccount->id)}}" class='menu-link px-3 terminateDemate'>Terminate</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id="{{$toRenewAccount->id}}" class="menu-link px-3 viewImage">View image</a>
+                                                                            </div>
+                                                                        </div>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -780,6 +796,52 @@
         </div>
         <!--end::Modal dialog-->
     </div>
+    <div class="modal fade" id="viewImagesModal" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-lg">
+            <!--begin::Modal content-->
+            <div class="modal-content rounded">
+                <!--begin::Modal header-->
+                <div class="modal-header pb-0 border-0">
+                    <!--begin::Close-->
+                    <!--begin::Heading-->
+                        <div class="">
+                            <!--begin::Title-->
+                            <h3 class="mb-3">Images</h3>
+                            <!--end::Title-->
+                        </div>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--begin::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body">
+                    <div class="row mb-8" id="viewImagesContainer">
+                        
+                    </div>
+                    <!--end::Input group-->
+
+                    <!--begin::Actions-->
+                    <div class="text-end">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">dismiss</button>
+                    </div>
+                    <!--end::Actions-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
@@ -818,6 +880,35 @@
                 $(document).on("click",".terminateDemate",function(e){
                     if(!window.confirm("Are you sure you want to terminate this account?")){
                         e.preventDefault();
+                    }
+                })
+                // view uploaded images
+                $(document).on("click",".viewImage",function(e){
+                    const id = e.target.getAttribute("data-id");
+                    if(id){
+                        $.ajax("{{route('viewRenewalAccountImages')}}",{
+                            type:"POST",
+                            data:{
+                                id:id
+                            }
+                        })
+                        .done(data=>{
+                            if(data?.data){
+                                $("#viewImagesContainer").html(data.data);
+                                $("#viewImagesModal").modal("show");
+                            }else{
+                                window.alert("Unable to get images");
+                            }
+                        })
+                        .fail((err)=>{
+                            if(err.status===403){
+                                window.alert("Unauthorized Action");
+                            }else if(err.status===500){
+                                window.alert("Server Error");
+                            }
+                        })
+                    }else{
+                        window.alert("Unable to load this account");
                     }
                 })
                 $(".datatable").DataTable();

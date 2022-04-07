@@ -318,12 +318,25 @@ class ClientServices
             $array['updated_by']=Auth::id();
             $array['updated_at']=date("Y-m-d H:i:s");
             $demate_id = ClientDemat::create($array);
+
+            // update demat id to pan card images and screenshots
+            PancardImageModel::where("client_demat_id",$request->demate_id[$key])->update(["client_demat_id"=>$demate_id->id]);
+
             if(null !== $request->pan_number){
                 // pan card image upload
                 foreach ($request->pan_number as $index => $file) {
-                    $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.PANCARDS'));
-                    if ($newName['status']) {
-                        PancardImageModel::create(["client_demat_id" => $demate_id->id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
+                    if(is_array($file)){
+                        foreach ($file as $f) {
+                            $newName = CommonService::uploadfile($f, config()->get('constants.UPLOADS.PANCARDS'));
+                            if ($newName['status']) {
+                                PancardImageModel::create(["client_demat_id" => $demate_id->id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
+                            }
+                        }
+                    }else{
+                        $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.PANCARDS'));
+                        if ($newName['status']) {
+                            PancardImageModel::create(["client_demat_id" => $demate_id->id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
+                        }
                     }
                 }
             }
@@ -371,13 +384,26 @@ class ClientServices
                 $payment['client_id']=$id;
                 $payment_id = ClientPayment::create($payment);
             }
+            $oldPaymentId=$request->payment_id[$key];
+            if($oldPaymentId!=0){
+                Screenshots::where("client_payment_id", $oldPaymentId)->update(["client_payment_id" => $payment_id->id]);
+            }
 
             // file upload
             if($request->mode[$key]=="2" && $request->pending_payment[$key]!="1" && isset($request->screenshot[$key]) && !empty($request->screenshot[$key])){
                 foreach($request->screenshot[$key] as $index => $file){
-                    $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.SCREENSHOTS'));
-                    if($newName['status']){
-                        Screenshots::create(["client_payment_id"=>$payment_id->id,"file"=>$newName['data']['filename'],"mime_type"=>$newName['data']['mimeType']]);
+                    if(is_array($file)){
+                        foreach ($file as $f) {
+                            $newName = CommonService::uploadfile($f, config()->get('constants.UPLOADS.SCREENSHOTS'));
+                            if ($newName['status']) {
+                                Screenshots::create(["client_payment_id" => $payment_id->id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
+                            }
+                        }
+                    }else{
+                        $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.SCREENSHOTS'));
+                        if ($newName['status']) {
+                            Screenshots::create(["client_payment_id" => $payment_id->id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
+                        }
                     }
                 }
             }
@@ -499,8 +525,10 @@ class ClientServices
 
     public static function getClientDematAccount($filter_type = null, $filter_id = null)
 	{
-        $query = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')
-			->select('client_demat.*','clients.name');
+        $query = ClientDemat::leftJoin('clients', function ($join) {
+            $join->on('client_demat.client_id', '=', 'clients.id')
+                ->where('clients.client_type', '=', 1);
+        })->select('client_demat.*','clients.name');
 
 		if($filter_type == "freelancer") {
 			$query->where("client_demat.freelancer_id", $filter_id);
