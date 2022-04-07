@@ -272,6 +272,7 @@ class ClientServices
         $demat = $request->validate([
             "st_sg.*"=>"required|alpha_spaces",
             "serial_number.*"=>"required",
+            "pan_number_text.*"=>"required",
             "service_type.*"=>"required|numeric",
             "holder_name.*"=>"required|alpha_spaces",
             "broker.*"=>"required|alpha_spaces",
@@ -283,6 +284,7 @@ class ClientServices
         [
             "st_sg.*.required"=>"Smart ID is required",
             "serial_number.*.required"=>"Serial Number is required",
+            "pan_number_text.*.required"=>"Pan number is required",
             "service_type.*.required"=>"Service Type is required",
             "holder_name.*.required"=>"Demat Holder's Name is required",
             "holder_name.*.alpha_spaces"=>"Demat Holder's Name Shold contain alphabate and spaces only",
@@ -295,19 +297,14 @@ class ClientServices
         );
         $demat['client_id'] = array();
 
-        // remove all existing accounts
-        ClientDemat::where("client_id",$id)->delete();
-        // remove all existing payments
-        ClientPayment::where("client_id",$id)->delete();
 
         // insert one by one
         foreach($demat['st_sg'] as $key => $value){
-
             $array = array();
             $array['st_sg']=$demat['st_sg'][$key];
             $array['serial_number']=$demat['serial_number'][$key];
             $array['service_type']=$demat['service_type'][$key];
-            // $array['pan_number']=$demat['pan_number'][$key];
+            $array['pan_number_text']=isset($demat['pan_number_text'][$key])? $demat['pan_number_text'][$key]:"";
             $array['holder_name']=$demat['holder_name'][$key];
             $array['broker']=$demat['broker'][$key];
             $array['user_id']=$demat['user_id'][$key];
@@ -317,10 +314,12 @@ class ClientServices
             $array['client_id']=$id;
             $array['updated_by']=Auth::id();
             $array['updated_at']=date("Y-m-d H:i:s");
-            $demate_id = ClientDemat::create($array);
-
-            // update demat id to pan card images and screenshots
-            PancardImageModel::where("client_demat_id",$request->demate_id[$key])->update(["client_demat_id"=>$demate_id->id]);
+            if(isset($request->demate_id[$key])){
+                ClientDemat::where("id", $request->demate_id[$key])->update($array);
+                $demat_id = $request->demate_id[$key];
+            }else{
+                $demate_id = ClientDemat::create($array);
+            }
 
             if(null !== $request->pan_number){
                 // pan card image upload
@@ -329,13 +328,13 @@ class ClientServices
                         foreach ($file as $f) {
                             $newName = CommonService::uploadfile($f, config()->get('constants.UPLOADS.PANCARDS'));
                             if ($newName['status']) {
-                                PancardImageModel::create(["client_demat_id" => $demate_id->id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
+                                PancardImageModel::create(["client_demat_id" => $demate_id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
                             }
                         }
                     }else{
                         $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.PANCARDS'));
                         if ($newName['status']) {
-                            PancardImageModel::create(["client_demat_id" => $demate_id->id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
+                            PancardImageModel::create(["client_demat_id" => $demate_id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
                         }
                     }
                 }
@@ -373,7 +372,8 @@ class ClientServices
                 $payment['updated_by']=Auth::id();
                 $payment['updated_at']=date("Y-m-d H:i:s");
                 $payment['client_id']=$id;
-                $payment_id = ClientPayment::create($payment);
+
+                $payment_id = ClientPayment::where("id",$request->payment_id[$key])->update($payment);
             }else{
                 $request->validate([
                     "mode.*"=>"required|numeric",
@@ -382,11 +382,7 @@ class ClientServices
                 $payment['updated_by']=Auth::id();
                 $payment['updated_at']=date("Y-m-d H:i:s");
                 $payment['client_id']=$id;
-                $payment_id = ClientPayment::create($payment);
-            }
-            $oldPaymentId=$request->payment_id[$key];
-            if($oldPaymentId!=0){
-                Screenshots::where("client_payment_id", $oldPaymentId)->update(["client_payment_id" => $payment_id->id]);
+                $payment_id = ClientPayment::where("id", $request->payment_id[$key])->update($payment);
             }
 
             // file upload
@@ -396,13 +392,13 @@ class ClientServices
                         foreach ($file as $f) {
                             $newName = CommonService::uploadfile($f, config()->get('constants.UPLOADS.SCREENSHOTS'));
                             if ($newName['status']) {
-                                Screenshots::create(["client_payment_id" => $payment_id->id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
+                                Screenshots::create(["client_payment_id" => $request->payment_id[$key], "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
                             }
                         }
                     }else{
                         $newName = CommonService::uploadfile($file, config()->get('constants.UPLOADS.SCREENSHOTS'));
                         if ($newName['status']) {
-                            Screenshots::create(["client_payment_id" => $payment_id->id, "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
+                            Screenshots::create(["client_payment_id" => $request->payment_id[$key], "file" => $newName['data']['filename'], "mime_type" => $newName['data']['mimeType']]);
                         }
                     }
                 }

@@ -274,6 +274,18 @@
                                                         <div class="col-md-6 mb-4">
                                                             <!--begin::Label-->
                                                             <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Pan Number</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$demate_account->pan_number_text}}" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                                 <span class="required">Demat Holder's Name</span>
                                                             </label>
                                                             <!--end::Label-->

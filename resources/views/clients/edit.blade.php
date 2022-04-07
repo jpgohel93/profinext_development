@@ -221,7 +221,7 @@
                                                         <div class="cloningSec">
                                                             <!--begin::Step 2-->
                                                             <div class="d-block card p-7 my-5" data-kt-stepper-element="content">
-                                                                <input type="hidden" name="demate_id[]" value="{{$demate_account->id}}">
+                                                                <input type="hidden" name="demate_id[]" value="{{isset(old("demat_id")[$key])?old("demat_id")[$key]:$demate_account->id}}">
                                                                 <div class="w-100">
                                                                     <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                                         <h3 class="stepper-title text-primary">Demate Details</h3>
@@ -368,6 +368,18 @@
                                                                         <div class="col-md-6 mb-4">
                                                                             <!--begin::Label-->
                                                                             <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                                <span class="required">Pan Number</span>
+                                                                            </label>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="{{(old('pan_number_text')?old('pan_number_text')[$key]:$demate_account['pan_number_text'])}}" />
+                                                                            <!--end::Input-->
+                                                                        </div>
+                                                                        <!--end::Input group-->
+                                                                        <!--begin::Input group-->
+                                                                        <div class="col-md-6 mb-4">
+                                                                            <!--begin::Label-->
+                                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                                                 <span class="required">Demat Holder's Name</span>
                                                                             </label>
                                                                             <!--end::Label-->
@@ -496,7 +508,7 @@
                                                                     <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                                         <h3 class="stepper-title text-primary">Payment Details</h3>
                                                                     </div>
-                                                                    <input type="hidden" name="payment_id[]" value="{{$client->clientPayment[$key]->id}}">
+                                                                    <input type="hidden" name="payment_id[]" value="{{isset(old('payment_id')[$key])?old('payment_id')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->id:""}}">
 
                                                                     <!--begin::Input group-->
                                                                     <div class="fv-row mb-8 col-md-6">
@@ -623,6 +635,7 @@
                                                                         <h3 class="stepper-title text-primary">Demate Details</h3>
                                                                         <button type="button" class="btn btn-primary btn-pink remove-btn">Remove</button>
                                                                     </div>
+                                                                    <input type="hidden" name="demate_id[]" value="{{$demate_account['demate_id']}}"> 
                                                                     <!--begin::Input group-->
                                                                     <div class="row mb-8">
                                                                         <!--begin::Label-->
@@ -745,7 +758,7 @@
                                                                     <!--end::Input group-->
                                                                         <div class="row mb-4">
                                                                         <!--begin::Input group-->
-                                                                        <div class="col-md-6 mb-4">
+                                                                        <div class="col-md-12 mb-4">
                                                                             <!--begin::Label-->
                                                                             <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                                                 <span class="required">Upload Demat Holder’s PAN Card</span>
@@ -753,6 +766,18 @@
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
                                                                             <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[{{$key}}][]" multiple placeholder="" />
+                                                                            <!--end::Input-->
+                                                                        </div>
+                                                                        <!--end::Input group-->
+                                                                        <!--begin::Input group-->
+                                                                        <div class="col-md-6 mb-4">
+                                                                            <!--begin::Label-->
+                                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                                <span class="required">Pan number</span>
+                                                                            </label>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="{{$demate_account['pan_number_text']}}" />
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input group-->
@@ -888,7 +913,7 @@
                                                                     <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                                         <h3 class="stepper-title text-primary">Payment Details</h3>
                                                                     </div>
-
+                                                                    <input type="hidden" name="payment_id[]" value="{{$demate_account["payment_id"]}}">
                                                                     <!--begin::Input group-->
                                                                     <div class="fv-row mb-8 col-md-6">
                                                                         <!--begin::Label-->
@@ -1162,7 +1187,7 @@
                                                     <!--end::Input group-->
                                                         <div class="row mb-4">
                                                             <!--begin::Input group-->
-                                                            <div class="col-md-6 mb-4">
+                                                            <div class="col-md-12 mb-4">
                                                                 <!--begin::Label-->
                                                                 <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                                     <span class="required">Upload Demat Holder’s PAN Card</span>
