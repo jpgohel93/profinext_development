@@ -21,7 +21,7 @@ class renewalStatusController extends Controller
         $newAccounts = renewalStatusService::newAccounts();
         return view("financeManagement.renewal-status",compact("renewalStatus", "preRenewAccounts", "toRenewAccounts", "renewedAccounts", "newAccounts"));
     }
-    public function clientDematView(Request $request,$id){
+    public function clientDematView(Request $request,$id,$type){
         $primary_bank = bankServices::getPrimaryBankAccounts(1);
         $bankAccountList = array();
         $bankPerData = array();
@@ -125,7 +125,7 @@ class renewalStatusController extends Controller
         if($request->ajax()){
             return response($demateDetails,200, ["Content-Type" => "Application/json"]);
         }
-        return view("financeManagement.clientDemateView",compact("demateDetails","primary_bank","bankAccountList"));
+        return view("financeManagement.clientDemateView",compact("demateDetails","primary_bank","bankAccountList","type"));
     }
     public function clientDematTerminate(Request $request,$id){
         ClientDemateServices::terminateAccountByDemateId($id);
@@ -137,7 +137,13 @@ class renewalStatusController extends Controller
     public function updatePL(Request $request){
         ClientDemateServices::updatePL($request);
         renewalStatusService::createRenewal($request);
-        return Redirect::route("renewal_status")->with("info","PL Updated");
+        if($request->page_type == 1) {
+            return Redirect::route("renewal_status")->with("info", "PL Updated");
+        }elseif ($request->page_type == 2){
+            return Redirect::route("clientDematAccountStatus")->with("info", "PL Updated");
+        }else{
+            return Redirect::route("renewal_status")->with("info", "PL Updated");
+        }
     }
     public function mark_as_problem(Request $request){
         ClientDemateServices::markAsProblem($request);

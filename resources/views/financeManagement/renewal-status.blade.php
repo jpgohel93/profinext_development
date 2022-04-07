@@ -217,7 +217,7 @@
                                                                     <td>{{$preRenewAccount->available_balance}}</td>
                                                                     <td>{{$preRenewAccount->pl}}</td>
                                                                     <td>
-                                                                        <a href="{{route('clientDematView',$preRenewAccount->id)}}" target="_blank"class='verifyDemate'>Verify</a>
+                                                                        <a href="/financeManagement/clientDematDataView/{{$preRenewAccount->id}}/{{1}}" target="_blank" class='verifyDemate'>Verify</a>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -338,6 +338,7 @@
                                                                 <th class="min-w-75px">Demat Holder Name</th>
                                                                 <th class="min-w-75px">Available Fund</th>
                                                                 <th class="min-w-75px">P / L</th>
+                                                                <th class="min-w-75px">Service Type</th>
                                                                 <th class="min-w-75px">Action</th>
                                                             </tr>
                                                         </thead>
@@ -354,6 +355,15 @@
                                                                     <td>{{$toRenewAccount->holder_name}}</td>
                                                                     <td>{{$toRenewAccount->available_balance}}</td>
                                                                     <td>{{$toRenewAccount->pl}}</td>
+                                                                    <td>
+                                                                            @if($toRenewAccount->service_type == 1)
+                                                                                Prime
+                                                                            @elseif($toRenewAccount->service_type == 2)
+                                                                                AMS
+                                                                            @elseif($toRenewAccount->service_type == 3)
+                                                                                Prime Next
+                                                                            @endif
+                                                                        </td>
                                                                     <td>
                                                                         <a href="{{route('clientDematView',$toRenewAccount->id)}}" target="_blank" class='verifyDemate'>Generate Invoice</a><br/>
                                                                         <a href="{{route('clientDematTerminate',$toRenewAccount->id)}}" class='terminateDemate'>Terminate</a>

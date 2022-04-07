@@ -8,6 +8,7 @@ use App\Models\ClientDemat;
 use App\Models\Analyst;
 
 use App\Services\ClientServices;
+use App\Services\financeManagementServices\renewalStatusService;
 use App\Services\ProfessionServices;
 use App\Services\BankDetailsServices;
 use App\Services\BrokerServices;
@@ -57,7 +58,7 @@ class ClientController extends Controller
 	}
     // create client form
     public function createClientForm(){
-        $getLastSGNo = ClientDemat::select("serial_number")->where("st_sg", "SG")->orderBy("id", "DESC")->first();
+        $getLastSGNo = ClientDemat::select("serial_number")->orderBy("id", "DESC")->first();
 
 		if(!empty($getLastSGNo)) {
 			$newSGNo = $getLastSGNo->serial_number;
@@ -65,7 +66,7 @@ class ClientController extends Controller
 			$newSGNo = "000";
 		}
 
-		$getLastSTNo = ClientDemat::select("serial_number")->where("st_sg", "ST")->orderBy("id", "DESC")->first();
+		$getLastSTNo = ClientDemat::select("serial_number")->orderBy("id", "DESC")->first();
 
 		if(!empty($getLastSTNo)) {
 			$newSTNo = $getLastSTNo->serial_number;
@@ -902,10 +903,11 @@ class ClientController extends Controller
 	public function clientDematAccountStatus(){
 		$actives = ClientServices::active();
 		$demats = ClientDemateServices::active();
+        $preRenewAccounts = renewalStatusService::preRenewAccounts();
 		$toRenews = ClientDemateServices::toRenews();
 		$problemAccounts = ClientDemateServices::problemAccounts();
 		$allAccounts = ClientDemateServices::allAccounts();
-		
+
 		$terminatedAccounts = ClientDemateServices::terminatedAccounts();
 
 		$dematAccount = TraderServices::traderClientList(auth()->user()->id);
@@ -929,7 +931,7 @@ class ClientController extends Controller
 			}
 		}
 		$traders = User::wherein('id', $userIdArray)->get();
-		return view("clients.client-status", compact('analysts','keywords','traders','actives', 'demats', 'toRenews', 'problemAccounts', 'allAccounts', 'terminatedAccounts'));
+		return view("clients.client-status", compact('analysts','keywords','traders','actives', 'demats', 'toRenews', 'problemAccounts', 'allAccounts', 'terminatedAccounts','preRenewAccounts'));
 	}
 	public function viewDematProblem(Request $request){
 		$dematAccount = ClientServices::getDemat($request->id);
@@ -968,7 +970,7 @@ class ClientController extends Controller
 
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $section = $phpWord->addSection();
-	
+
         $section->addText("Sr No");
         $section->addText("Joining Date");
         $section->addText("End Date");

@@ -62,6 +62,7 @@
                     <form method="POST" action="{{route('clientDematupdatePL')}}">
                         @csrf
                         <input type='hidden' name='id' id="id" value='{{$demateDetails->id}}'>
+                        <input type='hidden' name='page_type' id="page_type" value='{{$type}}'>
                         <!--begin::Post-->
                         <div class="post d-flex flex-column-fluid" id="kt_post">
                             <!--begin::Container-->

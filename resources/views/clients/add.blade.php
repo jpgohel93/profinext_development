@@ -1428,25 +1428,16 @@
             $("[data-control='select2']").select2();
 			$(document).on("change","[name='st_sg[]']",function() {
 				var lastSGNo = parseInt("<?php echo $newSGNo;?>");
-				var lastSTNo = parseInt("<?php echo $newSTNo;?>");
 				var string = "000";
 
 				$("[name='st_sg[]']").each( function(index){
 					var vl = $(this).val();
 					if(vl != "") {
-						if(vl == "SG") {
-							lastSGNo = (parseInt(lastSGNo) + 1);
-							var len = lastSGNo.toString().length;
-							var prefix = string.substring(len);
-							var newNo = prefix+''+lastSGNo;
-							$("[name='serial_number[]']").eq(index).val(newNo);
-						} else {
-							lastSTNo = (parseInt(lastSTNo) + 1);
-							var len1 = lastSTNo.toString().length;
-							var prefix1 = string.substring(len1);
-							var newNo1 = prefix1+''+lastSTNo;
-							$("[name='serial_number[]']").eq(index).val(newNo1);
-						}
+                        lastSGNo = (parseInt(lastSGNo) + 1);
+						var len = lastSGNo.toString().length;
+						var prefix = string.substring(len);
+						var newNo = prefix+''+lastSGNo;
+						$("[name='serial_number[]']").eq(index).val(newNo);
 					}
 				});
 			});

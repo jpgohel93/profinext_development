@@ -273,6 +273,7 @@ Route::group(['middleware' => ['auth']], function() {
     // Finance Management
     Route::get("/financeManagement/renewal_status",[renewalStatusController::class,"view"])->name("renewal_status");
     Route::get("/financeManagement/clientDematView/{id?}",[renewalStatusController::class, "clientDematView"])->name("clientDematView");
+    Route::get("/financeManagement/clientDematDataView/{id}/{type}",[renewalStatusController::class, "clientDematView"])->name("clientDematDataView");
     Route::get("/financeManagement/clientDematTerminate/{id}",[renewalStatusController::class, "clientDematTerminate"])->name("clientDematTerminate");
     Route::POST("/financeManagement/clientDemat/updatePL",[renewalStatusController::class, "updatePL"])->name("clientDematupdatePL");
     Route::POST("/financeManagement/clientDemat/calculateAmount",[renewalStatusController::class, "calculateAmount"])->name("calculateAmount");
