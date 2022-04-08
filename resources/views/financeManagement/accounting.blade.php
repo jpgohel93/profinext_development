@@ -159,21 +159,6 @@
                                             <div class="card-title">
                                                 <!--begin::Search-->
                                                 <div class="d-flex align-items-center position-relative my-1">
-                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                                    {{-- <span class="svg-icon svg-icon-1 position-absolute ms-6">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                             viewBox="0 0 24 24" fill="none">
-                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                                  fill="black" />
-                                                            <path
-                                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                                                fill="black" />
-                                                        </svg>
-                                                    </span> --}}
-                                                    <!--end::Svg Icon-->
-                                                    {{-- <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Search user" /> --}}
-                                                    <!--end::Label-->
                                                     <div class="form-group">
                                                         <select class="form-select form-select-solid" multiple id="filterDropDown" style="width:100%" data-control="select2" data-placeholder="Select sub heading">
                                                             <option value="all" selected>All</option>
@@ -199,71 +184,75 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="allTable">
-                                                    @if (isset($all))
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Date</th>
-                                                                <th class="min-w-75px">Heading</th>
-                                                                <th class="min-w-75px">Sub Heading</th>
-                                                                <th class="min-w-75px">Particular</th>
-                                                                <th class="min-w-75px">Mode</th>
-                                                                <th class="min-w-75px">Amount</th>
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Date</th>
+                                                            <th class="min-w-75px">Heading</th>
+                                                            <th class="min-w-75px">Sub Heading</th>
+                                                            <th class="min-w-75px">Particular</th>
+                                                            <th class="min-w-75px">Mode</th>
+                                                            <th class="min-w-75px">Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold">
+                                                        @php
+                                                            $i=1;
+                                                        @endphp
+                                                        @forelse($incomeRecords as $incomeRecord)
+                                                            <tr>
+                                                                <td>{{$i++}}</td>
+                                                                <td data-sort="{{date("Ymdhis",strtotime($incomeRecord->created_at))}}">{{$incomeRecord->date}}</td>
+                                                                <td>Income</td>
+                                                                <td>{{$incomeRecord->sub_heading}}</td>
+                                                                <td>{{$incomeRecord->text_box}}</td>
+                                                                <td>{{($incomeRecord->mode==0)?"Cash":$incomeRecord->bank_name->title}}</td>
+                                                                <td style="color:#3cba54">{{$incomeRecord->amount}}</td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold">
-                                                            @php
-                                                                $i=1;
-                                                            @endphp
-                                                            @foreach($incomeRecords as $incomeRecord)
-                                                                <tr>
-                                                                    <td>{{sprintf("%04d",$i++)}}</td>
-                                                                    <td data-sort="{{date("Ymdhis",strtotime($incomeRecord->created_at))}}">{{$incomeRecord->date}}</td>
-                                                                    <td>Income</td>
-                                                                    <td>{{$incomeRecord->sub_heading}}</td>
-                                                                    <td>{{$incomeRecord->text_box}}</td>
-                                                                    <td>{{($incomeRecord->mode==0)?"Cash":$incomeRecord->bank_name->title}}</td>
-                                                                    <td style="color:#3cba54">{{$incomeRecord->amount}}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                            @foreach($expensRecords as $expense)
-                                                                <tr>
-                                                                    <td>{{sprintf("%04d",$i++)}}</td>
-                                                                    <td data-sort="{{date("Ymdhis",strtotime($expense->created_at))}}">{{$expense->date}}</td>
-                                                                    <td>Expense</td>
-                                                                    <td>{{$expense->sub_heading}}</td>
-                                                                    <td>{{$expense->text_box}}</td>
-                                                                    <td>{{($expense->mode==0)?"Cash":$expense->bank_name->title}}</td>
-                                                                    <td style="color:#db3236">{{$expense->amount}}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                            @foreach($transferRecords as $transfer)
-                                                                <tr>
-                                                                    <td>{{sprintf("%04d",$i++)}}</td>
-                                                                    <td data-sort="{{date("Ymdhis",strtotime($transfer->created_at))}}">{{$transfer->date}}</td>
-                                                                    <td>Transfer</td>
-                                                                    <td>{{$transfer->purpose}}</td>
-                                                                    <td>{{$transfer->narration}}</td>
-                                                                    <td>{{$transfer->from}}</td>
-                                                                    <td style="color:#4885ed">{{$transfer->amount}}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                            @foreach($loanRecords as $loan)
-                                                                <tr>
-                                                                    <td>{{sprintf("%04d",$loan->id)}}</td>
-                                                                    <td data-sort="{{date("Ymdhis",strtotime($loan->created_at))}}">{{$loan->date}}</td>
-                                                                    <td>Loan</td>
-                                                                    <td>{{$loan->sub_heading}}</td>
-                                                                    <td>{{$loan->narration}}</td>
-                                                                    <td>{{($loan->mode==0)?"Cash":$loan->bank_name->title}}</td>
-                                                                    <td style="color:#f4c20d">{{$loan->amount}}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    @else
-                                                        <h3>Records not available</h3>
-                                                    @endif
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                        @forelse($expensRecords as $expense)
+                                                            <tr>
+                                                                <td>{{$i++}}</td>
+                                                                <td data-sort="{{date("Ymdhis",strtotime($expense->created_at))}}">{{$expense->date}}</td>
+                                                                <td>Expense</td>
+                                                                <td>{{$expense->sub_heading}}</td>
+                                                                <td>{{$expense->text_box}}</td>
+                                                                <td>{{($expense->mode==0)?"Cash":$expense->bank_name->title}}</td>
+                                                                <td style="color:#db3236">{{$expense->amount}}</td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                        @forelse($transferRecords as $transfer)
+                                                            <tr>
+                                                                <td>{{$i++}}</td>
+                                                                <td data-sort="{{date("Ymdhis",strtotime($transfer->created_at))}}">{{$transfer->date}}</td>
+                                                                <td>Transfer</td>
+                                                                <td>{{$transfer->purpose}}</td>
+                                                                <td>{{$transfer->narration}}</td>
+                                                                <td>{{$transfer->from}}</td>
+                                                                <td style="color:#4885ed">{{$transfer->amount}}</td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                        @forelse($loanRecords as $loan)
+                                                            <tr>
+                                                                <td>{{$i++}}</td>
+                                                                <td data-sort="{{date("Ymdhis",strtotime($loan->created_at))}}">{{$loan->date}}</td>
+                                                                <td>Loan</td>
+                                                                <td>{{$loan->sub_heading}}</td>
+                                                                <td>{{$loan->narration}}</td>
+                                                                <td>{{($loan->mode==0)?"Cash":$loan->bank_name->title}}</td>
+                                                                <td style="color:#f4c20d">{{$loan->amount}}</td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
                                                 <!--end::Table body-->
                                                 </table>
                                             </div>
@@ -299,33 +288,31 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="incomeTable">
-                                                    @if (isset($incomeRecords))
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Date</th>
-                                                                <th class="min-w-75px">Sub Heading</th>
-                                                                <th class="min-w-75px">Client Name</th>
-                                                                <th class="min-w-75px">Mode</th>
-                                                                <th class="min-w-75px">Amount</th>
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Date</th>
+                                                            <th class="min-w-75px">Sub Heading</th>
+                                                            <th class="min-w-75px">Client Name</th>
+                                                            <th class="min-w-75px">Mode</th>
+                                                            <th class="min-w-75px">Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($incomeRecords as $incomeRecord)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$incomeRecord->date}}</td>
+                                                                <td>{{$incomeRecord->sub_heading}}</td>
+                                                                <td>{{$incomeRecord->text_box}}</td>
+                                                                <td>{{($incomeRecord->mode==0)?"Cash":$incomeRecord->bank_name->title}}</td>
+                                                                <td style="color:#3cba54">{{$incomeRecord->amount}}</td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                            @foreach($incomeRecords as $incomeRecord)
-                                                                <tr>
-                                                                    <td>{{sprintf("%04d",$incomeRecord->id)}}</td>
-                                                                    <td>{{$incomeRecord->date}}</td>
-                                                                    <td>{{$incomeRecord->sub_heading}}</td>
-                                                                    <td>{{$incomeRecord->text_box}}</td>
-                                                                    <td>{{($incomeRecord->mode==0)?"Cash":$incomeRecord->bank_name->title}}</td>
-                                                                    <td style="color:#3cba54">{{$incomeRecord->amount}}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    @else
-                                                        <h3>Records not available</h3>
-                                                    @endif
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
                                                 <!--end::Table body-->
                                                 </table>
                                             </div>
@@ -361,33 +348,31 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="expenseTable">
-                                                    @if (isset($expensRecords))
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Date</th>
-                                                                <th class="min-w-75px">Sub Heading</th>
-                                                                <th class="min-w-75px">Client Name</th>
-                                                                <th class="min-w-75px">Mode</th>
-                                                                <th class="min-w-75px">Amount</th>
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Date</th>
+                                                            <th class="min-w-75px">Sub Heading</th>
+                                                            <th class="min-w-75px">Client Name</th>
+                                                            <th class="min-w-75px">Mode</th>
+                                                            <th class="min-w-75px">Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold">
+                                                        @forelse($expensRecords as $expense)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$expense->date}}</td>
+                                                                <td>{{$expense->sub_heading}}</td>
+                                                                <td>{{$expense->text_box}}</td>
+                                                                <td>{{($expense->mode==0)?"Cash":$expense->bank_name->title}}</td>
+                                                                <td style="color:#db3236">{{$expense->amount}}</td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold">
-                                                            @foreach($expensRecords as $expense)
-                                                                <tr>
-                                                                    <td>{{sprintf("%04d",$expense->id)}}</td>
-                                                                    <td>{{$expense->date}}</td>
-                                                                    <td>{{$expense->sub_heading}}</td>
-                                                                    <td>{{$expense->text_box}}</td>
-                                                                    <td>{{($expense->mode==0)?"Cash":$expense->bank_name->title}}</td>
-                                                                    <td style="color:#db3236">{{$expense->amount}}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    @else
-                                                        <h3>Records not available</h3>
-                                                    @endif
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
                                                 <!--end::Table body-->
                                                 </table>
                                             </div>
@@ -423,35 +408,33 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="transferTable">
-                                                    @if (isset($transferRecords))
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Date</th>
-                                                                <th class="min-w-75px">From</th>
-                                                                <th class="min-w-75px">Purpose</th>
-                                                                <th class="min-w-75px">To</th>
-                                                                <th class="min-w-75px">Narration</th>
-                                                                <th class="min-w-75px">Amount</th>
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Date</th>
+                                                            <th class="min-w-75px">From</th>
+                                                            <th class="min-w-75px">Purpose</th>
+                                                            <th class="min-w-75px">To</th>
+                                                            <th class="min-w-75px">Narration</th>
+                                                            <th class="min-w-75px">Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold">
+                                                        @forelse($transferRecords as $transfer)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$transfer->date}}</td>
+                                                                <td>{{$transfer->from}}</td>
+                                                                <td>{{$transfer->purpose}}</td>
+                                                                <td>{{$transfer->to}}</td>
+                                                                <td>{{$transfer->narration}}</td>
+                                                                <td style="color:#4885ed">{{$transfer->amount}}</td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold">
-                                                            @foreach($transferRecords as $transfer)
-                                                                <tr>
-                                                                    <td>{{sprintf("%04d",$transfer->id)}}</td>
-                                                                    <td>{{$transfer->date}}</td>
-                                                                    <td>{{$transfer->from}}</td>
-                                                                    <td>{{$transfer->purpose}}</td>
-                                                                    <td>{{$transfer->to}}</td>
-                                                                    <td>{{$transfer->narration}}</td>
-                                                                    <td style="color:#4885ed">{{$transfer->amount}}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    @else
-                                                        <h3>Records not available</h3>
-                                                    @endif
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
                                                 <!--end::Table body-->
                                                 </table>
                                             </div>
@@ -486,42 +469,37 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                @if (isset($loanRecords))
-                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="loanTable">
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Date</th>
-                                                                <th class="min-w-75px">Sub Heading</th>
-                                                                <th class="min-w-75px">User</th>
-                                                                <th class="min-w-75px">Narration</th>
-                                                                <th class="min-w-75px">Mode</th>
-                                                                <th class="min-w-75px">Interest</th>
-                                                                <th class="min-w-75px">Amount</th>
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="loanTable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Date</th>
+                                                            <th class="min-w-75px">Sub Heading</th>
+                                                            <th class="min-w-75px">User</th>
+                                                            <th class="min-w-75px">Narration</th>
+                                                            <th class="min-w-75px">Mode</th>
+                                                            <th class="min-w-75px">Interest</th>
+                                                            <th class="min-w-75px">Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($loanRecords as $loan)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$loan->date}}</td>
+                                                                <td>{{$loan->sub_heading}}</td>
+                                                                <td>{{$loan->user_name->name}}</td>
+                                                                <td>{{$loan->narration}}</td>
+                                                                <td>{{($loan->mode==0)?"Cash":$loan->bank_name->title}}</td>
+                                                                <td>{{$loan->interest}}</td>
+                                                                <td style="color:#f4c20d">{{$loan->amount}}</td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                            @php
-                                                                $i=1;
-                                                            @endphp
-                                                            @foreach($loanRecords as $loan)
-                                                                <tr>
-                                                                    <td>{{sprintf("%04d",$loan->id)}}</td>
-                                                                    <td>{{$loan->date}}</td>
-                                                                    <td>{{$loan->sub_heading}}</td>
-                                                                    <td>{{$loan->user_name->name}}</td>
-                                                                    <td>{{$loan->narration}}</td>
-                                                                    <td>{{($loan->mode==0)?"Cash":$loan->bank_name->title}}</td>
-                                                                    <td>{{$loan->interest}}</td>
-                                                                    <td style="color:#f4c20d">{{$loan->amount}}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    </table>
-                                                @else
-                                                    <h3>Records not available</h3>
-                                                @endif
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
+                                                </table>
                                             <!--end::Table body-->
                                             </div>
                                             <!--end::Table-->

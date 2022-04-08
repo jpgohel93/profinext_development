@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\CommonService;
 use App\Services\financeManagementServices\financeManagementIncomesServices;
 use App\Services\financeManagementServices\financeManagementExpensesServices;
+use App\Services\ClientInvestmentServices;
 use PDF;
 class ClientServices
 {
     public static function create($request)
     {
-        $request->session()->put("password", $request->password);
         $client = $request->validate([
             "name"=>"required|alpha_spaces",
             "number"=>"required",
@@ -226,10 +226,22 @@ class ClientServices
                 ClientPayment::where("id", $demat_ids[$key]['payment'])->update(["demat_id" => $demat_ids[$key]['demat'], "client_id" => $client->id]);
             }
         }else{
+            // investment details
+            $ids = ClientInvestmentServices::create($request);
             // create client
             $client = Client::create($client);
+            if($client){
+                foreach ($ids as $id){
+                    // update client id
+                    ClientInvestmentServices::update(["client_id" => $client->id],$id);
+                }
+            }else{
+                foreach ($ids as $id) {
+                    // investment details
+                    ClientInvestmentServices::forceDelete($id);
+                }
+            }
         }
-
         return $client->id?$client->id: CommonService::throwError("Unable to create client");
     }
     public static function all(){

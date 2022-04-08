@@ -104,41 +104,36 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
-                                                    @if (isset($preRenewAccounts))
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Smart Id</th>
-                                                                <th class="min-w-75px">Joining Date</th>
-                                                                <th class="min-w-75px">Demat Holder Name</th>
-                                                                <th class="min-w-75px">Available Fund</th>
-                                                                <th class="min-w-75px">P / L</th>
-                                                                <th class="min-w-75px">Action</th>
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Smart Id</th>
+                                                            <th class="min-w-75px">Joining Date</th>
+                                                            <th class="min-w-75px">Demat Holder Name</th>
+                                                            <th class="min-w-75px">Available Fund</th>
+                                                            <th class="min-w-75px">P / L</th>
+                                                            <th class="min-w-75px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($preRenewAccounts as $preRenewAccount)
+                                                            <?php $joining_date = !empty($preRenewAccount->joining_date) && isset($preRenewAccount->joining_date) ? $preRenewAccount->joining_date : $preRenewAccount->created_at;?>
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$preRenewAccount->st_sg}}</td>
+                                                                <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
+                                                                <td>{{$preRenewAccount->holder_name}}</td>
+                                                                <td>{{$preRenewAccount->available_balance}}</td>
+                                                                <td>{{$preRenewAccount->pl}}</td>
+                                                                <td>
+                                                                    <a href="/financeManagement/clientDematDataView/{{$preRenewAccount->id}}/{{1}}" target="_blank" class='verifyDemate'>Verify</a>
+                                                                </td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                            @php
-                                                                $i=1;
-                                                            @endphp
-                                                            @foreach($preRenewAccounts as $preRenewAccount)
-                                                                <?php $joining_date = !empty($preRenewAccount->joining_date) && isset($preRenewAccount->joining_date) ? $preRenewAccount->joining_date : $preRenewAccount->created_at;?>
-                                                                <tr>
-                                                                    <td>{{$preRenewAccount->serial_number}}</td>
-                                                                    <td>{{$preRenewAccount->st_sg}}</td>
-                                                                    <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
-                                                                    <td>{{$preRenewAccount->holder_name}}</td>
-                                                                    <td>{{$preRenewAccount->available_balance}}</td>
-                                                                    <td>{{$preRenewAccount->pl}}</td>
-                                                                    <td>
-                                                                        <a href="/financeManagement/clientDematDataView/{{$preRenewAccount->id}}/{{1}}" target="_blank" class='verifyDemate'>Verify</a>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    @else
-                                                        <h3>No Clients Found</h3>
-                                                    @endif
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
                                                 <!--end::Table body-->
                                                 </table>
                                             </div>
@@ -156,69 +151,63 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                @if (isset($toRenewAccounts))
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Smart Id</th>
-                                                                <th class="min-w-75px">Joining Date</th>
-                                                                <th class="min-w-75px">Demat Holder Name</th>
-                                                                <th class="min-w-75px">Available Fund</th>
-                                                                <th class="min-w-75px">P / L</th>
-                                                                <th class="min-w-75px">Service Type</th>
-                                                                <th class="min-w-75px">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                            @php
-                                                                $i=1;
-                                                            @endphp
-                                                            @foreach($toRenewAccounts as $toRenewAccount)
-                                                                <?php $joining_date = !empty($toRenewAccount->joining_date) && isset($toRenewAccount->joining_date) ? $toRenewAccount->joining_date : $toRenewAccount->created_at;?>
-                                                                <tr>
-                                                                    <td>{{$toRenewAccount->serial_number}}</td>
-                                                                    <td>{{$toRenewAccount->st_sg}}</td>
-                                                                    <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
-                                                                    <td>{{$toRenewAccount->holder_name}}</td>
-                                                                    <td>{{$toRenewAccount->available_balance}}</td>
-                                                                    <td>{{$toRenewAccount->pl}}</td>
-                                                                    <td>
-                                                                            @if($toRenewAccount->service_type == 1)
-                                                                                Prime
-                                                                            @elseif($toRenewAccount->service_type == 2)
-                                                                                AMS
-                                                                            @elseif($toRenewAccount->service_type == 3)
-                                                                                Prime Next
-                                                                            @endif
-                                                                        </td>
-                                                                    <td>
-                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                            <span class="svg-icon svg-icon-5 m-0">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                                </svg>
-                                                                            </span>
-                                                                        </a>
-                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('clientDematView',$toRenewAccount->id)}}" target="_blank" class='menu-link px-3 verifyDemate'>Generate Invoice</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('clientDematTerminate',$toRenewAccount->id)}}" class='menu-link px-3 terminateDemate'>Terminate</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$toRenewAccount->id}}" class="menu-link px-3 viewImage">View image</a>
-                                                                            </div>
-                                                                        </div>
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Smart Id</th>
+                                                            <th class="min-w-75px">Joining Date</th>
+                                                            <th class="min-w-75px">Demat Holder Name</th>
+                                                            <th class="min-w-75px">Available Fund</th>
+                                                            <th class="min-w-75px">P / L</th>
+                                                            <th class="min-w-75px">Service Type</th>
+                                                            <th class="min-w-75px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($toRenewAccounts as $toRenewAccount)
+                                                            <?php $joining_date = !empty($toRenewAccount->joining_date) && isset($toRenewAccount->joining_date) ? $toRenewAccount->joining_date : $toRenewAccount->created_at;?>
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$toRenewAccount->st_sg}}</td>
+                                                                <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
+                                                                <td>{{$toRenewAccount->holder_name}}</td>
+                                                                <td>{{$toRenewAccount->available_balance}}</td>
+                                                                <td>{{$toRenewAccount->pl}}</td>
+                                                                <td>
+                                                                        @if($toRenewAccount->service_type == 1)
+                                                                            Prime
+                                                                        @elseif($toRenewAccount->service_type == 2)
+                                                                            AMS
+                                                                        @elseif($toRenewAccount->service_type == 3)
+                                                                            Prime Next
+                                                                        @endif
                                                                     </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    @else
-                                                        <h3>No Clients Found</h3>
-                                                    @endif
-                                                <!--end::Table body-->
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="{{route('clientDematView',$toRenewAccount->id)}}" target="_blank" class='menu-link px-3 verifyDemate'>Generate Invoice</a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="{{route('clientDematTerminate',$toRenewAccount->id)}}" class='menu-link px-3 terminateDemate'>Terminate</a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$toRenewAccount->id}}" class="menu-link px-3 viewImage">View image</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
                                                 </table>
                                             </div>
                                             <!--end::Table-->
@@ -234,52 +223,47 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
-                                                    @if (isset($newAccounts))
-                                                            <!--begin::Table head-->
-                                                            <thead>
-                                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                    <th class="min-w-10px">Sr No.</th>
-                                                                    <th class="min-w-75px">Smart Id</th>
-                                                                    <th class="min-w-75px">Joining Date</th>
-                                                                    <th class="min-w-75px">Demat Holder Name</th>
-                                                                    <th class="min-w-75px">Joining Capital</th>
-                                                                    <th class="min-w-75px">Available Fund</th>
-                                                                    <th class="min-w-75px">P / L</th>
-                                                                    <th class="min-w-75px">Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                                @php
-                                                                    $i=1;
-                                                                @endphp
-                                                                @foreach($newAccounts as $newAccount)
-                                                                    <?php $joining_date = !empty($newAccount->joining_date) && isset($newAccount->joining_date) ? $newAccount->joining_date : $newAccount->created_at;?>
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Smart Id</th>
+                                                            <th class="min-w-75px">Joining Date</th>
+                                                            <th class="min-w-75px">Demat Holder Name</th>
+                                                            <th class="min-w-75px">Joining Capital</th>
+                                                            <th class="min-w-75px">Available Fund</th>
+                                                            <th class="min-w-75px">P / L</th>
+                                                            <th class="min-w-75px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($newAccounts as $newAccount)
+                                                            <?php $joining_date = !empty($newAccount->joining_date) && isset($newAccount->joining_date) ? $newAccount->joining_date : $newAccount->created_at;?>
 
-                                                                    <tr>
-                                                                        <td>{{$newAccount->serial_number}}</td>
-                                                                        <td>{{$newAccount->st_sg}}</td>
-                                                                        <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
-                                                                        <td>{{$newAccount->holder_name}}</td>
-                                                                        <td>{{$newAccount->capital}}</td>
-                                                                        <td>{{$newAccount->available_balance}}</td>
-                                                                        <td>{{$newAccount->pl}}</td>
-                                                                        <td>
-                                                                            <a href="{{route('clientDematView',$newAccount->id)}}" target="_blank" class='newGenerateInvoice'>
-                                                                                <i class="fas fa-file text-primary fa-lg" data-id="{{$newAccount->id}}"></i>
-                                                                            </a>
-                                                                            <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
-                                                                                <i class="fas fa-exclamation-circle text-warning fa-lg" data-id="{{$newAccount->id}}"></i>
-                                                                            </a>
-                                                                            <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
-                                                                                <i class="fas fa-trash text-danger fa-lg" data-id="{{$newAccount->id}}"></i>
-                                                                            </a>
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        @else
-                                                            <h3>No Clients Found</h3>
-                                                        @endif
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$newAccount->st_sg}}</td>
+                                                                <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
+                                                                <td>{{$newAccount->holder_name}}</td>
+                                                                <td>{{$newAccount->capital}}</td>
+                                                                <td>{{$newAccount->available_balance}}</td>
+                                                                <td>{{$newAccount->pl}}</td>
+                                                                <td>
+                                                                    <a href="{{route('clientDematView',$newAccount->id)}}" target="_blank" class='newGenerateInvoice'>
+                                                                        <i class="fas fa-file text-primary fa-lg" data-id="{{$newAccount->id}}"></i>
+                                                                    </a>
+                                                                    <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
+                                                                        <i class="fas fa-exclamation-circle text-warning fa-lg" data-id="{{$newAccount->id}}"></i>
+                                                                    </a>
+                                                                    <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
+                                                                        <i class="fas fa-trash text-danger fa-lg" data-id="{{$newAccount->id}}"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
                                                 <!--end::Table body-->
                                                 </table>
                                             </div>
@@ -296,42 +280,37 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
-                                                    @if (isset($renewedAccounts))
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Smart Id</th>
-                                                                <th class="min-w-75px">Joining Date</th>
-                                                                <th class="min-w-75px">Demat Holder Name</th>
-                                                                <th class="min-w-75px">Available Fund</th>
-                                                                <th class="min-w-75px">P / L</th>
-                                                                <th class="min-w-75px">Action</th>
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Smart Id</th>
+                                                            <th class="min-w-75px">Joining Date</th>
+                                                            <th class="min-w-75px">Demat Holder Name</th>
+                                                            <th class="min-w-75px">Available Fund</th>
+                                                            <th class="min-w-75px">P / L</th>
+                                                            <th class="min-w-75px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($renewedAccounts as $renewedAccount)
+                                                            <?php $joining_date = !empty($renewedAccount->joining_date) && isset($renewedAccount->joining_date) ? $renewedAccount->joining_date : $renewedAccount->created_at;?>
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$renewedAccount->st_sg}}</td>
+                                                                <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
+                                                                <td>{{$renewedAccount->holder_name}}</td>
+                                                                <td>{{$renewedAccount->available_balance}}</td>
+                                                                <td>{{$renewedAccount->pl}}</td>
+                                                                <td>
+                                                                    <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>Edit</a><br/>
+                                                                    <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>View Invoice</a><br/>
+                                                                </td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                            @php
-                                                                $i=1;
-                                                            @endphp
-                                                            @foreach($renewedAccounts as $renewedAccount)
-                                                                <?php $joining_date = !empty($renewedAccount->joining_date) && isset($renewedAccount->joining_date) ? $renewedAccount->joining_date : $renewedAccount->created_at;?>
-                                                                <tr>
-                                                                    <td>{{$renewedAccount->serial_number}}</td>
-                                                                    <td>{{$renewedAccount->st_sg}}</td>
-                                                                    <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
-                                                                    <td>{{$renewedAccount->holder_name}}</td>
-                                                                    <td>{{$renewedAccount->available_balance}}</td>
-                                                                    <td>{{$renewedAccount->pl}}</td>
-                                                                    <td>
-                                                                        <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>Edit</a><br/>
-                                                                        <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>View Invoice</a><br/>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    @else
-                                                        <h3>No Clients Found</h3>
-                                                    @endif
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
                                                 <!--end::Table body-->
                                                 </table>
                                             </div>

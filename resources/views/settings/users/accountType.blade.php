@@ -42,7 +42,7 @@
                                 <tbody>
                                     @forelse ($types as $type)
                                         <tr>
-                                            <th scope="row">{{$type->id}}</th>
+                                            <th scope="row">{{$loop->iteration}}</th>
                                             <td>{{$type->account_type}}</td>
                                             <td>
                                                 <a href="javascript:void(0)">

@@ -490,38 +490,36 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        @if (isset($usersTab))
-                                            <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                <!--begin::Table head-->
-                                                <thead>
-                                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                        <th class="min-w-10px">Sr. No</th>
-                                                        <th class="min-w-75px">User Name</th>
-                                                        <th class="min-w-75px">User Type</th>
-                                                        <th class="min-w-75px">Earning</th>
-                                                        <th class="min-w-75px">Action</th>
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                            <!--begin::Table head-->
+                                            <thead>
+                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-10px">Sr. No</th>
+                                                    <th class="min-w-75px">User Name</th>
+                                                    <th class="min-w-75px">User Type</th>
+                                                    <th class="min-w-75px">Earning</th>
+                                                    <th class="min-w-75px">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-gray-600 fw-bold">
+                                                @forelse($usersTab as $user)
+                                                    <tr>
+                                                        <td>{{$loop->iteration)}}</td>
+                                                        <td>{{$user->name}}</td>
+                                                        <td>{{Config::get("constants.USERS_TYPE")[$user->user_type]}}</td>
+                                                        <td>0</td>
+                                                        <td>
+                                                            <a href="javascript:void(0)">
+                                                                <i class="fas fa-eye fa-lg" data-id="{{$user->id}}"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
-                                                </thead>
-                                                <tbody class="text-gray-600 fw-bold">
-                                                    @foreach($usersTab as $user)
-                                                        <tr>
-                                                            <td>{{sprintf("%04d",$user->id)}}</td>
-                                                            <td>{{$user->name}}</td>
-                                                            <td>{{Config::get("constants.USERS_TYPE")[$user->user_type]}}</td>
-                                                            <td>0</td>
-                                                            <td>
-                                                                <a href="javascript:void(0)">
-                                                                    <i class="fas fa-eye fa-lg" data-id="{{$user->id}}"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            <!--end::Table body-->
-                                            </table>
-                                        @else
-                                            <h3>Details not found</h3>
-                                        @endif
+                                                @empty
+                                                    {{-- empty --}}
+                                                @endforelse
+                                            </tbody>
+                                        <!--end::Table body-->
+                                        </table>
                                     </div>
                                     <!--end::Table-->
                                 </div>
@@ -621,20 +619,18 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        @if (isset($servicesTab))
-                                            <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                <!--begin::Table head-->
-                                                <thead>
-                                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                        <th class="min-w-75px">Service Type</th>
-                                                        <th class="min-w-75px">Clients</th>
-                                                        <th class="min-w-75px">Revenue</th>
-                                                        <th class="min-w-75px">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="text-gray-600 fw-bold">
-                                                    {{-- @foreach($servicesTab as $key => $service)
-                                                    @endforeach --}}
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                            <!--begin::Table head-->
+                                            <thead>
+                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-75px">Service Type</th>
+                                                    <th class="min-w-75px">Clients</th>
+                                                    <th class="min-w-75px">Revenue</th>
+                                                    <th class="min-w-75px">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-gray-600 fw-bold">
+                                                @if (isset($servicesTab))
                                                     <tr>
                                                         <td>Prime</td>
                                                         <td>{{$servicesTab['prime']}}</td>
@@ -655,12 +651,20 @@
                                                             </a>
                                                         </td>
                                                     </tr>
-                                                </tbody>
-                                            <!--end::Table body-->
-                                            </table>
-                                        @else
-                                            <h3>Details not found</h3>
-                                        @endif
+                                                    <tr>
+                                                        <td>Prime next</td>
+                                                        <td>{{$servicesTab['prime_next']}}</td>
+                                                        <td>0</td>
+                                                        <td>
+                                                            <a href="javascript:void(0)">
+                                                                <i class="fas fa-eye fa-lg"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            </tbody>
+                                        <!--end::Table body-->
+                                        </table>
                                     </div>
                                     <!--end::Table-->
                                 </div>
@@ -760,20 +764,18 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        @if (isset($servicesTab))
-                                            <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                <!--begin::Table head-->
-                                                <thead>
-                                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                        <th class="min-w-75px">Service Type</th>
-                                                        <th class="min-w-75px">Clients</th>
-                                                        <th class="min-w-75px">Revenue</th>
-                                                        <th class="min-w-75px">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="text-gray-600 fw-bold">
-                                                    {{-- @foreach($servicesTab as $key => $service)
-                                                    @endforeach --}}
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                            <!--begin::Table head-->
+                                            <thead>
+                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-75px">Service Type</th>
+                                                    <th class="min-w-75px">Clients</th>
+                                                    <th class="min-w-75px">Revenue</th>
+                                                    <th class="min-w-75px">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-gray-600 fw-bold">
+                                                @if (isset($servicesTab))
                                                     <tr>
                                                         <td>Prime</td>
                                                         <td>{{$servicesTab['prime']}}</td>
@@ -794,12 +796,20 @@
                                                             </a>
                                                         </td>
                                                     </tr>
-                                                </tbody>
-                                            <!--end::Table body-->
-                                            </table>
-                                        @else
-                                            <h3>Details not found</h3>
-                                        @endif
+                                                    <tr>
+                                                        <td>Prime next</td>
+                                                        <td>{{$servicesTab['prime_next']}}</td>
+                                                        <td>0</td>
+                                                        <td>
+                                                            <a href="javascript:void(0)">
+                                                                <i class="fas fa-eye fa-lg"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            </tbody>
+                                        <!--end::Table body-->
+                                        </table>
                                     </div>
                                     <!--end::Table-->
                                 </div>
@@ -899,20 +909,18 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        @if (isset($servicesTab))
-                                            <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                <!--begin::Table head-->
-                                                <thead>
-                                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                        <th class="min-w-75px">Service Type</th>
-                                                        <th class="min-w-75px">Clients</th>
-                                                        <th class="min-w-75px">Revenue</th>
-                                                        <th class="min-w-75px">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="text-gray-600 fw-bold">
-                                                    {{-- @foreach($servicesTab as $key => $service)
-                                                    @endforeach --}}
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                            <!--begin::Table head-->
+                                            <thead>
+                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-75px">Service Type</th>
+                                                    <th class="min-w-75px">Clients</th>
+                                                    <th class="min-w-75px">Revenue</th>
+                                                    <th class="min-w-75px">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-gray-600 fw-bold">
+                                                @if (isset($servicesTab))
                                                     <tr>
                                                         <td>Prime</td>
                                                         <td>{{$servicesTab['prime']}}</td>
@@ -933,12 +941,20 @@
                                                             </a>
                                                         </td>
                                                     </tr>
-                                                </tbody>
-                                            <!--end::Table body-->
-                                            </table>
-                                        @else
-                                            <h3>Details not found</h3>
-                                        @endif
+                                                    <tr>
+                                                        <td>Prime next</td>
+                                                        <td>{{$servicesTab['prime_next']}}</td>
+                                                        <td>0</td>
+                                                        <td>
+                                                            <a href="javascript:void(0)">
+                                                                <i class="fas fa-eye fa-lg"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            </tbody>
+                                        <!--end::Table body-->
+                                        </table>
                                     </div>
                                     <!--end::Table-->
                                 </div>

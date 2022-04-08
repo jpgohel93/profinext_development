@@ -92,67 +92,61 @@
                             </ul>
                             <!--end:::Tabs-->
                             <div class="tab-content">
-                                <div class="tab-pane fade show active" id="forIncome" aria-labelledby="active-tab"
-                                     role="tabpanel">
+                                <div class="tab-pane fade show active" id="forIncome" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                    @if (isset($forIncomes))
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr. No.</th>
-                                                                <th class="min-w-75px">Bank Title</th>
-                                                                <th class="min-w-75px">Available Balance</th>
-                                                                <th class="min-w-75px">Limit Utilize</th>
-                                                                <th class="min-w-75px">Action</th>
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr. No.</th>
+                                                            <th class="min-w-75px">Bank Title</th>
+                                                            <th class="min-w-75px">Available Balance</th>
+                                                            <th class="min-w-75px">Limit Utilize</th>
+                                                            <th class="min-w-75px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold">
+                                                        @forelse($forIncomes as $forIncome)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$forIncome->title}}</td>
+                                                                <td>{{$forIncome->available_balance}}</td>
+                                                                <td>{{$forIncome->limit_utilize}}</td>
+                                                                <td>
+                                                                    <a href="javascript:void(0)">
+                                                                        <i class="fas fa-eye fa-lg viewBankAccount" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="View More"></i>
+                                                                    </a>
+                                                                    <a href="javascript:void(0)">
+                                                                        <i class="fas fa-edit fa-lg setTarget" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Set Target"></i>
+                                                                    </a>
+                                                                    @if($forIncome->is_primary)
+                                                                        <a href="javascript:void(0)">
+                                                                            <i class="fas fa-close fa-lg makeAccountPrimary" id="currentPrimaryAccount" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Current primary account"></i>
+                                                                        </a>
+                                                                    @else
+                                                                        <a href="javascript:void(0)">
+                                                                            <i class="fas fa-check fa-lg makeAccountPrimary" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Make Account Primary"></i>
+                                                                        </a>
+                                                                    @endif
+                                                                    @if($forIncome->is_active)
+                                                                        <a href="javascript:void(0)">
+                                                                            <i class="fas fa-unlock fa-lg" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Deactivate this account"></i>
+                                                                        </a>
+                                                                    @else
+                                                                        <a href="javascript:void(0)">
+                                                                            <i class="fas fa-lock fa-lg" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Deactivated account"></i>
+                                                                        </a>
+                                                                    @endif
+                                                                </td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold">
-                                                            @php
-                                                                $i=1;
-                                                            @endphp
-                                                            @foreach($forIncomes as $forIncome)
-                                                                <tr>
-                                                                    <td>{{sprintf("%04d",$forIncome->id)}}</td>
-                                                                    <td>{{$forIncome->title}}</td>
-                                                                    <td>{{$forIncome->available_balance}}</td>
-                                                                    <td>{{$forIncome->limit_utilize}}</td>
-                                                                    <td>
-                                                                        <a href="javascript:void(0)">
-                                                                            <i class="fas fa-eye fa-lg viewBankAccount" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="View More"></i>
-                                                                        </a>
-                                                                        <a href="javascript:void(0)">
-                                                                            <i class="fas fa-edit fa-lg setTarget" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Set Target"></i>
-                                                                        </a>
-                                                                        @if($forIncome->is_primary)
-                                                                            <a href="javascript:void(0)">
-                                                                                <i class="fas fa-close fa-lg makeAccountPrimary" id="currentPrimaryAccount" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Current primary account"></i>
-                                                                            </a>
-                                                                        @else
-                                                                            <a href="javascript:void(0)">
-                                                                                <i class="fas fa-check fa-lg makeAccountPrimary" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Make Account Primary"></i>
-                                                                            </a>
-                                                                        @endif
-                                                                        @if($forIncome->is_active)
-                                                                            <a href="javascript:void(0)">
-                                                                                <i class="fas fa-unlock fa-lg" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Deactivate this account"></i>
-                                                                            </a>
-                                                                        @else
-                                                                            <a href="javascript:void(0)">
-                                                                                <i class="fas fa-lock fa-lg" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Deactivated account"></i>
-                                                                            </a>
-                                                                        @endif
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    @else
-                                                        <h3>Details not found</h3>
-                                                    @endif
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
                                                 <!--end::Table body-->
                                                 </table>
                                             </div>
@@ -169,47 +163,42 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                @if (isset($forSalaries))
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Bank Title</th>
-                                                                <th class="min-w-75px">Reserve Balance</th>
-                                                                <th class="min-w-75px">total Transactions</th>
-                                                                <th class="min-w-75px">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold">
-                                                            @php
-                                                                $i=1;
-                                                            @endphp
-                                                            @foreach($forSalaries as $forSalary)
-                                                                <tr>
-                                                                    <td>{{sprintf("%04d",$forSalary->id)}}</td>
-                                                                    <td>{{$forSalary->title}}</td>
-                                                                    <td>{{$forSalary->reserve_balance}}</td>
-                                                                    <td>0</td>
-                                                                    <td>
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Bank Title</th>
+                                                            <th class="min-w-75px">Reserve Balance</th>
+                                                            <th class="min-w-75px">total Transactions</th>
+                                                            <th class="min-w-75px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold">
+                                                        @forelse($forSalaries as $forSalary)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$forSalary->title}}</td>
+                                                                <td>{{$forSalary->reserve_balance}}</td>
+                                                                <td>0</td>
+                                                                <td>
+                                                                    <a href="javascript:void(0)">
+                                                                        <i class="fas fa-eye fa-lg viewBankAccount" data-id="{{$forSalary->id}}" data-bs-toggle="tooltip" title="View More"></i>
+                                                                    </a>
+                                                                    @if($forSalary->is_active)
                                                                         <a href="javascript:void(0)">
-                                                                            <i class="fas fa-eye fa-lg viewBankAccount" data-id="{{$forSalary->id}}" data-bs-toggle="tooltip" title="View More"></i>
+                                                                            <i class="fas fa-unlock fa-lg" data-id="{{$forSalary->id}}" data-bs-toggle="tooltip" title="Deactivate this account"></i>
                                                                         </a>
-                                                                        @if($forSalary->is_active)
-                                                                            <a href="javascript:void(0)">
-                                                                                <i class="fas fa-unlock fa-lg" data-id="{{$forSalary->id}}" data-bs-toggle="tooltip" title="Deactivate this account"></i>
-                                                                            </a>
-                                                                        @else
-                                                                            <a href="javascript:void(0)">
-                                                                                <i class="fas fa-lock fa-lg" data-id="{{$forSalary->id}}" data-bs-toggle="tooltip" title="Deactivated account"></i>
-                                                                            </a>
-                                                                        @endif
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    @else
-                                                        <h3>Details not found</h3>
-                                                    @endif
+                                                                    @else
+                                                                        <a href="javascript:void(0)">
+                                                                            <i class="fas fa-lock fa-lg" data-id="{{$forSalary->id}}" data-bs-toggle="tooltip" title="Deactivated account"></i>
+                                                                        </a>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
                                                 <!--end::Table body-->
                                                 </table>
                                             </div>

@@ -128,7 +128,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="preferred_table">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="preferred_table">
                                                     <!--begin::Table head-->
                                                         <thead>
 															<tr
@@ -175,7 +175,7 @@
 										
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="normal_acc_table">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="normal_acc_table">
 													<thead>
 													<tr
 														class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
@@ -211,7 +211,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="holding_table">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="holding_table">
 													<thead>
 														<tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
 															<th class="min-w-10px">Sr No.</th>
@@ -259,7 +259,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="all_table">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="all_table">
 													<thead>
 														<tr
 															class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
@@ -295,7 +295,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="trader_table">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="trader_table">
 													<thead>
 														<tr
 															class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
@@ -332,7 +332,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="freelancer_table">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="freelancer_table">
 													<thead>
 														<tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
 															<th class="min-w-10px">Sr No.</th>
@@ -368,7 +368,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="unallotted_table">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="unallotted_table">
 													<thead>
 														<tr
 															class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
@@ -738,7 +738,7 @@
 
     <script>
         window.addEventListener("DOMContentLoaded",function(){
-
+            // $(".datatable").DataTable();
             $(document).on("click",'.assignFreelancer',function(e){
                 const id = e.target.getAttribute("data-id");
                 const name = e.target.getAttribute("data-name");

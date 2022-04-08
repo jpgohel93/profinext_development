@@ -42,7 +42,7 @@
                                 <tbody>
                                     @forelse ($professions as $profession)
                                         <tr>
-                                            <th scope="row">{{$profession->id}}</th>
+                                            <th scope="row">{{$loop->iteration}}</th>
                                             <td>{{$profession->profession}}</td>
                                             <td>
                                                 <a href="javascript:void(0)">

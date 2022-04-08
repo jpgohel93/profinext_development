@@ -217,78 +217,73 @@
                                             <!--begin::Card body-->
                                             <div class="card-body pt-0">
                                                 <div class="table-responsive">
-                                                    @if ($traders->isNotEmpty())
-                                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                                            <!--begin::Table head-->
-                                                            <thead>
-                                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                    <th class="min-w-10px">Smart ID</th>
-                                                                    <th class="min-w-100px">Demat Name</th>
-                                                                    <th class="min-w-75px">User ID</th>
-                                                                    <th class="min-w-75px">Password</th>
-                                                                    <th class="min-w-75px">PIN</th>
-                                                                    <th class="min-w-75px">Qty</th>
-                                                                    <th class="text-end min-w-60px">Actions</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="text-gray-600 fw-bold">
-                                                                @php
-                                                                    $i=1;
-                                                                @endphp
-                                                                @foreach ($traders as $trader)
-                                                                    <tr>
-                                                                        <td>{{$i++}}</td>
-                                                                        <td class="d-flex align-items-center">
-                                                                            <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                                                <a href="#">
-                                                                                    <div class="symbol-label">
-                                                                                        <img src="{{asset('assets/media/avatars/150-1.jpg')}}" alt="Emma Smith" class="w-100" />
-                                                                                    </div>
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                                <th class="min-w-10px">Smart ID</th>
+                                                                <th class="min-w-100px">Demat Name</th>
+                                                                <th class="min-w-75px">User ID</th>
+                                                                <th class="min-w-75px">Password</th>
+                                                                <th class="min-w-75px">PIN</th>
+                                                                <th class="min-w-75px">Qty</th>
+                                                                <th class="text-end min-w-60px">Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold">
+                                                            @forelse ($traders as $trader)
+                                                                <tr>
+                                                                    <td>{{$loop->iteration}}</td>
+                                                                    <td class="d-flex align-items-center">
+                                                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                                                            <a href="#">
+                                                                                <div class="symbol-label">
+                                                                                    <img src="{{asset('assets/media/avatars/150-1.jpg')}}" alt="Emma Smith" class="w-100" />
+                                                                                </div>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="d-flex flex-column">
+                                                                            <a href="{{route('clientView',$trader->withClient->id)}}" class="text-gray-800 text-hover-primary mb-1">{{$trader->withClient->name}}</a>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>{{$trader->withClient->id}}</td>
+                                                                    <td>R Power</td>
+                                                                    <td>2314</td>
+                                                                    <td>2450</td>
+                                                                    <td class="text-end">
+                                                                        <div class="d-flex justify-content-end align-items-center">
+                                                                            <div class="menu-item">
+                                                                                <a href="#" class="menu-link btn btn-active-light-primary px-2" data-bs-toggle="modal" data-bs-target="#trading_modal"><i class="fa fa-eye"></i></a>
+                                                                            </div>
+                                                                            @can('trader-delete')
+                                                                                <div class="menu-item px-2">
+                                                                                    <a href="javascript:void(0);"  class="menu-link px-2" data-bs-toggle="modal" data-bs-target="#confirmDelete"><i class="fa fa-times not_active text-dark"></i></a>
+                                                                                </div>
+                                                                            @endcan
+                                                                            <div>
+                                                                                <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><i class="fa fa-ellipsis-v"></i>
                                                                                 </a>
-                                                                            </div>
-                                                                            <div class="d-flex flex-column">
-                                                                                <a href="{{route('clientView',$trader->withClient->id)}}" class="text-gray-800 text-hover-primary mb-1">{{$trader->withClient->name}}</a>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>{{$trader->withClient->id}}</td>
-                                                                        <td>R Power</td>
-                                                                        <td>2314</td>
-                                                                        <td>2450</td>
-                                                                        <td class="text-end">
-                                                                            <div class="d-flex justify-content-end align-items-center">
-                                                                                <div class="menu-item">
-                                                                                    <a href="#" class="menu-link btn btn-active-light-primary px-2" data-bs-toggle="modal" data-bs-target="#trading_modal"><i class="fa fa-eye"></i></a>
-                                                                                </div>
-                                                                                @can('trader-delete')
-                                                                                    <div class="menu-item px-2">
-                                                                                        <a href="javascript:void(0);"  class="menu-link px-2" data-bs-toggle="modal" data-bs-target="#confirmDelete"><i class="fa fa-times not_active text-dark"></i></a>
+                                                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                                    <div class="menu-item px-3">
+                                                                                        <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_holding">Add Holding</a>
                                                                                     </div>
-                                                                                @endcan
-                                                                                <div>
-                                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><i class="fa fa-ellipsis-v"></i>
-                                                                                    </a>
-                                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                                        <div class="menu-item px-3">
-                                                                                            <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_holding">Add Holding</a>
-                                                                                        </div>
-                                                                                        <div class="menu-item px-3">
-                                                                                            <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_quantity_modal">Add Qty</a>
-                                                                                        </div>
-                                                                                        <div class="menu-item px-3">
-                                                                                            <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#square-off-modal">Square Off</a>
-                                                                                        </div>
+                                                                                    <div class="menu-item px-3">
+                                                                                        <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#add_quantity_modal">Add Qty</a>
+                                                                                    </div>
+                                                                                    <div class="menu-item px-3">
+                                                                                        <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#square-off-modal">Square Off</a>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                            <!--end::Table body-->
-                                                        </table>
-                                                    @else
-                                                        <h1>No Active Traders</h1>
-                                                    @endif
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @empty
+                                                                {{-- empty --}}
+                                                            @endforelse
+                                                        </tbody>
+                                                        <!--end::Table body-->
+                                                    </table>
                                                 </div>
                                                 <!--end::Table-->
                                             </div>

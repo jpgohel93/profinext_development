@@ -104,10 +104,9 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        @if(isset($dematAccount))
-                                            <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                <!--begin::Table head-->
-                                                <thead>
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                            <!--begin::Table head-->
+                                            <thead>
                                                 <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                     <th class="min-w-10px">Sr No.</th>
                                                     <th class="min-w-10px">Serial Number</th>
@@ -117,59 +116,52 @@
                                                     <th class="min-w-75px">Broker</th>
                                                     <th class="text-end min-w-100px">Action</th>
                                                 </tr>
-                                                </thead>
-                                                <tbody class="text-gray-600 fw-bold">
-                                                    @can("client-demat-read")
-                                                        @php
-                                                            $i=1;
-                                                        @endphp
-                                                        @forelse ($dematAccount as $account)
-                                                            <tr>
-                                                                <td>{{$i++}}</td>
-                                                                <td> {{$account->st_sg."-".$account->serial_number}} </td>
-                                                                <td> {{$account->name}}</td>
-                                                                <td> {{$account->holder_name}}</td>
-                                                                <td>
-                                                                    @if($account->service_type == 1)
-                                                                        Prime
-                                                                    @elseif($account->service_type == 2)
-                                                                        AMS
-                                                                    @endif
-                                                                </td>
-                                                                <td> {{$account->broker}}</td>
-                                                                <td class="text-end">
-                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                        <span class="svg-icon svg-icon-5 m-0">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                            </svg>
-                                                                        </span>
-                                                                    </a>
-                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @can("client-demat-write")
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
-                                                                            </div>
-                                                                        @endcan
+                                            </thead>
+                                            <tbody class="text-gray-600 fw-bold">
+                                                @can("client-demat-read")
+                                                    @forelse ($dematAccount as $account)
+                                                        <tr>
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td> {{$account->st_sg."-".$account->serial_number}} </td>
+                                                            <td> {{$account->name}}</td>
+                                                            <td> {{$account->holder_name}}</td>
+                                                            <td>
+                                                                @if($account->service_type == 1)
+                                                                    Prime
+                                                                @elseif($account->service_type == 2)
+                                                                    AMS
+                                                                @elseif($account->service_type == 3)
+                                                                    Prime Next
+                                                                @endif
+                                                            </td>
+                                                            <td> {{$account->broker}}</td>
+                                                            <td class="text-end">
+                                                                <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                    <span class="svg-icon svg-icon-5 m-0">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                            <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                        </svg>
+                                                                    </span>
+                                                                </a>
+                                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                    @can("client-demat-write")
                                                                         <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
+                                                                            <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' class="menu-link px-3 editDematAccount">Edit</a>
                                                                         </div>
+                                                                    @endcan
+                                                                    <div class="menu-item px-3">
+                                                                        <a href="javascript:void(0)" data-id='{{$account->id}}' data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-service='{{$account->service_type}}' class="menu-link px-3 assignFreelancer">Assign Freelancer</a>
                                                                     </div>
-                                                                </td>
-                                                            </tr>
-                                                        @empty
-                                                            {{-- empty --}}
-                                                        @endforelse
-                                                    @else
-                                                        <h1>Unauthorised</h1>
-                                                    @endcan
-                                                <!--end::Table row-->
-                                                </tbody>
-                                                <!--end::Table body-->
-                                            </table>
-                                        @else
-                                            <h3>No Clients Found</h3>
-                                        @endif
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        {{-- empty --}}
+                                                    @endforelse
+                                                @else
+                                                    <h1>Unauthorised</h1>
+                                                @endcan
+                                        </table>
                                     </div>
                                     <!--end::Table-->
                                 </div>

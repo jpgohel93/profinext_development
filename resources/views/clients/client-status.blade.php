@@ -371,7 +371,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
                                                     <!--begin::Table head-->
                                                     <thead>
                                                         <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">

@@ -75,15 +75,15 @@
                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
                                     <!--begin::Table head-->
                                     <thead>
-                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                        <th class="min-w-10px">Sr No.</th>
-                                        <th class="min-w-75px">Joining Date</th>
-                                        <th class="min-w-75px">End Date</th>
-                                        <th class="min-w-75px">No. Days</th>
-                                        <th class="min-w-75px">Profit</th>
-                                        <th class="min-w-75px">Fees</th>
-                                        <th class="min-w-75px">Net Profit</th>
-                                    </tr>
+                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                            <th class="min-w-10px">Sr No.</th>
+                                            <th class="min-w-75px">Joining Date</th>
+                                            <th class="min-w-75px">End Date</th>
+                                            <th class="min-w-75px">No. Days</th>
+                                            <th class="min-w-75px">Profit</th>
+                                            <th class="min-w-75px">Fees</th>
+                                            <th class="min-w-75px">Net Profit</th>
+                                        </tr>
                                     </thead>
                                     <tbody class="text-gray-600 fw-bold">
                                         @can("client-demat-read")

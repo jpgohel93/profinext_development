@@ -111,7 +111,7 @@
                                                         @endcan
                                                     </tr>
                                                 @empty
-                                                    
+                                                    {{-- empty --}}
                                                 @endforelse
                                             </tbody>
                                         </table>

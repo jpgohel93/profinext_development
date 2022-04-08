@@ -95,44 +95,39 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                @if ($freelancerData['freelancer_ams']->isNotEmpty())
-                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr
-                                                                class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Freelancer Name</th>
-                                                                <th class="min-w-75px">Freelancer Email</th>
-                                                                <th class="text-end min-w-100px">View Clients</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                            @php
-                                                                $i=1;
-                                                            @endphp
-                                                            @foreach($freelancerData['freelancer_ams'] as $freelancer)
-                                                                <tr>
-                                                                    <td>{{$i++}}</td>
-                                                                    <td> {{$freelancer->name}} </td>
-                                                                    <td> {{$freelancer->email}}</td>
-                                                                    <td class="">
-                                                                        <div class="d-flex justify-content-center">
-                                                                            <div class="menu-item">
-                                                                                <a href="{{url('/freelancer/clients/'.$freelancer->id)}}" class="menu-link p-1" target="_blank">
-                                                                                    <i class="fa fa-eye text-dark fa-2x"></i>
-                                                                                </a>
-                                                                            </div>
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr
+                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Freelancer Name</th>
+                                                            <th class="min-w-75px">Freelancer Email</th>
+                                                            <th class="text-end min-w-100px">View Clients</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($freelancerData['freelancer_ams'] as $freelancer)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td> {{$freelancer->name}} </td>
+                                                                <td> {{$freelancer->email}}</td>
+                                                                <td class="">
+                                                                    <div class="d-flex justify-content-center">
+                                                                        <div class="menu-item">
+                                                                            <a href="{{url('/freelancer/clients/'.$freelancer->id)}}" class="menu-link p-1" target="_blank">
+                                                                                <i class="fa fa-eye text-dark fa-2x"></i>
+                                                                            </a>
                                                                         </div>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                        <!--end::Table body-->
-                                                    </table>
-                                                @else
-                                                    <h3>there's no AMS Freelancer.</h3>
-                                                @endif
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
+                                                    <!--end::Table body-->
+                                                </table>
                                             </div>
                                             <!--end::Table-->
                                         </div>
@@ -146,43 +141,38 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                @if ($freelancerData['freelancer_prime']->isNotEmpty())
-                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                        <thead>
-                                                            <tr
-                                                                class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Freelancer Name</th>
-                                                                <th class="min-w-75px">Freelancer Email</th>
-                                                                <th class="text-end min-w-100px">View Clients</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                            @php
-                                                                $i=1;
-                                                            @endphp
-                                                            @foreach($freelancerData['freelancer_prime'] as $freelancer)
-                                                                <tr>
-                                                                    <td>{{$i++}}</td>
-                                                                    <td> {{$freelancer->name}} </td>
-                                                                    <td> {{$freelancer->email}}</td>
-                                                                    <td class="">
-                                                                        <div class="d-flex justify-content-center">
-                                                                            <div class="menu-item">
-                                                                                <a href="{{url('/freelancer/clients/'.$freelancer->id)}}" class="menu-link p-1" target="_blank">
-                                                                                    <i class="fa fa-eye text-dark fa-2x"></i>
-                                                                                </a>
-                                                                            </div>
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <thead>
+                                                        <tr
+                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Freelancer Name</th>
+                                                            <th class="min-w-75px">Freelancer Email</th>
+                                                            <th class="text-end min-w-100px">View Clients</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($freelancerData['freelancer_prime'] as $freelancer)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td> {{$freelancer->name}} </td>
+                                                                <td> {{$freelancer->email}}</td>
+                                                                <td class="">
+                                                                    <div class="d-flex justify-content-center">
+                                                                        <div class="menu-item">
+                                                                            <a href="{{url('/freelancer/clients/'.$freelancer->id)}}" class="menu-link p-1" target="_blank">
+                                                                                <i class="fa fa-eye text-dark fa-2x"></i>
+                                                                            </a>
                                                                         </div>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    <!--end::Table body-->
-                                                    </table>
-                                                @else
-                                                    <h3>there's no Prime Freelancer.</h3>
-                                                @endif
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
+                                                <!--end::Table body-->
+                                                </table>
                                             </div>
                                             <!--end::Table-->
                                         </div>

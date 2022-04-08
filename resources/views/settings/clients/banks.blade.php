@@ -42,7 +42,7 @@
                                 <tbody>
                                     @forelse ($banks as $bank)
                                         <tr>
-                                            <th scope="row">{{$bank->id}}</th>
+                                            <th scope="row">{{$loop->iteration}}</th>
                                             <td>{{$bank->bank}}</td>
                                             <td>
                                                 <a href="javascript:void(0)">
@@ -54,7 +54,7 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        {{-- <h3>No bank Added. Click <a href="">here</a> to add</h3> --}}
+                                        {{-- empty --}}
                                     @endforelse
                                 </tbody>
                             </table>

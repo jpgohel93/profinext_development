@@ -83,9 +83,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                @php
-                                                    $i=1;
-                                                @endphp
                                                 @forelse($holding as $account)
                                                     @php
                                                         $datetime1 = strtotime($account->created_at);
@@ -93,7 +90,7 @@
                                                         $days = (int)(($datetime2 - $datetime1)/86400);
                                                     @endphp
                                                     <tr>
-                                                        <td>{{$i++}}</td>
+                                                        <td>{{$loop->iteration}}</td>
                                                         <td> {{$account->st_sg."-".$account->serial_number}} </td>
                                                         <td> {{$account->holder_name}}</td>
                                                         <td> {{$account->broker}}</td>

@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ClientInvestmentModel extends Model
+{
+    use HasFactory;
+    protected $table = "client_investments";
+    protected $fillable = [
+        "client_id",
+        "amc",
+        "fund",
+        "investment_type",
+        "time_frame",
+        "amount",
+        "created_by",
+        "updated_by",
+        "deleted_by",
+    ];
+}

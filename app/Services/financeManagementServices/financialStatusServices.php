@@ -48,8 +48,8 @@ class financialStatusServices
         $services = array();
         // $services['prime'] = ClientDemat::distinct("client_id")->where("service_type",1)->count();
         $services['prime'] = ClientDemat::leftJoin("clients", "client_demat.client_id", "=", "clients.id")->where("clients.created_by", auth()->user()->id)->select("client_demat.serial_number", "client_demat.service_type", "client_demat.client_id", "clients.name")->groupBy("client_demat.service_type", "client_demat.client_id")->where("client_demat.service_type", 1)->get()->count();
-
         $services['ams'] = ClientDemat::leftJoin("clients", "client_demat.client_id", "=", "clients.id")->where("clients.created_by", auth()->user()->id)->select("client_demat.serial_number", "client_demat.service_type", "client_demat.client_id", "clients.name")->groupBy("client_demat.service_type", "client_demat.client_id")->where("client_demat.service_type", 2)->get()->count();
+        $services['prime_next'] = ClientDemat::leftJoin("clients", "client_demat.client_id", "=", "clients.id")->where("clients.created_by", auth()->user()->id)->select("client_demat.serial_number", "client_demat.service_type", "client_demat.client_id", "clients.name")->groupBy("client_demat.service_type", "client_demat.client_id")->where("client_demat.service_type", 3)->get()->count();
         return $services;
     }
     public static function viewMoreSt()

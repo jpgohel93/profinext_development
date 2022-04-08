@@ -97,7 +97,7 @@
                                                         <td> {{$client->broker}}</td>
                                                     </tr>
                                                 @empty
-                                                    
+                                                    {{-- empty --}}
                                                 @endforelse
                                             <!--end::Table row-->
                                             </tbody>

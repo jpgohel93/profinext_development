@@ -90,12 +90,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold">
-                                                @php
-                                                    $i=1;
-                                                @endphp
                                                 @forelse ($traders as $trader)
                                                     <tr>
-                                                        <td>{{$i++}}</td>
+                                                        <td>{{$loop->iteration}}</td>
                                                         <td> {{$trader->name}} </td>
                                                         <td> {{$trader->email}}</td>
                                                         <td class="">

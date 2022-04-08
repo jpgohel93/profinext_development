@@ -45,9 +45,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($serviceTypes as $index => $serviceType)
+                                    @forelse ($serviceTypes as $serviceType)
                                         <tr>
-                                            <td scope="row">{{$index+1}}</td>
+                                            <td scope="row">{{$loop->iteration}}</td>
                                             <td>{{$serviceType->name}}</td>
                                             <td>{{$serviceType->renewal_amount}}</td>
                                             <td>{{$serviceType->cutoff}}</td>

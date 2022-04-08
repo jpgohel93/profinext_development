@@ -81,54 +81,47 @@
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
                                         @can("monitor-data-read")
-                                            @if(isset($users))
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                    <!--begin::Table head-->
-                                                    <thead>
-                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                            <th class="min-w-10px">Sr No.</th>
-                                                            <th class="min-w-75px">Monitor Name</th>
-                                                            <th class="min-w-75px">Total Analyst</th>
-                                                            @can("monitor-data-write")
+                                            <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                <!--begin::Table head-->
+                                                <thead>
+                                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                        <th class="min-w-10px">Sr No.</th>
+                                                        <th class="min-w-75px">Monitor Name</th>
+                                                        <th class="min-w-75px">Total Analyst</th>
+                                                        @can("monitor-data-write")
                                                             <th class="min-w-75px">Action</th>
+                                                        @endcan
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="text-gray-600 fw-bold">
+                                                    @forelse ($users as $user)
+                                                        <tr>
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td class="d-flex align-items-center">
+                                                                <div class="d-flex flex-column">
+                                                                    <a href="#" target="_blank" class="text-gray-800 text-hover-primary mb-1">{{$user->name}}</a>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                {{$user->total_analyst}}
+                                                            </td>
+                                                            @can("monitor-data-write")
+                                                            <td>
+                                                                <div class="d-flex justify-content-center">
+                                                                    <div class="menu-item">
+                                                                        <a href="{{url('monitor_analysts/'.$user->id)}}" class="menu-link p-1" target="_blank">
+                                                                            <i class="fa fa-edit text-dark fa-2x"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                             @endcan
                                                         </tr>
-                                                    </thead>
-                                                    <tbody class="text-gray-600 fw-bold">
-                                                        @php
-                                                            $i=1;
-                                                        @endphp
-                                                        @forelse ($users as $user)
-                                                            <tr>
-                                                                <td>{{$i++}}</td>
-                                                                <td class="d-flex align-items-center">
-                                                                    <div class="d-flex flex-column">
-                                                                        <a href="#" target="_blank" class="text-gray-800 text-hover-primary mb-1">{{$user->name}}</a>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    {{$user->total_analyst}}
-                                                                </td>
-                                                                @can("monitor-data-write")
-                                                                <td>
-                                                                    <div class="d-flex justify-content-center">
-                                                                        <div class="menu-item">
-                                                                            <a href="{{url('monitor_analysts/'.$user->id)}}" class="menu-link p-1" target="_blank">
-                                                                                <i class="fa fa-edit text-dark fa-2x"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                @endcan
-                                                            </tr>
-                                                        @empty
-                                                            {{-- empty --}}
-                                                        @endforelse
-                                                    </tbody>
-                                                </table>
-                                            @else
-                                                <h3>No Monitor Found</h3>
-                                            @endif
+                                                    @empty
+                                                        {{-- empty --}}
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
                                         @else
                                             <h1>Unauthorised</h1>
                                         @endcan

@@ -190,6 +190,159 @@
                                                     <!--end::Input group-->
                                                 </div>
                                             </div>
+                                            <div id="mutualFundDiv">
+                                                <button type="button" class="btn btn-primary" id="mutualFundAddMore" style="float:right">Add more</button>
+                                                <div class="stepper-label mt-0" style="margin-top:30px;margin-bottom:20px;">
+                                                    <h3 class="stepper-title text-primary">Investment Details</h3>
+                                                </div>
+                                                <div class="row">
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">AMC</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="amc[1]" placeholder="" />
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Fund</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="fund[1]" placeholder="" />
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+                                                <div class="row">
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Amount</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="amount[1]" placeholder="" />
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Investment Type</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <select name="investmentType[1]" id="investmentType" class="form-select form-select-solid" data-control="select2">
+                                                            <option value="" selected>Select option</option>
+                                                            <option value="sip">SIP</option>
+                                                            <option value="lump sum">Lump sum</option>
+                                                        </select>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                     <div class="col-md-6 mb-4 sipTimeFrame" id="sipTimeFrame" style="display:none">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span class="required">Time Frame</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <select name="sipTimeFrame[1]" class="form-select form-select-solid" data-control="select2">
+                                                            <option value="monthly">Monthly</option>
+                                                            <option value="quarterly">Quarterly</option>
+                                                            <option value="half yearly">Half Yearly</option>
+                                                            <option value="yearly">Yearly</option>                                                            
+                                                        </select>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                </div>
+                                                <div id="mutualFundDivAppend"></div>
+                                                <div id="mutualFundDivClone" class="mutualFundDivClone" style="display:none">
+                                                    <button type="button" class="btn btn-light removeMutualFundDiv" style="float:right">Remove</button>
+                                                    <div class="stepper-label mt-0" style="margin-top:30px;margin-bottom:20px;">
+                                                        <h3 class="stepper-title text-primary">Investment Details <span class="divCounter"></span></h3>
+                                                    </div>
+                                                    <div class="row">
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">AMC</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" data-name="amc" placeholder="" />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Fund</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" data-name="fund" placeholder=""  />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <div class="row">
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Amount</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" data-name="amount" placeholder=""  />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 mb-4">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Investment Type</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <select data-name="investmentType" class="form-select form-select-solid" data-control="select2">
+                                                                <option value="" selected>Select option</option>
+                                                                <option value="sip">SIP</option>
+                                                                <option value="lump sum">Lump sum</option>
+                                                            </select>
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <div class="col-md-6 mb-4 sipTimeFrame" style="display:none">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span class="required">Time Frame</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <select data-name="sipTimeFrame" class="form-select form-select-solid" data-control="select2">
+                                                                <option value="monthly">Monthly</option>
+                                                                <option value="quarterly">Quarterly</option>
+                                                                <option value="half yearly">Half Yearly</option>
+                                                                <option value="yearly">Yearly</option>
+                                                            </select>
+                                                            <!--end::Input-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div id="accountHandlingDetail">
@@ -197,20 +350,24 @@
                                             $main = array();
                                             if(null !== session("_old_input")){
                                                 $i=0;
-                                                foreach(session("_old_input") as $k => $v){
-                                                    if(is_array($v)){
-                                                        $data = array();
-                                                        $index=0;
-                                                        foreach(session("_old_input") as $k2 => $v2){
-                                                            if(is_array($v2) && isset(session("_old_input")[$k][$i])){
-                                                                $data[$k2]= $v2[$i];
+                                                if(old("client_type")==2){
+                                                    
+                                                }else{
+                                                    foreach(session("_old_input") as $k => $v){
+                                                        if(is_array($v)){
+                                                            $data = array();
+                                                            $index=0;
+                                                            foreach(session("_old_input") as $k2 => $v2){
+                                                                if(is_array($v2) && isset(session("_old_input")[$k][$i])){
+                                                                    $data[$k2]= $v2[$i];
+                                                                }
                                                             }
+                                                            $index++;
+                                                            if(!empty($data)){
+                                                                $main[$i]=$data;
+                                                            }
+                                                            $i++;
                                                         }
-                                                        $index++;
-                                                        if(!empty($data)){
-                                                            $main[$i]=$data;
-                                                        }
-                                                        $i++;
                                                     }
                                                 }
                                             }
@@ -1501,8 +1658,7 @@
 				myFunction(self);
 			});
 
-			function myFunction(self)
-			{
+			function myFunction(self){
 				if (self.is(":checked")) {
 					self.closest('.payment_details').find('.joining_date').show();
 					$(self).closest('.payment_details').find('[name="mode[]"][type="hidden"]').val(2);
@@ -1562,27 +1718,58 @@
 					$("#submitSmsButton").show();
 					$("#channelPartnerDiv").show();
 					$("#addMoreDiv").show();
+					$("#mutualFundDiv").hide();
 				}else if(selectVal == "2"){
 					$("#personalDetail").show();
+                    $("#mutualFundDiv").show();
 					$("#accountHandlingDetail").hide();
 					$("#channelPartnerDiv").hide();
 					$("#submitSmsButton").show();
                     $("#addMoreDiv").hide();
 				}else if(selectVal == "3"){
 					$("#personalDetail").show();
+                    $("#mutualFundDiv").hide();
 					$("#accountHandlingDetail").hide();
 					$("#submitSmsButton").show();
 					$("#channelPartnerDiv").hide();
 					$("#addMoreDiv").hide();
 				}else if(selectVal == "4"){
                     $("#personalDetail").show();
+                    $("#mutualFundDiv").hide();
 					$("#accountHandlingDetail").hide();
 					$("#submitSmsButton").show();
 					$("#channelPartnerDiv").hide();
 					$("#addMoreDiv").hide();
+                }else{
+                    $("#mutualFundDiv").hide();
                 }
 			});
             $("#client_type").trigger("change");
+            $(document).on("change","[name*='investmentType']",function(e){
+                const val = e.target.value;
+                if(val=="sip"){
+                    $(e.target).parent(".col-md-6").next(".sipTimeFrame").show();
+                }else{
+                    $(e.target).parent(".col-md-6").next(".sipTimeFrame").hide();
+                }
+            })
+            // add more for mutual fund Investment
+            $("#mutualFundAddMore").on("click",function(e){
+                $("[data-control='select2']").select2("destroy");
+                let clone = $("#mutualFundDivClone").clone();
+                $("#mutualFundDivAppend").append(clone);
+                let count = $("#mutualFundDivAppend").children().length+1;
+                let elem = $("#mutualFundDivAppend").children().last()[0];
+                $(elem).find(".divCounter").text(count);
+                $.each($(elem).find("[data-name]"),(i,v)=>{
+                    $(v).attr("name",$(v).data("name")+"["+count+"]");
+                })
+                $("[data-control='select2']").select2();
+                $("#mutualFundDivAppend").children().last().show();
+            })
+            $(document).on("click",".removeMutualFundDiv",function(e){
+                $(e.target).closest('.mutualFundDivClone').remove();
+            })
         })
     </script>
     @section('jscript')
