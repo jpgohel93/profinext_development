@@ -120,12 +120,9 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        @php
-                                                            $i=1;
-                                                        @endphp
                                                         @forelse($channelPartnerClient['ams'] as $client)
                                                             <tr>
-                                                                <td>{{$i++}}</td>
+                                                                <td>{{$loop->iteration}}</td>
                                                                 <td class="d-flex align-items-center">
                                                                     {{$client->name}}
                                                                 </td>
@@ -166,12 +163,9 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        @php
-                                                            $i=1;
-                                                        @endphp
                                                         @forelse($channelPartnerClient['prime'] as $client)
                                                             <tr>
-                                                                <td>{{$i++}}</td>
+                                                                <td>{{$loop->iteration}}</td>
                                                                 <td class="d-flex align-items-center">
                                                                     {{$client->name}}
                                                                 </td>

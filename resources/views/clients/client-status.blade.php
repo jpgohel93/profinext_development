@@ -148,41 +148,39 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                @if (isset($actives))
-                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="clientsTable">
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Client Name</th>
-                                                                <th class="min-w-75px">Contact No</th>
-                                                                <th class="min-w-75px">No. of Demat</th>
-                                                                <th class="min-w-75px">Action</th>
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="clientsTable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Client Name</th>
+                                                            <th class="min-w-75px">Contact No</th>
+                                                            <th class="min-w-75px">No. of Demat</th>
+                                                            <th class="min-w-75px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="clientsBody">
+                                                        @forelse($actives as $active)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$active->name}}</td>
+                                                                <td>{{$active->number}}</td>
+                                                                <td>{{$active->clientDemat->count()}}</td>
+                                                                <td>
+                                                                    <a href="javascript:void(0)" data-id="{{$active->id}}" class='viewClient'>
+                                                                        view
+                                                                    </a>
+                                                                    <a href="{{route('viewLedger',$active->id)}}" target="_blank" class="menu-link px-3">
+                                                                        Ledger
+                                                                    </a>
+                                                                </td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="clientsBody">
-                                                            @foreach($actives as $active)
-                                                                <tr>
-                                                                    <td>{{sprintf("%04d",$active->id)}}</td>
-                                                                    <td>{{$active->name}}</td>
-                                                                    <td>{{$active->number}}</td>
-                                                                    <td>{{$active->clientDemat->count()}}</td>
-                                                                    <td>
-                                                                        <a href="javascript:void(0)" data-id="{{$active->id}}" class='viewClient'>
-                                                                            view
-                                                                        </a>
-                                                                        <a href="{{route('viewLedger',$active->id)}}" target="_blank" class="menu-link px-3">
-                                                                            Ledger
-                                                                        </a>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    <!--end::Table body-->
-                                                    </table>
-                                                @else
-                                                    <h3>No Clients Found</h3>
-                                                @endif
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
+                                                <!--end::Table body-->
+                                                </table>
                                             </div>
                                             <!--end::Table-->
                                         </div>
@@ -196,67 +194,65 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                @if (isset($demats))
-                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Smart Id</th>
-                                                                <th class="min-w-75px">Holder Name</th>
-                                                                <th class="min-w-75px">Available Fund</th>
-                                                                <th class="min-w-75px">Profit / Loss</th>
-                                                                <th class="min-w-75px">Days of Joining</th>
-                                                                <th class="min-w-75px">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                            @foreach($demats as $demat)
-                                                                <?php $joining_date = !empty($demat->joining_date) && isset($demat->joining_date) ? $demat->joining_date : $demat->created_at;?>
-                                                                <tr>
-                                                                    <td>{{$demat->serial_number}}</td>
-                                                                    <td>{{$demat->st_sg}}</td>
-                                                                    <td>{{$demat->holder_name}}</td>
-                                                                    <td>{{$demat->available_balance}}</td>
-                                                                    <td>{{$demat->pl}}</td>
-                                                                    <td>{{round((time() - strtotime($joining_date)) / (60 * 60 * 24))}}</td>
-                                                                    <td>
-                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                            <span class="svg-icon svg-icon-5 m-0">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                                </svg>
-                                                                            </span>
-                                                                        </a>
-                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$demat->id}}" data-name="{{isset($demat->withClient->name)?$demat->withClient->name:""}}" data-holder="{{$demat->holder_name}}" class="menu-link px-3 editDematAccount">Update Status</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$demat->id}}" data-name="{{isset($demat->withClient->name)?$demat->withClient->name:""}}" data-holder="{{$demat->holder_name}}" class="menu-link px-3 holdingDematAccount">Add Holding</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$demat->id}}" data-value="renew" class="menu-link px-3 changeStatus">Send for Renewal</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$demat->id}}" class="menu-link px-3 markAsProblem">Mark as Problem</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('clientDematTerminate',$demat->id)}}" class='menu-link px-3 terminateDemat'>Terminate</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$demat->id}}" class="menu-link px-3 loginInfo">View Log in Info</a>
-                                                                            </div>
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Smart Id</th>
+                                                            <th class="min-w-75px">Holder Name</th>
+                                                            <th class="min-w-75px">Available Fund</th>
+                                                            <th class="min-w-75px">Profit / Loss</th>
+                                                            <th class="min-w-75px">Days of Joining</th>
+                                                            <th class="min-w-75px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($demats as $demat)
+                                                            <?php $joining_date = !empty($demat->joining_date) && isset($demat->joining_date) ? $demat->joining_date : $demat->created_at;?>
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$demat->st_sg}}</td>
+                                                                <td>{{$demat->holder_name}}</td>
+                                                                <td>{{$demat->available_balance}}</td>
+                                                                <td>{{$demat->pl}}</td>
+                                                                <td>{{round((time() - strtotime($joining_date)) / (60 * 60 * 24))}}</td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$demat->id}}" data-name="{{isset($demat->withClient->name)?$demat->withClient->name:""}}" data-holder="{{$demat->holder_name}}" class="menu-link px-3 editDematAccount">Update Status</a>
                                                                         </div>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    <!--end::Table body-->
-                                                    </table>
-                                                @else
-                                                    <h3>No Clients Found</h3>
-                                                @endif
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$demat->id}}" data-name="{{isset($demat->withClient->name)?$demat->withClient->name:""}}" data-holder="{{$demat->holder_name}}" class="menu-link px-3 holdingDematAccount">Add Holding</a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$demat->id}}" data-value="renew" class="menu-link px-3 changeStatus">Send for Renewal</a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$demat->id}}" class="menu-link px-3 markAsProblem">Mark as Problem</a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="{{route('clientDematTerminate',$demat->id)}}" class='menu-link px-3 terminateDemat'>Terminate</a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$demat->id}}" class="menu-link px-3 loginInfo">View Log in Info</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
+                                                <!--end::Table body-->
+                                                </table>
                                             </div>
                                             <!--end::Table-->
                                         </div>
@@ -270,10 +266,8 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
-                                                @if (isset($preRenewAccounts))
-                                                    <!--begin::Table head-->
-                                                        <thead>
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <thead>
                                                         <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Sr No.</th>
                                                             <th class="min-w-75px">Smart Id</th>
@@ -285,13 +279,10 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        @php
-                                                            $i=1;
-                                                        @endphp
-                                                        @foreach($preRenewAccounts as $preRenewAccount)
+                                                        @forelse($preRenewAccounts as $preRenewAccount)
                                                             <?php $joining_date = !empty($preRenewAccount->joining_date) && isset($preRenewAccount->joining_date) ? $preRenewAccount->joining_date : $preRenewAccount->created_at;?>
                                                             <tr>
-                                                                <td>{{$preRenewAccount->serial_number}}</td>
+                                                                <td>{{$loop->iteration}}</td>
                                                                 <td>{{$preRenewAccount->st_sg}}</td>
                                                                 <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
                                                                 <td>{{$preRenewAccount->holder_name}}</td>
@@ -301,12 +292,10 @@
                                                                     <a href="/financeManagement/clientDematDataView/{{$preRenewAccount->id}}/{{2}}" target="_blank" class='verifyDemate'>Verify</a>
                                                                 </td>
                                                             </tr>
-                                                        @endforeach
-                                                        </tbody>
-                                                    @else
-                                                        <h3>No Clients Found</h3>
-                                                @endif
-                                                <!--end::Table body-->
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
                                                 </table>
                                             </div>
                                             <!--end::Table-->
@@ -321,56 +310,54 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                @if (isset($toRenews))
-                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Client Name</th>
-                                                                <th class="min-w-75px">Contact No</th>
-                                                                <th class="min-w-75px">Demat Name</th>
-                                                                <th class="min-w-75px">Available Fund</th>
-                                                                <th class="min-w-75px">P / L</th>
-                                                                <th class="min-w-75px">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                            @foreach($toRenews as $toRenew)
-                                                                <tr>
-                                                                    <td>{{$toRenew->serial_number}}</td>
-                                                                    <td>{{$toRenew->name}}</td>
-                                                                    <td>{{$toRenew->number}}</td>
-                                                                    <td>{{$toRenew->holder_name}}</td>
-                                                                    <td>{{$toRenew->available_balance}}</td>
-                                                                    <td>{{$toRenew->pl}}</td>
-                                                                    <td>
-                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                            <span class="svg-icon svg-icon-5 m-0">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                                </svg>
-                                                                            </span>
-                                                                        </a>
-                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$toRenew->client_demat_id}}" data-value="renew" class="menu-link px-3 changeStatus">Send for Renewal</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('clientDematTerminate',$toRenew->client_demat_id)}}" class="menu-link px-3 terminateDemat">Terminate</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$toRenew->id}}" class="menu-link px-3 addImage">Add image</a>
-                                                                            </div>
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Client Name</th>
+                                                            <th class="min-w-75px">Contact No</th>
+                                                            <th class="min-w-75px">Demat Name</th>
+                                                            <th class="min-w-75px">Available Fund</th>
+                                                            <th class="min-w-75px">P / L</th>
+                                                            <th class="min-w-75px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($toRenews as $toRenew)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$toRenew->name}}</td>
+                                                                <td>{{$toRenew->number}}</td>
+                                                                <td>{{$toRenew->holder_name}}</td>
+                                                                <td>{{$toRenew->available_balance}}</td>
+                                                                <td>{{$toRenew->pl}}</td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$toRenew->client_demat_id}}" data-value="renew" class="menu-link px-3 changeStatus">Send for Renewal</a>
                                                                         </div>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    </table>
-                                                @else
-                                                    <h3>No Clients Found</h3>
-                                                @endif
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="{{route('clientDematTerminate',$toRenew->client_demat_id)}}" class="menu-link px-3 terminateDemat">Terminate</a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$toRenew->id}}" class="menu-link px-3 addImage">Add image</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
+                                                </table>
                                             </div>
                                             <!--end::Table-->
                                         </div>
@@ -384,52 +371,50 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                @if (isset($problemAccounts))
-                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Client Name</th>
-                                                                <th class="min-w-75px">Contact No</th>
-                                                                <th class="min-w-75px">Demat Name</th>
-                                                                <th class="min-w-75px">Problem</th>
-                                                                <th class="min-w-75px">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                            @foreach($problemAccounts as $account)
-                                                                <tr>
-                                                                    <td>{{$account->serial_number}}</td>
-                                                                    <td>{{$account->withClient->name}}</td>
-                                                                    <td>{{$account->withClient->number}}</td>
-                                                                    <td>{{$account->holder_name}}</td>
-                                                                    <td>{{$account->problem}}</td>
-                                                                    <td>
-                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                            <span class="svg-icon svg-icon-5 m-0">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                                </svg>
-                                                                            </span>
-                                                                        </a>
-                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$account->id}}" data-name='{{$account->withClient->name}}'  data-holder='{{$account->holder_name}}' data-value="normal" data-problem='{{$account->problem}}' class="menu-link px-3 problemDematAccount">Issue Resolved</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('clientDematTerminate',$account->id)}}" class="menu-link px-3 terminateDemat">Terminate</a>
-                                                                            </div>
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Client Name</th>
+                                                            <th class="min-w-75px">Contact No</th>
+                                                            <th class="min-w-75px">Demat Name</th>
+                                                            <th class="min-w-75px">Problem</th>
+                                                            <th class="min-w-75px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($problemAccounts as $account)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$account->withClient->name}}</td>
+                                                                <td>{{$account->withClient->number}}</td>
+                                                                <td>{{$account->holder_name}}</td>
+                                                                <td>{{$account->problem}}</td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$account->id}}" data-name='{{$account->withClient->name}}'  data-holder='{{$account->holder_name}}' data-value="normal" data-problem='{{$account->problem}}' class="menu-link px-3 problemDematAccount">Issue Resolved</a>
                                                                         </div>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    <!--end::Table body-->
-                                                    </table>
-                                                @else
-                                                    <h3>No Clients Found</h3>
-                                                @endif
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="{{route('clientDematTerminate',$account->id)}}" class="menu-link px-3 terminateDemat">Terminate</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
+                                                <!--end::Table body-->
+                                                </table>
                                             </div>
                                             <!--end::Table-->
                                         </div>
@@ -443,50 +428,48 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                @if (isset($terminatedAccounts))
-                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Client Name</th>
-                                                                <th class="min-w-75px">Contact No</th>
-                                                                <th class="min-w-75px">Demat Name</th>
-                                                                <th class="min-w-75px">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                            @foreach($terminatedAccounts as $account)
-                                                                <tr>
-                                                                    <td>{{$account->serial_number}}</td>
-                                                                    <td>{{$account->withClient->name}}</td>
-                                                                    <td>{{$account->withClient->number}}</td>
-                                                                    <td>{{$account->holder_name}}</td>
-                                                                    <td>
-                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                            <span class="svg-icon svg-icon-5 m-0">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                                </svg>
-                                                                            </span>
-                                                                        </a>
-                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$account->id}}" class="menu-link px-3 activateDematAccount">Active</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$account->id}}" class="menu-link px-3 renewAccount">Renew</a>
-                                                                            </div>
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Client Name</th>
+                                                            <th class="min-w-75px">Contact No</th>
+                                                            <th class="min-w-75px">Demat Name</th>
+                                                            <th class="min-w-75px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($terminatedAccounts as $account)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$account->withClient->name}}</td>
+                                                                <td>{{$account->withClient->number}}</td>
+                                                                <td>{{$account->holder_name}}</td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$account->id}}" class="menu-link px-3 activateDematAccount">Active</a>
                                                                         </div>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$account->id}}" class="menu-link px-3 renewAccount">Renew</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
                                                     <!--end::Table body-->
-                                                    </table>
-                                                @else
-                                                    <h3>No Clients Found</h3>
-                                                @endif
+                                                </table>
                                             </div>
                                             <!--end::Table-->
                                         </div>
@@ -500,53 +483,51 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                @if (isset($allAccounts))
-                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
-                                                        <!--begin::Table head-->
-                                                        <thead>
-                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-10px">Sr No.</th>
-                                                                <th class="min-w-75px">Client Name</th>
-                                                                <th class="min-w-75px">Contact No</th>
-                                                                <th class="min-w-75px">No. of Demat</th>
-                                                                <th class="min-w-75px">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                            @foreach($allAccounts as $account)
-                                                                <tr>
-                                                                    <td>{{sprintf("%04d",$account->id)}}</td>
-                                                                    <td>{{$account->name}}</td>
-                                                                    <td>{{$account->number}}</td>
-                                                                    <td>{{$account->total_demats}}</td>
-                                                                    <td>
-                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                            <span class="svg-icon svg-icon-5 m-0">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                                </svg>
-                                                                            </span>
-                                                                        </a>
-                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$account->client_id}}" class="menu-link px-3 viewClient">View</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-id="{{$account->id}}" class="menu-link px-3 renewAccount">Renew</a>
-                                                                            </div>
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" data-delete='true' data-id="{{$account->id}}" class="menu-link px-3 terminateClient">Terminate</a>
-                                                                            </div>
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Client Name</th>
+                                                            <th class="min-w-75px">Contact No</th>
+                                                            <th class="min-w-75px">No. of Demat</th>
+                                                            <th class="min-w-75px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($allAccounts as $account)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$account->name}}</td>
+                                                                <td>{{$account->number}}</td>
+                                                                <td>{{$account->total_demats}}</td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$account->client_id}}" class="menu-link px-3 viewClient">View</a>
                                                                         </div>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$account->id}}" class="menu-link px-3 renewAccount">Renew</a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-delete='true' data-id="{{$account->id}}" class="menu-link px-3 terminateClient">Terminate</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
                                                     <!--end::Table body-->
-                                                    </table>
-                                                @else
-                                                    <h3>No Clients Found</h3>
-                                                @endif
+                                                </table>
                                             </div>
                                             <!--end::Table-->
                                         </div>

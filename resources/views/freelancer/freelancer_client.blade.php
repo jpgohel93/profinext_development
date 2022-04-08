@@ -79,12 +79,9 @@
                                             </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold">
-                                                @php
-                                                    $i=1;
-                                                @endphp
                                                 @forelse ($freelancerClient as $client)
                                                     <tr>
-                                                        <td>{{$i++}}</td>
+                                                        <td>{{$loop->iteration}}</td>
                                                         <td> {{$client->st_sg."-".$client->serial_number}} </td>
                                                         <td> {{$client->name}}</td>
                                                         <td> {{$client->holder_name}}</td>
@@ -93,6 +90,8 @@
                                                                 Prime
                                                             @elseif($client->service_type == 2)
                                                                 AMS
+                                                            @elseif($client->service_type == 3)
+                                                                Prime Next
                                                             @endif
                                                         </td>
                                                         <td> {{$client->broker}}</td>

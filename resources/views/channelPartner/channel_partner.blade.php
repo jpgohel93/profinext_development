@@ -80,34 +80,29 @@
                                             </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold">
-                                            @can("channelpartner-data-read")
-                                                @php
-                                                    $i=1;
-                                                @endphp
-                                                @forelse ($channelPartnerData as $partner)
-                                                    <tr>
-                                                        <td>{{$i++}}</td>
-                                                        <td> {{$partner->name}} </td>
-                                                        <td> {{$partner->email}}</td>
-                                                        <td class="">
-                                                            <div class="d-flex justify-content-center">
-                                                                <div class="menu-item">
-                                                                    <a href="{{url('/channelPartner/clients/'.$partner->id)}}" class="menu-link p-1" target="_blank">
-                                                                        <i class="fa fa-eye text-dark fa-2x"></i>
-                                                                    </a>
+                                                @can("channelpartner-data-read")
+                                                    @forelse ($channelPartnerData as $partner)
+                                                        <tr>
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td> {{$partner->name}} </td>
+                                                            <td> {{$partner->email}}</td>
+                                                            <td class="">
+                                                                <div class="d-flex justify-content-center">
+                                                                    <div class="menu-item">
+                                                                        <a href="{{url('/channelPartner/clients/'.$partner->id)}}" class="menu-link p-1" target="_blank">
+                                                                            <i class="fa fa-eye text-dark fa-2x"></i>
+                                                                        </a>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @empty
-                                                    {{-- <tr>
-                                                        <td colspan="4">No Clients Found</td>
-                                                    </tr> --}}
-                                                @endforelse
-                                            @else
-                                                <h1>Unauthorised</h1>
-                                            @endcan
-                                            <!--end::Table row-->
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        {{-- empty --}}
+                                                    @endforelse
+                                                @else
+                                                    <h1>Unauthorised</h1>
+                                                @endcan
+                                                <!--end::Table row-->
                                             </tbody>
                                             <!--end::Table body-->
                                         </table>

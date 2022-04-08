@@ -66,62 +66,55 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        @if($freelancerClient)
-                                            <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                <!--begin::Table head-->
-                                                <thead>
-                                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                        <th class="min-w-10px">Sr No.</th>
-                                                        <th class="min-w-10px">Serial Number</th>
-                                                        <th class="min-w-75px">Client name</th>
-                                                        <th class="min-w-75px">Holder Name</th>
-                                                        <th class="min-w-75px">Service Type</th>
-                                                        <th class="min-w-75px">Broker</th>
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                            <!--begin::Table head-->
+                                            <thead>
+                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-10px">Sr No.</th>
+                                                    <th class="min-w-10px">Serial Number</th>
+                                                    <th class="min-w-75px">Client name</th>
+                                                    <th class="min-w-75px">Holder Name</th>
+                                                    <th class="min-w-75px">Service Type</th>
+                                                    <th class="min-w-75px">Broker</th>
+                                                    @can('freelancer-write')
+                                                        <th class="text-end min-w-100px">Action</th>
+                                                    @endcan
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-gray-600 fw-bold">
+                                                @forelse ($freelancerClient as $client)
+                                                    <tr>
+                                                        <td>{{$loop->iteration}}</td>
+                                                        <td> {{$client->st_sg."-".$client->serial_number}} </td>
+                                                        <td> {{$client->name}}</td>
+                                                        <td> {{$client->holder_name}}</td>
+                                                        <td>
+                                                            @if($client->service_type == 1)
+                                                                Prime
+                                                            @elseif($client->service_type == 2)
+                                                                AMS
+                                                            @elseif($client->service_type == 3)
+                                                                Prime Next
+                                                            @endif
+                                                        </td>
+                                                        <td> {{$client->broker}}</td>
                                                         @can('freelancer-write')
-                                                            <th class="text-end min-w-100px">Action</th>
+                                                            <td class="text-end">
+                                                                <div class="d-flex justify-content-center">
+                                                                    <div class="menu-item">
+                                                                        <a href="javascript:void(0)" data-id='{{$client->id}}' class="menu-link px-3 editDematAccount">
+                                                                            <i class="fa fa-edit text-dark fa-2x"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                         @endcan
                                                     </tr>
-                                                </thead>
-                                                <tbody class="text-gray-600 fw-bold">
-                                                    @php
-                                                        $i=1;
-                                                    @endphp
-                                                    @forelse ($freelancerClient as $client)
-                                                        <tr>
-                                                            <td>{{$i++}}</td>
-                                                            <td> {{$client->st_sg."-".$client->serial_number}} </td>
-                                                            <td> {{$client->name}}</td>
-                                                            <td> {{$client->holder_name}}</td>
-                                                            <td>
-                                                                @if($client->service_type == 1)
-                                                                    Prime
-                                                                @elseif($client->service_type == 2)
-                                                                    AMS
-                                                                @endif
-                                                            </td>
-                                                            <td> {{$client->broker}}</td>
-                                                            @can('freelancer-write')
-                                                                <td class="text-end">
-                                                                    <div class="d-flex justify-content-center">
-                                                                        <div class="menu-item">
-                                                                            <a href="javascript:void(0)" data-id='{{$client->id}}' class="menu-link px-3 editDematAccount">
-                                                                                <i class="fa fa-edit text-dark fa-2x"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            @endcan
-                                                        </tr>
-                                                    @empty
-                                                        {{-- <tr>
-                                                            <td colspan="4">No Clients Found</td>
-                                                        </tr> --}}
-                                                    @endforelse
-                                                </tbody>
-                                            </table>
-                                        @else
-                                            <h3>No Clients Found</h3>
-                                        @endif
+                                                @empty
+                                                    
+                                                @endforelse
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <!--end::Table-->
                                 </div>

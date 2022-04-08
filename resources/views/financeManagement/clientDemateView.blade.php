@@ -70,7 +70,7 @@
                                 <div class="current d-block card p-7 my-5" data-kt-stepper-element="content">
                                     <div class="w-100">
                                         <div class="stepper-label mt-0" style="margin-top:30px;margin-bottom:20px;">
-                                            <h3 class="stepper-title">Client Name:&nbsp;{{$demateDetails->withClient->name}}</h3>
+                                            <h3 class="stepper-title">Client Name:&nbsp;{{(null !== $demateDetails->withClient)?$demateDetails->withClient->name:""}}</h3>
                                         </div>
                                         <div class="my-4">
                                             <div class="row">
@@ -274,12 +274,6 @@
                                                 <h3 class="stepper-title">Payment Bank</h3>
                                                 @if(!empty($bankAccountList))
                                                     <?php $count = 1;?>
-{{--                                                    @foreach($bankAccountList as $bankAccount)--}}
-{{--                                                        <div class="col-md-4 col-sm-12 mb-5">--}}
-{{--                                                            <input type="radio" value="{{$bankAccount['id']}}" name="payment_bank_id" data-id="{{$count++}}" class="bank_change"> {{$bankAccount['title']}} - {{$bankAccount['remain_limit']}} - {{$bankAccount['last_transaction_day']}}--}}
-{{--                                                        </div>--}}
-{{--                                                    @endforeach--}}
-
                                                         <div class="row g-6 g-sm-9 mx-4">
                                                             @foreach ($bankAccountList as $bankAccount)
                                                                 <div class="col-md-6 col-xl-4">

@@ -650,8 +650,10 @@ class ClientServices
                 $service_type = 'AMS';
             }elseif ($demat->service_type == 1){
                 $service_type = 'Prime';
+            }else if($demat->service_type == 3){
+                $service_type = 'prime next';
             }
-            $service_type =servicesTypeServices::getByType($service_type);
+            $service_type = servicesTypeServices::getByType($service_type);
 
             $cutoffAmount = $service_type->cutoff;
             $sharing = $service_type->sharing;

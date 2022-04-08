@@ -21,7 +21,7 @@ class renewalStatusController extends Controller
         $newAccounts = renewalStatusService::newAccounts();
         return view("financeManagement.renewal-status",compact("renewalStatus", "preRenewAccounts", "toRenewAccounts", "renewedAccounts", "newAccounts"));
     }
-    public function clientDematView(Request $request,$id,$type){
+    public function clientDematView(Request $request,$id,$type=null){
         $primary_bank = bankServices::getPrimaryBankAccounts(1);
         $bankAccountList = array();
         $bankPerData = array();
