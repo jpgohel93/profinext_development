@@ -24,6 +24,7 @@ class financeManagementIncomesModel extends Model
         "updated_by",
         "deleted_by",
         "deleted_at",
+        "renewal_account_id"
     ];
     public function bank_name()
     {
@@ -34,7 +35,6 @@ class financeManagementIncomesModel extends Model
         parent::boot();
 
         static::addGlobalScope('created_by', function (\Illuminate\Database\Eloquent\Builder $builder) {
-            $builder->where($builder->getModel()->getTable() . '.created_by', auth()->user()->id);
         });
     }
 }

@@ -19,7 +19,9 @@ class renewalStatusController extends Controller
         $toRenewAccounts = renewalStatusService::toRenewAccounts();
         $renewedAccounts = renewalStatusService::renewedAccounts();
         $newAccounts = renewalStatusService::newAccounts();
-        return view("financeManagement.renewal-status",compact("renewalStatus", "preRenewAccounts", "toRenewAccounts", "renewedAccounts", "newAccounts"));
+        $partPaymentData= renewalStatusService::partPaymentData();
+        $forIncomesBank= bankServices::getForIncomeAccounts();
+        return view("financeManagement.renewal-status",compact("renewalStatus", "preRenewAccounts", "toRenewAccounts", "renewedAccounts", "newAccounts","partPaymentData","forIncomesBank"));
     }
     public function clientDematView(Request $request,$id,$type=null){
         $primary_bank = bankServices::getPrimaryBankAccounts(1);
@@ -233,5 +235,33 @@ class renewalStatusController extends Controller
             return $data;
         }
 
+    }
+
+    public function getRenewData(Request $request){
+        return ClientDemateServices::renewData($request->id);
+    }
+
+    public function feesPayment(Request $request){
+        ClientDemateServices::demateFeesPayment($request);
+        return Redirect::route("viewFeesInvoice",$request->fees_payment_id)->with("info", "Fees Pay successfully");
+    }
+
+    public function profitSharingPayment(Request $request){
+        ClientDemateServices::demateProfitSharing($request);
+        return Redirect::route("viewFeesInvoice",$request->profit_sharing_payment_id)->with("info", "Profit Sharing Payment successfully");
+    }
+
+    public function partPayment(Request $request){
+        ClientDemateServices::partPayment($request);
+        return Redirect::route("viewFeesInvoice",$request->part_payment_id)->with("info", "Part Payment successfully");
+    }
+    public function fullPayment(Request $request){
+        ClientDemateServices::fullPayment($request);
+        return Redirect::route("viewFeesInvoice",$request->full_payment_id)->with("info", "Payment successfully");
+    }
+
+    public function viewFeesInvoice($id){
+        $renewData = ClientDemateServices::renewDataById($id);
+        return view("financeManagement.fees_invoice",compact("renewData"));
     }
 }

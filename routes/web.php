@@ -283,6 +283,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/financeManagement/clientDemat/calculateAmount",[renewalStatusController::class, "calculateAmount"])->name("calculateAmount");
     Route::POST("/financeManagement/clientDemat/markAsProblem",[renewalStatusController::class, "mark_as_problem"])->name("mark_as_problem");
     Route::POST("/financeManagement/clientDemat/ProblemSolved",[renewalStatusController::class, "ProblemSolved"])->name("update_mark_as_problem");
+    Route::POST("/feesPayment",[renewalStatusController::class, "feesPayment"])->name("feesPayment");
+    Route::POST("/profitSharingPayment",[renewalStatusController::class, "profitSharingPayment"])->name("profitSharingPayment");
+    Route::POST("/partPayment",[renewalStatusController::class, "partPayment"])->name("partPayment");
+    Route::POST("/fullPayment",[renewalStatusController::class, "fullPayment"])->name("fullPayment");
+    Route::get("/viewFeesInvoice/{id}",[renewalStatusController::class,"viewFeesInvoice"])->name("viewFeesInvoice");
+    Route::POST("/getRenewData",[renewalStatusController::class,"getRenewData"])->name("getRenewData");
 
     // finance Management Bank
     Route::get("/financeManagement/bank",[BankControllers::class, "financeManagementBank"])->name("financeManagementBank");

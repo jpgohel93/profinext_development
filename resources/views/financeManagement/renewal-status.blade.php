@@ -90,6 +90,13 @@
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
+                                       href="#partPayment">Part Payment</a>
+                                </li>
+                                <!--end:::Tab item-->
+
+                                <!--begin:::Tab item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
                                        href="#renewed">Renewed</a>
                                 </li>
                                 <!--end:::Tab item-->
@@ -104,36 +111,41 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
-                                                    <!--begin::Table head-->
-                                                    <thead>
-                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                            <th class="min-w-10px">Sr No.</th>
-                                                            <th class="min-w-75px">Smart Id</th>
-                                                            <th class="min-w-75px">Joining Date</th>
-                                                            <th class="min-w-75px">Demat Holder Name</th>
-                                                            <th class="min-w-75px">Available Fund</th>
-                                                            <th class="min-w-75px">P / L</th>
-                                                            <th class="min-w-75px">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        @forelse($preRenewAccounts as $preRenewAccount)
-                                                            <?php $joining_date = !empty($preRenewAccount->joining_date) && isset($preRenewAccount->joining_date) ? $preRenewAccount->joining_date : $preRenewAccount->created_at;?>
-                                                            <tr>
-                                                                <td>{{$loop->iteration}}</td>
-                                                                <td>{{$preRenewAccount->st_sg}}</td>
-                                                                <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
-                                                                <td>{{$preRenewAccount->holder_name}}</td>
-                                                                <td>{{$preRenewAccount->available_balance}}</td>
-                                                                <td>{{$preRenewAccount->pl}}</td>
-                                                                <td>
-                                                                    <a href="/financeManagement/clientDematDataView/{{$preRenewAccount->id}}/{{1}}" target="_blank" class='verifyDemate'>Verify</a>
-                                                                </td>
+                                                    @if (isset($preRenewAccounts))
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                                <th class="min-w-10px">Sr No.</th>
+                                                                <th class="min-w-75px">Smart Id</th>
+                                                                <th class="min-w-75px">Joining Date</th>
+                                                                <th class="min-w-75px">Demat Holder Name</th>
+                                                                <th class="min-w-75px">Available Fund</th>
+                                                                <th class="min-w-75px">P / L</th>
+                                                                <th class="min-w-75px">Action</th>
                                                             </tr>
-                                                        @empty
-                                                            {{-- empty --}}
-                                                        @endforelse
-                                                    </tbody>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                            @php
+                                                                $i=1;
+                                                            @endphp
+                                                            @foreach($preRenewAccounts as $preRenewAccount)
+                                                                <?php $joining_date = !empty($preRenewAccount->joining_date) && isset($preRenewAccount->joining_date) ? $preRenewAccount->joining_date : $preRenewAccount->created_at;?>
+                                                                <tr>
+                                                                    <td>{{$preRenewAccount->serial_number}}</td>
+                                                                    <td>{{$preRenewAccount->st_sg}}</td>
+                                                                    <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
+                                                                    <td>{{$preRenewAccount->holder_name}}</td>
+                                                                    <td>{{$preRenewAccount->available_balance}}</td>
+                                                                    <td>{{$preRenewAccount->pl}}</td>
+                                                                    <td>
+                                                                        <a href="/financeManagement/clientDematDataView/{{$preRenewAccount->id}}/{{1}}" target="_blank" class='verifyDemate'>Verify</a>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    @else
+                                                        <h3>No Clients Found</h3>
+                                                    @endif
                                                 <!--end::Table body-->
                                                 </table>
                                             </div>
@@ -151,63 +163,96 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                                    <!--begin::Table head-->
-                                                    <thead>
-                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                            <th class="min-w-10px">Sr No.</th>
-                                                            <th class="min-w-75px">Smart Id</th>
-                                                            <th class="min-w-75px">Joining Date</th>
-                                                            <th class="min-w-75px">Demat Holder Name</th>
-                                                            <th class="min-w-75px">Available Fund</th>
-                                                            <th class="min-w-75px">P / L</th>
-                                                            <th class="min-w-75px">Service Type</th>
-                                                            <th class="min-w-75px">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        @forelse($toRenewAccounts as $toRenewAccount)
-                                                            <?php $joining_date = !empty($toRenewAccount->joining_date) && isset($toRenewAccount->joining_date) ? $toRenewAccount->joining_date : $toRenewAccount->created_at;?>
-                                                            <tr>
-                                                                <td>{{$loop->iteration}}</td>
-                                                                <td>{{$toRenewAccount->st_sg}}</td>
-                                                                <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
-                                                                <td>{{$toRenewAccount->holder_name}}</td>
-                                                                <td>{{$toRenewAccount->available_balance}}</td>
-                                                                <td>{{$toRenewAccount->pl}}</td>
-                                                                <td>
-                                                                        @if($toRenewAccount->service_type == 1)
-                                                                            Prime
-                                                                        @elseif($toRenewAccount->service_type == 2)
-                                                                            AMS
-                                                                        @elseif($toRenewAccount->service_type == 3)
-                                                                            Prime Next
-                                                                        @endif
-                                                                    </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                        <span class="svg-icon svg-icon-5 m-0">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                            </svg>
-                                                                        </span>
-                                                                    </a>
-                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="{{route('clientDematView',$toRenewAccount->id)}}" target="_blank" class='menu-link px-3 verifyDemate'>Generate Invoice</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="{{route('clientDematTerminate',$toRenewAccount->id)}}" class='menu-link px-3 terminateDemate'>Terminate</a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id="{{$toRenewAccount->id}}" class="menu-link px-3 viewImage">View image</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
+                                                @if (isset($toRenewAccounts))
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                                <th class="min-w-10px">Sr No.</th>
+                                                                <th class="min-w-75px">Smart Id</th>
+                                                                <th class="min-w-75px">Joining Date</th>
+                                                                <th class="min-w-75px">Demat Holder Name</th>
+                                                                <th class="min-w-75px">Available Fund</th>
+                                                                <th class="min-w-75px">P / L</th>
+                                                                <th class="min-w-75px">Service Type</th>
+                                                                <th class="min-w-75px">Action</th>
                                                             </tr>
-                                                        @empty
-                                                            {{-- empty --}}
-                                                        @endforelse
-                                                    </tbody>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                            @php
+                                                                $i=1;
+                                                            @endphp
+                                                            @foreach($toRenewAccounts as $toRenewAccount)
+                                                                <?php $joining_date = !empty($toRenewAccount->joining_date) && isset($toRenewAccount->joining_date) ? $toRenewAccount->joining_date : $toRenewAccount->created_at;?>
+                                                                <tr>
+                                                                    <td>{{$toRenewAccount->serial_number}}</td>
+                                                                    <td>{{$toRenewAccount->st_sg}}</td>
+                                                                    <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
+                                                                    <td>{{$toRenewAccount->holder_name}}</td>
+                                                                    <td>{{$toRenewAccount->available_balance}}</td>
+                                                                    <td>{{$toRenewAccount->pl}}</td>
+                                                                    <td>
+                                                                            @if($toRenewAccount->service_type == 1)
+                                                                                Prime
+                                                                            @elseif($toRenewAccount->service_type == 2)
+                                                                                AMS
+                                                                            @elseif($toRenewAccount->service_type == 3)
+                                                                                Prime Next
+                                                                            @endif
+                                                                        </td>
+                                                                    <td>
+                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </a>
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                            @if($toRenewAccount->service_type == 2 && $toRenewAccount->is_pay_fee == 0)
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="javascript:void(0)" data-id="{{$toRenewAccount->id}}" class='menu-link px-3 fees_pay_button'>
+                                                                                        Fees Invoice
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endif
+                                                                            @if($toRenewAccount->profit_sharing > 0 && $toRenewAccount->profit_sharing != '' && $toRenewAccount->is_pay_profit_sharing == 0 )
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="javascript:void(0)" data-id="{{$toRenewAccount->id}}" class='menu-link px-3 profit_sharing_button'>
+                                                                                        Profit Sharing Invoice
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endif
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id="{{$toRenewAccount->id}}" class='menu-link px-3 part_payment_button'>
+                                                                                    Part Payment
+                                                                                </a>
+                                                                            </div>
+                                                                            @if($toRenewAccount->service_type == 2 && $toRenewAccount->is_pay_fee == 0)
+                                                                               <div class="menu-item px-3">
+                                                                                   <a href="javascript:void(0)" data-id="{{$toRenewAccount->id}}" class='menu-link px-3 full_payment_button'>
+                                                                                       Full Payment
+                                                                                   </a>
+                                                                               </div>
+                                                                            @endif
+
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="{{route('clientDematView',$toRenewAccount->id)}}" target="_blank" class='menu-link px-3 verifyDemate'>Generate Invoice</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="{{route('clientDematTerminate',$toRenewAccount->id)}}" class='menu-link px-3 terminateDemate'>Terminate</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id="{{$toRenewAccount->id}}" class="menu-link px-3 viewImage">View image</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    @else
+                                                        <h3>No Clients Found</h3>
+                                                    @endif
+                                                <!--end::Table body-->
                                                 </table>
                                             </div>
                                             <!--end::Table-->
@@ -223,47 +268,52 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
-                                                    <!--begin::Table head-->
-                                                    <thead>
-                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                            <th class="min-w-10px">Sr No.</th>
-                                                            <th class="min-w-75px">Smart Id</th>
-                                                            <th class="min-w-75px">Joining Date</th>
-                                                            <th class="min-w-75px">Demat Holder Name</th>
-                                                            <th class="min-w-75px">Joining Capital</th>
-                                                            <th class="min-w-75px">Available Fund</th>
-                                                            <th class="min-w-75px">P / L</th>
-                                                            <th class="min-w-75px">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        @forelse($newAccounts as $newAccount)
-                                                            <?php $joining_date = !empty($newAccount->joining_date) && isset($newAccount->joining_date) ? $newAccount->joining_date : $newAccount->created_at;?>
+                                                    @if (isset($newAccounts))
+                                                            <!--begin::Table head-->
+                                                            <thead>
+                                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                                    <th class="min-w-10px">Sr No.</th>
+                                                                    <th class="min-w-75px">Smart Id</th>
+                                                                    <th class="min-w-75px">Joining Date</th>
+                                                                    <th class="min-w-75px">Demat Holder Name</th>
+                                                                    <th class="min-w-75px">Joining Capital</th>
+                                                                    <th class="min-w-75px">Available Fund</th>
+                                                                    <th class="min-w-75px">P / L</th>
+                                                                    <th class="min-w-75px">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                                @php
+                                                                    $i=1;
+                                                                @endphp
+                                                                @foreach($newAccounts as $newAccount)
+                                                                    <?php $joining_date = !empty($newAccount->joining_date) && isset($newAccount->joining_date) ? $newAccount->joining_date : $newAccount->created_at;?>
 
-                                                            <tr>
-                                                                <td>{{$loop->iteration}}</td>
-                                                                <td>{{$newAccount->st_sg}}</td>
-                                                                <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
-                                                                <td>{{$newAccount->holder_name}}</td>
-                                                                <td>{{$newAccount->capital}}</td>
-                                                                <td>{{$newAccount->available_balance}}</td>
-                                                                <td>{{$newAccount->pl}}</td>
-                                                                <td>
-                                                                    <a href="{{route('clientDematView',$newAccount->id)}}" target="_blank" class='newGenerateInvoice'>
-                                                                        <i class="fas fa-file text-primary fa-lg" data-id="{{$newAccount->id}}"></i>
-                                                                    </a>
-                                                                    <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
-                                                                        <i class="fas fa-exclamation-circle text-warning fa-lg" data-id="{{$newAccount->id}}"></i>
-                                                                    </a>
-                                                                    <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
-                                                                        <i class="fas fa-trash text-danger fa-lg" data-id="{{$newAccount->id}}"></i>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                        @empty
-                                                            {{-- empty --}}
-                                                        @endforelse
-                                                    </tbody>
+                                                                    <tr>
+                                                                        <td>{{$newAccount->serial_number}}</td>
+                                                                        <td>{{$newAccount->st_sg}}</td>
+                                                                        <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
+                                                                        <td>{{$newAccount->holder_name}}</td>
+                                                                        <td>{{$newAccount->capital}}</td>
+                                                                        <td>{{$newAccount->available_balance}}</td>
+                                                                        <td>{{$newAccount->pl}}</td>
+                                                                        <td>
+                                                                            <a href="{{route('clientDematView',$newAccount->id)}}" target="_blank" class='newGenerateInvoice'>
+                                                                                <i class="fas fa-file text-primary fa-lg" data-id="{{$newAccount->id}}"></i>
+                                                                            </a>
+                                                                            <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
+                                                                                <i class="fas fa-exclamation-circle text-warning fa-lg" data-id="{{$newAccount->id}}"></i>
+                                                                            </a>
+                                                                            <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
+                                                                                <i class="fas fa-trash text-danger fa-lg" data-id="{{$newAccount->id}}"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        @else
+                                                            <h3>No Clients Found</h3>
+                                                        @endif
                                                 <!--end::Table body-->
                                                 </table>
                                             </div>
@@ -280,37 +330,111 @@
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
-                                                    <!--begin::Table head-->
-                                                    <thead>
-                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                            <th class="min-w-10px">Sr No.</th>
-                                                            <th class="min-w-75px">Smart Id</th>
-                                                            <th class="min-w-75px">Joining Date</th>
-                                                            <th class="min-w-75px">Demat Holder Name</th>
-                                                            <th class="min-w-75px">Available Fund</th>
-                                                            <th class="min-w-75px">P / L</th>
-                                                            <th class="min-w-75px">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        @forelse($renewedAccounts as $renewedAccount)
-                                                            <?php $joining_date = !empty($renewedAccount->joining_date) && isset($renewedAccount->joining_date) ? $renewedAccount->joining_date : $renewedAccount->created_at;?>
-                                                            <tr>
-                                                                <td>{{$loop->iteration}}</td>
-                                                                <td>{{$renewedAccount->st_sg}}</td>
-                                                                <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
-                                                                <td>{{$renewedAccount->holder_name}}</td>
-                                                                <td>{{$renewedAccount->available_balance}}</td>
-                                                                <td>{{$renewedAccount->pl}}</td>
-                                                                <td>
-                                                                    <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>Edit</a><br/>
-                                                                    <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>View Invoice</a><br/>
-                                                                </td>
+                                                    @if (isset($renewedAccounts))
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                                <th class="min-w-10px">Sr No.</th>
+                                                                <th class="min-w-75px">Smart Id</th>
+                                                                <th class="min-w-75px">Joining Date</th>
+                                                                <th class="min-w-75px">Demat Holder Name</th>
+                                                                <th class="min-w-75px">Available Fund</th>
+                                                                <th class="min-w-75px">P / L</th>
+                                                                <th class="min-w-75px">Action</th>
                                                             </tr>
-                                                        @empty
-                                                            {{-- empty --}}
-                                                        @endforelse
-                                                    </tbody>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                            @php
+                                                                $i=1;
+                                                            @endphp
+                                                            @foreach($renewedAccounts as $renewedAccount)
+                                                                <?php $joining_date = !empty($renewedAccount->joining_date) && isset($renewedAccount->joining_date) ? $renewedAccount->joining_date : $renewedAccount->created_at;?>
+                                                                <tr>
+                                                                    <td>{{$renewedAccount->serial_number}}</td>
+                                                                    <td>{{$renewedAccount->st_sg}}</td>
+                                                                    <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
+                                                                    <td>{{$renewedAccount->holder_name}}</td>
+                                                                    <td>{{$renewedAccount->available_balance}}</td>
+                                                                    <td>{{$renewedAccount->pl}}</td>
+                                                                    <td>
+                                                                        <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>Edit</a><br/>
+                                                                        <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>View Invoice</a><br/>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    @else
+                                                        <h3>No Clients Found</h3>
+                                                    @endif
+                                                <!--end::Table body-->
+                                                </table>
+                                            </div>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card-->
+                                </div>
+                                <div class="tab-pane fade show" id="partPayment" aria-labelledby="active-tab" role="tabpanel">
+                                    <!--begin::Card-->
+                                    <div class="card">
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
+                                                    @if (isset($partPaymentData))
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                                <th class="min-w-10px">Sr No.</th>
+                                                                <th class="min-w-75px">Smart Id</th>
+                                                                <th class="min-w-75px">Client Name</th>
+                                                                <th class="min-w-75px">Demat Holder Name</th>
+                                                                <th class="min-w-75px">Joining Date</th>
+                                                                <th class="min-w-75px">Unpaid Amount</th>
+                                                                <th class="min-w-75px">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                            @php
+                                                                $i=1;
+                                                            @endphp
+                                                            @foreach($partPaymentData as $renewedAccount)
+                                                                <?php $joining_date = !empty($renewedAccount->joining_date) && isset($renewedAccount->joining_date) ? $renewedAccount->joining_date : $renewedAccount->created_at;?>
+                                                                <tr>
+                                                                    <td>{{$i++}}</td>
+                                                                    <td>{{$renewedAccount->st_sg}} - {{$renewedAccount->serial_number}}</td>
+                                                                    <td>{{$renewedAccount->holder_name}}</td>
+                                                                    <td>{{$renewedAccount->name}}</td>
+                                                                    <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
+                                                                    <td><?php echo $renewedAccount->final_amount - $renewedAccount->part_payment;  ?></td>
+                                                                    <td>
+                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </a>
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                            <a href="javascript:void(0)" data-id="{{$toRenewAccount->id}}" class='menu-link px-3 part_payment_button'>
+                                                                                Add Unpaid Amount
+                                                                            </a>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="{{route('clientDematView',$renewedAccount->id)}}" class='menu-link px-3'>Reminder </a>
+                                                                            </div>
+
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="{{route('clientDematView',$renewedAccount->id)}}" class='menu-link px-3 '>View Payment </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    @else
+                                                        <h3>No Clients Found</h3>
+                                                    @endif
                                                 <!--end::Table body-->
                                                 </table>
                                             </div>
@@ -461,7 +585,7 @@
                 <!--begin::Modal body-->
                 <div class="modal-body">
                     <div class="row mb-8" id="viewImagesContainer">
-                        
+
                     </div>
                     <!--end::Input group-->
 
@@ -477,9 +601,298 @@
         </div>
         <!--end::Modal dialog-->
     </div>
+
+    <div class="modal fade" id="feesPaymentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px" role="document">
+            <div class="modal-content">
+                <!--begin::Form-->
+                <form id="" class="form" method="POST" action="{{route('feesPayment')}}">
+                    @csrf
+                    <div class="modal-header">
+                        <h2 class="fw-bolder">Renew Fees Payment</h2>
+                        <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-md-10">
+                        <input class="form-control" type="hidden" value="" name='fees_payment_id' id="fees_payment_id"/>
+                        <div class="form-group row">
+                            <label for="fees_bank_id" class="col-3 col-form-label">Bank</label>
+                            <div class="col-9">
+                                <select name="fees_bank_id" id="fees_bank_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
+                                    <option></option>
+                                    @if(!empty($forIncomesBank))
+                                        @foreach($forIncomesBank as $banks)
+                                            <option value="{{$banks->id}}">{{$banks->title}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Fees Amount</label>
+                            <div class="col-9">
+                                <input class="form-control" type="number" id="fees_amount" name="fees_amount" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body mx-md-10" id="fees_message" style="color: green;">
+                    </div>
+                    <!--end::Modal body-->
+                    <div class="modal-footer text-center">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                            <span class="indicator-label">Submit</span>
+                            <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="partPaymentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px" role="document">
+            <div class="modal-content">
+                <!--begin::Form-->
+                <form id="" class="form" method="POST" action="{{route('partPayment')}}">
+                    @csrf
+                    <div class="modal-header">
+                        <h2 class="fw-bolder">Part Payment</h2>
+                        <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-md-10">
+                        <input class="form-control" type="hidden" value="" name='part_payment_id' id="part_payment_id"/>
+                        <div class="form-group row">
+                            <label for="part_bank_id" class="col-3 col-form-label">Bank</label>
+                            <div class="col-9">
+                                <select name="part_bank_id" id="part_bank_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
+                                    <option></option>
+                                    @if(!empty($forIncomesBank))
+                                        @foreach($forIncomesBank as $banks)
+                                            <option value="{{$banks->id}}">{{$banks->title}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Fees Amount</label>
+                            <div class="col-9">
+                                <input class="form-control" type="number" id="part_amount" name="part_amount" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body mx-md-10" id="part_message" style="color: green;">
+                    </div>
+                    <!--end::Modal body-->
+                    <div class="modal-footer text-center">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                            <span class="indicator-label">Submit</span>
+                            <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="fullPaymentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px" role="document">
+            <div class="modal-content">
+                <!--begin::Form-->
+                <form id="" class="form" method="POST" action="{{route('fullPayment')}}">
+                    @csrf
+                    <div class="modal-header">
+                        <h2 class="fw-bolder">Payment</h2>
+                        <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-md-10">
+                        <input class="form-control" type="hidden" value="" name='full_payment_id' id="full_payment_id"/>
+                        <div class="form-group row">
+                            <label for="full_bank_id" class="col-3 col-form-label">Bank</label>
+                            <div class="col-9">
+                                <select name="full_bank_id" id="full_bank_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
+                                    <option></option>
+                                    @if(!empty($forIncomesBank))
+                                        @foreach($forIncomesBank as $banks)
+                                            <option value="{{$banks->id}}">{{$banks->title}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Fees Amount</label>
+                            <div class="col-9">
+                                <input class="form-control" type="number" id="full_amount" name="full_amount" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body mx-md-10" id="full_message" style="color: green;">
+                    </div>
+                    <!--end::Modal body-->
+                    <div class="modal-footer text-center">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                            <span class="indicator-label">Submit</span>
+                            <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="profitSharingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px" role="document">
+            <div class="modal-content">
+                <!--begin::Form-->
+                <form id="" class="form" method="POST" action="{{route('profitSharingPayment')}}">
+                    @csrf
+                    <div class="modal-header">
+                        <h2 class="fw-bolder">Renew Fees Payment</h2>
+                        <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-md-10">
+                        <input class="form-control" type="hidden" value="" name='profit_sharing_payment_id' id="profit_sharing_payment_id"/>
+                        <div class="form-group row">
+                            <label for="fees_bank_id" class="col-3 col-form-label">Bank</label>
+                            <div class="col-9">
+                                <select name="profit_bank_id" id="profit_bank_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
+                                    <option></option>
+                                    @if(!empty($forIncomesBank))
+                                        @foreach($forIncomesBank as $banks)
+                                            <option value="{{$banks->id}}">{{$banks->title}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Fees Amount</label>
+                            <div class="col-9">
+                                <input class="form-control" type="number" id="profit_amount" name="profit_amount" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body mx-md-10" id="profit_message" style="color: green;">
+                    </div>
+                    <!--end::Modal body-->
+                    <div class="modal-footer text-center">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                            <span class="indicator-label">Submit</span>
+                            <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+        </div>
+    </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
+                //fees payment
+                $(document).on("click",".fees_pay_button",function(e){
+                    const id=e.target.getAttribute("data-id");
+
+                    $.ajax("{!! route('getRenewData') !!}",{
+                        type:"POST",
+                        data:{
+                            id:id
+                        }
+                    }).done(data => {
+                        $("#fees_message").html("Pay a "+data.renewal_fees+" fees for account renew.");
+                        $("#fees_payment_id").val(data.id);
+                        $("#fees_bank_id").val(data.bank_id).trigger('change');
+                        $("#feesPaymentModal").modal("show");
+                    });
+                });
+
+                //profit sharing payment
+                $(document).on("click",".profit_sharing_button",function(e){
+                    const id=e.target.getAttribute("data-id");
+
+                    $.ajax("{!! route('getRenewData') !!}",{
+                        type:"POST",
+                        data:{
+                            id:id
+                        }
+                    }).done(data => {
+                        $("#profit_message").html("Pay a "+data.profit_sharing+" profit sharing for account renew.");
+                        $("#profit_sharing_payment_id").val(data.id);
+                        $("#profit_bank_id").val(data.bank_id).trigger('change');
+                        $("#profitSharingModal").modal("show");
+                    });
+                });
+
+                //part payment
+                $(document).on("click",".part_payment_button",function(e){
+                    const id=e.target.getAttribute("data-id");
+
+                    $.ajax("{!! route('getRenewData') !!}",{
+                        type:"POST",
+                        data:{
+                            id:id
+                        }
+                    }).done(data => {
+                        $("#part_message").html( data.final_amount+ " total payment for account renew.");
+                        $("#part_payment_id").val(data.id);
+                        $("#part_bank_id").val(data.bank_id).trigger('change');
+                        $("#partPaymentModal").modal("show");
+                    });
+                });
+
+                //full payment
+                $(document).on("click",".full_payment_button",function(e){
+                    const id=e.target.getAttribute("data-id");
+
+                    $.ajax("{!! route('getRenewData') !!}",{
+                        type:"POST",
+                        data:{
+                            id:id
+                        }
+                    }).done(data => {
+                        $("#full_message").html( data.final_amount+ " total payment for account renew.");
+                        $("#full_payment_id").val(data.id);
+                        $("#full_bank_id").val(data.bank_id).trigger('change');
+                        $("#fullPaymentModal").modal("show");
+                    });
+                });
+
                 $(document).on("click",".mark_as_problem",function(e){
                     const id = $(e.target).data("id");
                     if(id){
