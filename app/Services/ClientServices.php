@@ -462,15 +462,15 @@ class ClientServices
 
         $i = 0;
         foreach ($clients as $client) {
+            $i++;
             $arr = array();
-            array_push($arr, sprintf("%04d", $client['id']));
+            array_push($arr, $i);
             array_push($arr, $client['name']);
             array_push($arr, $client['number']);
             array_push($arr, 0);
             array_push($arr, '<a href="javascript:void(0)" data-id="' . $client['id'] . '" class="viewClient">view</a><a href="' . route("viewLedger") . '"/' . $client['id'] . '" target="_blank" class="menu-link px-3">Ledger</a>');
 
             array_push($clients_data['data'], $arr);
-            $i++;
         }
         $clients_data["recordsTotal"] = $i;
         $clients_data["recordsFiltered"] = $i;
@@ -479,19 +479,19 @@ class ClientServices
     public static function getUnlistedSharesClient(){
         $clients['data'] = array();
 
-        $clients = Client::where("client_type", 3)->select("name", "id", "number")->orderBy('created_at', 'DESC')->get()->toArray();
-
+        $clients_data = Client::where("client_type", 3)->select("name", "id", "number")->orderBy('created_at', 'DESC')->get()->toArray();
+        
         $i = 0;
-        foreach ($clients as $client) {
+        foreach ($clients_data as $client) {
+            $i++;
             $arr = array();
-            array_push($arr, sprintf("%04d",$client['id']));
+            array_push($arr, $i);
             array_push($arr, $client['name']);
             array_push($arr, $client['number']);
             array_push($arr, 0);
             array_push($arr, '<a href="javascript:void(0)" data-id="'.$client['id'].'" class="viewClient">view</a><a href="'.route("viewLedger").'"/'.$client['id'].'" target="_blank" class="menu-link px-3">Ledger</a>');
 
             array_push($clients['data'], $arr);
-            $i++;
         }
         $clients["recordsTotal"] = $i;
         $clients["recordsFiltered"] = $i;
@@ -504,15 +504,15 @@ class ClientServices
 
         $i = 0;
         foreach ($clients_list as $client) {
+            $i++;
             $arr = array();
-            array_push($arr, sprintf("%04d",$client['id']));
+            array_push($arr, $i);
             array_push($arr, $client['name']);
             array_push($arr, $client['number']);
             array_push($arr, 0);
             array_push($arr, '<a href="javascript:void(0)" data-id="'.$client['id'].'" class="viewClient">view</a><a href="'.route("viewLedger").'"/'.$client['id'].'" target="_blank" class="menu-link px-3">Ledger</a>');
 
             array_push($clients['data'], $arr);
-            $i++;
         }
         $clients["recordsTotal"] = $i;
         $clients["recordsFiltered"] = $i;

@@ -1377,6 +1377,7 @@
                                     window.location.reload();
                                 }else if(data==1){
                                     window.alert("Request completed");
+                                    window.location.reload();
                                 }else{
                                     window.alert("Unable to complete request");
                                 }

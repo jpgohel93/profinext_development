@@ -49,14 +49,14 @@
                                     </a>
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-175px py-4" data-kt-menu="true">
                                         <div class="menu-item px-3">
-                                            <a href="{{route('generatePdf',$client_demates->first()->client_id)}}" target="_blank" class="menu-link px-3">
+                                            <a href="{{route('generatePdf',null !== $client_demates->first()?$client_demates->first()->client_id:0)}}" target="_blank" class="menu-link px-3">
                                                 <span class="menu-icon">
                                                     <i class="fas fa-file-pdf"></i>
                                                 </span>PDF
                                             </div>
                                             </a>
                                         <div class="menu-item px-3">
-                                            <a href="{{route('generateDoc',$client_demates->first()->client_id)}}" class="menu-link px-3">
+                                            <a href="{{route('generateDoc',null !== $client_demates->first()?$client_demates->first()->client_id:0)}}" class="menu-link px-3">
                                                 <span class="menu-icon">
                                                     <i class="fas fa-file-word"></i>
                                                 </span>Word

@@ -111,7 +111,7 @@
                                     <!--begin::Card-->
                                     <div class="card">
                                         <!--begin::Card body-->
-                                        <div class="card-body pt-0">
+                                        <div class="card-body p-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
                                                     <thead>
@@ -190,12 +190,11 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                                <div class="tab-pane fade show" id="allAccount" aria-labelledby="active-tab"
-                                     role="tabpanel">
+                                <div class="tab-pane fade show" id="allAccount" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
                                         <!--begin::Card body-->
-                                        <div class="card-body pt-0">
+                                        <div class="card-body p-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="kt_table_users">
                                                     <thead>
@@ -277,7 +276,7 @@
                                      role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
-                                        <div class="card-body pt-0">
+                                        <div class="card-body p-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
                                                     <thead>
@@ -365,7 +364,7 @@
                                     <!--begin::Card-->
                                     <div class="card">
                                         <!--begin::Card body-->
-                                        <div class="card-body pt-0">
+                                        <div class="card-body p-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
                                                     <thead>
@@ -440,7 +439,7 @@
                                     <!--begin::Card-->
                                     <div class="card">
                                         <!--begin::Card body-->
-                                        <div class="card-body pt-0">
+                                        <div class="card-body p-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
                                                     <thead>
@@ -540,12 +539,12 @@
                     <div class="modal-header">
                         <h2 class="fw-bolder">Assign Client to Freelancer</h2>
                         <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
-                                    <span class="svg-icon svg-icon-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-                                        </svg>
-                                    </span>
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                </svg>
+                            </span>
                         </button>
                     </div>
 
