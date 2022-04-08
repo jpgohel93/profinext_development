@@ -238,6 +238,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/trader/accounts",[TraderController::class, "viewTraderAccounts"])->name("viewTraderAccounts");
     Route::POST("/trader/client/assign",[TraderController::class,'create'])->name('assignClientToTrader');
     Route::POST("/traders/clients",[TraderController::class, "viewTraderClient"])->name("viewTraderClient");
+    Route::get("/traders/accounts/holding",[TraderController::class, "viewTraderHoldingAccounts"])->name("viewTraderHoldingAccounts");
 
     // display file
     Route::get('/common/displayFile/{id}/{type}/{name}', [App\Http\Controllers\CommonController::class,'displayFile'])->name('displayFile');

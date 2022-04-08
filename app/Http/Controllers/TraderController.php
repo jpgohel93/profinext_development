@@ -133,6 +133,29 @@ class TraderController extends Controller
 
         return view('trader.view_trader_client', compact('dematAccount','traders','keywords','analysts'));
     }
+    public function viewTraderHoldingAccounts(){
+        $auth_user = Auth::user();
+        $holding = TraderServices::holdingAccounts();
+        $users = User::get();
+        $userIdArray = [];
+        foreach ($users as $userData) {
+            $permission = json_decode($userData->permission, true);
+            if (!empty($permission)) {
+                if (
+                    in_array("trader-read", $permission) ||
+                    in_array("trader-write", $permission) ||
+                    in_array("trader-create", $permission) ||
+                    in_array("trader-delete", $permission)
+                ) {
+                    $userIdArray[] = $userData->id;
+                }
+            }
+        }
+        $traders = User::wherein('id', $userIdArray)->get();
+        $analysts = Analyst::where("status", "Active")->orWhere("status", "Experiment")->get();
+        $keywords = KeywordServices::all();
+        return view('trader.trade-hold', compact('holding', 'traders', 'keywords', 'analysts'));
+    }
 
     public function viewTraderClient(Request $request)
     {

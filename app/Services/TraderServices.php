@@ -80,4 +80,8 @@ class TraderServices{
             ->get();
         return $dematAccount;
     }
+    public static function holdingAccounts(){
+        return ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->where("client_demat.trader_id", auth()->user()->id)->where("client_demat.account_status", "holding")->select('client_demat.*', 'clients.name')->get();
+
+    }
 }

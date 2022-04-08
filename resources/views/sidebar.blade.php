@@ -290,7 +290,7 @@
                         <div class="menu-sub menu-sub-accordion menu-active-bg">
                             @can("role-read")
                                 <div class="menu-item">
-                                    <a class="menu-link @yield('roles')" href="{{route('roles')}}">
+                                    <a class="menu-link @yield('tradeHolding')" href="{{route('viewTraderHoldingAccounts')}}">
                                         <span class="menu-bullet">
                                             <i class="fas fa-solid fa-hand-holding"></i>
                                         </span>
