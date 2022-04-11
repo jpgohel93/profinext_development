@@ -128,7 +128,7 @@
                                                             <?php $joining_date = !empty($preRenewAccount->joining_date) && isset($preRenewAccount->joining_date) ? $preRenewAccount->joining_date : $preRenewAccount->created_at;?>
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                <td>{{$preRenewAccount->st_sg}}</td>
+                                                                <td>{{$preRenewAccount->st_sg}}-{{$preRenewAccount->serial_number}}</td>
                                                                 <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
                                                                 <td>{{$preRenewAccount->holder_name}}</td>
                                                                 <td>{{$preRenewAccount->available_balance}}</td>
@@ -137,7 +137,7 @@
                                                                     <a href="/financeManagement/clientDematDataView/{{$preRenewAccount->id}}/{{1}}" target="_blank" class='verifyDemate'>Verify</a>
                                                                 </td>
                                                             </tr>
-                                                        @empty 
+                                                        @empty
                                                             {{-- empty --}}
                                                         @endforelse
                                                     </tbody>
@@ -174,7 +174,7 @@
                                                             <?php $joining_date = !empty($toRenewAccount->joining_date) && isset($toRenewAccount->joining_date) ? $toRenewAccount->joining_date : $toRenewAccount->created_at;?>
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                <td>{{$toRenewAccount->st_sg}}</td>
+                                                                <td>{{$toRenewAccount->st_sg}}-{{$toRenewAccount->serial_number}}</td>
                                                                 <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
                                                                 <td>{{$toRenewAccount->holder_name}}</td>
                                                                 <td>{{$toRenewAccount->available_balance}}</td>
@@ -274,7 +274,7 @@
                                                             <?php $joining_date = !empty($newAccount->joining_date) && isset($newAccount->joining_date) ? $newAccount->joining_date : $newAccount->created_at;?>
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                <td>{{$newAccount->st_sg}}</td>
+                                                                <td>{{$newAccount->st_sg}}-{{$newAccount->serial_number}}</td>
                                                                 <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
                                                                 <td>{{$newAccount->holder_name}}</td>
                                                                 <td>{{$newAccount->capital}}</td>
@@ -317,6 +317,7 @@
                                                         <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Sr No.</th>
                                                             <th class="min-w-75px">Smart Id</th>
+                                                            <th class="min-w-75px">Invoice No.</th>
                                                             <th class="min-w-75px">Joining Date</th>
                                                             <th class="min-w-75px">Demat Holder Name</th>
                                                             <th class="min-w-75px">Available Fund</th>
@@ -329,14 +330,35 @@
                                                             <?php $joining_date = !empty($renewedAccount->joining_date) && isset($renewedAccount->joining_date) ? $renewedAccount->joining_date : $renewedAccount->created_at;?>
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                <td>{{$renewedAccount->st_sg}}</td>
+                                                                <td>{{$renewedAccount->st_sg}}-{{$renewedAccount->serial_number}}</td>
+                                                                <td>{{$renewedAccount->bank_code}}/{{$renewedAccount->financial_year}}/{{$renewedAccount->invoice_code}}</td>
                                                                 <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
                                                                 <td>{{$renewedAccount->holder_name}}</td>
                                                                 <td>{{$renewedAccount->available_balance}}</td>
                                                                 <td>{{$renewedAccount->pl}}</td>
                                                                 <td>
-                                                                    <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>Edit</a><br/>
-                                                                    <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>View Invoice</a><br/>
+{{--                                                                    <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>Edit</a><br/>--}}
+
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="/viewFeesInvoice/{{$renewedAccount->id}}/3" class="menu-link px-3" target="_blank">View Invoice</a>
+                                                                        </div>
+
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="/viewFeesInvoice/{{$renewedAccount->id}}/1" class="menu-link px-3" target="_blank">View Fees Invoice</a>
+                                                                        </div>
+
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="/viewFeesInvoice/{{$renewedAccount->id}}/2" class="menu-link px-3" target="_blank">View Access Profit Invoice</a>
+                                                                        </div>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         @empty
@@ -372,15 +394,15 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        @forelse($partPaymentData as $renewedAccount)
-                                                            <?php $joining_date = !empty($renewedAccount->joining_date) && isset($renewedAccount->joining_date) ? $renewedAccount->joining_date : $renewedAccount->created_at;?>
+                                                        @forelse($partPaymentData as $partPayment)
+                                                            <?php $joining_date = !empty($partPayment->joining_date) && isset($partPayment->joining_date) ? $partPayment->joining_date : $partPayment->created_at;?>
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                <td>{{$renewedAccount->st_sg}} - {{$renewedAccount->serial_number}}</td>
-                                                                <td>{{$renewedAccount->holder_name}}</td>
-                                                                <td>{{$renewedAccount->name}}</td>
+                                                                <td>{{$partPayment->st_sg}}-{{$partPayment->serial_number}}</td>
+                                                                <td>{{$partPayment->holder_name}}</td>
+                                                                <td>{{$partPayment->name}}</td>
                                                                 <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
-                                                                <td><?php echo $renewedAccount->final_amount - $renewedAccount->part_payment;  ?></td>
+                                                                <td><?php echo $partPayment->final_amount - $partPayment->part_payment;  ?></td>
                                                                 <td>
                                                                     <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                         <span class="svg-icon svg-icon-5 m-0">
@@ -390,15 +412,18 @@
                                                                         </span>
                                                                     </a>
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        <a href="javascript:void(0)" data-id="{{$toRenewAccount->id}}" class='menu-link px-3 part_payment_button'>
-                                                                            Add Unpaid Amount
-                                                                        </a>
                                                                         <div class="menu-item px-3">
-                                                                            <a href="{{route('clientDematView',$renewedAccount->id)}}" class='menu-link px-3'>Reminder </a>
+                                                                            <a href="javascript:void(0)" data-id="{{$partPayment->id}}" class='menu-link px-3 part_payment_button'>
+                                                                                Add Unpaid Amount
+                                                                            </a>
                                                                         </div>
 
                                                                         <div class="menu-item px-3">
-                                                                            <a href="{{route('clientDematView',$renewedAccount->id)}}" class='menu-link px-3 '>View Payment </a>
+                                                                            <a href="javascript:void(0)" data-id="{{$partPayment->id}}"  class='menu-link px-3'>Reminder </a>
+                                                                        </div>
+
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$partPayment->id}}" class='menu-link px-3 view_part_payment'>View Payment </a>
                                                                         </div>
                                                                     </div>
                                                                 </td>
@@ -655,7 +680,7 @@
                                     <option value="">Select bank</option>
                                     @forelse($forIncomesBank as $banks)
                                         <option value="{{$banks->id}}">{{$banks->title}}</option>
-                                    @empty 
+                                    @empty
                                         {{-- empty --}}
                                     @endforelse
                                 </select>
@@ -794,6 +819,46 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="viewPaymentHistory" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="fw-bolder">Payment History</h2>
+                    <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close"
+                            data-bs-dismiss="modal" aria-label="Close">
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                          transform="rotate(-45 6 17.3137)" fill="black"/>
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                          transform="rotate(45 7.41422 6)" fill="black"/>
+                                </svg>
+                            </span>
+                    </button>
+                </div>
+                <div class="modal-body mx-md-10">
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                        <!--begin::Table head-->
+                        <thead>
+                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                            <th class="min-w-10px">Sr No.</th>
+                            <th class="min-w-75px">Date</th>
+                            <th class="min-w-75px">Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-gray-600 fw-bold" id="payment_body">
+
+                        </tbody>
+                        <!--end::Table body-->
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
@@ -841,7 +906,7 @@
                             id:id
                         }
                     }).done(data => {
-                        $("#part_message").html( data.final_amount+ " total payment for account renew.");
+                        $("#part_message").html((parseInt(data.final_amount) - parseInt(data.part_payment))+ " total payment for account renew.");
                         $("#part_payment_id").val(data.id);
                         $("#part_bank_id").val(data.bank_id).trigger('change');
                         $("#partPaymentModal").modal("show");
@@ -862,6 +927,21 @@
                         $("#full_payment_id").val(data.id);
                         $("#full_bank_id").val(data.bank_id).trigger('change');
                         $("#fullPaymentModal").modal("show");
+                    });
+                });
+
+                //view part payment
+                $(document).on("click",".view_part_payment",function(e){
+                    const id=e.target.getAttribute("data-id");
+
+                    $.ajax("{!! route('viewPartPayment') !!}",{
+                        type:"POST",
+                        data:{
+                            id:id
+                        }
+                    }).done(data => {
+                        $('#payment_body').html(data.html);
+                        $("#viewPaymentHistory").modal("show");
                     });
                 });
 

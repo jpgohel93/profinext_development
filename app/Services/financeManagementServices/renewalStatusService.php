@@ -8,6 +8,7 @@ use App\Models\RenewDemat;
 use App\Services\CommonService;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ClientDemateServices;
+use \App\Services\financeManagementServices\bankServices;
 
 class renewalStatusService
 {
@@ -78,7 +79,37 @@ class renewalStatusService
         $demate = ClientDemateServices::getAccountByDemateId($id);
     }
     public static function createRenewal($request){
+        $forIncomes = bankServices::getBankAccountById($request->payment_bank_id);
+
+        if(date("m") >= 4){
+            $currentYear = date("y");
+            $lastYear = (date("y")+1);
+
+            $startDate = date("Y")."-04-01";
+            $endDate = (date("Y")+1)."-31-03";
+        }else{
+            $currentYear = (date("y") - 1);
+            $lastYear = date("y");
+
+            $startDate = (date("Y") - 1)."-04-01";
+            $endDate = (date("Y")+1)."-31-03";
+        }
+
+        $getInvoiceCode = RenewDemat::where('bank_id',$request->payment_bank_id)->where("created_at","<=",$endDate)->orderBy("id", "DESC")->first();
+
+        if(!empty($getInvoiceCode)) {
+            $invoiceCode = $getInvoiceCode->invoice_code;
+            $orderId = $getInvoiceCode->order_id;
+        } else {
+            $invoiceCode = 0;
+            $orderId = 0;
+        }
+
         $request_data['created_by'] = Auth::id();
+        $request_data['bank_code'] = $forIncomes['invoice_code'];
+        $request_data['financial_year'] = $currentYear."-".$lastYear;
+        $request_data['invoice_code'] = sprintf('%04d',($invoiceCode+1));
+        $request_data['order_id'] = sprintf('%04d',($orderId+1));
         $request_data['created_at'] = date("Y-m-d");
         $request_data['client_demat_id'] =  $request->id;
         $request_data['joining_date'] =  $request->joining_date;

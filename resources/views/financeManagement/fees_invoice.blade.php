@@ -36,7 +36,7 @@
                                     <div class="mw-lg-950px mx-auto w-100">
                                         <!-- begin::Header-->
                                         <div class="d-flex justify-content-between flex-column flex-sm-row mb-19">
-                                            <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">FEES INVOICE</h4>
+                                            <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">{{$title}}</h4>
                                             <!--end::Logo-->
                                             <div class="text-sm-end">
                                                 <!--begin::Text-->
@@ -68,40 +68,18 @@
                                                 <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
                                                     <div class="flex-root d-flex flex-column">
                                                         <span class="text-muted">Order ID</span>
-                                                        <span class="fs-5">#14534</span>
+                                                        <span class="fs-5">{{$renewData->order_id}}</span>
                                                     </div>
                                                     <div class="flex-root d-flex flex-column">
                                                         <span class="text-muted">Date</span>
-                                                        <span class="fs-5">08 April, 2022</span>
+                                                        <span class="fs-5">{{$renewData->created_at->format('d-m-Y')}}</span>
                                                     </div>
                                                     <div class="flex-root d-flex flex-column">
                                                         <span class="text-muted">Invoice ID</span>
-                                                        <span class="fs-5">#INV-000414</span>
-                                                    </div>
-                                                    <div class="flex-root d-flex flex-column">
-                                                        <span class="text-muted">Shipment ID</span>
-                                                        <span class="fs-5">#SHP-0025410</span>
+                                                        <span class="fs-5">{{$renewData->bank_code}}/{{$renewData->financial_year}}/{{$renewData->invoice_code}}</span>
                                                     </div>
                                                 </div>
                                                 <!--end::Order details-->
-                                                <!--begin::Billing & shipping-->
-                                                <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
-                                                    <div class="flex-root d-flex flex-column">
-                                                        <span class="text-muted">Billing Address</span>
-                                                        <span class="fs-6">Unit 1/23 Hastings Road,
-															<br>Melbourne 3000,
-															<br>Victoria,
-															<br>Australia.</span>
-                                                    </div>
-                                                    <div class="flex-root d-flex flex-column">
-                                                        <span class="text-muted">Shipping Address</span>
-                                                        <span class="fs-6">Unit 1/23 Hastings Road,
-															<br>Melbourne 3000,
-															<br>Victoria,
-															<br>Australia.</span>
-                                                    </div>
-                                                </div>
-                                                <!--end::Billing & shipping-->
                                                 <!--begin:Order summary-->
                                                 <div class="d-flex justify-content-between flex-column">
                                                     <!--begin::Table-->
@@ -109,93 +87,32 @@
                                                         <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
                                                             <thead>
                                                             <tr class="border-bottom fs-6 fw-bolder text-muted">
-                                                                <th class="min-w-175px pb-2">Products</th>
-                                                                <th class="min-w-70px text-end pb-2">SKU</th>
-                                                                <th class="min-w-80px text-end pb-2">QTY</th>
-                                                                <th class="min-w-100px text-end pb-2">Total</th>
+                                                                <th class="min-w-175px pb-2">Action / Sub Heading</th>
+                                                                <th class="min-w-70px pb-2">Description</th>
+                                                                <th class="min-w-100px text-center pb-2">Total</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody class="fw-bold text-gray-600">
                                                             <!--begin::Products-->
-                                                            <tr>
-                                                                <!--begin::Product-->
-                                                                <td>
-                                                                    <div class="d-flex align-items-center">
-                                                                        <!--begin::Thumbnail-->
-                                                                        <a href="/metronic8/demo1/../demo1/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
-                                                                            <span class="symbol-label" style="background-image:url(/metronic8/demo1/assets/media//stock/ecommerce/1.gif);"></span>
-                                                                        </a>
-                                                                        <!--end::Thumbnail-->
-                                                                        <!--begin::Title-->
-                                                                        <div class="ms-5">
-                                                                            <div class="fw-bolder">Product 1</div>
-                                                                            <div class="fs-7 text-muted">Delivery Date: 08/04/2022</div>
-                                                                        </div>
-                                                                        <!--end::Title-->
-                                                                    </div>
-                                                                </td>
-                                                                <!--end::Product-->
-                                                                <!--begin::SKU-->
-                                                                <td class="text-end">04244008</td>
-                                                                <!--end::SKU-->
-                                                                <!--begin::Quantity-->
-                                                                <td class="text-end">2</td>
-                                                                <!--end::Quantity-->
-                                                                <!--begin::Total-->
-                                                                <td class="text-end">$240.00</td>
-                                                                <!--end::Total-->
-                                                            </tr>
-                                                            <tr>
-                                                                <!--begin::Product-->
-                                                                <td>
-                                                                    <div class="d-flex align-items-center">
-                                                                        <!--begin::Thumbnail-->
-                                                                        <a href="/metronic8/demo1/../demo1/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
-                                                                            <span class="symbol-label" style="background-image:url(/metronic8/demo1/assets/media//stock/ecommerce/100.gif);"></span>
-                                                                        </a>
-                                                                        <!--end::Thumbnail-->
-                                                                        <!--begin::Title-->
-                                                                        <div class="ms-5">
-                                                                            <div class="fw-bolder">Footwear</div>
-                                                                            <div class="fs-7 text-muted">Delivery Date: 08/04/2022</div>
-                                                                        </div>
-                                                                        <!--end::Title-->
-                                                                    </div>
-                                                                </td>
-                                                                <!--end::Product-->
-                                                                <!--begin::SKU-->
-                                                                <td class="text-end">03745001</td>
-                                                                <!--end::SKU-->
-                                                                <!--begin::Quantity-->
-                                                                <td class="text-end">1</td>
-                                                                <!--end::Quantity-->
-                                                                <!--begin::Total-->
-                                                                <td class="text-end">$24.00</td>
-                                                                <!--end::Total-->
-                                                            </tr>
+                                                            @foreach($message as $data)
+                                                                <tr>
+                                                                    <td>{{$data['heading']}}</td>
+                                                                    <td>{{$data['description']}}</td>
+                                                                    <td class="text-center">{{$data['amount']}}</td>
+                                                                </tr>
+                                                            @endforeach
                                                             <!--end::Products-->
                                                             <!--begin::Subtotal-->
                                                             <tr>
-                                                                <td colspan="3" class="text-end">Subtotal</td>
-                                                                <td class="text-end">$264.00</td>
+                                                                <td colspan="2" class="text-end">Subtotal</td>
+                                                                <td class="text-center">{{$total}}</td>
                                                             </tr>
                                                             <!--end::Subtotal-->
-                                                            <!--begin::VAT-->
-                                                            <tr>
-                                                                <td colspan="3" class="text-end">VAT (0%)</td>
-                                                                <td class="text-end">$0.00</td>
-                                                            </tr>
-                                                            <!--end::VAT-->
-                                                            <!--begin::Shipping-->
-                                                            <tr>
-                                                                <td colspan="3" class="text-end">Shipping Rate</td>
-                                                                <td class="text-end">$5.00</td>
-                                                            </tr>
-                                                            <!--end::Shipping-->
+
                                                             <!--begin::Grand total-->
                                                             <tr>
-                                                                <td colspan="3" class="fs-3 text-dark fw-bolder text-end">Grand Total</td>
-                                                                <td class="text-dark fs-3 fw-boldest text-end">$269.00</td>
+                                                                <td colspan="2" class="fs-3 text-dark fw-bolder text-end">Grand Total</td>
+                                                                <td class="text-dark fs-3 fw-boldest text-center">{{$grand_total}}</td>
                                                             </tr>
                                                             <!--end::Grand total-->
                                                             </tbody>

@@ -184,6 +184,10 @@ class bankServices{
     }
 
     public static function getForIncomeAccountsArray(){
-        return BankModel::where("type",1)->where("is_primary","!=",1)->get()->toArray();
+        return BankModel::where("type",1)->where("is_primary","!=",1)->where("is_active",1)->get()->toArray();
+    }
+
+    public static function getBankAccountById($id){
+        return BankModel::where("id",$id)->first()->toArray();
     }
 }

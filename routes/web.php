@@ -287,8 +287,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/profitSharingPayment",[renewalStatusController::class, "profitSharingPayment"])->name("profitSharingPayment");
     Route::POST("/partPayment",[renewalStatusController::class, "partPayment"])->name("partPayment");
     Route::POST("/fullPayment",[renewalStatusController::class, "fullPayment"])->name("fullPayment");
-    Route::get("/viewFeesInvoice/{id}",[renewalStatusController::class,"viewFeesInvoice"])->name("viewFeesInvoice");
+    Route::get("/viewFeesInvoice/{id}/{invoice_type}",[renewalStatusController::class,"viewFeesInvoice"])->name("viewFeesInvoice");
     Route::POST("/getRenewData",[renewalStatusController::class,"getRenewData"])->name("getRenewData");
+    Route::POST("/viewPartPayment",[renewalStatusController::class,"viewPartPayment"])->name("viewPartPayment");
 
     // finance Management Bank
     Route::get("/financeManagement/bank",[BankControllers::class, "financeManagementBank"])->name("financeManagementBank");

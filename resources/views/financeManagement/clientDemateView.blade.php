@@ -305,7 +305,7 @@
                                                 <div class="d-flex flex-stack pt-10">
                                                     <div>
                                                         <button type="submit" class="btn btn-sm btn-primary" id="verifyBtn">Verify</button>
-                                                        <button type="button" class="btn btn-sm btn-primary" id="calculationBtn">Rough Calculation</button>
+{{--                                                        <button type="button" class="btn btn-sm btn-primary" id="calculationBtn">Rough Calculation</button>--}}
                                                         <button type="button" data-id='{{$demateDetails->id}}' id="backToTrade" class="btn btn-sm btn-primary" data-value="normal">Back to trade</button>
                                                     </div>
                                                 </div>

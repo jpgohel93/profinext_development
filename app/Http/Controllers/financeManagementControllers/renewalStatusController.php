@@ -243,25 +243,176 @@ class renewalStatusController extends Controller
 
     public function feesPayment(Request $request){
         ClientDemateServices::demateFeesPayment($request);
-        return Redirect::route("viewFeesInvoice",$request->fees_payment_id)->with("info", "Fees Pay successfully");
+        $renewData = ClientDemateServices::renewDataById($request->fees_payment_id);
+        if($renewData->service_type == 2){
+            $message[0]['heading'] = "AMS Fees";
+            $message[0]['description'] = 'Commission Income';
+        }else if($renewData->service_type == 1){
+            $message[0]['heading'] = "Prime Fees";
+            $message[0]['description'] = 'Prime Commission Income';
+        }else if($renewData->service_type == 3){
+            $message[0]['heading'] = "Prime Next Fees";
+            $message[0]['description'] = 'Prime Next Commission Income';
+        }
+
+        $message[0]['amount'] = $request->fees_amount;
+        $total = $request->fees_amount;
+        $grand_total = $request->fees_amount;
+        $title = "FEES INVOICE";
+        return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title'));
     }
 
     public function profitSharingPayment(Request $request){
         ClientDemateServices::demateProfitSharing($request);
-        return Redirect::route("viewFeesInvoice",$request->profit_sharing_payment_id)->with("info", "Profit Sharing Payment successfully");
+        $renewData = ClientDemateServices::renewDataById($request->profit_sharing_payment_id);
+        if($renewData->service_type == 2){
+            $message[0]['heading'] = "AMS Profit Sharing";
+            $message[0]['description'] = 'Commission Income on Access Profit';
+        }else if($renewData->service_type == 1){
+            $message[0]['heading'] = "Prime Profit Sharing";
+            $message[0]['description'] = 'Prime Commission Income on Access Profit';
+        }else if($renewData->service_type == 3){
+            $message[0]['heading'] = "Prime Next Profit Sharing";
+            $message[0]['description'] = 'Prime Next Commission Income on Access Profite';
+        }
+
+        $message[0]['amount'] = $request->profit_amount;
+        $total = $request->profit_amount;
+        $grand_total = $request->profit_amount;
+        $title = "ACCESS PROFIT INVOICE";
+        return view("financeManagement.fees_invoice",compact("renewData","message",'total',"grand_total","title"));
     }
 
     public function partPayment(Request $request){
         ClientDemateServices::partPayment($request);
-        return Redirect::route("viewFeesInvoice",$request->part_payment_id)->with("info", "Part Payment successfully");
+        return Redirect::route("renewal_status")->with("info", "Payment successfully");
     }
     public function fullPayment(Request $request){
         ClientDemateServices::fullPayment($request);
-        return Redirect::route("viewFeesInvoice",$request->full_payment_id)->with("info", "Payment successfully");
+       $renewData = ClientDemateServices::renewDataById($request->full_payment_id);
+
+        if($renewData->service_type == 2){
+            $message[0]['heading'] = "AMS Fees";
+            $message[0]['description'] = 'Commission Income';
+        }else if($renewData->service_type == 1){
+            $message[0]['heading'] = "Prime Fees";
+            $message[0]['description'] = 'Prime Commission Income';
+        }else if($renewData->service_type == 3){
+            $message[0]['heading'] = "Prime Next Fees";
+            $message[0]['description'] = 'Prime Next Commission Income';
+        }
+
+        if($renewData->service_type == 2){
+            $message[1]['heading'] = "AMS Profit Sharing";
+            $message[1]['description'] = 'Commission Income on Access Profit';
+        }else if($renewData->service_type == 1){
+            $message[1]['heading'] = "Prime Profit Sharing";
+            $message[1]['description'] = 'Prime Commission Income on Access Profit';
+        }else if($renewData->service_type == 3){
+            $message[1]['heading'] = "Prime Next Profit Sharing";
+            $message[1]['description'] = 'Prime Next Commission Income on Access Profit';
+        }
+
+        $message[1]['amount'] = $renewData->access_profit;
+        $message[0]['amount'] = $renewData->renewal_fees;
+        $total = $renewData->total_payment;
+        $grand_total = $renewData->total_payment;
+        $title = "INVOICE";
+
+        return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title"));
     }
 
-    public function viewFeesInvoice($id){
+    public function viewFeesInvoice($id,$type){
         $renewData = ClientDemateServices::renewDataById($id);
-        return view("financeManagement.fees_invoice",compact("renewData"));
+
+        $message = array();
+        $total = 0;
+        $grand_total = 0;
+        $title = 0;
+        if($type == 1){
+            if($renewData->service_type == 2){
+                $message[0]['heading'] = "AMS Fees";
+                $message[0]['description'] = 'Commission Income';
+            }else if($renewData->service_type == 1){
+                $message[0]['heading'] = "Prime Fees";
+                $message[0]['description'] = 'Prime Commission Income';
+            }else if($renewData->service_type == 3){
+                $message[0]['heading'] = "Prime Next Fees";
+                $message[0]['description'] = 'Prime Next Commission Income';
+            }
+
+            $message[0]['amount'] = $renewData->renewal_fees;
+            $total = $renewData->renewal_fees;
+            $grand_total = $renewData->renewal_fees;
+            $title = "FEES INVOICE";
+        }elseif ($type == 2){
+            if($renewData->service_type == 2){
+                $message[0]['heading'] = "AMS Profit Sharing";
+                $message[0]['description'] = 'Commission Income on Access Profit';
+            }else if($renewData->service_type == 1){
+                $message[0]['heading'] = "Prime Profit Sharing";
+                $message[0]['description'] = 'Prime Commission Income on Access Profit';
+            }else if($renewData->service_type == 3){
+                $message[0]['heading'] = "Prime Next Profit Sharing";
+                $message[0]['description'] = 'Prime Next Commission Income on Access Profit';
+            }
+
+            $message[0]['amount'] = $renewData->profit_sharing;
+            $total = $renewData->profit_sharing;
+            $grand_total = $renewData->profit_sharing;
+            $title = "ACCESS PROFIT INVOICE";
+        }elseif ($type == 3){
+            if($renewData->service_type == 2){
+                $message[0]['heading'] = "AMS Fees";
+                $message[0]['description'] = 'Commission Income';
+            }else if($renewData->service_type == 1){
+                $message[0]['heading'] = "Prime Fees";
+                $message[0]['description'] = 'Prime Commission Income';
+            }else if($renewData->service_type == 3){
+                $message[0]['heading'] = "Prime Next Fees";
+                $message[0]['description'] = 'Prime Next Commission Income';
+            }
+            if($renewData->service_type == 2){
+                $message[1]['heading'] = "AMS Profit Sharing";
+                $message[1]['description'] = 'Commission Income on Access Profit';
+            }else if($renewData->service_type == 1){
+                $message[1]['heading'] = "Prime Profit Sharing";
+                $message[1]['description'] = 'Prime Commission Income on Access Profit';
+            }else if($renewData->service_type == 3){
+                $message[1]['heading'] = "Prime Next Profit Sharing";
+                $message[1]['description'] = 'Prime Next Commission Income on Access Profit';
+            }
+            $message[1]['amount'] = $renewData->profit_sharing;
+            $message[0]['amount'] = $renewData->renewal_fees;
+            $total = $renewData->total_payment;
+            $grand_total = $renewData->total_payment;
+            $title = "INVOICE";
+        }
+        return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title"));
+    }
+
+    public function viewPartPayment(Request $request){
+        $paymentHistory = ClientDemateServices::viewPartPaymentHistory($request->id);
+
+        $html = '';
+        $totalPayment = 0;
+        $i=1;
+        foreach ($paymentHistory as $payment){
+            $html .= '<tr>';
+            $html .= '<td>'.$i++.'</td>';
+            $html .= '<td>'.$payment['date'].'</td>';
+            $html .= '<td style="text-align: center">'.$payment['amount'].'</td>';
+            $html .= '</tr>';
+
+            $totalPayment = $totalPayment + $payment['amount'];
+        }
+        $html .= '<tr>';
+        $html .= '<td colspan="2" style="text-align: right"><b>Total  </b></td>';
+        $html .= '<td  style="text-align: center"><b>'.$totalPayment.'</b></td>';
+        $html .= '</tr>';
+
+        $data['html'] = $html;
+        $data['totalPayment'] = $totalPayment;
+        return $data;
     }
 }
