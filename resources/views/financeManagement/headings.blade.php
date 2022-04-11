@@ -132,15 +132,15 @@
                                                                 <td>{{$income->sub_heading}}</td>
                                                                 <td>
                                                                     <a href="javascript:void(0)">
-                                                                        <i class="fas fa-edit fa-lg editHeading" data-bs-toggle="tooltip" title="Edit this Sub heading" data-id="{{$income->id}}"></i>
+                                                                        <i class="fas fa-edit fa-xl editHeading" title="Edit this Sub heading" data-id="{{$income->id}}"></i>
                                                                     </a>
                                                                     @if($income->is_active==1)
                                                                         <a href="javascript:void(0)">
-                                                                            <i class="fas fa-unlock fa-lg" data-id="{{$income->id}}"bs-toggle="tooltip" title="This is label is Activated"></i>
+                                                                            <i class="fas fa-unlock fa-xl" data-id="{{$income->id}}"bs-toggle="tooltip" title="This is label is Activated"></i>
                                                                         </a>
                                                                     @else
                                                                         <a href="javascript:void(0)">
-                                                                            <i class="fas fa-lock fa-lg" data-id="{{$income->id}}"bs-toggle="tooltip" title="This is label is Deactivated"></i>
+                                                                            <i class="fas fa-lock fa-xl" data-id="{{$income->id}}"bs-toggle="tooltip" title="This is label is Deactivated"></i>
                                                                         </a>
                                                                     @endif
                                                                 </td>
@@ -179,15 +179,15 @@
                                                                 <td>{{$expense->sub_heading}}</td>
                                                                 <td>
                                                                     <a href="javascript:void(0)">
-                                                                        <i class="fas fa-edit fa-lg editHeading" data-id="{{$expense->id}}" data-bs-toggle="tooltip" title="Edit this Sub heading"></i>
+                                                                        <i class="fas fa-edit fa-xl editHeading" data-id="{{$expense->id}}" title="Edit this Sub heading"></i>
                                                                     </a>
                                                                     @if($expense->is_active==1)
                                                                         <a href="javascript:void(0)">
-                                                                            <i class="fas fa-unlock fa-lg" data-id="{{$expense->id}}"bs-toggle="tooltip" title="This is label is Activated"></i>
+                                                                            <i class="fas fa-unlock fa-xl" data-id="{{$expense->id}}" title="This is label is Activated"></i>
                                                                         </a>
                                                                     @else
                                                                         <a href="javascript:void(0)">
-                                                                            <i class="fas fa-lock fa-lg" data-id="{{$expense->id}}"bs-toggle="tooltip" title="This is label is Deactivated"></i>
+                                                                            <i class="fas fa-lock fa-xl" data-id="{{$expense->id}}" title="This is label is Deactivated"></i>
                                                                         </a>
                                                                     @endif
                                                                 </td>
@@ -226,15 +226,15 @@
                                                                 <td>{{$transfer->sub_heading}}</td>
                                                                 <td>
                                                                     <a href="javascript:void(0)">
-                                                                        <i class="fas fa-edit fa-lg editHeading" data-id="{{$transfer->id}}" data-bs-toggle="tooltip" title="Edit this Sub heading"></i>
+                                                                        <i class="fas fa-edit fa-xl editHeading" data-id="{{$transfer->id}}" title="Edit this Sub heading"></i>
                                                                     </a>
                                                                     @if($transfer->is_active==1)
                                                                         <a href="javascript:void(0)">
-                                                                            <i class="fas fa-unlock fa-lg" data-id="{{$transfer->id}}"bs-toggle="tooltip" title="This is label is Activated"></i>
+                                                                            <i class="fas fa-unlock fa-xl" data-id="{{$transfer->id}}" title="This is label is Activated"></i>
                                                                         </a>
                                                                     @else
                                                                         <a href="javascript:void(0)">
-                                                                            <i class="fas fa-lock fa-lg" data-id="{{$transfer->id}}"bs-toggle="tooltip" title="This is label is Deactivated"></i>
+                                                                            <i class="fas fa-lock fa-xl" data-id="{{$transfer->id}}" title="This is label is Deactivated"></i>
                                                                         </a>
                                                                     @endif
                                                                 </td>
@@ -273,15 +273,15 @@
                                                                 <td>{{$loan->sub_heading}}</td>
                                                                 <td>
                                                                     <a href="javascript:void(0)">
-                                                                        <i class="fas fa-edit fa-lg editHeading" data-id="{{$loan->id}}" data-bs-toggle="tooltip" title="Edit this Sub heading"></i>
+                                                                        <i class="fas fa-edit fa-xl editHeading" data-id="{{$loan->id}}" title="Edit this Sub heading"></i>
                                                                     </a>
                                                                     @if($loan->is_active==1)
                                                                         <a href="javascript:void(0)">
-                                                                            <i class="fas fa-unlock fa-lg" data-id="{{$loan->id}}"bs-toggle="tooltip" title="This is label is Activated"></i>
+                                                                            <i class="fas fa-unlock fa-xl" data-id="{{$loan->id}}" title="This is label is Activated"></i>
                                                                         </a>
                                                                     @else
                                                                         <a href="javascript:void(0)">
-                                                                            <i class="fas fa-lock fa-lg" data-id="{{$loan->id}}"bs-toggle="tooltip" title="This is label is Deactivated"></i>
+                                                                            <i class="fas fa-lock fa-xl" data-id="{{$loan->id}}" title="This is label is Deactivated"></i>
                                                                         </a>
                                                                     @endif
                                                                 </td>
@@ -322,15 +322,15 @@
                                                                 <td>{{$deactivated->sub_heading}}</td>
                                                                 <td>
                                                                     <a href="javascript:void(0)">
-                                                                        <i class="fas fa-edit fa-lg editHeading" data-id="{{$deactivated->id}} data-bs-toggle="tooltip" title="Edit this Sub heading"></i>
+                                                                        <i class="fas fa-edit fa-xl editHeading" data-id="{{$deactivated->id}}" title="Edit this Sub heading"></i>
                                                                     </a>
                                                                     @if($deactivated->is_active==1)
                                                                         <a href="javascript:void(0)">
-                                                                            <i class="fas fa-unlock fa-lg" data-id="{{$deactivated->id}}"bs-toggle="tooltip" title="This is label is Activated"></i>
+                                                                            <i class="fas fa-unlock fa-xl" data-id="{{$deactivated->id}}" title="This is label is Activated"></i>
                                                                         </a>
                                                                     @else
                                                                         <a href="javascript:void(0)">
-                                                                            <i class="fas fa-lock fa-lg" data-id="{{$deactivated->id}}"bs-toggle="tooltip" title="This is label is Deactivated"></i>
+                                                                            <i class="fas fa-lock fa-xl" data-id="{{$deactivated->id}}" title="This is label is Deactivated"></i>
                                                                         </a>
                                                                     @endif
                                                                 </td>
@@ -531,6 +531,7 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
+                $("select").select2();
                 $(".datatable").DataTable();
                 $("#addSubHeading").on("click",function(){
                     $("#addIncomeHeadingModal").modal("show");

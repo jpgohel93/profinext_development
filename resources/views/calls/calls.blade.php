@@ -176,7 +176,7 @@
                                                     <tbody class="text-gray-600 fw-bold" id="closedCallTable">
                                                         @forelse($calls['closed'] as $call)
                                                             <tr>
-                                                                <td>{{$i++}}</td>
+                                                                <td>{{$loop->iteration}}</td>
                                                                 <td class="d-flex align-items-center">
                                                                     <div class="d-flex flex-column">
                                                                         <a href="#" class="text-gray-800 text-hover-primary mb-1">{{$call->analyst->analyst}}</a>
@@ -287,11 +287,11 @@
                     <div class="form-group row">
                         <label class="col-3 col-form-label">Analyst Name</label>
                         <div class="col-9">
-                            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a analyst" name="analyst_id" id="analyst_id">
+                            <select class="form-select form-select-solid" data-control="select2" data-placeholder="Select a analyst" name="analyst_id" id="analyst_id">
                                 @forelse ($calls['analysts'] as $key => $analyst)
                                     <option value='{{$analyst->id}}' {{(old('analyst')==$analyst->id)?"selected":($key==0?"selected":"")}}>{{$analyst->analyst}}</option>
                                 @empty
-                                    <option value="">Select Analyst...</option>
+                                    {{-- empty --}}
                                 @endforelse
                             </select>
                         </div>
@@ -305,7 +305,6 @@
                     <div class="form-group row">
                         <label for="example-tel-input" class="col-3 col-form-label">Script Name</label>
                         <div class="col-9">
-{{--                            <input class="form-control" type="text" value="{{old('script_name')}}" name="script_name" id="script_name" />--}}
                             <input type="type" class="form-control" id="script_name"  name="script_name" list="listValue" value="{{old('script_name')}}"/>
                             <datalist id="listValue">
                                 @if(!empty($keywords))
@@ -343,16 +342,6 @@
                         <span class="indicator-progress">Please wait...
                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                     </button>
-{{--                    <button type="button" class="btn btn-primary" data-kt-users-modal-action="submit">--}}
-{{--                        <span class="indicator-label">Add</span>--}}
-{{--                        <span class="indicator-progress">Please wait...--}}
-{{--                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>--}}
-{{--                    </button>--}}
-{{--                    <button type="button" class="btn btn-primary" data-kt-users-modal-action="submit">--}}
-{{--                        <span class="indicator-label">Sqaure Off</span>--}}
-{{--                        <span class="indicator-progress">Please wait...--}}
-{{--                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>--}}
-{{--                    </button>--}}
                 </div>
             </form>
         </div>
@@ -398,11 +387,11 @@
                         <!--begin::Col-->
                         <div class="col-md-6">
                             <label class="required fs-6 fw-bold mb-2">Analyst Name</label>
-                            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select a analyst" name="analyst_id">
+                            <select class="form-select form-select-solid" data-control="select2" data-placeholder="Select a analyst" name="analyst_id">
                                 @forelse ($calls['analysts'] as $key => $analyst)
                                     <option value='{{$analyst->id}}' {{(old('analyst')==$analyst->id)?"selected":($key==0?"selected":"")}}>{{$analyst->analyst}}</option>
                                 @empty
-                                    <option value="">Select Analyst...</option>
+                                    {{-- empty --}}
                                 @endforelse
                             </select>
                         </div>
@@ -547,7 +536,7 @@
 <!--begin::Modal - Call Modal-->
 <div class="modal fade" id="script_modal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->

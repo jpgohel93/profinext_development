@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/clients/DematAccount/account/restore",[ClientController::class, "dematAccountRestore"])->name("dematAccountRestore");
     Route::POST("/clients/DematAccount/renewal_account/image_upload",[RenewalAccountImagesController::class, "create"])->name("renewalAccountImageUpload");
     Route::POST("/clients/DematAccount/renewal_account/images/get",[RenewalAccountImagesController::class, "get"])->name("viewRenewalAccountImages");
+    Route::POST("/clients/DematAccount/remove", [ClientController::class, "removeDemat"])->name("removeDematAccount");
     // read client
     Route::get("/client/view/{client_id}",[ClientController::class,"get"])->name("clientView");
     Route::POST("/clients/mutual_fund/get",[ClientController::class, "getMutualFundClient"])->name("getMutualFundClient");
@@ -84,7 +85,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/client/remove/{id}",[ClientController::class,"remove"])->name("removeClient");
     // remove client
     Route::get("/client/edit/{client_id}/remove/screenshot/{screenshot_id}",[ClientController::class,"removePaymentScreenshot"])->name("removePaymentScreenshot");
-    Route::get("/client/edit/{client_id}/remove/pancard/{pancard_id}",[ClientController::class,"removeDematePancard"])->name("removeDematePancard");
+    Route::POST("/client/edit/remove/pancard",[ClientController::class,"removeDematePancard"])->name("removeDematePancard");
     Route::POST("/freelancer/client/assign",[ClientController::class,'assignClientToFreelancer'])->name('assignClientToFreelancer');
     Route::POST("/clients/edit/Demat",[ClientController::class,"editClientDematAccount"])->name("editClientDematAccount");
     Route::get("/loginInfo/{id}", [ClientController::class, "getLoginInfo"])->name("getLoginInfo");

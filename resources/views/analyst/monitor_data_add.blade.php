@@ -61,6 +61,7 @@
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <select name="analysts_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Analyst">
+                                            <option value="">Select option</option>
                                             @if(!empty($analysts))
                                                 @foreach($analysts as $analyst)
                                                     <option value="{{$analyst->id}}">{{$analyst->analyst}}</option>
@@ -141,7 +142,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="entry_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
+                                        <select name="entry_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Entry time">
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
                                         </select>
@@ -279,6 +280,7 @@
 </div>
 <script>
     window.addEventListener("DOMContentLoaded",function(){
+        $("select[data-control='select2']").select2();
         $(document).on("click", "#addmoreWhatsapp", function () {
             var newcomp1 = $('#hiddenaddmoreWhatsapp').html();
             $('.custom_appendDiv').append(newcomp1);
@@ -299,7 +301,4 @@
         }
     });
 </script>
-@section('jscript')
-
-@endsection
 @endsection

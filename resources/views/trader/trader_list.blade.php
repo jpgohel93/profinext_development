@@ -95,14 +95,10 @@
                                                         <td>{{$loop->iteration}}</td>
                                                         <td> {{$trader->name}} </td>
                                                         <td> {{$trader->email}}</td>
-                                                        <td class="">
-                                                            <div class="d-flex justify-content-center">
-                                                                <div class="menu-item">
-                                                                    <a href="{{url('/traders/clients/'.$trader->id)}}" class="menu-link p-1" target="_blank">
-                                                                        <i class="fa fa-eye text-dark fa-2x"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
+                                                        <td class="text-end">
+                                                            <a href="{{url('/traders/clients/'.$trader->id)}}" class="menu-link p-1" target="_blank">
+                                                                <i class="fas fa-eye fa-xl px-5"></i>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @empty

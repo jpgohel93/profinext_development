@@ -920,6 +920,7 @@
 
     <script>
         window.addEventListener("DOMContentLoaded",function(){
+            $("select").select2();
             $(".datatable").DataTable();
             //for copy text
             var copy = document.querySelectorAll(".copy");

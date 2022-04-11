@@ -130,29 +130,25 @@
                                                                         <td class="text-end">
                                                                             <div class="d-flex justify-content-end align-items-end">
                                                                                 @can("blog-write")
-                                                                                    <div class="menu-item">  
-                                                                                        <a href="{{route('editBlog',$blog['id'])}}" data-id="{{$blog['id']}}" class="menu-link px-3">
-                                                                                            Edit
-                                                                                        </a> 
-                                                                                    </div>
+                                                                                    <a href="{{route('editBlog',$blog['id'])}}" data-id="{{$blog['id']}}">
+                                                                                        <i class="fas fa-edit fa-xl px-2"></i>
+                                                                                    </a> 
                                                                                     @if($blog['notes']!="")
-                                                                                        <div class="menu-item">  
-                                                                                            <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 displayNotes">
-                                                                                                Notes
-                                                                                            </a> 
-                                                                                        </div>
+                                                                                        <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="displayNotes">
+                                                                                            <i class="fas fa-file fa-xl px-2"></i>
+                                                                                        </a> 
                                                                                     @endif
                                                                                 @endcan
                                                                                 @can("blog-delete")
-                                                                                    <div class="menu-item">  
-                                                                                        <a href="{{route('removeBlog')}}" data-id="{{$blog['id']}}" class="menu-link px-2 removeRole">
-                                                                                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#009ef7"><path d="M74.53333,17.2c-1.53406,-0.02082 -3.01249,0.574 -4.10468,1.65146c-1.09219,1.07746 -1.70703,2.54767 -1.70704,4.08187h-34.32161c-2.06765,-0.02924 -3.99087,1.05709 -5.03322,2.843c-1.04236,1.78592 -1.04236,3.99474 0,5.78066c1.04236,1.78592 2.96558,2.87225 5.03322,2.843h103.2c2.06765,0.02924 3.99087,-1.05709 5.03322,-2.843c1.04236,-1.78592 1.04236,-3.99474 0,-5.78066c-1.04236,-1.78592 -2.96558,-2.87225 -5.03322,-2.843h-34.32161c-0.00001,-1.53421 -0.61486,-3.00442 -1.70704,-4.08187c-1.09219,-1.07746 -2.57061,-1.67228 -4.10468,-1.65146zM34.4,45.86667v91.73333c0,6.33533 5.13133,11.46667 11.46667,11.46667h80.26667c6.33533,0 11.46667,-5.13133 11.46667,-11.46667v-91.73333z"></path></g></g></svg>
-                                                                                        </a>
-                                                                                    </div>
+                                                                                    <a href="{{route('removeBlog')}}" data-id="{{$blog['id']}}" class="removeRole">
+                                                                                        <i class="fas fa-trash text-danger fa-xl px-2"></i>
+                                                                                    </a>
                                                                                 @endcan
                                                                             </div>
                                                                         </td> 
                                                                     </tr> 
+                                                                @empty
+                                                                    {{-- empty --}}
                                                                 @endforelse
                                                             </tbody>
                                                         </table> 
@@ -188,9 +184,6 @@
     <div class="modal fade" id="addArticleModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog mw-650px" role="document">
             <div class="modal-content">
-                @if ($errors->any())
-                    <h3 class="alert alert-danger">{{$errors->first()}}</h3>
-                @endif
                 <!--begin::Form-->
                 <form id="" class="form" method="POST" action="{{route('addBlogFrm')}}">
                     @csrf
@@ -201,34 +194,31 @@
                     <div class="modal-body mx-md-10">
                         <div class="row">
                             <label class="col-3 col-form-label">Tab</label>
-                            <select name="tab_id" class="form-control">
-                                <option value="">Select Tabs</option>
-                                @foreach ($all_tabs as $tab)
-                                    <option value="{{$tab['id']}}">{{$tab['name']}}</option>
-                                @endforeach
+                            <select name="tab_id" class="form-control" data-control="select2" data-placeholder="Select tab">
+                                @forelse ($all_tabs as $tab)
+                                    <option value="{{$tab['id']}}" {{old('tab_id')==$tab['id']?"selected":""}}>{{$tab['name']}}</option>
+                                @empty
+                                    {{-- empty --}}
+                                @endforelse
                             </select>
                         </div>
                         <div class="row">
                             <label class="col-3 col-form-label">Date</label>
-                            <input type="date" name="date" id="date" class="form-control" value="<?= date("Y-m-d") ?>"/>
+                            <input type="date" name="date" id="date" class="form-control" value="{{old('date')?old('date'):date('Y-m-d')}}"/>
                         </div>
                         <div class="row">
                             <label class="col-3 col-form-label">Title</label>
-                            <input type="text" name="title" id="title" class="form-control" placeholder="Please Enter Blog Title" />
+                            <input type="text" name="title" id="title" class="form-control" value="{{old('title')}}" placeholder="Please Enter Blog Title" />
                         </div>
                         <div class="row">
                             <label class="col-3 col-form-label">Link</label>
-                            <input type="text" name="link" id="link" class="form-control" placeholder="Please Enter Blog Link" />
+                            <input type="text" name="link" id="link" class="form-control" value="{{old('link')}}" placeholder="Please Enter Blog Link" />
                         </div>
                     </div>
                     <!--end::Modal body-->
                     <div class="modal-footer text-center">
                         <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
-                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                            <span class="indicator-label">Submit</span>
-                            <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                        </button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
                 <!--end::Form-->

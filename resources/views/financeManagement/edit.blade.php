@@ -98,7 +98,6 @@
                                         <div class="form-group">
                                             <label class="d-flex align-items-center fs-6 fw-bold">
                                                 <span class="required">Bank Title:</span>
-                                                <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" value="{{old('title')?old('title'):$bank->title}}" name="title" class="form-control form-control-solid" />
@@ -107,7 +106,6 @@
                                         <div class="form-group">
                                             <label class="d-flex align-items-center fs-6 fw-bold">
                                                 <span class="required">Account Type:</span>
-                                                <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" value="{{old('account_type')?old('account_type'):$bank->account_type}}" name="account_type" class="form-control form-control-solid" />
@@ -116,7 +114,6 @@
                                         <div class="form-group">
                                             <label class="d-flex align-items-center fs-6 fw-bold">
                                                 <span class="required">IFSC Code:</span>
-                                                <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" value="{{old('ifsc_code')?old('ifsc_code'):$bank->ifsc_code}}" name="ifsc_code" class="form-control form-control-solid" />
@@ -124,7 +121,6 @@
                                         <div class="form-group">
                                             <label class="d-flex align-items-center fs-6 fw-bold">
                                                 <span class="required">Primary Bank:</span>
-                                                <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                             </label>
                                             <select class="form-select form-select-solid" name="is_primary" required>
                                                 <option value="1" {{old('is_primary') && old("is_primary")==1?"selected":($bank->is_primary==1?"selected":"")}}>Yes</option>
@@ -135,7 +131,6 @@
                                             <div class="form-group">
                                                 <label class="d-flex align-items-center fs-6 fw-bold">
                                                     <span class="required">Reserve Balance:</span>
-                                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                                 </label>
                                                 <!--end::Label-->
                                                 <input type="text" value="{{old('reserve_balance')?old('reserve_balance'):$bank->reserve_balance}}" name="reserve_balance" class="form-control form-control-solid" />
@@ -147,7 +142,6 @@
                                             <div class="form-group">
                                                 <label class="d-flex align-items-center fs-6 fw-bold">
                                                     <span class="required">Available Balance:</span>
-                                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                                 </label>
                                                 <!--end::Label-->
                                                 <input type="text" value="{{old('available_balance')?old('available_balance'):$bank->available_balance}}" name="available_balance" class="form-control form-control-solid" />
@@ -155,7 +149,6 @@
                                             <div class="form-group">
                                                 <label class="d-flex align-items-center fs-6 fw-bold">
                                                     <span class="required">Limit Utilize:</span>
-                                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                                 </label>
                                                 <!--end::Label-->
                                                 <input type="text" value="{{old('limit_utilize')?old('limit_utilize'):$bank->limit_utilize}}" name="limit_utilize" class="form-control form-control-solid" />
@@ -163,7 +156,6 @@
                                             <div class="form-group">
                                                 <label class="d-flex align-items-center fs-6 fw-bold">
                                                     <span class="required">Target:</span>
-                                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                                 </label>
                                                 <!--end::Label-->
                                                 <input type="text" value="{{old('target')?old('target'):$bank->target}}" name="target" class="form-control form-control-solid" />
@@ -172,7 +164,6 @@
                                         <div class="form-group">
                                             <label class="d-flex align-items-center fs-6 fw-bold">
                                                 <span class="required">Bank Name:</span>
-                                                <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" value="{{old('name')?old('name'):$bank->name}}" name="name" class="form-control form-control-solid" />
@@ -180,7 +171,6 @@
                                         <div class="form-group">
                                             <label class="d-flex align-items-center fs-6 fw-bold">
                                                 <span class="required">Account Name:</span>
-                                                <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" value="{{old('account_name')?old('account_name'):$bank->account_name}}" name="account_name" class="form-control form-control-solid" />
@@ -188,10 +178,23 @@
                                         <div class="form-group">
                                             <label class="d-flex align-items-center fs-6 fw-bold">
                                                 <span class="required">Account No:</span>
-                                                <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" value="{{old('account_no')?old('account_no'):$bank->account_no}}" name="account_no" class="form-control form-control-solid" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="d-flex align-items-center fs-6 fw-bold">
+                                                <span class="required">Invoice code:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type="text" value="{{old('invoice_code')?old('invoice_code'):$bank->invoice_code}}" name="invoice_code" class="form-control form-control-solid" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="d-flex align-items-center fs-6 fw-bold">
+                                                <span class="required">PAN Number:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type="text" value="{{old('pan_number')?old('pan_number'):$bank->pan_number}}" name="pan_number" class="form-control form-control-solid" />
                                         </div>
                                     </div>
                                     <!--end::Col-->
@@ -226,6 +229,7 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
+            $("select").select2();
             $("#bank_type").on("change",function(){
                 const type =$(this).val();
                 if(type==1){

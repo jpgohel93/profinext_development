@@ -114,7 +114,7 @@
                                                     <div class="col-md-6 mb-4">
                                                         <!--begin::Label-->
                                                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span class="required">Communication with</span>
+                                                            <span>Communication with</span>
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
@@ -660,7 +660,7 @@
                                                                             <select name="bank[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
                                                                                 <option></option>
                                                                                 @forelse ($banks as $bank)
-                                                                                    <option value="{{$bank->bank}}" {{(old('bank') && old('bank')==$bank->bank)?"selected":""}}>{{$bank->bank}}</option>
+                                                                                    <option value="{{$bank->title}}" {{(old('bank') && old('bank')==$bank->title)?"selected":""}}>{{$bank->title}}</option>
                                                                                 @empty
                                                                                     <option>Selecte Bank</option>
                                                                                 @endforelse
@@ -677,7 +677,7 @@
                                                                         <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date"/>
+                                                                        <input type="date" name="joining_date[]" value="{{date('Y-m-d')}}" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date"/>
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
@@ -1069,7 +1069,7 @@
                                                                         <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{$demate_account['mode']=="2"?($demate_account['joining_date']==""?"":date("Y-m-d",strtotime($demate_account['joining_date']))):""}}"/>
+                                                                        <input type="date" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{$demate_account['mode']=="2"?($demate_account['joining_date']==""?"":date("Y-m-d",strtotime($demate_account['joining_date']))):""}}"/>
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
@@ -1496,7 +1496,7 @@
                                                             <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date"/>
+                                                            <input type="date" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" value="{{date("Y-m-d")}}" placeholder="Select date"/>
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->
@@ -1578,7 +1578,7 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
-            $("[data-control='select2']").select2();
+            $("select").select2();
 			$(document).on("change","[name='st_sg[]']",function() {
 				var lastSGNo = parseInt("<?php echo $newSGNo;?>");
 				var string = "000";
@@ -1596,6 +1596,7 @@
 			});
 
 			$(document).on("click",".addmore",function() {
+                $("select").select2("destroy");
 				// var newcomp1 = $('#hiddenaddmore').html();
 				var clone = $('#hiddenaddmore > .cloningSec').clone();
 				var rem = clone.find('#addmore');
@@ -1604,6 +1605,7 @@
 				$(rem).text('Remove');
                 $('#appendDiv1').append("<hr>");
 				$('#appendDiv1').append(clone);
+                $("select").select2();
 				resetCounter();
 			});
 			// service type this is required else some values are not available server side

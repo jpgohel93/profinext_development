@@ -103,7 +103,7 @@
                                                                 <div class="d-flex justify-content-center">
                                                                     <div class="menu-item">
                                                                         <a href="javascript:void(0)" data-id='{{$client->id}}' class="menu-link px-3 editDematAccount">
-                                                                            <i class="fa fa-edit text-dark fa-2x"></i>
+                                                                            <i class="fas fa-pen fa-xl px-3"></i>
                                                                         </a>
                                                                     </div>
                                                                 </div>

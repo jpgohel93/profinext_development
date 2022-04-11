@@ -104,21 +104,21 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                            <!--begin::Table head-->
-                                            <thead>
-                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                    <th class="min-w-10px">Sr No.</th>
-                                                    <th class="min-w-10px">Serial Number</th>
-                                                    <th class="min-w-75px">Client name</th>
-                                                    <th class="min-w-75px">Holder Name</th>
-                                                    <th class="min-w-75px">Service Type</th>
-                                                    <th class="min-w-75px">Broker</th>
-                                                    <th class="text-end min-w-100px">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="text-gray-600 fw-bold">
-                                                @can("client-demat-read")
+                                        @can("client-demat-read")
+                                            <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                <!--begin::Table head-->
+                                                <thead>
+                                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                        <th class="min-w-10px">Sr No.</th>
+                                                        <th class="min-w-10px">Serial Number</th>
+                                                        <th class="min-w-75px">Client name</th>
+                                                        <th class="min-w-75px">Holder Name</th>
+                                                        <th class="min-w-75px">Service Type</th>
+                                                        <th class="min-w-75px">Broker</th>
+                                                        <th class="text-end min-w-100px">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="text-gray-600 fw-bold">
                                                     @forelse ($dematAccount as $account)
                                                         <tr>
                                                             <td>{{$loop->iteration}}</td>
@@ -158,10 +158,11 @@
                                                     @empty
                                                         {{-- empty --}}
                                                     @endforelse
-                                                @else
-                                                    <h1>Unauthorised</h1>
-                                                @endcan
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        @else
+                                            <h1>Unauthorised</h1>
+                                        @endcan
                                     </div>
                                     <!--end::Table-->
                                 </div>

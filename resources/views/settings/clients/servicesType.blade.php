@@ -56,10 +56,10 @@
                                             <td>{{$serviceType->gst_rate}}</td>
                                             <td>
                                                 <a href="javascript:void(0)">
-                                                    <i class="fa fa-edit fa-2x editServiceType" data-id="{{$serviceType->id}}"></i>
+                                                    <i class="fas fa-pen fa-xl px-2 editServiceType" data-id="{{$serviceType->id}}"></i>
                                                 </a>
                                                 <a href="{{route('removeServiceType',$serviceType->id)}}" class="removeServiceType">
-                                                    <i class="fa fa-trash text-danger fa-2x"></i>
+                                                    <i class="fas fa-trash text-danger fa-xl px-2"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -121,20 +121,18 @@
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Service type:</span>
-                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
-                                <input type="text" value="{{old('name')}}" class="form-control form-control-solid" name="name" />
+                                <input type="text" value="{{old('name')}}" class="form-control form-control-solid" name="name"  required/>
                             </div>
                             <!--begin::Col-->
                             <div class="col-md-6">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Renewal amount:</span>
-                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
-                                <input type="text" value="{{old('renewal_amount')}}" class="form-control form-control-solid" name="renewal_amount" />
+                                <input type="text" value="{{old('renewal_amount')}}" class="form-control form-control-solid" name="renewal_amount"  required/>
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
@@ -142,10 +140,9 @@
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Cut off:</span>
-                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
-                                <input type="text" value="{{old('cutoff')}}" class="form-control form-control-solid" name="cutoff" />
+                                <input type="text" value="{{old('cutoff')}}" class="form-control form-control-solid" name="cutoff"  required/>
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
@@ -153,10 +150,9 @@
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Sharing:</span>
-                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
-                                <input type="text" value="{{old('sharing')}}" class="form-control form-control-solid" name="sharing" />
+                                <input type="text" value="{{old('sharing')}}" class="form-control form-control-solid" name="sharing"  required/>
                             </div>
                             <!--end::Col-->
                             <!--begin::Col-->
@@ -164,10 +160,9 @@
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">GST Applicable:</span>
-                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
-                                <select class="form-control" name="is_gst_applicable">
+                                <select class="form-control" name="is_gst_applicable" required>
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
@@ -178,7 +173,6 @@
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">GST Rate:</span>
-                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
                                 <input type="text" value="{{old('gst_rate')}}" class="form-control form-control-solid" name="gst_rate" />
@@ -247,7 +241,6 @@
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Service type:</span>
-                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
                                 <input type="text" value="{{old('name')}}" class="form-control form-control-solid" id="edit_name" name="name" />
@@ -257,7 +250,6 @@
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Renewal amount:</span>
-                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
                                 <input type="text" value="{{old('renewal_amount')}}" class="form-control form-control-solid" id="edit_renewal_amount" name="renewal_amount" />
@@ -268,7 +260,6 @@
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Cut off:</span>
-                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
                                 <input type="text" value="{{old('cutoff')}}" class="form-control form-control-solid" id="edit_cutoff" name="cutoff" />
@@ -279,7 +270,6 @@
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Sharing:</span>
-                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
                                 <input type="text" value="{{old('sharing')}}" class="form-control form-control-solid" id="edit_sharing" name="sharing" />
@@ -290,7 +280,6 @@
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">GST Applicable:</span>
-                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
                                 </label>
                                 <!--end::Label-->
                                 <select id="edit_is_gst_applicable" class="form-control" name="is_gst_applicable">
@@ -303,8 +292,7 @@
                             <div class="col-md-6">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">GST Rate:</span>
-                                    <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Account Type"></i>
+                                    <span>GST Rate:</span>
                                 </label>
                                 <!--end::Label-->
                                 <input type="text" value="{{old('gst_rate')}}" class="form-control form-control-solid" id="edit_gst_rate" name="gst_rate" />
@@ -348,6 +336,7 @@
     @endif
     <script>
         window.addEventListener("DOMContentLoaded",function(){
+            $("select").select2();
             $('#serviceType').DataTable();
             $("#add_client_service_type_model").on("click",function(){
                 $("#add_service_type_model").modal("show");

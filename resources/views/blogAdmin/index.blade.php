@@ -120,7 +120,7 @@
                                                                     @can("blog-read")
                                                                         <div class="menu-item">
                                                                             <a href="{{route('editBlogForm',$blog['id'])}}" data-id="{{$blog['id']}}" target="_blank" class="menu-link px-3">
-                                                                                View
+                                                                                <i class='fas fa-eye fa-xl' title="View Blogger"></i>
                                                                             </a>
                                                                         </div>
                                                                     @endcan
@@ -128,7 +128,7 @@
                                                                     @can("blog-write")
                                                                         <div class="menu-item">
                                                                             <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 setTargetUrl">
-                                                                                Target
+                                                                                <i class="fas fa-pen fa-xl" title="Set target"></i>
                                                                             </a>
                                                                         </div>
                                                                     @endcan
@@ -174,7 +174,7 @@
         <div class="modal-dialog mw-650px" role="document">
             <div class="modal-content">
                 <!--begin::Form-->
-                <form id="" class="form" method="POST" action="{{route('addTab')}}">
+                <form class="form" method="POST" action="{{route('addTab')}}">
                     @csrf
                     <div class="modal-header">
                         <h2 class="fw-bolder">Add Tab</h2>
@@ -183,11 +183,12 @@
                     <div class="modal-body mx-md-10">
                         <div class="row">
                             <label class="col-3 col-form-label">Select Blogger</label>
-                            <select name="blogger" class="form-control" id="select2">
-                                <option value="">Select Blogger</option>
-                                @foreach ($bloggers as $blogger)
-                                    <option value="{{$blogger['id']}}">{{$blogger['name']}}</option>
-                                @endforeach
+                            <select name="blogger" class="form-control" data-control="select2" data-placeholder="Select blogger">
+                                @forelse ($bloggers as $blogger)
+                                    <option value="{{$blogger['id']}}" {{old('blogger')==$blog['id']?"selected":""}}>{{$blogger['name']}}</option>
+                                @empty
+                                    {{-- empty --}}
+                                @endforelse
                             </select>
                         </div>
                         <div class="form-group row">
@@ -226,11 +227,12 @@
                     <div class="modal-body mx-md-10">
                         <div class="row">
                             <label class="col-3 col-form-label">Tab</label>
-                            <select name="tab_id" class="form-control">
-                                <option value="">Select Tabs</option>
-                                @foreach ($tabs as $tab)
+                            <select name="tab_id" class="form-control" data-control="select2" data-placeholder="Select tab">
+                                @forelse ($tabs as $tab)
                                     <option value="{{$tab['id']}}">{{$tab['name']}}</option>
-                                @endforeach
+                                @empty
+                                    {{-- empty --}}
+                                @endforelse
                             </select>
                         </div>
                         <div class="row">

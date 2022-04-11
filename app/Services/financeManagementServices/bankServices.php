@@ -107,6 +107,9 @@ class bankServices{
             ]);
             throw $error;;
         }
+        $bank['invoice_code'] = $request->invoice_code;
+        $bank['pan_number'] = $request->pan_number;
+        
         $bank['updated_by'] = auth()->user()->id;
         return BankModel::where("id", $request->id)->update($bank);
     }

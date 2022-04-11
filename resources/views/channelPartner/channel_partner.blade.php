@@ -69,18 +69,18 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                            <!--begin::Table head-->
-                                            <thead>
-                                            <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                <th class="min-w-10px">Sr No.</th>
-                                                <th class="min-w-75px">Channel Partner Name</th>
-                                                <th class="min-w-75px">Channel Partner Email</th>
-                                                <th class="text-end min-w-100px">View Clients</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="text-gray-600 fw-bold">
-                                                @can("channelpartner-data-read")
+                                        @can("channelpartner-data-read")
+                                            <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                <!--begin::Table head-->
+                                                <thead>
+                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-10px">Sr No.</th>
+                                                    <th class="min-w-75px">Channel Partner Name</th>
+                                                    <th class="min-w-75px">Channel Partner Email</th>
+                                                    <th class="text-end min-w-100px">View Clients</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="text-gray-600 fw-bold">
                                                     @forelse ($channelPartnerData as $partner)
                                                         <tr>
                                                             <td>{{$loop->iteration}}</td>
@@ -99,13 +99,13 @@
                                                     @empty
                                                         {{-- empty --}}
                                                     @endforelse
-                                                @else
-                                                    <h1>Unauthorised</h1>
-                                                @endcan
-                                                <!--end::Table row-->
-                                            </tbody>
-                                            <!--end::Table body-->
-                                        </table>
+                                                    <!--end::Table row-->
+                                                </tbody>
+                                                <!--end::Table body-->
+                                            </table>
+                                        @else
+                                            <h1>Unauthorised</h1>
+                                        @endcan
                                     </div>
                                     <!--end::Table-->
                                 </div>

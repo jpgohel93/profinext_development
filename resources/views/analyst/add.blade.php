@@ -275,9 +275,7 @@
                     counter++;
                 })
             }
+            $("select[data-control='select2']").select2();
         });
     </script>
-    @section('jscript')
-
-    @endsection
 @endsection

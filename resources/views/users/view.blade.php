@@ -491,7 +491,6 @@
                                                     </label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    {{-- <select name="account_type" data-control="select2" class="form-select form-select-sm form-select-solid"> --}}
                                                     <input class="form-select form-select-sm form-select-solid" readonly value="{{$user->role}}">
                                                     <!--end::Input-->
                                                 </div>

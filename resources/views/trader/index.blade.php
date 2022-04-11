@@ -55,6 +55,7 @@
 													@forelse ($users as $val)
 														<option value="{{$val->id}}">{{$val->name}}</option>
 													@empty
+                                                        {{-- empty --}}
 													@endforelse
 												</select>
 											</div>
@@ -884,11 +885,14 @@
         <!--end::Page-->
     </div>
 
-	@section('jscript')
-        <script>
-			$("#add_tradermdl").on("click",function(){
-                $("#add_trader_model").modal("show");
-            })
-        </script>
-    @endsection
+    <script>
+        window.addEventListener("DOMContentLoaded",function(){
+            $(()=>{
+                $("select").select2();
+                $("#add_tradermdl").on("click",function(){
+                    $("#add_trader_model").modal("show");
+                })
+            },jQuery)
+        })
+    </script>
 @endsection

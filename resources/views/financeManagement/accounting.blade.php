@@ -562,7 +562,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Date:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
@@ -572,14 +571,14 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Sub Heading:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="sub_heading" data-control="select2" data-placeholder="Select sub heading">
+                                        <option value=""></option>
                                         @forelse ($headings['income'] as $heading)
                                             <option value="{{$heading->sub_heading}}">{{$heading->sub_heading}}</option>
                                         @empty
-                                            <option value="">Select Heading</option>
+                                            {{-- empty --}}
                                         @endforelse
                                     </select>
                                 </div>
@@ -587,7 +586,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Text Box:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='text_box'></textarea>
                                 </div>
@@ -602,7 +600,6 @@
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Bank:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <select class="form-select form-select-solid" name="bank" data-control="select2">
                                         @forelse ($incomeBanks as $bank)
@@ -618,7 +615,7 @@
                                         <span class="required">Income form:</span>
                                         <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select form of income"></i>
                                     </label>
-                                    <select class="form-select form-select-solid transactionForm" name="income_form" id="income_form" data-control="select2">
+                                    <select class="form-select form-select-solid transactionForm" name="income_form" id="income_smartId" data-control="select2">
                                         <option value="st" selected>ST</option>
                                         <option value="sg">SG</option>
                                         <option value="both">Both</option>
@@ -629,7 +626,6 @@
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                            <span class="required">ST:</span>
-                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('st_amount')}}" name="st_amount" class="form-control form-control-solid" value=""/>
@@ -638,7 +634,6 @@
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                            <span class="required">SG:</span>
-                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('sg_amount')}}" name="sg_amount" class="form-control form-control-solid" value=""/>
@@ -648,7 +643,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Amount:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" value="{{old('amount')}}" name="amount" id="incomeAmount" class="form-control form-control-solid" value=""/>
@@ -657,7 +651,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Narration:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='narration'></textarea   tarea>
                                 </div>
@@ -724,7 +717,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Date:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
@@ -734,7 +726,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Sub Heading:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="sub_heading" data-control="select2" data-placeholder="Select sub heading">
@@ -749,7 +740,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Text Box:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='text_box'></textarea>
                                 </div>
@@ -764,7 +754,6 @@
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Bank:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <select class="form-select form-select-solid" name="bank" data-control="select2">
                                         @forelse ($incomeBanks as $bank)
@@ -780,7 +769,7 @@
                                         <span class="required">Income form:</span>
                                         <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select form of income"></i>
                                     </label>
-                                    <select class="form-select form-select-solid transactionForm" name="income_form" id="income_form" data-control="select2">
+                                    <select class="form-select form-select-solid transactionForm" name="income_form" id="expense_smartId" data-control="select2">
                                         <option value="st" selected>ST</option>
                                         <option value="sg">SG</option>
                                         <option value="both">Both</option>
@@ -791,7 +780,6 @@
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                            <span class="required">ST:</span>
-                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('st_amount')}}" name="st_amount" class="form-control form-control-solid" value=""/>
@@ -800,7 +788,6 @@
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                            <span class="required">SG:</span>
-                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('sg_amount')}}" name="sg_amount" class="form-control form-control-solid" value=""/>
@@ -810,7 +797,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Amount:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" value="{{old('amount')}}" name="amount" class="form-control form-control-solid" value=""/>
@@ -819,7 +805,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Narration:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='narration'></textarea   tarea>
                                 </div>
@@ -886,7 +871,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Date:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
@@ -896,7 +880,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">From:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="from" id="transferFrom" data-control="select2" data-placeholder="Select sub heading">
@@ -913,7 +896,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Purpose:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="purpose" id="transferPurpose" data-control="select2" data-placeholder="Select sub heading">
@@ -929,7 +911,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">To:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="to" id="transferTo" data-control="select2" data-placeholder="Select Bank"></select>
@@ -940,7 +921,7 @@
                                         <span class="required">Income form:</span>
                                         <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select form of income"></i>
                                     </label>
-                                    <select class="form-select form-select-solid transactionForm" name="income_form" id="income_form" data-control="select2">
+                                    <select class="form-select form-select-solid transactionForm" name="income_form" id="transfer_smartID" data-control="select2">
                                         <option value="st" selected>ST</option>
                                         <option value="sg">SG</option>
                                         <option value="both">Both</option>
@@ -951,7 +932,6 @@
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                            <span class="required">ST:</span>
-                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('st_amount')}}" name="st_amount" class="form-control form-control-solid" value=""/>
@@ -960,7 +940,6 @@
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                            <span class="required">SG:</span>
-                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('sg_amount')}}" name="sg_amount" class="form-control form-control-solid" value=""/>
@@ -970,7 +949,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Amount:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" value="{{old('amount')}}" name="amount" class="form-control form-control-solid" value=""/>
@@ -979,7 +957,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Narration:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='narration'></textarea>
                                 </div>
@@ -1046,7 +1023,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Date:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
@@ -1056,7 +1032,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Sub Heading:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="sub_heading" data-control="select2" data-placeholder="Select sub heading">
@@ -1072,7 +1047,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Users:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="user" data-control="select2" data-placeholder="Select sub heading">
@@ -1094,7 +1068,6 @@
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Bank:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <select class="form-select form-select-solid" name="bank" data-control="select2">
                                         @forelse ($incomeBanks as $bank)
@@ -1108,9 +1081,8 @@
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Income form:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select form of income"></i>
                                     </label>
-                                    <select class="form-select form-select-solid transactionForm" name="income_form" id="income_form" data-control="select2">
+                                    <select class="form-select form-select-solid transactionForm" name="income_form" id="loan_smartId" data-control="select2">
                                         <option value="st" selected>ST</option>
                                         <option value="sg">SG</option>
                                         <option value="both">Both</option>
@@ -1121,7 +1093,6 @@
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                            <span class="required">ST:</span>
-                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('st_amount')}}" name="st_amount" class="form-control form-control-solid" value=""/>
@@ -1130,7 +1101,6 @@
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                            <span class="required">SG:</span>
-                                           <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('sg_amount')}}" name="sg_amount" class="form-control form-control-solid" value=""/>
@@ -1140,7 +1110,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Interest:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" value="{{old('interest')}}" name="interest" class="form-control form-control-solid" value=""/>
@@ -1149,7 +1118,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Amount:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" value="{{old('amount')}}" name="amount" class="form-control form-control-solid" value=""/>
@@ -1158,7 +1126,6 @@
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Narration:</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Set target for selected bank account"></i>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='narration'></textarea>
                                 </div>
@@ -1189,9 +1156,15 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
+                $("select").select2();
                 var table = $("table.datatable").DataTable({
                     "order": [[1, "DESC" ]]
                 });
+                $("#income_smartId").select2();
+                $("#expense_smartId").select2();
+                $("#transfer_smartId").select2();
+                $("#loan_smartId").select2();
+
                 $("#incomeBtn").on("click",function(e){
                     $("#incomeModel").modal("show");
                 })

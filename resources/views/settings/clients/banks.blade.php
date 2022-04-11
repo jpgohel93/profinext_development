@@ -46,10 +46,10 @@
                                             <td>{{$bank->bank}}</td>
                                             <td>
                                                 <a href="javascript:void(0)">
-                                                    <i class="fa fa-edit fa-2x editBank" data-id="{{$bank->id}}"></i>
+                                                    <i class="fas fa-pen fa-xl px-3 editBank" data-id="{{$bank->id}}"></i>
                                                 </a>
                                                 <a href="{{route('removeBank',$bank->id)}}" class="removebank">
-                                                    <i class="fa fa-trash text-danger fa-2x"></i>
+                                                    <i class="fas fa-trash text-danger fa-xl px-3"></i>
                                                 </a>
                                             </td>
                                         </tr>

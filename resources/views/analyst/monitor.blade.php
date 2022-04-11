@@ -89,7 +89,7 @@
                                                         <th class="min-w-75px">Monitor Name</th>
                                                         <th class="min-w-75px">Total Analyst</th>
                                                         @can("monitor-data-write")
-                                                            <th class="min-w-75px">Action</th>
+                                                            <th class="min-w-75px text-center">Action</th>
                                                         @endcan
                                                     </tr>
                                                 </thead>
@@ -106,15 +106,15 @@
                                                                 {{$user->total_analyst}}
                                                             </td>
                                                             @can("monitor-data-write")
-                                                            <td>
-                                                                <div class="d-flex justify-content-center">
-                                                                    <div class="menu-item">
-                                                                        <a href="{{url('monitor_analysts/'.$user->id)}}" class="menu-link p-1" target="_blank">
-                                                                            <i class="fa fa-edit text-dark fa-2x"></i>
-                                                                        </a>
+                                                                <td>
+                                                                    <div class="d-flex justify-content-center">
+                                                                        <div class="menu-item">
+                                                                            <a href="{{url('monitor_analysts/'.$user->id)}}" class="menu-link p-1" target="_blank">
+                                                                                <i class="fa fa-edit text-dark fa-2x"></i>
+                                                                            </a>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
+                                                                </td>
                                                             @endcan
                                                         </tr>
                                                     @empty

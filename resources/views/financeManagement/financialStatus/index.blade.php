@@ -103,6 +103,13 @@
                                        href="#servicesTab">Service</a>
                                 </li>
                                 <!--end:::Tab item-->
+
+                                <!--begin:::Tab item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
+                                       href="#balanceTab">Balance</a>
+                                </li>
+                                <!--end:::Tab item-->
                             </ul>
                             <!--end:::Tabs-->
                             <div class="tab-content">
@@ -134,7 +141,7 @@
                                                                 <td>{{$firmTab['st']['users']}}</td>
                                                                 <td>
                                                                     <a href="{{route('viewMoreSt')}}" target="_blank">
-                                                                        View More
+                                                                        <i class="fas fa-eye fa-xl"></i>
                                                                     </a>
                                                                 </td>
                                                             </tr>
@@ -146,7 +153,7 @@
                                                                 <td>{{$firmTab['sg']['users']}}</td>
                                                                 <td>
                                                                     <a href="{{route('viewMoreSg')}}" target="_blank">
-                                                                        View More
+                                                                        <i class="fas fa-eye fa-xl"></i>
                                                                     </a>
                                                                 </td>
                                                             </tr>
@@ -296,6 +303,33 @@
                                                                 </td>
                                                             </tr>
                                                         @endif
+                                                    </tbody>
+                                                <!--end::Table body-->
+                                                </table>
+                                            </div>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card-->
+                                </div>
+                                 <div class="tab-pane fade show" id="balanceTab" aria-labelledby="active-tab" role="tabpanel">
+                                    <!--begin::Card-->
+                                    <div class="card">
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-75px">Sr. No</th>
+                                                            <th class="min-w-75px">Particular</th>
+                                                            <th class="min-w-75px">Balance</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold">
+                                                        
                                                     </tbody>
                                                 <!--end::Table body-->
                                                 </table>

@@ -12,5 +12,5 @@ class Screenshots extends Model
     protected $table= "tbl_screenshots";
 
     protected $hidden = ["client_id"];
-    protected $fillable = ["client_payment_id", "file","mime_type"];
+    protected $fillable = ["client_payment_id", "file","mime_type", "deleted_by"];
 }

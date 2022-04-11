@@ -78,15 +78,19 @@
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1 active" data-bs-toggle="tab"
-                                       href="#forIncome">For Income</a>
+                                    <a class="nav-link text-active-primary pb-1 active" data-bs-toggle="tab" href="#forIncome">For Income</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#forSalary">For Salary</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" href="#forSalary">For Salary</a>
+                                </li>
+                                <!--end:::Tab item-->
+
+                                <!--begin:::Tab item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" href="#cash">Cash</a>
                                 </li>
                                 <!--end:::Tab item-->
                             </ul>
@@ -117,30 +121,56 @@
                                                                 <td>{{$forIncome->available_balance}}</td>
                                                                 <td>{{$forIncome->limit_utilize}}</td>
                                                                 <td>
-                                                                    <a href="javascript:void(0)">
-                                                                        <i class="fas fa-eye fa-lg viewBankAccount" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="View More"></i>
+                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
                                                                     </a>
-                                                                    <a href="javascript:void(0)">
-                                                                        <i class="fas fa-edit fa-lg setTarget" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Set Target"></i>
-                                                                    </a>
-                                                                    @if($forIncome->is_primary)
-                                                                        <a href="javascript:void(0)">
-                                                                            <i class="fas fa-close fa-lg makeAccountPrimary" id="currentPrimaryAccount" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Current primary account"></i>
-                                                                        </a>
-                                                                    @else
-                                                                        <a href="javascript:void(0)">
-                                                                            <i class="fas fa-check fa-lg makeAccountPrimary" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Make Account Primary"></i>
-                                                                        </a>
-                                                                    @endif
-                                                                    @if($forIncome->is_active)
-                                                                        <a href="javascript:void(0)">
-                                                                            <i class="fas fa-unlock fa-lg" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Deactivate this account"></i>
-                                                                        </a>
-                                                                    @else
-                                                                        <a href="javascript:void(0)">
-                                                                            <i class="fas fa-lock fa-lg" data-id="{{$forIncome->id}}" data-bs-toggle="tooltip" title="Deactivated account"></i>
-                                                                        </a>
-                                                                    @endif
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-state-bg-light-primary menu-gray-600 fw-bold w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" class="menu-link px-3 viewBankAccount" data-id="{{$forIncome->id}}">
+                                                                                view
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="window.open('{{route('financeManagementEditBank',$forIncome->id)}}')">
+                                                                                Edit
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" class="menu-link px-3 setTarget" data-id="{{$forIncome->id}}">
+                                                                                Set target
+                                                                            </a>
+                                                                        </div>
+                                                                        @if($forIncome->is_primary)
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" class="menu-link px-3 close makeAccountPrimary" id="currentPrimaryAccount" data-id="{{$forIncome->id}}">
+                                                                                    Primary Account
+                                                                                </a>
+                                                                            </div>
+                                                                        @else
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" class="menu-link px-3 check makeAccountPrimary" data-id="{{$forIncome->id}}">
+                                                                                    Make primary
+                                                                                </a>
+                                                                            </div>
+                                                                        @endif
+                                                                        @if($forIncome->is_active)
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" class="unlock menu-link px-3" data-id="{{$forIncome->id}}">
+                                                                                    Deactivate
+                                                                                </a>
+                                                                            </div>
+                                                                        @else
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" class="lock menu-link px-3" data-id="{{$forIncome->id}}">
+                                                                                    Activate
+                                                                                </a>
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         @empty
@@ -181,18 +211,110 @@
                                                                 <td>{{$forSalary->reserve_balance}}</td>
                                                                 <td>0</td>
                                                                 <td>
-                                                                    <a href="javascript:void(0)">
-                                                                        <i class="fas fa-eye fa-lg viewBankAccount" data-id="{{$forSalary->id}}" data-bs-toggle="tooltip" title="View More"></i>
+                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
                                                                     </a>
-                                                                    @if($forSalary->is_active)
-                                                                        <a href="javascript:void(0)">
-                                                                            <i class="fas fa-unlock fa-lg" data-id="{{$forSalary->id}}" data-bs-toggle="tooltip" title="Deactivate this account"></i>
-                                                                        </a>
-                                                                    @else
-                                                                        <a href="javascript:void(0)">
-                                                                            <i class="fas fa-lock fa-lg" data-id="{{$forSalary->id}}" data-bs-toggle="tooltip" title="Deactivated account"></i>
-                                                                        </a>
-                                                                    @endif
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-state-bg-light-primary menu-gray-600 fw-bold w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" class="menu-link px-3 viewBankAccount" data-id="{{$forSalary->id}}">
+                                                                                view
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="window.open('{{route('financeManagementEditBank',$forSalary->id)}}')">
+                                                                                Edit
+                                                                            </a>
+                                                                        </div>
+                                                                        @if($forSalary->is_active)
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" class="unlock menu-link px-3" data-id="{{$forSalary->id}}">
+                                                                                    Deactivate
+                                                                                </a>
+                                                                            </div>
+                                                                        @else
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" class="lock menu-link px-3" data-id="{{$forSalary->id}}">
+                                                                                    Activate
+                                                                                </a>
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
+                                                <!--end::Table body-->
+                                                </table>
+                                            </div>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card-->
+                                </div>
+                                <div class="tab-pane fade show" id="cash" aria-labelledby="active-tab" role="tabpanel">
+                                    <!--begin::Card-->
+                                    <div class="card">
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Date</th>
+                                                            <th class="min-w-75px">Client Name</th>
+                                                            <th class="min-w-75px">Received By</th>
+                                                            <th class="min-w-75px">Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold">
+                                                        @forelse($forSalaries as $forSalary)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$forSalary->title}}</td>
+                                                                <td>{{$forSalary->reserve_balance}}</td>
+                                                                <td>0</td>
+                                                                <td>
+                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-state-bg-light-primary menu-gray-600 fw-bold w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" class="menu-link px-3 viewBankAccount" data-id="{{$forSalary->id}}">
+                                                                                view
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="window.open('{{route('financeManagementEditBank',$forSalary->id)}}')">
+                                                                                Edit
+                                                                            </a>
+                                                                        </div>
+                                                                        @if($forSalary->is_active)
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" class="unlock menu-link px-3" data-id="{{$forSalary->id}}">
+                                                                                    Deactivate
+                                                                                </a>
+                                                                            </div>
+                                                                        @else
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" class="lock menu-link px-3" data-id="{{$forSalary->id}}">
+                                                                                    Activate
+                                                                                </a>
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         @empty
@@ -266,7 +388,7 @@
                                         <span class="required">Bank Type:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <select class="form-select form-select-solid" name="type" id="bank_type" required>
+                                    <select class="form-select form-select-solid" name="type" id="bank_type" data-control="select2" data-placeholder="Select bank type" required>
                                         <option value="0">Select Type</option>
                                         <option value='1' {{old('type') && old("type")==1?"selected":""}}>For Income</option>
                                         <option value="2" {{old('type') && old("type")==2?"selected":""}}>For Salary</option>
@@ -304,7 +426,7 @@
                                         <span class="required">Primary Bank:</span>
                                         <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                     </label>
-                                    <select class="form-select form-select-solid" name="is_primary" required>
+                                    <select class="form-select form-select-solid" data-control="select2" data-placeholder="Add as primary bank?" name="is_primary" required>
                                         <option value="1" {{old('is_primary') && old("is_primary")==1?"selected":""}}>Yes</option>
                                         <option value="0" {{old('is_primary') && old("is_primary")==2?"selected":""}} selected>No</option>
                                     </select>
@@ -450,7 +572,7 @@
                                     <span class="required">Bank Type:</span>
                                 </label>
                                 <!--end::Label-->
-                                <select class="form-select form-select-solid" id="view_bank_type" required>
+                                <select class="form-select form-select-solid" id="view_bank_type" data-control="select2" data-placeholder="Select bank type" required>
                                     <option value="0">Select Type</option>
                                     <option value='1'>For Income</option>
                                     <option value="2">For Salary</option>
@@ -484,7 +606,8 @@
                                 <label class="d-flex align-items-center fs-6 fw-bold">
                                     <span class="required">Primary Bank:</span>                                    
                                 </label>
-                                <select class="form-select form-select-solid" id="view_is_primary" required>
+                                <select class="form-select form-select-solid" data-control="select2" data-placeholder="add as primary bank?" id="view_is_primary" required>
+                                    <option value=""></option>
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
@@ -632,6 +755,7 @@
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
                 $(".datatable").DataTable();
+                $("select[data-control='select2']").select2();
                 $("#add_bank").on("click",function(){
                     $("#add_bank_modal").modal("show");
                 });
@@ -717,9 +841,10 @@
                             })
                             .done(data=>{
                                 if(data['info']){
-                                    $("#currentPrimaryAccount").removeClass("fa-close").addClass("fa-check").attr("id","");
-                                    $("[data-id='"+id+"'].fa-check").addClass("fa-close").removeClass("fa-check").attr("id","currentPrimaryAccount");
-                                    $("#kt_toolbar").before(`<div class="container"><h5 class="alert alert-info">${data['info']}</h5></div>`);
+                                    $("#currentPrimaryAccount").removeClass("close").addClass("check").attr("id","").text("Make primary");
+                                    $("[data-id='"+id+"'].check").addClass("close").removeClass("check").attr("id","currentPrimaryAccount").text("Primary Account");
+                                    $("#kt_toolbar").prev(".errContainer").remove();
+                                    $("#kt_toolbar").before(`<div class="container errContainer"><h5 class="alert alert-info">${data['info']}</h5></div>`);
                                 }
                             })
                             .fail((err,code,xhr)=>{
@@ -743,16 +868,17 @@
                     })
                     .done(data=>{
                         if(status==0){
-                            $("[data-id='"+id+"'].fa-unlock").removeClass("fa-unlock").addClass("fa-lock");
-                            $("[data-id='"+id+"'].fa-lock").attr("data-bs-original-title","Deactivated account");
+                            $("[data-id='"+id+"'].unlock").removeClass("unlock").addClass("lock");
+                            $("[data-id='"+id+"'].lock").text("Activate");
                         }else{
-                            $("[data-id='"+id+"'].fa-lock").removeClass("fa-lock").addClass("fa-unlock");
-                            $("[data-id='"+id+"'].fa-unlock").attr("data-bs-original-title","Deactivate this account");
+                            $("[data-id='"+id+"'].lock").removeClass("lock").addClass("unlock");
+                            $("[data-id='"+id+"'].unlock").text("Deactivate");
                         }
-                        $("#kt_toolbar").before(`<div class="container"><h5 class="alert alert-info">${data['info']}</h5></div>`);
+                        $("#kt_toolbar").prev(".errContainer").remove();
+                        $("#kt_toolbar").before(`<div class="container errContainer"><h5 class="alert alert-info">${data['info']}</h5></div>`);
                     })
                 }
-                $(document).on("click",".fa-unlock",function(){
+                $(document).on("click",".unlock",function(){
                     const id = $(this).data("id");
                     if(id){
                         toggelActivateDeactivateAccounts("0",id);
@@ -760,7 +886,7 @@
                         window.alert("Unable to get bank status");
                     }
                 })
-                $(document).on("click",".fa-lock",function(){
+                $(document).on("click",".lock",function(){
                     const id = $(this).data("id");
                     if(id){
                         toggelActivateDeactivateAccounts("1",id);

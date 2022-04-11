@@ -77,7 +77,7 @@
                                                     <th class="min-w-10px">Sr No.</th>
                                                     <th class="min-w-75px">Analyst Name</th>
                                                     <th class="min-w-75px">status</th>
-                                                    <th class="min-w-75px">Action</th>
+                                                    <th class="min-w-75px text-end">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody class="text-gray-600 fw-bold">
@@ -92,14 +92,10 @@
                                                             <td>
                                                                 {{$analyst->status}}
                                                             </td>
-                                                            <td>
-                                                                <div class="d-flex justify-content-center">
-                                                                    <div class="menu-item">
-                                                                        <a  href="javascript:void(0)" class="menu-link px-3 viewAnalyst" data-id='{{$analyst->id}}' >
-                                                                            <i class="fa fa-edit text-dark fa-2x"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
+                                                            <td class="text-end">
+                                                                <a  href="javascript:void(0)" class="viewAnalyst" data-id='{{$analyst->id}}' >
+                                                                    <i class="fa fa-edit text-dark fa-2x px-5"></i>
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     @empty
@@ -152,8 +148,8 @@
                                     <div class="form-group row mb-0">
                                         <label for="no-of-demat" class="col-3 col-form-label">Assign To</label>
                                         <div class="col-9">
-                                            <select name="assign_user_id" id="assign_user_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Monitor">
-                                                <option></option>
+                                            <select name="assign_user_id" id="assign_user_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select option">
+                                                <option value=""></option>
                                                 @if(!empty($monitor))
                                                     @foreach($monitor as $monitorData)
                                                         <option value="{{$monitorData->id}}">{{$monitorData->name}}</option>
@@ -191,11 +187,13 @@
     <!--begin::Modals-->
     <script>
         window.addEventListener("DOMContentLoaded",function(){
+            $(".datatable").DataTable();
+            $("select[data-control='select2']").select2();
             const analyst = $("#analyst");
             const editAnalystId = $("#editAnalystId");
             const editAnalyst = $("#editAnalyst");
             const assign_user_id = $("#assign_user_id");
-            $(".datatable").DataTable();
+
 
             $(document).on("click",".viewAnalyst",function(){
                 $.ajax("/analyst/"+$(this).attr("data-id"),{

@@ -83,7 +83,7 @@
                                             <div class="col-md-6 mb-4">
                                                 <!--begin::Label-->
                                                 <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Communication with</span>
+                                                    <span>Communication with</span>
                                                 </label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
@@ -262,7 +262,7 @@
                                                             {{-- <img style="max-height: 200px;height:100%;width:auto" loading="lazy" class="m-3 d-block" src="{{url('common/displayFile/'.Crypt::encryptString($demate_account->id).'/'.Crypt::encryptString('pancard').'/image')}}" > --}}
                                                             @if($client->clientDemat[$key]->Pancards)
                                                                 @foreach($client->clientDemat[$key]->Pancards as $pancard)
-                                                                    <img style="height: 100px;width:auto" loading="lazy" class="m-3" src="{{url('common/displayFile/'.Crypt::encryptString($pancard->id).'/'.Crypt::encryptString('pancard').'/'.$pancard->file)}}" >
+                                                                    <img style="height: 100px;width:auto" loading="lazy" class="m-3 pancardImage" src="{{url('common/displayFile/'.Crypt::encryptString($pancard->id).'/'.Crypt::encryptString('pancard').'/'.$pancard->file)}}" >
                                                                 @endforeach
                                                             @else
                                                                 <h6>Image not found</h6>
@@ -555,4 +555,16 @@
         </span>
         <!--end::Svg Icon-->
     </div>
+    <script>
+        window.addEventListener("DOMContentLoaded",function(){
+            $(()=>{
+                 $(document).on("click",".pancardImage",e=>{
+                    const url = e.target.getAttribute("src");
+                    if(url){
+                        window.open(url);
+                    }
+                })
+            },jQuery)
+        })
+    </script>
 @endsection

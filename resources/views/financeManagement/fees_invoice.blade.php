@@ -23,7 +23,7 @@
                         <div class="container">
                             <h5 class="alert alert-info">{{session("info")}}</h5>
                         </div>
-                @endif
+                    @endif
 
                     <!--begin::Post-->
                     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -94,13 +94,15 @@
                                                             </thead>
                                                             <tbody class="fw-bold text-gray-600">
                                                             <!--begin::Products-->
-                                                            @foreach($message as $data)
+                                                            @forelse($message as $data)
                                                                 <tr>
                                                                     <td>{{$data['heading']}}</td>
                                                                     <td>{{$data['description']}}</td>
                                                                     <td class="text-center">{{$data['amount']}}</td>
                                                                 </tr>
-                                                            @endforeach
+                                                            @empty
+                                                                {{-- empty --}}
+                                                            @endforelse
                                                             <!--end::Products-->
                                                             <!--begin::Subtotal-->
                                                             <tr>
@@ -138,7 +140,7 @@
                                             </div>
                                             <!-- end::Actions-->
                                             <!-- begin::Action-->
-                                            <a href="/metronic8/demo1/../demo1/apps/invoices/create.html" class="btn btn-primary my-1">Create Invoice</a>
+                                            <a href="javascript:void(0)" class="btn btn-primary my-1">Create Invoice</a>
                                             <!-- end::Action-->
                                         </div>
                                         <!-- end::Footer-->
@@ -325,7 +327,7 @@
                         <div class="form-group row">
                             <label for="fees_bank_id" class="col-3 col-form-label">Bank</label>
                             <div class="col-9">
-                                <select name="fees_bank_id" id="fees_bank_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
+                                <select name="fees_bank_id" id="fees_bank_id" class="form-select form-select-solid" data-control="select2" data-placeholder="Select Bank">
                                     <option></option>
                                     @if(!empty($forIncomesBank))
                                         @foreach($forIncomesBank as $banks)
@@ -445,6 +447,7 @@
                     }
                 })
                 $(".datatable").DataTable();
+                $("select").select2();
             },jQuery)
         })
     </script>

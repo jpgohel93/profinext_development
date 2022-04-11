@@ -65,6 +65,7 @@ class financialStatusServices
     }
     public static function viewMoreSg()
     {
+        $demat = array();
         $income["day"] = financeManagementIncomesModel::where("created_by", auth()->user()->id)->whereDate("date", date("Y-m-d"))->sum("amount");
         $expense["day"] = financeManagementExpensesModel::where("created_by", auth()->user()->id)->whereDate("date", date("Y-m-d"))->sum("amount");
 
@@ -89,7 +90,7 @@ class financialStatusServices
             array_push($arr,$account['serial_number']);
             array_push($arr,$account['name']);
             array_push($arr,($account['service_type']==1)?"Prime":"AMS");
-            array_push($arr,"<a href='javascript:void(0)' class='viewDemat' data-id='".$account['client_id']."'>View more</a>");
+            array_push($arr,"<a href='javascript:void(0)' class='viewDemat' data-id='".$account['client_id']."'><i class='fas fa-eye fa-xl px-3'></i></a>");
 
             array_push($demat['data'],$arr);
             $i++;

@@ -160,16 +160,13 @@
                                             <div class="card-title">
                                                 <div class="d-flex align-items-center position-relative my-1">
 													<label>Filter&nbsp;:&nbsp;</label>&nbsp;
-                                                    <select class="form-select form-select-solid" id="service_type" data-control="select2" data-hide-search="true">
-														<option value="">Select Service Type</option>
+                                                    <select class="form-select form-select-solid" id="service_type" data-control="select2" data-placeholder="Select service type">
+                                                        <option value=""></option>
 														<option value="1">PRIME</option>
 														<option value="2">AMS</option>
 														<option value="3">PRIME NEXT</option>
 													</select>
                                                 </div>
-                                            </div>
-                                            <div class="card-toolbar">
-                                                
                                             </div>
                                         </div>
 										
@@ -244,8 +241,8 @@
                                             <div class="card-title">
                                                 <div class="d-flex align-items-center position-relative my-1">
 													<label>Filter&nbsp;:&nbsp;</label>&nbsp;
-                                                    <select class="form-select form-select-solid" id="allotment_type" data-control="select2" data-hide-search="true">
-														<option value="">Select Allotment Type</option>
+                                                    <select class="form-select form-select-solid" id="allotment_type" data-control="select2" data-placeholder="select allotment type">
+                                                        <option value=""></option>
 														<option value="1">Trader</option>
 														<option value="2">Freelancer</option>
 													</select>
@@ -447,11 +444,12 @@
                         <div class="form-group row">
                             <label for="example-email-input" class="col-3 col-form-label">Trader</label>
                             <div class="col-9">
-                                <select class="form-select form-select-solid" name='trader_id' data-control="select2" data-hide-search="true" data-placeholder="Select Trader">
+                                <select class="form-select form-select-solid" name='trader_id' data-control="select2" data-placeholder="Select Trader">
+                                    <option value=""></option>
                                     @forelse ($traders as $trader)
                                         <option value="{{$trader->id}}">{{$trader->name}} - {{$trader->count->count()}} &nbsp; Client</option>
                                     @empty
-                                        <option>Select Trader</option>
+                                        {{-- empty --}}
                                     @endforelse
                                 </select>
                             </div>
@@ -509,12 +507,12 @@
                         <div class="form-group row" id="ams_freelancer">
                             <label for="example-email-input" class="col-3 col-form-label"> AMS freelancer</label>
                             <div class="col-9">
-                                <select class="form-select form-select-solid" name='freelancer_id' data-control="select2" data-hide-search="true" data-placeholder="Select AMS freelancer">
-                                    <option></option>
+                                <select class="form-select form-select-solid" name='freelancer_id' data-control="select2" data-placeholder="Select AMS freelancer">
+                                    <option value=""></option>
                                     @forelse ($freelancerAms as $freelancer)
                                         <option value="{{$freelancer->id}}">{{$freelancer->name}}</option>
                                     @empty
-                                        <option>Select AMS freelancer</option>
+                                        {{-- empty --}}
                                     @endforelse
                                 </select>
                             </div>
@@ -523,12 +521,12 @@
                         <div class="form-group row" id="prime_freelancer">
                             <label for="example-email-input" class="col-3 col-form-label"> Prime freelancer</label>
                             <div class="col-9">
-                                <select class="form-select form-select-solid" name='ams_freelancer_id' data-control="select2" data-hide-search="true" data-placeholder="Select Prime freelancer">
-                                    <option></option>
+                                <select class="form-select form-select-solid" name='ams_freelancer_id' data-control="select2" data-placeholder="Select Prime freelancer">
+                                    <option value=""></option>
                                     @forelse ($freelancerPrime as $freelancer)
                                         <option value="{{$freelancer->id}}">{{$freelancer->name}}</option>
                                     @empty
-                                        <option>Select Prime freelancer</option>
+                                        {{-- empty --}}
                                     @endforelse
                                 </select>
                             </div>

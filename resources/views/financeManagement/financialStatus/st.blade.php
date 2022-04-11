@@ -502,9 +502,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold">
-                                                @forelse($usersTab as $user)
+                                                {{-- @forelse($usersTab as $user)
                                                     <tr>
-                                                        <td>{{$loop->iteration)}}</td>
+                                                        <td>{{$loop->iteration}}</td>
                                                         <td>{{$user->name}}</td>
                                                         <td>{{Config::get("constants.USERS_TYPE")[$user->user_type]}}</td>
                                                         <td>0</td>
@@ -515,8 +515,8 @@
                                                         </td>
                                                     </tr>
                                                 @empty
-                                                    {{-- empty --}}
-                                                @endforelse
+                                                    {{-- empty 
+                                                @endforelse --}}
                                             </tbody>
                                         <!--end::Table body-->
                                         </table>

@@ -10,7 +10,7 @@ use App\Models\Analyst;
 use App\Services\ClientServices;
 use App\Services\financeManagementServices\renewalStatusService;
 use App\Services\ProfessionServices;
-use App\Services\BankDetailsServices;
+use App\Services\financeManagementServices\bankServices;
 use App\Services\BrokerServices;
 use App\Services\ClientDemateServices;
 use App\Services\CommonService;
@@ -40,7 +40,7 @@ class ClientController extends Controller
     public function all(){
         $clients = ClientServices::allClientTypeWise();
         $professions = ProfessionServices::view(['id', 'profession']);
-        $banks = BankDetailsServices::view(['id', 'bank']);
+        $banks = bankServices::getForIncomeAccounts();
         $brokers = BrokerServices::view(['id', 'broker']);
         //$traders = UserServices::getByRole('trader');
         $freelancerAms= UserServices::getByType(4);
@@ -75,7 +75,7 @@ class ClientController extends Controller
 		}
 
         $professions = ProfessionServices::view(['id', 'profession']);
-        $banks = BankDetailsServices::view(['id', 'bank']);
+        $banks = bankServices::getForIncomeAccounts();
         $brokers = BrokerServices::view(['id', 'broker']);
         $channelPartner = UserServices::getByType(3);
         return view("clients.add", compact('professions', 'banks','brokers','channelPartner','newSTNo','newSGNo'));
@@ -106,31 +106,58 @@ class ClientController extends Controller
     }
     // edit client
     public function updateForm(Request $request,$id){
+		$getLastSGNo = ClientDemat::select("serial_number")->orderBy("id", "DESC")->first();
+
+		if (!empty($getLastSGNo)) {
+			$newSGNo = $getLastSGNo->serial_number;
+		} else {
+			$newSGNo = "000";
+		}
+
+		$getLastSTNo = ClientDemat::select("serial_number")->orderBy("id", "DESC")->first();
+
+		if (!empty($getLastSTNo)) {
+			$newSTNo = $getLastSTNo->serial_number;
+		} else {
+			$newSTNo = "000";
+		}
+
         $client =  ClientServices::get($id);
         $professions = ProfessionServices::view(['id', 'profession']);
-        $banks = BankDetailsServices::view(['id', 'bank']);
+        $banks = bankServices::getForIncomeAccounts();
         $brokers = BrokerServices::view(['id', 'broker']);
         $channelPartner = UserServices::getByType(3);
-        return view("clients.edit", compact('client','professions', 'banks', 'brokers','channelPartner'));
+        return view("clients.edit", compact('client',"newSGNo","newSTNo",'professions', 'banks', 'brokers','channelPartner'));
     }
     public function update(Request $request,$id){
-        $client =  ClientServices::update($request,$id);
-        return Redirect::route("clientView",$id)->with("info","Client have been updated");
+        ClientServices::update($request,$id);
+        return Redirect::route("clients")->with("info","Client have been updated");
     }
     // remove client
-    public function remove(Request $request,$id){
-        $client =  ClientServices::remove($id);
+    public function remove(Request $request){
+        $client =  ClientServices::remove($request->id);
         return Redirect::route("clients")->with("info","Client Removed");
     }
-    // remove client
+    // remove client demat
+    public function removeDemat(Request $request){
+        ClientDemateServices::remove($request->id);
+		if($request->ajax()){
+			return response(["info" => "Client Demat Removed"], 200, ["Content-Type" => "Application/json"]);
+		}
+        return Redirect::route("clients")->with("info","Client Demat Removed");
+    }
+    // remove client screenshot
     public function removePaymentScreenshot(Request $request,$client,$ss_id){
         ClientServices::removePaymentScreenshot($ss_id);
         return Redirect::route("updateClientForm",$client)->with("info","Screenshot Removed");
     }
     // remove client pancard image
-    public function removeDematePancard($client_id,$pancard_id){
-        ClientServices::removeDematePancard($pancard_id);
-        return Redirect::route("updateClientForm", $client_id)->with("info","Pancard Removed");
+    public function removeDematePancard(Request $request){
+        ClientServices::removeDematePancard($request->id);
+		if($request->ajax()){
+			return response(['info'=> "Pancard Removed"], 200, ["Content-Type" => "Application/json"]);
+		}
+        return Redirect::back()->with("info","Pancard Removed");
     }
     // assign client to freelancer
     public function assignClientToFreelancer(Request $request){

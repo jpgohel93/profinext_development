@@ -1,5 +1,5 @@
 @extends('layout')
-@section("page-title","View ST - Finance Management")
+@section("page-title","View SG - Finance Management")
 @section("finance_management.financialStatus","active")
 @section("finance_management.accordion","hover show")
 @section("content")

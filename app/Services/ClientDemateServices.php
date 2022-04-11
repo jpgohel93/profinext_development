@@ -282,4 +282,7 @@ class ClientDemateServices{
     public static function viewPartPaymentHistory($id){
         return financeManagementIncomesModel::where("renewal_account_id",$id)->get()->toArray();
     }
+    public static function remove($id){
+        return ClientDemat::where("id",$id)->delete();
+    }
 }

@@ -61,16 +61,10 @@
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <select name="analysts_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Analyst">
-                                                    <option></option>
-                                                    @if(!empty($analysts))
-                                                        @foreach($analysts as $analyst)
-                                                            @if($analyst->id == $monitorData->analysts_id)
-                                                                <option value="{{$analyst->id}}" selected>{{$analyst->analyst}}</option>
-                                                            @else
-                                                                <option value="{{$analyst->id}}">{{$analyst->analyst}}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    @endif
+                                                    <option value="">Select option</option>
+                                                        @forelse($analysts as $analyst)
+                                                            <option value="{{$analyst->id}}" {{$analyst->id == $monitorData->analysts_id?"selected":""}}>{{$analyst->analyst}}</option>
+                                                        @endforelse
                                                 </select>
                                                 <!--end::Input-->
                                             </div>
@@ -148,19 +142,10 @@
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <!--begin::Input-->
-                                                <select name="entry_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
-                                                        <?php if(isset($monitorData->entry_time) && $monitorData->entry_time == "yes"){?>
-                                                           <option value="yes" selected>Yes</option>
-                                                        <?php } else{?>
-                                                            <option value="yes">Yes</option>
-                                                        <?php    }?>
-                                                        <?php if(isset($monitorData->entry_time) && $monitorData->entry_time == "no"){?>
-                                                            <option value="no" selected>No</option>
-                                                        <?php } else{?>
-                                                            <option value="no">No</option>
-                                                        <?php    }?>
+                                                <select name="entry_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Entry time">
+                                                    <option value="yes" {{isset($monitorData->entry_time) && $monitorData->entry_time == "yes"?"selected":""}}>Yes</option>
+                                                    <option value="no" {{isset($monitorData->entry_time) && $monitorData->entry_time == "no"?"selected":""}}>No</option>
                                                 </select>
-                                            {{--                                                <input type="time" class="form-control form-control-lg form-control-solid bdr-ccc" name="entry_time" placeholder="" value="{{isset($monitorData->entry_time) ? $monitorData->entry_time : ''}}" />--}}
                                             <!--end::Input-->
                                             </div>
 
@@ -189,21 +174,10 @@
                                                 </label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <select name="entry_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
-
-
-                                                        <?php if(isset($monitorData->exit_time) && $monitorData->exit_time == "yes"){?>
-                                                        <option value="yes" selected>Yes</option>
-                                                        <?php } else{?>
-                                                        <option value="yes">Yes</option>
-                                                        <?php    }?>
-                                                            <?php if(isset($monitorData->exit_time) && $monitorData->exit_time == "no"){?>
-                                                            <option value="no" selected>No</option>
-                                                            <?php } else{?>
-                                                            <option value="no">No</option>
-                                                            <?php    }?>
+                                                <select name="entry_time" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Entry time">
+                                                    <option value="yes" {{isset($monitorData->exit_time) && $monitorData->exit_time == "yes"?"selected":""}}>Yes</option>
+                                                    <option value="no" {{isset($monitorData->exit_time) && $monitorData->exit_time == "no"?"selected":""}}>No</option>
                                                 </select>
-{{--                                                <input type="time" class="form-control form-control-lg form-control-solid bdr-ccc" name="exit_time" placeholder="" value="{{isset($monitorData->exit_time) ? $monitorData->exit_time : ''}}" />--}}
                                                 <!--end::Input-->
                                             </div>
 
@@ -250,55 +224,13 @@
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <select name="status" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Status">
-                                                    <?php if(isset($monitorData->status) && $monitorData->status == "open"){?>
-                                                        <option value="open" selected>Open</option>
-                                                    <?php } else{?>
-                                                        <option value="open">Open</option>
-                                                     <?php    }?>
-
-                                                    <?php if(isset($monitorData->status) && $monitorData->status == "close"){?>
-                                                        <option value="close" selected>Close</option>
-                                                    <?php } else{?>
-                                                        <option value="close">Close</option>
-                                                    <?php    }?>
+                                                    <option value="yes" {{isset($monitorData->status) && $monitorData->status == "open"?"selected":""}}>Yes</option>
+                                                    <option value="no" {{isset($monitorData->status) && $monitorData->status == "close"?"selected":""}}>NO</option>
                                                 </select>
                                                 <!--end::Input-->
                                             </div>
-
-{{--                                            <!--begin::Input group-->--}}
-{{--                                            <div class="col-4">--}}
-{{--                                                <!--begin::Label-->--}}
-{{--                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">--}}
-{{--                                                    <span class="required">Earning</span>--}}
-{{--                                                </label>--}}
-{{--                                                <!--end::Label-->--}}
-{{--                                                <!--begin::Input-->--}}
-{{--                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="earning" placeholder="Entry Price" value="{{isset($monitorData->earning) ? $monitorData->earning : ''}}" />--}}
-{{--                                                <!--end::Input-->--}}
-{{--                                            </div>--}}
-
-                                            <!--end::Input group-->
-
-{{--                                            <!--begin::Input group-->--}}
-{{--                                            <div class="col-6">--}}
-{{--                                                <!--begin::Label-->--}}
-{{--                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">--}}
-{{--                                                    <span class="required">Risk Reward</span>--}}
-{{--                                                </label>--}}
-{{--                                                <!--end::Label-->--}}
-{{--                                                <!--begin::Input-->--}}
-{{--                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="risk_reward" placeholder="Risk Reward" value="{{isset($monitorData->risk_reward) ? $monitorData->risk_reward : ''}}" />--}}
-{{--                                                <!--end::Input-->--}}
-{{--                                            </div>--}}
-
-{{--                                            <!--end::Input group-->--}}
                                         </div>
-
-                                        <div class="row mb-4">
-
-
-                                        </div>
-
+                                        <div class="row mb-4"></div>
                                     </div>
                                 </div>
                                 <!--end::Step 1-->
@@ -309,12 +241,13 @@
                                         <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="previous">
                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr063.svg-->
                                             <span class="svg-icon svg-icon-3 me-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="black" />
-                                                <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="black" />
-                                            </svg>
-                                        </span>
-                                            <!--end::Svg Icon-->Back</button>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                    <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="black" />
+                                                    <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="black" />
+                                                </svg>
+                                            </span>
+                                            Back
+                                        </button>
                                     </div>
                                     <!--end::Wrapper-->
                                     <!--begin::Wrapper-->
@@ -363,6 +296,7 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
+            $("select[data-control='select2']").select2();
             $(document).on("click", "#addmoreWhatsapp", function () {
                 var newcomp1 = $('#hiddenaddmoreWhatsapp').html();
                 $('.custom_appendDiv').append(newcomp1);

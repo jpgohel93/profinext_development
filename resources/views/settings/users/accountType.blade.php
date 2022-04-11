@@ -46,10 +46,10 @@
                                             <td>{{$type->account_type}}</td>
                                             <td>
                                                 <a href="javascript:void(0)">
-                                                    <i class="fa fa-edit fa-2x editType" data-id="{{$type->id}}"></i>
+                                                    <i class="fas fa-pen fa-xl px-2 editType" data-id="{{$type->id}}"></i>
                                                 </a>
                                                 <a href="{{route('removeAccountType',$type->id)}}" class="removeType">
-                                                    <i class="fa fa-trash text-danger fa-2x"></i>
+                                                    <i class="fas fa-trash text-danger fa-xl px-2"></i>
                                                 </a>
                                             </td>
                                         </tr>

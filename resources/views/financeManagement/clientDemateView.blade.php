@@ -335,6 +335,7 @@
                 $("#backToTrade").on("click",function(e){
                     const id = $("#backToTrade").attr("data-id");
                     const value="normal";
+                    $("select[data-control='select2']").select2();
                     $.ajax("{!! route('updateDematStatus') !!}",{
                         type:"POST",
                         data:{

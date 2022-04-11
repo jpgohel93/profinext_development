@@ -116,7 +116,7 @@
                                                                     <div class="d-flex justify-content-center">
                                                                         <div class="menu-item">
                                                                             <a href="{{url('/freelancer/clients/'.$freelancer->id)}}" class="menu-link p-1" target="_blank">
-                                                                                <i class="fa fa-eye text-dark fa-2x"></i>
+                                                                                <i class="fas fa-eye fa-xl px-3"></i>
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -161,7 +161,7 @@
                                                                     <div class="d-flex justify-content-center">
                                                                         <div class="menu-item">
                                                                             <a href="{{url('/freelancer/clients/'.$freelancer->id)}}" class="menu-link p-1" target="_blank">
-                                                                                <i class="fa fa-eye text-dark fa-2x"></i>
+                                                                                <i class="fas fa-eye fa-xl px-3"></i>
                                                                             </a>
                                                                         </div>
                                                                     </div>
