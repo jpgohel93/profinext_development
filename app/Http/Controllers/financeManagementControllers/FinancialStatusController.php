@@ -16,7 +16,9 @@ class FinancialStatusController extends Controller
         $usersTab = financialStatusServices::getUsersDetails();
         // servicetab
         $servicesTab = financialStatusServices::getServicesDetails();
-        return view("financeManagement.financialStatus.index",compact("firmTab","banksTab", "usersTab", "servicesTab"));
+        // balancetab
+        $balanceTab = financialStatusServices::getBalanceDetails();
+        return view("financeManagement.financialStatus.index",compact("firmTab","banksTab", "usersTab", "servicesTab", "balanceTab"));
     }
     public function viewMoreSt(){
         return financialStatusServices::viewMoreSt();

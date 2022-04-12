@@ -52,6 +52,14 @@ class financialStatusServices
         $services['prime_next'] = ClientDemat::leftJoin("clients", "client_demat.client_id", "=", "clients.id")->where("clients.created_by", auth()->user()->id)->select("client_demat.serial_number", "client_demat.service_type", "client_demat.client_id", "clients.name")->groupBy("client_demat.service_type", "client_demat.client_id")->where("client_demat.service_type", 3)->get()->count();
         return $services;
     }
+    public static function getBalanceDetails(){
+        $balance = array();
+        $balance['bank'] = financeManagementIncomesModel::where("mode",1)->WhereNotNull("bank")->sum("amount");
+        $balance['cash'] = financeManagementIncomesModel::where("mode",0)->sum("amount");
+        $balance['st'] = financeManagementIncomesModel::where("income_form","st")->orWhere("income_form","both")->sum("st_amount");
+        $balance['sg'] = financeManagementIncomesModel::where("income_form","sg")->orWhere("income_form","both")->sum("sg_amount");
+        return $balance;
+    }
     public static function viewMoreSt()
     {
         $income["day"] = financeManagementIncomesModel::where("created_by", auth()->user()->id)->whereDate("date",date("Y-m-d"))->sum("amount");

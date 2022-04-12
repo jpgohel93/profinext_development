@@ -11,7 +11,8 @@ class BankControllers extends Controller
     public function financeManagementBank(){
         $forIncomes = bankServices::getForIncomeAccounts();
         $forSalaries = bankServices::getForSalaryAccounts();
-        return view("financeManagement.bank",compact("forIncomes", "forSalaries"));
+        $forCashes = bankServices::getForCashAccounts();
+        return view("financeManagement.bank",compact("forIncomes", "forSalaries", "forCashes"));
     }
     public function addFinanceManagementBank(Request $request){
         bankServices::addFinanceManagementBank($request);

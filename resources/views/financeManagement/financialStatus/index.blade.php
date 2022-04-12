@@ -329,7 +329,26 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
-                                                        
+                                                        <tr>
+                                                            <td>{{1}}</td>
+                                                            <td>Bank</td>
+                                                            <td>{{$balanceTab['bank']}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>{{2}}</td>
+                                                            <td>Cash</td>
+                                                            <td>{{$balanceTab['cash']}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>{{3}}</td>
+                                                            <td>ST</td>
+                                                            <td>{{$balanceTab['st']}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>{{4}}</td>
+                                                            <td>SG</td>
+                                                            <td>{{$balanceTab['sg']}}</td>
+                                                        </tr>
                                                     </tbody>
                                                 <!--end::Table body-->
                                                 </table>

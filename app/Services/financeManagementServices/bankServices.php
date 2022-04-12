@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\financeManagementServices;
 use App\Models\financeManagementModel\BankModel;
+use App\Models\ClientPayment;
 class bankServices{
     public static function addFinanceManagementBank($request){
         // main fields
@@ -118,6 +119,10 @@ class bankServices{
     }
     public static function getForSalaryAccounts(){
         return BankModel::where(["type" => 2])->get();
+    }
+    public static function getForCashAccounts(){
+        $accounts = ClientPayment::leftJoin("client_demat", "client_payment.demat_id","=","client_demat.id")->join("clients","client_demat.client_id","=","clients.id")->join("users","clients.created_by","=","users.id")->whereYear("client_demat.joining_date",date("Y"))->select("users.name as receivedBy","clients.name as clientName", "client_demat.capital", "client_demat.joining_date", "client_demat.joining_date", "client_payment.*")->get();
+        return $accounts;
     }
     public static function financeManagementGetBank($request){
         $bank = BankModel::where("id",isset($request->id)? $request->id:$request)->first();
