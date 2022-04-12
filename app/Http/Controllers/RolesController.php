@@ -13,7 +13,7 @@ class RolesController extends Controller
     function __construct()
     {
         $this->middleware('permission:role-create', ['only' => ['createRole', 'addRolesForm']]);
-        $this->middleware('permission:role-write', ['only' => ['editRoleForm', 'editRoleForm']]);
+        $this->middleware('permission:role-write', ['only' => ['editRoleForm', 'editRole']]);
         $this->middleware('permission:role-read', ['only' => ['view', 'getPermissions']]);
         $this->middleware('permission:role-delete', ['only' => ['removeRole']]);
     }

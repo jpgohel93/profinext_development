@@ -8,8 +8,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class BankDetailsController extends Controller
 {
-    private $viewClientsBanks = "viewClientsBanks";
-
+public function __construct()
+    {
+        $this->middleware('permission:settings-bank-details-read', ['only' => ["view", "get"]]);
+        $this->middleware('permission:settings-bank-details-write', ['only' => ["edit"]]);
+        $this->middleware('permission:settings-bank-details-create', ['only' => ["create"]]);
+        $this->middleware('permission:settings-bank-details-delete', ['only' => ["remove"]]);
+    }
     public function view()
     {
         $banks = BankDetailsServices::view();
@@ -18,12 +23,12 @@ class BankDetailsController extends Controller
     public function create(Request $request)
     {
         BankDetailsServices::create($request);
-        return Redirect::route($this->viewClientsBanks)->with("info", "New Bank created");
+        return Redirect::route("viewClientsBanks")->with("info", "New Bank created");
     }
-    public function remove(Request $request, $id)
+    public function remove($id)
     {
         BankDetailsServices::remove($id);
-        return Redirect::route($this->viewClientsBanks)->with("info", "Bank Removed!");
+        return Redirect::route("viewClientsBanks")->with("info", "Bank Removed!");
     }
     public function get(Request $request)
     {
@@ -33,6 +38,6 @@ class BankDetailsController extends Controller
     public function edit(Request $request)
     {
         BankDetailsServices::edit($request);
-        return Redirect::route($this->viewClientsBanks)->with("info", "Bank Updated!");
+        return Redirect::route("viewClientsBanks")->with("info", "Bank Updated!");
     }
 }

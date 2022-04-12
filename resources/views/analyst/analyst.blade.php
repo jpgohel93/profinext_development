@@ -412,10 +412,9 @@
         </div>
         <!--end::Page-->
     </div>
-        <!--begin::Modals-->
-		<!--begin::Modal - View Analyst Details-->
-		<div class="modal fade" id="viewAnalyst" tabindex="-1" aria-hidden="true">
-		    <div class="modal-dialog modal-dialog-centered" role="document">
+    @can('analyst-write')
+        <div class="modal fade" id="viewAnalyst" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <form id="" class="form" method="POST" action="{{route('editAnalyst')}}">
                     @csrf
                     <div class="modal-content">
@@ -478,10 +477,9 @@
                         </div>
                     </div>
                 </form>
-		    </div>
-		</div>
-		<!--end::Modal - View Client Details-->
-		<!--end::Modals-->
+            </div>
+        </div>
+    @endcan
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->

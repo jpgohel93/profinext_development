@@ -13,7 +13,6 @@ use App\Models\User;
 
 class TraderController extends Controller
 {
-    private $viewTrader = "viewTrader";
     function __construct()
     {
         $this->middleware('permission:trader-create', ['only' => ['create']]);
@@ -39,12 +38,12 @@ class TraderController extends Controller
     public function create(Request $request)
     {
         TraderServices::create($request);
-        return Redirect::route($this->viewTrader)->with("info", "Client Assinged");
+        return Redirect::route("viewTrader")->with("info", "Client Assinged");
     }
-    public function remove(Request $request, $id)
+    public function remove($id)
     {
         TraderServices::remove($id);
-        return Redirect::route($this->viewTrader)->with("info", "Client Removed from trader!");
+        return Redirect::route("viewTrader")->with("info", "Client Removed from trader!");
     }
     public function get(Request $request)
     {
@@ -54,7 +53,7 @@ class TraderController extends Controller
     public function edit(Request $request)
     {
         TraderServices::edit($request);
-        return Redirect::route($this->viewTrader)->with("info", "Trader Updated!");
+        return Redirect::route("viewTrader")->with("info", "Trader Updated!");
     }
 
     public function viewTraderAccounts()

@@ -13,14 +13,15 @@
             <!--begin::Wrapper-->
             <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
             @include("header")
-            <!--begin::Content-->
+            @can("channel-partner-data-read")
+                <!--begin::Content-->
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                     @if(session("info"))
                         <div class="container">
                             <h6 class="alert alert-info">{{session("info")}}</h6>
                         </div>
-                @endif
-                <!--begin::Toolbar-->
+                    @endif
+                    <!--begin::Toolbar-->
                     <div class="toolbar" id="kt_toolbar">
                         <!--begin::Container-->
                         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
@@ -51,10 +52,6 @@
                                 <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->
-                            <!--begin::Actions-->
-                            <div class="d-flex align-items-center py-1">
-                            </div>
-                            <!--end::Actions-->
                         </div>
                         <!--end::Container-->
                     </div>
@@ -181,6 +178,7 @@
                     </div>
                     <!--end::Post-->
                 </div>
+            @endcan
                 <!--end::Content-->
                 <!--begin::Footer-->
             @include("footer")

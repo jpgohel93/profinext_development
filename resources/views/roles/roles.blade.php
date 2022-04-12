@@ -98,7 +98,7 @@
 														<tr>
 															<td>{{$loop->iteration}}</td>
 															<td class="role-value-td">{{$role->name}}</td>
-															<td class="role-value-td">{{$role->users_count}}</td>
+															<td class="role-value-td">{{$role->total}}</td>
 															<td class="role-value-td">{{date("Y-m-d",strtotime($role->created_at))}}</td>
 															<td class="text-end">
 																<div class="d-flex justify-content-end align-items-end">

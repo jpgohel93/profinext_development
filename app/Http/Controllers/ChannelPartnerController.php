@@ -12,8 +12,8 @@ class ChannelPartnerController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:channelpartner-data-read', ['only' => ['channelPartnerData', 'channelPartnerClientData']]);
-        $this->middleware('permission:channelpartner-read', ['only' => ['channelPartnerUserData']]);
+        $this->middleware('permission:channel-partner-data-read', ['only' => ['channelPartnerData', 'channelPartnerClientData']]);
+        $this->middleware('permission:channel-partner-read', ['only' => ['channelPartnerUserData']]);
     }
     // View all channel Partner data
     public function channelPartnerData(){

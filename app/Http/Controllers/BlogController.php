@@ -11,7 +11,7 @@ use App\Models\Blog;
 class BlogController extends Controller
 {
     public function __construct(){
-        $this->middleware('permission:blogAdmin-read', ['only' => ["blogAdmin"]]);
+        $this->middleware('permission:blog-admin-read', ['only' => ["blogAdmin"]]);
     }
     public function blogAdmin(Request $request){
         $blogs = BlogAdminServices::index();

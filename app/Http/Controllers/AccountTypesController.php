@@ -8,6 +8,13 @@ use App\Services\AccountTypeServices;
 
 class AccountTypesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:settings-user-account-type-read', ['only' => ["view", "get"]]);
+        $this->middleware('permission:settings-user-account-type-write', ['only' => ["edit"]]);
+        $this->middleware('permission:settings-user-account-type-create', ['only' => ["create"]]);
+        $this->middleware('permission:settings-user-account-type-delete', ['only' => ["remove"]]);
+    }
     public function view()   {
         $types = AccountTypeServices::view();
         return view("settings.users.accountType",compact('types'));
@@ -16,7 +23,7 @@ class AccountTypesController extends Controller
         AccountTypeServices::create($request);
         return Redirect::route('viewUsersAccountType')->with("info","New Type created");
     }
-    public function remove(Request $request,$id){
+    public function remove($id){
         AccountTypeServices::remove($id);
         return Redirect::route('viewUsersAccountType')->with("info", "Account Type Removed!");
     }

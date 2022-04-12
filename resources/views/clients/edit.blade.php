@@ -1309,25 +1309,6 @@
                         $(this).closest('.payment_details').find('.hideonpending').show();
                     }
                 });
-                $(document).on("input",".client-mobile",function(e) {
-                    if($(e.target).closest(".row").next(".row").last(".col-md-6").find(".wpsameascontact").is(":checked")){
-                       $(e.target).closest(".row").next(".row").last(".col-md-6").find(".wp").val($(this).val());
-                    }
-                    // if ($(this).is(':checked')) {
-                    //     var $cm = $('.client-mobile');
-                    //     var $wp = $('.wp');
-                    //     function onChange() {
-                    //         $wp.val($cm.val());
-                    //     };
-                    //     $('.client-mobile')
-                    //         .change(onChange)
-                    //         .keyup(onChange);
-
-                    // }
-                    // else {
-                    //     $(".wp").val(null);
-                    // }
-                });
             $(document).on("click",".removePaymentScreenshot",function(e){
                 if(!window.confirm("This cannot be undone!\r\nAre you sure you want to remove this Screenshot?")){
                     e.preventDefault();
@@ -1484,6 +1465,11 @@
                     $(e.target).closest(".col-md-6").find(".wp").val("");
                 }
             })
+            $(document).on("input",".client-mobile",function(e) {
+                if($(e.target).closest(".row").next(".row").last(".col-md-6").find(".wpsameascontact").is(":checked")){
+                    $(e.target).closest(".row").next(".row").last(".col-md-6").find(".wp").val($(this).val());
+                }
+            });
             window.sg = "<?php echo $newSGNo;?>";
             window.st = "<?php echo $newSTNo;?>";
             $(document).on("change","[name='st_sg[]']",function(e) {

@@ -27,9 +27,11 @@
                                 <div class="col-md-3">
                                     <h3>Service types:</h3>
                                 </div>
-                                <div class="col-md-9 text-end">
-                                    <button type="button" class="btn btn-primary" id="add_client_service_type_model">Add</button>
-                                </div>
+                                @can("settings-service-type-create")
+                                    <div class="col-md-9 text-end">
+                                        <button type="button" class="btn btn-primary" id="add_client_service_type_model">Add</button>
+                                    </div>
+                                @endcan
                             </div>
                             <table class="table table-striped" id="serviceType">
                                 <thead>
@@ -41,31 +43,41 @@
                                         <th scope="col">Sharing persentile</th>
                                         <th scope="col">GST Applicable</th>
                                         <th scope="col">GST rate</th>
-                                        <th scope="col">Actions</th>
+                                        @canany(["settings-service-type-write","settings-service-type-delete"])
+                                            <th scope="col">Actions</th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($serviceTypes as $serviceType)
-                                        <tr>
-                                            <td scope="row">{{$loop->iteration}}</td>
-                                            <td>{{$serviceType->name}}</td>
-                                            <td>{{$serviceType->renewal_amount}}</td>
-                                            <td>{{$serviceType->cutoff}}</td>
-                                            <td>{{$serviceType->sharing}}</td>
-                                            <td>{{($serviceType->is_gst_applicable)?"Yes":"No"}}</td>
-                                            <td>{{$serviceType->gst_rate}}</td>
-                                            <td>
-                                                <a href="javascript:void(0)">
-                                                    <i class="fas fa-pen fa-xl px-2 editServiceType" data-id="{{$serviceType->id}}"></i>
-                                                </a>
-                                                <a href="{{route('removeServiceType',$serviceType->id)}}" class="removeServiceType">
-                                                    <i class="fas fa-trash text-danger fa-xl px-2"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        {{-- <h3>No Profession Added. Click <a href="">here</a> to add</h3> --}}
-                                    @endforelse
+                                    @can("settings-service-type-read")
+                                        @forelse ($serviceTypes as $serviceType)
+                                            <tr>
+                                                <td scope="row">{{$loop->iteration}}</td>
+                                                <td>{{$serviceType->name}}</td>
+                                                <td>{{$serviceType->renewal_amount}}</td>
+                                                <td>{{$serviceType->cutoff}}</td>
+                                                <td>{{$serviceType->sharing}}</td>
+                                                <td>{{($serviceType->is_gst_applicable)?"Yes":"No"}}</td>
+                                                <td>{{$serviceType->gst_rate}}</td>
+                                                @canany(["settings-service-type-write","settings-service-type-delete"])
+                                                    <td>
+                                                        @can("settings-service-type-write")
+                                                            <a href="javascript:void(0)">
+                                                                <i class="fas fa-pen fa-xl px-2 editServiceType" data-id="{{$serviceType->id}}"></i>
+                                                            </a>
+                                                        @endcan
+                                                        @can("settings-service-type-delete")
+                                                            <a href="{{route('removeServiceType',$serviceType->id)}}" class="removeServiceType">
+                                                                <i class="fas fa-trash text-danger fa-xl px-2"></i>
+                                                            </a>
+                                                        @endcan
+                                                    </td>
+                                                @endcan
+                                            </tr>
+                                        @empty
+                                            {{-- empty --}}
+                                        @endforelse
+                                    @endcan
                                 </tbody>
                             </table>
                         </div>

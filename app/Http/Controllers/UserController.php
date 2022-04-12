@@ -8,7 +8,6 @@ use App\Services\UserServices;
 use Illuminate\Support\Facades\Redirect;
 use App\Services\keywordAccountTypeServices;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class UserController extends Controller
@@ -16,7 +15,7 @@ class UserController extends Controller
     function __construct()
     {
         $this->middleware('permission:user-create', ['only' => ['createForm', 'create']]);
-        $this->middleware('permission:user-write', ['only' => ['updateForm', 'update']]);
+        $this->middleware('permission:user-write', ['only' => ['updateForm', 'update', "assignTraderRoles"]]);
         $this->middleware('permission:user-read', ['only' => ['all', 'view']]);
         $this->middleware('permission:user-delete', ['only' => ['delete']]);
     }

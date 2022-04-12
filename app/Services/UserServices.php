@@ -145,9 +145,8 @@ class UserServices
         }
         $user_data['permission'] = json_encode($param);
         $user = User::create($user_data);
-        $user->syncRoles($request->role);
         $user->syncPermissions($param);
-
+        $user->syncRoles($request->role);
         $numbers = $request->number;
         foreach($numbers as $number){
             UserNumbers::create(["user_id"=>$user->id, "number"=>$number,"updated_by"=>Auth::id()]);
@@ -172,7 +171,6 @@ class UserServices
         $request->flashExcept(["_token"]);
         $request->validate([
             "name" => "required|alpha_spaces",
-            "account_type" => "required",
             "number" => "required|array",
             "number.*" => "numeric|required",
             "user_type" => "required",
@@ -279,6 +277,7 @@ class UserServices
             }
         }
         $user->syncPermissions($param);
+        $user->syncRoles($request->role);
         $user_data = $request->except(['_token',"number","permissions"]);
         // remove old numbers
         UserNumbers::where("user_id",$id)->delete();

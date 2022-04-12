@@ -15,16 +15,10 @@ class FreelancerController extends Controller
         $this->middleware('permission:freelancer-data-read', ['only' => ['freelancerData', 'freelancerClientData']]);
         $this->middleware('permission:freelancer-read', ['only' => ['freelancerUserData']]);
     }
-    // View all freelancer data
     public function freelancerData(){
         $freelancerData = UserServices::getFreelancerData();
         return view("freelancer.freelancer", compact('freelancerData'));
     }
-    // view all the freelancer client list
-        //    public function freelancerClientData(Request $request,$id){
-        //        $freelancerClient = ClientServices::freelancerClientList($id);
-        //        return view("freelancer.freelancer_client", compact('freelancerClient'));
-        //    }
     public function freelancerClientData(Request $request,$id){
         $freelancerClient = ClientServices::freelancerClientList($id);
         return view("freelancer.freelancer_client", compact('freelancerClient'));

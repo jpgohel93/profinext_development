@@ -69,7 +69,7 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        @can("channelpartner-data-read")
+                                        @can("channel-partner-data-read")
                                             <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
                                                 <!--begin::Table head-->
                                                 <thead>

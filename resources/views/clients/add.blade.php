@@ -1679,22 +1679,19 @@
 					$(this).closest('.payment_details').find('.hideonpending').show();
 				}
 			});
-			$(document).on("input",".wpsameascontact",function() {
-				if ($(this).is(':checked')) {
-					var $cm = $('.client-mobile');
-					var $wp = $('.wp');
-					function onChange() {
-						$wp.val($cm.val());
-					};
-					$('.client-mobile')
-						.change(onChange)
-						.keyup(onChange);
-
-				}
-				else {
-					$(".wp").val(null);
-				}
-			});
+            $(document).on("click",".wpsameascontact",e=>{
+                if($(e.target).is(":checked")){
+                    let number = $(e.target).closest(".row").prev(".row").last(".col-md-6").find(".client-mobile").val();
+                    $(e.target).closest(".col-md-6").find(".wp").val(number);
+                }else{
+                    $(e.target).closest(".col-md-6").find(".wp").val("");
+                }
+            })
+            $(document).on("input",".client-mobile",function(e) {
+                if($(e.target).closest(".row").next(".row").last(".col-md-6").find(".wpsameascontact").is(":checked")){
+                    $(e.target).closest(".row").next(".row").last(".col-md-6").find(".wp").val($(this).val());
+                }
+            });
 			$("#viewClient").modal("hide");
 
             $("#personalDetail").hide();

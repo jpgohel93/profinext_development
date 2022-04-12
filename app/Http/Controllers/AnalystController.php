@@ -26,6 +26,7 @@ class AnalystController extends Controller
         $this->middleware('permission:analyst-delete', ['only' => ['editAnalyst']]);
         $this->middleware('permission:monitor-read', ['only' => ['viewMonitorData']]);
         $this->middleware('permission:monitor-data-read', ['only' => ['viewMonitor']]);
+        $this->middleware('permission:monitor-data-delete', ['only' => ['deleteMonitorData']]);
     }
     public function view(Request $request){
         $analysts = AnalystServices::all();
@@ -279,8 +280,7 @@ class AnalystController extends Controller
         return view("analyst.monitor_data",compact('analysts','keywords'));
     }
 
-	public function getAnalystData(Request $request)
-	{
+	public function getAnalystData(Request $request){
 		if ($request->ajax())
 		{
 			$auth_user = Auth::user();
@@ -323,8 +323,7 @@ class AnalystController extends Controller
         }
 	}
 
-	public function getActiveCallData(Request $request)
-	{
+	public function getActiveCallData(Request $request)	{
 		if ($request->ajax())
 		{
 			$auth_user = Auth::user();
@@ -370,8 +369,7 @@ class AnalystController extends Controller
         }
 	}
 
-	public function getCloseCallData(Request $request)
-	{
+	public function getCloseCallData(Request $request){
 		if ($request->ajax())
 		{
 			$auth_user = Auth::user();
@@ -427,11 +425,9 @@ class AnalystController extends Controller
 		[
 			'date' => 'required',
 			'script_name' => 'required',
-			'entry_time' => 'required',//|regex:/^\d{3}-\d{3}-\d{4}$/
+			'entry_time' => 'required',
 			'entry_price' => 'required',
 			'buy_sell' => 'required',
-//			'target' => 'required',
-//			'sl' => 'required'
 		];
 
         $input = $request->only(

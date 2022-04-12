@@ -19,7 +19,7 @@
             <!--begin::Wrapper-->
             <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
             @include("header")
-            <!--begin::Content-->
+			@can("monitor-read")
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                     @if(session("info"))
                         <div class="container">
@@ -30,7 +30,7 @@
                             <h6 class="alert alert-danger">{{$errors->first()}}</h6>
                         </div>
                     @endif
-                <!--begin::Toolbar-->
+                	<!--begin::Toolbar-->
                     <div class="toolbar" id="kt_toolbar">
                         <!--begin::Container-->
                         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
@@ -46,7 +46,7 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="profinext/dist/index.html" class="text-muted text-hover-primary">Home</a>
+                                        <a href="#" class="text-muted text-hover-primary">Home</a>
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -61,21 +61,6 @@
                                 <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->
-                            <!--begin::Actions-->
-                            <div class="d-flex align-items-center py-1">
-                            @can("role-create")
-                                <!--begin::Button-->
-{{--                                    <a href="#" class="btn btn-sm btn-primary" id="kt_toolbar_primary_button">--}}
-{{--									<span class="svg-icon svg-icon-2">--}}
-{{--										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">--}}
-{{--											<rect x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />--}}
-{{--											<rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />--}}
-{{--										</svg>--}}
-{{--									</span>Add Monitor Call--}}
-{{--                                    </a>--}}
-                                @endcan
-                            </div>
-                            <!--end::Actions-->
                         </div>
                         <!--end::Container-->
                     </div>
@@ -232,6 +217,7 @@
                         </div>
                     <!--end::Post-->
                 </div>
+			@endcan
             @include("footer")
             </div>
         </div>

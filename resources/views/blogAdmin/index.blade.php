@@ -58,16 +58,16 @@
                              <!--end::Page title-->
                              <!--begin::Actions-->
                              <div class="d-flex align-items-center py-1">
-                                 @can("blog-write")
-                                 <!--begin::Button-->
-                                 <a href="javascript:void(0)" class="btn btn-sm btn-primary" id="addTabBtn">
-                                     <span class="svg-icon svg-icon-2">
-                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                             <rect x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                                             <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
-                                         </svg>
-                                     </span>Add Tab
-                                 </a>
+                                 @can("blog-user-write")
+                                    <!--begin::Button-->
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary" id="addTabBtn">
+                                        <span class="svg-icon svg-icon-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <rect x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
+                                                <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
+                                            </svg>
+                                        </span>Add Tab
+                                    </a>
                                  @endcan
                              </div>
                              <!--end::Actions-->
@@ -84,7 +84,7 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                      <div class="table-responsive">
-                                        @can("blogAdmin-read")
+                                        @can("blog-admin-read")
                                             <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
                                                 <!--begin::Table head-->
                                                 <thead>
@@ -117,7 +117,7 @@
                                                             <td class="role-value-td">{{$total_tabs}}</td>
                                                             <td class="text-end">
                                                                 <div class="d-flex justify-content-end align-items-end">
-                                                                    @can("blog-read")
+                                                                    @can("blog-user-read")
                                                                         <div class="menu-item">
                                                                             <a href="{{route('editBlogForm',$blog['id'])}}" data-id="{{$blog['id']}}" target="_blank" class="menu-link px-3">
                                                                                 <i class='fas fa-eye fa-xl' title="View Blogger"></i>
@@ -125,7 +125,7 @@
                                                                         </div>
                                                                     @endcan
 
-                                                                    @can("blog-write")
+                                                                    @can("blog-user-write")
                                                                         <div class="menu-item">
                                                                             <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 setTargetUrl">
                                                                                 <i class="fas fa-pen fa-xl" title="Set target"></i>

@@ -7,8 +7,13 @@ use Illuminate\Support\Facades\Redirect;
 use App\Services\BrokerServices;
 class BrokerController extends Controller
 {
-    private $viewClientsBroker = "viewClientsBroker";
-
+    public function __construct()
+    {
+        $this->middleware('permission:settings-client-broker-read', ['only' => ["view", "get"]]);
+        $this->middleware('permission:settings-client-broker-write', ['only' => ["edit"]]);
+        $this->middleware('permission:settings-client-broker-create', ['only' => ["create"]]);
+        $this->middleware('permission:settings-client-broker-delete', ['only' => ["remove"]]);
+    }
     public function view()
     {
         $brokers = BrokerServices::view();
@@ -17,12 +22,12 @@ class BrokerController extends Controller
     public function create(Request $request)
     {
         BrokerServices::create($request);
-        return Redirect::route($this->viewClientsBroker)->with("info", "New Broker created");
+        return Redirect::route("viewClientsBroker")->with("info", "New Broker created");
     }
-    public function remove(Request $request, $id)
+    public function remove($id)
     {
         BrokerServices::remove($id);
-        return Redirect::route($this->viewClientsBroker)->with("info", "Broker Removed!");
+        return Redirect::route("viewClientsBroker")->with("info", "Broker Removed!");
     }
     public function get(Request $request)
     {
@@ -32,6 +37,6 @@ class BrokerController extends Controller
     public function edit(Request $request)
     {
         BrokerServices::edit($request);
-        return Redirect::route($this->viewClientsBroker)->with("info", "Broker Updated!");
+        return Redirect::route("viewClientsBroker")->with("info", "Broker Updated!");
     }
 }

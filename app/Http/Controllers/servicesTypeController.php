@@ -7,6 +7,13 @@ use App\Services\servicesTypeServices;
 use Illuminate\Support\Facades\Redirect;
 class servicesTypeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:settings-service-type-read', ['only' => ["view", "get"]]);
+        $this->middleware('permission:settings-service-type-write', ['only' => ["edit", "editServiceType"]]);
+        $this->middleware('permission:settings-service-type-create', ['only' => ["add"]]);
+        $this->middleware('permission:settings-service-type-delete', ['only' => ["remove"]]);
+    }
     public function view(){
         $serviceTypes = servicesTypeServices::view();
         return view("settings.clients.servicesType",compact("serviceTypes"));

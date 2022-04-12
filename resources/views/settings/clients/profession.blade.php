@@ -27,6 +27,7 @@
                                 <div class="col-md-3">
                                     <h3>Profession:</h3>
                                 </div>
+                                @can("")
                                 <div class="col-md-9 text-end">
                                     <button type="button" class="btn btn-primary" id="add_client_profession_model">Add</button>
                                 </div>

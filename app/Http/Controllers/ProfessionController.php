@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class ProfessionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:settings-client-profession-read', ['only' => ["view", "get"]]);
+        $this->middleware('permission:settings-client-profession-write', ['only' => ["edit"]]);
+        $this->middleware('permission:settings-client-profession-create', ['only' => ["create"]]);
+        $this->middleware('permission:settings-client-profession-delete', ['only' => ["remove"]]);
+    }
     public function view(){
         $professions = ProfessionServices::view();
         return view('settings.clients.profession',compact('professions'));

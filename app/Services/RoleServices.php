@@ -11,7 +11,7 @@ class RoleServices
     public static function create($request)
     {
         $role = $request->validate([
-            'role' => 'required|alpha_spaces|unique:roles,name'
+            'role' => 'required|unique:roles,name'
         ]);
         $permissions = $request->validate([
             'permission' => 'required|array'
@@ -34,7 +34,11 @@ class RoleServices
         return Role::where("id", $id)->forcedelete();
     }
     public static function roles(){
-        return Role::withCount("users")->orderBy('id','DESC')->get();
+        $roles = Role::orderBy('id','DESC')->get();
+        foreach($roles as $index => $role){
+            $roles[$index]["total"] = User::role($role->name)->count();
+        }
+        return $roles;
     }
     public static function all(){
         return Role::all();

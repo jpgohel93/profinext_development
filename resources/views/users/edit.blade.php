@@ -44,7 +44,7 @@
 								@can("user-write")
                                     @if (isset($user->id))
                                         <!--begin::Form-->
-                                        <form class="form" novalidate="novalidate" action="{{url('/user/update',$user->id)}}" method="POST" id="kt_modal_create_app_form">
+                                        <form class="form" novalidate="novalidate" action="{{route('updateUser',$user->id)}}" method="POST" id="kt_modal_create_app_form">
                                             @csrf
                                             <!--begin::Step 1-->
                                             <div class="current d-block card p-7 my-5" data-kt-stepper-element="content">
@@ -707,25 +707,25 @@
                                                                                         <td aria-colindex="1" role="cell" class=""> {{$permissions_constant[$module_counter]}} </td>
                                                                                         <td aria-colindex="2" role="cell" class="">
                                                                                             <div class="form-check form-check-custom form-check-solid">
-                                                                                                <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$all_permissions[$i]}}" {{(!$user_permissions?"":(in_array($all_permissions[$i+1],$user_permissions))? 'checked':"")}} id="__BVID__675">
+                                                                                                <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$all_permissions[$i]}}" {{(!$user_permissions?"":(in_array($all_permissions[$i],$user_permissions))? 'checked':"")}} id="__BVID__675">
                                                                                                 <label class="custom-control-label" for="__BVID__675"></label>
                                                                                             </div>
                                                                                         </td>
                                                                                         <td aria-colindex="2" role="cell" class="">
                                                                                             <div class="form-check form-check-custom form-check-solid">
-                                                                                                <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$all_permissions[$i+1]}}" {{(!$user_permissions?"":(in_array($all_permissions[$i+2],$user_permissions))? 'checked':"")}} id="__BVID__675">
+                                                                                                <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$all_permissions[$i+1]}}" {{(!$user_permissions?"":(in_array($all_permissions[$i+1],$user_permissions))? 'checked':"")}} id="__BVID__675">
                                                                                                 <label class="custom-control-label" for="__BVID__675"></label>
                                                                                             </div>
                                                                                         </td>
                                                                                         <td aria-colindex="2" role="cell" class="">
                                                                                             <div class="form-check form-check-custom form-check-solid">
-                                                                                                <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$all_permissions[$i+2]}}" {{(!$user_permissions?"":(in_array($all_permissions[$i+1],$user_permissions))? 'checked':"")}} id="__BVID__675">
+                                                                                                <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$all_permissions[$i+2]}}" {{(!$user_permissions?"":(in_array($all_permissions[$i+2],$user_permissions))? 'checked':"")}} id="__BVID__675">
                                                                                                 <label class="custom-control-label" for="__BVID__675"></label>
                                                                                             </div>
                                                                                         </td>
                                                                                         <td aria-colindex="2" role="cell" class="">
                                                                                             <div class="form-check form-check-custom form-check-solid">
-                                                                                                <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$all_permissions[$i+3]}}" {{(!$user_permissions?"":(in_array($all_permissions[$i+1],$user_permissions))? 'checked':"")}} id="__BVID__675">
+                                                                                                <input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$all_permissions[$i+3]}}" {{(!$user_permissions?"":(in_array($all_permissions[$i+3],$user_permissions))? 'checked':"")}} id="__BVID__675">
                                                                                                 <label class="custom-control-label" for="__BVID__675"></label>
                                                                                             </div>
                                                                                         </td>
