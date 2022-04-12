@@ -223,11 +223,9 @@ class UserServices
         } elseif ($request->user_type == '5') {
             $request->validate([
                 "percentage" => "required",
-                "ams_new_client_profit" => "required",
                 "joining_date" => "required",
             ], [
                 "percentage.required" => " Percentage of profit sharing is required",
-                "ams_new_client_profit.required" => "Percentage For AMS New Client is required",
                 "joining_date.required" => "Joining Date is required"
             ]);
         }
