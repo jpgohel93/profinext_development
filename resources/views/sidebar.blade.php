@@ -500,6 +500,16 @@
                                     </a>
                                 </div>
                             @endcan
+                            @can("settings-terms-and-condition-read")
+                                <div class="menu-item">
+                                    <a class="menu-link @yield('settings_management.terms_and_condition')" href="{{route('viewTermsAndConditions')}}">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Terms and conditions</span>
+                                    </a>
+                                </div>
+                            @endcan
                         </div>
                     </div>
                 @endcan

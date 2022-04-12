@@ -48,6 +48,7 @@ return [
         "settings-client-broker",
         "settings-bank-details",
         "settings-service-type",
+        "settings-terms-and-condition",
     ],
     "LABEL_TYPES"=>[
         "income",

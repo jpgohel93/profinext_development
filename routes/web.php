@@ -19,6 +19,7 @@ use App\Http\Controllers\ChannelPartnerController;
 use App\Http\Controllers\KeywordController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\servicesTypeController;
+use App\Http\Controllers\TermsAndConditionsController;
 use App\Http\Controllers\financeManagementControllers\BankControllers;
 use App\Http\Controllers\financeManagementControllers\AccountingController;
 use App\Http\Controllers\financeManagementControllers\FinancialStatusController;
@@ -181,6 +182,16 @@ Route::group(['middleware' => ['auth']], function() {
 
     // users settings
     Route::get("/settings/users/",[AccountTypesController::class,"view"])->name("viewUsersAccountType");
+    // TermsAndConditions settings
+    Route::get("/settings/terms-and-conditions/",[TermsAndConditionsController::class,"view"])->name("viewTermsAndConditions");
+    // TermsAndConditions remove settings
+    Route::get("/settings/terms-and-conditions/remove/{id}",[TermsAndConditionsController::class,"remove"])->name("removeTermsAndCondition");
+    // TermsAndConditions create settings
+    Route::post("/settings/terms-and-conditions/create",[TermsAndConditionsController::class,"create"])->name("createTermsAndCondition");
+    // TermsAndConditions get settings
+    Route::post("/settings/terms-and-conditions/get",[TermsAndConditionsController::class,"get"])->name("getTermsAndCondition");
+    // TermsAndConditions update settings
+    Route::post("/settings/terms-and-conditions/update",[TermsAndConditionsController::class,"update"])->name("editTermsAndCondition");
     // create AccountType
     Route::POST("/settings/users/createAccountType",[AccountTypesController::class, "create"])->name("createAccountType");
     // removeAccountType
