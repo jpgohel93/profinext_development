@@ -287,6 +287,12 @@ class renewalStatusController extends Controller
         ClientDemateServices::partPayment($request);
         return Redirect::route("renewal_status")->with("info", "Payment successfully");
     }
+
+    public function partPaymentReminder(Request $request){
+        ClientDemateServices::setPartPaymentReminder($request);
+        return Redirect::route("renewal_status")->with("info", "Reminder set successfully");
+    }
+
     public function fullPayment(Request $request){
         ClientDemateServices::fullPayment($request);
        $renewData = ClientDemateServices::renewDataById($request->full_payment_id);
@@ -360,7 +366,7 @@ class renewalStatusController extends Controller
             $message[0]['amount'] = $renewData->profit_sharing;
             $total = $renewData->profit_sharing;
             $grand_total = $renewData->profit_sharing;
-            $title = "ACCESS PROFIT INVOICE";
+            $title = "INVOICE";
         }elseif ($type == 3){
             if($renewData->service_type == 2){
                 $message[0]['heading'] = "AMS Fees";

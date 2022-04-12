@@ -45,7 +45,7 @@ class renewalStatusService
         leftJoin('client_demat', 'renewal_account.client_demat_id', '=', 'client_demat.id')
             ->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')
             ->where("renewal_account.status", "renew")
-            ->select('clients.name','client_demat.serial_number','client_demat.service_type','client_demat.st_sg','client_demat.client_id','client_demat.holder_name','client_demat.available_balance','renewal_account.*')
+            ->select('clients.name','client_demat.serial_number','client_demat.final_pl','client_demat.service_type','client_demat.st_sg','client_demat.client_id','client_demat.holder_name','client_demat.available_balance','renewal_account.*')
             ->get();
     }
     public static function newAccounts()

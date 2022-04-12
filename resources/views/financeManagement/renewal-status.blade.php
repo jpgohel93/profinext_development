@@ -335,7 +335,7 @@
                                                                 <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
                                                                 <td>{{$renewedAccount->holder_name}}</td>
                                                                 <td>{{$renewedAccount->available_balance}}</td>
-                                                                <td>{{$renewedAccount->pl}}</td>
+                                                                <td>{{$renewedAccount->final_pl}}</td>
                                                                 <td>
 {{--                                                                    <a href="{{route('clientDematView',$renewedAccount->id)}}" target="_blank"class='verifyDemate'>Edit</a><br/>--}}
 
@@ -419,7 +419,7 @@
                                                                         </div>
 
                                                                         <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id="{{$partPayment->id}}"  class='menu-link px-3'>Reminder </a>
+                                                                            <a href="javascript:void(0)" data-id="{{$partPayment->id}}"  class='menu-link px-3 reminder_button'>Reminder </a>
                                                                         </div>
 
                                                                         <div class="menu-item px-3">
@@ -820,6 +820,51 @@
         </div>
     </div>
 
+    <div class="modal fade" id="partPaymentReminderModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px" role="document">
+            <div class="modal-content">
+                <!--begin::Form-->
+                <form id="" class="form" method="POST" action="{{route('partPaymentReminder')}}">
+                    @csrf
+                    <div class="modal-header">
+                        <h2 class="fw-bolder">Set Reminder</h2>
+                        <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-md-10">
+                        <input class="form-control" type="hidden" value="" name='part_payment_reminder_id' id="part_payment_reminder_id"/>
+                        <div class="form-group">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <span class="required">Date:</span>
+                            </label>
+                            <!--end::Label-->
+                            <input type="date" value="{{old('reminder_date')}}" name="reminder_date" id="reminder_date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
+                        </div>
+                    </div>
+                    <div class="modal-body mx-md-10" id="part_reminder_message" style="color: green;">
+                    </div>
+                    <!--end::Modal body-->
+                    <div class="modal-footer text-center">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                            <span class="indicator-label">Submit</span>
+                            <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="viewPaymentHistory" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog mw-650px" role="document">
             <div class="modal-content">
@@ -910,6 +955,23 @@
                         $("#part_payment_id").val(data.id);
                         $("#part_bank_id").val(data.bank_id).trigger('change');
                         $("#partPaymentModal").modal("show");
+                    });
+                });
+
+                //part payment reminder
+                $(document).on("click",".reminder_button",function(e){
+                    const id=e.target.getAttribute("data-id");
+
+                    $.ajax("{!! route('getRenewData') !!}",{
+                        type:"POST",
+                        data:{
+                            id:id
+                        }
+                    }).done(data => {
+                        $("#part_reminder_message").html((parseInt(data.final_amount) - parseInt(data.part_payment))+ " total payment for account renew.");
+                        $("#part_payment_reminder_id").val(data.id);
+                        $("#reminder_date").val(data.reminder_date);
+                        $("#partPaymentReminderModal").modal("show");
                     });
                 });
 

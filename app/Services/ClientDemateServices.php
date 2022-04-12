@@ -279,6 +279,15 @@ class ClientDemateServices{
         return RenewDemat::where("id",$request->full_payment_id)->update($data);
     }
 
+    public static function setPartPaymentReminder($request){
+        $request->validate([
+            "reminder_date" => "required|date"
+        ]);
+
+        $data['reminder_date']=date("Y-m-d",strtotime($request->reminder_date));
+        return RenewDemat::where("id",$request->part_payment_reminder_id)->update($data);
+    }
+
     public static function viewPartPaymentHistory($id){
         return financeManagementIncomesModel::where("renewal_account_id",$id)->get()->toArray();
     }
