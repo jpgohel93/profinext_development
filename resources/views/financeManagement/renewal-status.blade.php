@@ -224,9 +224,9 @@
                                                                             </div>
                                                                         @endif
 
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="{{route('clientDematView',$toRenewAccount->id)}}" target="_blank" class='menu-link px-3 verifyDemate'>Generate Invoice</a>
-                                                                        </div>
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="{{route('clientDematView',$toRenewAccount->id)}}" target="_blank" class='menu-link px-3 verifyDemate'>Generate Invoice</a>--}}
+{{--                                                                        </div>--}}
                                                                         <div class="menu-item px-3">
                                                                             <a href="{{route('clientDematTerminate',$toRenewAccount->id)}}" class='menu-link px-3 terminateDemate'>Terminate</a>
                                                                         </div>

@@ -173,7 +173,7 @@ class renewalStatusController extends Controller
                 $service_data = servicesTypeServices::getByType($account_type);
 
                 $cutoff = $service_data->cutoff;
-                $sharing = $service_data->sharing;
+                $sharing = isset($service_data->sharing) ? $service_data->sharing : 1;
                 $renewal_fees = $service_data->renewal_amount;
                 if($final_pl > $cutoff) {
                     $access_profit = $final_pl - $cutoff;
@@ -209,7 +209,7 @@ class renewalStatusController extends Controller
             }elseif ($demat_data->service_type == 1){
                 $account_type = 'Prime';
                 $service_data = servicesTypeServices::getByType($account_type);
-                $sharing = $service_data->sharing;
+                $sharing = isset($service_data->sharing) ? $service_data->sharing : 1;
 
                 $profit_sharing = ($sharing * $final_pl) / 100;
 
@@ -258,7 +258,7 @@ class renewalStatusController extends Controller
         $message[0]['amount'] = $request->fees_amount;
         $total = $request->fees_amount;
         $grand_total = $request->fees_amount;
-        $title = "FEES INVOICE";
+        $title = "INVOICE";
         return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title'));
     }
 
@@ -279,7 +279,7 @@ class renewalStatusController extends Controller
         $message[0]['amount'] = $request->profit_amount;
         $total = $request->profit_amount;
         $grand_total = $request->profit_amount;
-        $title = "ACCESS PROFIT INVOICE";
+        $title = "INVOICE";
         return view("financeManagement.fees_invoice",compact("renewData","message",'total',"grand_total","title"));
     }
 
@@ -350,7 +350,7 @@ class renewalStatusController extends Controller
             $message[0]['amount'] = $renewData->renewal_fees;
             $total = $renewData->renewal_fees;
             $grand_total = $renewData->renewal_fees;
-            $title = "FEES INVOICE";
+            $title = "INVOICE";
         }elseif ($type == 2){
             if($renewData->service_type == 2){
                 $message[0]['heading'] = "AMS Profit Sharing";
