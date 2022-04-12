@@ -16,4 +16,19 @@ class ClientPayment extends Model
     {
         return $this->hasMany(Screenshots::class);
     }
+    public function withClient(){
+        return $this->hasOne(Client::class,"id","client_id");
+    }
+    public function withDemat(){
+        return $this->hasOne(ClientDemat::class,"id", "demat_id");
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('created_by', function (\Illuminate\Database\Eloquent\Builder $builder) {
+            $builder->where($builder->getModel()->getTable() . '.created_by', auth()->user()->id);
+        });
+    }
+
 }   

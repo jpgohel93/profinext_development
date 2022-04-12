@@ -276,49 +276,16 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
-                                                        @forelse($forSalaries as $forSalary)
+                                                        @forelse($forCashes as $cash)
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                <td>{{$forSalary->title}}</td>
-                                                                <td>{{$forSalary->reserve_balance}}</td>
-                                                                <td>0</td>
-                                                                <td>
-                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                        <span class="svg-icon svg-icon-5 m-0">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                            </svg>
-                                                                        </span>
-                                                                    </a>
-                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-state-bg-light-primary menu-gray-600 fw-bold w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" class="menu-link px-3 viewBankAccount" data-id="{{$forSalary->id}}">
-                                                                                view
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" class="menu-link px-3" onclick="window.open('{{route('financeManagementEditBank',$forSalary->id)}}')">
-                                                                                Edit
-                                                                            </a>
-                                                                        </div>
-                                                                        @if($forSalary->is_active)
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" class="unlock menu-link px-3" data-id="{{$forSalary->id}}">
-                                                                                    Deactivate
-                                                                                </a>
-                                                                            </div>
-                                                                        @else
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="javascript:void(0)" class="lock menu-link px-3" data-id="{{$forSalary->id}}">
-                                                                                    Activate
-                                                                                </a>
-                                                                            </div>
-                                                                        @endif
-                                                                    </div>
-                                                                </td>
+                                                                <td>{{$cash->joining_date!=""?date("Y-m-d",strtotime($cash->joining_date)):""}}</td>
+                                                                <td>{{$cash->clientName}}</td>
+                                                                <td>{{$cash->receivedBy}}</td>
+                                                                <td>{{$cash->capital}}</td>
                                                             </tr>
                                                         @empty
-                                                            {{-- empty --}}
+                                                            {{-- empty  --}}
                                                         @endforelse
                                                     </tbody>
                                                 <!--end::Table body-->

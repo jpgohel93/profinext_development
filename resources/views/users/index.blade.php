@@ -668,6 +668,34 @@
 												
 											</div>
 											<div class="col-12" id="manual_permission">
+												<table role="table" aria-busy="false" aria-colcount="5" class="table b-table table-striped" id="__BVID__660">
+													<!---->
+													<!---->
+													<thead role="rowgroup" class="">
+														<!---->
+														<tr role="row" class="">
+															<th role="columnheader" scope="col" aria-colindex="1" class="">
+																<div class="font-weight-bold">Module</div>
+															</th>
+															<th role="columnheader" scope="col" aria-colindex="2" class="">
+																<div>Read</div>
+															</th>
+															<th role="columnheader" scope="col" aria-colindex="3" class="">
+																<div>Write</div>
+															</th>
+															<th role="columnheader" scope="col" aria-colindex="4" class="">
+																<div>Create</div>
+															</th>
+															<th role="columnheader" scope="col" aria-colindex="5" class="">
+																<div>Delete</div>
+															</th>
+														</tr>
+													</thead>
+													<tbody role="rowgroup" id="permissionsContainer">
+														
+													</tbody>
+													<!---->
+												</table>
 											</div>
 											<!--end::Input group-->
 										</div>
@@ -897,90 +925,95 @@
 				}
 			});
 			const getPermissionByRole = async role =>{
-				let permissions = null;
-				let allpermissions = null;
-				if(typeof role == "string" && role != ""){
-					await $.ajax(`/permissionByRole/${role}`,{
-						type: "GET",
-					})
-					.done(data=>{
-						if(data.status == 200 && data.data!=""){
-							permissions = data.data.permissions;
-							allpermissions = data.data.all_permissions;
-						}else{
-							window.alert(`Unable to get permissions for ${role} Role`);
-						}
-					})
-				}
-				return {permissions:permissions,allpermissions:allpermissions};
-			};
-			// on role change
-			$(document).on("change", "#user_role",function(e){
-				const role = $(this).val();
-				if(role){
-					$("#manual_permission").html("");
-					const modules = @json(Config::get("constants.Permissions"));
-					let module_index = 0;
-					getPermissionByRole(role).then((response)=>{
-						if(typeof response['permissions'] != null){
-							let html = `
-								<div class="row">
-									<div class="col-12">
-										<h4>${role}</h4>
-									</div>
-									<div class="col-12">`;
-										html += `
-											<div class="row">
-												<div class="col-md-4">
-													<label>Module</label>
-												</div>
-												<div class="col-md-2">
-													<label>Read</label>
-												</div>
-												<div class="col-md-2">
-													<label>Write</label>
-												</div>
-												<div class="col-md-2">
-													<label>Create</label>
-												</div>
-												<div class="col-md-2">
-													<label>Delete</label>
-												</div>
-											</div>
-										`;
-										response['allpermissions'].forEach((value,key)=>{
-											if(key%4==0){
-												if(modules[module_index]){
-													html+=` <div class='row form-check form-check-custom form-check-solid my-2'>
-																<div class="col-md-4">
-																	<label>${modules[module_index]}</label>
-																</div>`;
-															html +=`
-															<div class="col-md-2">
-																<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key].name}' ${($.inArray(response['allpermissions'][key].name, response['permissions']) !== -1)?"checked":""}>
-															</div>
-															<div class="col-md-2">
-																<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key+1].name}' ${($.inArray(response['allpermissions'][key+1].name, response['permissions']) !== -1)?"checked":""}>
-															</div>
-															<div class="col-md-2">
-																<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key+2].name}' ${($.inArray(response['allpermissions'][key+2].name, response['permissions']) !== -1)?"checked":""}>
-															</div>
-															<div class="col-md-2">
-																<input type="checkbox" class='form-check-input' name="permissions[]" value='${response['allpermissions'][key+3].name}' ${($.inArray(response['allpermissions'][key+3].name, response['permissions']) !== -1)?"checked":""}>
-															</div>
-														</div>`;
-														module_index++;
-													}
-											}
-										})
-							html += `</div></div>`;
-							// display permissions
-							$("#manual_permission").append(html);
-						}
-						module_index=0;
-					});
-				}
-			})
+					let permissions = null;
+					let allpermissions = null;
+					if(typeof role == "string" && role != ""){
+						await $.ajax(`/permissionByRole/${role}`,{
+							type: "GET",
+						})
+						.done(data=>{
+							if(data.status == 200 && data.data!=""){
+								permissions = data.data.permissions;
+								allpermissions = data.data.all_permissions;
+							}else{
+								window.alert(`Unable to get permissions for ${role} Role`);
+							}
+						})
+					}
+					return {permissions:permissions,allpermissions:allpermissions};
+				};
+				// on role change
+				$(document).on("change","#user_role",function(e){
+					const role = $("#user_role").val();
+					if(role){
+						$("#permissionsContainer").html("");
+						const modules = $.parseJSON('@json(Config::get("constants.Permissions"))');
+						let module_index = 0;
+                        let html = ``;
+						getPermissionByRole(role).then((response)=>{
+							if(typeof response['permissions'] != null){
+                                response['allpermissions'].forEach((value,key)=>{
+                                    if(key%4==0){
+                                        if(modules[module_index]){
+                                            html+=`
+                                                <tr role="row" class="">
+                                                    <td aria-colindex="1" role="cell" class=""> ${modules[module_index]}</td>
+                                                    <td aria-colindex="2" role="cell" class="">
+                                                        <div class="form-check form-check-custom form-check-solid">
+                                                            <input type="checkbox" class='form-check-input permissionCheckBox' name="permission[]" value='${response['allpermissions'][key].name}' ${($.inArray(response['allpermissions'][key].name, response['permissions']) !== -1)?"checked":""}>
+                                                            <label class="custom-control-label" for="__BVID__675"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td aria-colindex="2" role="cell" class="">
+                                                        <div class="form-check form-check-custom form-check-solid">
+                                                            <input type="checkbox" class='form-check-input permissionCheckBox' name="permission[]" value='${response['allpermissions'][key+1].name}' ${($.inArray(response['allpermissions'][key+1].name, response['permissions']) !== -1)?"checked":""}>
+                                                            <label class="custom-control-label" for="__BVID__675"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td aria-colindex="2" role="cell" class="">
+                                                        <div class="form-check form-check-custom form-check-solid">
+                                                            <input type="checkbox" class='form-check-input permissionCheckBox' name="permission[]" value='${response['allpermissions'][key+2].name}' ${($.inArray(response['allpermissions'][key+2].name, response['permissions']) !== -1)?"checked":""}>
+                                                            <label class="custom-control-label" for="__BVID__675"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td aria-colindex="2" role="cell" class="">
+                                                        <div class="form-check form-check-custom form-check-solid">
+                                                            <input type="checkbox" class='form-check-input permissionCheckBox' name="permission[]" value='${response['allpermissions'][key+3].name}' ${($.inArray(response['allpermissions'][key+3].name, response['permissions']) !== -1)?"checked":""}>
+                                                            <label class="custom-control-label" for="__BVID__675"></label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            `;
+                                        }
+                                        module_index++;
+                                    }
+                                })
+								// display permissions
+								$("#permissionsContainer").append(html);
+							}
+							module_index=0;
+						});
+					}
+				})
+                $("#selectAll").on("click",function (e) {
+                    if($(e.target).is(":checked")===false){
+                        if(window.confirm("Revoke all permissions?")){
+                            $("#permissionsContainer").find(".permissionCheckBox").each((i,v)=>{
+                                $(v).prop("checked",false);
+                            })
+                        }else{
+                            e.preventDefault();
+                        }
+                    }else{
+                        if(window.confirm("Assing all permissions?")){
+                            $("#permissionsContainer").find(".permissionCheckBox").each((i,v)=>{
+                                $(v).prop("checked",true);
+                            })
+                        }else{
+                            e.preventDefault();
+                        }
+                    }
+                })
 		</script>
 	@endsection
 @endsection
