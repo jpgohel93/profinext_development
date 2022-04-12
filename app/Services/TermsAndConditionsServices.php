@@ -25,7 +25,10 @@ class TermsAndConditionsServices
         $terms['updated_by'] = auth()->user()->id;
         return TermsAndConditionsModel::where("id",$request->id)->update($terms);
     }
-    public static function all(){
+    public static function all($active = false){
+        if($active){
+            return TermsAndConditionsModel::where("is_active",1)->get();
+        }
         return TermsAndConditionsModel::get();
     }
     public static function get($id)

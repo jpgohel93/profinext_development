@@ -6,9 +6,6 @@ use App\Models\financeManagementModel\BankModel;
 use Illuminate\Support\Facades\Config;
 class accountingServices
 {
-    public static function financeManagementAccounting(){
-
-    }
     public static function financeManagementHeadings(){
         $income = HeadingsModel::where(["label_type"=>"income","is_active"=>1])->get();
         $expenses = HeadingsModel::where(["label_type"=> "expense","is_active"=>1])->get();

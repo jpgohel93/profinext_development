@@ -25,7 +25,7 @@ class KeywordController extends Controller
     {
         $keywordData = KeywordServices::getKeywordByName($request->name);
         if (empty($keywordData)) {
-            $keyword = KeywordServices::create($request);
+            KeywordServices::create($request);
             return Redirect::route("keywordData")->with("info", "Keyword have been created");
         } else {
             return Redirect::route("keywordData")->with("info", "Keyword name is already exits");
@@ -35,15 +35,15 @@ class KeywordController extends Controller
     public function editKeyword(Request $request){
         $keywordData = KeywordServices::getKeywordByNameId($request->keyword_id,$request->name);
         if (empty($keywordData)) {
-            $keyword = KeywordServices::edit($request);
+            KeywordServices::edit($request);
             return Redirect::route("keywordData")->with("info", "Keyword have been updated");
         }else {
             return Redirect::route("keywordData")->with("info", "Keyword name is already exits");
         }
     }
     //delete Keyword
-    public function deleteKeyword(Request $request,$id){
-        $keyword = KeywordServices::remove($id);
+    public function deleteKeyword($id){
+        KeywordServices::remove($id);
         return Redirect::route("keywordData")->with("info","Keyword have been deleted");
     }
 

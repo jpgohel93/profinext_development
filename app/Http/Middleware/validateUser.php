@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,8 +23,8 @@ class isLoggedIn
             if (User::where(["id" => Auth::id(), "role_id" => "1", "deleted_at" => null, "status" => "1"])->exists()) {
                 return $next($request);
             }
-            return redirect()->route("logout")->with("info", "Session Expire");
+            return Redirect::route("logout")->with("info", "Session Expire");
         }
-        return redirect()->route("login")->with("error", "Session Expire");
+        return Redirect::route("login")->with("error", "Session Expire");
     }
 }

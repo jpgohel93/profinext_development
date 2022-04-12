@@ -42,7 +42,7 @@ class CallController extends Controller
         return response(true)->header('Content-type', "application/json");
     }
     public function edit(Request $request){
-        $call = CallServices::edit($request);
+        CallServices::edit($request);
         return Redirect::route('calls')->with("info", "Call has been updated");
     }
     public function get(Request $request){

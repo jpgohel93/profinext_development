@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
+use App\Services\BankDetailsServices;
 use App\Models\User;
 use App\Models\ClientDemat;
 use App\Models\Analyst;
@@ -42,7 +42,6 @@ class ClientController extends Controller
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = bankServices::getForIncomeAccounts();
         $brokers = BrokerServices::view(['id', 'broker']);
-        //$traders = UserServices::getByRole('trader');
         $freelancerAms= UserServices::getByType(4);
         $freelancerPrime = UserServices::getByType(5);
         return view("clients.client",compact('clients','professions','banks','brokers','freelancerAms','freelancerPrime'));
@@ -84,7 +83,7 @@ class ClientController extends Controller
     public function create(Request $request){
         $clientData = ClientServices::getClientUsingMobileNo($request->number,$request->client_type);
         if(empty($clientData)) {
-            $client = ClientServices::create($request);
+            ClientServices::create($request);
             if ($request->form_type == "channelPartner") {
                 return Redirect::route("channelPartnerUserData")->with("info", "Client have been created");
             } else {
@@ -135,7 +134,7 @@ class ClientController extends Controller
     }
     // remove client
     public function remove(Request $request){
-        $client =  ClientServices::remove($request->id);
+        ClientServices::remove($request->id);
         return Redirect::route("clients")->with("info","Client Removed");
     }
     // remove client demat
@@ -147,7 +146,7 @@ class ClientController extends Controller
         return Redirect::route("clients")->with("info","Client Demat Removed");
     }
     // remove client screenshot
-    public function removePaymentScreenshot(Request $request,$client,$ss_id){
+    public function removePaymentScreenshot($client,$ss_id){
         ClientServices::removePaymentScreenshot($ss_id);
         return Redirect::route("updateClientForm",$client)->with("info","Screenshot Removed");
     }
@@ -282,8 +281,6 @@ class ClientController extends Controller
 	{
 		if ($request->ajax())
 		{
-			$auth_user = Auth::user();
-
 			$makeAsPreferred = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
 													where("client_demat.is_make_as_preferred",1)->
 													where("client_demat.freelancer_id",0)->
@@ -355,7 +352,6 @@ class ClientController extends Controller
 	{
 		if ($request->ajax())
 		{
-			$auth_user = Auth::user();
 			$service_type = $request->service_type;
 
 			if($service_type != "") {
@@ -437,7 +433,6 @@ class ClientController extends Controller
 	{
 		if ($request->ajax())
 		{
-			$auth_user = Auth::user();
 
 			$normalAccount = ClientDemat::joinSub('select client_demate_id,count(*) as no_of_holding from calls group by client_demate_id', 'totalCalls', 'client_demat.id', '=', 'totalCalls.client_demate_id', 'left')
 										->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
@@ -514,7 +509,6 @@ class ClientController extends Controller
 	{
 		if ($request->ajax())
 		{
-			$auth_user = Auth::user();
 			$allotment_type = $request->allotment_type;
 
 			if($allotment_type != "") {
@@ -616,7 +610,6 @@ class ClientController extends Controller
 	{
 		if ($request->ajax())
 		{
-			$auth_user = Auth::user();
 
 			$trderAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
 										leftJoin('users', 'client_demat.trader_id', '=', 'users.id')->
@@ -691,7 +684,6 @@ class ClientController extends Controller
 	{
 		if ($request->ajax())
 		{
-			$auth_user = Auth::user();
 
 			$freelancerAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
 										leftJoin('users', 'client_demat.freelancer_id', '=', 'users.id')->
@@ -765,7 +757,6 @@ class ClientController extends Controller
 	{
 		if ($request->ajax())
 		{
-			$auth_user = Auth::user();
 
 			$unallotedAccount = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
 											where("client_demat.freelancer_id","==",0)->
@@ -879,15 +870,6 @@ class ClientController extends Controller
 
     public function assignTraderToDemat(Request $request)
 	{
-		/* $trader = $request->validate([
-				"client_id" => "required|numeric|exists:clients,id",
-				"trader_id" => "required|numeric|exists:users,id",
-			],
-			[
-				"trader_id.unique"=>"Client Already Assign to this trader",
-				"trader_id.exists"=>"Invalid Trader ID",
-			]
-        ); */
 
 		$updateDemat['trader_id'] = $request->trader_id;
 		ClientDemat::where("id", $request->client_id)->update($updateDemat);

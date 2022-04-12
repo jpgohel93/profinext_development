@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\blogTabs;
 use App\Models\blogTarget;
-use App\Models\blogHasTabs;
 class BlogAdminServices{
     function __construct(){
 
@@ -50,9 +49,7 @@ class BlogAdminServices{
             $user['target'][$tab_index]['total_blogs'] = $achivement;
             $user['target'][$tab_index]['tab_blogs'][$tab_id['tab_id']] = Blog::where(["blogger"=>$user['id'],"tab_id"=>$tab_id['tab_id']])->with(["withBlogger"])->get()->toArray();
         }
-        // $user['blogs'] = Blog::where("blogger",$user['id'])->with(["withBlogger"])->get()->toArray();
         return $user;
-        // return Blog::where("blogger",$user['id'])->with(["withBlogger"])->get();
     }
     public static function editBlogForm($id){
         $user = User::where("id",$id)->first()->toArray();
@@ -65,7 +62,6 @@ class BlogAdminServices{
             $user['target'][$tab_index]['tab_name'] = blogTabs::where("id", $tab_id['tab_id'])->pluck("name")->first();
             $user['target'][$tab_index]['tab_blogs'][$tab_id['tab_id']] = Blog::where(["blogger"=>$user['id'],"tab_id"=>$tab_id['tab_id']])->with(["withBlogger"])->get()->toArray();
         }
-        // $user['blogs'] = Blog::where("blogger",$user['id'])->with(["withBlogger"])->get()->toArray();
         return $user;
     }
     public static function approveBlog($id){

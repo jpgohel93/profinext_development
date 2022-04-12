@@ -4,7 +4,6 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use Illuminate\Support\Facades\Redirect;
 
 class registerServices{
     public static function register($request){
@@ -23,7 +22,7 @@ class registerServices{
         $data['password'] = Hash::make($data['password']);
 
         try {
-            $user = User::create($data);
+            User::create($data);
         } catch (\Throwable $th) {
             CommonService::throwError("Registration failed");
         }

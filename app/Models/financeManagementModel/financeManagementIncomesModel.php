@@ -35,6 +35,7 @@ class financeManagementIncomesModel extends Model
         parent::boot();
 
         static::addGlobalScope('created_by', function (\Illuminate\Database\Eloquent\Builder $builder) {
+            $builder->where($builder->getModel()->getTable() . '.created_by', auth()->user()->id);
         });
     }
 }

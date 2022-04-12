@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Analyst;
 use App\Models\MonitorData;
-use App\Services\UserServices;
 use App\Services\MonitorDataServices;
 use App\Services\KeywordServices;
 use Illuminate\Http\Request;

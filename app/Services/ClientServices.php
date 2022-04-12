@@ -12,7 +12,6 @@ use App\Services\CommonService;
 use App\Services\financeManagementServices\financeManagementIncomesServices;
 use App\Services\financeManagementServices\financeManagementExpensesServices;
 use App\Services\ClientInvestmentServices;
-use PDF;
 class ClientServices
 {
     public static function create($request)
@@ -278,7 +277,7 @@ class ClientServices
                 $client['status']=1;
             }
         }
-        $user = Client::where("id",$id)->update($client);
+        Client::where("id",$id)->update($client);
         if ($request->client_type == 1) {
 
             $demat = $request->validate(

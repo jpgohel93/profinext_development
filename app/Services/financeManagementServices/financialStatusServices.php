@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\ClientDemat;
 use App\Models\financeManagementModel\financeManagementIncomesModel;
 use App\Models\financeManagementModel\financeManagementExpensesModel;
-use App\Services\ClientDemateServices;
 class financialStatusServices
 {
     public static function getFirmsDetails(){

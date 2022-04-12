@@ -126,6 +126,29 @@
                                                 </div>
                                                 <!--end::Wrapper-->
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <h4>Terms and conditions<hr/></h4>
+                                                    @forelse($terms as $term)
+                                                        <p class='h6'><i class="fas fa-arrow-right fa-xl"></i>&nbsp;{{$term->description}}</p>
+                                                    @empty
+                                                    @endforelse
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h4>Bank details<hr/></h4>
+                                                    <div class="wrapper">
+                                                        <!--begin::Card-->
+                                                        <div class="card">
+                                                            <!--begin::Name-->
+                                                            <h6 class="text-gray-800">Bank Name : demo title</h6>
+                                                            <h6 class="text-gray-800">Account no : 4457887874474</h6>
+                                                            <h6 class="text-gray-800">IFSC Code : HDFC1212A</h6>
+                                                            <!--end::Name-->
+                                                        </div>
+                                                        <!--begin::Card-->
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <!--end::Body-->
                                         <!-- begin::Footer-->

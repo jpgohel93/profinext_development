@@ -82,8 +82,6 @@ class RoleServices
     public static function getPermissions($role){
         $permissions = Role::findByName($role)->permissions->pluck("name");
         return $permissions->toArray();
-        // get collection
-        // return $role->permissions;
     }
     public static function clearPermissionCache($fallback){
         if($fallback){

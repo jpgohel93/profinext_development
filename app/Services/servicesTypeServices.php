@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\servicesTypeModel;
-use Illuminate\Support\Facades\Auth;
 
 class servicesTypeServices
 {

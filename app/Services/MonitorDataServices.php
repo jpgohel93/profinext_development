@@ -128,7 +128,6 @@ class MonitorDataServices{
         ]);
         $call = $request->except(["call_id","_token"]);
         $call['sl_status'] = $request['sl_status'];
-        // dd($request);
         return MonitorData::where("id",$request->call_id)->update($call);
     }
 }

@@ -24,7 +24,7 @@ class RegisterController extends Controller
 
     public static function resetPassword(Request $request)   {
         if(($request->password != '' && $request->confirm_password != '') && ($request->password == $request->confirm_password)) {
-            $check = registerServices::updatePassword($request);
+            registerServices::updatePassword($request);
             return Redirect::route('login')->with('success','Password change successfully');
         }else{
             return Redirect::route('resetPassword')->with('info','Please enter valid password.');

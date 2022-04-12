@@ -24,7 +24,7 @@ class ProfessionController extends Controller
         ProfessionServices::create($request);
         return Redirect::route('viewClientsProfession')->with("info", "New Profession created");
     }
-    public function remove(Request $request, $id)
+    public function remove($id)
     {
         ProfessionServices::remove($id);
         return Redirect::route('viewClientsProfession')->with("info", "Profession Removed!");

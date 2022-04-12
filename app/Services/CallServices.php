@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Calls;
 use App\Models\Analyst;
-use App\Models\AnalystNumbers;
 use Illuminate\Support\Facades\Auth;
 
 class CallServices
@@ -39,11 +38,7 @@ class CallServices
                 "analyst_id"=> "required|exists:analysts,id",
                 "due_date"=>"required|date",
                 "script_name"=>"required",
-               // "lot_size"=>"required",
                 "entry_price"=>"required",
-                //"target_price"=>"required",
-                //"stop_loss"=>"required",
-                //"margin_value"=>"required",
                 "client_demate_id"=>"required",
                 "quantity"=>"required",
             ]);

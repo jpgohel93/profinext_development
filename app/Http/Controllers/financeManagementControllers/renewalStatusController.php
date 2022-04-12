@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\financeManagementControllers;
 
 use App\Http\Controllers\Controller;
-use App\JsonReturn;
 use App\Services\financeManagementServices\bankServices;
 use App\Services\financeManagementServices\financeManagementIncomesServices;
 use App\Services\servicesTypeServices;
@@ -11,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Services\financeManagementServices\renewalStatusService;
 use App\Services\ClientDemateServices;
 use Illuminate\Support\Facades\Redirect;
+use App\Services\TermsAndConditionsServices;
 class renewalStatusController extends Controller
 {
     public function view(){
@@ -259,7 +259,8 @@ class renewalStatusController extends Controller
         $total = $request->fees_amount;
         $grand_total = $request->fees_amount;
         $title = "INVOICE";
-        return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title'));
+        $terms = TermsAndConditionsServices::all(true);
+        return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title',"terms"));
     }
 
     public function profitSharingPayment(Request $request){
@@ -280,7 +281,8 @@ class renewalStatusController extends Controller
         $total = $request->profit_amount;
         $grand_total = $request->profit_amount;
         $title = "INVOICE";
-        return view("financeManagement.fees_invoice",compact("renewData","message",'total',"grand_total","title"));
+        $terms = TermsAndConditionsServices::all(true);
+        return view("financeManagement.fees_invoice",compact("renewData","message",'total',"grand_total","title", "terms"));
     }
 
     public function partPayment(Request $request){
@@ -324,8 +326,8 @@ class renewalStatusController extends Controller
         $total = $renewData->total_payment;
         $grand_total = $renewData->total_payment;
         $title = "INVOICE";
-
-        return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title"));
+        $terms = TermsAndConditionsServices::all(true);
+        return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms"));
     }
 
     public function viewFeesInvoice($id,$type){
@@ -394,7 +396,8 @@ class renewalStatusController extends Controller
             $grand_total = $renewData->total_payment;
             $title = "INVOICE";
         }
-        return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title"));
+        $terms = TermsAndConditionsServices::all(true);
+        return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms"));
     }
 
     public function viewPartPayment(Request $request){

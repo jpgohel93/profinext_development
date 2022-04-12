@@ -3,7 +3,6 @@
 namespace App\Services;
 use App\Models\Analyst;
 use App\Models\AnalystNumbers;
-use App\Models\Keyword;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CommonService;
 class AnalystServices{
@@ -62,9 +61,6 @@ class AnalystServices{
         if($request->status!= "Terminated"){
             $analyst = $request->validate([
                 "analyst"=>"required",
-//                "total_calls"=>"required",
-//                "accuracy"=>"required",
-//                "trading_capacity"=>"required",
                 "status"=>"required"
             ]);
             $analyst['assign_user_id'] = $request->assign_user_id;

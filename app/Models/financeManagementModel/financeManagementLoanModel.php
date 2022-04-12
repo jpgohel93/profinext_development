@@ -34,4 +34,12 @@ class financeManagementLoanModel extends Model
     {
         return $this->hasOne(User::class, "id", "user")->latest();
     }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('created_by', function (\Illuminate\Database\Eloquent\Builder $builder) {
+            $builder->where($builder->getModel()->getTable() . '.created_by', auth()->user()->id);
+        });
+    }
 }

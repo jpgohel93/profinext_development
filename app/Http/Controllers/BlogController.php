@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Services\BlogAdminServices;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\blogTabs;
-use App\Models\Blog;
 
 class BlogController extends Controller
 {
@@ -50,7 +49,7 @@ class BlogController extends Controller
         return view("blogAdmin.view-blog",compact("user","all_tabs"));
     }
     public function approveBlog($id){
-        $user = BlogAdminServices::approveBlog($id);
+        BlogAdminServices::approveBlog($id);
         return Redirect::route("blogAdmin")->with("info","Blog Approved");
     }
     public function addNoteFrm(Request $request){
@@ -68,7 +67,7 @@ class BlogController extends Controller
         return view("blogUser.edit-blog",compact("blog","all_tabs"));
     }
     public function updateBlogFrm(Request $request){
-        $blog = BlogAdminServices::updateBlog($request);
+        BlogAdminServices::updateBlog($request);
         return Redirect::route("blogUser")->with("info","Blog Updated");
     }
 }

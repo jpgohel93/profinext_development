@@ -75,9 +75,6 @@ class renewalStatusService
         ]);
         return AccountTypesModel::where("id", $request->id)->update($type);
     }
-    public static function clientDematView($id){
-        $demate = ClientDemateServices::getAccountByDemateId($id);
-    }
     public static function createRenewal($request){
         $forIncomes = bankServices::getBankAccountById($request->payment_bank_id);
 
