@@ -223,12 +223,10 @@ class UserServices
         } elseif ($request->user_type == '5') {
             $request->validate([
                 "percentage" => "required",
-                "limit" => "required",
                 "ams_new_client_profit" => "required",
                 "joining_date" => "required",
             ], [
                 "percentage.required" => " Percentage of profit sharing is required",
-                "limit.required" => "Limit Field is required",
                 "ams_new_client_profit.required" => "Percentage For AMS New Client is required",
                 "joining_date.required" => "Joining Date is required"
             ]);
@@ -251,6 +249,7 @@ class UserServices
         $request['prime_renewal_client_percentage'] = isset($request->prime_renewal_client_percentage) ? $request->prime_renewal_client_percentage : null;
         $request['ams_limit'] = isset($request->limit) ? $request->limit : null;
         $request['fees_percentage'] = isset($request->fees_percentage) ? $request->fees_percentage : null;
+        $request['job_description'] = isset($request->job_description) ? $request->job_description : null;
         if (isset($request->password) && $request->password != '') {
             $request['password'] = Hash::make($request->password);
         } else {

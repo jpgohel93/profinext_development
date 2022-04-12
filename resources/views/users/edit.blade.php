@@ -628,7 +628,7 @@
                                                         <div class="col-md-8 col-sm-12 mb-5">
                                                             <!--begin::Label-->
                                                             <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                <span class="required">Job Description</span>
+                                                                <span>Job Description</span>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
@@ -903,11 +903,7 @@
                     } else if (userType == 5) {
 						showHideUserTypeDiv("freelancerPrimeDiv");
                     }else{
-						$('#partnerDiv').hide();
-                        $('#employeeDiv').hide();
-                        $('#freelancerPrimeDiv').hide();
-                        $('#freelancerAmsDiv').hide();
-                        $('#channelPartnerDiv').hide();
+						showHideUserTypeDiv("");
 					}
 
 					$(document).on("click","#addmoreWhatsapp",function() {
@@ -969,6 +965,12 @@
                         $(this).closest('#professionalDetails').find('#employeeDiv').hide();
                         $(this).closest('#professionalDetails').find('#partnerDiv').hide();
                         $(this).closest('#professionalDetails').find('#freelancerPrimeDiv').show();
+                        $(this).closest('#professionalDetails').find('#freelancerAmsDiv').hide();
+                        $(this).closest('#professionalDetails').find('#channelPartnerDiv').hide();
+                    }else{
+                        $(this).closest('#professionalDetails').find('#employeeDiv').hide();
+                        $(this).closest('#professionalDetails').find('#partnerDiv').hide();
+                        $(this).closest('#professionalDetails').find('#freelancerPrimeDiv').hide();
                         $(this).closest('#professionalDetails').find('#freelancerAmsDiv').hide();
                         $(this).closest('#professionalDetails').find('#channelPartnerDiv').hide();
                     }
