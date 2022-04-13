@@ -26,14 +26,14 @@ class financeManagementTransferServices
             $transfer['sg_amount'] = $request->sg_amount;
         } else if ($request->income_form === "st") {
             $request->validate([
-                "st_amount" => "required"
+                "amount" => "required"
             ]);
-            $transfer['sg_amount'] = $request->st_amount;
+            $transfer['amount'] = $request->amount;
         } else if ($request->income_form == "sg") {
             $request->validate([
-                "sg_amount" => "required"
+                "amount" => "required"
             ]);
-            $transfer['sg_amount'] = $request->sg_amount;
+            $transfer['amount'] = $request->amount;
         } else {
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 "income_form" => ["invalid income form"]
@@ -49,9 +49,9 @@ class financeManagementTransferServices
         return financeManagementTransferModel::get();
     }
     public static function getTransferBanks($request){
-        if($request->purpose== "Distribution"){
+        if($request->purpose== "Distribution" || $request->purpose== "distribution"){
             return User::where("user_type",1)->whereNotNull("bank_name")->get()->pluck('bank_name')->toArray();
-        }elseif($request->purpose == "Cash Conversion"){
+        }elseif($request->purpose == "Cash Conversion" || $request->purpose== "cash conversion"){
             $banks = User::where("bank_name","!=",null)->get()->pluck('bank_name')->toArray();
             $forSalaryBanks = BankModel::where("type",2)->whereNotNull("title")->get()->pluck('title')->toArray();
             return array_merge($banks,$forSalaryBanks);

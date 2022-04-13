@@ -7,7 +7,6 @@ use App\Models\ClientDemat;
 use App\Models\RenewDemat;
 use App\Services\CommonService;
 use Illuminate\Support\Facades\Auth;
-use App\Services\ClientDemateServices;
 use \App\Services\financeManagementServices\bankServices;
 
 class renewalStatusService

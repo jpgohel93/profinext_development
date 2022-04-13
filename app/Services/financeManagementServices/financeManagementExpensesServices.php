@@ -30,14 +30,14 @@ class financeManagementExpensesServices
             $expense['sg_amount'] = $request->sg_amount;
         } else if ($request->income_form === "st") {
             $request->validate([
-                "st_amount" => "required"
+                "amount" => "required"
             ]);
-            $expense['sg_amount'] = $request->st_amount;
+            $expense['sg_amount'] = $request->amount;
         } else if ($request->income_form == "sg") {
             $request->validate([
-                "sg_amount" => "required"
+                "amount" => "required"
             ]);
-            $expense['sg_amount'] = $request->sg_amount;
+            $expense['sg_amount'] = $request->amount;
         } else {
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 "income_form" => ["invalid income form"]

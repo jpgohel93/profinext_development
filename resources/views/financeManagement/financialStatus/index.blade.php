@@ -54,17 +54,6 @@
                                 </ul>
                                 <!--end::Breadcrumb-->
                             </div>
-                            {{-- <div class="d-flex align-items-center py-1">
-								<a href="javascript:void(0);" class="btn btn-sm btn-primary" id="add_bank">
-									<span class="svg-icon svg-icon-2">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-											<rect x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black"></rect>
-											<rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black"></rect>
-										</svg>
-									</span>Add Bank
-								</a>
-                            </div> --}}
-                            <!--end::Page title-->
                         </div>
                         <!--end::Container-->
                     </div>
@@ -123,10 +112,10 @@
                                                     <!--begin::Table head-->
                                                     <thead>
                                                         <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                            <th class="min-w-10px">Firm Name:</th>
+                                                            <th class="min-w-10px">Firm Name</th>
                                                             <th class="min-w-75px">Income</th>
                                                             <th class="min-w-75px">Expense</th>
-                                                            <th class="min-w-75px">Clients</th>
+                                                            <th class="min-w-75px">Demat</th>
                                                             <th class="min-w-75px">Users</th>
                                                             <th class="min-w-75px">Action</th>
                                                         </tr>
@@ -134,7 +123,7 @@
                                                     <tbody class="text-gray-600 fw-bold">
                                                         @if (isset($firmTab))
                                                             <tr>
-                                                                <td>ST</td>
+                                                                <td>Smart trader</td>
                                                                 <td>{{$firmTab['st']['income']}}</td>
                                                                 <td>{{$firmTab['st']['expense']}}</td>
                                                                 <td>{{$firmTab['st']['clients']}}</td>
@@ -146,7 +135,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>SG</td>
+                                                                <td>Profinext</td>
                                                                 <td>{{$firmTab['sg']['income']}}</td>
                                                                 <td>{{$firmTab['sg']['expense']}}</td>
                                                                 <td>{{$firmTab['sg']['clients']}}</td>
@@ -180,28 +169,50 @@
                                                     <thead>
                                                         <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Bank Type</th>
+                                                            <th class="min-w-75px">Total</th>
                                                             <th class="min-w-75px">Available Balance</th>
                                                             <th class="min-w-75px">Reserve Balance</th>
-                                                            <th class="min-w-75px">Firm’s Balance</th>
+                                                            <th class="min-w-75px">Firm`s Balance</th>
                                                             <th class="min-w-75px">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
-                                                        @forelse($banksTab as $bank)
-                                                            <tr>
-                                                                <td>{{($bank->type==1?"Income":"Salary")}}</td>
-                                                                <td>{{$bank->available_balance}}</td>
-                                                                <td>{{$bank->reserve_balance}}</td>
-                                                                <td>0</td>
-                                                                <td>
-                                                                    <a href="javascript:void(0)">
-                                                                        <i class="fas fa-eye fa-lg" data-id="{{$bank->id}}"></i>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                        @empty
-                                                            {{-- empty --}}
-                                                        @endforelse
+                                                        <tr>
+                                                            <td>Income</td>
+                                                            <td>{{$banksTab['income']+0}}</td>
+                                                            <td>{{$banksTab['income']}}</td>
+                                                            <td>0</td>
+                                                            <td>{{$firmTab['st']['income'].','.$firmTab['sg']['income']}}</td>
+                                                            <td>
+                                                                <a href="{{route('viewMore')}}">
+                                                                    <i class="fas fa-eye fa-lg"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Salary</td>
+                                                            <td>{{$banksTab['salary']+0}}</td>
+                                                            <td>{{$banksTab['salary']}}</td>
+                                                            <td>0</td>
+                                                            <td>{{$banksTab['st']['salary'].','.$banksTab['sg']['salary']}}</td>
+                                                            <td>
+                                                                <a href="{{route('viewMore')}}">
+                                                                    <i class="fas fa-eye fa-lg"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Cash</td>
+                                                            <td>{{$banksTab['cash']}}</td>
+                                                            <td>{{$banksTab['cash']}}</td>
+                                                            <td>0</td>
+                                                            <td>{{$banksTab['st']['cash'].','.$banksTab['sg']['cash']}}</td>
+                                                            <td>
+                                                                <a href="{{route('viewMore')}}">
+                                                                    <i class="fas fa-eye fa-lg"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -214,10 +225,19 @@
                                 <div class="tab-pane fade show" id="usersTab" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
-                                        <!--begin::Card body-->
+                                        <div class="card-header">
+                                            <div class="col-md-3">
+                                                <select class="form-select form-select-solid" id="serviceTypeFilter" data-control="select2">
+                                                    <option value="" selected>All</option>
+                                                    <option value="prime">Prime</option>
+                                                    <option value="ams">AMS</option>
+                                                    <option value="prime_next">Prime next</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="usersTable">
                                                     <!--begin::Table head-->
                                                     <thead>
                                                         <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
@@ -229,7 +249,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
-                                                        @forelse($usersTab as $user)
+                                                        {{-- @forelse($usersTab as $user)
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
                                                                 <td>{{$user->name}}</td>
@@ -242,8 +262,8 @@
                                                                 </td>
                                                             </tr>
                                                         @empty
-                                                            {{-- empty --}}
-                                                        @endforelse
+                                                            
+                                                        @endforelse --}}
                                                     </tbody>
                                                 <!--end::Table body-->
                                                 </table>
@@ -302,6 +322,36 @@
                                                                     </a>
                                                                 </td>
                                                             </tr>
+                                                            <tr>
+                                                                <td>Mutual Fund</td>
+                                                                <td>{{$servicesTab['mutual_fund']}}</td>
+                                                                <td>0</td>
+                                                                <td>
+                                                                    <a href="javascript:void(0)">
+                                                                        <i class="fas fa-eye fa-lg"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Unlisted shares</td>
+                                                                <td>{{$servicesTab['unlisted_shares']}}</td>
+                                                                <td>0</td>
+                                                                <td>
+                                                                    <a href="javascript:void(0)">
+                                                                        <i class="fas fa-eye fa-lg"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Insurance</td>
+                                                                <td>{{$servicesTab['insurance']}}</td>
+                                                                <td>0</td>
+                                                                <td>
+                                                                    <a href="javascript:void(0)">
+                                                                        <i class="fas fa-eye fa-lg"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
                                                         @endif
                                                     </tbody>
                                                 <!--end::Table body-->
@@ -340,14 +390,14 @@
                                                             <td>{{$balanceTab['cash']}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>{{3}}</td>
-                                                            <td>ST</td>
-                                                            <td>{{$balanceTab['st']}}</td>
+                                                            <td>{{4}}</td>
+                                                            <td>Profinext</td>
+                                                            <td>{{$balanceTab['sg']}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>{{4}}</td>
-                                                            <td>SG</td>
-                                                            <td>{{$balanceTab['sg']}}</td>
+                                                            <td>{{3}}</td>
+                                                            <td>Smart trader</td>
+                                                            <td>{{$balanceTab['st']}}</td>
                                                         </tr>
                                                     </tbody>
                                                 <!--end::Table body-->
@@ -378,6 +428,154 @@
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
                 $(".datatable").DataTable();
+                // Pipelining function for DataTables. To be used to the `ajax` option of DataTables
+                $.fn.dataTable.pipeline = function ( opts ) {
+                    // Configuration options
+                    var conf = $.extend( {
+                        pages: 5,     // number of pages to cache
+                        url: '',      // script url
+                        data: null,   // function or object with parameters to send to the server
+                                    // matching how `ajax.data` works in DataTables
+                        method: 'GET' // Ajax HTTP method
+                    }, opts );
+                
+                    // Private variables for storing the cache
+                    var cacheLower = -1;
+                    var cacheUpper = null;
+                    var cacheLastRequest = null;
+                    var cacheLastJson = null;
+                
+                    return function ( request, drawCallback, settings ) {
+                        var ajax          = false;
+                        var requestStart  = request.start;
+                        var drawStart     = request.start;
+                        var requestLength = request.length;
+                        var requestEnd    = requestStart + requestLength;
+                        
+                        if ( settings.clearCache ) {
+                            // API requested that the cache be cleared
+                            ajax = true;
+                            settings.clearCache = false;
+                        }
+                        else if ( cacheLower < 0 || requestStart < cacheLower || requestEnd > cacheUpper ) {
+                            // outside cached data - need to make a request
+                            ajax = true;
+                        }
+                        else if ( JSON.stringify( request.order )   !== JSON.stringify( cacheLastRequest.order ) ||
+                                JSON.stringify( request.columns ) !== JSON.stringify( cacheLastRequest.columns ) ||
+                                JSON.stringify( request.search )  !== JSON.stringify( cacheLastRequest.search )
+                        ) {
+                            // properties changed (ordering, columns, searching)
+                            ajax = true;
+                        }
+                        
+                        // Store the request for checking next time around
+                        cacheLastRequest = $.extend( true, {}, request );
+                
+                        if ( ajax ) {
+                            // Need data from the server
+                            if ( requestStart < cacheLower ) {
+                                requestStart = requestStart - (requestLength*(conf.pages-1));
+                
+                                if ( requestStart < 0 ) {
+                                    requestStart = 0;
+                                }
+                            }
+                            
+                            cacheLower = requestStart;
+                            cacheUpper = requestStart + (requestLength * conf.pages);
+                
+                            request.start = requestStart;
+                            request.length = requestLength*conf.pages;
+                
+                            // Provide the same `data` options as DataTables.
+                            if ( typeof conf.data === 'function' ) {
+                                // As a function it is executed with the data object as an arg
+                                // for manipulation. If an object is returned, it is used as the
+                                // data object to submit
+                                var d = conf.data( request );
+                                if ( d ) {
+                                    $.extend( request, d );
+                                }
+                            }
+                            else if ( $.isPlainObject( conf.data ) ) {
+                                // As an object, the data given extends the default
+                                $.extend( request, conf.data );
+                            }
+                
+                            return $.ajax( {
+                                "type":     conf.method,
+                                "url":      conf.url,
+                                "data":     request,
+                                "dataType": "json",
+                                "cache":    false,
+                                "success":  function ( json ) {
+                                    cacheLastJson = $.extend(true, {}, json);
+                
+                                    if ( cacheLower != drawStart ) {
+                                        json.data.splice( 0, drawStart-cacheLower );
+                                    }
+                                    if ( requestLength >= -1 ) {
+                                        json.data.splice( requestLength, json.data.length );
+                                    }
+                                    
+                                    drawCallback( json );
+                                }
+                            } );
+                        }
+                        else {
+                            json = $.extend( true, {}, cacheLastJson );
+                            json.draw = request.draw; // Update the echo for each response
+                            json.data.splice( 0, requestStart-cacheLower );
+                            json.data.splice( requestLength, json.data.length );
+                
+                            drawCallback(json);
+                        }
+                    }
+                };
+                
+                // Register an API method that will empty the pipelined data, forcing an Ajax
+                // fetch on the next draw (i.e. `table.clearPipeline().draw()`)
+                $.fn.dataTable.Api.register( 'clearPipeline()', function () {
+                    return this.iterator( 'table', function ( settings ) {
+                        settings.clearCache = true;
+                    } );
+                } );
+                
+                
+                //
+                // DataTables initialisation
+                //
+                $(document).ready(function() {
+                    $('#usersTable').DataTable( {
+                        "processing": true,
+                        "serverSide": true,
+                        "ajax": $.fn.dataTable.pipeline( {
+                            url: '{{route("serviceTabFilter")}}',
+                            pages: 5, // number of pages to cache
+                            data:{
+                                filter:""
+                            }
+                        } )
+                    } );
+                } );
+
+                // on date change
+                $('#serviceTypeFilter').on('change', function(e) {
+                    const val = e.target.value;
+                    $("#usersTable").dataTable().fnDestroy();
+                    $("#usersTable").dataTable({
+                        "processing": true,
+                        "serverSide": true,
+                        "ajax": $.fn.dataTable.pipeline( {
+                            url: '{{route("serviceTabFilter")}}',
+                            pages: 5,
+                            data:{
+                                filter:val
+                            }
+                        } )
+                    } );
+                });
             },jQuery)
         })
     </script>

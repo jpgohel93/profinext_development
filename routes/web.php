@@ -335,6 +335,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/financeManagement/FinancialStatus", [FinancialStatusController::class, "financialStatus"])->name("financeManagementFinancialStatus");
     Route::get("/financeManagement/view/st", [FinancialStatusController::class, "viewMoreSt"])->name("viewMoreSt");
     Route::get("/financeManagement/view/sg", [FinancialStatusController::class, "viewMoreSg"])->name("viewMoreSg");
+    Route::get("/financeManagement/view", [FinancialStatusController::class, "viewMore"])->name("viewMore");
+    Route::get("/financeManagement/users/{filter?}", [FinancialStatusController::class, "serviceTabFilter"])->name("serviceTabFilter");
     Route::post("/financeManagement/view/st/demat", [FinancialStatusController::class, "dematDetailsFinancialStatus"])->name("dematDetailsFinancialStatus");
     // Business Management
     Route::get("/businessManagement",[renewalStatusController::class,"view"])->name("business_management");

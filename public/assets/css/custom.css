@@ -236,11 +236,6 @@ body {
   box-shadow: rgba(20, 20, 20, .5) 1px 1px 8px !important;
   transition:cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-#normal_acc_table,
-#holding_table,
-#all_table,
-#trader_table,
-#freelancer_table,
-#unallotted_table {
+table {
     width: 100% !important;
 }

@@ -20,11 +20,18 @@ class FinancialStatusController extends Controller
         $balanceTab = financialStatusServices::getBalanceDetails();
         return view("financeManagement.financialStatus.index",compact("firmTab","banksTab", "usersTab", "servicesTab", "balanceTab"));
     }
+    public function serviceTabFilter(Request $request){
+        $servicesTab = financialStatusServices::serviceTabFilter($request);
+        return response($servicesTab,200, ["Content-Type" => "Application/json"]);
+    }
     public function viewMoreSt(){
         return financialStatusServices::viewMoreSt();
     }
     public function viewMoreSg(){
         return financialStatusServices::viewMoreSg();
+    }
+    public function viewMore(Request $request){
+        return financialStatusServices::viewMore($request);
     }
     public function dematDetailsFinancialStatus(Request $request){
         $demats = financialStatusServices::dematDetailsFinancialStatus($request);
