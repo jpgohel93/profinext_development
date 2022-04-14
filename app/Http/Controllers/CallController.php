@@ -7,7 +7,6 @@ use App\Services\ClientServices;
 use Illuminate\Http\Request;
 use App\Services\CallServices;
 use App\Services\KeywordServices;
-use Datatables;
 use Illuminate\Support\Facades\Redirect;
 class CallController extends Controller
 {
@@ -36,21 +35,30 @@ class CallController extends Controller
         if($request->ajax()){
             $calls = CallServices::getDematCalls($demat_id);
             $scripts = array();
+            $qty = array();
             $entry_price = array();
+            $analyst = array();
             $total = array();
             foreach ($calls as $call){
                 if(!in_array($call->script_name,$scripts)){
                     array_push($scripts,$call->script_name);
                     $entry_price[$call->script_name] = (int)$call->entry_price;
+                    $analyst[$call->script_name] = $call->analyst->id;
+                    $qty[$call->script_name] = (int)$call->quantity;
                     $total[$call->script_name] = ($call->entry_price* $call->quantity);
                 }else{
                     $entry_price[$call->script_name] += (int)$call->entry_price;
+                    $qty[$call->script_name] += (int)$call->quantity;
                     $total[$call->script_name] += ($call->entry_price * $call->quantity);
                 }
             }
-            return response(["demat_id"=>$demat_id,$scripts,$entry_price,$total],200, ["Content-Type" => "Application/json"]);
+            return response(["demat_id"=>$demat_id,"analyst"=> $analyst,"script_name"=>$scripts,"qty"=>$qty,"entry_price"=>$entry_price,"total"=>$total],200, ["Content-Type" => "Application/json"]);
         }
         return view("trader.square-off", compact('demat_id'));
+    }
+    public function squareOffForm(Request $request){
+        $calls = CallServices::squareOff($request);
+        return Redirect::back()->with("info", "Trade Sold");
     }
     public function remove(Request $request){
         CallServices::remove($request);

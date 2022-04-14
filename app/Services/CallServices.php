@@ -94,6 +94,64 @@ class CallServices
         $call['created_by']= Auth::id();
         return Calls::create($call);
     }
+    public static function squareOff($request){
+        $trade = $request->validate([
+            "analyst_id" => "required|exists:analysts,id",
+            "demat_id"=>"required|exists:client_demat,id",
+            "trade"=> "required|exists:calls,script_name",
+            "price"=>"required|numeric",
+            "qty"=> "required|numeric"
+        ]);
+        $demat = ClientDemat::where("id", $request->demat_id)->first(["available_balance", "capital"])->toArray();
+        $total = $request->price*$request->qty;
+        ClientDemat::where("id", $request->demat_id)->update([
+            "available_balance" => $demat["available_balance"]+$total
+        ]);
+
+        $calls = Calls::where("client_demate_id", $request->demat_id)->where("script_name","like",$trade['trade'])->get();
+        $scripts = array();
+        $qty = array();
+        $entry_price = array();
+        $analyst = array();
+        $total = array();
+        foreach ($calls as $call) {
+            if (!in_array($call->script_name, $scripts)) {
+                array_push($scripts, $call->script_name);
+                $entry_price[$call->script_name] = (int)$call->entry_price;
+                $analyst[$call->script_name] = $call->analyst->id;
+                $qty[$call->script_name] = (int)$call->quantity;
+                $total[$call->script_name] = ($call->entry_price * $call->quantity);
+            } else {
+                $entry_price[$call->script_name] += (int)$call->entry_price;
+                $qty[$call->script_name] += (int)$call->quantity;
+                $total[$call->script_name] += ($call->entry_price * $call->quantity);
+            }
+        }
+        // diduct trade which sell
+        $entry_price[$trade['trade']] -= $request->price;
+        if($qty[$trade['trade']]<$request->qty){
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                "Quantity" => ["Invalid Quantity"]
+            ]);
+            throw $error;
+        }
+        $qty[$trade['trade']] -= $request->qty;
+        $total[$trade['trade']] -= $request->price*$request->qty;
+
+        // return response(["demat_id" => $demat_id, "analyst" => $analyst, "script_name" => $scripts, "qty" => $qty, "entry_price" => $entry_price, "total" => $total], 200, ["Content-Type" => "Application/json"]);
+
+        Calls::where("client_demate_id",$request->demat_id)->where("analyst_id",$request->analyst_id)->where("script_name","like",$trade['trade'])->delete();
+
+        $newCall =array();
+        $newCall["analyst_id"] = $request->analyst_id;
+        $newCall["due_date"] = date("Y-m-d");
+        $newCall["script_name"] = $trade['trade'];
+        $newCall["entry_price"] = abs($entry_price[$trade['trade']]);
+        $newCall["client_demate_id"] = $request->demat_id;
+        $newCall["quantity"] = $qty[$trade['trade']];
+        $newCall['created_by'] = Auth::id();
+        return Calls::create($newCall);
+    }
     public static function remove($request){
         return Calls::where("id", $request->id)->delete();
     }

@@ -72,6 +72,7 @@
                                                     <th>Script name</th>
                                                     <th>Avg</th>
                                                     <th>Quantity</th>
+                                                    <th>Total</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -95,6 +96,52 @@
         </div>
         <!--end::Page-->
     </div>
+        <!-- Modal -->
+    <div class="modal fade" id="squareOffModel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px" role="document">
+            <div class="modal-content">
+                <!--begin::Form-->
+                <form id="" class="form" method="POST" action="{{route('squareOffForm')}}">
+                    @csrf
+                    <div class="modal-header">
+                        <h2 class="fw-bolder">Square off: <span id="squareOffTitle"></span></h2>
+                        <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <div id="editIdContainer"></div>
+                    <!--begin::Modal body-->
+                    <div class="modal-body mx-md-10">
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Price</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" value="{{old('price')}}" name="price"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Quantity</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" value="{{old('qty')}}" name="qty"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Modal body-->
+                    <div class="modal-footer text-center">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
+                        <button type="submit" class="btn btn-primary">Sell</button>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+        </div>
+    </div>
+    
+    <!--end::Modal - View Client Details-->
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
@@ -104,15 +151,16 @@
                 .done(data => {
                     let html = ``;
                     let index = 1;
-                    $.each(data[0],function(i,v){
+                    $.each(data["script_name"],function(i,v){
                         html+=`
                             <tr>
                                 <td>${++i}</td>
                                 <td>${v}</td>
-                                <td>${data[2][v]/data[1][v]}</td>
-                                <td>${data[2][v]}</td>
+                                <td>${(data["total"][v]/data["entry_price"][v]).toFixed(2)}</td>
+                                <td>${(data["qty"][v])}</td>
+                                <td>${(data["total"][v])}</td>
                                 <td>
-                                    <a href="javascript:void(0)" class='squareOffModal' data-id=''>
+                                    <a href="javascript:void(0)" class='squareOffModal' data-id='${v}' data-analyst_id='${data["analyst"][v]}'>
                                         Square off
                                     </a>
                                 </td>
@@ -121,6 +169,17 @@
                     })
                     $("#squareOffTable").html(html);
                     $(".datatable").dataTable();
+                })
+                $(document).on("click",".squareOffModal",function(e){
+                    const id = e.target.getAttribute("data-id");
+                    const analyst_id = e.target.getAttribute("data-analyst_id");
+                    if(id){
+                        $("#squareOffTitle").text(id);
+                        $("#editIdContainer").html(`<input type='hidden' name='trade' value='${id}' /><input type='hidden' name='demat_id' value='{{$demat_id}}' /><input type='hidden' name='analyst_id' value='${analyst_id}' />`);
+                        $("#squareOffModel").modal("show");
+                    }else{
+                        window.alert("Unable to load this trade");
+                    }
                 })
             },jQuery)
         })

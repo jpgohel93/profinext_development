@@ -170,7 +170,7 @@
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 holdingDematAccount"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">Add Holding</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
-                                                                            <a href="{{route('squareOffDemat',$account->id)}}" class="menu-link px-3 squareOffDematAccount" >Square off</a>
+                                                                            <a href="{{route('squareOffDemat',$account->id,$account)}}" class="menu-link px-3 squareOffDematAccount" >Square off</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
                                                                              <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="renew">Send for Renew</a>
