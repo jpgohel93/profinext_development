@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Calls;
 use App\Models\Analyst;
+use App\Models\ClientDemat;
 use Illuminate\Support\Facades\Auth;
 
 class CallServices
@@ -32,27 +33,75 @@ class CallServices
         return $calls;
     }
     public static function create($request){
-        try {
-            $request['due_date'] = date("Y-m-d");
-            $call = $request->validate([
-                "analyst_id"=> "required|exists:analysts,id",
-                "due_date"=>"required|date",
-                "script_name"=>"required",
-                "entry_price"=>"required",
-                "client_demate_id"=>"required",
-                "quantity"=>"required",
+        $request['due_date'] = date("Y-m-d");
+        $call = $request->validate([
+            "analyst_id"=> "required|exists:analysts,id",
+            "due_date"=>"required|date",
+            "script_name"=>"required",
+            "entry_price"=> "required|numeric",
+            "client_demate_id"=> "required|numeric",
+            "quantity"=> "required|numeric",
+        ]);
+        $margin_value = 0;
+        $demat = ClientDemat::where("id", $request->client_demate_id)->first(["available_balance", "capital"])->toArray();
+        if($request->options=='future'){
+            $request->validate([
+                "margin_value" =>"required"
             ]);
-            $call['created_by']= Auth::id();
-            return Calls::create($call);
-        } catch (\Throwable $th) {
-            CommonService::throwError("Unable to update this call");
+            if(preg_match('/^\d+$/', $request->margin_value)){
+                $margin_value = $request->margin_value;
+            }else{
+                $error = \Illuminate\Validation\ValidationException::withMessages([
+                    "margin_value" => ["Invalid margin value"]
+                ]);
+                throw $error;
+            }
+            if($margin_value>$demat['available_balance']){
+                if($margin_value > $demat['capital']){
+                    $error = \Illuminate\Validation\ValidationException::withMessages([
+                        "capital" => ["Funds not available"]
+                    ]);
+                    throw $error;
+                }else{
+                    ClientDemat::where("id",$request->client_demate_id)->update([
+                        "available_balance"=> $demat['capital']-$margin_value
+                    ]);
+                }
+            }else{
+                ClientDemat::where("id", $request->client_demate_id)->update([
+                    "available_balance" => $demat['available_balance'] - $margin_value
+                ]);
+            }
+        }else{
+            $total = $request->entry_price* $request->quantity;
+            if($total> $demat['available_balance']){
+                if($total>$demat['capital']){
+                    $error = \Illuminate\Validation\ValidationException::withMessages([
+                        "capital" => ["Funds not available"]
+                    ]);
+                    throw $error;
+                }else{
+                    ClientDemat::where("id", $request->client_demate_id)->update([
+                        "available_balance" => $demat['capital'] - $total
+                    ]);
+                }
+            }else{
+                ClientDemat::where("id", $request->client_demate_id)->update([
+                    "available_balance" => $demat['available_balance'] - $total
+                ]);
+            }
         }
+        $call['created_by']= Auth::id();
+        return Calls::create($call);
     }
     public static function remove($request){
         return Calls::where("id", $request->id)->delete();
     }
     public static function get($id){
         return Calls::with(["analyst:id,analyst"])->where("id", $id)->first(['analyst_id', "script_name", "entry_price", "target_price", "stop_loss"]);
+    }
+    public static function getDematCalls($demat_id){
+        return Calls::where("client_demate_id", $demat_id)->get();
     }
     public static function edit($request){
         try {

@@ -179,6 +179,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/makeAsPreferred",[ClientController::class,"makeAsPreferred"])->name("makeAsPreferred");
     Route::POST("/updateDematStatus",[ClientController::class,"updateDematStatus"])->name("updateDematStatus");
     Route::POST("/addDematHolding",[CallController::class,"create"])->name("addDematHolding");
+    Route::GET("/demat/square-off/{demat_id?}",[CallController::class, "squareOffDemat"])->name("squareOffDemat");
 
     // users settings
     Route::get("/settings/users/",[AccountTypesController::class,"view"])->name("viewUsersAccountType");

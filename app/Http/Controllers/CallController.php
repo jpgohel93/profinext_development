@@ -7,7 +7,7 @@ use App\Services\ClientServices;
 use Illuminate\Http\Request;
 use App\Services\CallServices;
 use App\Services\KeywordServices;
-
+use Datatables;
 use Illuminate\Support\Facades\Redirect;
 class CallController extends Controller
 {
@@ -17,7 +17,6 @@ class CallController extends Controller
         return view('calls.calls',compact("calls","keywords"));
     }
     public function create(Request $request){
-
         if(isset($request->script_name) &&  $request->script_name != ''){
             $keyword['name'] = $request->script_name;
             $keywordData = KeywordServices::getKeywordByName($request->script_name);
@@ -25,17 +24,33 @@ class CallController extends Controller
                 KeywordServices::create($keyword);
             }
         }
-
-
         $trade = Calls::where("client_demate_id",$request->client_demate_id)->get()->toArray();
-
         if(empty($trade)){
             $requestData['account_status'] = "holding";
             ClientServices::updateClientDematAccount($request->client_demate_id, $requestData);
         }
-
         CallServices::create($request);
-        return Redirect::route('viewTraderAccounts')->with("info","Trade has been created");
+        return Redirect::back()->with("info","Trade has been created");
+    }
+    public function squareOffDemat(Request $request,$demat_id){
+        if($request->ajax()){
+            $calls = CallServices::getDematCalls($demat_id);
+            $scripts = array();
+            $entry_price = array();
+            $total = array();
+            foreach ($calls as $call){
+                if(!in_array($call->script_name,$scripts)){
+                    array_push($scripts,$call->script_name);
+                    $entry_price[$call->script_name] = (int)$call->entry_price;
+                    $total[$call->script_name] = ($call->entry_price* $call->quantity);
+                }else{
+                    $entry_price[$call->script_name] += (int)$call->entry_price;
+                    $total[$call->script_name] += ($call->entry_price * $call->quantity);
+                }
+            }
+            return response(["demat_id"=>$demat_id,$scripts,$entry_price,$total],200, ["Content-Type" => "Application/json"]);
+        }
+        return view("trader.square-off", compact('demat_id'));
     }
     public function remove(Request $request){
         CallServices::remove($request);
