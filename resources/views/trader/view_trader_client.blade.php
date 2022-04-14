@@ -16,7 +16,11 @@
             @include("header")
             <!--begin::Content-->
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-                    @if(session("info"))
+                    @if($errors->any())
+                        <div class="container">
+                            <h6 class="alert alert-danger">{{$errors->first()}}</h6>
+                        </div>
+                    @elseif(session("info"))
                         <div class="container">
                             <h6 class="alert alert-info">{{session("info")}}</h6>
                         </div>
@@ -164,6 +168,9 @@
                                                                         @endcan
                                                                         <div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 holdingDematAccount"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">Add Holding</a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="{{route('squareOffDemat',$account->id,$account)}}" class="menu-link px-3 squareOffDematAccount" >Square off</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
                                                                              <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="renew">Send for Renew</a>
@@ -588,12 +595,12 @@
                 <div class="modal-header">
                     <h2 class="fw-bolder">Login Information</h2>
                     <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
-                                    <span class="svg-icon svg-icon-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-                                        </svg>
-                                    </span>
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                            </svg>
+                        </span>
                     </button>
                 </div>
 
@@ -732,12 +739,12 @@
                     <div class="modal-header">
                         <h2 class="fw-bolder">Holding</h2>
                         <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
-                                    <span class="svg-icon svg-icon-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-                                        </svg>
-                                    </span>
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                </svg>
+                            </span>
                         </button>
                     </div>
                     <div class="modal-body mx-md-10">
@@ -746,7 +753,6 @@
                             <div class="col-9">
                                 <input class="form-control" type="text" id="holding_holder_name" readonly/>
                                 <input class="form-control" type="hidden" value="" name='client_demate_id' id="holding_demate_id"/>
-
                             </div>
                         </div>
                         <div class="form-group row">
@@ -760,6 +766,22 @@
                                         @endforeach
                                     @endif
                                 </datalist>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label"></label>
+                            <div class="col-9">
+                                <select name="options" id="options" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
+                                    <option value='' selected>Option</option>
+                                    <option value='future'>Future</option>
+                                    <option value='quantity'>Equity</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row" id="margin_value_div">
+                            <label class="col-3 col-form-label">Margin Value</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" name="margin_value" id="margin_value" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -961,7 +983,6 @@
                     $("#holding_demate_id").val(id);
                     $("#holding_client_Name").val(name);
                     $("#holding_holder_name").val(holderName);
-
                     $("#holdingModal").modal("show");
                 }else{
                     window.alert("Unable to Load this Client");
@@ -1017,9 +1038,6 @@
                         id:id,
                         is_make_as_preferred: value
                     },
-                    headers: {
-                        'X-CSRF-TOKEN': $("input[name='_token']").val()
-                    },
                     success: function(response) {
                         window.location.href = "/trader/accounts";
                     }
@@ -1034,9 +1052,6 @@
                     data:{
                         id:id,
                         status: value
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $("input[name='_token']").val()
                     },
                     success: function(response) {
                         if(response){
@@ -1056,9 +1071,6 @@
             $(document).on("click",'.loginInfo',function(e){
                 $.ajax("/loginInfo/" + $(this).attr("data-id"), {
                     type: "GET",
-                    headers: {
-                        'X-CSRF-TOKEN': $("input[name='_token']").val()
-                    }
                 }).done(data => {
                     $("#broker_name").val(data.broker);
                     $("#password").val(data.password);
@@ -1079,6 +1091,14 @@
             $(document).on("click",'.jump',function(e){
                 $("#jumpModal").modal("show");
             });
+            $("#options").on("change",function(e){
+                const val = e.target.value;
+                $("#margin_value_div").hide();
+                if(val=="future"){
+                    $("#margin_value_div").show();
+                }
+            })
+            $("#margin_value_div").hide();
         });
         function copyToClipboard(text) {
             var sampleTextarea = document.createElement("textarea");
@@ -1092,9 +1112,6 @@
         function myFunction(id){
             $.ajax("/loginInfo/" + id, {
                 type: "GET",
-                headers: {
-                    'X-CSRF-TOKEN': $("input[name='_token']").val()
-                }
             }).done(data => {
                 var text =  "Broker Name : " + data.broker + "\n";
                 text +=  "MPIN : " + data.password + "\n";
