@@ -231,7 +231,7 @@
                                                                             <a href="{{route('clientDematTerminate',$toRenewAccount->id)}}" class='menu-link px-3 terminateDemate'>Terminate</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id="{{$toRenewAccount->id}}" class="menu-link px-3 viewImage">View image</a>
+                                                                            <a href="javascript:void(0)" data-id="{{$toRenewAccount->id}}" class="menu-link px-3 viewImage">View Screen Shots</a>
                                                                         </div>
                                                                     </div>
                                                                 </td>
@@ -347,14 +347,19 @@
                                                                         </span>
                                                                     </a>
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="/viewFeesInvoice/{{$renewedAccount->id}}/3" class="menu-link px-3" target="_blank">View Invoice</a>
-                                                                        </div>
-
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="/viewFeesInvoice/{{$renewedAccount->id}}/1" class="menu-link px-3" target="_blank">View Fees Invoice</a>
-                                                                        </div>
-
+{{--                                                                        <div class="menu-item px-3">--}}
+{{--                                                                            <a href="{{route('editInvoice',$renewedAccount->id)}}" class="menu-link px-3" target="_blank">Edit Invoice</a>--}}
+{{--                                                                        </div>--}}
+                                                                        @if($renewedAccount->is_pay_fee == 1)
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="/viewFeesInvoice/{{$renewedAccount->id}}/3" class="menu-link px-3" target="_blank">View Invoice</a>
+                                                                            </div>
+                                                                       @endif
+                                                                       @if($renewedAccount->is_pay_profit_sharing == 1)
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="/viewFeesInvoice/{{$renewedAccount->id}}/1" class="menu-link px-3" target="_blank">View Fees Invoice</a>
+                                                                            </div>
+                                                                       @endif
                                                                         <div class="menu-item px-3">
                                                                             <a href="/viewFeesInvoice/{{$renewedAccount->id}}/2" class="menu-link px-3" target="_blank">View Access Profit Invoice</a>
                                                                         </div>
@@ -619,6 +624,16 @@
                     <div class="modal-body mx-md-10">
                         <input class="form-control" type="hidden" value="" name='fees_payment_id' id="fees_payment_id"/>
                         <div class="form-group row">
+                            <!--begin::Label-->
+                            <label class="col-3 col-form-labe">
+                                <span class="required">Date:</span>
+                            </label>
+                            <!--end::Label-->
+                            <div class="col-9">
+                                <input type="date" name="renew_fees_date" id="renew_fees_date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="fees_bank_id" class="col-3 col-form-label">Bank</label>
                             <div class="col-9">
                                 <select name="fees_bank_id" id="fees_bank_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
@@ -729,6 +744,16 @@
                     <div class="modal-body mx-md-10">
                         <input class="form-control" type="hidden" value="" name='full_payment_id' id="full_payment_id"/>
                         <div class="form-group row">
+                            <!--begin::Label-->
+                            <label class="col-3 col-form-labe">
+                                <span class="required">Date:</span>
+                            </label>
+                            <!--end::Label-->
+                            <div class="col-9">
+                                <input type="date" name="payment_date" id="payment_date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="full_bank_id" class="col-3 col-form-label">Bank</label>
                             <div class="col-9">
                                 <select name="full_bank_id" id="full_bank_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
@@ -784,6 +809,16 @@
                     <div class="modal-body mx-md-10">
                         <input class="form-control" type="hidden" value="" name='profit_sharing_payment_id' id="profit_sharing_payment_id"/>
                         <div class="form-group row">
+                            <!--begin::Label-->
+                            <label class="col-3 col-form-labe">
+                                <span class="required">Date:</span>
+                            </label>
+                            <!--end::Label-->
+                            <div class="col-9">
+                                <input type="date" name="profit_sharing_date" id="profit_sharing_date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="fees_bank_id" class="col-3 col-form-label">Bank</label>
                             <div class="col-9">
                                 <select name="profit_bank_id" id="profit_bank_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
@@ -837,15 +872,14 @@
                             </span>
                         </button>
                     </div>
-                    <div class="modal-body mx-md-10">
-                        <input class="form-control" type="hidden" value="" name='part_payment_reminder_id' id="part_payment_reminder_id"/>
-                        <div class="form-group">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                <span class="required">Date:</span>
-                            </label>
-                            <!--end::Label-->
-                            <input type="date" value="{{old('reminder_date')}}" name="reminder_date" id="reminder_date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
+                    <div class="form-group row">
+                        <!--begin::Label-->
+                        <label class="col-3 col-form-labe">
+                            <span class="required">Date:</span>
+                        </label>
+                        <!--end::Label-->
+                        <div class="col-9">
+                            <input type="date" name="reminder_date" id="reminder_date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
                         </div>
                     </div>
                     <div class="modal-body mx-md-10" id="part_reminder_message" style="color: green;">

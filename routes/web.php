@@ -303,6 +303,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/viewFeesInvoice/{id}/{invoice_type}",[renewalStatusController::class,"viewFeesInvoice"])->name("viewFeesInvoice");
     Route::POST("/getRenewData",[renewalStatusController::class,"getRenewData"])->name("getRenewData");
     Route::POST("/viewPartPayment",[renewalStatusController::class,"viewPartPayment"])->name("viewPartPayment");
+    Route::get("/editInvoice/{id}",[renewalStatusController::class,"editInvoice"])->name("editInvoice");
+    Route::POST("/updateInvoiceDetail",[renewalStatusController::class,"updateInvoiceDetail"])->name("updateInvoiceDetail");
+    Route::get("/viewRoughCalculationInvoice/{id}",[renewalStatusController::class,"viewRoughCalculationInvoice"])->name("viewRoughCalculationInvoice");
 
     // finance Management Bank
     Route::get("/financeManagement/bank",[BankControllers::class, "financeManagementBank"])->name("financeManagementBank");

@@ -99,13 +99,21 @@ class ClientDemateServices{
         leftJoin('client_demat', 'renewal_account.client_demat_id', '=', 'client_demat.id')->
         leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
         leftJoin('finance_management_banks', 'renewal_account.bank_id', '=', 'finance_management_banks.id')->
-        select('finance_management_banks.pan_number','finance_management_banks.account_name','finance_management_banks.title','clients.name','clients.number','client_demat.serial_number','client_demat.st_sg','client_demat.client_id','client_demat.holder_name','client_demat.available_balance','client_demat.pan_number_text','client_demat.address','client_demat.mobile','client_demat.email_id','client_demat.service_type','renewal_account.*')
-            ->first();
+        select('finance_management_banks.ifsc_code','finance_management_banks.account_no','finance_management_banks.pan_number','finance_management_banks.account_name','finance_management_banks.title','clients.name','clients.number','client_demat.serial_number','client_demat.st_sg','client_demat.client_id','client_demat.holder_name','client_demat.available_balance','client_demat.pan_number_text','client_demat.address','client_demat.mobile','client_demat.email_id','client_demat.service_type','renewal_account.*')
+        ->where("renewal_account.id",$id)->first();
     }
 
     public static function demateFeesPayment($request){
+
+        $request->validate([
+            "renew_fees_date" => "required|date",
+            "fees_amount" => "required",
+            "fees_bank_id" => "required"
+        ]);
+
         $data['is_pay_fee']=1;
         $data['bank_id']=$request->fees_bank_id;
+        $data['fees_pay_date']=date("Y-m-d",strtotime($request->renew_fees_date));
 
         $renewData = RenewDemat::where("id",$request->fees_payment_id)->first()->toArray();
         $clientDematData = ClientDemat::where("id", $renewData['client_demat_id'])->first()->toArray();
@@ -129,13 +137,15 @@ class ClientDemateServices{
         financeManagementIncomesModel::create($income);
 
         $totalPayment = $renewData['part_payment'] + $request->fees_amount;
-        if($renewData['final_amount'] <= $totalPayment){
+        if($renewData['is_pay_profit_sharing'] == 1){
             //if full payment done
             $data['part_payment']=$totalPayment;
             $data['status']="renew";
+            $data['payment_date']=date("Y-m-d",strtotime($request->renew_fees_date));
 
             $clientDemat['account_status'] = "normal";
             $clientDemat['is_new'] = 3;
+            $clientDemat['joining_date'] = date('Y-m-d');
             ClientDemat::where("id", $renewData['client_demat_id'])->update($clientDemat);
         }else{
             $data['part_payment']=$totalPayment;
@@ -145,8 +155,15 @@ class ClientDemateServices{
     }
 
     public static function demateProfitSharing($request){
+        $request->validate([
+            "profit_sharing_date" => "required|date",
+            "profit_amount" => "required",
+            "profit_bank_id" => "required"
+        ]);
+
         $data['is_pay_profit_sharing']=1;
         $data['bank_id']=$request->profit_bank_id;
+        $data['profit_sharing_pay_date']=date("Y-m-d",strtotime($request->profit_sharing_date));
 
         $renewData = RenewDemat::where("id",$request->profit_sharing_payment_id)->first()->toArray();
         $clientDematData = ClientDemat::where("id", $renewData['client_demat_id'])->first()->toArray();
@@ -174,13 +191,15 @@ class ClientDemateServices{
         financeManagementIncomesModel::create($income);
 
         $totalPayment = $renewData['part_payment'] + $request->profit_amount;
-        if($renewData['final_amount'] <= $totalPayment){
+        if($renewData['is_pay_fee'] == 1 ||  $clientDematData['service_type'] == 1){
             //if full payment done
             $data['part_payment']=$totalPayment;
             $data['status']="renew";
+            $data['payment_date']=date("Y-m-d",strtotime($request->profit_sharing_date));
 
             $clientDemat['account_status'] = "normal";
             $clientDemat['is_new'] = 3;
+            $clientDemat['joining_date'] = date('Y-m-d');
             ClientDemat::where("id", $renewData['client_demat_id'])->update($clientDemat);
         }else{
             $data['part_payment']=$totalPayment;
@@ -190,6 +209,11 @@ class ClientDemateServices{
     }
 
     public static function partPayment($request){
+        $request->validate([
+            "part_amount" => "required",
+            "part_bank_id" => "required"
+        ]);
+
         $data['is_part_payment']=1;
         $data['bank_id']=$request->part_bank_id;
 
@@ -220,6 +244,9 @@ class ClientDemateServices{
 
         $totalPayment = $renewData['part_payment'] + $request->part_amount;
         if($renewData['final_amount'] <= $totalPayment){
+            $data['payment_date']=date("Y-m-d");
+            $data['fees_pay_date']=date("Y-m-d");
+            $data['profit_sharing_pay_date']=date("Y-m-d");
             //if full payment done
             $data['part_payment']=$totalPayment;
             $data['status']="renew";
@@ -229,6 +256,7 @@ class ClientDemateServices{
 
             $clientDemat['account_status'] = "normal";
             $clientDemat['is_new'] = 3;
+            $clientDemat['joining_date'] = date('Y-m-d');
             ClientDemat::where("id", $renewData['client_demat_id'])->update($clientDemat);
         }else{
             $data['part_payment']=$totalPayment;
@@ -238,13 +266,30 @@ class ClientDemateServices{
     }
 
     public static function fullPayment($request){
+
+        $request->validate([
+            "payment_date" => "required|date",
+            "full_amount" => "required",
+            "full_bank_id" => "required"
+        ]);
+
         $data['is_pay_fee']=1;
         $data['is_pay_profit_sharing']=1;
+        $data['payment_date']=date("Y-m-d",strtotime($request->payment_date));
+        $data['fees_pay_date']=date("Y-m-d",strtotime($request->payment_date));
+        $data['profit_sharing_pay_date']=date("Y-m-d",strtotime($request->payment_date));
 
         $renewData = RenewDemat::where("id",$request->full_payment_id)->first()->toArray();
         $clientDematData = ClientDemat::where("id", $renewData['client_demat_id'])->first()->toArray();
         $forIncomes = bankServices::getBankAccountById($request->full_bank_id);
         $data['part_payment']=$forIncomes['invoice_code'];
+
+        if($clientDematData['service_type'] == 1){
+            $data['is_pay_profit_sharing']=1;
+        }elseif ($clientDematData['service_type'] == 2){
+            $data['is_pay_fee']=1;
+            $data['is_pay_profit_sharing']=1;
+        }
 
         $income['date']=date('Y-m-d');
         $income['sub_heading']="AMS Fees & Profit Sharing";
@@ -269,6 +314,7 @@ class ClientDemateServices{
 
         $clientDemat['account_status'] = "normal";
         $clientDemat['is_new'] = 3;
+        $clientDemat['joining_date'] = date('Y-m-d');
         ClientDemat::where("id", $renewData['client_demat_id'])->update($clientDemat);
 
 

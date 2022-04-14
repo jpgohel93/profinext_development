@@ -72,7 +72,15 @@
                                                         </div>
                                                         <div class="flex-root d-flex flex-column">
                                                             <span class="text-muted">Date</span>
-                                                            <span class="fs-5">{{$renewData->created_at->format('d-m-Y')}}</span>
+                                                            @if($type == 1 && $renewData->fees_pay_date != '')
+                                                                <span class="fs-5">{{date('d-m-Y', strtotime($renewData->fees_pay_date))}}</span>
+                                                            @elseif($type == 2 && $renewData->profit_sharing_pay_date != '')
+                                                                <span class="fs-5">{{date('d-m-Y', strtotime($renewData->profit_sharing_pay_date))}}</span>
+                                                            @elseif($type == 3 && $renewData->payment_date != '')
+                                                                <span class="fs-5">{{date('d-m-Y', strtotime($renewData->payment_date))}}</span>
+                                                            @else
+                                                                <span class="fs-5">{{date('d-m-Y', strtotime($renewData->created_at))}}</span>
+                                                            @endif
                                                         </div>
                                                         <div class="flex-root d-flex flex-column">
                                                             <span class="text-muted">Invoice ID</span>
@@ -87,8 +95,7 @@
                                                             <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
                                                                 <thead>
                                                                 <tr class="border-bottom fs-6 fw-bolder text-muted">
-                                                                    <th class="min-w-175px pb-2">Action / Sub Heading</th>
-                                                                    <th class="min-w-70px pb-2">Description</th>
+                                                                    <th class="min-w-175px pb-2 text-center" colspan="2">Description</th>
                                                                     <th class="min-w-100px text-center pb-2">Total</th>
                                                                 </tr>
                                                                 </thead>
@@ -109,6 +116,45 @@
                                                                     <td colspan="2" class="text-end">Subtotal</td>
                                                                     <td class="text-center">{{$total}}</td>
                                                                 </tr>
+                                                                @if($type == 3)
+                                                                    <tr>
+                                                                        <td colspan="2" class="text-end">Round Of Amount</td>
+                                                                        <td class="text-center">
+                                                                            @if($renewData->round_of_amount > 0)
+                                                                                @if($renewData->round_of_amount_type == "minus")
+                                                                                    -
+                                                                                    <?php $grand_total = $grand_total - $renewData->round_of_amount; ?>
+                                                                                @else
+                                                                                    +
+                                                                                    <?php $grand_total = $grand_total + $renewData->round_of_amount; ?>
+                                                                                @endif
+                                                                                {{$renewData->round_of_amount}}
+                                                                            @else
+                                                                                0
+                                                                            @endif
+
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                       @if($renewData->final_amount > $renewData->part_payment)
+                                                                           <?php $amount = $renewData->final_amount - $renewData->part_payment; ?>
+                                                                            <td colspan="2" class="text-end">Discount</td>
+                                                                            <td class="text-center">
+                                                                                -{{$amount}}
+                                                                                <?php $grand_total = $grand_total - $amount; ?>
+                                                                            </td>
+                                                                       @elseif($renewData->final_amount < $renewData->part_payment)
+                                                                            <?php $amount = $renewData->part_payment - $renewData->final_amount;?>
+                                                                            <td colspan="2" class="text-end">Access</td>
+                                                                            <td class="text-center">
+                                                                                +{{$amount}}
+                                                                                <?php $grand_total = $grand_total + $amount; ?>
+                                                                            </td>
+                                                                       @endif
+                                                                    </tr>
+                                                                @endif
+
                                                                 <!--end::Subtotal-->
 
                                                                 <!--begin::Grand total-->
@@ -128,21 +174,21 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-8">
-                                                    <h4>Terms and conditions<hr/></h4>
+                                                    <h4>Terms and conditions<div class="separator"></div></h4>
                                                     @forelse($terms as $term)
                                                         <p class='h6'><i class="fas fa-arrow-right fa-xl"></i>&nbsp;{{$term->description}}</p>
                                                     @empty
                                                     @endforelse
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <h4>Bank details<hr/></h4>
+                                                    <h4>Bank Details<div class="separator"></div></h4>
                                                     <div class="wrapper">
                                                         <!--begin::Card-->
                                                         <div class="card">
                                                             <!--begin::Name-->
-                                                            <h6 class="text-gray-800">Bank Name : demo title</h6>
-                                                            <h6 class="text-gray-800">Account no : 4457887874474</h6>
-                                                            <h6 class="text-gray-800">IFSC Code : HDFC1212A</h6>
+                                                            <h6 class="text-gray-800">Bank Name : {{$renewData->account_name}}</h6>
+                                                            <h6 class="text-gray-800">Account no : {{$renewData->account_no}}</h6>
+                                                            <h6 class="text-gray-800">IFSC Code : {{$renewData->ifsc_code}}</h6>
                                                             <!--end::Name-->
                                                         </div>
                                                         <!--begin::Card-->

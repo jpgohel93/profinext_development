@@ -260,7 +260,8 @@ class renewalStatusController extends Controller
         $grand_total = $request->fees_amount;
         $title = "INVOICE";
         $terms = TermsAndConditionsServices::all(true);
-        return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title',"terms"));
+        $type =1;
+        return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title',"terms","type"));
     }
 
     public function profitSharingPayment(Request $request){
@@ -282,7 +283,8 @@ class renewalStatusController extends Controller
         $grand_total = $request->profit_amount;
         $title = "INVOICE";
         $terms = TermsAndConditionsServices::all(true);
-        return view("financeManagement.fees_invoice",compact("renewData","message",'total',"grand_total","title", "terms"));
+        $type =2;
+        return view("financeManagement.fees_invoice",compact("renewData","message",'total',"grand_total","title", "terms","type"));
     }
 
     public function partPayment(Request $request){
@@ -327,7 +329,8 @@ class renewalStatusController extends Controller
         $grand_total = $renewData->total_payment;
         $title = "INVOICE";
         $terms = TermsAndConditionsServices::all(true);
-        return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms"));
+        $type =3;
+        return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms","type"));
     }
 
     public function viewFeesInvoice($id,$type){
@@ -397,7 +400,7 @@ class renewalStatusController extends Controller
             $title = "INVOICE";
         }
         $terms = TermsAndConditionsServices::all(true);
-        return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms"));
+        return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms","type"));
     }
 
     public function viewPartPayment(Request $request){
@@ -423,5 +426,38 @@ class renewalStatusController extends Controller
         $data['html'] = $html;
         $data['totalPayment'] = $totalPayment;
         return $data;
+    }
+
+    public function editInvoice($id){
+        $renewData = ClientDemateServices::renewDataById($id);
+        $demateDetails = ClientDemateServices::getAccountByDemateId($renewData->client_demat_id);
+        return view("financeManagement.edit_invoice",compact("renewData","demateDetails"));
+
+    }
+
+    public function updateInvoiceDetail(Request $request){
+
+    }
+
+    public function viewRoughCalculationInvoice($id){
+        $renewData = ClientDemateServices::renewDataById($id);
+        $demateDetails = ClientDemateServices::getAccountByDemateId($renewData->client_demat_id);
+
+        if($demateDetails->service_type == 2){
+            $account_type = 'AMS';
+        }
+        elseif ($demateDetails->service_type == 1){
+            $account_type = 'Prime';
+        }
+        $service_data = servicesTypeServices::getByType($account_type);
+        $profit_pr = (100 * $demateDetails->final_pl) / $demateDetails->capital;
+
+        $joining_date = $renewData->joining_date;
+        $end_date = $renewData->end_date;
+        $days=round((strtotime($end_date) - strtotime($joining_date)) / 86400);
+        $message = "<p style='color: green;font-size: 15px;font-weight: bold;'>You have get ".$profit_pr." %  of Return in just ".$days." Days </p>";
+
+        return view("financeManagement.rough_calculation_invoice",compact("renewData","demateDetails","service_data","message"));
+
     }
 }

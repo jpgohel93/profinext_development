@@ -8,12 +8,12 @@
     <div class="d-flex flex-column flex-root">
         <!--begin::Page-->
         <div class="page d-flex flex-row flex-column-fluid">
-            @include("sidebar")
-            <!--end::Aside-->
+        @include("sidebar")
+        <!--end::Aside-->
             <!--begin::Wrapper-->
             <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-                @include("header")
-                <!--begin::Content-->
+            @include("header")
+            <!--begin::Content-->
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                     @if($errors->any())
                         <div class="container">
@@ -23,8 +23,8 @@
                         <div class="container">
                             <h5 class="alert alert-info">{{session("info")}}</h5>
                         </div>
-                    @endif
-                    <!--begin::Toolbar-->
+                @endif
+                <!--begin::Toolbar-->
                     <div class="toolbar" id="kt_toolbar">
                         <!--begin::Container-->
                         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
@@ -59,10 +59,9 @@
                         <!--end::Container-->
                     </div>
                     <!--end::Toolbar-->
-                    <form method="POST" action="{{route('clientDematupdatePL')}}">
+                    <form method="POST" action="{{route('updateInvoiceDetail')}}">
                         @csrf
-                        <input type='hidden' name='id' id="id" value='{{$demateDetails->id}}'>
-                        <input type='hidden' name='page_type' id="page_type" value='{{$type}}'>
+                        <input type='hidden' name='id' id="id" value='{{$renewData->id}}'>
                         <!--begin::Post-->
                         <div class="post d-flex flex-column-fluid" id="kt_post">
                             <!--begin::Container-->
@@ -224,7 +223,7 @@
                                                     </label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" name="final_pl" id="final_pl"/>
+                                                    <input type="number" class="form-control form-control-lg form-control-solid bdr-ccc" name="final_pl" id="final_pl" value="{{$demateDetails->final_pl}}"/>
                                                     <!--end::Input-->
                                                 </div>
                                                 <div class="col-md-6 col-sm-12 mb-5">
@@ -274,27 +273,27 @@
                                                 <h3 class="stepper-title">Payment Bank</h3>
                                                 @if(!empty($bankAccountList))
                                                     <?php $count = 1;?>
-                                                        <div class="row g-6 g-sm-9 mx-4">
-                                                            @foreach ($bankAccountList as $bankAccount)
-                                                                <div class="col-md-6 col-xl-4">
-                                                                    <!--begin::Card-->
-                                                                    <div class="card border border-2 border-gray-300">
-                                                                        <!--begin::Card body-->
-                                                                        <input type="radio"
-                                                                               value="{{$bankAccount['id']}}"
-                                                                               name="payment_bank_id"
-                                                                               class="bank_change">
-                                                                        <!--begin::Name-->
-                                                                        <h6 class="text-gray-800">Bank Name : {{$bankAccount['title']}}</h6>
-                                                                        <h6 class="text-gray-800">Remain Limit : {{$bankAccount['remain_limit']}}</h6>
-                                                                        <h6 class="text-gray-800">Last Transaction Before : {{$bankAccount['last_transaction_day']}} Days</h6>
-                                                                        <!--end::Name-->
-                                                                        <!--begin::Card body-->
-                                                                    </div>
-                                                                    <!--begin::Card-->
+                                                    <div class="row g-6 g-sm-9 mx-4">
+                                                        @foreach ($bankAccountList as $bankAccount)
+                                                            <div class="col-md-6 col-xl-4">
+                                                                <!--begin::Card-->
+                                                                <div class="card border border-2 border-gray-300">
+                                                                    <!--begin::Card body-->
+                                                                    <input type="radio"
+                                                                           value="{{$bankAccount['id']}}"
+                                                                           name="payment_bank_id"
+                                                                           class="bank_change">
+                                                                    <!--begin::Name-->
+                                                                    <h6 class="text-gray-800">Bank Name : {{$bankAccount['title']}}</h6>
+                                                                    <h6 class="text-gray-800">Remain Limit : {{$bankAccount['remain_limit']}}</h6>
+                                                                    <h6 class="text-gray-800">Last Transaction Before : {{$bankAccount['last_transaction_day']}} Days</h6>
+                                                                    <!--end::Name-->
+                                                                    <!--begin::Card body-->
                                                                 </div>
-                                                            @endforeach
-                                                        </div>
+                                                                <!--begin::Card-->
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
                                                 @endif
 
 
@@ -305,7 +304,7 @@
                                                 <div class="d-flex flex-stack pt-10">
                                                     <div>
                                                         <button type="submit" class="btn btn-sm btn-primary" id="verifyBtn">Verify</button>
-                                                        <button type="button" class="btn btn-sm btn-primary">Rough Calculation Print</button>
+                                                        {{--                                                        <button type="button" class="btn btn-sm btn-primary" id="calculationBtn">Rough Calculation</button>--}}
                                                         <button type="button" data-id='{{$demateDetails->id}}' id="backToTrade" class="btn btn-sm btn-primary" data-value="normal">Back to trade</button>
                                                     </div>
                                                 </div>
@@ -321,14 +320,13 @@
                 </div>
                 <!--end::Content-->
                 <!--begin::Footer-->
-                @include("footer")
-                <!--end::Footer-->
+            @include("footer")
+            <!--end::Footer-->
             </div>
             <!--end::Wrapper-->
         </div>
         <!--end::Page-->
     </div>
-
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
@@ -350,11 +348,11 @@
                             }
                         }
                     })
-                    .fail((err)=>{
-                        if(err.status===403){
-                            window.alert("Unauthorized Action");
-                        }
-                    })
+                        .fail((err)=>{
+                            if(err.status===403){
+                                window.alert("Unauthorized Action");
+                            }
+                        })
                 });
                 // $("#verifyBtn").on("click",function(){
                 //     $("#plfield").val($("#current_pl").val());
@@ -364,42 +362,42 @@
                 // })
 
                 $("#calculation").on("click",function(){
-                   var demat_id = $("#id").val();
-                   var final_pl = $("#final_pl").val();
-                   var joining_date = $("#joining_date").val();
-                   var end_date = $("#end_date").val();
+                    var demat_id = $("#demate_id").val();
+                    var final_pl = $("#final_pl").val();
+                    var joining_date = $("#joining_date").val();
+                    var end_date = $("#end_date").val();
 
-                   if(final_pl != ''){
-                       $.ajax("{!! route('calculateAmount') !!}",{
-                           type:"POST",
-                           data:{
-                               demat_id:demat_id,
-                               final_pl: final_pl,
-                               joining_date: joining_date,
-                               end_date: end_date
-                           },
-                           dataType: 'json',
-                           success: function(response) {
-                               if(response.status){
-                                   $('#profit_div').html(response.profit_data);
-                                   $('#payment_div').html(response.payment_data);
-                                   $('#message_div').html(response.message);
-                                   $('#profit_div').show();
-                                   $('#payment_div').show();
-                                   $('#round_of_div').show();
-                                   $('#message_div').show();
-                               }else{
-                                   window.alert("Something want wrong");
-                               }
-                           }
-                       }).fail((err)=>{
+                    if(final_pl != ''){
+                        $.ajax("{!! route('calculateAmount') !!}",{
+                            type:"POST",
+                            data:{
+                                demat_id:demat_id,
+                                final_pl: final_pl,
+                                joining_date: joining_date,
+                                end_date: end_date
+                            },
+                            dataType: 'json',
+                            success: function(response) {
+                                if(response.status){
+                                    $('#profit_div').html(response.profit_data);
+                                    $('#payment_div').html(response.payment_data);
+                                    $('#message_div').html(response.message);
+                                    $('#profit_div').show();
+                                    $('#payment_div').show();
+                                    $('#round_of_div').show();
+                                    $('#message_div').show();
+                                }else{
+                                    window.alert("Something want wrong");
+                                }
+                            }
+                        }).fail((err)=>{
                             if(err.status===403){
                                 window.alert("Unauthorized Action");
                             }
-                       })
-                   }else{
-                       window.alert("Please enter the amount in - Final P / L");
-                   }
+                        })
+                    }else{
+                        window.alert("Please enter the amount in - Final P / L");
+                    }
 
                 });
 
