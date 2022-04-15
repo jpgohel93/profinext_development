@@ -27,17 +27,20 @@
                                 <div class="col-md-3">
                                     <h3>Profession:</h3>
                                 </div>
-                                @can("")
-                                <div class="col-md-9 text-end">
-                                    <button type="button" class="btn btn-primary" id="add_client_profession_model">Add</button>
-                                </div>
+                                @can("settings-client-profession-create")
+                                    <div class="col-md-9 text-end">
+                                        <button type="button" class="btn btn-primary" id="add_client_profession_model">Add</button>
+                                    </div>
+                                @endcan
                             </div>
                             <table class="table table-striped" id="profession">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Profession</th>
-                                        <th scope="col">Actions</th>
+                                        @canany(["settings-client-profession-write","settings-client-profession-delete"])
+                                            <th scope="col">Actions</th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,14 +48,20 @@
                                         <tr>
                                             <th scope="row">{{$loop->iteration}}</th>
                                             <td>{{$profession->profession}}</td>
-                                            <td>
-                                                <a href="javascript:void(0)">
-                                                    <i class="fa fa-edit fa-2x editProfession" data-id="{{$profession->id}}"></i>
-                                                </a>
-                                                <a href="{{route('removeProfession',$profession->id)}}" class="removeProfession">
-                                                    <i class="fa fa-trash text-danger fa-2x"></i>
-                                                </a>
-                                            </td>
+                                            @canany(["settings-client-profession-write","settings-client-profession-delete"])
+                                                <td>
+                                                    @can("settings-client-profession-write")
+                                                        <a href="javascript:void(0)">
+                                                            <i class="fa fa-edit fa-2x editProfession" data-id="{{$profession->id}}"></i>
+                                                        </a>
+                                                    @endcan
+                                                    @can("settings-client-profession-delete")
+                                                        <a href="{{route('removeProfession',$profession->id)}}" class="removeProfession">
+                                                            <i class="fa fa-trash text-danger fa-2x"></i>
+                                                        </a>
+                                                    @endcan
+                                                </td>
+                                            @endcan
                                         </tr>
                                     @empty
                                         {{-- <h3>No Profession Added. Click <a href="">here</a> to add</h3> --}}
@@ -121,7 +130,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-end">
                             <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -191,7 +200,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-end">
                             <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>

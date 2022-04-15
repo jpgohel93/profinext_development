@@ -41,7 +41,7 @@
                                                 <!--begin::Wrapper-->
                                                 <div class="d-flex flex-column gap-3 gap-md-10">
                                                     <div class="d-flex justify-content-between flex-column flex-sm-row">
-                                                        <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">Profit And Patment Calculation</h4>
+                                                        <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">Profit And Payment Calculation</h4>
                                                     </div>
                                                     <!--begin::Message-->
                                                     <div class="fw-bolder fs-2">For,
@@ -101,7 +101,7 @@
                                                     </div>
                                                     <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
                                                         <div class="flex-root d-flex flex-column">
-                                                            <h4><span>Payment</span><div class="separator"></div></h4>
+                                                            <h4><span>Payment Calculation</span><div class="separator"></div></h4>
                                                             <table class="table align-middle table-row-dashed fs-6 gy-2 mb-0">
                                                                 <thead>
                                                                 <tr class="border-bottom fs-6 fw-bolder text-muted">
@@ -158,6 +158,10 @@
                                                                 </thead>
                                                                 <tbody class="fw-bold">
                                                                 <tr>
+                                                                    <td>Account Holder Name</td>
+                                                                    <td>{{$renewData->name}}</td>
+                                                                </tr>
+                                                                <tr>
                                                                     <td>Bank Name</td>
                                                                     <td>{{$renewData->account_name}}</td>
                                                                 </tr>
@@ -173,15 +177,6 @@
                                                             </table>
                                                         </div>
                                                     </div>
-                                                    <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
-                                                        <div class="flex-root d-flex flex-column">
-                                                            @if($renewData->profit_sharing > 0 && $demateDetails->service_type == 2)
-                                                                        <span style="color: red">Please Make Both Payment Separately Fees And Profit Sharing</span>
-                                                            @endif
-                                                            <span style="color: #009EF7">Kindly Clear Your Payment as soon as possible, So that We can take trade if possible.</span>
-                                                        </div>
-                                                    </div>
-
                                                     <!--end::Order details-->
                                                 </div>
                                                 <!--end::Wrapper-->
@@ -189,6 +184,14 @@
                                         </div>
                                         <!--end::Body-->
                                         <!-- begin::Footer-->
+                                        <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
+                                            <div class="flex-root d-flex flex-column">
+                                                @if($renewData->profit_sharing > 0 && $demateDetails->service_type == 2)
+                                                    <span style="color: red" class="text-center">Please Make Both Payment Separately Fees And Profit Sharing</span>
+                                                @endif
+                                                <span style="color: #009EF7" class="text-center">Kindly Clear Your Payment as soon as possible, So that We can take trade if possible.</span>
+                                            </div>
+                                        </div>
                                         <div class="d-flex flex-stack flex-wrap mt-lg-20 pt-13">
                                             <!-- begin::Actions-->
                                             <div class="my-1 me-5">
