@@ -26,7 +26,7 @@ class ClientDemateServices{
             ->get();
     }
     public static function problemAccounts(){
-        return ClientDemat::whereNotNull("problem")->where('account_status','!=','terminated')->with(["clients"])->get();
+        return ClientDemat::whereNotNull("problem")->where('account_status','!=','terminated')->with(["withClient"])->get();
     }
     public static function allAccounts(){
         $clients = ClientDemat::where("trader_id",auth()->user()->id)->leftJoin('clients as c', function ($join) {
