@@ -30,12 +30,12 @@
                         <div id="kt_content_container" class="container-xxl">
                             <div class="card">
                                 <!-- begin::Body-->
-                                <div class="card-body py-20">
+                                <div class="card-body py-5">
                                     <!-- begin::Wrapper-->
                                     <div class="mw-lg-950px mx-auto w-100">
                                         <!-- begin::Header-->
                                         <div id="print_div">
-                                            <div class="d-flex justify-content-between flex-column flex-sm-row mb-19">
+                                            <div class="d-flex justify-content-between flex-column flex-sm-row mb-10">
                                                 <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">{{$title}}</h4>
                                                 <!--end::Logo-->
                                                 <div class="text-sm-end">
@@ -51,7 +51,7 @@
                                             <!--begin::Body-->
                                             <div class="pb-12">
                                                 <!--begin::Wrapper-->
-                                                <div class="d-flex flex-column gap-7 gap-md-10">
+                                                <div class="d-flex flex-column gap-1 gap-md-5">
                                                     <!--begin::Message-->
                                                     <div class="fw-bolder fs-2">Issue For,
                                                         <br>
@@ -62,7 +62,6 @@
                                                     </div>
                                                     <!--begin::Message-->
                                                     <!--begin::Separator-->
-                                                    <div class="separator"></div>
                                                     <!--begin::Separator-->
                                                     <!--begin::Order details-->
                                                     <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
@@ -92,7 +91,7 @@
                                                     <div class="d-flex justify-content-between flex-column">
                                                         <!--begin::Table-->
                                                         <div class="table-responsive border-bottom mb-9">
-                                                            <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+                                                            <table class="table align-middle table-row-dashed fs-6 gy-3 mb-0">
                                                                 <thead>
                                                                 <tr class="border-bottom fs-6 fw-bolder text-muted">
                                                                     <th class="min-w-175px pb-2 text-center" colspan="2">Description</th>
@@ -169,31 +168,41 @@
                                                         <!--end::Table-->
                                                     </div>
                                                     <!--end:Order summary-->
-                                                </div>
-                                                <!--end::Wrapper-->
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <h4>Terms and conditions<div class="separator"></div></h4>
-                                                    @forelse($terms as $term)
-                                                        <p class='h6'><i class="fas fa-arrow-right fa-xl"></i>&nbsp;{{$term->description}}</p>
-                                                    @empty
-                                                    @endforelse
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h4>Bank Details<div class="separator"></div></h4>
-                                                    <div class="wrapper">
-                                                        <!--begin::Card-->
-                                                        <div class="card">
-                                                            <!--begin::Name-->
-                                                            <h6 class="text-gray-800">Bank Name : {{$renewData->account_name}}</h6>
-                                                            <h6 class="text-gray-800">Account no : {{$renewData->account_no}}</h6>
-                                                            <h6 class="text-gray-800">IFSC Code : {{$renewData->ifsc_code}}</h6>
-                                                            <!--end::Name-->
+                                                    <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
+                                                        <div class="flex-root d-flex flex-column">
+                                                            <h4>Terms and conditions<div class="separator"></div></h4>
+                                                            @forelse($terms as $term)
+                                                                <p class='h6'><i class="fas fa-arrow-right fa-xl"></i>&nbsp;{{$term->description}}</p>
+                                                            @empty
+                                                            @endforelse
                                                         </div>
-                                                        <!--begin::Card-->
+                                                        <div class="flex-root d-flex flex-column">
+                                                            <h4>Bank Details<div class="separator"></div></h4>
+                                                            <div class="wrapper">
+                                                                <!--begin::Card-->
+                                                                <div class="card">
+                                                                    <!--begin::Name-->
+                                                                    <h6 class="text-gray-800">Bank Name : {{$renewData->account_name}}</h6>
+                                                                    <h6 class="text-gray-800">Account no : {{$renewData->account_no}}</h6>
+                                                                    <h6 class="text-gray-800">IFSC Code : {{$renewData->ifsc_code}}</h6>
+                                                                    <!--end::Name-->
+                                                                </div>
+                                                                <!--begin::Card-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
+                                                        <div class="flex-root d-flex flex-column text-end">
+                                                            <span>Subject To Rajkot Jurisdiction</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
+                                                        <div class="flex-root d-flex flex-column text-center">
+                                                            <span class="text-dark">This is computer generated invoice</span>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <!--end::Wrapper-->
                                             </div>
                                         </div>
                                         <!--end::Body-->

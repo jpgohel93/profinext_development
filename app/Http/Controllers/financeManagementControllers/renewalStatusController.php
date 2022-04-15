@@ -455,7 +455,7 @@ class renewalStatusController extends Controller
         $joining_date = $renewData->joining_date;
         $end_date = $renewData->end_date;
         $days=round((strtotime($end_date) - strtotime($joining_date)) / 86400);
-        $message = "<p style='color: green;font-size: 15px;font-weight: bold;'>You have get ".$profit_pr." %  of Return in just ".$days." Days </p>";
+        $message = "<p style='color: green;font-size: 20px;font-weight: bold;'>You have get ".$profit_pr." %  of Return in just ".$days." Days </p>";
 
         return view("financeManagement.rough_calculation_invoice",compact("renewData","demateDetails","service_data","message"));
 

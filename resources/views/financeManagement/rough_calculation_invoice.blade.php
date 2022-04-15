@@ -7,10 +7,11 @@
         @media print {
             .header, .hide { visibility: hidden }
             @page {
+                size: A4;
                 margin-top: 0;
                 margin-bottom: 0;
             }
-            body  {
+            body,page[size="A4"]  {
                 padding-top: 72px;
                 padding-bottom: 72px ;
             }
@@ -55,8 +56,8 @@
                                                     <!--begin::Order details-->
                                                     <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
                                                         <div class="flex-root d-flex flex-column">
-                                                            <h4><span>Profit Calculation <?= $message; ?></span><div class="separator"></div></h4>
-                                                            <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+                                                            <h4><span>Profit Calculation</span><div class="separator"></div></h4>
+                                                            <table class="table align-middle table-row-dashed fs-6 gy-2 mb-0">
                                                                 <thead>
                                                                     <tr class="border-bottom fs-6 fw-bolder text-muted">
                                                                         <th class="min-w-175px pb-2 text-center">Description</th>
@@ -64,6 +65,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody class="fw-bold">
+                                                                    <tr>
+                                                                        <td>Joining Capital</td>
+                                                                        <td>{{$demateDetails->capital}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Available Fund</td>
+                                                                        <td>{{$demateDetails->available_balance}}</td>
+                                                                    </tr>
                                                                     <tr>
                                                                         <td>Total Profit</td>
                                                                         <td>{{$demateDetails->final_pl}}</td>
@@ -84,10 +93,16 @@
                                                             </table>
                                                         </div>
                                                     </div>
+
+                                                    <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
+                                                        <div class="flex-root d-flex flex-column">
+                                                            <span  class="text-center"><?= $message; ?></span>
+                                                        </div>
+                                                    </div>
                                                     <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
                                                         <div class="flex-root d-flex flex-column">
                                                             <h4><span>Payment</span><div class="separator"></div></h4>
-                                                            <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+                                                            <table class="table align-middle table-row-dashed fs-6 gy-2 mb-0">
                                                                 <thead>
                                                                 <tr class="border-bottom fs-6 fw-bolder text-muted">
                                                                     <th class="min-w-175px pb-2 text-center">Description</th>
@@ -139,7 +154,7 @@
                                                     <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
                                                         <div class="flex-root d-flex flex-column">
                                                             <h4><span>Bank Details</span><div class="separator"></div></h4>
-                                                            <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+                                                            <table class="table align-middle table-row-dashed fs-6 gy-2 mb-0">
                                                                 </thead>
                                                                 <tbody class="fw-bold">
                                                                 <tr>
@@ -156,6 +171,14 @@
                                                                 </tr>
                                                                 </tbody>
                                                             </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-column flex-sm-row gap-7 gap-md-10 fw-bolder">
+                                                        <div class="flex-root d-flex flex-column">
+                                                            @if($renewData->profit_sharing > 0 && $demateDetails->service_type == 2)
+                                                                        <span style="color: red">Please Make Both Payment Separately Fees And Profit Sharing</span>
+                                                            @endif
+                                                            <span style="color: #009EF7">Kindly Clear Your Payment as soon as possible, So that We can take trade if possible.</span>
                                                         </div>
                                                     </div>
 
