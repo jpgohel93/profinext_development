@@ -43,11 +43,22 @@ class financeManagementIncomesServices{
             throw $error;
         }
         $income['text_box']=$request->text_box;
-        $income['created_by']= auth()->user()->id;
-        return financeManagementIncomesModel::create($income);
+        if(isset($request->id)){
+            $income['updated_by']= auth()->user()->id;
+            return financeManagementIncomesModel::where("id",$request->id)->update($income);
+        }else{
+            $income['created_by']= auth()->user()->id;
+            return financeManagementIncomesModel::create($income);
+        }
+    }
+    public static function financeManagementRemoveIncome($id){
+        return financeManagementIncomesModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
     }
     public static function getAllIncomeRows(){
         return financeManagementIncomesModel::with(["bank_name"])->get();
+    }
+    public static function getRowById($id){
+        return financeManagementIncomesModel::where("id", $id)->with(["bank_name"])->first();
     }
 
     public static function getAllIncomeRowsById($bank_id,$startDate,$endDate){

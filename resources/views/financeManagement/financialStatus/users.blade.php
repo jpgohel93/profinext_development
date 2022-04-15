@@ -253,7 +253,7 @@
                                     <!--end::Nav item-->
                                     <!--begin::Nav item--> --}}
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6 active" data-bs-toggle="tab" href="#bank">Bank</a>
+                                        <a class="nav-link text-active-primary me-6 active" data-bs-toggle="tab" href="#users">Users</a>
                                     </li>
                                     <!--end::Nav item-->
                                 </ul>
@@ -262,7 +262,7 @@
                         </div>
                     </div>
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="bank" aria-labelledby="active-tab" role="tabpanel">
+                        <div class="tab-pane fade show active" id="users" aria-labelledby="active-tab" role="tabpanel">
                             <!--begin::Card-->
                             <div class="card">
                                 <!--begin::Card header-->
@@ -305,30 +305,6 @@
                                                     <td>{{$bank['income']}}</td>
                                                     <td>0</td>
                                                     <td>{{$firmTab['st']['income'].','.$firmTab['sg']['income']}}</td>
-                                                    <td>
-                                                        <a href="{{route('viewMore')}}">
-                                                            <i class="fas fa-eye fa-lg"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Salary</td>
-                                                    <td>{{$bank['salary']+0}}</td>
-                                                    <td>{{$bank['salary']}}</td>
-                                                    <td>0</td>
-                                                    <td>{{$bank['st']['salary'].','.$bank['sg']['salary']}}</td>
-                                                    <td>
-                                                        <a href="{{route('viewMore')}}">
-                                                            <i class="fas fa-eye fa-lg"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Cash</td>
-                                                    <td>{{$bank['cash']}}</td>
-                                                    <td>{{$bank['cash']}}</td>
-                                                    <td>0</td>
-                                                    <td>{{$bank['st']['cash'].','.$bank['sg']['cash']}}</td>
                                                     <td>
                                                         <a href="{{route('viewMore')}}">
                                                             <i class="fas fa-eye fa-lg"></i>

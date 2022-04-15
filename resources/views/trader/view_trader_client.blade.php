@@ -253,6 +253,9 @@
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 holdingDematAccount"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">Add Holding</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
+                                                                            <a href="{{route('squareOffDemat',$account->id,$account)}}" class="menu-link px-3 squareOffDematAccount" >Square off</a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 changeStatus" data-value="renew">Send for Renew</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
@@ -273,8 +276,7 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                                <div class="tab-pane fade show" id="holdingAccount" aria-labelledby="active-tab"
-                                     role="tabpanel">
+                                <div class="tab-pane fade show" id="holdingAccount" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
                                         <div class="card-body p-0">
@@ -333,6 +335,9 @@
                                                                         </div>
                                                                         <div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 holdingDematAccount"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">Add Holding</a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="{{route('squareOffDemat',$account->id,$account)}}" class="menu-link px-3 squareOffDematAccount" >Square off</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
                                                                             <a href="javascript:void(0)" data-id='{{$account->id}}' class="menu-link px-3 viewDematHolding"  data-name='{{$account->name}}'  data-holder='{{$account->holder_name}}' data-value="holding">View Holding</a>
@@ -461,14 +466,14 @@
                                                             @endphp
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                <td> {{$account->st_sg."-".$account->serial_number}} </td>
-                                                                <td> {{$account->name}}</td>
-                                                                <td> {{$account->holder_name}}</td>
-                                                                <td> {{$account->broker}}</td>
-                                                                <td> {{$account->available_balance}}</td>
-                                                                <td> {{$account->pl}}</td>
-                                                                <td> {{ $days }}</td>
-                                                                <td> {{ $account->problem }}</td>
+                                                                <td>{{$account->st_sg."-".$account->serial_number}} </td>
+                                                                <td>{{$account->name}}</td>
+                                                                <td>{{$account->holder_name}}</td>
+                                                                <td>{{$account->broker}}</td>
+                                                                <td>{{$account->available_balance}}</td>
+                                                                <td>{{$account->pl}}</td>
+                                                                <td>{{$days}}</td>
+                                                                <td>{{$account->problem}}</td>
                                                                 <td class="text-end">
                                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                         <span class="svg-icon svg-icon-5 m-0">
@@ -573,11 +578,7 @@
                     <!--end::Modal body-->
                     <div class="modal-footer text-center">
                         <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Discard</button>
-                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                            <span class="indicator-label">Submit</span>
-                            <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                        </button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
                 <!--end::Form-->
@@ -998,20 +999,20 @@
                         id:id
                     }
                 })
-                    .done(data => {
-                        var html = "";
-                        var counter = 1;
-                        $.each(data, function(index) {
-                            html += " <tr>";
-                            html += "<td>"+ (counter++) + "</td>";
-                            html += "<td>"+ data[index]['script_name'] + "</td>";
-                            html += "<td>"+ data[index]['quantity'] + "</td>";
-                            html += "<td>"+ data[index]['entry_price'] + "</td>";
-                            html += " </tr>";
-                        });
-                        $("#script_data").html(html);
-                        $("#script_modal").modal("show");
-                    })
+                .done(data => {
+                    var html = "";
+                    var counter = 1;
+                    $.each(data, function(index) {
+                        html += " <tr>";
+                        html += "<td>"+ (counter++) + "</td>";
+                        html += "<td>"+ data[index]['script_name'] + "</td>";
+                        html += "<td>"+ data[index]['quantity'] + "</td>";
+                        html += "<td>"+ data[index]['entry_price'] + "</td>";
+                        html += " </tr>";
+                    });
+                    $("#script_data").html(html);
+                    $("#script_modal").modal("show");
+                })
             });
 
             $(document).on("click",'.problemDematAccount',function(e){
@@ -1039,7 +1040,7 @@
                         is_make_as_preferred: value
                     },
                     success: function(response) {
-                        window.location.href = "/trader/accounts";
+                        window.location.href = "{{route('viewTraderAccounts')}}";
                     }
                 });
             });
@@ -1055,7 +1056,7 @@
                     },
                     success: function(response) {
                         if(response){
-                            window.location.href = "/trader/accounts";
+                            window.location.href = "{{route('viewTraderAccounts')}}";
                         }else{
                             window.alert("Something want wrong");
                         }
@@ -1110,7 +1111,7 @@
         }
 
         function myFunction(id){
-            $.ajax("/loginInfo/" + id, {
+            $.ajax("{{route('getLoginInfo')}}/" + id, {
                 type: "GET",
             }).done(data => {
                 var text =  "Broker Name : " + data.broker + "\n";

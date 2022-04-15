@@ -48,6 +48,12 @@ class financeManagementExpensesServices
         $expense['created_by'] = auth()->user()->id;
         return financeManagementExpensesModel::create($expense);
     }
+    public static function financeManagementRemoveExpense($id){
+        return financeManagementExpensesModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
+    }
+    public static function getRowById($id){
+        return financeManagementExpensesModel::where("id", $id)->with(["bank_name"])->first();
+    }
     public static function getAllExpenseRows()
     {
         return financeManagementExpensesModel::with(["bank_name"])->get();

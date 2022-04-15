@@ -44,6 +44,12 @@ class financeManagementTransferServices
         $transfer['created_by'] = auth()->user()->id;
         return financeManagementTransferModel::create($transfer);
     }
+    public static function financeManagementRemoveTransfer($id){
+        return financeManagementTransferModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
+    }
+    public static function getRowById($id){
+        return financeManagementTransferModel::where("id", $id)->first();
+    }
     public static function getAllTransferRows()
     {
         return financeManagementTransferModel::get();

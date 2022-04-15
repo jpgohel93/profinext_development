@@ -165,38 +165,81 @@ class financialStatusServices
     {
         $demat = array();
         if(null!== $request->startDate){
-            dd($request);
+            $startDate = date("Y-m-d",strtotime($request->startDate));
+            $endDate = date("Y-m-d",strtotime($request->endDate));
+        }else{
+            // current financial year
+            $startDate = date("Y-m-d",strtotime("1st day of this month"));
+            $endDate = date("Y-m-d",strtotime("last day of this month"));
         }
-        $income["day"] = financeManagementIncomesModel::where("created_by", auth()->user()->id)->whereDate("date", date("Y-m-d"))->sum("amount");
-        $expense["day"] = financeManagementExpensesModel::where("created_by", auth()->user()->id)->whereDate("date", date("Y-m-d"))->sum("amount");
-
-        $income["month"] = financeManagementIncomesModel::where("created_by", auth()->user()->id)->whereYear("date", date("Y"))->whereMonth("date", date("m"))->sum("amount");
-        $expense["month"] = financeManagementExpensesModel::where("created_by", auth()->user()->id)->whereYear("date", date("Y"))->whereMonth("date", date("m"))->sum("amount");
-        $demat['total'] = Client::where("created_by", auth()->user()->id)->count();
-        $demat['service_details'] = self::getServicesDetails();
 
         $bank = array();
 
-        $bank['salary'] = financeManagementTransferModel::leftJoin("finance_management_banks", "finance_management_transfers.to", "like", "finance_management_banks.title")->where("finance_management_banks.type", 2)->sum("finance_management_transfers.amount");
+        $bank['salary'] = financeManagementTransferModel::leftJoin("finance_management_banks", "finance_management_transfers.to", "like", "finance_management_banks.title")->where("finance_management_banks.type", 2)->whereDate("finance_management_transfers.date",">=",$startDate)->whereDate("finance_management_transfers.date","<=",$endDate)->sum("finance_management_transfers.amount");
 
-        $bank['st']['salary'] = financeManagementTransferModel::sum("amount");
-        $bank['sg']['salary'] = financeManagementTransferModel::sum("amount");
+        $bank['st']['salary'] = financeManagementTransferModel::whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->sum("amount");
+
+        $bank['sg']['salary'] = financeManagementTransferModel::whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->sum("amount");
 
 
-        $bank['income'] = financeManagementIncomesModel::where("finance_management_incomes.mode", "1")->leftJoin("finance_management_banks", "finance_management_incomes.bank", "=", "finance_management_banks.id")->where("finance_management_banks.type", 1)->sum("finance_management_incomes.amount");
+        $bank['income'] = financeManagementIncomesModel::where("finance_management_incomes.mode", "1")->leftJoin("finance_management_banks", "finance_management_incomes.bank", "=", "finance_management_banks.id")->where("finance_management_banks.type", 1)->whereDate("finance_management_incomes.date",">=",$startDate)->whereDate("finance_management_incomes.date","<=",$endDate)->sum("finance_management_incomes.amount");
 
-        // $bank['income'] = financeManagementIncomesModel::where("mode","1")->whereDate("date",">=",$start)->whereDate("date", "<=", $end)->sum("amount");
-        $bank['cash'] = financeManagementIncomesModel::where("mode", "0")->sum("amount");
-        $bank['st']['cash'] = financeManagementIncomesModel::where("mode", "0")->sum("st_amount");
-        $bank['sg']['cash'] = financeManagementIncomesModel::where("mode", "0")->sum("sg_amount");
+        $bank['cash'] = financeManagementIncomesModel::where("mode", "0")->whereDate("date",">=",$startDate)->whereDate("date", "<=",$endDate)->sum("amount");
 
-        $firmTab['st']['income'] = financeManagementIncomesModel::where("income_form", "st")->sum("amount");
+        $bank['st']['cash'] = financeManagementIncomesModel::where("mode", "0")->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->sum("st_amount");
+        $bank['sg']['cash'] = financeManagementIncomesModel::where("mode", "0")->whereDate("date",">=",$startDate)->whereDate("date", "<=", $endDate)->sum("sg_amount");
 
-        $firmTab['sg']['income'] = financeManagementIncomesModel::where("income_form", "sg")->sum("amount");
+        $firmTab['st']['income'] = financeManagementIncomesModel::where("income_form", "st")->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->sum("amount");
 
+        $firmTab['sg']['income'] = financeManagementIncomesModel::where("income_form", "sg")->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->sum("amount");
+
+        
         if($request->ajax()){
-            
-            return response(json_encode(["data"=>[$income, $expense, $demat, $bank, $firmTab]]),200, ["Content-Type" => "Application/json"]);
+            $html = "<tr>
+                        <td>Income</td>
+                        <td>".$bank['income']."</td>
+                        <td>".$bank['income']."</td>
+                        <td>0</td>
+                        <td>".$firmTab['st']['income'].','.$firmTab['sg']['income']."</td>
+                        <td>
+                            <a href=".route('viewMore').">
+                                <i class='fas fa-eye fa-lg'></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Salary</td>
+                        <td>".$bank['salary']."</td>
+                        <td>".$bank['salary']."</td>
+                        <td>0</td>
+                        <td>".$bank['st']['salary'].','.$bank['sg']['salary']."</td>
+                        <td>
+                            <a href=".route('viewMore').">
+                                <i class='fas fa-eye fa-lg'></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Cash</td>
+                        <td>".$bank['cash']."</td>
+                        <td>".$bank['cash']."</td>
+                        <td>0</td>
+                        <td>".$bank['st']['cash'].','.$bank['sg']['cash']."</td>
+                        <td>
+                            <a href=".route('viewMore').">
+                                <i class='fas fa-eye fa-lg'></i>
+                            </a>
+                        </td>
+                    </tr>";
+            return response(json_encode(["data"=>$html]),200, ["Content-Type" => "Application/json"]);
+        }else{
+            $income["day"] = financeManagementIncomesModel::where("created_by", auth()->user()->id)->whereDate("date", ">=",$startDate)->whereDate("date","<=",$endDate)->sum("amount");
+            $expense["day"] = financeManagementExpensesModel::where("created_by", auth()->user()->id)->whereDate("date", ">=",$startDate)->whereDate("date","<=",$endDate)->sum("amount");
+
+            $income["month"] = financeManagementIncomesModel::where("created_by", auth()->user()->id)->whereYear("date", date("Y"))->whereMonth("date", date("m"))->sum("amount");
+            $expense["month"] = financeManagementExpensesModel::where("created_by", auth()->user()->id)->whereYear("date", date("Y"))->whereMonth("date", date("m"))->sum("amount");
+            $demat['total'] = Client::where("created_by", auth()->user()->id)->count();
+            $demat['service_details'] = self::getServicesDetails();
         }
         return view("financeManagement.financialStatus.bank", compact("income", "expense", "demat",'bank', 'firmTab'));
     }

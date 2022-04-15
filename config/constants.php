@@ -62,6 +62,14 @@ return [
         3=>"Channel Partner",
         4=>"Freelancer AMS",
         5=>"Freelancer Prime" 
+    ],
+    "INVOICE_TYPE_BY_SUB_HEADING"=>[
+        "AMS Fees"=>1,
+        "Prime Fees"=>1,
+        "Prime Next Fees"=>1,
+        "AMS Profit Sharing"=>2,
+        "Prime Profit Sharing"=>2,
+        "Prime Next Profit Sharing"=>2,
     ]
 ];
 

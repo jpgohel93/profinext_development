@@ -51,15 +51,27 @@ class AccountingController extends Controller
         financeManagementIncomesServices::financeManagementAddIncome($request);
         return Redirect::route("financeManagementAccounting")->with("info", "new income recorded");
     }
+    public function financeManagementRemoveIncome($id){
+        financeManagementIncomesServices::financeManagementRemoveIncome($id);
+        return Redirect::back()->with("info", "income record removed");
+    }
     // expenses
     public function financeManagementAddExpense(Request $request){
         financeManagementExpensesServices::financeManagementAddExpense($request);
         return Redirect::route("financeManagementAccounting")->with("info", "new Expense recorded");
     }
+    public function financeManagementRemoveExpense($id){
+        financeManagementExpensesServices::financeManagementRemoveExpense($id);
+        return Redirect::back()->with("info", "Expense record removed");
+    }
     // transfer
     public function financeManagementAddTransfer(Request $request){
         financeManagementTransferServices::financeManagementAddTransfer($request);
         return Redirect::route("financeManagementAccounting")->with("info", "new Transfer recorded");
+    }
+    public function financeManagementRemoveTransfer($id){
+        financeManagementTransferServices::financeManagementRemoveTransfer($id);
+        return Redirect::back()->with("info", "Transfer record removed");
     }
     public function financeManagementTransferGetUsersBank(Request $request){
         $banks = financeManagementTransferServices::getTransferBanks($request);
@@ -69,5 +81,26 @@ class AccountingController extends Controller
     public function financeManagementAddLoan(Request $request){
         financeManagementLoanServices::financeManagementAddLoan($request);
         return Redirect::route("financeManagementAccounting")->with("info", "new Loan recorded");
+    }
+    public function financeManagementRemoveLoan($id){
+        financeManagementLoanServices::financeManagementRemoveLoan($id);
+        return Redirect::back()->with("info", "Loan record removed");
+    }
+    public function financeManagementGetRow(Request $request){
+        $type = $request->validate([
+            "type" => "required",
+            "id"=> "required"
+        ]);
+        $row = array();
+        if($type['type']=="income"){
+            $row = financeManagementIncomesServices::getRowById($type['id']);
+        }
+        else if($type['type']=="expense"){
+            $row = financeManagementExpensesServices::getRowById($type['id']);
+        }
+        else if($type['type']=="transfer"){
+            $row = financeManagementTransferServices::getRowById($type['id']);
+        }
+        return response($row,200, ["Content-Type" => "Application/json"]);
     }
 }

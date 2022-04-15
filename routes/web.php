@@ -89,7 +89,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/client/edit/remove/pancard",[ClientController::class,"removeDematePancard"])->name("removeDematePancard");
     Route::POST("/freelancer/client/assign",[ClientController::class,'assignClientToFreelancer'])->name('assignClientToFreelancer');
     Route::POST("/clients/edit/Demat",[ClientController::class,"editClientDematAccount"])->name("editClientDematAccount");
-    Route::get("/loginInfo/{id}", [ClientController::class, "getLoginInfo"])->name("getLoginInfo");
+    Route::get("/loginInfo/{id?}", [ClientController::class, "getLoginInfo"])->name("getLoginInfo");
     // users
     Route::get("/users",[UserController::class,"all"])->name("users");
     // view users
@@ -327,15 +327,20 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post("/financeManagement/heading/get", [AccountingController::class, "getHeadingById"])->name("financeManagementGetHeadings");
     Route::post("/financeManagement/heading/edit", [AccountingController::class, "financeManagementEditHeadings"])->name("financeManagementEditHeadings");
     Route::post("/financeManagement/heading/activateDeactivateHeading",[AccountingController::class, "activateDeactivateHeadingFinanceManagementAccounting"])->name("activateDeactivateHeadingFinanceManagementAccounting");
+    Route::post("/financeManagement/row/get", [AccountingController::class, "financeManagementGetRow"])->name("financeManagementGetRow");
     // finance Management income
     Route::post("/financeManagement/income/add", [AccountingController::class, "financeManagementAddIncome"])->name("accounting.income");
+    Route::get("/financeManagement/income/remove/{id}", [AccountingController::class, "financeManagementRemoveIncome"])->name("accounting.income.remove");
     // finance Management expense
     Route::post("/financeManagement/expense/add", [AccountingController::class, "financeManagementAddExpense"])->name("accounting.expense");
+    Route::get("/financeManagement/expense/remove/{id}", [AccountingController::class, "financeManagementRemoveExpense"])->name("accounting.expense.remove");
     // finance Management transfer
     Route::post("/financeManagement/transfer/add", [AccountingController::class, "financeManagementAddTransfer"])->name("accounting.transfer");
+    Route::get("/financeManagement/transfer/remove/{id}", [AccountingController::class, "financeManagementRemoveTransfer"])->name("accounting.transfer.remove");
     Route::post("/financeManagement/transfer/userBanks/get", [AccountingController::class, "financeManagementTransferGetUsersBank"])->name("accounting.TransferGetUsersBank");
     // finance Management loan
     Route::post("/financeManagement/loan/add", [AccountingController::class, "financeManagementAddLoan"])->name("accounting.loan");
+    Route::get("/financeManagement/loan/remove/{id}", [AccountingController::class, "financeManagementRemoveLoan"])->name("accounting.loan.remove");
     // finance Management - Financial Status
     Route::get("/financeManagement/FinancialStatus", [FinancialStatusController::class, "financialStatus"])->name("financeManagementFinancialStatus");
     Route::get("/financeManagement/view/st", [FinancialStatusController::class, "viewMoreSt"])->name("viewMoreSt");

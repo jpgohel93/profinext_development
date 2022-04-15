@@ -194,6 +194,7 @@
                                                             <th class="min-w-75px">Particular</th>
                                                             <th class="min-w-75px">Mode</th>
                                                             <th class="min-w-75px">Amount</th>
+                                                            <th class="min-w-75px">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
@@ -209,6 +210,37 @@
                                                                 <td>{{$incomeRecord->text_box}}</td>
                                                                 <td>{{($incomeRecord->mode==0)?"Cash":$incomeRecord->bank_name->title}}</td>
                                                                 <td style="color:#3cba54">{{$incomeRecord->amount}}</td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$incomeRecord->id}}" class='menu-link px-3 income edit'>
+                                                                                Edit
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="{{route('accounting.income.remove',$incomeRecord->id)}}" class='menu-link px-3 income delete'>
+                                                                                Delete
+                                                                            </a>
+                                                                        </div>
+                                                                        @if($incomeRecord->renewal_account_id!=null)
+                                                                            @php
+                                                                                $type = isset(Config()->get("constants.INVOICE_TYPE_BY_SUB_HEADING")[$incomeRecord->sub_heading])?Config()->get("constants.INVOICE_TYPE_BY_SUB_HEADING")[$incomeRecord->sub_heading]:"3";
+                                                                            @endphp
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="{{route('viewFeesInvoice',$incomeRecord->id,$type)}}" data-id="{{$incomeRecord->id}}" class='menu-link px-3 income invoice'>
+                                                                                    View invoice
+                                                                                </a>
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
+                                                                </td>
                                                             </tr>
                                                         @empty
                                                             {{-- empty --}}
@@ -222,6 +254,27 @@
                                                                 <td>{{$expense->text_box}}</td>
                                                                 <td>{{($expense->mode==0)?"Cash":$expense->bank_name->title}}</td>
                                                                 <td style="color:#db3236">{{$expense->amount}}</td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$expense->id}}" class='menu-link px-3 expense edit'>
+                                                                                Edit
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="{{route('accounting.expense.remove',$expense->id)}}" class='menu-link px-3 expense delete'>
+                                                                                Delete
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
                                                             </tr>
                                                         @empty
                                                             {{-- empty --}}
@@ -235,6 +288,27 @@
                                                                 <td>{{$transfer->narration}}</td>
                                                                 <td>{{$transfer->from}}</td>
                                                                 <td style="color:#4885ed">{{$transfer->amount}}</td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$transfer->id}}" class='menu-link px-3 transfer edit'>
+                                                                                Edit
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="{{route('accounting.transfer.remove',$transfer->id)}}" class='menu-link px-3 transfer delete'>
+                                                                                Delete
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
                                                             </tr>
                                                         @empty
                                                             {{-- empty --}}
@@ -248,6 +322,32 @@
                                                                 <td>{{$loan->narration}}</td>
                                                                 <td>{{($loan->mode==0)?"Cash":$loan->bank_name->title}}</td>
                                                                 <td style="color:#f4c20d">{{$loan->amount}}</td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$loan->id}}" class='menu-link px-3 loan edit'>
+                                                                                Edit
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="{{route('accounting.loan.remove',$loan->id)}}" class='menu-link px-3 loan delete'>
+                                                                                Delete
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$loan->id}}" class='menu-link px-3 loan invoice'>
+                                                                                View invoice
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
                                                             </tr>
                                                         @empty
                                                             {{-- empty --}}
@@ -297,6 +397,7 @@
                                                             <th class="min-w-75px">Client Name</th>
                                                             <th class="min-w-75px">Mode</th>
                                                             <th class="min-w-75px">Amount</th>
+                                                            <th class="min-w-75px">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
@@ -308,6 +409,32 @@
                                                                 <td>{{$incomeRecord->text_box}}</td>
                                                                 <td>{{($incomeRecord->mode==0)?"Cash":$incomeRecord->bank_name->title}}</td>
                                                                 <td style="color:#3cba54">{{$incomeRecord->amount}}</td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$incomeRecord->id}}" class='menu-link px-3 income edit'>
+                                                                                Edit
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$incomeRecord->id}}" class='menu-link px-3 income delete'>
+                                                                                Delete
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$incomeRecord->id}}" class='menu-link px-3 income invoice'>
+                                                                                View invoice
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
                                                             </tr>
                                                         @empty
                                                             {{-- empty --}}
@@ -357,6 +484,7 @@
                                                             <th class="min-w-75px">Client Name</th>
                                                             <th class="min-w-75px">Mode</th>
                                                             <th class="min-w-75px">Amount</th>
+                                                            <th class="min-w-75px">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
@@ -368,6 +496,32 @@
                                                                 <td>{{$expense->text_box}}</td>
                                                                 <td>{{($expense->mode==0)?"Cash":$expense->bank_name->title}}</td>
                                                                 <td style="color:#db3236">{{$expense->amount}}</td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$expense->id}}" class='menu-link px-3 expense edit'>
+                                                                                Edit
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$expense->id}}" class='menu-link px-3 expense delete'>
+                                                                                Delete
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$expense->id}}" class='menu-link px-3 expense invoice'>
+                                                                                View invoice
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
                                                             </tr>
                                                         @empty
                                                             {{-- empty --}}
@@ -418,6 +572,7 @@
                                                             <th class="min-w-75px">To</th>
                                                             <th class="min-w-75px">Narration</th>
                                                             <th class="min-w-75px">Amount</th>
+                                                            <th class="min-w-75px">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
@@ -430,6 +585,32 @@
                                                                 <td>{{$transfer->to}}</td>
                                                                 <td>{{$transfer->narration}}</td>
                                                                 <td style="color:#4885ed">{{$transfer->amount}}</td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$transfer->id}}" class='menu-link px-3 transfer edit'>
+                                                                                Edit
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$transfer->id}}" class='menu-link px-3 transfer delete'>
+                                                                                Delete
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$transfer->id}}" class='menu-link px-3 transfer invoice'>
+                                                                                View invoice
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
                                                             </tr>
                                                         @empty
                                                             {{-- empty --}}
@@ -481,6 +662,7 @@
                                                             <th class="min-w-75px">Mode</th>
                                                             <th class="min-w-75px">Interest</th>
                                                             <th class="min-w-75px">Amount</th>
+                                                            <th class="min-w-75px">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
@@ -494,6 +676,32 @@
                                                                 <td>{{($loan->mode==0)?"Cash":$loan->bank_name->title}}</td>
                                                                 <td>{{$loan->interest}}</td>
                                                                 <td style="color:#f4c20d">{{$loan->amount}}</td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$loan->id}}" class='menu-link px-3 loan edit'>
+                                                                                Edit
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$loan->id}}" class='menu-link px-3 loan delete'>
+                                                                                Delete
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-3">
+                                                                            <a href="javascript:void(0)" data-id="{{$loan->id}}" class='menu-link px-3 loan invoice'>
+                                                                                View invoice
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
                                                             </tr>
                                                         @empty
                                                             {{-- empty --}}
@@ -553,9 +761,10 @@
                 <!--begin::Modal body-->
                 <div class="modal-body">
                     <!--begin:Form-->
-                    <form method="POST" action="{{route('accounting.income')}}" class="form">
+                    <form method="POST" action="{{route('accounting.income')}}" id="incomeForm" class="form">
                         @csrf
                         <div class="row mb-8">
+                            <div id="incomeEditIdContainer"></div>
                             <!--begin::Col-->
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -564,7 +773,7 @@
                                         <span class="required">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
+                                    <input type="date" value="{{old('date')}}" id='date' name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
                                 </div>
 
                                 <div class="form-group">
@@ -573,7 +782,7 @@
                                         <span class="required">Sub Heading:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <select class="form-select form-select-solid" name="sub_heading" data-control="select2" data-placeholder="Select sub heading">
+                                    <select class="form-select form-select-solid" id="sub_heading" name="sub_heading" data-control="select2" data-placeholder="Select sub heading">
                                         <option value=""></option>
                                         @forelse ($headings['income'] as $heading)
                                             <option value="{{$heading->sub_heading}}">{{$heading->sub_heading}}</option>
@@ -587,7 +796,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Text Box:</span>
                                     </label>
-                                    <textarea type="text" class="form-control mx-3" name='text_box'></textarea>
+                                    <textarea type="text" class="form-control mx-3" id="text_box" name='text_box'></textarea>
                                 </div>
                                 <div class="form-group col-md-3">
                                      <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
@@ -601,7 +810,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Bank:</span>
                                     </label>
-                                    <select class="form-select form-select-solid" name="bank" data-control="select2">
+                                    <select class="form-select form-select-solid" id="bank" name="bank" data-control="select2">
                                         @forelse ($incomeBanks as $bank)
                                             <option value="{{$bank->id}}">{{$bank->title}}</option>
                                         @empty
@@ -615,7 +824,7 @@
                                         <span class="required">Income form:</span>
                                         <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select form of income"></i>
                                     </label>
-                                    <select class="form-select form-select-solid transactionForm" name="income_form" id="income_smartId" data-control="select2">
+                                    <select class="form-select form-select-solid transactionForm" id="income_form" name="income_form" id="income_smartId" data-control="select2">
                                         <option value="st" selected>ST</option>
                                         <option value="sg">SG</option>
                                         <option value="both">Both</option>
@@ -628,7 +837,7 @@
                                            <span class="required">ST:</span>
                                        </label>
                                        <!--end::Label-->
-                                       <input type="text" value="{{old('st_amount')}}" name="st_amount" class="form-control form-control-solid" value=""/>
+                                       <input type="text" value="{{old('st_amount')}}" id="st_amount" name="st_amount" class="form-control form-control-solid" value=""/>
                                     </div>
                                     <div class="form-group">
                                         <!--begin::Label-->
@@ -636,7 +845,7 @@
                                            <span class="required">SG:</span>
                                        </label>
                                        <!--end::Label-->
-                                       <input type="text" value="{{old('sg_amount')}}" name="sg_amount" class="form-control form-control-solid" value=""/>
+                                       <input type="text" value="{{old('sg_amount')}}" id="sg_amount" name="sg_amount" class="form-control form-control-solid" value=""/>
                                     </div>
                                 </div>
                                 <div class="form-group mainAmount">
@@ -652,7 +861,7 @@
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                         <span class="required">Narration:</span>
                                     </label>
-                                    <textarea type="text" class="form-control mx-3" name='narration'></textarea   tarea>
+                                    <textarea type="text" class="form-control mx-3" id="narration" name='narration'></textarea   tarea>
                                 </div>
                             </div>
                             <!--end::Col-->
@@ -661,12 +870,8 @@
 
                         <!--begin::Actions-->
                         <div class="text-left">
-                            <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" id="call_modal_submit" class="btn btn-primary">
-                                <span class="indicator-label">Add</span>
-                                <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
+                            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                         <!--end::Actions-->
                     </form>
@@ -708,9 +913,10 @@
                 <!--begin::Modal body-->
                 <div class="modal-body">
                     <!--begin:Form-->
-                    <form method="POST" action="{{route('accounting.expense')}}" class="form">
+                    <form method="POST" id="expenseForm" action="{{route('accounting.expense')}}" class="form">
                         @csrf
                         <div class="row mb-8">
+                            <div id="expenseEditIdContainer"></div>
                             <!--begin::Col-->
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -816,11 +1022,7 @@
                         <!--begin::Actions-->
                         <div class="text-left">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">
-                                <span class="indicator-label">Add</span>
-                                <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                         <!--end::Actions-->
                     </form>
@@ -862,7 +1064,7 @@
                 <!--begin::Modal body-->
                 <div class="modal-body">
                     <!--begin:Form-->
-                    <form method="POST" action="{{route('accounting.transfer')}}" class="form">
+                    <form method="POST" id="transferForm" action="{{route('accounting.transfer')}}" class="form">
                         @csrf
                         <div class="row mb-8">
                             <!--begin::Col-->
@@ -1442,6 +1644,117 @@
                         }else{
                             $(this).after(`<p class='invalidAmount h5 text-danger'>Invalid amount</p>`);
                         }
+                    }
+                })
+                // edit
+                $(document).on("click",".edit",function(e){
+                    const id= e.target.getAttribute("data-id");
+                    if($(e.target).hasClass("income")){
+                        $.ajax("{{route('financeManagementGetRow')}}",{
+                            type:"POST",
+                            data:{
+                                type:"income",
+                                id:id
+                            }
+                        })
+                        .done(data=>{
+                            console.log(data);
+                            $("#incomeForm").find("#date").val(data.date);
+                            $("#incomeForm").find("#sub_heading").val(data.sub_heading).change();
+                            $("#incomeForm").find("#text_box").val(data.text_box);
+                            $("#incomeForm").find("#st_amount").val(data.st_amount);
+                            $("#incomeForm").find("#sg_amount").val(data.sg_amount);
+                            $("#incomeForm").find("[togglepaymentmode]").val(data.mode);
+                            if(data.mode==1){
+                                $("#incomeForm").find("[togglepaymentmode]").prop("checked",true);
+                            }else{
+                                $("#incomeForm").find("[togglepaymentmode]").prop("checked",false);
+                            }
+                            $("#incomeForm").find("#incomeAmount").val(data.amount);
+                            $("#incomeForm").find("#income_form").val(data.income_form).change();
+                            $("#incomeForm").find("#incomeEditIdContainer").html(`<input type='hidden' name='id' value='${data.id}'>`);
+                            $("#incomeModel").modal("show");
+                        })
+                        .fail((err)=>{
+                            console.log(err);
+                        })
+                    }else if($(e.target).hasClass("expense")){
+                        $.ajax("{{route('financeManagementGetRow')}}",{
+                            type:"POST",
+                            data:{
+                                type:"expense",
+                                id:id
+                            }
+                        })
+                        .done(data=>{
+                            console.log(data);
+                            $("#expenseForm").find("[name='date']").val(data.date);
+                            $("#expenseForm").find("[name='sub_heading']").val(data.sub_heading).change();
+                            $("#expenseForm").find("[name='text_box']").val(data.text_box);
+                            $("#expenseForm").find("[name='st_amount']").val(data.st_amount);
+                            $("#expenseForm").find("[name='sg_amount']").val(data.sg_amount);
+                            $("#expenseForm").find("[togglepaymentmode]").val(data.mode);
+                            if(data.mode==1){
+                                $("#expenseForm").find("[togglepaymentmode]").prop("checked",true);
+                            }else{
+                                $("#expenseForm").find("[togglepaymentmode]").prop("checked",false);
+                            }
+                            $("#expenseForm").find("[name='amount']").val(data.amount);
+                            $("#expenseForm").find("[name='income_form']").val(data.income_form).change();
+                            $("#expenseForm").find("#expenseEditIdContainer").html(`<input type='hidden' name='id' value='${data.id}'>`);
+                            $("#expensesModel").modal("show");
+                        })
+                        .fail((err)=>{
+                            console.log(err);
+                        })
+                    }else if($(e.target).hasClass("transfer")){
+                        $.ajax("{{route('financeManagementGetRow')}}",{
+                            type:"POST",
+                            data:{
+                                type:"transfer",
+                                id:id
+                            }
+                        })
+                        .done(async data=>{
+                            $("#transferForm").find("[name='date']").val(data.date);
+                            $("#transferForm").find("[name='from']").val(data.from).change();
+                            $("#transferForm").find("[name='purpose']").val(data.purpose);
+                            await $.ajax("{{route('accounting.TransferGetUsersBank')}}",{
+                                type:"POST",
+                                data:{
+                                    purpose:data.purpose
+                                }
+                            })
+                            .done(x=>{
+                                let options = `<option value="">Select option</option>`;
+                                if(x.length > 0){
+                                    $.each(x,(i,v)=>{
+                                        options+=`<option value='${v}'>${v}</option>`;
+                                    })
+                                }
+                                $("#transferTo").html(options);
+                                $("#transferForm").find("[name='to']").val(data.to).change();
+                            })
+                            .fail((err)=>{
+                                // window.alert("Unable to get bank details");
+                            })
+                            $("#transferForm").find("[name='income_form']").val(data.income_form).change(); 
+                            $("#transferForm").find("[name='st_amount']").val(data.st_amount);
+                            $("#transferForm").find("[name='sg_amount']").val(data.sg_amount);
+                            $("#transferForm").find("[name='amount']").val(data.amount);
+                            $("#transferForm").find("[name='income_form']").val(data.income_form).change();
+                            $("#transferForm").find("#expenseEditIdContainer").html(`<input type='hidden' name='id' value='${data.id}'>`);
+                            $("#transferModel").modal("show");
+                        })
+                        .fail((err)=>{
+                            console.log(err);
+                        })
+                    }
+                })
+                // delete
+                $(document).on("click",".delete",function(e){
+                    if(!window.confirm("Are you sure you want to delete this record?")){
+                        e.preventDefault();
                     }
                 })
             },jQuery)

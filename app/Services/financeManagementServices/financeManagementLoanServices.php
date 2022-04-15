@@ -33,14 +33,14 @@ class financeManagementLoanServices{
             $loan['sg_amount'] = $request->sg_amount;
         } else if ($request->income_form === "st") {
             $request->validate([
-                "st_amount" => "required"
+                "amount" => "required"
             ]);
-            $loan['sg_amount'] = $request->st_amount;
+            $loan['st_amount'] = $request->amount;
         } else if ($request->income_form == "sg") {
             $request->validate([
-                "sg_amount" => "required"
+                "amount" => "required"
             ]);
-            $loan['sg_amount'] = $request->sg_amount;
+            $loan['sg_amount'] = $request->amount;
         } else {
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 "income_form" => ["invalid income form"]
@@ -50,6 +50,9 @@ class financeManagementLoanServices{
         $loan['narration'] = $request->text_box;
         $loan['created_by'] = auth()->user()->id;
         return financeManagementLoanModel::create($loan);
+    }
+    public static function financeManagementRemoveLoan($id){
+        return financeManagementLoanModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
     }
     public static function getAllLoanRows()
     {

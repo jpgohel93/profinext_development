@@ -396,8 +396,8 @@
                                                         @forelse($problemAccounts as $account)
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                <td>{{$account->withClient->name}}</td>
-                                                                <td>{{$account->withClient->number}}</td>
+                                                                <td>{{isset($account->withClient)?$account->withClient->name:""}}</td>
+                                                                <td>{{isset($account->withClient)?$account->withClient->number:""}}</td>
                                                                 <td>{{$account->holder_name}}</td>
                                                                 <td>{{$account->problem}}</td>
                                                                 <td>
