@@ -49,6 +49,10 @@ return [
         "settings-bank-details",
         "settings-service-type",
         "settings-terms-and-condition",
+        "document-management-data",
+        "document-management-pan-card",
+        "document-management-screenshot",
+        "document-management-images",
     ],
     "LABEL_TYPES"=>[
         "income",

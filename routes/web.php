@@ -23,6 +23,7 @@ use App\Http\Controllers\TermsAndConditionsController;
 use App\Http\Controllers\financeManagementControllers\BankControllers;
 use App\Http\Controllers\financeManagementControllers\AccountingController;
 use App\Http\Controllers\financeManagementControllers\FinancialStatusController;
+use App\Http\Controllers\documentManagementController;
 
 // financeManagementControllers
 use App\Http\Controllers\financeManagementControllers\renewalStatusController;
@@ -350,4 +351,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post("/financeManagement/view/st/demat", [FinancialStatusController::class, "dematDetailsFinancialStatus"])->name("dematDetailsFinancialStatus");
     // Business Management
     Route::get("/businessManagement",[renewalStatusController::class,"view"])->name("business_management");
+    // document management
+    Route::get("/document_management",[documentManagementController::class,"data"])->name("documentManagementData");
+    Route::get("/document_management/pan-card",[documentManagementController::class,"panCards"])->name("documentManagementPanCards");
+    Route::get("/document_management/screenshots",[documentManagementController::class,"screenshots"])->name("documentManagementScreenshots");
+    Route::get("/document_management/images",[documentManagementController::class,"images"])->name("documentManagementImages");
 });

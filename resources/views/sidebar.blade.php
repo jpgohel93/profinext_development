@@ -425,6 +425,62 @@
                     </div>
                 @endcan
 
+                @canany(["document-management-data-read","document-management-pan-card-read","document-management-screenshot-read","document-management-images-read"])
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('documentManagement.accordion')">
+                        <span class="menu-link">
+                            <span class="menu-icon">
+                                <span class="svg-icon svg-icon-2">
+                                    <i class="fas fa-solid fa-pen-swirl"></i>
+                                </span>
+                            </span>
+                            <span class="menu-title">Document Management</span>
+                            <span class="menu-arrow"></span>
+                        </span>
+                        <div class="menu-sub menu-sub-accordion menu-active-bg">
+                            @can("document-management-data-read")
+                                <div class="menu-item">
+                                    <a class="menu-link @yield('documentManagement.data')" href="{{route('documentManagementData')}}">
+                                        <span class="menu-bullet">
+                                            <i class="fas fa-solid fa-user-group"></i>
+                                        </span>
+                                        <span class="menu-title">Data</span>
+                                    </a>
+                                </div>
+                            @endcan
+                            @can("document-management-pan-card-read")
+                                <div class="menu-item">
+                                    <a class="menu-link @yield('documentManagement.panCard')" href="{{route('documentManagementPanCards')}}">
+                                        <span class="menu-bullet">
+                                            <i class="fas fa-solid fa-block-quote"></i>
+                                        </span>
+                                        <span class="menu-title">Pan card</span>
+                                    </a>
+                                </div>
+                            @endcan
+                            @can("document-management-screenshot-read")
+                                <div class="menu-item">
+                                    <a class="menu-link @yield('documentManagement.screenshot')" href="{{route('documentManagementScreenshots')}}">
+                                        <span class="menu-bullet">
+                                            <i class="fas fa-solid fa-block-quote"></i>
+                                        </span>
+                                        <span class="menu-title">Screenshot</span>
+                                    </a>
+                                </div>
+                            @endcan
+                            @can("document-management-images-read")
+                                <div class="menu-item">
+                                    <a class="menu-link @yield('documentManagement.images')" href="{{route('documentManagementImages')}}">
+                                        <span class="menu-bullet">
+                                            <i class="fas fa-solid fa-block-quote"></i>
+                                        </span>
+                                        <span class="menu-title">Images</span>
+                                    </a>
+                                </div>
+                            @endcan
+                        </div>
+                    </div>
+                @endcan
+
                 @can("keyword-read")
                     <div class="menu-item">
                         <a class="menu-link @yield('keyword')" href="{{route('keywordData')}}">
