@@ -410,7 +410,7 @@
                                                                     </a>
                                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                                         <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id="{{$account->id}}" data-name='{{$account->withClient->name}}'  data-holder='{{$account->holder_name}}' data-value="normal" data-problem='{{$account->problem}}' class="menu-link px-3 problemDematAccount">Issue Resolved</a>
+                                                                            <a href="javascript:void(0)" data-id="{{$account->id}}" data-name='{{isset($account->withClient)?$account->withClient->name:""}}'  data-holder='{{$account->holder_name}}' data-value="normal" data-problem='{{$account->problem}}' class="menu-link px-3 problemDematAccount">Issue Resolved</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
                                                                             <a href="{{route('clientDematTerminate',$account->id)}}" class="menu-link px-3 terminateDemat">Terminate</a>
@@ -452,8 +452,8 @@
                                                         @forelse($terminatedAccounts as $account)
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                <td>{{$account->withClient->name}}</td>
-                                                                <td>{{$account->withClient->number}}</td>
+                                                                <td>{{isset($account->withClient)?$account->withClient->name:""}}</td>
+                                                                <td>{{isset($account->withClient)?$account->withClient->number:""}}</td>
                                                                 <td>{{$account->holder_name}}</td>
                                                                 <td>
                                                                     <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
