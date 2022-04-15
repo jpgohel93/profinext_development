@@ -124,11 +124,11 @@ class CallServices
             } else {
                 $entry_price[$call->script_name] += (int)$call->entry_price;
                 $qty[$call->script_name] += (int)$call->quantity;
-                $total[$call->script_name] += ($call->entry_price * $call->quantity);
+                $total[$call->script_name] = ($total[$call->script_name] + ($call->entry_price * $call->quantity))/2;
             }
         }
-        // diduct trade which sell
-        $entry_price[$trade['trade']] -= $request->price;
+        // minus trade which sold
+        $entry_price[$trade['trade']] = $request->price;
         if($qty[$trade['trade']]<$request->qty){
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 "Quantity" => ["Invalid Quantity"]
@@ -159,7 +159,7 @@ class CallServices
         return Calls::with(["analyst:id,analyst"])->where("id", $id)->first(['analyst_id', "script_name", "entry_price", "target_price", "stop_loss"]);
     }
     public static function getDematCalls($demat_id){
-        return Calls::where("client_demate_id", $demat_id)->get();
+        return Calls::where("client_demate_id", $demat_id)->orderBy("id", "DESC")->get();
     }
     public static function edit($request){
         try {

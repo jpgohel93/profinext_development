@@ -239,3 +239,19 @@ body {
 table {
     width: 100% !important;
 }
+#select2-filterDropDown-container li{
+  background: #fff;
+  cursor: pointer;
+  /* padding: 5px 10px; */
+  border: 1px solid #ccc;
+}
+#select2-filterDropDown-container li span.select2-selection__choice__display {
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+#filterDropDown textarea.select2-search__field{
+  visibility: hidden;
+}
+#select2-filterDropDown-container+span.select2-search--inline{
+  visibility: hidden;
+}

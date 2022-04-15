@@ -49,7 +49,7 @@ class CallController extends Controller
                 }else{
                     $entry_price[$call->script_name] += (int)$call->entry_price;
                     $qty[$call->script_name] += (int)$call->quantity;
-                    $total[$call->script_name] += ($call->entry_price * $call->quantity);
+                    $total[$call->script_name] = ($total[$call->script_name] + ($call->entry_price * $call->quantity))/2;
                 }
             }
             return response(["demat_id"=>$demat_id,"analyst"=> $analyst,"script_name"=>$scripts,"qty"=>$qty,"entry_price"=>$entry_price,"total"=>$total],200, ["Content-Type" => "Application/json"]);

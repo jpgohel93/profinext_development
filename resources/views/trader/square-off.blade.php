@@ -156,9 +156,9 @@
                             <tr>
                                 <td>${++i}</td>
                                 <td>${v}</td>
-                                <td>${(data["total"][v]/data["entry_price"][v]).toFixed(2)}</td>
+                                <td>${(data["entry_price"][v]).toFixed(2)}</td>
                                 <td>${(data["qty"][v])}</td>
-                                <td>${(data["total"][v])}</td>
+                                <td>${((data["total"][v]))}</td>
                                 <td>
                                     <a href="javascript:void(0)" class='squareOffModal' data-id='${v}' data-analyst_id='${data["analyst"][v]}'>
                                         Square off
