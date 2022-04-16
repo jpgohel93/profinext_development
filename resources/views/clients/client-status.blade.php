@@ -357,7 +357,7 @@
                                                                             <a href="{{route('clientDematTerminate',$toRenew->client_demat_id)}}" class="menu-link px-3 terminateDemat">Terminate</a>
                                                                         </div>
                                                                         <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id="{{$toRenew->id}}" class="menu-link px-3 addImage">Add image</a>
+                                                                            <a href="javascript:void(0)" data-id="{{$toRenew->id}}" class="menu-link px-3 addImage">Upload Screenshot</a>
                                                                         </div>
                                                                     </div>
                                                                 </td>
@@ -1232,7 +1232,7 @@
                 <form enctype="multipart/form-data" action="{{route('renewalAccountImageUpload')}}" method="POST">
                     @csrf
                     <div class="modal-header">
-                        <h2 class="fw-bolder">Upload image</h2>
+                        <h2 class="fw-bolder">Upload Screenshot</h2>
                         <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary close" data-bs-dismiss="modal" aria-label="Close">
                             <span class="svg-icon svg-icon-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

@@ -54,10 +54,10 @@ class financialStatusServices
 
         $bank['st']['salary'] = financeManagementTransferModel::whereDate("date", ">=", $start)->whereDate("date", "<=", $end)->where("income_form","st")->sum("amount");
         $bank['sg']['salary'] = financeManagementTransferModel::whereDate("date", ">=", $start)->whereDate("date", "<=", $end)->where("income_form", "sg")->sum("amount");
-        
-        
+
+
         $bank['income'] = financeManagementIncomesModel::where("finance_management_incomes.mode", "1")->leftJoin("finance_management_banks", "finance_management_incomes.bank", "=", "finance_management_banks.id")->where("finance_management_banks.type", 1)->whereDate("finance_management_incomes.date", ">=", $start)->whereDate("finance_management_incomes.date", "<=", $end)->sum("finance_management_incomes.amount");
-        
+
         // $bank['income'] = financeManagementIncomesModel::where("mode","1")->whereDate("date",">=",$start)->whereDate("date", "<=", $end)->sum("amount");
         $bank['cash'] = financeManagementIncomesModel::where("mode","0")->whereDate("date",">=",$start)->whereDate("date", "<=", $end)->sum("amount");
         $bank['st']['cash'] = financeManagementIncomesModel::where("mode","0")->whereDate("date",">=",$start)->whereDate("date", "<=", $end)->sum("st_amount");
@@ -193,7 +193,7 @@ class financialStatusServices
 
         $firmTab['sg']['income'] = financeManagementIncomesModel::where("income_form", "sg")->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->sum("amount");
 
-        
+
         if($request->ajax()){
             $html = "<tr>
                         <td>Income</td>
@@ -251,7 +251,7 @@ class financialStatusServices
         }else{
             $accounts = ClientDemat::leftJoin("clients", "client_demat.client_id", "=", "clients.id")->where("clients.created_by", auth()->user()->id)->whereYear("client_demat.created_at", date("Y"))->whereMonth("client_demat.created_at", date("m"))->select("client_demat.serial_number", "client_demat.service_type", "client_demat.client_id", "clients.name")->groupBy("client_demat.service_type", "client_demat.client_id")->get();
         }
-        
+
         $i=0;
         foreach($accounts as $account){
             $arr = array();
@@ -267,4 +267,4 @@ class financialStatusServices
         $demat["recordsFiltered"]=$i;
         return $demat;
     }
-}   
+}

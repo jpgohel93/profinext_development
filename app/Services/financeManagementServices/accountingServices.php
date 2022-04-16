@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Config;
 class accountingServices
 {
     public static function financeManagementHeadings(){
-        $income = HeadingsModel::where(["label_type"=>"income","is_active"=>1])->get();
-        $expenses = HeadingsModel::where(["label_type"=> "expense","is_active"=>1])->get();
-        $transfer = HeadingsModel::where(["label_type"=>"transfer","is_active"=>1])->get();
-        $loan = HeadingsModel::where(["label_type"=>"loan","is_active"=>1])->get();
-        $deactivated = HeadingsModel::where("is_active","0")->get();
+        $income = HeadingsModel::where(["label_type"=>"income","is_active"=>1])->orderBy('id', 'DESC')->get();
+        $expenses = HeadingsModel::where(["label_type"=> "expense","is_active"=>1])->orderBy('id', 'DESC')->get();
+        $transfer = HeadingsModel::where(["label_type"=>"transfer","is_active"=>1])->orderBy('id', 'DESC')->get();
+        $loan = HeadingsModel::where(["label_type"=>"loan","is_active"=>1])->orderBy('id', 'DESC')->get();
+        $deactivated = HeadingsModel::where("is_active","0")->orderBy('id', 'DESC')->get();
         return ["income"=>$income, "expenses"=>$expenses,"transfer"=>$transfer,"loan"=>$loan,"deactivated"=>$deactivated];
     }
     public static function financeManagementAddHeadings($request){
@@ -76,6 +76,6 @@ class accountingServices
         return HeadingsModel::where("id",$id)->first();
     }
     public static function getIncomeBanks(){
-        return BankModel::where("type",1)->get();
+        return BankModel::where("type",1)->orderBy('id', 'DESC')->get();
     }
 }

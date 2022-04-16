@@ -234,7 +234,7 @@
                                                                                 $invoice_type = isset(Config()->get("constants.INVOICE_TYPE_BY_SUB_HEADING")[$incomeRecord->sub_heading])?Config()->get("constants.INVOICE_TYPE_BY_SUB_HEADING")[$incomeRecord->sub_heading]:3;
                                                                             @endphp
                                                                             <div class="menu-item px-3">
-                                                                                <a href="{{route('viewFeesInvoice',[$incomeRecord->id,$invoice_type])}}" class='menu-link px-3 income invoice'>
+                                                                                <a href="{{route('viewFeesInvoice',[$incomeRecord->renewal_account_id,$invoice_type])}}" class='menu-link px-3 income invoice'>
                                                                                     View invoice
                                                                                 </a>
                                                                             </div>
@@ -1359,9 +1359,7 @@
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
                 $("select").select2();
-                var table = $("table.datatable").DataTable({
-                    "order": [[1, "DESC" ]]
-                });
+                var table = $("table.datatable").DataTable();
                 $("#income_smartId").select2();
                 $("#expense_smartId").select2();
                 $("#transfer_smartId").select2();

@@ -56,7 +56,7 @@ class financeManagementLoanServices{
     }
     public static function getAllLoanRows()
     {
-        return financeManagementLoanModel::with(["bank_name", "user_name"])->get();
+        return financeManagementLoanModel::with(["bank_name", "user_name"])->orderBy('id', 'DESC')->get();
     }
-    
+
 }

@@ -56,7 +56,7 @@ class financeManagementExpensesServices
     }
     public static function getAllExpenseRows()
     {
-        return financeManagementExpensesModel::with(["bank_name"])->get();
+        return financeManagementExpensesModel::with(["bank_name"])->orderBy('id', 'DESC')->get();
     }
     public static function get($current_month = true){
         if($current_month){

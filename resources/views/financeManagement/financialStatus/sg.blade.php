@@ -325,7 +325,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold"></tbody>
-                                                
+
                                                 <!--end::Table body-->
                                                 </table>
                                                 {{-- @if (isset($demat['accounts']))
@@ -599,20 +599,20 @@
                                 // matching how `ajax.data` works in DataTables
                     method: 'POST' // Ajax HTTP method
                 }, opts );
-            
+
                 // Private variables for storing the cache
                 var cacheLower = -1;
                 var cacheUpper = null;
                 var cacheLastRequest = null;
                 var cacheLastJson = null;
-            
+
                 return function ( request, drawCallback, settings ) {
                     var ajax          = false;
                     var requestStart  = request.start;
                     var drawStart     = request.start;
                     var requestLength = request.length;
                     var requestEnd    = requestStart + requestLength;
-                    
+
                     if ( settings.clearCache ) {
                         // API requested that the cache be cleared
                         ajax = true;
@@ -629,26 +629,26 @@
                         // properties changed (ordering, columns, searching)
                         ajax = true;
                     }
-                    
+
                     // Store the request for checking next time around
                     cacheLastRequest = $.extend( true, {}, request );
-            
+
                     if ( ajax ) {
                         // Need data from the server
                         if ( requestStart < cacheLower ) {
                             requestStart = requestStart - (requestLength*(conf.pages-1));
-            
+
                             if ( requestStart < 0 ) {
                                 requestStart = 0;
                             }
                         }
-                        
+
                         cacheLower = requestStart;
                         cacheUpper = requestStart + (requestLength * conf.pages);
-            
+
                         request.start = requestStart;
                         request.length = requestLength*conf.pages;
-            
+
                         // Provide the same `data` options as DataTables.
                         if ( typeof conf.data === 'function' ) {
                             // As a function it is executed with the data object as an arg
@@ -663,7 +663,7 @@
                             // As an object, the data given extends the default
                             $.extend( request, conf.data );
                         }
-            
+
                         return $.ajax( {
                             "type":     conf.method,
                             "url":      conf.url,
@@ -672,14 +672,14 @@
                             "cache":    false,
                             "success":  function ( json ) {
                                 cacheLastJson = $.extend(true, {}, json);
-            
+
                                 if ( cacheLower != drawStart ) {
                                     json.data.splice( 0, drawStart-cacheLower );
                                 }
                                 if ( requestLength >= -1 ) {
                                     json.data.splice( requestLength, json.data.length );
                                 }
-                                
+
                                 drawCallback( json );
                             }
                         } );
@@ -689,12 +689,12 @@
                         json.draw = request.draw; // Update the echo for each response
                         json.data.splice( 0, requestStart-cacheLower );
                         json.data.splice( requestLength, json.data.length );
-            
+
                         drawCallback(json);
                     }
                 }
             };
-            
+
             // Register an API method that will empty the pipelined data, forcing an Ajax
             // fetch on the next draw (i.e. `table.clearPipeline().draw()`)
             $.fn.dataTable.Api.register( 'clearPipeline()', function () {
@@ -702,8 +702,8 @@
                     settings.clearCache = true;
                 } );
             } );
-            
-            
+
+
             //
             // DataTables initialisation
             //

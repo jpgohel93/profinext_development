@@ -52,7 +52,7 @@ class financeManagementTransferServices
     }
     public static function getAllTransferRows()
     {
-        return financeManagementTransferModel::get();
+        return financeManagementTransferModel::orderBy('id', 'DESC')->get();
     }
     public static function getTransferBanks($request){
         if($request->purpose== "Distribution" || $request->purpose== "distribution"){

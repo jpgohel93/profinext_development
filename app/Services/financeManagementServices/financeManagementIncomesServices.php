@@ -55,7 +55,7 @@ class financeManagementIncomesServices{
         return financeManagementIncomesModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
     }
     public static function getAllIncomeRows(){
-        return financeManagementIncomesModel::with(["bank_name"])->get();
+        return financeManagementIncomesModel::with(["bank_name"])->orderBy('id', 'DESC')->get();
     }
     public static function getRowById($id){
         return financeManagementIncomesModel::where("id", $id)->with(["bank_name"])->first();
