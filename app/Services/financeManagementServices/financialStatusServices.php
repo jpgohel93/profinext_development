@@ -8,6 +8,8 @@ use App\Models\ClientDemat;
 use App\Models\financeManagementModel\financeManagementIncomesModel;
 use App\Models\financeManagementModel\financeManagementExpensesModel;
 use App\Models\financeManagementModel\financeManagementTransferModel;
+use App\Models\financeManagementModel\financeManagementLoanModel;
+use App\Models\financeManagementModel\BankModel;
 
 class financialStatusServices
 {
@@ -138,8 +140,7 @@ class financialStatusServices
         $balance['sg'] = financeManagementIncomesModel::where("income_form","sg")->orWhere("income_form","both")->sum("sg_amount");
         return $balance;
     }
-    public static function viewMoreSt()
-    {
+    public static function viewMoreSt(){
         $income["day"] = financeManagementIncomesModel::where("created_by", auth()->user()->id)->whereDate("date",date("Y-m-d"))->sum("amount");
         $expense["day"] = financeManagementExpensesModel::where("created_by", auth()->user()->id)->whereDate("date", date("Y-m-d"))->sum("amount");
 
@@ -149,8 +150,7 @@ class financialStatusServices
         $demat['service_details'] = self::getServicesDetails();
         return view("financeManagement.financialStatus.st",compact("income","expense","demat"));
     }
-    public static function viewMoreSg()
-    {
+    public static function viewMoreSg(){
         $demat = array();
         $income["day"] = financeManagementIncomesModel::where("created_by", auth()->user()->id)->whereDate("date", date("Y-m-d"))->sum("amount");
         $expense["day"] = financeManagementExpensesModel::where("created_by", auth()->user()->id)->whereDate("date", date("Y-m-d"))->sum("amount");
@@ -161,16 +161,15 @@ class financialStatusServices
         $demat['service_details'] = self::getServicesDetails();
         return view("financeManagement.financialStatus.sg", compact("income", "expense", "demat"));
     }
-    public static function viewMore($request)
-    {
+    public static function viewMore($request){
         $demat = array();
         if(null!== $request->startDate){
             $startDate = date("Y-m-d",strtotime($request->startDate));
             $endDate = date("Y-m-d",strtotime($request->endDate));
         }else{
             // current financial year
-            $startDate = date("Y-m-d",strtotime("1st day of this month"));
-            $endDate = date("Y-m-d",strtotime("last day of this month"));
+            $startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
+            $endDate = date("Y-m-d",strtotime(date("Y")."-03-31"));
         }
 
         $bank = array();
@@ -243,25 +242,201 @@ class financialStatusServices
         }
         return view("financeManagement.financialStatus.bank", compact("income", "expense", "demat",'bank', 'firmTab'));
     }
+    public static function incomeExpenseDetailsFinancialStatus($request){
+        $demat['data']= array();
+        $startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
+        $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        if(isset($startDate) && $startDate!="" && isset($endDate) && $endDate != ""){
+            $income = collect(financeManagementIncomesModel::where("mode",0)->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->select("*","id as income")->get());
+        
+            $expense = collect(financeManagementExpensesModel::where("mode",0)->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->select("*","id as expense")->get());
+        }else{
+            $query_one = \Illuminate\Support\Facades\DB::table("finance_management_incomes")->where("income_form",$request->income_form)->leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id");
+        
+            $accounts = \Illuminate\Support\Facades\DB::table("finance_management_incomes")->where("income_form",$request->income_form)->leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id")->unionAll($query_one)->get();
+        }
+        $accounts = $income->merge($expense);
+        $i=0;
+        foreach($accounts as $account){
+            $arr = array();
+            array_push($arr,++$i);
+            array_push($arr,$account->date);
+            array_push($arr,$account->sub_heading);
+            array_push($arr,$account->text_box);
+            array_push($arr,(null!==$account->income)?"<span style='color:#3cba54'>".$account->amount."</span>":"<span style='color:#db3236'>".$account->amount."</span>");
+
+            array_push($demat['data'],$arr);
+        }
+        $demat["recordsTotal"]=$i;
+        $demat["recordsFiltered"]=$i;
+        return $demat;
+    }
+    public static function cashConversionDetailsFinancialStatus($request){
+        $demat['data']= array();
+        $startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
+        $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        if(isset($startDate) && $startDate!="" && isset($endDate) && $endDate != ""){
+            $accounts = financeManagementTransferModel::where("purpose","like","Cash Conversion")->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->get();
+        
+        }else{
+            $accounts = financeManagementTransferModel::where("purpose","like","Cash Conversion")->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->get();
+        }
+        $i=0;
+        foreach($accounts as $account){
+            $arr = array();
+            array_push($arr,++$i);
+            array_push($arr,$account->date);
+            array_push($arr,$account->from);
+            array_push($arr,$account->to);
+            array_push($arr,$account->narration);
+            array_push($arr,$account->amount);
+            array_push($demat['data'],$arr);
+        }
+        $demat["recordsTotal"]=$i;
+        $demat["recordsFiltered"]=$i;
+        return $demat;
+    }
     public static function dematDetailsFinancialStatus($request){
         $demat['data']= array();
 
         if(isset($request->startDate) && $request->startDate!="" && isset($request->endDate) && $request->endDate != ""){
-            $accounts = ClientDemat::leftJoin("clients", "client_demat.client_id", "=", "clients.id")->where("clients.created_by", auth()->user()->id)->whereDate("client_demat.created_at",">=", date("Y-m-d",strtotime($request->startDate)))->whereDate("client_demat.created_at","<=", date("Y-m-d",strtotime($request->endDate)))->select("client_demat.serial_number", "client_demat.service_type", "client_demat.client_id", "clients.name")->groupBy("client_demat.service_type", "client_demat.client_id")->get();
+            $accounts = ClientDemat::leftJoin("clients", "client_demat.client_id", "=", "clients.id")->where("clients.created_by", auth()->user()->id)->whereDate("client_demat.created_at",">=", date("Y-m-d",strtotime($request->startDate)))->whereDate("client_demat.created_at","<=", date("Y-m-d",strtotime($request->endDate)))->where("client_demat.st_sg",$request->income_form)->select("client_demat.serial_number", "client_demat.service_type", "client_demat.client_id", "clients.name")->groupBy("client_demat.service_type", "client_demat.client_id")->get();
         }else{
-            $accounts = ClientDemat::leftJoin("clients", "client_demat.client_id", "=", "clients.id")->where("clients.created_by", auth()->user()->id)->whereYear("client_demat.created_at", date("Y"))->whereMonth("client_demat.created_at", date("m"))->select("client_demat.serial_number", "client_demat.service_type", "client_demat.client_id", "clients.name")->groupBy("client_demat.service_type", "client_demat.client_id")->get();
+            $accounts = ClientDemat::leftJoin("clients", "client_demat.client_id", "=", "clients.id")->where("clients.created_by", auth()->user()->id)->whereYear("client_demat.created_at", date("Y"))->whereMonth("client_demat.created_at", date("m"))->where("client_demat.st_sg",$request->income_form)->select("client_demat.serial_number", "client_demat.service_type", "client_demat.client_id","client_demat.id as demat_id", "clients.name")->groupBy("client_demat.service_type", "client_demat.client_id")->get();
         }
 
         $i=0;
         foreach($accounts as $account){
             $arr = array();
-            array_push($arr,$account['serial_number']);
+            array_push($arr,++$i);
             array_push($arr,$account['name']);
             array_push($arr,($account['service_type'] == 1) ? "Prime" : ($account['service_type'] == 2?"AMS":"Prime next"));
-            array_push($arr,"<a href='javascript:void(0)' class='viewDemat' data-id='".$account['client_id']."'><i class='fas fa-eye fa-xl px-3'></i></a>");
+            array_push($arr,"<a href='javascript:void(0)' class='viewDemat' data-id='".$account['demat_id']."'><i class='fas fa-eye fa-xl px-3'></i></a>");
 
             array_push($demat['data'],$arr);
-            $i++;
+        }
+        $demat["recordsTotal"]=$i;
+        $demat["recordsFiltered"]=$i;
+        return $demat;
+    }
+    public static function plDetailsFinancialStatus($request){
+        $demat['data']= array();
+
+        if(isset($request->startDate) && $request->startDate!="" && isset($request->endDate) && $request->endDate != ""){
+            $query_one = \Illuminate\Support\Facades\DB::table("finance_management_incomes")->where("income_form",$request->income_form)->whereDate("date",">=",$request->startDate)->whereDate("date","<=",$request->endDate)->leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id");
+        
+            $accounts = \Illuminate\Support\Facades\DB::table("finance_management_incomes")->where("income_form",$request->income_form)->whereDate("date",">=",$request->startDate)->whereDate("date","<=",$request->endDate)->leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id")->unionAll($query_one)->get();
+        }else{
+            $query_one = \Illuminate\Support\Facades\DB::table("finance_management_incomes")->where("income_form",$request->income_form)->leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id");
+        
+            $accounts = \Illuminate\Support\Facades\DB::table("finance_management_incomes")->where("income_form",$request->income_form)->leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id")->unionAll($query_one)->get();
+        }
+
+        $i=0;
+        foreach($accounts as $account){
+            $arr = array();
+            array_push($arr,++$i);
+            array_push($arr,$account->date);
+            array_push($arr,$account->sub_heading);
+            array_push($arr,$account->text_box);
+            array_push($arr,$account->title);
+            array_push($arr,$account->amount);
+
+            array_push($demat['data'],$arr);
+        }
+        $demat["recordsTotal"]=$i;
+        $demat["recordsFiltered"]=$i;
+        return $demat;
+    }
+    public static function distributionDetailsFinancialStatus($request){
+        $demat['data']= array();
+
+        if(isset($request->startDate) && $request->startDate!="" && isset($request->endDate) && $request->endDate != ""){
+            $accounts = financeManagementTransferModel::where("from","distribution")->where("income_form",$request->income_form)->where("date",">=",$request->startDate)->whereDate("date","<=",$request->endDate)->get();
+        }else{
+            $accounts = financeManagementTransferModel::where("from","distribution")->where("income_form",$request->income_form)->leftJoin("users","finance_management_transfers.created_by","=","users.id")->select("users.name as by","finance_management_transfers.date","finance_management_transfers.from","finance_management_transfers.to","finance_management_transfers.amount","finance_management_transfers.id")->get();
+        }
+
+        $i=0;
+        foreach($accounts as $account){
+            $arr = array();
+            array_push($arr,++$i);
+            array_push($arr,$account->date);
+            array_push($arr,$account->from);
+            array_push($arr,$account->by);
+            array_push($arr,$account->to);
+            array_push($arr,$account->amount);
+            array_push($arr,"<a href='javascript:void(0)' class='viewNarration' data-id='".$account->id."'>View</a>");
+
+            array_push($demat['data'],$arr);
+        }
+        $demat["recordsTotal"]=$i;
+        $demat["recordsFiltered"]=$i;
+        return $demat;
+    }
+    public static function loanDetailsFinancialStatus($request){
+        $demat['data']= array();
+
+        if(isset($request->startDate) && $request->startDate!="" && isset($request->endDate) && $request->endDate != ""){
+            $accounts = financeManagementLoanModel::where("income_form",$request->income_form)->where("date",">=",$request->startDate)->whereDate("date","<=",$request->endDate)->get();
+        }else{
+            $accounts = financeManagementLoanModel::where("income_form",$request->income_form)->get();
+        }
+
+        $i=0;
+        foreach($accounts as $account){
+            $arr = array();
+            array_push($arr,++$i);
+            array_push($arr,$account->date);
+            array_push($arr,$account->sub_heading);
+            array_push($arr,$account->narration);
+            array_push($arr,($account->mode==0)?"Cash":"Bank");
+            array_push($arr,$account->amount);
+            array_push($demat['data'],$arr);
+        }
+        $demat["recordsTotal"]=$i;
+        $demat["recordsFiltered"]=$i;
+        return $demat;
+    }
+    public static function bankDetailsFinancialStatus($request){
+        $demat['data']= array();
+
+        if(isset($request->startDate) && $request->startDate!="" && isset($request->endDate) && $request->endDate != ""){
+            $accounts = BankModel::where("income_form",$request->income_form)->where("date",">=",$request->startDate)->whereDate("date","<=",$request->endDate)->get();
+        }else{
+            $accounts = BankModel::where("is_active","1")->select("available_balance","reserve_balance","title")->get();
+        }
+
+        $i=0;
+        foreach($accounts as $account){
+            $arr = array();
+            $total_balance = $account->reserve_balance+$account->available_balance;
+            array_push($arr,++$i);
+            array_push($arr,$account->title);
+            array_push($arr,$total_balance);
+            array_push($arr,$total_balance-$account->reserve_balance);
+            array_push($arr,$total_balance-$account->available_balance);
+            array_push($arr,0);
+            array_push($demat['data'],$arr);
+        }
+        $demat["recordsTotal"]=$i;
+        $demat["recordsFiltered"]=$i;
+        return $demat;
+    }
+    public static function serviceDetailsFinancialStatus($request){
+        $demat['data']= array();
+
+        $accounts = self::getServicesDetails();
+
+        $i=0;
+        foreach($accounts as $service => $count){
+            $arr = array();
+            array_push($arr,++$i);
+            array_push($arr,ucwords(str_replace("_"," ",$service)));
+            array_push($arr,$count);
+            array_push($arr,0);
+            array_push($arr,"<a href='javascript:void(0)' class='viewDemat' data-id='".$service."'>View</a>");
+            array_push($demat['data'],$arr);
         }
         $demat["recordsTotal"]=$i;
         $demat["recordsFiltered"]=$i;

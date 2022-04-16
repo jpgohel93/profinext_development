@@ -164,12 +164,12 @@
                                                 <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['day']}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0}}">0</div>
                                                     </div>
                                                     <!--end::Number-->
                                                     <!--begin::Label-->
                                                     <div class="fw-bold fs-6 text-gray-400">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['month']}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0}}">0</div>
                                                     </div>
                                                     <!--end::Label-->
                                                 </div>
@@ -178,12 +178,12 @@
                                                 <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$expense['day']}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0}}">0</div>
                                                     </div>
                                                     <!--end::Number-->
                                                     <!--begin::Label-->
                                                     <div class="fw-bold fs-6 text-gray-400">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$expense['month']}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0}}">0</div>
                                                     </div>
                                                     <!--end::Label-->
                                                 </div>
@@ -192,12 +192,12 @@
                                                 <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['day']-$expense['day']}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0-0}}">0</div>
                                                     </div>
                                                     <!--end::Number-->
                                                     <!--begin::Label-->
                                                     <div class="fw-bold fs-6 text-gray-400">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['month']-$expense['month']}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0-0}}">0</div>
                                                     </div>
                                                     <!--end::Label-->
                                                 </div>
@@ -233,12 +233,12 @@
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6 active" data-bs-toggle="tab" href="#demat">Demat</a>
+                                        <a class="nav-link text-active-primary me-6 active" data-bs-toggle="tab" href="#incomeExpense">income & Expense</a>
                                     </li>
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#pl">P & L</a>
+                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#conversion">Conversion</a>
                                     </li>
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
@@ -249,11 +249,6 @@
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
                                         <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#loan">Loan</a>
-                                    </li>
-                                    <!--end::Nav item-->
-                                    <!--begin::Nav item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#bank">Bank</a>
                                     </li>
                                     <!--end::Nav item-->
                                 </ul>
@@ -288,7 +283,7 @@
                             </div>
                             <!--end::Card-->
                         </div>
-                        <div class="tab-pane fade show active" id="demat" aria-labelledby="active-tab" role="tabpanel">
+                        <div class="tab-pane fade show active" id="incomeExpense" aria-labelledby="active-tab" role="tabpanel">
                             <!--begin::Card-->
                             <div class="card">
                                 <!--begin::Card header-->
@@ -314,25 +309,18 @@
                                     <div class="row">
                                         <div class="col-md-8">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="dematTable">
-                                                    <!--begin::Table head-->
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="incomeExpenseTable">
                                                     <thead>
                                                         <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Sr. No</th>
-                                                            <th class="min-w-75px">Demat Holder Name</th>
-                                                            <th class="min-w-75px">Client Type</th>
-                                                            <th class="min-w-75px">Action</th>
+                                                            <th class="min-w-75px">Date</th>
+                                                            <th class="min-w-75px">Sub Heading</th>
+                                                            <th class="min-w-75px">Particular</th>
+                                                            <th class="min-w-75px">Amount</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody class="text-gray-600 fw-bold">
-                                                    </tbody>
-                                                
-                                                <!--end::Table body-->
+                                                    <tbody class="text-gray-600 fw-bold"></tbody>
                                                 </table>
-                                                {{-- @if (isset($demat['accounts']))
-                                                @else
-                                                    <h3>Details not found</h3>
-                                                @endif --}}
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -354,7 +342,7 @@
                                                         <div class="position-relative d-flex flex-center h-175px w-100 m-auto">
                                                             <div
                                                                 class="position-absolute translate-middle start-50 top-50 d-flex flex-column flex-center">
-                                                                <span class="fs-2qx fw-bolder">{{((isset($demat))?$demat['service_details']['prime']:0)+((isset($demat))?$demat['service_details']['ams']:"")}}</span>
+                                                                <span class="fs-2qx fw-bolder"></span>
                                                                 <span class="fs-6 fw-bold text-gray-400">Total Clients</span>
                                                             </div>
                                                             <canvas class="project_overview_chart" style="display: block;box-sizing: border-box;height: 175px;width: 175px;"></canvas>
@@ -366,14 +354,14 @@
                                                             <div class="d-flex fs-6 fw-bold align-items-center mb-3">
                                                                 <div class="bullet bg-primary me-3"></div>
                                                                 <div class="text-gray-400">Prime</div>
-                                                                <div class="ms-auto fw-bolder text-gray-700">{{(isset($demat))?$demat['service_details']['prime']:""}}</div>
+                                                                <div class="ms-auto fw-bolder text-gray-700"></div>
                                                             </div>
                                                             <!--end::Label-->
                                                             <!--begin::Label-->
                                                             <div class="d-flex fs-6 fw-bold align-items-center mb-3">
                                                                 <div class="bullet bg-success me-3"></div>
                                                                 <div class="text-gray-400">AMS</div>
-                                                                <div class="ms-auto fw-bolder text-gray-700">{{(isset($demat))?$demat['service_details']['ams']:""}}</div>
+                                                                <div class="ms-auto fw-bolder text-gray-700"></div>
                                                             </div>
                                                             <!--end::Label-->
                                                         </div>
@@ -392,7 +380,7 @@
                             </div>
                             <!--end::Card-->
                         </div>
-                        <div class="tab-pane fade show" id="pl" aria-labelledby="active-tab" role="tabpanel">
+                        <div class="tab-pane fade show" id="conversion" aria-labelledby="active-tab" role="tabpanel">
                             <!--begin::Card-->
                             <div class="card">
                                 <!--begin::Card header-->
@@ -418,15 +406,15 @@
                                     <div class="row">
                                         <div class="col-md-8">
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="plTable">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="conversionTable">
                                                     <!--begin::Table head-->
                                                     <thead>
                                                         <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Sr. No</th>
                                                             <th class="min-w-75px">Date</th>
-                                                            <th class="min-w-75px">Sub Heading</th>
+                                                            <th class="min-w-75px">From</th>
+                                                            <th class="min-w-75px">To</th>
                                                             <th class="min-w-75px">Particular</th>
-                                                            <th class="min-w-75px">Bank</th>
                                                             <th class="min-w-75px">Amount</th>
                                                         </tr>
                                                     </thead>
@@ -454,7 +442,7 @@
                                                         <div class="position-relative d-flex flex-center h-175px w-100 m-auto">
                                                             <div
                                                                 class="position-absolute translate-middle start-50 top-50 d-flex flex-column flex-center">
-                                                                <span class="fs-2qx fw-bolder">{{((isset($demat))?$demat['service_details']['prime']:0)+((isset($demat))?$demat['service_details']['ams']:"")}}</span>
+                                                                <span class="fs-2qx fw-bolder"></span>
                                                                 <span class="fs-6 fw-bold text-gray-400">Total Clients</span>
                                                             </div>
                                                             <canvas class="project_overview_chart" style="display: block;box-sizing: border-box;height: 175px;width: 175px;"></canvas>
@@ -466,14 +454,14 @@
                                                             <div class="d-flex fs-6 fw-bold align-items-center mb-3">
                                                                 <div class="bullet bg-primary me-3"></div>
                                                                 <div class="text-gray-400">Prime</div>
-                                                                <div class="ms-auto fw-bolder text-gray-700">{{(isset($demat))?$demat['service_details']['prime']:""}}</div>
+                                                                <div class="ms-auto fw-bolder text-gray-700"></div>
                                                             </div>
                                                             <!--end::Label-->
                                                             <!--begin::Label-->
                                                             <div class="d-flex fs-6 fw-bold align-items-center mb-3">
                                                                 <div class="bullet bg-success me-3"></div>
                                                                 <div class="text-gray-400">AMS</div>
-                                                                <div class="ms-auto fw-bolder text-gray-700">{{(isset($demat))?$demat['service_details']['ams']:""}}</div>
+                                                                <div class="ms-auto fw-bolder text-gray-700"></div>
                                                             </div>
                                                             <!--end::Label-->
                                                         </div>
@@ -549,34 +537,6 @@
                             </div>
                             <!--end::Card-->
                         </div>
-                        <div class="tab-pane fade show" id="bank" aria-labelledby="active-tab" role="tabpanel">
-                            <!--begin::Card-->
-                            <div class="card">
-                                <!--begin::Card body-->
-                                <div class="card-body pt-0">
-                                    <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="bankTable">
-                                            <!--begin::Table head-->
-                                            <thead>
-                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                    <th class="min-w-75px">Sr. No.</th>
-                                                    <th class="min-w-75px">Bank Title</th>
-                                                    <th class="min-w-75px">Total Balance</th>
-                                                    <th class="min-w-75px">Available Balance</th>
-                                                    <th class="min-w-75px">Reserve Balance</th>
-                                                    <th class="min-w-75px">Firm’s Balance</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="text-gray-600 fw-bold"></tbody>
-                                        <!--end::Table body-->
-                                        </table>
-                                    </div>
-                                    <!--end::Table-->
-                                </div>
-                                <!--end::Card body-->
-                            </div>
-                            <!--end::Card-->
-                        </div>
                     </div>
                 </div>
                 <!--end::Content-->
@@ -597,7 +557,7 @@
                 type: 'doughnut',
                 data: {
                     datasets: [{
-                        data: ["{{$demat['service_details']['prime']}}", "{{$demat['service_details']['ams']}}"],
+                        data: [1,1],
                         backgroundColor: ['#00A3FF', '#50CD89']
                     }],
                     labels: ['Prime', 'AMS']
@@ -786,26 +746,20 @@
             // DataTables initialisation
             //
             $(document).ready(function() {
-                $('#dematTable').DataTable( {
+                $('#incomeExpenseTable').DataTable( {
                     "processing": true,
                     "serverSide": true,
                     "ajax": $.fn.dataTable.pipeline( {
-                        url: '{{route("dematDetailsFinancialStatus")}}',
+                        url: '{{route("incomeExpenseDetailsFinancialStatus")}}',
                         pages: 5,
-                        data:{
-                            income_form:"ST"
-                        }
                     } )
                 } );
-                $('#plTable').DataTable( {
+                $('#conversionTable').DataTable( {
                     "processing": true,
                     "serverSide": true,
                     "ajax": $.fn.dataTable.pipeline( {
-                        url: '{{route("plDetailsFinancialStatus")}}',
+                        url: '{{route("cashConversionDetailsFinancialStatus")}}',
                         pages: 5,
-                        data:{
-                            income_form:"ST"
-                        }
                     } )
                 } );
                 $('#distributionTable').DataTable( {
