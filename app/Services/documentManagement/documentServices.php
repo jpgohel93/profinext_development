@@ -49,37 +49,8 @@ class documentServices{
             $join->on("tbl_pancards.client_demat_id","=","client_demat.id");
             $join->join("clients","client_demat.client_id","=","clients.id");
         })->groupBy("tbl_pancards.client_demat_id","tbl_pancards.file")->select("clients.name","clients.id as client_id","client_demat.holder_name","tbl_pancards.*")->get();
-        $client_ids = array();
-        // loop through all pan cards rows of tbl_pancards table
-        foreach($panCards as $panCard){
-            // check if client exists in array
-            if(!array_key_exists($panCard->client_id,$client_ids)){
-                // client not exists. create new array using client id and add all demat accounts of that client in this array
-                $demat = array();
-                $demat['holder_name'] = $panCard->holder_name;
-                $demat['created_at'] = date("Y-m-d",strtotime($panCard->updated_at));
-                $demat['client_name'] = $panCard->name;
-                $demat['demat_id'] = $panCard->client_demat_id;
-                $demat['file'] = $panCard->file;
-                $demat['id'] = $panCard->id;
-                // create new array by using demat id and
-                // we're looping through pan cards not demats so we've need to add all images of pan card own by this demat to this array which one created by demat id.
-                $client_ids[$panCard->client_id][$panCard->client_demat_id] = $demat;
-            }else{
-                // client id and demat id exists. add pan card to demat id array
-                if(!array_key_exists($panCard->client_demat_id,$client_ids[$panCard->client_id])){
-                    $demat = array();
-                    $demat['holder_name'] = $panCard->holder_name;
-                    $demat['created_at'] = date("Y-m-d",strtotime($panCard->updated_at));
-                    $demat['client_name'] = $panCard->name;
-                    $demat['demat_id'] = $panCard->client_demat_id;
-                    $demat['file'] = $panCard->file;
-                    $demat['id'] = $panCard->id;
-                    $client_ids[$panCard->client_id][$panCard->client_demat_id] = $demat;
-                }
-            }
-        }
-        return $client_ids;
+
+        return $panCards;
     }
 
     public static function getPancardData($id){

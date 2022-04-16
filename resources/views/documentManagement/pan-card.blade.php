@@ -33,7 +33,7 @@
                                     <tr>
                                         <th scope="col">Sr. No</th>
                                         <th scope="col">Date</th>
-                                        <th scope="col">Title</th>
+                                        <th scope="col">Demate Holder name</th>
                                         <th scope="col">Client</th>
                                         @canany(["document-management-pan-card-read","document-management-pan-card-write","document-management-pan-card-delete"])
                                             <th scope="col">Actions</th>
@@ -45,9 +45,9 @@
                                         @forelse ($panCards as $client_id => $demat)
                                             <tr scope="row">
                                                 <th>{{$loop->iteration}}</th>
-                                                <td>{{$demat[$client_id]['created_at']}}</td>
-                                                <td>{{$demat[$client_id]['holder_name']}}</td>
-                                                <td>{{$demat[$client_id]["client_name"]}}</td>
+                                                <td>{{$demat['created_at']}}</td>
+                                                <td>{{$demat['holder_name']}}</td>
+                                                <td>{{$demat["name"]}}</td>
                                                 @canany(["document-management-pan-card-write","document-management-pan-card-delete"])
                                                     <td>
                                                         <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -59,20 +59,20 @@
                                                         </a>
                                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                             <div class="menu-item px-3">
-                                                                <a href="{{asset('pan_cards')."/".$demat[$client_id]['file']}}" class='menu-link px-3' target="_blank">
+                                                                <a href="{{asset('pan_cards')."/".$demat['file']}}" class='menu-link px-3' target="_blank">
                                                                     View
                                                                 </a>
                                                             </div>
                                                             @can("document-management-pan-card-write")
                                                                 <div class="menu-item px-3">
-                                                                    <a href="javascript:void(0)" class='menu-link px-3 edit' data-id="{{$demat[$client_id]['id']}}">
+                                                                    <a href="javascript:void(0)" class='menu-link px-3 edit' data-id="{{$demat['id']}}">
                                                                         Edit
                                                                     </a>
                                                                 </div>
                                                             @endcan
                                                             @can("document-management-pan-card-delete")
                                                                 <div class="menu-item px-3">
-                                                                    <a href="{{route('removePancardDocument',$demat[$client_id]['id'])}}" class='menu-link px-3 delete'>
+                                                                    <a href="{{route('removePancardDocument',$demat['id'])}}" class='menu-link px-3 delete'>
                                                                         Delete
                                                                     </a>
                                                                 </div>
