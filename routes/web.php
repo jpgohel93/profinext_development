@@ -356,7 +356,17 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST("/document_management/data/add",[documentManagementController::class,"addDocument"])->name("addDocument");
     Route::GET("/document_management/data/remove/{id?}",[documentManagementController::class,"removeDocument"])->name("removeDocument");
     Route::GET("/document_management/data/get/{id?}",[documentManagementController::class,"getDocument"])->name("getDocument");
+    Route::GET("/document_management/data/get/pancard/{id?}",[documentManagementController::class,"getPancardDocument"])->name("getPancardDocument");
+    Route::GET("/document_management/data/get/screenshots/{id?}",[documentManagementController::class,"getScreenshotsDocument"])->name("getScreenshotsDocument");
+    Route::POST("/document_management/data/editPancard",[documentManagementController::class,"editPanCardDocument"])->name("editPanCardDocument");
+    Route::POST("/document_management/data/editScreenshot",[documentManagementController::class,"editScreenshotDocument"])->name("editScreenshotDocument");
+    Route::GET("/document_management/data/removePancard/{id?}",[documentManagementController::class,"removePancardDocument"])->name("removePancardDocument");
+    Route::GET("/document_management/data/removeScreenshot/{id?}",[documentManagementController::class,"removeScreenshotDocument"])->name("removeScreenshotsDocument");
     Route::get("/document_management/pan-card",[documentManagementController::class,"panCards"])->name("documentManagementPanCards");
     Route::get("/document_management/screenshots",[documentManagementController::class,"screenshots"])->name("documentManagementScreenshots");
     Route::get("/document_management/images",[documentManagementController::class,"images"])->name("documentManagementImages");
+    Route::POST("/document_management/data/addImage",[documentManagementController::class,"addImage"])->name("addImage");
+    Route::GET("/document_management/data/removeImage/{id?}",[documentManagementController::class,"removeImage"])->name("removeImage");
+    Route::GET("/document_management/data/getImage/{id?}",[documentManagementController::class,"getImage"])->name("getImage");
+
 });

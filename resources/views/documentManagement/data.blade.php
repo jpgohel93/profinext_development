@@ -25,7 +25,7 @@
                         <div class="container">
                             <div class="row my-3">
                                 <div class="col-md-3">
-                                    <h3>Data:</h3>
+                                    <h3>Data</h3>
                                 </div>
                                 @can("document-management-data-create")
                                     <div class="col-md-9 text-end">
@@ -87,7 +87,7 @@
                                                 @endcan
                                             </tr>
                                         @empty
-                                            
+
                                         @endforelse
                                     @endcan
                                 </tbody>
@@ -181,10 +181,11 @@
                                     <!--end::Label-->
                                     <input type="file" class="form-control form-control-solid" name="document" required/>
                                 </div>
+                                <div id="image_preview"></div>
                                 <!--end::Col-->
                             </div>
                             <!--end::Input group-->
-                            
+
                             <!--begin::Actions-->
                             <div class="text-end">
                                 <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -226,6 +227,8 @@
                                 $("#documentForm").find("[name='date']").val(data.date);
                                 $("#documentForm").find("[name='title']").val(data.title);
                                 $("#documentForm").find("[name='notes']").val(data.notes);
+                                var url = "{{asset('documents')}}/"+data.document;
+                                $("#image_preview").html("<img style='height:100px;width;70px;' src='"+url+"'>");
                                 $("#documentForm").find("[name='document']").attr("required",false);
                                 $("#add_document").modal("show");
                             })
