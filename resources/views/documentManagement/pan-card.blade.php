@@ -45,7 +45,7 @@
                                         @forelse ($panCards as $client_id => $demat)
                                             <tr scope="row">
                                                 <th>{{$loop->iteration}}</th>
-                                                <td>{{$demat['created_at']}}</td>
+                                                <td>{{date('Y-m-d',strtotime($demat['created_at']))}}</td>
                                                 <td>{{$demat['holder_name']}}</td>
                                                 <td>{{$demat["name"]}}</td>
                                                 @canany(["document-management-pan-card-write","document-management-pan-card-delete"])
