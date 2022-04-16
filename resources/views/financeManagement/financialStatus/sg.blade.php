@@ -233,7 +233,12 @@
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6 active" data-bs-toggle="tab" href="#demat">Demat</a>
+                                        <a class="nav-link text-active-primary me-6 active" data-bs-toggle="tab" href="#services">Services</a>
+                                    </li>
+                                    <!--end::Nav item-->
+                                    <!--begin::Nav item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#demat">Demat</a>
                                     </li>
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
@@ -288,7 +293,32 @@
                             </div>
                             <!--end::Card-->
                         </div>
-                        <div class="tab-pane fade show active" id="demat" aria-labelledby="active-tab" role="tabpanel">
+                        <div class="tab-pane fade show active" id="services" aria-labelledby="active-tab" role="tabpanel">
+                            <!--begin::Card-->
+                            <div class="card">
+                                <!--begin::Card body-->
+                                <div class="card-body pt-0">
+                                    <div class="table-responsive">
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="servicesTable">
+                                            <thead>
+                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-10px">Sr. No.</th>
+                                                    <th class="min-w-75px">Service Name</th>
+                                                    <th class="min-w-75px">No. of Clients</th>
+                                                    <th class="min-w-75px">Income</th>
+                                                    <th class="min-w-75px">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-gray-600 fw-bold"></tbody>
+                                        </table>
+                                    </div>
+                                    <!--end::Table-->
+                                </div>
+                                <!--end::Card body-->
+                            </div>
+                            <!--end::Card-->
+                        </div>
+                        <div class="tab-pane fade show" id="demat" aria-labelledby="active-tab" role="tabpanel">
                             <!--begin::Card-->
                             <div class="card">
                                 <!--begin::Card header-->
@@ -298,7 +328,7 @@
                                         <!--begin::Search-->
                                         <div class="d-flex align-items-center position-relative my-1">
                                             <div class="form-group">
-                                                <div id="dematrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                                <div class="daterange" data-id="demat" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
                                                     <i class="fa fa-calendar"></i>&nbsp;
                                                     <span></span> <i class="fa fa-caret-down"></i>
                                                 </div>
@@ -324,8 +354,9 @@
                                                             <th class="min-w-75px">Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody class="text-gray-600 fw-bold"></tbody>
-
+                                                    <tbody class="text-gray-600 fw-bold">
+                                                    </tbody>
+                                                
                                                 <!--end::Table body-->
                                                 </table>
                                                 {{-- @if (isset($demat['accounts']))
@@ -343,12 +374,6 @@
                                                     <div class="card-title flex-column">
                                                         <h3 class="fw-bolder mb-1">Client Summary</h3>
                                                     </div>
-                                                    <!--end::Card title-->
-                                                    <!--begin::Card toolbar-->
-                                                    {{-- <div class="card-toolbar">
-                                                        <a href="#" class="btn btn-light btn-sm">View Tasks</a>
-                                                    </div> --}}
-                                                    <!--end::Card toolbar-->
                                                 </div>
                                                 <!--end::Card header-->
                                                 <!--begin::Card body-->
@@ -362,7 +387,7 @@
                                                                 <span class="fs-2qx fw-bolder">{{((isset($demat))?$demat['service_details']['prime']:0)+((isset($demat))?$demat['service_details']['ams']:"")}}</span>
                                                                 <span class="fs-6 fw-bold text-gray-400">Total Clients</span>
                                                             </div>
-                                                            <canvas id="project_overview_chart" style="display: block;box-sizing: border-box;height: 175px;width: 175px;"></canvas>
+                                                            <canvas class="project_overview_chart" style="display: block;box-sizing: border-box;height: 175px;width: 175px;"></canvas>
                                                         </div>
                                                         <!--end::Chart-->
                                                         <!--begin::Labels-->
@@ -400,23 +425,96 @@
                         <div class="tab-pane fade show" id="pl" aria-labelledby="active-tab" role="tabpanel">
                             <!--begin::Card-->
                             <div class="card">
+                                <!--begin::Card header-->
+                                <div class="card-header border-0 pt-6">
+                                    <!--begin::Card title-->
+                                    <div class="card-title">
+                                        <!--begin::Search-->
+                                        <div class="d-flex align-items-center position-relative my-1">
+                                            <div class="form-group">
+                                                <div class="daterange" data-id="pl" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                                    <i class="fa fa-calendar"></i>&nbsp;
+                                                    <span></span> <i class="fa fa-caret-down"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::Search-->
+                                    </div>
+                                    <!--begin::Card title-->
+                                </div>
+                                <!--end::Card header-->
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
-                                    <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                            <!--begin::Table head-->
-                                            <thead>
-                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                    <th class="min-w-10px">Sr. No</th>
-                                                    <th class="min-w-75px">User Name</th>
-                                                    <th class="min-w-75px">User Type</th>
-                                                    <th class="min-w-75px">Earning</th>
-                                                    <th class="min-w-75px">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="text-gray-600 fw-bold"></tbody>
-                                        <!--end::Table body-->
-                                        </table>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="plTable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr. No</th>
+                                                            <th class="min-w-75px">Date</th>
+                                                            <th class="min-w-75px">Sub Heading</th>
+                                                            <th class="min-w-75px">Particular</th>
+                                                            <th class="min-w-75px">Bank</th>
+                                                            <th class="min-w-75px">Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold"></tbody>
+                                                <!--end::Table body-->
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!--begin::Summary-->
+                                            <div class="card card-flush h-lg-100">
+                                                <!--begin::Card header-->
+                                                <div class="card-header mt-6">
+                                                    <!--begin::Card title-->
+                                                    <div class="card-title flex-column">
+                                                        <h3 class="fw-bolder mb-1">Client Summary</h3>
+                                                    </div>
+                                                </div>
+                                                <!--end::Card header-->
+                                                <!--begin::Card body-->
+                                                <div class="card-body p-9 pt-5">
+                                                    <!--begin::Wrapper-->
+                                                    <div class="d-flex flex-wrap">
+                                                        <!--begin::Chart-->
+                                                        <div class="position-relative d-flex flex-center h-175px w-100 m-auto">
+                                                            <div
+                                                                class="position-absolute translate-middle start-50 top-50 d-flex flex-column flex-center">
+                                                                <span class="fs-2qx fw-bolder">{{((isset($demat))?$demat['service_details']['prime']:0)+((isset($demat))?$demat['service_details']['ams']:"")}}</span>
+                                                                <span class="fs-6 fw-bold text-gray-400">Total Clients</span>
+                                                            </div>
+                                                            <canvas class="project_overview_chart" style="display: block;box-sizing: border-box;height: 175px;width: 175px;"></canvas>
+                                                        </div>
+                                                        <!--end::Chart-->
+                                                        <!--begin::Labels-->
+                                                        <div class="d-flex flex-column justify-content-center flex-row-fluid pe-11 mb-5">
+                                                            <!--begin::Label-->
+                                                            <div class="d-flex fs-6 fw-bold align-items-center mb-3">
+                                                                <div class="bullet bg-primary me-3"></div>
+                                                                <div class="text-gray-400">Prime</div>
+                                                                <div class="ms-auto fw-bolder text-gray-700">{{(isset($demat))?$demat['service_details']['prime']:""}}</div>
+                                                            </div>
+                                                            <!--end::Label-->
+                                                            <!--begin::Label-->
+                                                            <div class="d-flex fs-6 fw-bold align-items-center mb-3">
+                                                                <div class="bullet bg-success me-3"></div>
+                                                                <div class="text-gray-400">AMS</div>
+                                                                <div class="ms-auto fw-bolder text-gray-700">{{(isset($demat))?$demat['service_details']['ams']:""}}</div>
+                                                            </div>
+                                                            <!--end::Label-->
+                                                        </div>
+                                                        <!--end::Labels-->
+                                                    </div>
+                                                    <!--end::Wrapper-->
+                                                </div>
+                                                <!--end::Card body-->
+                                            </div>
+                                            <!--end::Summary-->
+                                        </div>
                                     </div>
                                     <!--end::Table-->
                                 </div>
@@ -430,13 +528,16 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="distributionTable">
                                             <!--begin::Table head-->
                                             <thead>
                                                 <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                    <th class="min-w-75px">Service Type</th>
-                                                    <th class="min-w-75px">Clients</th>
-                                                    <th class="min-w-75px">Revenue</th>
+                                                    <th class="min-w-75px">Sr. No.</th>
+                                                    <th class="min-w-75px">Date</th>
+                                                    <th class="min-w-75px">From</th>
+                                                    <th class="min-w-75px">By</th>
+                                                    <th class="min-w-75px">To</th>
+                                                    <th class="min-w-75px">Amount</th>
                                                     <th class="min-w-75px">Action</th>
                                                 </tr>
                                             </thead>
@@ -456,14 +557,16 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="loanTable">
                                             <!--begin::Table head-->
                                             <thead>
                                                 <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                    <th class="min-w-75px">Service Type</th>
-                                                    <th class="min-w-75px">Clients</th>
-                                                    <th class="min-w-75px">Revenue</th>
-                                                    <th class="min-w-75px">Action</th>
+                                                    <th class="min-w-75px">Sr. no</th>
+                                                    <th class="min-w-75px">Date</th>
+                                                    <th class="min-w-75px">Sub Heading</th>
+                                                    <th class="min-w-75px">Particular</th>
+                                                    <th class="min-w-75px">Mode</th>
+                                                    <th class="min-w-75px">Amount</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold"></tbody>
@@ -482,17 +585,20 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="bankTable">
                                             <!--begin::Table head-->
                                             <thead>
                                                 <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                    <th class="min-w-75px">Service Type</th>
-                                                    <th class="min-w-75px">Clients</th>
-                                                    <th class="min-w-75px">Revenue</th>
-                                                    <th class="min-w-75px">Action</th>
+                                                    <th class="min-w-75px">Sr. No.</th>
+                                                    <th class="min-w-75px">Bank Title</th>
+                                                    <th class="min-w-75px">Total Balance</th>
+                                                    <th class="min-w-75px">Available Balance</th>
+                                                    <th class="min-w-75px">Reserve Balance</th>
+                                                    <th class="min-w-75px">Firm’s Balance</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold"></tbody>
+                                        <!--end::Table body-->
                                         </table>
                                     </div>
                                     <!--end::Table-->
@@ -516,7 +622,6 @@
         window.addEventListener("DOMContentLoaded",function(){
             $(".datatable").DataTable();
             // chart
-            const project_overview_chart = document.getElementById("project_overview_chart");
             var config = {
                 type: 'doughnut',
                 data: {
@@ -563,8 +668,10 @@
                     }
                 }
             };
-            var ctx = project_overview_chart.getContext('2d');
-            var myDoughnut = new Chart(ctx, config);
+            $.each($(".project_overview_chart"),(i,v)=>{
+                var ctx = v.getContext('2d');
+                var myDoughnut = new Chart(ctx, config);
+            })
             // date to date filter
             var start = moment().startOf('month');
             var end = moment().endOf('month');
@@ -708,12 +815,64 @@
             // DataTables initialisation
             //
             $(document).ready(function() {
+                $('#servicesTable').DataTable( {
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": $.fn.dataTable.pipeline( {
+                        url: '{{route("serviceDetailsFinancialStatus")}}',
+                        pages: 5
+                    } )
+                } );
                 $('#dematTable').DataTable( {
                     "processing": true,
                     "serverSide": true,
                     "ajax": $.fn.dataTable.pipeline( {
                         url: '{{route("dematDetailsFinancialStatus")}}',
-                        pages: 5 // number of pages to cache
+                        pages: 5
+                    } )
+                } );
+                $('#plTable').DataTable( {
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": $.fn.dataTable.pipeline( {
+                        url: '{{route("plDetailsFinancialStatus")}}',
+                        pages: 5,
+                        data:{
+                            income_form:"SG"
+                        }
+                    } )
+                } );
+                $('#distributionTable').DataTable( {
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": $.fn.dataTable.pipeline( {
+                        url: '{{route("distributionDetailsFinancialStatus")}}',
+                        pages: 5,
+                        data:{
+                            income_form:"SG"
+                        }
+                    } )
+                } );
+                $('#loanTable').DataTable( {
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": $.fn.dataTable.pipeline( {
+                        url: '{{route("loanDetailsFinancialStatus")}}',
+                        pages: 5,
+                        data:{
+                            income_form:"SG"
+                        }
+                    } )
+                } );
+                $('#bankTable').DataTable( {
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": $.fn.dataTable.pipeline( {
+                        url: '{{route("bankDetailsFinancialStatus")}}',
+                        pages: 5,
+                        data:{
+                            income_form:"SG"
+                        }
                     } )
                 } );
             } );

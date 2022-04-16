@@ -184,7 +184,7 @@
                                                             <td>0</td>
                                                             <td>{{$firmTab['st']['income'].','.$firmTab['sg']['income']}}</td>
                                                             <td>
-                                                                <a href="{{route('viewMore')}}">
+                                                                <a href="{{route('viewMoreCash')}}">
                                                                     <i class="fas fa-eye fa-lg"></i>
                                                                 </a>
                                                             </td>
@@ -196,7 +196,7 @@
                                                             <td>0</td>
                                                             <td>{{$banksTab['st']['salary'].','.$banksTab['sg']['salary']}}</td>
                                                             <td>
-                                                                <a href="{{route('viewMore')}}">
+                                                                <a href="{{route('viewMoreCash')}}">
                                                                     <i class="fas fa-eye fa-lg"></i>
                                                                 </a>
                                                             </td>
@@ -208,7 +208,7 @@
                                                             <td>0</td>
                                                             <td>{{$banksTab['st']['cash'].','.$banksTab['sg']['cash']}}</td>
                                                             <td>
-                                                                <a href="{{route('viewMore')}}">
+                                                                <a href="{{route('viewMoreCash')}}">
                                                                     <i class="fas fa-eye fa-lg"></i>
                                                                 </a>
                                                             </td>
