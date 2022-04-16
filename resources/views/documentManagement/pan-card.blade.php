@@ -33,7 +33,7 @@
                                     <tr>
                                         <th scope="col">Sr. No</th>
                                         <th scope="col">Date</th>
-                                        <th scope="col">Demate Holder name</th>
+                                        <th scope="col">Demat Holder name</th>
                                         <th scope="col">Client</th>
                                         @canany(["document-management-pan-card-read","document-management-pan-card-write","document-management-pan-card-delete"])
                                             <th scope="col">Actions</th>
