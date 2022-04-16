@@ -353,6 +353,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/businessManagement",[renewalStatusController::class,"view"])->name("business_management");
     // document management
     Route::get("/document_management",[documentManagementController::class,"data"])->name("documentManagementData");
+    Route::POST("/document_management/data/add",[documentManagementController::class,"addDocument"])->name("addDocument");
+    Route::GET("/document_management/data/remove/{id?}",[documentManagementController::class,"removeDocument"])->name("removeDocument");
+    Route::GET("/document_management/data/get/{id?}",[documentManagementController::class,"getDocument"])->name("getDocument");
     Route::get("/document_management/pan-card",[documentManagementController::class,"panCards"])->name("documentManagementPanCards");
     Route::get("/document_management/screenshots",[documentManagementController::class,"screenshots"])->name("documentManagementScreenshots");
     Route::get("/document_management/images",[documentManagementController::class,"images"])->name("documentManagementImages");

@@ -257,7 +257,6 @@ class ClientServices
         $client = $request->validate([
             "name"=>"required|alpha_spaces",
             "number"=>"required",
-            "communication_with"=>"required|alpha_spaces",
             "profession"=>"required|alpha_spaces",
         ]);
         if(!isset($request->wpsameascontact) || $request->wpsameascontact!=1){
@@ -268,6 +267,7 @@ class ClientServices
         }else{
             $client['wp_number']=$client['number'];
         }
+        $client['communication_with'] = $request->communication_with;
         $client['updated_by'] = Auth::id();
         $client['status'] = 0;
         $client['channel_partner_id'] = ($request->channel_partner_id != '') ? $request->channel_partner_id : 0;
