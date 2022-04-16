@@ -25,7 +25,7 @@
                         <div class="container">
                             <div class="row my-3">
                                 <div class="col-md-3">
-                                    <h3>Broker:</h3>
+                                    <h3>Broker</h3>
                                 </div>
                                 @can("settings-client-broker-create")
                                     <div class="col-md-9 text-end">
@@ -50,7 +50,7 @@
                                             <td>{{$broker->broker}}</td>
                                             @canany(["settings-client-broker-write","settings-client-broker-delete"])
                                                 <td>
-                                                    @can(["settings-client-broker-write"]) 
+                                                    @can(["settings-client-broker-write"])
                                                         <a href="javascript:void(0)">
                                                             <i class="fas fa-pen fa-xl px-2 editBroker" data-id="{{$broker->id}}"></i>
                                                         </a>
@@ -130,7 +130,7 @@
                                 <!--end::Col-->
                             </div>
                             <!--end::Input group-->
-                            
+
                             <!--begin::Actions-->
                             <div class="text-end">
                                 <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -209,7 +209,7 @@
                                 <!--end::Col-->
                             </div>
                             <!--end::Input group-->
-                            
+
                             <!--begin::Actions-->
                             <div class="text-end">
                                 <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>

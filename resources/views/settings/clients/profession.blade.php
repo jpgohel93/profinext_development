@@ -121,7 +121,7 @@
                             <div class="col-md-6">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Profession:</span>
+                                    <span class="required">Profession</span>
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a Profession name"></i>
                                 </label>
                                 <!--end::Label-->

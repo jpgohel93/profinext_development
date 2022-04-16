@@ -25,7 +25,7 @@
                         <div class="container">
                             <div class="row my-3">
                                 <div class="col-md-3">
-                                    <h3>Terms and condition:</h3>
+                                    <h3>Terms and condition</h3>
                                 </div>
                                 @can("settings-bank-details-create")
                                     <div class="col-md-9 text-end">
@@ -38,7 +38,7 @@
                                     <tr>
                                         <th scope="col">sr no</th>
                                         <th scope="col">Title</th>
-                                        <th scope="col">Status</th>
+{{--                                        <th scope="col">Status</th>--}}
                                         @canany(["settings-terms-and-condition-write","settings-terms-and-condition-delete"])
                                             <th scope="col">Actions</th>
                                         @endcan
@@ -50,7 +50,7 @@
                                             <tr scope="row">
                                                 <th>{{$loop->iteration}}</th>
                                                 <td>{{$term->title}}</td>
-                                                <td>{{$term->is_active?"Active":"Inactive"}}</td>
+{{--                                                <td>{{$term->is_active?"Active":"Inactive"}}</td>--}}
                                                 @canany(["settings-terms-and-condition-write","settings-terms-and-condition-delete"])
                                                     <td>
                                                         @can("settings-terms-and-condition-write")
@@ -143,7 +143,7 @@
                                 <!--end::Col-->
                             </div>
                             <!--end::Input group-->
-                            
+
                             <!--begin::Actions-->
                             <div class="text-end">
                                 <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -224,7 +224,7 @@
                                 <!--end::Col-->
                             </div>
                             <!--end::Input group-->
-                            
+
                             <!--begin::Actions-->
                             <div class="text-end">
                                 <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -255,7 +255,7 @@
                                 id:id
                             }
                         })
-                        .done(data=>{                            
+                        .done(data=>{
                             $("#title").val(data.title);
                             $("#description").val(data.description);
                             $("#editIdContainer").html(`<input type='hidden' name='id' value='${id}' />`);

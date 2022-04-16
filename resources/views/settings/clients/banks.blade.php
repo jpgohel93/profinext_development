@@ -25,7 +25,7 @@
                         <div class="container">
                             <div class="row my-3">
                                 <div class="col-md-3">
-                                    <h3>Banks:</h3>
+                                    <h3>Banks</h3>
                                 </div>
                                 @can("settings-bank-details-create")
                                     <div class="col-md-9 text-end">
@@ -132,7 +132,7 @@
                                 <!--end::Col-->
                             </div>
                             <!--end::Input group-->
-                            
+
                             <!--begin::Actions-->
                             <div class="text-end">
                                 <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -204,7 +204,7 @@
                                 <!--end::Col-->
                             </div>
                             <!--end::Input group-->
-                            
+
                             <!--begin::Actions-->
                             <div class="text-end">
                                 <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>

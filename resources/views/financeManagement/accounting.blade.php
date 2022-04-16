@@ -1738,7 +1738,7 @@
                             .fail((err)=>{
                                 // window.alert("Unable to get bank details");
                             })
-                            $("#transferForm").find("[name='income_form']").val(data.income_form).change(); 
+                            $("#transferForm").find("[name='income_form']").val(data.income_form).change();
                             $("#transferForm").find("[name='st_amount']").val(data.st_amount);
                             $("#transferForm").find("[name='sg_amount']").val(data.sg_amount);
                             $("#transferForm").find("[name='amount']").val(data.amount);

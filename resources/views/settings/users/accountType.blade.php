@@ -25,7 +25,7 @@
                         <div class="container">
                             <div class="row my-3">
                                 <div class="col-md-3">
-                                    <h3>account type:</h3>
+                                    <h3>Account Type</h3>
                                 </div>
                                 <div class="col-md-9 text-end">
                                     <button type="button" class="btn btn-primary" id="add_user_type_model">Add</button>
@@ -120,7 +120,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-end">
                             <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -190,7 +190,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-end">
                             <button type="reset" id="call_modal_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
