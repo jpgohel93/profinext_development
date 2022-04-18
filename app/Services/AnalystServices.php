@@ -21,6 +21,21 @@ class AnalystServices{
 
         return $analyst;
     }
+    public static function allByUserId($id){
+        $analyst = [];
+        // get all Active
+        $analyst['active'] = Analyst::with(["analystNumbers"])->where("created_by",$id)->where("status", "Active")->get();
+        // get all Experiment
+        $analyst['experiment'] = Analyst::with(["analystNumbers"])->where("created_by",$id)->where("status", "Experiment")->get();
+        // get all Paper Trade
+        $analyst['paper_trade'] = Analyst::with(["analystNumbers"])->where("created_by",$id)->where("status", "Paper Trade")->get();
+        // get all Terminated
+        $analyst['terminated'] = Analyst::with(["analystNumbers"])->where("created_by",$id)->where("status", "Terminated")->get();
+        // get all Terminated
+        $analyst['free_trade'] = Analyst::with(["analystNumbers"])->where("created_by",$id)->where("status", "Free Trade")->get();
+
+        return $analyst;
+    }
     public static function create($request){
         $analyst = $request->validate([
             "analyst"=>"required",

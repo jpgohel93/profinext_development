@@ -28,7 +28,13 @@ class AnalystController extends Controller
         $this->middleware('permission:monitor-data-delete', ['only' => ['deleteMonitorData']]);
     }
     public function view(Request $request){
-        $analysts = AnalystServices::all();
+        $auth_user = Auth::user();
+
+        if($auth_user->role == "super-admin"){
+            $analysts = AnalystServices::all();
+        }else{
+            $analysts = AnalystServices::allByUserId($auth_user->id);
+        }
         $dataArray = array();
         foreach ($analysts['active'] as $key => $analyst){
             $totalCall = MonitorDataServices::countAnalystCall($analyst['id']);
@@ -387,7 +393,7 @@ class AnalystController extends Controller
 				);
 				array_push($data_arr, $tempData);
 			}
-			
+
             return Datatables::of($data_arr)
 				->addIndexColumn()
 				->addColumn('action', function($row){
