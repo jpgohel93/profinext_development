@@ -102,7 +102,7 @@ class renewalStatusService
         }
 
         $request_data['created_by'] = Auth::id();
-        $request_data['bank_code'] = $forIncomes['invoice_code'];
+        $request_data['bank_code'] = isset($forIncomes['invoice_code'])?$forIncomes['invoice_code']:"";
         $request_data['financial_year'] = $currentYear."-".$lastYear;
         $request_data['invoice_code'] = sprintf('%04d',($invoiceCode+1));
         $request_data['order_id'] = sprintf('%04d',($orderId+1));

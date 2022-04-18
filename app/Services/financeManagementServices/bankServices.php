@@ -196,6 +196,10 @@ class bankServices{
     }
 
     public static function getBankAccountById($id){
-        return BankModel::where("id",$id)->first()->toArray();
+        $bank = BankModel::where("id",$id)->first();
+        if($bank){
+            return $bank->toArray();
+        }
+        return $bank;
     }
 }
