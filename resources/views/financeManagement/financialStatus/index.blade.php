@@ -184,7 +184,7 @@
                                                             <td>0</td>
                                                             <td>{{$firmTab['st']['income'].','.$firmTab['sg']['income']}}</td>
                                                             <td>
-                                                                <a href="{{route('viewMoreCash')}}">
+                                                                <a href="{{route('viewMoreIncome')}}">
                                                                     <i class="fas fa-eye fa-lg"></i>
                                                                 </a>
                                                             </td>
@@ -196,7 +196,7 @@
                                                             <td>0</td>
                                                             <td>{{$banksTab['st']['salary'].','.$banksTab['sg']['salary']}}</td>
                                                             <td>
-                                                                <a href="{{route('viewMoreCash')}}">
+                                                                <a href="{{route('viewMoreSalary')}}">
                                                                     <i class="fas fa-eye fa-lg"></i>
                                                                 </a>
                                                             </td>
@@ -225,16 +225,6 @@
                                 <div class="tab-pane fade show" id="usersTab" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
-                                        <div class="card-header">
-                                            <div class="col-md-3">
-                                                <select class="form-select form-select-solid" id="serviceTypeFilter" data-control="select2">
-                                                    <option value="" selected>All</option>
-                                                    <option value="prime">Prime</option>
-                                                    <option value="ams">AMS</option>
-                                                    <option value="prime_next">Prime next</option>
-                                                </select>
-                                            </div>
-                                        </div>
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="usersTable">
@@ -363,7 +353,7 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                                 <div class="tab-pane fade show" id="balanceTab" aria-labelledby="active-tab" role="tabpanel">
+                                <div class="tab-pane fade show" id="balanceTab" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
                                         <!--begin::Card body-->
@@ -541,8 +531,6 @@
                         settings.clearCache = true;
                     } );
                 } );
-                
-                
                 //
                 // DataTables initialisation
                 //
@@ -551,31 +539,11 @@
                         "processing": true,
                         "serverSide": true,
                         "ajax": $.fn.dataTable.pipeline( {
-                            url: '{{route("serviceTabFilter")}}',
+                            url: '{{route("usersTab")}}',
                             pages: 5, // number of pages to cache
-                            data:{
-                                filter:""
-                            }
                         } )
                     } );
                 } );
-
-                // on date change
-                $('#serviceTypeFilter').on('change', function(e) {
-                    const val = e.target.value;
-                    $("#usersTable").dataTable().fnDestroy();
-                    $("#usersTable").dataTable({
-                        "processing": true,
-                        "serverSide": true,
-                        "ajax": $.fn.dataTable.pipeline( {
-                            url: '{{route("serviceTabFilter")}}',
-                            pages: 5,
-                            data:{
-                                filter:val
-                            }
-                        } )
-                    } );
-                });
             },jQuery)
         })
     </script>

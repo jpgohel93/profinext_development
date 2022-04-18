@@ -12,13 +12,20 @@ class FinancialStatusController extends Controller
         $firmTab = financialStatusServices::getFirmsDetails();
         // banktab
         $banksTab = financialStatusServices::getBanksDetails();
-        // usertab
-        $usersTab = financialStatusServices::getUsersDetails();
         // servicetab
         $servicesTab = financialStatusServices::getServicesDetails();
         // balancetab
         $balanceTab = financialStatusServices::getBalanceDetails();
-        return view("financeManagement.financialStatus.index",compact("firmTab","banksTab", "usersTab", "servicesTab", "balanceTab"));
+        return view("financeManagement.financialStatus.index",compact("firmTab","banksTab",  "servicesTab", "balanceTab"));
+    }
+    public function usersTab(Request $request){
+        // usertab
+        $usersTab = financialStatusServices::getUsersDetails($request);
+        if($request->ajax()){
+            return response($usersTab,200, ["Content-Type" => "Application/json"]);
+        }
+        abort(403);
+        // return view("financeManagement.financialStatus.index",compact("usersTab"));
     }
     public function serviceTabFilter(Request $request){
         $servicesTab = financialStatusServices::serviceTabFilter($request);
@@ -41,8 +48,16 @@ class FinancialStatusController extends Controller
         $cashConversion = financialStatusServices::cashConversionDetailsFinancialStatus($request);
         return response($cashConversion,200, ["Content-Type" => "Application/json"]);
     }
-    public function viewMoreCash(Request $request){
+    public function viewMoreCash(){
         return view("financeManagement.financialStatus.cash");
+    }
+    public function viewMoreIncome(){
+        $figures = financialStatusServices::viewMoreIncomeFigures();
+        return view("financeManagement.financialStatus.income",compact("figures"));
+    }
+    public function viewMoreSalary(){
+        $figures = financialStatusServices::viewMoreSalary();
+        return view("financeManagement.financialStatus.salary",compact("figures"));
     }
     public function dematDetailsFinancialStatus(Request $request){
         $demats = financialStatusServices::dematDetailsFinancialStatus($request);
@@ -67,5 +82,13 @@ class FinancialStatusController extends Controller
     public function serviceDetailsFinancialStatus(Request $request){
         $demats = financialStatusServices::serviceDetailsFinancialStatus($request);
         return response($demats,200, ["Content-Type" => "Application/json"]);
+    }
+    public function transactionDetailsFinancialStatus(Request $request){
+        $transactions = financialStatusServices::transactionDetailsFinancialStatus($request);
+        $user_id = $request->user_id;
+        if($request->ajax()){
+            return response($transactions,200, ["Content-Type" => "Application/json"]);
+        }
+        return view("financeManagement.financialStatus.user",compact("transactions","user_id"));
     }
 }

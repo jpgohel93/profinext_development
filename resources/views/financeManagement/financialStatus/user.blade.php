@@ -1,5 +1,5 @@
 @extends('layout')
-@section("page-title","View Cash - Finance Management")
+@section("page-title","View User - Finance Management")
 @section("finance_management.financialStatus","active")
 @section("finance_management.accordion","hover show")
 @section("content")
@@ -44,29 +44,21 @@
                                         <div class="d-flex flex-column">
                                             <!--begin::Name-->
                                             <div class="d-flex align-items-center mb-2">
-                                                <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">{{auth()->user()->name}}</a>
+                                                <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">{{$transactions['month']['distribution']->first()->name}}<br/>{{$transactions['month']['distribution']->first()->role}}</a>
                                             </div>
                                             <!--end::Name-->
                                         </div>
                                         <!--end::User-->
                                         <!--begin::Actions-->
                                         <div class="d-flex my-4">
-                                            <a href="#" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr012.svg-->
-                                                <span class="svg-icon svg-icon-3 d-none">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                        <path opacity="0.3" d="M10 18C9.7 18 9.5 17.9 9.3 17.7L2.3 10.7C1.9 10.3 1.9 9.7 2.3 9.3C2.7 8.9 3.29999 8.9 3.69999 9.3L10.7 16.3C11.1 16.7 11.1 17.3 10.7 17.7C10.5 17.9 10.3 18 10 18Z" fill="black" />
-                                                        <path d="M10 18C9.7 18 9.5 17.9 9.3 17.7C8.9 17.3 8.9 16.7 9.3 16.3L20.3 5.3C20.7 4.9 21.3 4.9 21.7 5.3C22.1 5.7 22.1 6.30002 21.7 6.70002L10.7 17.7C10.5 17.9 10.3 18 10 18Z" fill="black" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon-->
-                                                <!--begin::Indicator-->
-                                                <span class="indicator-label">Follow</span>
-                                                <span class="indicator-progress">Please wait...
-                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                                <!--end::Indicator-->
-                                            </a>
-                                            <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_offer_a_deal">Hire Me</a>
+                                            <div class="d-flex align-items-center position-relative my-1">
+                                                <div class="form-group">
+                                                    <div id="dateRange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                                        <i class="fa fa-calendar"></i>&nbsp;
+                                                        <span></span> <i class="fa fa-caret-down"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <!--begin::Menu-->
                                             <div class="me-0">
                                                 <button class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
@@ -164,50 +156,55 @@
                                                 <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$transactions['day']['distribution']->first()->earnings}}">0</div>
                                                     </div>
                                                     <!--end::Number-->
                                                     <!--begin::Label-->
                                                     <div class="fw-bold fs-6 text-gray-400">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$transactions['month']['distribution']->first()->earnings}}">0</div>
                                                     </div>
                                                     <!--end::Label-->
                                                 </div>
                                                 <!--end::Stat-->
-                                                <!--begin::Stat-->
-                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                                    <!--begin::Number-->
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0}}">0</div>
+                                                <!--begin::Stats-->
+                                                <div class="d-flex flex-wrap">
+                                                    <!--begin::Stat-->
+                                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                        <!--begin::Number-->
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{(int)$transactions['day']['distribution']->first()->earnings-(int)$transactions['day']['income']->first()->earnings}}">0</div>
+                                                        </div>
+                                                        <!--end::Number-->
+                                                        <!--begin::Label-->
+                                                        <div class="fw-bold fs-6 text-gray-400">
+                                                            <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{(int)$transactions['month']['distribution']->first()->earnings-(int)$transactions['month']['income']->first()->earnings}}">0</div>
+                                                        </div>
+                                                        <!--end::Label-->
                                                     </div>
-                                                    <!--end::Number-->
-                                                    <!--begin::Label-->
-                                                    <div class="fw-bold fs-6 text-gray-400">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0}}">0</div>
-                                                    </div>
-                                                    <!--end::Label-->
+                                                    <!--end::Stat-->
                                                 </div>
-                                                <!--end::Stat-->
-                                                <!--begin::Stat-->
-                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                                    <!--begin::Number-->
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0-0}}">0</div>
+                                                <div class="d-flex flex-wrap">
+                                                    <!--begin::Stat-->
+                                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                        <!--begin::Number-->
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$transactions['day']['income']->first()->earnings}}">0</div>
+                                                        </div>
+                                                        <!--end::Number-->
+                                                        <!--begin::Label-->
+                                                        <div class="fw-bold fs-6 text-gray-400">
+                                                            <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{(int)$transactions['month']['income']->first()->earnings}}">0</div>
+                                                        </div>
+                                                        <!--end::Label-->
                                                     </div>
-                                                    <!--end::Number-->
-                                                    <!--begin::Label-->
-                                                    <div class="fw-bold fs-6 text-gray-400">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0-0}}">0</div>
-                                                    </div>
-                                                    <!--end::Label-->
+                                                    <!--end::Stat-->
                                                 </div>
-                                                <!--end::Stat-->
+                                                <!--end::Stats-->
                                             </div>
-                                            <!--end::Stats-->
                                         </div>
                                         <!--end::Wrapper-->
                                         <!--begin::Progress-->
-                                        <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
+                                        {{-- <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
                                             <div class="d-flex justify-content-between w-100 mt-auto mb-2">
                                                 <span class="fw-bold fs-6 text-gray-400">Profile Compleation</span>
                                                 <span class="fw-bolder fs-6">50%</span>
@@ -215,7 +212,7 @@
                                             <div class="h-5px mx-3 w-100 bg-light mb-3">
                                                 <div class="bg-success rounded h-5px" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <!--end::Progress-->
                                     </div>
                                     <!--end::Stats-->
@@ -226,29 +223,14 @@
                             <!--begin::Navs-->
                             <div class="d-flex overflow-auto h-55px">
                                 <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap">
-                                    <!--begin::Nav item-->
+                                    {{-- <!--begin::Nav item-->
                                     <li class="nav-item">
                                         <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#overview">Overview</a>
                                     </li>
-                                    <!--end::Nav item-->
+                                    <!--end::Nav item--> --}}
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6 active" data-bs-toggle="tab" href="#incomeExpense">income & Expense</a>
-                                    </li>
-                                    <!--end::Nav item-->
-                                    <!--begin::Nav item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#conversion">Conversion</a>
-                                    </li>
-                                    <!--end::Nav item-->
-                                    <!--begin::Nav item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#distribution">Distribution</a>
-                                    </li>
-                                    <!--end::Nav item-->
-                                    <!--begin::Nav item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#loan">Loan</a>
+                                        <a class="nav-link text-active-primary me-6 active" data-bs-toggle="tab" href="#transaction">Transaction</a>
                                     </li>
                                     <!--end::Nav item-->
                                 </ul>
@@ -257,171 +239,27 @@
                         </div>
                     </div>
                     <div class="tab-content">
-                        <div class="tab-pane fade show" id="overview" aria-labelledby="active-tab" role="tabpanel">
+                        <div class="tab-pane fade show active" id="transaction" aria-labelledby="active-tab" role="tabpanel">
                             <!--begin::Card-->
                             <div class="card">
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
-                                            <thead>
-                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                    <th class="min-w-10px">Firm Name:</th>
-                                                    <th class="min-w-75px">Income</th>
-                                                    <th class="min-w-75px">Expense</th>
-                                                    <th class="min-w-75px">Clients</th>
-                                                    <th class="min-w-75px">Users</th>
-                                                    <th class="min-w-75px">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="text-gray-600 fw-bold"></tbody>
-                                        </table>
-                                    </div>
-                                    <!--end::Table-->
-                                </div>
-                                <!--end::Card body-->
-                            </div>
-                            <!--end::Card-->
-                        </div>
-                        <div class="tab-pane fade show active" id="incomeExpense" aria-labelledby="active-tab" role="tabpanel">
-                            <!--begin::Card-->
-                            <div class="card">
-                                <!--begin::Card header-->
-                                <div class="card-header border-0 pt-6">
-                                    <!--begin::Card title-->
-                                    <div class="card-title">
-                                        <!--begin::Search-->
-                                        <div class="d-flex align-items-center position-relative my-1">
-                                            <div class="form-group">
-                                                <div class="daterange" data-id="demat" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                                                    <i class="fa fa-calendar"></i>&nbsp;
-                                                    <span></span> <i class="fa fa-caret-down"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--end::Search-->
-                                    </div>
-                                    <!--begin::Card title-->
-                                </div>
-                                <!--end::Card header-->
-                                <!--begin::Card body-->
-                                <div class="card-body pt-0">
-                                    <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="incomeExpenseTable">
-                                            <thead>
-                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                    <th class="min-w-10px">Sr. No</th>
-                                                    <th class="min-w-75px">Date</th>
-                                                    <th class="min-w-75px">Sub Heading</th>
-                                                    <th class="min-w-75px">Particular</th>
-                                                    <th class="min-w-75px">Amount</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="text-gray-600 fw-bold"></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!--end::Card body-->
-                            </div>
-                            <!--end::Card-->
-                        </div>
-                        <div class="tab-pane fade show" id="conversion" aria-labelledby="active-tab" role="tabpanel">
-                            <!--begin::Card-->
-                            <div class="card">
-                                <!--begin::Card header-->
-                                <div class="card-header border-0 pt-6">
-                                    <!--begin::Card title-->
-                                    <div class="card-title">
-                                        <!--begin::Search-->
-                                        <div class="d-flex align-items-center position-relative my-1">
-                                            <div class="form-group">
-                                                <div class="daterange" data-id="pl" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                                                    <i class="fa fa-calendar"></i>&nbsp;
-                                                    <span></span> <i class="fa fa-caret-down"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--end::Search-->
-                                    </div>
-                                    <!--begin::Card title-->
-                                </div>
-                                <!--end::Card header-->
-                                <!--begin::Card body-->
-                                <div class="card-body pt-0">
-                                    <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="conversionTable">
-                                            <!--begin::Table head-->
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="transactionTable">
                                             <thead>
                                                 <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                     <th class="min-w-10px">Sr. No</th>
                                                     <th class="min-w-75px">Date</th>
                                                     <th class="min-w-75px">From</th>
                                                     <th class="min-w-75px">To</th>
-                                                    <th class="min-w-75px">Particular</th>
-                                                    <th class="min-w-75px">Amount</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="text-gray-600 fw-bold"></tbody>
-                                        <!--end::Table body-->
-                                        </table>
-                                    </div>
-                                </div>
-                                <!--end::Card body-->
-                            </div>
-                            <!--end::Card-->
-                        </div>
-                        <div class="tab-pane fade show" id="distribution" aria-labelledby="active-tab" role="tabpanel">
-                            <!--begin::Card-->
-                            <div class="card">
-                                <!--begin::Card body-->
-                                <div class="card-body pt-0">
-                                    <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="distributionTable">
-                                            <!--begin::Table head-->
-                                            <thead>
-                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                    <th class="min-w-75px">Sr. No.</th>
-                                                    <th class="min-w-75px">Date</th>
-                                                    <th class="min-w-75px">From</th>
-                                                    <th class="min-w-75px">By</th>
-                                                    <th class="min-w-75px">To</th>
-                                                    <th class="min-w-75px">Amount</th>
-                                                    <th class="min-w-75px">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="text-gray-600 fw-bold"></tbody>
-                                        <!--end::Table body-->
-                                        </table>
-                                    </div>
-                                    <!--end::Table-->
-                                </div>
-                                <!--end::Card body-->
-                            </div>
-                            <!--end::Card-->
-                        </div>
-                        <div class="tab-pane fade show" id="loan" aria-labelledby="active-tab" role="tabpanel">
-                            <!--begin::Card-->
-                            <div class="card">
-                                <!--begin::Card body-->
-                                <div class="card-body pt-0">
-                                    <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="loanTable">
-                                            <!--begin::Table head-->
-                                            <thead>
-                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                    <th class="min-w-75px">Sr. no</th>
-                                                    <th class="min-w-75px">Date</th>
-                                                    <th class="min-w-75px">Sub Heading</th>
                                                     <th class="min-w-75px">Particular</th>
                                                     <th class="min-w-75px">Mode</th>
                                                     <th class="min-w-75px">Amount</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold"></tbody>
-                                        <!--end::Table body-->
                                         </table>
                                     </div>
-                                    <!--end::Table-->
                                 </div>
                                 <!--end::Card body-->
                             </div>
@@ -494,28 +332,48 @@
                 var myDoughnut = new Chart(ctx, config);
             })
             // date to date filter
-            var start = moment().startOf('month');
-            var end = moment().endOf('month');
-
+            const start = moment().startOf('month');
+            const end = moment().endOf('month');
             function cb(start, end) {
-                $('.dematrange').first().find("span").html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                const date1 = new Date(start);
+                const date2 = new Date(end);
+                const diffTime = Math.abs(date2 - date1);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+                if(diffDays==100){
+                    // current month
+                    $('#dateRange span').html(moment().startOf("month").format('MMMM D, YYYY') + ' - ' + moment().endOf("month").format('MMMM D, YYYY'));
+                    $('#dateRange').val(100);
+                }else if(diffDays==400){
+                    // quarterly
+                    $('#dateRange span').html("Quarterly");
+                    $('#dateRange').val("quarterly");
+
+                }else if (diffDays==500){
+                    // year
+                    $('#dateRange span').html(moment().startOf("year").format('MMMM D, YYYY') + ' - ' + moment().endOf("year").format('MMMM D, YYYY'));
+                    $('#dateRange').val(500);
+                }else{
+                    // custom
+                    $('#dateRange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                    $('#dateRange').val(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                }
             }
 
-            $('.daterange').daterangepicker({
+            $('#dateRange').daterangepicker({
                 "showDropdowns": true,
                 startDate: start,
                 endDate: end,
                 ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    'Current Month': [moment().startOf('year'), moment().startOf('year').add(99,'days')],
+                    'Quarterly': [moment().startOf('year'), moment().startOf('year').add(399,'days')],
+                    'Yearly': [moment().startOf('year'), moment().startOf('year').add(499,'days')],
+                    'Quarterly': [moment().startOf('year'), moment().startOf('year').add(499,'days')],
+                },
+                locale: {
+                    format: 'YYYY-MM-DD'
                 }
             }, cb);
             cb(start, end);
-
             // demat table
             // Pipelining function for DataTables. To be used to the `ajax` option of DataTables
             $.fn.dataTable.pipeline = function ( opts ) {
@@ -636,72 +494,35 @@
             // DataTables initialisation
             //
             $(document).ready(function() {
-                $('#incomeExpenseTable').DataTable( {
+                $('#transactionTable').DataTable( {
                     "processing": true,
                     "serverSide": true,
                     "ajax": $.fn.dataTable.pipeline( {
-                        url: '{{route("incomeExpenseDetailsFinancialStatus")}}',
-                        pages: 5,
-                    } )
-                } );
-                $('#conversionTable').DataTable( {
-                    "processing": true,
-                    "serverSide": true,
-                    "ajax": $.fn.dataTable.pipeline( {
-                        url: '{{route("cashConversionDetailsFinancialStatus")}}',
-                        pages: 5,
-                    } )
-                } );
-                $('#distributionTable').DataTable( {
-                    "processing": true,
-                    "serverSide": true,
-                    "ajax": $.fn.dataTable.pipeline( {
-                        url: '{{route("distributionDetailsFinancialStatus")}}',
+                        url: '{{route("transactionDetailsFinancialStatus",$user_id)}}',
                         pages: 5,
                         data:{
-                            income_form:"ST"
-                        }
-                    } )
-                } );
-                $('#loanTable').DataTable( {
-                    "processing": true,
-                    "serverSide": true,
-                    "ajax": $.fn.dataTable.pipeline( {
-                        url: '{{route("loanDetailsFinancialStatus")}}',
-                        pages: 5,
-                        data:{
-                            income_form:"ST"
-                        }
-                    } )
-                } );
-                $('#bankTable').DataTable( {
-                    "processing": true,
-                    "serverSide": true,
-                    "ajax": $.fn.dataTable.pipeline( {
-                        url: '{{route("bankDetailsFinancialStatus")}}',
-                        pages: 5,
-                        data:{
-                            income_form:"ST"
-                        }
+                            income_form:"all"
+                        },
+                        method:"get"
                     } )
                 } );
             } );
 
             // on date change
-            $('#dematrange').on('apply.daterangepicker', function(ev, picker) {
-                let startDate = picker.startDate.format('YYYY-MM-DD');
-                let endDate = picker.endDate.format('YYYY-MM-DD');
-                $("#dematTable").dataTable().fnDestroy();
-                $("#dematTable").dataTable({
+            // on date change
+            $('#dateRange').on('apply.daterangepicker', function(e) {
+                const val = e.target.value;
+                $("#transactionTable").dataTable().fnDestroy();
+                $("#transactionTable").dataTable({
                     "processing": true,
                     "serverSide": true,
                     "ajax": $.fn.dataTable.pipeline( {
-                        url: '{{route("dematDetailsFinancialStatus")}}',
+                        url: '{{route("transactionDetailsFinancialStatus",$user_id)}}',
                         pages: 5,
                         data:{
-                            startDate:startDate,
-                            endDate:endDate
-                        }
+                            filter:val
+                        },
+                        method:"get"
                     } )
                 } );
             });

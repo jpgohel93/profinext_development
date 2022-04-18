@@ -24,6 +24,9 @@ class financeManagementTransferModel extends Model
         "deleted_by",
         "deleted_at",
     ];
+    public function withBank(){
+        return $this->hasOne(BankModel::class, "id", "from")->latest();
+    }
     protected static function boot()
     {
         parent::boot();

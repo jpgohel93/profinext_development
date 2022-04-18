@@ -1,5 +1,5 @@
 @extends('layout')
-@section("page-title","View Bank - Finance Management")
+@section("page-title","View Salary - Finance Management")
 @section("finance_management.financialStatus","active")
 @section("finance_management.accordion","hover show")
 @section("content")
@@ -164,40 +164,12 @@
                                                 <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['day']}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{(int)$figures['day']['transfer']}}">0</div>
                                                     </div>
                                                     <!--end::Number-->
                                                     <!--begin::Label-->
                                                     <div class="fw-bold fs-6 text-gray-400">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['month']}}">0</div>
-                                                    </div>
-                                                    <!--end::Label-->
-                                                </div>
-                                                <!--end::Stat-->
-                                                <!--begin::Stat-->
-                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                                    <!--begin::Number-->
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$expense['day']}}">0</div>
-                                                    </div>
-                                                    <!--end::Number-->
-                                                    <!--begin::Label-->
-                                                    <div class="fw-bold fs-6 text-gray-400">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$expense['month']}}">0</div>
-                                                    </div>
-                                                    <!--end::Label-->
-                                                </div>
-                                                <!--end::Stat-->
-                                                <!--begin::Stat-->
-                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                                    <!--begin::Number-->
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['day']-$expense['day']}}">0</div>
-                                                    </div>
-                                                    <!--end::Number-->
-                                                    <!--begin::Label-->
-                                                    <div class="fw-bold fs-6 text-gray-400">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['month']-$expense['month']}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{(int)$figures['month']['transfer']}}">0</div>
                                                     </div>
                                                     <!--end::Label-->
                                                 </div>
@@ -207,7 +179,7 @@
                                         </div>
                                         <!--end::Wrapper-->
                                         <!--begin::Progress-->
-                                        <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
+                                        {{-- <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
                                             <div class="d-flex justify-content-between w-100 mt-auto mb-2">
                                                 <span class="fw-bold fs-6 text-gray-400">Profile Compleation</span>
                                                 <span class="fw-bolder fs-6">50%</span>
@@ -215,7 +187,7 @@
                                             <div class="h-5px mx-3 w-100 bg-light mb-3">
                                                 <div class="bg-success rounded h-5px" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <!--end::Progress-->
                                     </div>
                                     <!--end::Stats-->
@@ -226,19 +198,14 @@
                             <!--begin::Navs-->
                             <div class="d-flex overflow-auto h-55px">
                                 <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap">
-                                    {{-- <!--begin::Nav item-->
+                                    <!--begin::Nav item-->
                                     <li class="nav-item">
                                         <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#overview">Overview</a>
                                     </li>
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#demat">Demat</a>
-                                    </li>
-                                    <!--end::Nav item-->
-                                    <!--begin::Nav item-->
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#pl">P & L</a>
+                                        <a class="nav-link text-active-primary me-6 active" data-bs-toggle="tab" href="#conversion">Conversion</a>
                                     </li>
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
@@ -248,12 +215,7 @@
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#loan">Loan</a>
-                                    </li>
-                                    <!--end::Nav item-->
-                                    <!--begin::Nav item--> --}}
-                                    <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6 active" data-bs-toggle="tab" href="#bank">Bank</a>
+                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#balance">Balance</a>
                                     </li>
                                     <!--end::Nav item-->
                                 </ul>
@@ -262,7 +224,33 @@
                         </div>
                     </div>
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="bank" aria-labelledby="active-tab" role="tabpanel">
+                        <div class="tab-pane fade show" id="overview" aria-labelledby="active-tab" role="tabpanel">
+                            <!--begin::Card-->
+                            <div class="card">
+                                <!--begin::Card body-->
+                                <div class="card-body pt-0">
+                                    <div class="table-responsive">
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                            <thead>
+                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-10px">Firm Name:</th>
+                                                    <th class="min-w-75px">Income</th>
+                                                    <th class="min-w-75px">Expense</th>
+                                                    <th class="min-w-75px">Clients</th>
+                                                    <th class="min-w-75px">Users</th>
+                                                    <th class="min-w-75px">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-gray-600 fw-bold"></tbody>
+                                        </table>
+                                    </div>
+                                    <!--end::Table-->
+                                </div>
+                                <!--end::Card body-->
+                            </div>
+                            <!--end::Card-->
+                        </div>
+                        <div class="tab-pane fade show active" id="conversion" aria-labelledby="active-tab" role="tabpanel">
                             <!--begin::Card-->
                             <div class="card">
                                 <!--begin::Card header-->
@@ -272,7 +260,7 @@
                                         <!--begin::Search-->
                                         <div class="d-flex align-items-center position-relative my-1">
                                             <div class="form-group">
-                                                <div id="dematrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                                <div class="daterange" data-id="pl" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
                                                     <i class="fa fa-calendar"></i>&nbsp;
                                                     <span></span> <i class="fa fa-caret-down"></i>
                                                 </div>
@@ -286,56 +274,76 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
-                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="bankTable">
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="conversionTable">
                                             <!--begin::Table head-->
                                             <thead>
                                                 <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                    <th class="min-w-10px">Bank Type</th>
-                                                    <th class="min-w-75px">Total</th>
-                                                    <th class="min-w-75px">Available Balance</th>
-                                                    <th class="min-w-75px">Reserve Balance</th>
-                                                    <th class="min-w-75px">Firm`s Balance</th>
+                                                    <th class="min-w-10px">Sr. No</th>
+                                                    <th class="min-w-75px">Date</th>
+                                                    <th class="min-w-75px">From</th>
+                                                    <th class="min-w-75px">To</th>
+                                                    <th class="min-w-75px">Particular</th>
+                                                    <th class="min-w-75px">Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-gray-600 fw-bold"></tbody>
+                                        <!--end::Table body-->
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--end::Card body-->
+                            </div>
+                            <!--end::Card-->
+                        </div>
+                        <div class="tab-pane fade show" id="distribution" aria-labelledby="active-tab" role="tabpanel">
+                            <!--begin::Card-->
+                            <div class="card">
+                                <!--begin::Card body-->
+                                <div class="card-body pt-0">
+                                    <div class="table-responsive">
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="distributionTable">
+                                            <!--begin::Table head-->
+                                            <thead>
+                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-75px">Sr. No.</th>
+                                                    <th class="min-w-75px">Date</th>
+                                                    <th class="min-w-75px">From</th>
+                                                    <th class="min-w-75px">By</th>
+                                                    <th class="min-w-75px">To</th>
+                                                    <th class="min-w-75px">Amount</th>
                                                     <th class="min-w-75px">Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="text-gray-600 fw-bold" id="bankTableData">
-                                                <tr>
-                                                    <td>Income</td>
-                                                    <td>{{$bank['income']+0}}</td>
-                                                    <td>{{$bank['income']}}</td>
-                                                    <td>0</td>
-                                                    <td>{{$firmTab['st']['income'].','.$firmTab['sg']['income']}}</td>
-                                                    <td>
-                                                        <a href="{{route('viewMore')}}">
-                                                            <i class="fas fa-eye fa-lg"></i>
-                                                        </a>
-                                                    </td>
+                                            <tbody class="text-gray-600 fw-bold"></tbody>
+                                        <!--end::Table body-->
+                                        </table>
+                                    </div>
+                                    <!--end::Table-->
+                                </div>
+                                <!--end::Card body-->
+                            </div>
+                            <!--end::Card-->
+                        </div>
+                        <div class="tab-pane fade show" id="balance" aria-labelledby="active-tab" role="tabpanel">
+                            <!--begin::Card-->
+                            <div class="card">
+                                <!--begin::Card body-->
+                                <div class="card-body pt-0">
+                                    <div class="table-responsive">
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="balanceTable">
+                                            <!--begin::Table head-->
+                                            <thead>
+                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-75px">Sr. no</th>
+                                                    <th class="min-w-75px">Bank Name</th>
+                                                    <th class="min-w-75px">Total Balance</th>
+                                                    <th class="min-w-75px">Available Balance</th>
+                                                    <th class="min-w-75px">Reserve Balance</th>
+                                                    <th class="min-w-75px">Firm’s Balance</th>
                                                 </tr>
-                                                <tr>
-                                                    <td>Salary</td>
-                                                    <td>{{$bank['salary']+0}}</td>
-                                                    <td>{{$bank['salary']}}</td>
-                                                    <td>0</td>
-                                                    <td>{{$bank['st']['salary'].','.$bank['sg']['salary']}}</td>
-                                                    <td>
-                                                        <a href="{{route('viewMore')}}">
-                                                            <i class="fas fa-eye fa-lg"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Cash</td>
-                                                    <td>{{$bank['cash']}}</td>
-                                                    <td>{{$bank['cash']}}</td>
-                                                    <td>0</td>
-                                                    <td>{{$bank['st']['cash'].','.$bank['sg']['cash']}}</td>
-                                                    <td>
-                                                        <a href="{{route('viewMore')}}">
-                                                            <i class="fas fa-eye fa-lg"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                            </thead>
+                                            <tbody class="text-gray-600 fw-bold"></tbody>
+                                        <!--end::Table body-->
                                         </table>
                                     </div>
                                     <!--end::Table-->
@@ -357,26 +365,73 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
-            $(".datatable").DataTable();
+            // $(".datatable").DataTable();
+            // chart
+            // const project_overview_chart = document.getElementById("project_overview_chart");
+            var config = {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [1,1],
+                        backgroundColor: ['#00A3FF', '#50CD89']
+                    }],
+                    labels: ['Prime', 'AMS']
+                },
+                options: {
+                    chart: {
+                        fontFamily: 'inherit'
+                    },
+                    cutoutPercentage: 75,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    title: {
+                        display: false
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    },
+                    tooltips: {
+                        enabled: true,
+                        intersect: false,
+                        mode: 'nearest',
+                        bodySpacing: 5,
+                        yPadding: 10,
+                        xPadding: 10,
+                        caretPadding: 0,
+                        displayColors: false,
+                        backgroundColor: '#20D489',
+                        titleFontColor: '#ffffff',
+                        cornerRadius: 4,
+                        footerSpacing: 0,
+                        titleSpacing: 0
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            };
+            $.each($(".project_overview_chart"),(i,v)=>{
+                var ctx = v.getContext('2d');
+                var myDoughnut = new Chart(ctx, config);
+            })
             // date to date filter
             var start = moment().startOf('month');
             var end = moment().endOf('month');
 
             function cb(start, end) {
-                if(start.toString()=="Invalid date"){
-                    $('#dematrange span').html("All");
-                }else{
-                    $('#dematrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                }
+                $('.dematrange').first().find("span").html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             }
 
-            $('#dematrange').daterangepicker({
+            $('.daterange').daterangepicker({
                 "showDropdowns": true,
                 startDate: start,
                 endDate: end,
                 ranges: {
                 'Today': [moment(), moment()],
-                'All': ["",""],
                 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
                 'Last 7 Days': [moment().subtract(6, 'days'), moment()],
                 'Last 30 Days': [moment().subtract(29, 'days'), moment()],
@@ -385,32 +440,177 @@
                 }
             }, cb);
             cb(start, end);
-            $("#bankTable").dataTable();
-            // on date change
-            $('#dematrange').on('apply.daterangepicker', function(ev, picker) {
-                let startDate="";
-                let endDate="";
-                
-                if(picker.startDate=="Invalid date" && picker.endDate=="Invalid date"){ 
-                    startDate = "all";
-                    endDate = "all";
-                }else{
-                    startDate = picker.startDate.format('YYYY-MM-DD');
-                    endDate = picker.endDate.format('YYYY-MM-DD');
-                }
-                $("#bankTable").DataTable().destroy();
-                $.ajax('{{route("viewMore")}}',{
-                    type:"get",
-                    data:{
-                        startDate:startDate,
-                        endDate:endDate
+
+            // demat table
+            // Pipelining function for DataTables. To be used to the `ajax` option of DataTables
+            $.fn.dataTable.pipeline = function ( opts ) {
+                // Configuration options
+                var conf = $.extend( {
+                    pages: 5,     // number of pages to cache
+                    url: '',      // script url
+                    data: null,   // function or object with parameters to send to the server
+                                // matching how `ajax.data` works in DataTables
+                    method: 'POST' // Ajax HTTP method
+                }, opts );
+            
+                // Private variables for storing the cache
+                var cacheLower = -1;
+                var cacheUpper = null;
+                var cacheLastRequest = null;
+                var cacheLastJson = null;
+            
+                return function ( request, drawCallback, settings ) {
+                    var ajax          = false;
+                    var requestStart  = request.start;
+                    var drawStart     = request.start;
+                    var requestLength = request.length;
+                    var requestEnd    = requestStart + requestLength;
+                    
+                    if ( settings.clearCache ) {
+                        // API requested that the cache be cleared
+                        ajax = true;
+                        settings.clearCache = false;
                     }
-                })
-                .done(data => {
-                    $("#bankTableData").html(data.html);
-                    $("#bankTable").dataTable();
-                })
-            });
+                    else if ( cacheLower < 0 || requestStart < cacheLower || requestEnd > cacheUpper ) {
+                        // outside cached data - need to make a request
+                        ajax = true;
+                    }
+                    else if ( JSON.stringify( request.order )   !== JSON.stringify( cacheLastRequest.order ) ||
+                            JSON.stringify( request.columns ) !== JSON.stringify( cacheLastRequest.columns ) ||
+                            JSON.stringify( request.search )  !== JSON.stringify( cacheLastRequest.search )
+                    ) {
+                        // properties changed (ordering, columns, searching)
+                        ajax = true;
+                    }
+                    
+                    // Store the request for checking next time around
+                    cacheLastRequest = $.extend( true, {}, request );
+            
+                    if ( ajax ) {
+                        // Need data from the server
+                        if ( requestStart < cacheLower ) {
+                            requestStart = requestStart - (requestLength*(conf.pages-1));
+            
+                            if ( requestStart < 0 ) {
+                                requestStart = 0;
+                            }
+                        }
+                        
+                        cacheLower = requestStart;
+                        cacheUpper = requestStart + (requestLength * conf.pages);
+            
+                        request.start = requestStart;
+                        request.length = requestLength*conf.pages;
+            
+                        // Provide the same `data` options as DataTables.
+                        if ( typeof conf.data === 'function' ) {
+                            // As a function it is executed with the data object as an arg
+                            // for manipulation. If an object is returned, it is used as the
+                            // data object to submit
+                            var d = conf.data( request );
+                            if ( d ) {
+                                $.extend( request, d );
+                            }
+                        }
+                        else if ( $.isPlainObject( conf.data ) ) {
+                            // As an object, the data given extends the default
+                            $.extend( request, conf.data );
+                        }
+            
+                        return $.ajax( {
+                            "type":     conf.method,
+                            "url":      conf.url,
+                            "data":     request,
+                            "dataType": "json",
+                            "cache":    false,
+                            "success":  function ( json ) {
+                                cacheLastJson = $.extend(true, {}, json);
+            
+                                if ( cacheLower != drawStart ) {
+                                    json.data.splice( 0, drawStart-cacheLower );
+                                }
+                                if ( requestLength >= -1 ) {
+                                    json.data.splice( requestLength, json.data.length );
+                                }
+                                
+                                drawCallback( json );
+                            }
+                        } );
+                    }
+                    else {
+                        json = $.extend( true, {}, cacheLastJson );
+                        json.draw = request.draw; // Update the echo for each response
+                        json.data.splice( 0, requestStart-cacheLower );
+                        json.data.splice( requestLength, json.data.length );
+            
+                        drawCallback(json);
+                    }
+                }
+            };
+            
+            // Register an API method that will empty the pipelined data, forcing an Ajax
+            // fetch on the next draw (i.e. `table.clearPipeline().draw()`)
+            $.fn.dataTable.Api.register( 'clearPipeline()', function () {
+                return this.iterator( 'table', function ( settings ) {
+                    settings.clearCache = true;
+                } );
+            } );
+            
+            
+            //
+            // DataTables initialisation
+            //
+            $(document).ready(function() {
+                $('#balanceTable').DataTable( {
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": $.fn.dataTable.pipeline( {
+                        url: '{{route("bankDetailsFinancialStatus")}}',
+                        pages: 5,
+                        data:{
+                            income_form:"all"
+                        }
+                    } )
+                } );
+                $('#conversionTable').DataTable( {
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": $.fn.dataTable.pipeline( {
+                        url: '{{route("cashConversionDetailsFinancialStatus")}}',
+                        pages: 5,
+                    } )
+                } );
+                $('#distributionTable').DataTable( {
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": $.fn.dataTable.pipeline( {
+                        url: '{{route("distributionDetailsFinancialStatus")}}',
+                        pages: 5,
+                        data:{
+                            income_form:"ST"
+                        }
+                    } )
+                } );
+            } );
+
+            // on date change
+            // $('#dematrange').on('apply.daterangepicker', function(ev, picker) {
+            //     let startDate = picker.startDate.format('YYYY-MM-DD');
+            //     let endDate = picker.endDate.format('YYYY-MM-DD');
+            //     $("#dematTable").dataTable().fnDestroy();
+            //     $("#dematTable").dataTable({
+            //         "processing": true,
+            //         "serverSide": true,
+            //         "ajax": $.fn.dataTable.pipeline( {
+            //             url: '{{route("dematDetailsFinancialStatus")}}',
+            //             pages: 5,
+            //             data:{
+            //                 startDate:startDate,
+            //                 endDate:endDate
+            //             }
+            //         } )
+            //     } );
+            // });
         })
     </script>
     @section('jscript')

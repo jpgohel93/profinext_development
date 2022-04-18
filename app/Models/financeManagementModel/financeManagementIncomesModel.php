@@ -30,6 +30,10 @@ class financeManagementIncomesModel extends Model
     {
         return $this->hasOne(BankModel::class, "id", "bank")->latest();
     }
+    public function withUser()
+    {
+        return $this->hasOne(Users::class, "id", "created_by")->latest();
+    }
     protected static function boot()
     {
         parent::boot();

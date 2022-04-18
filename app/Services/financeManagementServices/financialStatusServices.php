@@ -10,7 +10,7 @@ use App\Models\financeManagementModel\financeManagementExpensesModel;
 use App\Models\financeManagementModel\financeManagementTransferModel;
 use App\Models\financeManagementModel\financeManagementLoanModel;
 use App\Models\financeManagementModel\BankModel;
-
+use App\Services\CommonService;
 class financialStatusServices
 {
     public static function getFirmsDetails(){
@@ -67,8 +67,47 @@ class financialStatusServices
 
         return $bank;
     }
-    public static function getUsersDetails(){
-        return User::with("withNumber:user_id,number")->get();
+    public static function getUsersDetails($request){
+        if(null !== $request->filter){
+            $filter = $request->filter;
+            if($filter=="quarterly"){
+                $days= CommonService::getQuarterDay(date('n'), date('j'), date('Y'));
+                dd($days);
+            }
+            else if($filter==100){
+                // current month
+                $startDate = date("Y-m-01");
+                $endDate = date("Y-m-t");
+            }
+            else if($filter==500){
+                // current year
+                $startDate = date("Y-01-01");
+                $endDate = date("Y-m-d",strtotime((date("Y")+1)."-12-"."31"));
+            }else{
+                // custom
+                $startDate = trim(explode("/",$request->filter)[0]);
+                $endDate = trim(explode("/",$request->filter)[1]);
+            }
+        }else{
+            $startDate = date("Y-m-01");
+            $endDate = date("Y-m-t");
+        }
+        
+        $users_data = financeManagementIncomesModel::select('users.name',"users.user_type","users.id as user_id", \Illuminate\Support\Facades\DB::raw('SUM(finance_management_incomes.amount) As earnings'))->leftJoin('users', 'finance_management_incomes.created_by', '=', 'users.id')->whereDate("finance_management_incomes.date",">=",$startDate)->whereDate("finance_management_incomes.date","<=",$endDate)->get();
+        $users['data']= array();
+        $i=0;
+        foreach($users_data as $user){
+            $arr = array();
+            array_push($arr,++$i);
+            array_push($arr,$user->name);
+            array_push($arr, Config()->get("constants.USERS_TYPE")[$user->user_type]);
+            array_push($arr,$user->earnings);
+            array_push($arr, "<a href='".route('transactionDetailsFinancialStatus',$user->user_id)."' class='viewUser' data-id='" . $user->id . "'><i class='fas fa-eye fa-xl px-3'></i></a>");
+            array_push($users['data'],$arr);
+        }
+        $users["recordsTotal"]=$i;
+        $users["recordsFiltered"]=$i;
+        return $users;
     }
     public static function getServicesDetails(){
         $services = array();
@@ -441,5 +480,86 @@ class financialStatusServices
         $demat["recordsTotal"]=$i;
         $demat["recordsFiltered"]=$i;
         return $demat;
+    }
+    public static function transactionDetailsFinancialStatus($request){
+        $transactions = array();
+
+        if(null !== $request->filter){
+            $filter = $request->filter;
+            if($filter=="quarterly"){
+                $days= CommonService::getQuarterDay(date('n'), date('j'), date('Y'));
+                dd($days);
+            }
+            else if($filter==100){
+                // current month
+                $startDate = date("Y-m-01");
+                $endDate = date("Y-m-t");
+            }
+            else if($filter==500){
+                // current year
+                $startDate = date("Y-01-01");
+                $endDate = date("Y-m-d",strtotime((date("Y")+1)."-12-"."31"));
+            }else{
+                // custom
+                $startDate = trim(explode("/",$request->filter)[0]);
+                $endDate = trim(explode("/",$request->filter)[1]);
+            }
+        }else{
+            $startDate = date("Y-m-01");
+            $endDate = date("Y-m-t");
+        }
+
+        $transactions['day']['distribution'] = financeManagementTransferModel::select('users.name',"users.role","users.id as user_id", \Illuminate\Support\Facades\DB::raw('SUM(finance_management_transfers.amount) As earnings'))->leftJoin('users', 'finance_management_transfers.created_by', '=', "users.id")->where("users.id","=",$request->user_id)->whereDate("finance_management_transfers.date","=",date("Y-m-d"))->get();
+
+        $transactions['month']['distribution'] = financeManagementTransferModel::select('users.name',"users.role","users.id as user_id", \Illuminate\Support\Facades\DB::raw('SUM(finance_management_transfers.amount) As earnings'))->leftJoin('users', 'finance_management_transfers.created_by', '=', "users.id")->where("users.id","=",$request->user_id)->whereYear("finance_management_transfers.date","=",date("Y"))->whereMonth("finance_management_transfers.date",date("m"))->get();
+        
+        
+        $transactions['day']['income'] = financeManagementIncomesModel::select('users.name',"users.user_type","users.id as user_id", \Illuminate\Support\Facades\DB::raw('SUM(finance_management_incomes.amount) As earnings'))->leftJoin('users', 'finance_management_incomes.created_by', '=',"users.id")->where("users.id",$request->user_id)->whereDate("finance_management_incomes.date","=",date("Y-m-d"))->get();
+
+        $transactions['month']['income'] = financeManagementIncomesModel::select('users.name',"users.user_type","users.id as user_id", \Illuminate\Support\Facades\DB::raw('SUM(finance_management_incomes.amount) As earnings'))->leftJoin('users', 'finance_management_incomes.created_by', '=', "users.id")->where("users.id",$request->user_id)->whereYear("finance_management_incomes.date",">=",date("Y"))->whereMonth("finance_management_incomes.date","<=",date("m"))->get();
+
+        $transactions["all"] = financeManagementTransferModel::whereDate("finance_management_transfers.date",">=",$startDate)->whereDate("finance_management_transfers.date","<=",$endDate)->get();
+
+        $transactions['data'] = array();
+        $i=0;
+        foreach($transactions['all'] as $transaction){
+            
+            $arr = array();
+            array_push($arr,++$i);
+            array_push($arr,$transaction->date);
+            array_push($arr,$transaction->from);            
+            array_push($arr,$transaction->to);
+            array_push($arr,$transaction->narration);
+            array_push($arr,$transaction->mode==0?"Cash":"Bank");
+            array_push($arr,$transaction->amount);
+            array_push($transactions['data'],$arr);
+        }
+        $transactions["recordsTotal"]=$i;
+        $transactions["recordsFiltered"]=$i;
+        return $transactions;
+    }
+    public static function viewMoreIncomeFigures(){
+        $figures = array();
+
+        $figures["day"]["income"] = financeManagementIncomesModel::leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id")->where("finance_management_incomes.mode",1)->whereDate("finance_management_incomes.date","=",date("Y-m-d"))->where("finance_management_banks.type",1)->sum("amount");
+
+        $figures["month"]["income"] = financeManagementIncomesModel::leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id")->where("finance_management_incomes.mode",1)->WhereYear("finance_management_incomes.date","=",date("Y"))->whereMonth("finance_management_incomes.date","=",date("m"))->where("finance_management_banks.type",1)->sum("amount");
+
+        $figures["day"]["expense"] = financeManagementExpensesModel::leftJoin("finance_management_banks","finance_management_expenses.bank","=","finance_management_banks.id")->where("finance_management_expenses.mode",1)->whereDate("finance_management_expenses.date","=",date("Y-m-d"))->where("finance_management_banks.type",1)->sum("amount");
+
+        $figures["month"]["expense"] = financeManagementExpensesModel::leftJoin("finance_management_banks","finance_management_expenses.bank","=","finance_management_banks.id")->where("finance_management_expenses.mode",1)->whereYear("finance_management_expenses.date","=",date("Y"))->whereMonth("finance_management_expenses.date","=",date("m"))->where("finance_management_banks.type",1)->sum("amount");
+
+        return $figures;
+
+    }
+    public static function viewMoreSalary(){
+        $figures = array();
+
+        $figures["day"]["transfer"] = financeManagementTransferModel::whereDate("finance_management_transfers.date","=",date("Y-m-d"))->sum("amount");
+
+        $figures["month"]["transfer"] = financeManagementTransferModel::WhereYear("date","=",date("Y"))->whereMonth("date","=",date("m"))->sum("amount");
+
+        return $figures;
+
     }
 }

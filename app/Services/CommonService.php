@@ -239,6 +239,29 @@ class CommonService
         ]);
         throw $error;
     }
+    public static function getQuarterByMonth($monthNumber) {
+        return floor(($monthNumber - 1) / 3) + 1;
+      }
+      
+      public static function getQuarterDay($monthNumber, $dayNumber, $yearNumber) {
+        $quarterDayNumber = 0;
+        $dayCountByMonth = array();
+      
+        $startMonthNumber = ((self::getQuarterByMonth($monthNumber) - 1) * 3) + 1;
+      
+        // Calculate the number of days in each month.
+        for ($i=1; $i<=12; $i++) {
+          $dayCountByMonth[$i] = date("t", strtotime($yearNumber . "-" . $i . "-01"));
+        }
+      
+        for ($i=$startMonthNumber; $i<=$monthNumber-1; $i++) {
+          $quarterDayNumber += $dayCountByMonth[$i];
+        }
+      
+        $quarterDayNumber += $dayNumber;
+      
+        return $quarterDayNumber;
+      }
 }
 
 ?>

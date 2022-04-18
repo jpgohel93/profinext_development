@@ -344,12 +344,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/financeManagement/loan/remove/{id}", [AccountingController::class, "financeManagementRemoveLoan"])->name("accounting.loan.remove");
     // finance Management - Financial Status
     Route::get("/financeManagement/FinancialStatus", [FinancialStatusController::class, "financialStatus"])->name("financeManagementFinancialStatus");
+    Route::get("/financeManagement/users", [FinancialStatusController::class, "usersTab"])->name("usersTab");
     Route::get("/financeManagement/view/st", [FinancialStatusController::class, "viewMoreSt"])->name("viewMoreSt");
     Route::get("/financeManagement/view/sg", [FinancialStatusController::class, "viewMoreSg"])->name("viewMoreSg");
     Route::get("/financeManagement/view", [FinancialStatusController::class, "viewMore"])->name("viewMore");
     Route::POST("/financeManagement/cash/view/get", [FinancialStatusController::class, "incomeExpenseDetailsFinancialStatus"])->name("incomeExpenseDetailsFinancialStatus");
     Route::POST("/financeManagement/cashConversion/view/get", [FinancialStatusController::class, "cashConversionDetailsFinancialStatus"])->name("cashConversionDetailsFinancialStatus");
     Route::get("/financeManagement/cash/view", [FinancialStatusController::class, "viewMoreCash"])->name("viewMoreCash");
+    Route::get("/financeManagement/income/view", [FinancialStatusController::class, "viewMoreIncome"])->name("viewMoreIncome");
+    Route::get("/financeManagement/salary/view", [FinancialStatusController::class, "viewMoreSalary"])->name("viewMoreSalary");
     Route::get("/financeManagement/users/{filter?}", [FinancialStatusController::class, "serviceTabFilter"])->name("serviceTabFilter");
     Route::post("/financeManagement/view/st/demat", [FinancialStatusController::class, "dematDetailsFinancialStatus"])->name("dematDetailsFinancialStatus");
     Route::post("/financeManagement/view/st/pl", [FinancialStatusController::class, "plDetailsFinancialStatus"])->name("plDetailsFinancialStatus");
@@ -357,6 +360,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post("/financeManagement/view/st/loan", [FinancialStatusController::class, "loanDetailsFinancialStatus"])->name("loanDetailsFinancialStatus");
     Route::post("/financeManagement/view/st/bank", [FinancialStatusController::class, "bankDetailsFinancialStatus"])->name("bankDetailsFinancialStatus");
     Route::post("/financeManagement/view/sg/services", [FinancialStatusController::class, "serviceDetailsFinancialStatus"])->name("serviceDetailsFinancialStatus");
+    Route::get("/financeManagement/view/user/transaction/{user_id}", [FinancialStatusController::class, "transactionDetailsFinancialStatus"])->name("transactionDetailsFinancialStatus");
     // Business Management
     Route::get("/businessManagement",[renewalStatusController::class,"view"])->name("business_management");
     // document management

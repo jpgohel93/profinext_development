@@ -1,5 +1,5 @@
 @extends('layout')
-@section("page-title","View Cash - Finance Management")
+@section("page-title","View Income - Finance Management")
 @section("finance_management.financialStatus","active")
 @section("finance_management.accordion","hover show")
 @section("content")
@@ -164,12 +164,12 @@
                                                 <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$figures['day']['income']}}">0</div>
                                                     </div>
                                                     <!--end::Number-->
                                                     <!--begin::Label-->
                                                     <div class="fw-bold fs-6 text-gray-400">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$figures['month']['income']}}">0</div>
                                                     </div>
                                                     <!--end::Label-->
                                                 </div>
@@ -178,12 +178,12 @@
                                                 <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$figures['day']['expense']}}">0</div>
                                                     </div>
                                                     <!--end::Number-->
                                                     <!--begin::Label-->
                                                     <div class="fw-bold fs-6 text-gray-400">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$figures['month']['expense']}}">0</div>
                                                     </div>
                                                     <!--end::Label-->
                                                 </div>
@@ -192,12 +192,12 @@
                                                 <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0-0}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{(int)$figures['day']['income']-(int)$figures['day']['expense']}}">0</div>
                                                     </div>
                                                     <!--end::Number-->
                                                     <!--begin::Label-->
                                                     <div class="fw-bold fs-6 text-gray-400">
-                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{0-0}}">0</div>
+                                                        <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{(int)$figures['month']['income']-(int)$figures['month']['expense']}}">0</div>
                                                     </div>
                                                     <!--end::Label-->
                                                 </div>
@@ -207,7 +207,7 @@
                                         </div>
                                         <!--end::Wrapper-->
                                         <!--begin::Progress-->
-                                        <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
+                                        {{-- <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
                                             <div class="d-flex justify-content-between w-100 mt-auto mb-2">
                                                 <span class="fw-bold fs-6 text-gray-400">Profile Compleation</span>
                                                 <span class="fw-bolder fs-6">50%</span>
@@ -215,7 +215,7 @@
                                             <div class="h-5px mx-3 w-100 bg-light mb-3">
                                                 <div class="bg-success rounded h-5px" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <!--end::Progress-->
                                     </div>
                                     <!--end::Stats-->
@@ -249,6 +249,11 @@
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
                                         <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#loan">Loan</a>
+                                    </li>
+                                    <!--end::Nav item-->
+                                    <!--begin::Nav item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#balance">Balance</a>
                                     </li>
                                     <!--end::Nav item-->
                                 </ul>
@@ -415,6 +420,34 @@
                                                     <th class="min-w-75px">Particular</th>
                                                     <th class="min-w-75px">Mode</th>
                                                     <th class="min-w-75px">Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-gray-600 fw-bold"></tbody>
+                                        <!--end::Table body-->
+                                        </table>
+                                    </div>
+                                    <!--end::Table-->
+                                </div>
+                                <!--end::Card body-->
+                            </div>
+                            <!--end::Card-->
+                        </div>
+                        <div class="tab-pane fade show" id="balance" aria-labelledby="active-tab" role="tabpanel">
+                            <!--begin::Card-->
+                            <div class="card">
+                                <!--begin::Card body-->
+                                <div class="card-body pt-0">
+                                    <div class="table-responsive">
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="balanceTable">
+                                            <!--begin::Table head-->
+                                            <thead>
+                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-75px">Sr. no</th>
+                                                    <th class="min-w-75px">Bank Name</th>
+                                                    <th class="min-w-75px">Total Balance</th>
+                                                    <th class="min-w-75px">Available Balance</th>
+                                                    <th class="min-w-75px">Reserve Balance</th>
+                                                    <th class="min-w-75px">Firm’s Balance</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-bold"></tbody>
@@ -644,6 +677,17 @@
                         pages: 5,
                     } )
                 } );
+                $('#balanceTable').DataTable( {
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": $.fn.dataTable.pipeline( {
+                        url: '{{route("bankDetailsFinancialStatus")}}',
+                        pages: 5,
+                        data:{
+                            income_form:"all"
+                        }
+                    } )
+                } );
                 $('#conversionTable').DataTable( {
                     "processing": true,
                     "serverSide": true,
@@ -688,23 +732,23 @@
             } );
 
             // on date change
-            $('#dematrange').on('apply.daterangepicker', function(ev, picker) {
-                let startDate = picker.startDate.format('YYYY-MM-DD');
-                let endDate = picker.endDate.format('YYYY-MM-DD');
-                $("#dematTable").dataTable().fnDestroy();
-                $("#dematTable").dataTable({
-                    "processing": true,
-                    "serverSide": true,
-                    "ajax": $.fn.dataTable.pipeline( {
-                        url: '{{route("dematDetailsFinancialStatus")}}',
-                        pages: 5,
-                        data:{
-                            startDate:startDate,
-                            endDate:endDate
-                        }
-                    } )
-                } );
-            });
+            // $('#dematrange').on('apply.daterangepicker', function(ev, picker) {
+            //     let startDate = picker.startDate.format('YYYY-MM-DD');
+            //     let endDate = picker.endDate.format('YYYY-MM-DD');
+            //     $("#dematTable").dataTable().fnDestroy();
+            //     $("#dematTable").dataTable({
+            //         "processing": true,
+            //         "serverSide": true,
+            //         "ajax": $.fn.dataTable.pipeline( {
+            //             url: '{{route("dematDetailsFinancialStatus")}}',
+            //             pages: 5,
+            //             data:{
+            //                 startDate:startDate,
+            //                 endDate:endDate
+            //             }
+            //         } )
+            //     } );
+            // });
         })
     </script>
     @section('jscript')
