@@ -48,7 +48,7 @@
                                                 <td>{{date('Y-m-d',strtotime($demat['created_at']))}}</td>
                                                 <td>{{$demat['holder_name']}}</td>
                                                 <td>{{$demat["name"]}}</td>
-                                                @canany(["document-management-pan-card-write","document-management-pan-card-delete"])
+                                                @canany(["document-management-pan-card-read","document-management-pan-card-write","document-management-pan-card-delete"])
                                                     <td>
                                                         <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                             <span class="svg-icon svg-icon-5 m-0">

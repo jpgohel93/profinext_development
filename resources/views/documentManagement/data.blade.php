@@ -53,7 +53,7 @@
                                                 <td>{{$document->date}}</td>
                                                 <td>{{$document->title}}</td>
                                                 <td>{{$document->notes}}</td>
-                                                @canany(["document-management-data-write","document-management-data-delete"])
+                                                @canany(["document-management-data-read","document-management-data-write","document-management-data-delete"])
                                                     <td>
                                                         <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                             <span class="svg-icon svg-icon-5 m-0">

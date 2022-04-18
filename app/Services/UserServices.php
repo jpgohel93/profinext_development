@@ -132,9 +132,9 @@ class UserServices
         // check permissions
         $direct_permissions=[];
         $role_permissions = [];
-        if(isset($request->role) && trim($request->role[0])!="" && isset($request->permissions)){
+        if(isset($request->role) && trim($request->role[0])!="" && isset($request->permission)){
             $role_permissions = RoleServices::permissions()->pluck("name")->toArray();
-            $direct_permissions = array_diff($role_permissions,$request->permissions);
+            $direct_permissions = array_diff($role_permissions,$request->permission);
         }
         // revoke permissions
         $param = array();
