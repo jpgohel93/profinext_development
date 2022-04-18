@@ -1096,7 +1096,7 @@
                                 $("#viewImagesContainer").html(data.data);
                                 $("#viewImagesModal").modal("show");
                             }else{
-                                window.alert("Unable to get images");
+                                window.alert("Screen short not upload.");
                             }
                         })
                         .fail((err)=>{

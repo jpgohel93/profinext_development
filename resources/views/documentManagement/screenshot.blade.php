@@ -25,7 +25,7 @@
                         <div class="container">
                             <div class="row my-3">
                                 <div class="col-md-3">
-                                    <h3>Pan Cards</h3>
+                                    <h3>Screenshot</h3>
                                 </div>
                             </div>
                             <table class="table table-striped" id="bank">
@@ -59,7 +59,7 @@
                                                     </a>
                                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
                                                         <div class="menu-item px-3">
-                                                            <a href="{{asset('screenshots')."/".$demat['image_url']}}" class='menu-link px-3' target="_blank">
+                                                            <a href="{{asset('renewal_account_images')."/".$demat['image_url']}}" class='menu-link px-3' target="_blank">
                                                                 View
                                                             </a>
                                                         </div>
@@ -211,7 +211,7 @@
                                     $("#documentForm").find("#editIdContainer").html(`<input type="hidden" name="id" value="${data.id}">`)
                                     $("#client_name").val(data.name);
                                     $("#title").val(data.title);
-                                    var url = "{{asset('screenshots')}}/"+data.image_url;
+                                    var url = "{{asset('renewal_account_images')}}/"+data.image_url;
                                     $("#image_preview").html("<img style='height:100px;width;70px;' src='"+url+"'>");
                                     $("#document").attr("required",false);
                                     $("#add_document").modal("show");

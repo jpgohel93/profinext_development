@@ -206,7 +206,7 @@ class renewalStatusController extends Controller
 
                 $data["service_type"] = $account_type;
 
-            }elseif ($demat_data->service_type == 1){
+            }elseif ($demat_data->service_type == 1 || $demat_data->service_type == 3){
                 $account_type = 'Prime';
                 $service_data = servicesTypeServices::getByType($account_type);
                 $sharing = isset($service_data->sharing) ? $service_data->sharing : 1;
@@ -329,7 +329,7 @@ class renewalStatusController extends Controller
         $grand_total = $renewData->total_payment;
         $title = "INVOICE";
         $terms = TermsAndConditionsServices::all(true);
-        $type =3;
+        $type = 3;
         return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms","type"));
     }
 
@@ -448,6 +448,9 @@ class renewalStatusController extends Controller
         }
         elseif ($demateDetails->service_type == 1){
             $account_type = 'Prime';
+        }
+        elseif ($demateDetails->service_type == 3){
+            $account_type = 'Prime Next';
         }
         $service_data = servicesTypeServices::getByType($account_type);
         $profit_pr = (100 * $demateDetails->final_pl) / $demateDetails->capital;

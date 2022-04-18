@@ -343,7 +343,7 @@ class ClientServices
                 $array['is_new'] = 1;
                 $array['joining_date'] = date('Y-m-d');
                 $array['created_by'] = auth()->user()->id;
-                
+
                 if(isset($request->demate_id[$key])){
                     ClientDemat::where("id", $request->demate_id[$key])->update($array);
                     $demate_id = $request->demate_id[$key];
@@ -600,6 +600,10 @@ class ClientServices
             ->leftJoin('client_demat', 'clients.id', '=', 'client_demat.client_id')
             ->where("client_demat.service_type",1)->get();
 
+        $clientList["prime_next"] = Client::where("channel_partner_id",$id)
+            ->leftJoin('client_demat', 'clients.id', '=', 'client_demat.client_id')
+            ->where("client_demat.service_type",3)->get();
+
         $clientList["ams"] = Client::where("channel_partner_id",$id)
             ->leftJoin('client_demat', 'clients.id', '=', 'client_demat.client_id')
             ->where("client_demat.service_type",2)->get();
@@ -640,7 +644,7 @@ class ClientServices
         $clients['data'] = array();
 
         $clients_data = Client::where("client_type", 3)->select("name", "id", "number")->orderBy('created_at', 'DESC')->get()->toArray();
-        
+
         $i = 0;
         foreach ($clients_data as $client) {
             $i++;
@@ -811,7 +815,7 @@ class ClientServices
             }elseif ($demat->service_type == 1){
                 $service_type = 'Prime';
             }else if($demat->service_type == 3){
-                $service_type = 'prime next';
+                $service_type = 'Prime Next';
             }
             $service_type = servicesTypeServices::getByType($service_type);
 
@@ -829,7 +833,7 @@ class ClientServices
                 }
                 $renewal_amount =$service_type->renewal_amount;
                 $fees = $service_type->renewal_amount + $profit_sharing;
-            }elseif ($demat->service_type == 1){
+            }elseif ($demat->service_type == 1 || $demat->service_type == 3){
                 $profit_sharing = ($sharing * $profit) / 100;
                 $fees = $profit_sharing;
             }

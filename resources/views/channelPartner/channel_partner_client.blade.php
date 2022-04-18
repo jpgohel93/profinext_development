@@ -80,6 +80,13 @@
                                        href="#freelancerprivate">Channel Partner Clients Prime</a>
                                 </li>
                                 <!--end:::Tab item-->
+
+                                <!--begin:::Tab item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
+                                       href="#freelancerprimenext">Channel Partner Clients Prime Next</a>
+                                </li>
+                                <!--end:::Tab item-->
                             </ul>
                             <!--end:::Tabs-->
 
@@ -148,6 +155,49 @@
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
                                                         @forelse($channelPartnerClient['prime'] as $client)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td class="d-flex align-items-center">
+                                                                    {{$client->name}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$client->number}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$client->wp_number}}
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card-->
+                                </div>
+                                <div class="tab-pane fade show" id="freelancerprimenext" aria-labelledby="active-tab" role="tabpanel">
+                                    <!--begin::Card-->
+                                    <div class="card">
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr
+                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Client Name</th>
+                                                            <th class="min-w-75px">Number</th>
+                                                            <th class="min-w-75px">Whatsapp Number</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($channelPartnerClient['prime_next'] as $client)
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
                                                                 <td class="d-flex align-items-center">

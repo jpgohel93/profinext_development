@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\ClientDemat;
 use App\Models\ClientPayment;
 use App\Models\financeManagementModel\financeManagementIncomesModel;
+use App\Models\renewalAccountImagesModal;
 use App\Models\Screenshots;
 use App\Models\RenewDemat;
 use App\Services\financeManagementServices\bankServices;
@@ -147,6 +148,19 @@ class ClientDemateServices{
             $clientDemat['is_new'] = 3;
             $clientDemat['joining_date'] = date('Y-m-d');
             ClientDemat::where("id", $renewData['client_demat_id'])->update($clientDemat);
+
+            //after renew account remove the screenshots
+            $imageData = renewalAccountImagesModal::where("renewal_account_id",$request->fees_payment_id)->get();
+            if(!empty($imageData)) {
+                $destinationPath = public_path('renewal_account_images/');
+                foreach ($imageData as $image) {
+                    if ($image->image_url != '') {
+                        if (file_exists($destinationPath . $image->image_url)) {
+                            unlink($destinationPath . $image->image_url);
+                        }
+                    }
+                }
+            }
         }else{
             $data['part_payment']=$totalPayment;
         }
@@ -174,6 +188,8 @@ class ClientDemateServices{
             $income['sub_heading']="Prime Profit Sharing";
         }elseif ($clientDematData['service_type'] == 2){
             $income['sub_heading']="AMS Profit Sharing";
+        }elseif ($clientDematData['service_type'] == 3){
+            $income['sub_heading']="Prime Next Profit Sharing";
         }
         $income['date']=date('Y-m-d');
         $income['mode']="1";
@@ -201,6 +217,19 @@ class ClientDemateServices{
             $clientDemat['is_new'] = 3;
             $clientDemat['joining_date'] = date('Y-m-d');
             ClientDemat::where("id", $renewData['client_demat_id'])->update($clientDemat);
+
+            //after renew account remove the screenshots
+            $imageData = renewalAccountImagesModal::where("renewal_account_id",$request->profit_sharing_payment_id)->get();
+            if(!empty($imageData)) {
+                $destinationPath = public_path('renewal_account_images/');
+                foreach ($imageData as $image) {
+                    if ($image->image_url != '') {
+                        if (file_exists($destinationPath . $image->image_url)) {
+                            unlink($destinationPath . $image->image_url);
+                        }
+                    }
+                }
+            }
         }else{
             $data['part_payment']=$totalPayment;
         }
@@ -226,6 +255,8 @@ class ClientDemateServices{
             $income['sub_heading']="Prime Profit Sharing";
         }elseif ($clientDematData['service_type'] == 2){
             $income['sub_heading']="AMS Profit Sharing";
+        }elseif ($clientDematData['service_type'] == 3){
+            $income['sub_heading']="Prime Next Profit Sharing";
         }
         $income['date']=date('Y-m-d');
         $income['mode']="1";
@@ -258,6 +289,19 @@ class ClientDemateServices{
             $clientDemat['is_new'] = 3;
             $clientDemat['joining_date'] = date('Y-m-d');
             ClientDemat::where("id", $renewData['client_demat_id'])->update($clientDemat);
+
+            //after renew account remove the screenshots
+            $imageData = renewalAccountImagesModal::where("renewal_account_id",$request->part_payment_id)->get();
+            if(!empty($imageData)) {
+                $destinationPath = public_path('renewal_account_images/');
+                foreach ($imageData as $image) {
+                    if ($image->image_url != '') {
+                        if (file_exists($destinationPath . $image->image_url)) {
+                            unlink($destinationPath . $image->image_url);
+                        }
+                    }
+                }
+            }
         }else{
             $data['part_payment']=$totalPayment;
         }
@@ -284,7 +328,7 @@ class ClientDemateServices{
         $forIncomes = bankServices::getBankAccountById($request->full_bank_id);
         $data['part_payment']=$forIncomes['invoice_code'];
 
-        if($clientDematData['service_type'] == 1){
+        if($clientDematData['service_type'] == 1 || $clientDematData['service_type'] == 3){
             $data['is_pay_profit_sharing']=1;
         }elseif ($clientDematData['service_type'] == 2){
             $data['is_pay_fee']=1;
@@ -316,6 +360,19 @@ class ClientDemateServices{
         $clientDemat['is_new'] = 3;
         $clientDemat['joining_date'] = date('Y-m-d');
         ClientDemat::where("id", $renewData['client_demat_id'])->update($clientDemat);
+
+        //after renew account remove the screenshots
+        $imageData = renewalAccountImagesModal::where("renewal_account_id",$request->full_payment_id)->get();
+        if(!empty($imageData)) {
+            $destinationPath = public_path('renewal_account_images/');
+            foreach ($imageData as $image) {
+                if ($image->image_url != '') {
+                    if (file_exists($destinationPath . $image->image_url)) {
+                        unlink($destinationPath . $image->image_url);
+                    }
+                }
+            }
+        }
 
 
         return RenewDemat::where("id",$request->full_payment_id)->update($data);

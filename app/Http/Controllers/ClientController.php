@@ -547,7 +547,7 @@ class ClientController extends Controller
 					$serviceType = "PRIME";
 				} else if($data->service_type == 2) {
 					$serviceType = "AMS";
-				}else{
+				}else if($data->service_type == 3){
 					$serviceType = "PRIME NEXT";
 				}
 

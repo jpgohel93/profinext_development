@@ -11,7 +11,7 @@ class RenewalAccountImagesServices{
         $images = renewalAccountImagesModal::where("renewal_account_id",$id)->get(["image_url", "mimeType", "id","title"]);
         $html = "";
         foreach ($images as $image){
-            $html.="<div class='col-md-3'><label class='h3'>". $image->title. "</label><div><img src='" . url('common/displayFile/' . Crypt::encryptString($image->id) . '/' . Crypt::encryptString('renewal_image') . '/' . $image->image_url) . "' style='width:200px'></div></div>";
+            $html.="<div class='col-md-3'><label class='h3'>". $image->title. "</label><div><a target='_blank' href='".url('common/displayFile/' . Crypt::encryptString($image->id) . '/' . Crypt::encryptString('renewal_image') . '/' . $image->image_url) ."'><img src='" . url('common/displayFile/' . Crypt::encryptString($image->id) . '/' . Crypt::encryptString('renewal_image') . '/' . $image->image_url) . "' style='width:200px'></a></div></div>";
         }
         return $html;
     }

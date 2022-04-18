@@ -26,7 +26,19 @@ class documentServices{
             throw $error;
         }
         if($request->hasFile("document")){
+
             $destinationPath = public_path('documents/');
+
+            $imageData = documentManagementModel::where("id",$request->id)->first();
+
+            if(!empty($imageData)) {
+                if ($imageData->document != '') {
+                    if(file_exists($destinationPath.$imageData->document)){
+                        unlink($destinationPath.$imageData->document);
+                    }
+                }
+            }
+
             $filename = $request->file('document')->hashName();
             $request->document->move($destinationPath, $filename);
             $document['document'] = $filename;
@@ -72,6 +84,17 @@ class documentServices{
         }
         if($request->hasFile("document")){
             $destinationPath = public_path('pan_cards/');
+
+            $imageData = PancardImageModel::where("id",$request->id)->first();
+
+            if(!empty($imageData)) {
+                if ($imageData->file != '') {
+                    if(file_exists($destinationPath.$imageData->file)){
+                        unlink($destinationPath.$imageData->file);
+                    }
+                }
+            }
+
             $filename = $request->file('document')->hashName();
             $request->document->move($destinationPath, $filename);
             $document['file'] = $filename;
@@ -115,7 +138,18 @@ class documentServices{
             throw $error;
         }
         if($request->hasFile("document")){
-            $destinationPath = public_path('screenshots/');
+            $destinationPath = public_path('renewal_account_images/');
+
+            $imageData = renewalAccountImagesModal::where("id",$request->id)->first();
+
+            if(!empty($imageData)) {
+                if ($imageData->image_url != '') {
+                    if(file_exists($destinationPath.$imageData->image_url)){
+                        unlink($destinationPath.$imageData->image_url);
+                    }
+                }
+            }
+
             $filename = $request->file('document')->hashName();
             $request->document->move($destinationPath, $filename);
             $document['image_url'] = $filename;
@@ -150,6 +184,17 @@ class documentServices{
         }
         if($request->hasFile("document")){
             $destinationPath = public_path('images/');
+
+            $imageData = ImageModel::where("id",$request->id)->first();
+
+            if(!empty($imageData)) {
+                if ($imageData->image != '') {
+                    if(file_exists($destinationPath.$imageData->image)){
+                        unlink($destinationPath.$imageData->image);
+                    }
+                }
+            }
+
             $filename = $request->file('document')->hashName();
             $request->document->move($destinationPath, $filename);
             $document['image'] = $filename;
