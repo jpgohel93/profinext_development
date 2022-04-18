@@ -252,7 +252,7 @@
                                                                 <td>Expense</td>
                                                                 <td>{{$expense->sub_heading}}</td>
                                                                 <td>{{$expense->text_box}}</td>
-                                                                <td>{{($expense->mode==0)?"Cash":(isset($expense->bank_name)?$expense->bank_name->title:"")}}</td>
+                                                                <td>{{($expense->mode==0)?"Cash":$expense->bank_name->title}}</td>
                                                                 <td style="color:#db3236">{{$expense->amount}}</td>
                                                                 <td>
                                                                     <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -320,7 +320,7 @@
                                                                 <td>Loan</td>
                                                                 <td>{{$loan->sub_heading}}</td>
                                                                 <td>{{$loan->narration}}</td>
-                                                                <td>{{($loan->mode==0)?"Cash":(isset($loan->bank_name)?$loan->bank_name->title:"")}}</td>
+                                                                <td>{{($loan->mode==0)?"Cash":$loan->bank_name->title}}</td>
                                                                 <td style="color:#f4c20d">{{$loan->amount}}</td>
                                                                 <td>
                                                                     <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -407,7 +407,7 @@
                                                                 <td>{{$incomeRecord->date}}</td>
                                                                 <td>{{$incomeRecord->sub_heading}}</td>
                                                                 <td>{{$incomeRecord->text_box}}</td>
-                                                                <td>{{($incomeRecord->mode==0)?"Cash":(isset($incomeRecord->bank_name)?$incomeRecord->bank_name->title:"")}}</td>
+                                                                <td>{{($incomeRecord->mode==0)?"Cash":$incomeRecord->bank_name->title}}</td>
                                                                 <td style="color:#3cba54">{{$incomeRecord->amount}}</td>
                                                                 <td>
                                                                     <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -494,7 +494,7 @@
                                                                 <td>{{$expense->date}}</td>
                                                                 <td>{{$expense->sub_heading}}</td>
                                                                 <td>{{$expense->text_box}}</td>
-                                                                <td>{{($expense->mode==0)?"Cash":(isset($expense->bank_name)?$expense->bank_name->title:"")}}</td>
+                                                                <td>{{($expense->mode==0)?"Cash":$expense->bank_name->title}}</td>
                                                                 <td style="color:#db3236">{{$expense->amount}}</td>
                                                                 <td>
                                                                     <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -673,7 +673,7 @@
                                                                 <td>{{$loan->sub_heading}}</td>
                                                                 <td>{{$loan->user_name->name}}</td>
                                                                 <td>{{$loan->narration}}</td>
-                                                                <td>{{($loan->mode==0)?"Cash":(isset($loan->bank_name)?$loan->bank_name->title:"")}}</td>
+                                                                <td>{{($loan->mode==0)?"Cash":$loan->bank_name->title}}</td>
                                                                 <td>{{$loan->interest}}</td>
                                                                 <td style="color:#f4c20d">{{$loan->amount}}</td>
                                                                 <td>
