@@ -100,7 +100,7 @@ class financialStatusServices
             $arr = array();
             array_push($arr,++$i);
             array_push($arr,$user->name);
-            array_push($arr, Config()->get("constants.USERS_TYPE")[$user->user_type]);
+            array_push($arr, isset($user->user_type)?Config()->get("constants.USERS_TYPE")[$user->user_type]:"");
             array_push($arr,$user->earnings);
             array_push($arr, "<a href='".route('transactionDetailsFinancialStatus',$user->user_id)."' class='viewUser' data-id='" . $user->id . "'><i class='fas fa-eye fa-xl px-3'></i></a>");
             array_push($users['data'],$arr);
