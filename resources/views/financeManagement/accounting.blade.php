@@ -208,7 +208,7 @@
                                                                 <td>Income</td>
                                                                 <td>{{$incomeRecord->sub_heading}}</td>
                                                                 <td>{{$incomeRecord->text_box}}</td>
-                                                                <td>{{($incomeRecord->mode==0)?"Cash":$incomeRecord->bank_name->title}}</td>
+                                                                <td>{{($incomeRecord->mode==0)?"Cash":(isset($incomeRecord->bank_name)?$incomeRecord->bank_name->title:"")}}</td>
                                                                 <td style="color:#3cba54">{{$incomeRecord->amount}}</td>
                                                                 <td>
                                                                     <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
