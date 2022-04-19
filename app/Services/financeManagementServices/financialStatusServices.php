@@ -93,7 +93,8 @@ class financialStatusServices
             $endDate = date("Y-m-t");
         }
         
-        $users_data = financeManagementIncomesModel::select('users.name',"users.user_type","users.id as user_id", \Illuminate\Support\Facades\DB::raw('SUM(finance_management_incomes.amount) As earnings'))->leftJoin('users', 'finance_management_incomes.created_by', '=', 'users.id')->whereDate("finance_management_incomes.date",">=",$startDate)->whereDate("finance_management_incomes.date","<=",$endDate)->get();
+        $users_data = User::whereDate("joining_date",">=",$startDate)->whereDate("joining_date","<=",$endDate)->select('name',"user_type","id as user_id")->get();
+
         $users['data']= array();
         $i=0;
         foreach($users_data as $user){
@@ -102,7 +103,7 @@ class financialStatusServices
                 array_push($arr,++$i);
                 array_push($arr,$user->name);
                 array_push($arr, isset($user->user_type)?Config()->get("constants.USERS_TYPE")[$user->user_type]:"");
-                array_push($arr,$user->earnings);
+                array_push($arr,0);
                 array_push($arr, "<a href='".route('transactionDetailsFinancialStatus',$user->user_id)."' class='viewUser' data-id='" . $user->id . "'><i class='fas fa-eye fa-xl px-3'></i></a>");
                 array_push($users['data'],$arr);
             }

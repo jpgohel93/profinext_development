@@ -11,6 +11,7 @@ use App\Services\financeManagementServices\renewalStatusService;
 use App\Services\ClientDemateServices;
 use Illuminate\Support\Facades\Redirect;
 use App\Services\TermsAndConditionsServices;
+use PDF;
 class renewalStatusController extends Controller
 {
     public function view(){
@@ -333,7 +334,7 @@ class renewalStatusController extends Controller
         return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms","type"));
     }
 
-    public function viewFeesInvoice($id,$type){
+    public function viewFeesInvoice($id,$type,$pdf=false){
         $renewData = ClientDemateServices::renewDataById($id);
 
         $message = array();
@@ -400,7 +401,12 @@ class renewalStatusController extends Controller
             $title = "INVOICE";
         }
         $terms = TermsAndConditionsServices::all(true);
-        return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms","type"));
+        if($pdf){
+            $pdf = PDF::loadView('financeManagement.fees_invoice', compact("renewData","message","total","grand_total","title", "terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+            return $pdf->download("abc.pdf");
+        }else{
+            return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms","type"));
+        }
     }
 
     public function viewPartPayment(Request $request){
