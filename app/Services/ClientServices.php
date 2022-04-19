@@ -6,7 +6,10 @@ use App\Models\Client;
 use App\Models\ClientDemat;
 use App\Models\ClientPayment;
 use App\Models\Screenshots;
+use App\Models\servicesTypeModel;
 use App\Models\PancardImageModel;
+use App\Models\User;
+use App\Models\RenewExpensesModal;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CommonService;
 use App\Services\financeManagementServices\financeManagementIncomesServices;
@@ -206,6 +209,25 @@ class ClientServices
                 }
                 // create demat
                 $demat_id = ClientDemat::create($array);
+
+                //channel Partner FEES
+                if ($demat['service_type'][$key] == 2 && $request->channel_partner_id != '') {
+                    $channelPartnerData = User::where("id",$request->channel_partner_id)->first();
+                    $serviceData = servicesTypeModel::where("name","AMS")->first();
+
+                    $channelPartnerAmount = $channelPartnerData->ams_new_client_percentage*$serviceData->renewal_amount/100;
+                    $expensesData['percentage'] = $channelPartnerData->ams_new_client_percentage;
+                    $expensesData['user_id'] = $request->channel_partner_id;
+                    $expensesData['renewal_account_id'] = 0;
+                    $expensesData['amount'] =$channelPartnerAmount;
+                    $expensesData['firm'] =$demat['st_sg'][$key];
+                    $expensesData['created_by']=auth()->user()->id;
+                    $expensesData['date'] = date("Y-m-d");
+                    $expensesData['description'] = "JOINING FEES";
+                    $expensesData['total_amount'] = $serviceData->renewal_amount;
+                    RenewExpensesModal::create($expensesData);
+                }
+
                 array_push($demat_ids,["ss"=>$screenshots,"pan"=>$panCards,"demat"=>$demat_id->id,"payment"=> $payment_id->id]);
             }
             // create client

@@ -9,6 +9,8 @@ use App\Models\financeManagementModel\financeManagementIncomesModel;
 use App\Models\renewalAccountImagesModal;
 use App\Models\Screenshots;
 use App\Models\RenewDemat;
+use App\Models\RenewExpensesModal;
+use App\Models\User;
 use App\Services\financeManagementServices\bankServices;
 
 class ClientDemateServices{
@@ -87,7 +89,7 @@ class ClientDemateServices{
     }
 
     public static function renewAccountList($bank_id,$startDate,$endDate){
-         return RenewDemat::where("bank_id",$bank_id)->where("status","to_renew")->where("created_at",">=",$startDate)->where("created_at","<=",$endDate)->with(["bank_name"])->get()->toArray();
+         return RenewDemat::where("bank_id",$bank_id)->where("status","to_renew")->where("created_at",">=","'".$startDate."'")->where("created_at","<=","'".$endDate."'")->with(["bank_name"])->get()->toArray();
 
     }
 
@@ -117,7 +119,8 @@ class ClientDemateServices{
         $data['fees_pay_date']=date("Y-m-d",strtotime($request->renew_fees_date));
 
         $renewData = RenewDemat::where("id",$request->fees_payment_id)->first()->toArray();
-        $clientDematData = ClientDemat::where("id", $renewData['client_demat_id'])->first()->toArray();
+        $clientDematData = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("client_demat.id", $renewData['client_demat_id'])->select('client_demat.*','clients.channel_partner_id')->first()->toArray();
         $forIncomes = bankServices::getBankAccountById($request->fees_bank_id);
         $data['part_payment']=$forIncomes['invoice_code'];
 
@@ -138,6 +141,42 @@ class ClientDemateServices{
         financeManagementIncomesModel::create($income);
 
         $totalPayment = $renewData['part_payment'] + $request->fees_amount;
+
+        //channel Partner
+        if ($clientDematData['service_type'] == 2 && isset($clientDematData['channel_partner_id']) && $clientDematData['channel_partner_id'] != '' && $clientDematData['channel_partner_id'] != 0) {
+            $channelPartnerData = User::where("id",$clientDematData['channel_partner_id'])->first();
+
+            $channelPartnerAmount = $channelPartnerData->ams_renewal_client_percentage*$renewData['renewal_fees']/100;
+            $expensesData['percentage'] = $channelPartnerData->ams_new_client_percentage;
+
+            $expensesData['user_id'] = $clientDematData['channel_partner_id'];
+            $expensesData['renewal_account_id'] = $clientDematData['id'];
+            $expensesData['amount'] =$channelPartnerAmount;
+            $expensesData['firm'] =$clientDematData['st_sg'];
+            $expensesData['created_by']=auth()->user()->id;
+            $expensesData['date'] = date("Y-m-d");
+            $expensesData['description'] = "RENEWAL FEES";
+            $expensesData['total_amount'] = $renewData['renewal_fees'];
+            RenewExpensesModal::create($expensesData);
+        }
+
+        //freelancer
+        if ($clientDematData['service_type'] == 2 && isset($clientDematData['freelancer_id']) && $clientDematData['freelancer_id'] != '' && $clientDematData['freelancer_id'] != 0) {
+            $freelancerData = User::where("id",$clientDematData['freelancer_id'])->first();
+            $freelancerAmount = $freelancerData->fees_percentage*$renewData['renewal_fees']/100;
+            $expensesData['user_id'] = $clientDematData['freelancer_id'];
+            $expensesData['renewal_account_id'] = $clientDematData['id'];
+            $expensesData['amount'] =$freelancerAmount;
+            $expensesData['firm'] =$clientDematData['st_sg'];
+            $expensesData['created_by']=auth()->user()->id;
+            $expensesData['date'] = date("Y-m-d");
+            $expensesData['description'] = "RENEWAL FEES";
+            $expensesData['total_amount'] = $renewData['renewal_fees'];
+            $expensesData['percentage'] = $freelancerData->fees_percentage;
+            RenewExpensesModal::create($expensesData);
+        }
+
+
         if($renewData['is_pay_profit_sharing'] == 1){
             //if full payment done
             $data['part_payment']=$totalPayment;
@@ -180,7 +219,8 @@ class ClientDemateServices{
         $data['profit_sharing_pay_date']=date("Y-m-d",strtotime($request->profit_sharing_date));
 
         $renewData = RenewDemat::where("id",$request->profit_sharing_payment_id)->first()->toArray();
-        $clientDematData = ClientDemat::where("id", $renewData['client_demat_id'])->first()->toArray();
+        $clientDematData = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+                            where("client_demat.id", $renewData['client_demat_id'])->select('client_demat.*','clients.channel_partner_id')->first()->toArray();
         $forIncomes = bankServices::getBankAccountById($request->profit_bank_id);
         $data['part_payment']=$forIncomes['invoice_code'];
 
@@ -207,6 +247,59 @@ class ClientDemateServices{
         financeManagementIncomesModel::create($income);
 
         $totalPayment = $renewData['part_payment'] + $request->profit_amount;
+
+        if (($clientDematData['service_type'] == 1 || $clientDematData['service_type'] == 3) && isset($clientDematData['channel_partner_id']) && $clientDematData['channel_partner_id'] != '' && $clientDematData['channel_partner_id'] != 0) {
+            $channelPartnerData = User::where("id",$clientDematData['channel_partner_id'])->first();
+            if ($clientDematData['is_new'] == 1 || $clientDematData['is_new'] == 2) {
+                $channelPartnerAmount = $channelPartnerData->prime_new_client_percentage*$renewData['profit_sharing']/100;
+                $expensesData['percentage'] = $channelPartnerData->prime_new_client_percentage;
+            } else {
+                $channelPartnerAmount = $channelPartnerData->prime_renewal_client_percentage*$renewData['profit_sharing']/100;
+                $expensesData['percentage'] = $channelPartnerData->prime_renewal_client_percentage;
+            }
+            $expensesData['user_id'] = $clientDematData['channel_partner_id'];
+            $expensesData['renewal_account_id'] = $clientDematData['id'];
+            $expensesData['amount'] =$channelPartnerAmount;
+            $expensesData['firm'] =$clientDematData['st_sg'];
+            $expensesData['created_by']=auth()->user()->id;
+            $expensesData['date'] = date("Y-m-d");
+            $expensesData['description'] = "PROFIT SHARING";
+            $expensesData['total_amount'] = $renewData['profit_sharing'];
+            RenewExpensesModal::create($expensesData);
+        }
+
+        if (isset($clientDematData['freelancer_id']) && $clientDematData['freelancer_id'] != '' && $clientDematData['freelancer_id'] != 0) {
+            $freelancerData = User::where("id", $clientDematData['freelancer_id'])->first();
+            if($clientDematData['service_type'] == 2) {
+                if($renewData['profit_sharing'] > $freelancerData->ams_limit) {
+                    $countAmount = $renewData['profit_sharing'] - $freelancerData->ams_limit;
+                    $freelancerAmount = $freelancerData->fees_percentage * $countAmount / 100;
+                    $expensesData['user_id'] = $clientDematData['freelancer_id'];
+                    $expensesData['renewal_account_id'] = $clientDematData['id'];
+                    $expensesData['amount'] = $freelancerAmount;
+                    $expensesData['firm'] = $clientDematData['st_sg'];
+                    $expensesData['created_by'] = auth()->user()->id;
+                    $expensesData['date'] = date("Y-m-d");
+                    $expensesData['description'] = "PROFIT SHARING";
+                    $expensesData['total_amount'] = $countAmount;
+                    $expensesData['percentage'] = $freelancerData->fees_percentage;
+                    RenewExpensesModal::create($expensesData);
+                }
+            }elseif ($clientDematData['service_type'] == 1 || $clientDematData['service_type'] == 3){
+                $freelancerAmount = $freelancerData->percentage * $renewData['profit_sharing'] / 100;
+                $expensesData['user_id'] = $clientDematData['freelancer_id'];
+                $expensesData['renewal_account_id'] = $clientDematData['id'];
+                $expensesData['amount'] = $freelancerAmount;
+                $expensesData['firm'] = $clientDematData['st_sg'];
+                $expensesData['created_by'] = auth()->user()->id;
+                $expensesData['date'] = date("Y-m-d");
+                $expensesData['description'] = "PROFIT SHARING";
+                $expensesData['total_amount'] = $renewData['profit_sharing'];
+                $expensesData['percentage'] = $freelancerData->percentage;
+                RenewExpensesModal::create($expensesData);
+            }
+        }
+
         if($renewData['is_pay_fee'] == 1 ||  $clientDematData['service_type'] == 1){
             //if full payment done
             $data['part_payment']=$totalPayment;
@@ -247,7 +340,8 @@ class ClientDemateServices{
         $data['bank_id']=$request->part_bank_id;
 
         $renewData = RenewDemat::where("id",$request->part_payment_id)->first()->toArray();
-        $clientDematData = ClientDemat::where("id", $renewData['client_demat_id'])->first()->toArray();
+        $clientDematData = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+                            where("client_demat.id", $renewData['client_demat_id'])->select('client_demat.*','clients.channel_partner_id')->first()->toArray();
         $forIncomes = bankServices::getBankAccountById($request->part_bank_id);
         $data['part_payment']=$forIncomes['invoice_code'];
 
@@ -275,6 +369,95 @@ class ClientDemateServices{
 
         $totalPayment = $renewData['part_payment'] + $request->part_amount;
         if($renewData['final_amount'] <= $totalPayment){
+
+            //channel Partner Renewal Fees
+            if ($clientDematData['service_type'] == 2 && isset($clientDematData['channel_partner_id']) && $clientDematData['channel_partner_id'] != '' && $clientDematData['channel_partner_id'] != 0) {
+                $channelPartnerData = User::where("id",$clientDematData['channel_partner_id'])->first();
+
+                $channelPartnerAmount = $channelPartnerData->ams_renewal_client_percentage*$renewData['renewal_fees']/100;
+                $expensesData['percentage'] = $channelPartnerData->ams_new_client_percentage;
+
+                $expensesData['user_id'] = $clientDematData['channel_partner_id'];
+                $expensesData['renewal_account_id'] = $clientDematData['id'];
+                $expensesData['amount'] =$channelPartnerAmount;
+                $expensesData['firm'] =$clientDematData['st_sg'];
+                $expensesData['created_by']=auth()->user()->id;
+                $expensesData['date'] = date("Y-m-d");
+                $expensesData['description'] = "RENEWAL FEES";
+                $expensesData['total_amount'] = $renewData['renewal_fees'];
+                RenewExpensesModal::create($expensesData);
+            }
+
+            //freelancer Renewal Fees
+            if ($clientDematData['service_type'] == 2 && isset($clientDematData['freelancer_id']) && $clientDematData['freelancer_id'] != '' && $clientDematData['freelancer_id'] != 0) {
+                $freelancerData = User::where("id",$clientDematData['freelancer_id'])->first();
+                $freelancerAmount = $freelancerData->fees_percentage*$renewData['renewal_fees']/100;
+                $expensesData['user_id'] = $clientDematData['freelancer_id'];
+                $expensesData['renewal_account_id'] = $clientDematData['id'];
+                $expensesData['amount'] =$freelancerAmount;
+                $expensesData['firm'] =$clientDematData['st_sg'];
+                $expensesData['created_by']=auth()->user()->id;
+                $expensesData['date'] = date("Y-m-d");
+                $expensesData['description'] = "RENEWAL FEES";
+                $expensesData['total_amount'] = $renewData['renewal_fees'];
+                $expensesData['percentage'] = $freelancerData->fees_percentage;
+                RenewExpensesModal::create($expensesData);
+            }
+
+            //channel Partner Profit sharing
+            if (($clientDematData['service_type'] == 1 || $clientDematData['service_type'] == 3) && isset($clientDematData['channel_partner_id']) && $clientDematData['channel_partner_id'] != '' && $clientDematData['channel_partner_id'] != 0) {
+                $channelPartnerData = User::where("id",$clientDematData['channel_partner_id'])->first();
+                if ($clientDematData['is_new'] == 1 || $clientDematData['is_new'] == 2) {
+                    $channelPartnerAmount = $channelPartnerData->prime_new_client_percentage*$renewData['profit_sharing']/100;
+                    $expensesData['percentage'] = $channelPartnerData->prime_new_client_percentage;
+                } else {
+                    $channelPartnerAmount = $channelPartnerData->prime_renewal_client_percentage*$renewData['profit_sharing']/100;
+                    $expensesData['percentage'] = $channelPartnerData->prime_renewal_client_percentage;
+                }
+                $expensesData['user_id'] = $clientDematData['channel_partner_id'];
+                $expensesData['renewal_account_id'] = $clientDematData['id'];
+                $expensesData['amount'] =$channelPartnerAmount;
+                $expensesData['firm'] =$clientDematData['st_sg'];
+                $expensesData['created_by']=auth()->user()->id;
+                $expensesData['date'] = date("Y-m-d");
+                $expensesData['description'] = "PROFIT SHARING";
+                $expensesData['total_amount'] = $renewData['profit_sharing'];
+                RenewExpensesModal::create($expensesData);
+            }
+
+            //freelancer profit sharing
+            if (isset($clientDematData['freelancer_id']) && $clientDematData['freelancer_id'] != '' && $clientDematData['freelancer_id'] != 0) {
+                $freelancerData = User::where("id", $clientDematData['freelancer_id'])->first();
+                if($clientDematData['service_type'] == 2) {
+                    if($renewData['profit_sharing'] > $freelancerData->ams_limit) {
+                        $countAmount = $renewData['profit_sharing'] - $freelancerData->ams_limit;
+                        $freelancerAmount = $freelancerData->fees_percentage * $countAmount / 100;
+                        $expensesData['user_id'] = $clientDematData['freelancer_id'];
+                        $expensesData['renewal_account_id'] = $clientDematData['id'];
+                        $expensesData['amount'] = $freelancerAmount;
+                        $expensesData['firm'] = $clientDematData['st_sg'];
+                        $expensesData['created_by'] = auth()->user()->id;
+                        $expensesData['date'] = date("Y-m-d");
+                        $expensesData['description'] = "PROFIT SHARING";
+                        $expensesData['total_amount'] = $countAmount;
+                        $expensesData['percentage'] = $freelancerData->fees_percentage;
+                        RenewExpensesModal::create($expensesData);
+                    }
+                }elseif ($clientDematData['service_type'] == 1 || $clientDematData['service_type'] == 3){
+                    $freelancerAmount = $freelancerData->percentage * $renewData['profit_sharing'] / 100;
+                    $expensesData['user_id'] = $clientDematData['freelancer_id'];
+                    $expensesData['renewal_account_id'] = $clientDematData['id'];
+                    $expensesData['amount'] = $freelancerAmount;
+                    $expensesData['firm'] = $clientDematData['st_sg'];
+                    $expensesData['created_by'] = auth()->user()->id;
+                    $expensesData['date'] = date("Y-m-d");
+                    $expensesData['description'] = "PROFIT SHARING";
+                    $expensesData['total_amount'] = $renewData['profit_sharing'];
+                    $expensesData['percentage'] = $freelancerData->percentage;
+                    RenewExpensesModal::create($expensesData);
+                }
+            }
+
             $data['payment_date']=date("Y-m-d");
             $data['fees_pay_date']=date("Y-m-d");
             $data['profit_sharing_pay_date']=date("Y-m-d");
@@ -324,7 +507,8 @@ class ClientDemateServices{
         $data['profit_sharing_pay_date']=date("Y-m-d",strtotime($request->payment_date));
 
         $renewData = RenewDemat::where("id",$request->full_payment_id)->first()->toArray();
-        $clientDematData = ClientDemat::where("id", $renewData['client_demat_id'])->first()->toArray();
+        $clientDematData = ClientDemat::leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+                    where("client_demat.id", $renewData['client_demat_id'])->select('client_demat.*','clients.channel_partner_id')->first()->toArray();
         $forIncomes = bankServices::getBankAccountById($request->full_bank_id);
         $data['part_payment']=$forIncomes['invoice_code'];
 
@@ -351,6 +535,95 @@ class ClientDemateServices{
 
         financeManagementIncomesModel::create($income);
 
+        //channel Partner Renewal Fees
+        if ($clientDematData['service_type'] == 2 && isset($clientDematData['channel_partner_id']) && $clientDematData['channel_partner_id'] != '' && $clientDematData['channel_partner_id'] != 0) {
+            $channelPartnerData = User::where("id",$clientDematData['channel_partner_id'])->first();
+
+            $channelPartnerAmount = $channelPartnerData->ams_renewal_client_percentage*$renewData['renewal_fees']/100;
+            $expensesData['percentage'] = $channelPartnerData->ams_new_client_percentage;
+
+            $expensesData['user_id'] = $clientDematData['channel_partner_id'];
+            $expensesData['renewal_account_id'] = $clientDematData['id'];
+            $expensesData['amount'] =$channelPartnerAmount;
+            $expensesData['firm'] =$clientDematData['st_sg'];
+            $expensesData['created_by']=auth()->user()->id;
+            $expensesData['date'] = date("Y-m-d");
+            $expensesData['description'] = "RENEWAL FEES";
+            $expensesData['total_amount'] = $renewData['renewal_fees'];
+            RenewExpensesModal::create($expensesData);
+        }
+
+        //freelancer Renewal Fees
+        if ($clientDematData['service_type'] == 2 && isset($clientDematData['freelancer_id']) && $clientDematData['freelancer_id'] != '' && $clientDematData['freelancer_id'] != 0) {
+            $freelancerData = User::where("id",$clientDematData['freelancer_id'])->first();
+            $freelancerAmount = $freelancerData->fees_percentage*$renewData['renewal_fees']/100;
+            $expensesData['user_id'] = $clientDematData['freelancer_id'];
+            $expensesData['renewal_account_id'] = $clientDematData['id'];
+            $expensesData['amount'] =$freelancerAmount;
+            $expensesData['firm'] =$clientDematData['st_sg'];
+            $expensesData['created_by']=auth()->user()->id;
+            $expensesData['date'] = date("Y-m-d");
+            $expensesData['description'] = "RENEWAL FEES";
+            $expensesData['total_amount'] = $renewData['renewal_fees'];
+            $expensesData['percentage'] = $freelancerData->fees_percentage;
+            RenewExpensesModal::create($expensesData);
+        }
+
+        //channel Partner Profit sharing
+        if (($clientDematData['service_type'] == 1 || $clientDematData['service_type'] == 3) && isset($clientDematData['channel_partner_id']) && $clientDematData['channel_partner_id'] != '' && $clientDematData['channel_partner_id'] != 0) {
+            $channelPartnerData = User::where("id",$clientDematData['channel_partner_id'])->first();
+            if ($clientDematData['is_new'] == 1 || $clientDematData['is_new'] == 2) {
+                $channelPartnerAmount = $channelPartnerData->prime_new_client_percentage*$renewData['profit_sharing']/100;
+                $expensesData['percentage'] = $channelPartnerData->prime_new_client_percentage;
+            } else {
+                $channelPartnerAmount = $channelPartnerData->prime_renewal_client_percentage*$renewData['profit_sharing']/100;
+                $expensesData['percentage'] = $channelPartnerData->prime_renewal_client_percentage;
+            }
+            $expensesData['user_id'] = $clientDematData['channel_partner_id'];
+            $expensesData['renewal_account_id'] = $clientDematData['id'];
+            $expensesData['amount'] =$channelPartnerAmount;
+            $expensesData['firm'] =$clientDematData['st_sg'];
+            $expensesData['created_by']=auth()->user()->id;
+            $expensesData['date'] = date("Y-m-d");
+            $expensesData['description'] = "PROFIT SHARING";
+            $expensesData['total_amount'] = $renewData['profit_sharing'];
+            RenewExpensesModal::create($expensesData);
+        }
+
+        //freelancer profit sharing
+        if (isset($clientDematData['freelancer_id']) && $clientDematData['freelancer_id'] != '' && $clientDematData['freelancer_id'] != 0) {
+            $freelancerData = User::where("id", $clientDematData['freelancer_id'])->first();
+            if($clientDematData['service_type'] == 2) {
+                if($renewData['profit_sharing'] > $freelancerData->ams_limit) {
+                    $countAmount = $renewData['profit_sharing'] - $freelancerData->ams_limit;
+                    $freelancerAmount = $freelancerData->fees_percentage * $countAmount / 100;
+                    $expensesData['user_id'] = $clientDematData['freelancer_id'];
+                    $expensesData['renewal_account_id'] = $clientDematData['id'];
+                    $expensesData['amount'] = $freelancerAmount;
+                    $expensesData['firm'] = $clientDematData['st_sg'];
+                    $expensesData['created_by'] = auth()->user()->id;
+                    $expensesData['date'] = date("Y-m-d");
+                    $expensesData['description'] = "PROFIT SHARING";
+                    $expensesData['total_amount'] = $countAmount;
+                    $expensesData['percentage'] = $freelancerData->fees_percentage;
+                    RenewExpensesModal::create($expensesData);
+                }
+            }elseif ($clientDematData['service_type'] == 1 || $clientDematData['service_type'] == 3){
+                $freelancerAmount = $freelancerData->percentage * $renewData['profit_sharing'] / 100;
+                $expensesData['user_id'] = $clientDematData['freelancer_id'];
+                $expensesData['renewal_account_id'] = $clientDematData['id'];
+                $expensesData['amount'] = $freelancerAmount;
+                $expensesData['firm'] = $clientDematData['st_sg'];
+                $expensesData['created_by'] = auth()->user()->id;
+                $expensesData['date'] = date("Y-m-d");
+                $expensesData['description'] = "PROFIT SHARING";
+                $expensesData['total_amount'] = $renewData['profit_sharing'];
+                $expensesData['percentage'] = $freelancerData->percentage;
+                RenewExpensesModal::create($expensesData);
+            }
+        }
+
+
         //if full payment done
         $data['part_payment'] = $request->full_amount;
         $data['status'] = "renew";
@@ -373,7 +646,6 @@ class ClientDemateServices{
                 }
             }
         }
-
 
         return RenewDemat::where("id",$request->full_payment_id)->update($data);
     }

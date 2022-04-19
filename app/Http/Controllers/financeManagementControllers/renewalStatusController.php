@@ -12,6 +12,7 @@ use App\Services\ClientDemateServices;
 use Illuminate\Support\Facades\Redirect;
 use App\Services\TermsAndConditionsServices;
 use PDF;
+use App\Models\RenewDemat;
 class renewalStatusController extends Controller
 {
     public function view(){
@@ -41,7 +42,8 @@ class renewalStatusController extends Controller
         }
 
         $startDate = $currentYear."-04-01";
-        $endDate = $lastYear."-31-03";
+        $endDate = $lastYear."-03-31";
+
 
         if(!empty($primary_bank)){
             $offSet = 0;
