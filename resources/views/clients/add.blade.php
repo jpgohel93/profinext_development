@@ -359,7 +359,9 @@
                                                             $index=0;
                                                             foreach(session("_old_input") as $k2 => $v2){
                                                                 if(is_array($v2) && isset(session("_old_input")[$k][$i])){
-                                                                    $data[$k2]= $v2[$i];
+                                                                    if(isset($v2[$i])){
+                                                                        $data[$k2]= $v2[$i];
+                                                                    }
                                                                 }
                                                             }
                                                             $index++;

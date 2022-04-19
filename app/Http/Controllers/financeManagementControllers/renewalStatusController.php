@@ -244,7 +244,7 @@ class renewalStatusController extends Controller
         return ClientDemateServices::renewData($request->id);
     }
 
-    public function feesPayment(Request $request){
+    public function feesPayment(Request $request,$pdf = false){
         ClientDemateServices::demateFeesPayment($request);
         $renewData = ClientDemateServices::renewDataById($request->fees_payment_id);
         if($renewData->service_type == 2){
@@ -264,7 +264,10 @@ class renewalStatusController extends Controller
         $title = "INVOICE";
         $terms = TermsAndConditionsServices::all(true);
         $type =1;
-        return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title',"terms","type"));
+        
+        $pdf = PDF::loadView('financeManagement.fees_invoice_pdf', compact("renewData","message",'total','grand_total','title',"terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        return $pdf->download("fees_invoice.pdf");
+        // return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title',"terms","type"));
     }
 
     public function profitSharingPayment(Request $request){
@@ -287,7 +290,11 @@ class renewalStatusController extends Controller
         $title = "INVOICE";
         $terms = TermsAndConditionsServices::all(true);
         $type =2;
-        return view("financeManagement.fees_invoice",compact("renewData","message",'total',"grand_total","title", "terms","type"));
+
+        $pdf = PDF::loadView('financeManagement.fees_invoice_pdf', compact("renewData","message",'total',"grand_total","title", "terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        return $pdf->download("fees_invoice_pdf.pdf");
+
+        // return view("financeManagement.fees_invoice",compact("renewData","message",'total',"grand_total","title", "terms","type"));
     }
 
     public function partPayment(Request $request){
@@ -333,7 +340,9 @@ class renewalStatusController extends Controller
         $title = "INVOICE";
         $terms = TermsAndConditionsServices::all(true);
         $type = 3;
-        return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms","type"));
+        $pdf = PDF::loadView('financeManagement.fees_invoice_pdf', compact("renewData","message","total","grand_total","title", "terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        return $pdf->download("fees_invoice_pdf.pdf");
+        // return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms","type"));
     }
 
     public function viewFeesInvoice($id,$type,$pdf=false){
@@ -403,12 +412,12 @@ class renewalStatusController extends Controller
             $title = "INVOICE";
         }
         $terms = TermsAndConditionsServices::all(true);
-        if($pdf){
-            $pdf = PDF::loadView('financeManagement.fees_invoice', compact("renewData","message","total","grand_total","title", "terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
-            return $pdf->download("abc.pdf");
-        }else{
-            return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms","type"));
-        }
+        $pdf = PDF::loadView('financeManagement.fees_invoice_pdf', compact("renewData","message","total","grand_total","title", "terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        return $pdf->download("fees_invoice_pdf.pdf");
+        // if($pdf){
+        // }else{
+        //     return view("financeManagement.fees_invoice_pdf",compact("renewData","message","total","grand_total","title", "terms","type"));
+        // }
     }
 
     public function viewPartPayment(Request $request){
