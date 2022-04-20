@@ -216,7 +216,7 @@
                                             </div>
                                             <!-- end::Actions-->
                                             <!-- begin::Action-->
-                                            <a href="javascript:void(0)" class="btn btn-primary my-1 hide">Send</a>
+                                            <a href="javascript:void(0)" id="sendEmail" class="btn btn-primary my-1 hide">Send</a>
                                             <!-- end::Action-->
                                         </div>
                                         <!-- end::Footer-->
@@ -240,7 +240,26 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
-
+                $("#sendEmail").on("click",function(e){
+                    e.preventDefault();
+                    $.ajax("{{route('viewFeesInvoice',[$id,$type,'pdf'])}}",{
+                        type:"GET"
+                    })
+                    .done(data => {
+                        if(data?.info){
+                            window.alert("Invoice Sent");
+                        }else{
+                            window.alert(data?.error);
+                        }
+                    })
+                    .fail((err)=>{
+                        if(err.status===403){
+                            window.alert("Unauthorized Action");
+                        }else if(err.status==500){
+                            window.alert("Server Error");
+                        }
+                    })
+                })
             },jQuery)
         })
 

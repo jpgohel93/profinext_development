@@ -76,6 +76,6 @@ class accountingServices
         return HeadingsModel::where("id",$id)->first();
     }
     public static function getIncomeBanks(){
-        return BankModel::where("type",1)->orderBy('id', 'DESC')->get();
+        return BankModel::where("type",1)->where("is_active",1)->orderBy('id', 'DESC')->get();
     }
 }

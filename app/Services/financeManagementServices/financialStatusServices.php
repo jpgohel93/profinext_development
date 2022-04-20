@@ -15,7 +15,7 @@ class financialStatusServices
 {
     public static function getFirmsDetails(){
         // current financial year
-        $start = date("Y-m-d", strtotime(date("Y") . "-03-31"));
+        $start = date("Y-m-d", strtotime(date("Y") . "-04-01"));
         $end = date("Y-m-d", strtotime((date("Y") + 1) . "-03-31"));
 
         // st
@@ -49,7 +49,7 @@ class financialStatusServices
     public static function getBanksDetails(){
         $bank = array();
         // current financial year
-        $start = date("Y-m-d",strtotime(date("Y")."-03-31"));
+        $start = date("Y-m-d",strtotime(date("Y")."-04-01"));
         $end = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
 
         $bank['salary'] = financeManagementTransferModel::leftJoin("finance_management_banks", "finance_management_transfers.to","like", "finance_management_banks.title")->where("finance_management_banks.type",2)->whereDate("finance_management_transfers.date",">=",$start)->whereDate("finance_management_transfers.date", "<=", $end)->sum("finance_management_transfers.amount");
@@ -72,7 +72,8 @@ class financialStatusServices
             $filter = $request->filter;
             if($filter=="quarterly"){
                 $days= CommonService::getQuarterDay(date('n'), date('j'), date('Y'));
-                dd($days);
+                $startDate = date("Y-m-01");
+                $endDate = date("Y-m-t");
             }
             else if($filter==100){
                 // current month
@@ -92,18 +93,35 @@ class financialStatusServices
             $startDate = date("Y-m-01");
             $endDate = date("Y-m-t");
         }
-        
-        $users_data = User::whereDate("joining_date",">=",$startDate)->whereDate("joining_date","<=",$endDate)->select('name',"user_type","id as user_id")->get();
+
+        $users_data = User::whereDate("joining_date",">=",$startDate)->whereDate("joining_date","<=",$endDate)->select('name',"user_type","id as user_id","company_first","company_second","profit_percentage_first","profit_percentage_second")->get();
 
         $users['data']= array();
         $i=0;
+
+        // all incomes
+        $incomes = financeManagementIncomesModel::whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->sum("amount");
+        $expense = financeManagementExpensesModel::whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->sum("amount");
+        $net_profit = (int)$incomes-(int)$expense;
         foreach($users_data as $user){
             $arr = array();
             if(isset($user->user_id)){
                 array_push($arr,++$i);
                 array_push($arr,$user->name);
                 array_push($arr, isset($user->user_type)?Config()->get("constants.USERS_TYPE")[$user->user_type]:"");
-                array_push($arr,0);
+
+                $earnings = 0;
+                if($user->user_type==1){
+                    if($user->company_first!==null && $user->profit_percentage_first){
+                        $earnings += ($net_profit*$user->profit_percentage_first)/100;
+                    }
+                    if($user->company_second!==null){
+                        $earnings += ($net_profit*$user->profit_percentage_second)/100;
+                    }
+                }else if($user->user_type==2){
+                    $earnings = $net_profit;
+                }
+                array_push($arr,$earnings);
                 array_push($arr, "<a href='".route('transactionDetailsFinancialStatus',$user->user_id)."' class='viewUser' data-id='" . $user->id . "'><i class='fas fa-eye fa-xl px-3'></i></a>");
                 array_push($users['data'],$arr);
             }
@@ -129,7 +147,7 @@ class financialStatusServices
             $services['unlisted_shares'] = ClientDemat::leftJoin("clients", "client_demat.client_id", "=", "clients.id")->where("clients.created_by", auth()->user()->id)->select("client_demat.serial_number", "client_demat.service_type", "client_demat.client_id", "clients.name")->groupBy("client_demat.service_type", "client_demat.client_id")->where("clients.client_type", 2)->get()->count();
             $services['insurance'] = ClientDemat::leftJoin("clients", "client_demat.client_id", "=", "clients.id")->where("clients.created_by", auth()->user()->id)->select("client_demat.serial_number", "client_demat.service_type", "client_demat.client_id", "clients.name")->groupBy("client_demat.service_type", "client_demat.client_id")->where("clients.client_type", 3)->get()->count();
         }
-        
+
         return $services;
     }
     public static function serviceTabFilter($request){
@@ -302,11 +320,11 @@ class financialStatusServices
         $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
         if(isset($startDate) && $startDate!="" && isset($endDate) && $endDate != ""){
             $income = collect(financeManagementIncomesModel::where("mode",0)->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->select("*","id as income")->get());
-        
+
             $expense = collect(financeManagementExpensesModel::where("mode",0)->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->select("*","id as expense")->get());
         }else{
             $query_one = \Illuminate\Support\Facades\DB::table("finance_management_incomes")->where("income_form",$request->income_form)->leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id");
-        
+
             $accounts = \Illuminate\Support\Facades\DB::table("finance_management_incomes")->where("income_form",$request->income_form)->leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id")->unionAll($query_one)->get();
         }
         $accounts = $income->merge($expense);
@@ -331,7 +349,7 @@ class financialStatusServices
         $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
         if(isset($startDate) && $startDate!="" && isset($endDate) && $endDate != ""){
             $accounts = financeManagementTransferModel::where("purpose","like","Cash Conversion")->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->get();
-        
+
         }else{
             $accounts = financeManagementTransferModel::where("purpose","like","Cash Conversion")->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->get();
         }
@@ -378,11 +396,11 @@ class financialStatusServices
 
         if(isset($request->startDate) && $request->startDate!="" && isset($request->endDate) && $request->endDate != ""){
             $query_one = \Illuminate\Support\Facades\DB::table("finance_management_incomes")->where("income_form",$request->income_form)->whereDate("date",">=",$request->startDate)->whereDate("date","<=",$request->endDate)->leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id");
-        
+
             $accounts = \Illuminate\Support\Facades\DB::table("finance_management_incomes")->where("income_form",$request->income_form)->whereDate("date",">=",$request->startDate)->whereDate("date","<=",$request->endDate)->leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id")->unionAll($query_one)->get();
         }else{
             $query_one = \Illuminate\Support\Facades\DB::table("finance_management_incomes")->where("income_form",$request->income_form)->leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id");
-        
+
             $accounts = \Illuminate\Support\Facades\DB::table("finance_management_incomes")->where("income_form",$request->income_form)->leftJoin("finance_management_banks","finance_management_incomes.bank","=","finance_management_banks.id")->unionAll($query_one)->get();
         }
 
@@ -527,8 +545,8 @@ class financialStatusServices
         $transactions['day']['distribution'] = financeManagementTransferModel::select('users.name',"users.role","users.id as user_id", \Illuminate\Support\Facades\DB::raw('SUM(finance_management_transfers.amount) As earnings'))->leftJoin('users', 'finance_management_transfers.created_by', '=', "users.id")->where("users.id","=",$request->user_id)->whereDate("finance_management_transfers.date","=",date("Y-m-d"))->get();
 
         $transactions['month']['distribution'] = financeManagementTransferModel::select('users.name',"users.role","users.id as user_id", \Illuminate\Support\Facades\DB::raw('SUM(finance_management_transfers.amount) As earnings'))->leftJoin('users', 'finance_management_transfers.created_by', '=', "users.id")->where("users.id","=",$request->user_id)->whereYear("finance_management_transfers.date","=",date("Y"))->whereMonth("finance_management_transfers.date",date("m"))->get();
-        
-        
+
+
         $transactions['day']['income'] = financeManagementIncomesModel::select('users.name',"users.user_type","users.id as user_id", \Illuminate\Support\Facades\DB::raw('SUM(finance_management_incomes.amount) As earnings'))->leftJoin('users', 'finance_management_incomes.created_by', '=',"users.id")->where("users.id",$request->user_id)->whereDate("finance_management_incomes.date","=",date("Y-m-d"))->get();
 
         $transactions['month']['income'] = financeManagementIncomesModel::select('users.name',"users.user_type","users.id as user_id", \Illuminate\Support\Facades\DB::raw('SUM(finance_management_incomes.amount) As earnings'))->leftJoin('users', 'finance_management_incomes.created_by', '=', "users.id")->where("users.id",$request->user_id)->whereYear("finance_management_incomes.date",">=",date("Y"))->whereMonth("finance_management_incomes.date","<=",date("m"))->get();
@@ -538,11 +556,11 @@ class financialStatusServices
         $transactions['data'] = array();
         $i=0;
         foreach($transactions['all'] as $transaction){
-            
+
             $arr = array();
             array_push($arr,++$i);
             array_push($arr,$transaction->date);
-            array_push($arr,$transaction->from);            
+            array_push($arr,$transaction->from);
             array_push($arr,$transaction->to);
             array_push($arr,$transaction->narration);
             array_push($arr,$transaction->mode==0?"Cash":"Bank");

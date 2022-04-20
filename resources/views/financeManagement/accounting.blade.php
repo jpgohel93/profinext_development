@@ -62,55 +62,55 @@
                     </div>
                     <!--end::Toolbar-->
                     <div>
-                            <!--begin:::Tabs-->
-                            <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold my-3 bg-light navpad"
-                                style="float: right;">
-                                <!--begin:::Tab item-->
-                                <li class="nav-item">
-                                    <button style="background-color:#3cba54"
-                                            class="btn btn-sm mx-2 acountingBtns shadow text-light" id="incomeBtn">
-                                        Income
-                                    </button>
-                                </li>
-                                <!--end:::Tab item-->
+                        <!--begin:::Tabs-->
+                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold my-3 bg-light navpad"
+                            style="float: right;">
+                            <!--begin:::Tab item-->
+                            <li class="nav-item">
+                                <button style="background-color:#3cba54"
+                                        class="btn btn-sm mx-2 acountingBtns shadow text-light" id="incomeBtn">
+                                    Income
+                                </button>
+                            </li>
+                            <!--end:::Tab item-->
 
-                                <!--begin:::Tab item-->
-                                <li class="nav-item">
-                                    <button style="background-color:#db3236"
-                                            class="btn btn-sm mx-2 acountingBtns shadow text-light" id="expenseBtn">
-                                        Expense
-                                    </button>
-                                </li>
-                                <!--end:::Tab item-->
+                            <!--begin:::Tab item-->
+                            <li class="nav-item">
+                                <button style="background-color:#db3236"
+                                        class="btn btn-sm mx-2 acountingBtns shadow text-light" id="expenseBtn">
+                                    Expense
+                                </button>
+                            </li>
+                            <!--end:::Tab item-->
 
-                                <!--begin:::Tab item-->
-                                <li class="nav-item">
-                                    <button style="background-color:#4885ed"
-                                            class="btn btn-sm mx-2 acountingBtns shadow text-light" id="transferBtn">
-                                        Transfer
-                                    </button>
-                                </li>
-                                <!--end:::Tab item-->
+                            <!--begin:::Tab item-->
+                            <li class="nav-item">
+                                <button style="background-color:#4885ed"
+                                        class="btn btn-sm mx-2 acountingBtns shadow text-light" id="transferBtn">
+                                    Transfer
+                                </button>
+                            </li>
+                            <!--end:::Tab item-->
 
-                                <!--begin:::Tab item-->
-                                <li class="nav-item">
-                                    <button style="background-color:#f4c20d"
-                                            class="btn btn-sm mx-2 acountingBtns shadow text-light" id="loanBtn">Loan
-                                    </button>
-                                </li>
-                                <!--end:::Tab item-->
+                            <!--begin:::Tab item-->
+                            <li class="nav-item">
+                                <button style="background-color:#f4c20d"
+                                        class="btn btn-sm mx-2 acountingBtns shadow text-light" id="loanBtn">Loan
+                                </button>
+                            </li>
+                            <!--end:::Tab item-->
 
-                                <!--begin:::Tab item-->
-                                <li class="nav-item">
-                                    <button style="background-color:#BEBEBE"
-                                            class="btn btn-sm mx-2 acountingBtns shadow text-light"
-                                            onclick="window.open('{{route('financeManagementHeadings')}}')">Headings
-                                    </button>
-                                </li>
-                                <!--end:::Tab item-->
-                            </ul>
-                            <!--end:::Tabs-->
-                        </div>
+                            <!--begin:::Tab item-->
+                            <li class="nav-item">
+                                <button style="background-color:#BEBEBE"
+                                        class="btn btn-sm mx-2 acountingBtns shadow text-light"
+                                        onclick="window.open('{{route('financeManagementHeadings')}}')">Headings
+                                </button>
+                            </li>
+                            <!--end:::Tab item-->
+                        </ul>
+                        <!--end:::Tabs-->
+                    </div>
                     <!--begin::Post-->
                     <div class="post d-flex flex-column-fluid" id="kt_post">
                         <!--begin::Container-->
@@ -1043,11 +1043,11 @@
                 <div class="modal-header pb-0 border-0">
                     <!--begin::Close-->
                     <!--begin::Heading-->
-                        <div class="">
-                            <!--begin::Title-->
-                            <h3 class="mb-3">Transfer:</h3>
-                            <!--end::Title-->
-                        </div>
+                    <div class="">
+                        <!--begin::Title-->
+                        <h3 class="mb-3">Transfer:</h3>
+                        <!--end::Title-->
+                    </div>
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-1">
@@ -1086,7 +1086,7 @@
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="from" id="transferFrom" data-control="select2" data-placeholder="Select sub heading">
                                         @forelse ($incomeBanks as $bank)
-                                        <option value="cash">Cash</option>
+                                            <option value="cash">Cash</option>
                                             <option value="{{$bank->title}}">{{$bank->title}}</option>
                                         @empty
                                             <option value="">Select option</option>

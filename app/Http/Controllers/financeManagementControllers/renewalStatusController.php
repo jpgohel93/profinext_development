@@ -11,7 +11,8 @@ use App\Services\financeManagementServices\renewalStatusService;
 use App\Services\ClientDemateServices;
 use Illuminate\Support\Facades\Redirect;
 use App\Services\TermsAndConditionsServices;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 use App\Models\RenewDemat;
 class renewalStatusController extends Controller
 {
@@ -264,13 +265,30 @@ class renewalStatusController extends Controller
         $title = "INVOICE";
         $terms = TermsAndConditionsServices::all(true);
         $type =1;
-        
-        $pdf = PDF::loadView('financeManagement.fees_invoice_pdf', compact("renewData","message",'total','grand_total','title',"terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
-        return $pdf->download("fees_invoice.pdf");
+
+        if($pdf){
+            try {
+                $from_email = env("MAIL_FROM_ADDRESS");
+                $from_name = env("MAIL_USERNAME");
+                $pdf = PDF::loadView('financeManagement.fees_invoice_pdf', compact("renewData","message","total","grand_total","title", "terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+                Mail::send("financeManagement.mail", $renewData->toArray(), function($message)use($renewData, $pdf,$title,$from_email,$from_name) {
+                    $message->to($renewData['email_id'], $renewData['email_id'])
+                            ->subject($title)
+                            ->attachData($pdf->output(), $renewData['name']." ".$title.".pdf")
+                            ->from($from_email,$from_name);
+                });
+                return response(["info" =>"email sent"], 200, ["Content-Type" => "Application/json"]);
+            } catch (\Throwable $e) {
+                dd($e->getMessage());
+                return response(["error" =>"Unable to sent mail",$e], 200, ["Content-Type" => "Application/json"]);
+            }
+        }else{
+            return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title',"terms","type","id"));
+        }
         // return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title',"terms","type"));
     }
 
-    public function profitSharingPayment(Request $request){
+    public function profitSharingPayment(Request $request,$pdf= false){
         ClientDemateServices::demateProfitSharing($request);
         $renewData = ClientDemateServices::renewDataById($request->profit_sharing_payment_id);
         if($renewData->service_type == 2){
@@ -291,8 +309,25 @@ class renewalStatusController extends Controller
         $terms = TermsAndConditionsServices::all(true);
         $type =2;
 
-        $pdf = PDF::loadView('financeManagement.fees_invoice_pdf', compact("renewData","message",'total',"grand_total","title", "terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
-        return $pdf->download("fees_invoice_pdf.pdf");
+        if($pdf){
+            try {
+                $from_email = env("MAIL_FROM_ADDRESS");
+                $from_name = env("MAIL_USERNAME");
+                $pdf = PDF::loadView('financeManagement.fees_invoice_pdf', compact("renewData","message","total","grand_total","title", "terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+                Mail::send("financeManagement.mail", $renewData->toArray(), function($message)use($renewData, $pdf,$title,$from_email,$from_name) {
+                    $message->to($renewData['email_id'], $renewData['email_id'])
+                            ->subject($title)
+                            ->attachData($pdf->output(), $renewData['name']." ".$title.".pdf")
+                            ->from($from_email,$from_name);
+                });
+                return response(["info" =>"email sent"], 200, ["Content-Type" => "Application/json"]);
+            } catch (\Throwable $e) {
+                dd($e->getMessage());
+                return response(["error" =>"Unable to sent mail",$e], 200, ["Content-Type" => "Application/json"]);
+            }
+        }else{
+            return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title',"terms","type","id"));
+        }
 
         // return view("financeManagement.fees_invoice",compact("renewData","message",'total',"grand_total","title", "terms","type"));
     }
@@ -307,7 +342,7 @@ class renewalStatusController extends Controller
         return Redirect::route("renewal_status")->with("info", "Reminder set successfully");
     }
 
-    public function fullPayment(Request $request){
+    public function fullPayment(Request $request,$pdf = false){
         ClientDemateServices::fullPayment($request);
        $renewData = ClientDemateServices::renewDataById($request->full_payment_id);
 
@@ -340,8 +375,26 @@ class renewalStatusController extends Controller
         $title = "INVOICE";
         $terms = TermsAndConditionsServices::all(true);
         $type = 3;
-        $pdf = PDF::loadView('financeManagement.fees_invoice_pdf', compact("renewData","message","total","grand_total","title", "terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
-        return $pdf->download("fees_invoice_pdf.pdf");
+
+        if($pdf){
+            try {
+                $from_email = env("MAIL_FROM_ADDRESS");
+                $from_name = env("MAIL_USERNAME");
+                $pdf = PDF::loadView('financeManagement.fees_invoice_pdf', compact("renewData","message","total","grand_total","title", "terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+                Mail::send("financeManagement.mail", $renewData->toArray(), function($message)use($renewData, $pdf,$title,$from_email,$from_name) {
+                    $message->to($renewData['email_id'], $renewData['email_id'])
+                            ->subject($title)
+                            ->attachData($pdf->output(), $renewData['name']." ".$title.".pdf")
+                            ->from($from_email,$from_name);
+                });
+                return response(["info" =>"email sent"], 200, ["Content-Type" => "Application/json"]);
+            } catch (\Throwable $e) {
+                dd($e->getMessage());
+                return response(["error" =>"Unable to sent mail",$e], 200, ["Content-Type" => "Application/json"]);
+            }
+        }else{
+            return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title',"terms","type","id"));
+        }
         // return view("financeManagement.fees_invoice",compact("renewData","message","total","grand_total","title", "terms","type"));
     }
 
@@ -411,13 +464,26 @@ class renewalStatusController extends Controller
             $grand_total = $renewData->total_payment;
             $title = "INVOICE";
         }
+
         $terms = TermsAndConditionsServices::all(true);
-        $pdf = PDF::loadView('financeManagement.fees_invoice_pdf', compact("renewData","message","total","grand_total","title", "terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
-        return $pdf->download("fees_invoice_pdf.pdf");
-        // if($pdf){
-        // }else{
-        //     return view("financeManagement.fees_invoice_pdf",compact("renewData","message","total","grand_total","title", "terms","type"));
-        // }
+        if($pdf){
+            try {
+                $from_email = env("MAIL_FROM_ADDRESS");
+                $from_name = "Sales INVOICE";
+                $pdf = PDF::loadView('financeManagement.fees_invoice_pdf', compact("renewData","message","total","grand_total","title", "terms","type"))->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+                Mail::send("financeManagement.mail", $renewData->toArray(), function($message)use($renewData, $pdf,$title,$from_email,$from_name) {
+                    $message->to($renewData['email_id'], $renewData['email_id'])
+                            ->subject($title)
+                            ->attachData($pdf->output(), $renewData['name']." ".$title.".pdf")
+                            ->from($from_email,$from_name);
+                });
+                return response(["info" =>"email sent"], 200, ["Content-Type" => "Application/json"]);
+            } catch (\Throwable $e) {
+                return response(["error" =>$e->getMessage()], 200, ["Content-Type" => "Application/json"]);
+            }
+        }else{
+            return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title',"terms","type","id"));
+        }
     }
 
     public function viewPartPayment(Request $request){
