@@ -22,9 +22,9 @@
                         </div>
                     @endif
                     <!--begin::Toolbar-->
-                    <div class="toolbar" id="kt_toolbar">
+                    <div class="toolbar mx-7" id="kt_toolbar">
                         <!--begin::Container-->
-                        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+                        <div id="kt_toolbar_container" class="container d-flex flex-stack">
                             <!--begin::Page title-->
                             <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                                 <!--begin::Title-->
@@ -37,7 +37,7 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="profinext/dist/index.html" class="text-muted text-hover-primary">Home</a>
+                                        <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -46,7 +46,7 @@
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
-                                    <li class="breadcrumb-item text-dark">Freelancer</li>
+                                    <li class="breadcrumb-item text-dark">Partner management</li>
                                     <!--end::Item-->
                                 </ul>
                                 <!--end::Breadcrumb-->
@@ -68,8 +68,7 @@
                         <div id="kt_content_container" class="container-xxl">
 
                             <!--begin:::Tabs-->
-                            <ul
-                                class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
+                            <ul class="mx-9 nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">

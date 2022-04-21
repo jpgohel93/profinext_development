@@ -41,7 +41,7 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="profinext/dist/index.html" class="text-muted text-hover-primary">Home</a>
+                                        <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -50,13 +50,13 @@
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
-                                    <li class="breadcrumb-item text-dark">Client Demat</li>
+                                    <li class="breadcrumb-item text-dark">Clicnt management</li>
                                     <!--end::Item-->
                                 </ul>
                                 <!--end::Breadcrumb-->
                             </div>
                             <!--begin::Input group-->
-                            <div class="mb-4">
+                            <div class="mb-4" id="clientFilterDiv">
                                 <!--begin::Label-->
                                 <label class="fs-5 fw-bold mb-2">
                                     <span class="required">Client Type</span>
@@ -93,50 +93,43 @@
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1 active" data-bs-toggle="tab"
-                                       href="#clients">Clients</a>
+                                    <a class="nav-link text-active-primary pb-1 active" data-bs-toggle="tab" data-id='clients' href="#clients">Clients</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#demat">Demat</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="demat" href="#demat">Demat</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#preRenew">Pre Renew</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="preRenew" href="#preRenew">Pre Renew</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#toRenew">To Renew</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="toRenew" href="#toRenew">To Renew</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#problem">Problem</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="problem" href="#problem">Problem</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#terminated">Terminated</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="terminated" href="#terminated">Terminated</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#all">All</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="all" href="#all">All</a>
                                 </li>
                                 <!--end:::Tab item-->
                             </ul>
@@ -1621,6 +1614,15 @@
                     readURL(this,"prev_image");
                 })
                 $("#previewImageContainer").hide();
+                // hide filter
+                $(document).on("click","[data-bs-toggle='tab']",function(e){
+                    const tab = e.target.getAttribute("data-id");
+                    if(tab==="clients"){
+                        $("#clientFilterDiv").css({"opacity":"1"});
+                    }else{
+                        $("#clientFilterDiv").css({"opacity":"0"});
+                    }
+                })
             },jQuery)
         })
     </script>

@@ -13,8 +13,10 @@
 					 @include("header")
 						<!--end::Toolbar-->
 						<div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid" id="kt_modal_create_app_stepper">
+
 							<!--begin::Content-->
 							<div class="flex-row-fluid px-lg-15">
+
 								<!--begin::Form-->
 								@can("role-create")
 									@if ($errors->any())
@@ -23,11 +25,57 @@
 									<form class="form" novalidate="novalidate" method="post" action="{{route('createRole')}}" id="kt_modal_create_app_form">
 										<!--begin::Step 1-->
 										<div class="current d-block card p-7 my-5" data-kt-stepper-element="content">
+                                            <div class="toolbar m-0 p-0" id="kt_toolbar">
+                                                <!--begin::Container-->
+                                                <div id="kt_toolbar_container" class="container m-0 p-0 d-flex flex-stack">
+                                                    <!--begin::Page title-->
+                                                    <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                                                        <!--begin::Title-->
+                                                        <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Add role</h1>
+                                                        <!--end::Title-->
+                                                        <!--begin::Separator-->
+                                                        <span class="h-20px border-gray-200 border-start mx-4"></span>
+                                                        <!--end::Separator-->
+                                                        <!--begin::Breadcrumb-->
+                                                        <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                                                            <!--begin::Item-->
+                                                            <li class="breadcrumb-item text-muted">
+                                                                <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
+                                                            </li>
+                                                            <!--end::Item-->
+                                                            <!--begin::Item-->
+                                                            <li class="breadcrumb-item">
+                                                                <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                                                            </li>
+                                                            <!--end::Item-->
+                                                            <!--begin::Item-->
+                                                            <li class="breadcrumb-item text-dark">User management</li>
+                                                            <!--end::Item-->
+                                                        </ul>
+                                                        <!--end::Breadcrumb-->
+                                                    </div>
+                                                    <!--end::Page title-->
+                                                    <!--begin::Actions-->
+                                                    <div class="d-flex align-items-center py-1">
+                                                        @can("role-create")
+                                                        <!--begin::Button-->
+                                                        <a href="{{route('addRoles')}}" class="btn btn-sm btn-primary" id="kt_toolbar_primary_button">
+                                                            <span class="svg-icon svg-icon-2">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <rect x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
+                                                                    <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
+                                                                </svg>
+                                                            </span>Add Role
+                                                        </a>
+                                                        @endcan
+                                                    </div>
+                                                    <!--end::Actions-->
+                                                </div>
+                                                <!--end::Container-->
+                                            </div>
+                                            <!--end::Toolbar-->
 											<div class="w-100">
-												<div class="stepper-label mt-0" style="margin-top:30px;margin-bottom:20px;">
-													<h3 class="stepper-title text-primary">Create Role</h3>
-												</div>
-												<div class="row">
+												<div class="row mt-5">
 													<!--begin::Input group-->
 													<div class="col-md-6 mb-8">
 														<!--begin::Label-->

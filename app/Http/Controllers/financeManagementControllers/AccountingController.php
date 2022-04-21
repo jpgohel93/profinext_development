@@ -24,6 +24,13 @@ class AccountingController extends Controller
         $all = array_merge($incomeBanks->toArray(), $expensRecords->toArray(), $transferRecords->toArray(), $loanRecords->toArray());
         return view("financeManagement.accounting", compact("headings", "incomeBanks", "incomeRecords", "expensRecords", "transferRecords","loanRecords", "users" ,"all"));
     }
+    public function financeManagementSalary(Request $request){
+        $salaries = accountingServices::salaries();
+        if($request->ajax()){
+            return response($salaries,200,["Content-Type","Application/json"]);
+        }
+        return view("financeManagement.salary");
+    }
     // heading
     public function financeManagementHeadings(){
         $headings = accountingServices::financeManagementHeadings();
@@ -40,7 +47,7 @@ class AccountingController extends Controller
     public function activateDeactivateHeadingFinanceManagementAccounting(Request $request){
         $status = accountingServices::activateDeactivateHeadingFinanceManagementAccounting($request);
         $heading = accountingServices::getHeadingById($request->id);
-        return response(["info" => "Sub heading " . $status,"label_type"=> $heading->label_type], 200, ["Content-Type" => "Application/json"]);        
+        return response(["info" => "Sub heading " . $status,"label_type"=> $heading->label_type], 200, ["Content-Type" => "Application/json"]);
     }
     public function getHeadingById(Request $request){
         $heading = accountingServices::getHeadingById($request->id);

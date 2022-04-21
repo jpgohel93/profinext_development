@@ -484,15 +484,26 @@
                                                 <!--end::Input group-->
 
                                                 <!--begin::Input group-->
-                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                <div class="col-md-12 col-sm-12 mb-5">
                                                     <!--begin::Label-->
                                                     <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                         <span class="required">Roles</span>
                                                     </label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <input class="form-select form-select-sm form-select-solid" readonly value="{{$user->role}}">
-                                                    <!--end::Input-->
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input class="form-select form-select-sm form-select-solid" readonly value="{{$user->role}}">
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <div class="col-md-2 d-flex justify-content-center align-items-center">
+                                                            <div class="wrapper">
+                                                                <input type="checkbox" class="form-check-input mx-2" id="selectAll" disabled>
+                                                                <label class="" for="selectAll">All</label>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
 												<div class="mb-0 table-responsive">
 												<!--begin::Label-->
@@ -523,7 +534,7 @@
 															</th>
 														</tr>
 													</thead>
-													<tbody role="rowgroup">
+													<tbody role="rowgroup" id="permissionsContainer">
 														@php
 															// here we'll get all modules name
 															$permissions_constant = Config::get("constants.Permissions");
@@ -757,6 +768,29 @@
 						$(this).closest('#professionalDetails').find('#partnerDiv').hide();
 					}
 				});
+                // check if user has all permissions
+                function checkPermissions(){
+                    // user not have all permissions
+                    let flag = false;
+                    $("#selectAll").prop("checked",false);
+                    $("#permissionsContainer").find(".permissionCheckBox").each((i,v)=>{
+                        if($(v).is(":checked")===false){
+                            flag = false;
+                            return false;
+                        }else{
+                            flag = true;
+                        }
+                    });
+                    if(flag){
+                        $("#selectAll").prop("checked",true);
+                    }else{
+                        $("#selectAll").prop("checked",false);
+                    }
+                }
+                $(document).on("click",".permissionCheckBox",function(){
+                    checkPermissions();
+                });
+                checkPermissions();
 			</script>
 		@endsection
 @endsection

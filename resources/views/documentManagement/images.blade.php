@@ -27,7 +27,7 @@
                                 <div class="col-md-3">
                                     <h3>Image</h3>
                                 </div>
-                                @can("document-management-data-create")
+                                @can("document-management-images-create")
                                     <div class="col-md-9 text-end">
                                         <button type="button" class="btn btn-primary" id="uploadFile">Upload File</button>
                                     </div>
@@ -40,20 +40,20 @@
                                     <th scope="col">Date</th>
                                     <th scope="col">Title</th>
                                     <th scope="col">Notes</th>
-                                    @canany(["document-management-data-read","document-management-data-write","document-management-data-delete"])
+                                    @canany(["document-management-images-read","document-management-images-write","document-management-images-delete"])
                                         <th scope="col">Actions</th>
                                     @endcan
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @can("document-management-data-read")
+                                @can("document-management-images-read")
                                     @forelse ($images as $image)
                                         <tr scope="row">
                                             <th>{{$loop->iteration}}</th>
                                             <td>{{$image->date}}</td>
                                             <td>{{$image->title}}</td>
                                             <td>{{$image->notes}}</td>
-                                            @canany(["document-management-data-read","document-management-data-write","document-management-data-delete"])
+                                            @canany(["document-management-images-read","document-management-images-write","document-management-images-delete"])
                                                 <td>
                                                     <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                         <span class="svg-icon svg-icon-5 m-0">
@@ -68,14 +68,14 @@
                                                                 View
                                                             </a>
                                                         </div>
-                                                        @can("document-management-data-write")
+                                                        @can("document-management-images-write")
                                                             <div class="menu-item px-3">
                                                                 <a href="javascript:void(0)" class='menu-link px-3 edit' data-id="{{$image->id}}">
                                                                     Edit
                                                                 </a>
                                                             </div>
                                                         @endcan
-                                                        @can("document-management-data-delete")
+                                                        @can("document-management-images-delete")
                                                             <div class="menu-item px-3">
                                                                 <a href="{{route('removeImage',$image->id)}}" class='menu-link px-3 delete'>
                                                                     Delete
@@ -104,7 +104,7 @@
         </div>
         <!--end::Page-->
     </div>
-    @can("document-management-data-create")
+    @can("document-management-images-create")
         <div class="modal fade" id="add_document" tabindex="-1" aria-hidden="true">
             <!--begin::Modal dialog-->
             <div class="modal-dialog">
@@ -212,7 +212,7 @@
             })
         </script>
     @endcan
-    @can("document-management-data-write")
+    @can("document-management-images-write")
         <script>
             window.addEventListener("DOMContentLoaded",function(){
                 $(()=>{
@@ -248,7 +248,7 @@
             })
         </script>
     @endcan
-    @can("document-management-data-delete")
+    @can("document-management-images-delete")
         <script>
             window.addEventListener("DOMContentLoaded",function(){
                 $(()=>{

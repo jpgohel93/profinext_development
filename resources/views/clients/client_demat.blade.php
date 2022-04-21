@@ -22,7 +22,7 @@
                         </div>
                     @endif
                     <!--begin::Toolbar-->
-                    <div class="toolbar" id="kt_toolbar">
+                    <div class="toolbar mx-7 " id="kt_toolbar">
                         <!--begin::Container-->
                         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
                             <!--begin::Page title-->
@@ -37,7 +37,7 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="profinext/dist/index.html" class="text-muted text-hover-primary">Home</a>
+                                        <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -46,7 +46,7 @@
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
-                                    <li class="breadcrumb-item text-dark">Client Demat</li>
+                                    <li class="breadcrumb-item text-dark">Client management</li>
                                     <!--end::Item-->
                                 </ul>
                                 <!--end::Breadcrumb-->

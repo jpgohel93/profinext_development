@@ -100,7 +100,7 @@
                                         <span class="menu-bullet">
                                             <i class="fas fa-solid fa-person"></i>
                                         </span>
-                                        <span class="menu-title">Client</span>
+                                        <span class="menu-title">Clients</span>
                                     </a>
                                 </div>
                             @endcan
@@ -190,7 +190,7 @@
                 @canany(["analyst-read","monitor-data-read","report-read","monitor-read"])
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('analyst_management.accordion')">
                         <span class="menu-link">
-                            <span class="menu-icon">                                
+                            <span class="menu-icon">
                                 <span class="svg-icon svg-icon-2">
                                     <i class="fas fa-regular fa-face-thinking"></i>
                                 </span>
@@ -308,7 +308,7 @@
                 @endcan
 
                 @canany(["renewal-status-read","accounting-read","finance-management-bank-read","financial-status-read","finance-management-report-read"])
-                
+
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('finance_management.accordion')">
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -451,7 +451,7 @@
                                 <div class="menu-item">
                                     <a class="menu-link @yield('documentManagement.panCard')" href="{{route('documentManagementPanCards')}}">
                                         <span class="menu-bullet">
-                                            <i class="fas fa-solid fa-block-quote"></i>
+                                            <i class="fas fa-address-card"></i>
                                         </span>
                                         <span class="menu-title">Pan card</span>
                                     </a>
@@ -461,7 +461,7 @@
                                 <div class="menu-item">
                                     <a class="menu-link @yield('documentManagement.screenshot')" href="{{route('documentManagementScreenshots')}}">
                                         <span class="menu-bullet">
-                                            <i class="fas fa-solid fa-block-quote"></i>
+                                            <i class="fas fa-desktop-alt"></i>
                                         </span>
                                         <span class="menu-title">Screenshot</span>
                                     </a>
@@ -471,7 +471,7 @@
                                 <div class="menu-item">
                                     <a class="menu-link @yield('documentManagement.images')" href="{{route('documentManagementImages')}}">
                                         <span class="menu-bullet">
-                                            <i class="fas fa-solid fa-block-quote"></i>
+                                            <i class="fas fa-solid fa-image"></i>
                                         </span>
                                         <span class="menu-title">Images</span>
                                     </a>
@@ -493,7 +493,7 @@
                         </a>
                     </div>
                 @endcan
-                
+
                 @canany(["settings-user-account-type-read","settings-client-profession-read","settings-client-broker-read","settings-bank-details-read","settings-service-type-read"])
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion @yield('settings_management.accordion')">
                         <span class="menu-link">

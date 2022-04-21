@@ -18,6 +18,7 @@
 								<!--begin::Form-->
 								@can("role-write")
 									<form class="form" novalidate="novalidate" method="post" action="{{route('editRole',$role->id)}}" id="kt_modal_create_app_form">
+
 										<!--begin::Step 1-->
 										<div class="current d-block card p-7 my-5" data-kt-stepper-element="content">
 											<div class="w-100">
@@ -30,10 +31,41 @@
 														<h6 class="alert alert-info">{{session("info")}}</h6>
 													</div>
 												@endif
-												<div class="stepper-label mt-0" style="margin-top:30px;margin-bottom:20px;">
-													<h3 class="stepper-title text-primary">Edit Role</h3>
-												</div>
-												<div class="row">
+                                                <div id="kt_toolbar">
+                                                    <!--begin::Container-->
+                                                    <div id="kt_toolbar_container">
+                                                        <!--begin::Page title-->
+                                                        <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                                                            <!--begin::Title-->
+                                                            <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Edit role</h1>
+                                                            <!--end::Title-->
+                                                            <!--begin::Separator-->
+                                                            <span class="h-20px border-gray-200 border-start mx-4"></span>
+                                                            <!--end::Separator-->
+                                                            <!--begin::Breadcrumb-->
+                                                            <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                                                                <!--begin::Item-->
+                                                                <li class="breadcrumb-item text-muted">
+                                                                    <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
+                                                                </li>
+                                                                <!--end::Item-->
+                                                                <!--begin::Item-->
+                                                                <li class="breadcrumb-item">
+                                                                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                                                                </li>
+                                                                <!--end::Item-->
+                                                                <!--begin::Item-->
+                                                                <li class="breadcrumb-item text-dark">User management</li>
+                                                                <!--end::Item-->
+                                                            </ul>
+                                                            <!--end::Breadcrumb-->
+                                                        </div>
+                                                        <!--end::Page title-->
+                                                    </div>
+                                                    <!--end::Container-->
+                                                </div>
+                                                <!--end::Toolbar-->
+												<div class="row mt-5">
 													<!--begin::Input group-->
 													<div class="col-md-6 mb-8">
 														<!--begin::Label-->

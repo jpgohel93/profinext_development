@@ -40,7 +40,7 @@
 									<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
 										<!--begin::Item-->
 										<li class="breadcrumb-item text-muted">
-											<a href="index.html" class="text-muted text-hover-primary">Home</a>
+											<a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
 										</li>
 										<!--end::Item-->
 										<!--begin::Item-->
@@ -49,7 +49,7 @@
 										</li>
 										<!--end::Item-->
 										<!--begin::Item-->
-										<li class="breadcrumb-item text-dark">Users</li>
+										<li class="breadcrumb-item text-dark">User management</li>
 										<!--end::Item-->
 									</ul>
 									<!--end::Breadcrumb-->
@@ -72,7 +72,7 @@
 						</div>
 						<!--end::Toolbar-->
 						<!--begin::Row-->
-						<div class="row g-6 g-xl-9 mx-4">
+						<div class="row mx-4">
                             @forelse ($users as $user)
                                 <div class="col-md-6 col-xxl-3">
                                 <!--begin::Card-->

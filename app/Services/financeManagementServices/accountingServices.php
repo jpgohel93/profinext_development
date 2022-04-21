@@ -3,6 +3,7 @@
 namespace App\Services\financeManagementServices;
 use App\Models\financeManagementModel\HeadingsModel;
 use App\Models\financeManagementModel\BankModel;
+use App\Models\financeManagementModel\financeManagementTransferModel;
 use Illuminate\Support\Facades\Config;
 class accountingServices
 {
@@ -13,6 +14,30 @@ class accountingServices
         $loan = HeadingsModel::where(["label_type"=>"loan","is_active"=>1])->orderBy('id', 'DESC')->get();
         $deactivated = HeadingsModel::where("is_active","0")->orderBy('id', 'DESC')->get();
         return ["income"=>$income, "expenses"=>$expenses,"transfer"=>$transfer,"loan"=>$loan,"deactivated"=>$deactivated];
+    }
+    public static function salaries(){
+        $demat['data']= array();
+
+        // current financial year
+        $start = date("Y-m-d", strtotime(date("Y") . "-04-01"));
+        $end = date("Y-m-d", strtotime((date("Y") + 1) . "-03-31"));
+
+        $salaries = financeManagementTransferModel::select("finance_management_transfers.bank_type","finance_management_transfers.to","finance_management_transfers.amount","users.name","finance_management_transfers.date")
+        ->whereDate('finance_management_transfers.date',">=",$start)->whereDate("finance_management_transfers.date","<=",$end)->where("finance_management_transfers.bank_type","user")->leftJoin("users","finance_management_transfers.to","=","users.id")
+        ->get();
+
+        $i=0;
+        foreach($salaries as $salary){
+            $arr = array();
+            array_push($arr,++$i);
+            array_push($arr,$salary->date);
+            array_push($arr,$salary->name);
+            array_push($arr,$salary->amount);
+            array_push($demat['data'],$arr);
+        }
+        $demat["recordsTotal"]=$i;
+        $demat["recordsFiltered"]=$i;
+        return $demat;
     }
     public static function financeManagementAddHeadings($request){
         $heading = $request->validate([

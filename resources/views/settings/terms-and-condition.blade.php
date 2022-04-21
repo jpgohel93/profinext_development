@@ -38,7 +38,6 @@
                                     <tr>
                                         <th scope="col">sr no</th>
                                         <th scope="col">Title</th>
-{{--                                        <th scope="col">Status</th>--}}
                                         @canany(["settings-terms-and-condition-write","settings-terms-and-condition-delete"])
                                             <th scope="col">Actions</th>
                                         @endcan
@@ -50,7 +49,6 @@
                                             <tr scope="row">
                                                 <th>{{$loop->iteration}}</th>
                                                 <td>{{$term->title}}</td>
-{{--                                                <td>{{$term->is_active?"Active":"Inactive"}}</td>--}}
                                                 @canany(["settings-terms-and-condition-write","settings-terms-and-condition-delete"])
                                                     <td>
                                                         @can("settings-terms-and-condition-write")

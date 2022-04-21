@@ -322,6 +322,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     // finance Management Accounting
     Route::get("/financeManagement/accounting", [AccountingController::class, "financeManagementAccounting"])->name("financeManagementAccounting");
+    Route::get("/financeManagement/salary", [AccountingController::class, "financeManagementSalary"])->name("financeManagementSalary");
     // finance Management heading
     Route::get("/financeManagement/headings", [AccountingController::class, "financeManagementHeadings"])->name("financeManagementHeadings");
     Route::post("/financeManagement/heading/add", [AccountingController::class, "financeManagementAddHeadings"])->name("financeManagementAddHeadings");
