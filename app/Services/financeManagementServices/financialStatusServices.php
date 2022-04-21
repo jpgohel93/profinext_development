@@ -10,6 +10,7 @@ use App\Models\financeManagementModel\financeManagementExpensesModel;
 use App\Models\financeManagementModel\financeManagementTransferModel;
 use App\Models\financeManagementModel\financeManagementLoanModel;
 use App\Models\financeManagementModel\BankModel;
+use App\Models\RenewExpensesModal;
 use App\Services\CommonService;
 class financialStatusServices
 {
@@ -93,6 +94,10 @@ class financialStatusServices
             $startDate = date("Y-m-01");
             $endDate = date("Y-m-t");
         }
+        // current financial year
+        $start = date("Y-m-d", strtotime(date("Y") . "-04-01"));
+        $end = date("Y-m-d", strtotime((date("Y") + 1) . "-03-31"));
+
 
         $users_data = User::whereDate("joining_date",">=",$startDate)->whereDate("joining_date","<=",$endDate)->select('name',"user_type","id as user_id","company_first","company_second","profit_percentage_first","profit_percentage_second")->get();
 
@@ -119,7 +124,9 @@ class financialStatusServices
                         $earnings += ($net_profit*$user->profit_percentage_second)/100;
                     }
                 }else if($user->user_type==2){
-                    $earnings = $net_profit;
+                    $transers = financeManagementTransferModel::whereDate("date",">=",$start)->whereDate("date","<=",$end)->where("purpose","like","distribution")->where("to",$user->user_id)->where("bank_type","user")->sum("amount");
+                    $renew_expenses = RenewExpensesModal::where("user_id",$user->user_id)->whereDate("date",">=",$start)->whereDate("date","<=",$end)->sum("amount");
+                    $earnings += (int)$renew_expenses - (int)$transers;
                 }
                 array_push($arr,$earnings);
                 array_push($arr, "<a href='".route('transactionDetailsFinancialStatus',$user->user_id)."' class='viewUser' data-id='" . $user->id . "'><i class='fas fa-eye fa-xl px-3'></i></a>");

@@ -1084,12 +1084,13 @@
                                         <span class="required">From:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <select class="form-select form-select-solid" name="from" id="transferFrom" data-control="select2" data-placeholder="Select sub heading">
+                                    <select class="form-select form-select-solid" name="from" id="transferFrom" data-control="select2">
+                                        <option value="">Select option</option>
                                         @forelse ($incomeBanks as $bank)
                                             <option value="cash">Cash</option>
                                             <option value="{{$bank->title}}">{{$bank->title}}</option>
                                         @empty
-                                            <option value="">Select option</option>
+
                                         @endforelse
                                     </select>
                                 </div>
@@ -1100,11 +1101,12 @@
                                         <span class="required">Purpose:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <select class="form-select form-select-solid" name="purpose" id="transferPurpose" data-control="select2" data-placeholder="Select sub heading">
+                                    <select class="form-select form-select-solid" name="purpose" id="transferPurpose" data-control="select2">
+                                        <option value="">Select Purpose</option>
                                         @forelse ($headings['income'] as $heading)
                                             <option value="{{$heading->sub_heading}}">{{$heading->sub_heading}}</option>
                                         @empty
-                                            <option value="">Select Heading</option>
+
                                         @endforelse
                                     </select>
                                 </div>
@@ -1398,9 +1400,14 @@
                     })
                     .done(data=>{
                         let options = `<option value="">Select option</option>`;
-                        if(data.length > 0){
+                        console.log(data);
+                        if(data[0] != null){
                             $.each(data,(i,v)=>{
-                                options+=`<option value='${v}'>${v}</option>`;
+                                if("user" in v){
+                                    options+=`<option value='user_${v.id}'>${v.bank_name}</option>`;
+                                }else{
+                                    options+=`<option value='bank_${v.id}'>${v.bank_name}</option>`;
+                                }
                             })
                         }
                         $("#transferTo").html(options);

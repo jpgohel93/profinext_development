@@ -14,6 +14,7 @@ class financeManagementTransferModel extends Model
         "from",
         "purpose",
         "to",
+        "bank_type",
         "narration",
         "income_form",
         "st_amount",

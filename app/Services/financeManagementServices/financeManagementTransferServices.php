@@ -17,6 +17,13 @@ class financeManagementTransferServices
             "amount" => "required",
             "income_form" => "required"
         ]);
+        if(stripos($transfer['to'],"user")){
+            $transfer['to'] = str_replace("user_","",$request->to);
+            $transfer['bank_type'] = "user";
+        }else{
+            $transfer['to'] = str_replace("bank_","",$request->to);
+            $transfer['bank_type'] = "bank";
+        }
         if ($request->income_form === "both") {
             $request->validate([
                 "st_amount" => "required",
@@ -56,12 +63,12 @@ class financeManagementTransferServices
     }
     public static function getTransferBanks($request){
         if($request->purpose== "Distribution" || $request->purpose== "distribution"){
-            return User::where("user_type",1)->whereNotNull("bank_name")->get()->pluck('bank_name')->toArray();
+            return User::where("user_type",1)->whereNotNull("bank_name")->select('bank_name','id','created_at as user')->get()->toArray();
         }elseif($request->purpose == "Cash Conversion" || $request->purpose== "cash conversion"){
-            $banks = User::where("bank_name","!=",null)->get()->pluck('bank_name')->toArray();
-            $forSalaryBanks = BankModel::where("type",2)->whereNotNull("title")->get()->pluck('title')->toArray();
+            $banks = User::whereNotNull("bank_name")->get()->select('bank_name','id','created_at as user')->toArray();
+            $forSalaryBanks = BankModel::where("type",2)->whereNotNull("title")->select('bank_name','id','created_at as bank')->get()->toArray();
             return array_merge($banks,$forSalaryBanks);
         }
-        return BankModel::where("type", 2)->whereNotNull("title")->get()->pluck('title')->toArray();
+        return BankModel::where("type", 2)->whereNotNull("title")->get()->select('title','id','created_at as bank')->toArray();
     }
 }
