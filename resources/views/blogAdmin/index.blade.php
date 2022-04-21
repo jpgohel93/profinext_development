@@ -28,11 +28,11 @@
                      <!--begin::Toolbar-->
                      <div class="toolbar" id="kt_toolbar">
                          <!--begin::Container-->
-                         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+                         <div id="kt_toolbar_container" class="container-fluid mx-7 d-flex flex-stack">
                              <!--begin::Page title-->
                              <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                                  <!--begin::Title-->
-                                 <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Blogs</h1>
+                                 <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Blog data</h1>
                                  <!--end::Title-->
                                  <!--begin::Separator-->
                                  <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -50,7 +50,7 @@
                                      </li>
                                      <!--end::Item-->
                                      <!--begin::Item-->
-                                     <li class="breadcrumb-item text-dark">Blogs</li>
+                                     <li class="breadcrumb-item text-dark">Blog management</li>
                                      <!--end::Item-->
                                  </ul>
                                  <!--end::Breadcrumb-->

@@ -27,11 +27,11 @@
                     <!--begin::Toolbar-->
                     <div class="toolbar" id="kt_toolbar">
                         <!--begin::Container-->
-                        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+                        <div id="kt_toolbar_container" class="container-fluid mx-7 d-flex flex-stack">
                             <!--begin::Page title-->
                             <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                                 <!--begin::Title-->
-                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Finance Management</h1>
+                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Financial status</h1>
                                 <!--end::Title-->
                                 <!--begin::Separator-->
                                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -49,7 +49,7 @@
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
-                                    <li class="breadcrumb-item text-dark">Financial Status</li>
+                                    <li class="breadcrumb-item text-dark">Finance Management</li>
                                     <!--end::Item-->
                                 </ul>
                                 <!--end::Breadcrumb-->
@@ -63,7 +63,7 @@
                         <!--begin::Container-->
                         <div id="kt_content_container" class="container-xxl">
                             <!--begin:::Tabs-->
-                            <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
+                            <ul class="mx-9 nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
@@ -252,7 +252,7 @@
                                                                 </td>
                                                             </tr>
                                                         @empty
-                                                            
+
                                                         @endforelse --}}
                                                     </tbody>
                                                 <!--end::Table body-->
@@ -428,20 +428,20 @@
                                     // matching how `ajax.data` works in DataTables
                         method: 'GET' // Ajax HTTP method
                     }, opts );
-                
+
                     // Private variables for storing the cache
                     var cacheLower = -1;
                     var cacheUpper = null;
                     var cacheLastRequest = null;
                     var cacheLastJson = null;
-                
+
                     return function ( request, drawCallback, settings ) {
                         var ajax          = false;
                         var requestStart  = request.start;
                         var drawStart     = request.start;
                         var requestLength = request.length;
                         var requestEnd    = requestStart + requestLength;
-                        
+
                         if ( settings.clearCache ) {
                             // API requested that the cache be cleared
                             ajax = true;
@@ -458,26 +458,26 @@
                             // properties changed (ordering, columns, searching)
                             ajax = true;
                         }
-                        
+
                         // Store the request for checking next time around
                         cacheLastRequest = $.extend( true, {}, request );
-                
+
                         if ( ajax ) {
                             // Need data from the server
                             if ( requestStart < cacheLower ) {
                                 requestStart = requestStart - (requestLength*(conf.pages-1));
-                
+
                                 if ( requestStart < 0 ) {
                                     requestStart = 0;
                                 }
                             }
-                            
+
                             cacheLower = requestStart;
                             cacheUpper = requestStart + (requestLength * conf.pages);
-                
+
                             request.start = requestStart;
                             request.length = requestLength*conf.pages;
-                
+
                             // Provide the same `data` options as DataTables.
                             if ( typeof conf.data === 'function' ) {
                                 // As a function it is executed with the data object as an arg
@@ -492,7 +492,7 @@
                                 // As an object, the data given extends the default
                                 $.extend( request, conf.data );
                             }
-                
+
                             return $.ajax( {
                                 "type":     conf.method,
                                 "url":      conf.url,
@@ -501,14 +501,14 @@
                                 "cache":    false,
                                 "success":  function ( json ) {
                                     cacheLastJson = $.extend(true, {}, json);
-                
+
                                     if ( cacheLower != drawStart ) {
                                         json.data.splice( 0, drawStart-cacheLower );
                                     }
                                     if ( requestLength >= -1 ) {
                                         json.data.splice( requestLength, json.data.length );
                                     }
-                                    
+
                                     drawCallback( json );
                                 }
                             } );
@@ -518,12 +518,12 @@
                             json.draw = request.draw; // Update the echo for each response
                             json.data.splice( 0, requestStart-cacheLower );
                             json.data.splice( requestLength, json.data.length );
-                
+
                             drawCallback(json);
                         }
                     }
                 };
-                
+
                 // Register an API method that will empty the pipelined data, forcing an Ajax
                 // fetch on the next draw (i.e. `table.clearPipeline().draw()`)
                 $.fn.dataTable.Api.register( 'clearPipeline()', function () {

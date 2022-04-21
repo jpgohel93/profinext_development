@@ -41,7 +41,7 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="profinext/dist/index.html" class="text-muted text-hover-primary">Home</a>
+                                        <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -50,7 +50,7 @@
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
-                                    <li class="breadcrumb-item text-dark">Trader Clients</li>
+                                    <li class="breadcrumb-item text-dark">Trade management</li>
                                     <!--end::Item-->
                                 </ul>
                                 <!--end::Breadcrumb-->

@@ -493,7 +493,7 @@ class AnalystController extends Controller
 		$html = '';
 
 		$html .= '<form id="editCallFrm" class="form" method="POST" action="'.route('editMonitorData').'">
-			@csrf
+            <input type="hidden" name="_token" value="'.csrf_token().'">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h2 class="fw-bolder">Edit Call</h2>

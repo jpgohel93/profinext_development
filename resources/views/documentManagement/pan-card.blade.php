@@ -20,14 +20,43 @@
                             <h5 class="alert alert-info">{{session("info")}}</h5>
                         </div>
                     @endif
-                    {{-- bank --}}
-                    <div class="row">
-                        <div class="container">
-                            <div class="row my-3">
-                                <div class="col-md-3">
-                                    <h3>Pan Cards</h3>
-                                </div>
+                    <!--begin::Toolbar-->
+                    <div class="toolbar px-0 mx-0" id="kt_toolbar">
+                        <!--begin::Container-->
+                        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+                            <!--begin::Page title-->
+                            <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                                <!--begin::Title-->
+                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Pan Cards</h1>
+                                <!--end::Title-->
+                                <!--begin::Separator-->
+                                <span class="h-20px border-gray-200 border-start mx-4"></span>
+                                <!--end::Separator-->
+                                <!--begin::Breadcrumb-->
+                                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-dark">Document management</li>
+                                    <!--end::Item-->
+                                </ul>
+                                <!--end::Breadcrumb-->
                             </div>
+                            <!--end::Page title-->
+                        </div>
+                        <!--end::Container-->
+                    </div>
+                    <!--end::Toolbar-->
+                    <div class="container">
+                        <div class="row">
                             <table class="table table-striped" id="bank">
                                 <thead>
                                     <tr>
@@ -221,7 +250,7 @@
                                 $("#documentForm").find("#editIdContainer").html(`<input type="hidden" name="id" value="${data.id}">`)
                                 $("#client_name").val(data.name);
                                 $("#demate_holder_name").val(data.holder_name);
-                                $("#pan_number").val(data.pan_number);
+                                $("#pan_number").val(data.pan_number_text);
                                 var url = "{{asset('pan_cards')}}/"+data.file;
                                 $("#image_preview").html("<img style='height:100px;width;70px;' src='"+url+"'>");
                                 $("#document").attr("required",false);

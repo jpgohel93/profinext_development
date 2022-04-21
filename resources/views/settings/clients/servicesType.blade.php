@@ -20,19 +20,47 @@
                             <h5 class="alert alert-info">{{session("info")}}</h5>
                         </div>
                     @endif
-                    {{-- Profession --}}
-                    <div class="row">
-                        <div class="container">
-                            <div class="row my-3">
-                                <div class="col-md-3">
-                                    <h3>Service Types</h3>
-                                </div>
-                                @can("settings-service-type-create")
-                                    <div class="col-md-9 text-end">
-                                        <button type="button" class="btn btn-primary" id="add_client_service_type_model">Add</button>
-                                    </div>
-                                @endcan
+                    <div class="toolbar px-0" id="kt_toolbar">
+                        <!--begin::Container-->
+                        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+                            <!--begin::Page title-->
+                            <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                                <!--begin::Title-->
+                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Service Types</h1>
+                                <!--end::Title-->
+                                <!--begin::Separator-->
+                                <span class="h-20px border-gray-200 border-start mx-4"></span>
+                                <!--end::Separator-->
+                                <!--begin::Breadcrumb-->
+                                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-dark">Settings</li>
+                                    <!--end::Item-->
+                                </ul>
+                                <!--end::Breadcrumb-->
                             </div>
+                            <!--end::Page title-->
+                            @can("settings-service-type-create")
+                                <div class="d-flex align-items-center py-1">
+                                    <button type="button" class="btn btn-primary" id="add_client_service_type_model">Add</button>
+                                </div>
+                            @endcan
+                        <!--end::Actions-->
+                        </div>
+                        <!--end::Container-->
+                    </div>
+                    <div class="container">
+                        <div class="row">
                             <table class="table table-striped" id="serviceType">
                                 <thead>
                                     <tr>

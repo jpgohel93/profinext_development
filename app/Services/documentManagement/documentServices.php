@@ -69,7 +69,7 @@ class documentServices{
         return  PancardImageModel::join("client_demat",function($join){
             $join->on("tbl_pancards.client_demat_id","=","client_demat.id");
             $join->join("clients","client_demat.client_id","=","clients.id");
-        })->where("tbl_pancards.id",$id)->groupBy("tbl_pancards.client_demat_id","tbl_pancards.file")->select("clients.name","clients.id as client_id","client_demat.holder_name","client_demat.pan_number","tbl_pancards.*")->first()->toArray();
+        })->where("tbl_pancards.id",$id)->groupBy("tbl_pancards.client_demat_id","tbl_pancards.file")->select("clients.name","clients.id as client_id","client_demat.holder_name","client_demat.pan_number_text","tbl_pancards.*")->first()->toArray();
     }
 
     public static function editPanCardData($request){

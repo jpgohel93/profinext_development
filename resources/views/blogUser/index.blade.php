@@ -3,7 +3,7 @@
 @section("blog_management.user","active")
 @section("blog_management.accordion","hover show")
 @section("content")
-    
+
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -28,7 +28,7 @@
                      <!--begin::Toolbar-->
                      <div class="toolbar" id="kt_toolbar">
                          <!--begin::Container-->
-                         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+                         <div id="kt_toolbar_container" class="container-fluid mx-7 d-flex flex-stack">
                              <!--begin::Page title-->
                              <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                                  <!--begin::Title-->
@@ -43,7 +43,7 @@
                                      <li class="breadcrumb-item text-muted">
                                          <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
                                      </li>
-                                     <!--end::Item-->  
+                                     <!--end::Item-->
                                      <!--begin::Item-->
                                      <li class="breadcrumb-item">
                                          <span class="bullet bg-gray-200 w-5px h-2px"></span>
@@ -57,7 +57,7 @@
                              </div>
                              <!--end::Page title-->
                              <!--begin::Actions-->
-                             <div class="d-flex align-items-center py-1"> 
+                             <div class="d-flex align-items-center py-1">
                                  @can("blog-user-create")
                                     <!--begin::Button-->
                                     <a href="javascript:void(0)" class="btn btn-sm btn-primary" id="addArticleBtn">
@@ -67,10 +67,10 @@
                                                 <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                                             </svg>
                                         </span>Add Article
-                                    </a> 
+                                    </a>
                                  @endcan
                              </div>
-                             <!--end::Actions--> 
+                             <!--end::Actions-->
                          </div>
                          <!--end::Container-->
                      </div>
@@ -80,7 +80,7 @@
                          <!--begin::Container-->
                          <div id="kt_content_container" class="container-xxl">
                              <!--begin:::Tabs-->
-                            <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
+                            <ul class="mx-9 nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
                                 @forelse ($user['target'] as $target_index => $tabs)
                                     <!--begin:::Tab item-->
                                     <li class="nav-item">
@@ -122,21 +122,21 @@
                                                             </thead>
                                                             <tbody class="text-gray-600 fw-bold">
                                                                 @forelse ($user['target'][$target_index]['tab_blogs'][$user['target'][$target_index]['tab_id']] as $blog_index => $blog)
-                                                                    <tr> 
+                                                                    <tr>
                                                                         <td>{{$loop->iteration}}</td>
-                                                                        <td class="role-value-td">{{date("Y-m-d",strtotime($blog['date']))}}</td> 
-                                                                        <td class="role-value-td">{{$blog['title']}}</td> 
-                                                                        <td class="role-value-td"><a href="{{$blog['link']}}" target="_blank">{{$blog['link']}}</a></td> 
+                                                                        <td class="role-value-td">{{date("Y-m-d",strtotime($blog['date']))}}</td>
+                                                                        <td class="role-value-td">{{$blog['title']}}</td>
+                                                                        <td class="role-value-td"><a href="{{$blog['link']}}" target="_blank">{{$blog['link']}}</a></td>
                                                                         <td class="text-end">
                                                                             <div class="d-flex justify-content-end align-items-end">
                                                                                 @can("blog-user-write")
                                                                                     <a href="{{route('editBlog',$blog['id'])}}" data-id="{{$blog['id']}}">
                                                                                         <i class="fas fa-edit fa-xl px-2"></i>
-                                                                                    </a> 
+                                                                                    </a>
                                                                                     @if($blog['notes']!="")
                                                                                         <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="displayNotes">
                                                                                             <i class="fas fa-file fa-xl px-2"></i>
-                                                                                        </a> 
+                                                                                        </a>
                                                                                     @endif
                                                                                 @endcan
                                                                                 @can("blog-user-delete")
@@ -145,16 +145,16 @@
                                                                                     </a>
                                                                                 @endcan
                                                                             </div>
-                                                                        </td> 
-                                                                    </tr> 
+                                                                        </td>
+                                                                    </tr>
                                                                 @empty
                                                                     {{-- empty --}}
                                                                 @endforelse
                                                             </tbody>
-                                                        </table> 
+                                                        </table>
                                                     @else
                                                         <h1>Unauthorised</h1>
-                                                    @endcan													
+                                                    @endcan
                                                 </div>
                                                 <!--end::Table-->
                                             </div>
@@ -163,10 +163,10 @@
                                         <!--end::Card-->
                                     </div>
                                     @empty
-                                        <h1>0 target assigned</h1>
+
                                 @endforelse
                             </div>
-                             
+
                          </div>
                          <!--end::Container-->
                      </div>
@@ -259,7 +259,7 @@
                 })
                 $(document).on("click",".displayNotes",function(e){
                     const id = e.target.getAttribute("data-id");
-                    if(id){ 
+                    if(id){
                         $.ajax("{!! route('getNotes') !!}",{
                             type:"POST",
                             data:{

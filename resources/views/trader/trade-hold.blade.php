@@ -26,7 +26,7 @@
                     @endif
                     <div class="toolbar" id="kt_toolbar">
 						<!--begin::Container-->
-						<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+						<div id="kt_toolbar_container" class="container-fluid mx-7 d-flex flex-stack">
 							<!--begin::Page title-->
 							<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
 								<!--begin::Title-->
@@ -48,7 +48,7 @@
 									</li>
 									<!--end::Item-->
 									<!--begin::Item-->
-									<li class="breadcrumb-item text-dark">trade hold</li>
+									<li class="breadcrumb-item text-dark">Trade management</li>
 									<!--end::Item-->
 								</ul>
 								<!--end::Breadcrumb-->

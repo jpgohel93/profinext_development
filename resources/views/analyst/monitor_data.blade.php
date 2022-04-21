@@ -10,7 +10,7 @@
 		width: 100% !important;
 	}
 	</style>
-	
+
 	<div class="d-flex flex-column flex-root">
         <!--begin::Page-->
         <div class="page d-flex flex-row flex-column-fluid">
@@ -33,7 +33,7 @@
                 	<!--begin::Toolbar-->
                     <div class="toolbar" id="kt_toolbar">
                         <!--begin::Container-->
-                        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+                        <div id="kt_toolbar_container" class="container-fluid mx-7 d-flex flex-stack">
                             <!--begin::Page title-->
                             <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                                 <!--begin::Title-->
@@ -46,7 +46,7 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="#" class="text-muted text-hover-primary">Home</a>
+                                        <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -55,7 +55,7 @@
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
-                                    <li class="breadcrumb-item text-dark">Monitor</li>
+                                    <li class="breadcrumb-item text-dark">Analyst management</li>
                                     <!--end::Item-->
                                 </ul>
                                 <!--end::Breadcrumb-->
@@ -72,8 +72,7 @@
                             <div id="kt_content_container" class="container-xxl">
 
                                 <!--begin:::Tabs-->
-                                <ul
-                                    class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
+                                <ul class="mx-9 nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
 
                                     <!--begin:::Tab item-->
                                     <li class="nav-item">
@@ -118,7 +117,7 @@
 															</tr>
 														</thead>
 														<tbody class="text-gray-600 fw-bold" id="activeCallTable">
-														
+
 														</tbody>
                                                     </table>
                                                 </div>
@@ -132,7 +131,7 @@
                                         <!--begin::Card-->
                                         <div class="card">
                                             <!--begin::Card header-->
-                                            <div class="card-header border-0 pt-6">
+                                            <div class="card-header border-0">
                                                 <!--begin::Card title-->
                                                 <div class="card-title">
                                                     <!--begin::Search-->
@@ -159,7 +158,7 @@
 															</tr>
 														</thead>
 														<tbody class="text-gray-600 fw-bold" id="activeCallTable">
-														
+
 														</tbody>
                                                     </table>
                                                 </div>
@@ -173,7 +172,7 @@
                                         <!--begin::Card-->
                                         <div class="card">
                                             <!--begin::Card header-->
-                                            <div class="card-header border-0 pt-6">
+                                            <div class="card-header border-0">
                                                 <!--begin::Card title-->
                                                 <div class="card-title">
                                                     <!--begin::Search-->
@@ -201,7 +200,7 @@
 														</tr>
 														</thead>
 														<tbody class="text-gray-600 fw-bold" id="closedCallTable">
-													   
+
 														</tbody>
                                                     </table>
                                                 </div>
@@ -492,7 +491,7 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<script>
 	$(function() {
-        
+
 		analyst_table = $('#analyst_table').DataTable({
 			processing: true,
 			serverSide: true,
@@ -510,9 +509,9 @@
 				{data: 'open_call', name: 'open_call'},
 				{data: 'close_call', name: 'close_call'},
 				{data: 'action', name: 'action'},
-			]			
-		});	
-		
+			]
+		});
+
 		active_call_table = $('#active_call_table').DataTable({
 			processing: true,
 			serverSide: true,
@@ -536,9 +535,9 @@
 				{data: 'entry_price'},
 				{data: 'target'},
 				{data: 'action', name: 'action'},
-			]			
-		});	
-		
+			]
+		});
+
 		close_call_table = $('#close_call_table').DataTable({
 			processing: true,
 			serverSide: true,
@@ -576,9 +575,9 @@
 				} else if(data['sl_status'] == 'Trapped'){
 					$(row).find('td:eq(3)').css('background', '#C30000').css('color', 'whitesmoke');
 				}
-			}			
-		});	
-		
+			}
+		});
+
 		$('#active_datefilter, #close_datefilter').daterangepicker({
 				opens: 'right',
 				startDate: moment().subtract(30, 'days'),
@@ -588,7 +587,7 @@
 				}
 			}
 		);
-		
+
 		$(document).on('change','#active_datefilter',function(){
 			active_call_table.draw();
 		});
@@ -596,7 +595,7 @@
 			close_call_table.draw();
 		});
 	});
-	
+
 	$("#addCallFrm").validate({
 		rules: {
 			script_name: "required",
@@ -726,9 +725,6 @@
 			url: "{{ route('editMonitorDataForm') }}",
 			data: {id : edit_id,call_type:call_type},
 			dataType: 'json',
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			},
 			success: function(data) {
                 $("select[data-control='select2']").select2("destroy");
 				$("#editCallMdl .modal-dialog").html(data.message);

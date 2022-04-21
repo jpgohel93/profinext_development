@@ -3,7 +3,7 @@
 @section("setup","active")
 @section("trade_management.accordion","hover show")
 @section("content")
-	
+
     <!--begin::Body-->
     <!--begin::Main-->
     <!--begin::Root-->
@@ -25,7 +25,7 @@
                 <!--begin::Toolbar-->
 					<div class="toolbar" id="kt_toolbar">
 						<!--begin::Container-->
-						<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+						<div id="kt_toolbar_container" class="container-fluid mx-7 d-flex flex-stack">
 							<!--begin::Page title-->
 							<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
 								<!--begin::Title-->
@@ -38,7 +38,7 @@
 								<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
 									<!--begin::Item-->
 									<li class="breadcrumb-item text-muted">
-										<a href="profinext/dist/index.html" class="text-muted text-hover-primary">Home</a>
+										<a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
 									</li>
 									<!--end::Item-->
 									<!--begin::Item-->
@@ -47,7 +47,7 @@
 									</li>
 									<!--end::Item-->
 									<!--begin::Item-->
-									<li class="breadcrumb-item text-dark">Setup</li>
+									<li class="breadcrumb-item text-dark">Trade management</li>
 									<!--end::Item-->
 								</ul>
 								<!--end::Breadcrumb-->
@@ -62,8 +62,7 @@
                         <div id="kt_content_container" class="container-xxl">
 
                             <!--begin:::Tabs-->
-                            <ul
-                                class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
+                            <ul class="mx-9 nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
@@ -120,11 +119,6 @@
                                 <div class="tab-pane fade show active" id="makeAsPreferredAccounr" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
-                                        <!--begin::Card header-->
-                                        <div class="card-header border-0 pt-6">
-                                            
-                                        </div>
-                                        <!--end::Card header-->
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
@@ -153,7 +147,7 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                               
+
 								<div class="tab-pane fade show" id="normalAccount" aria-labelledby="active-tab" role="tabpanel">
                                     <div class="card">
                                         <div class="card-header border-0 pt-6">
@@ -169,7 +163,7 @@
                                                 </div>
                                             </div>
                                         </div>
-										
+
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-row-dashed fs-6 gy-5 datatable" id="normal_acc_table">
@@ -186,7 +180,7 @@
 													</tr>
 													</thead>
 													<tbody class="text-gray-600 fw-bold" id="activeCallTable">
-													
+
 													</tbody>
                                                 </table>
                                             </div>
@@ -196,15 +190,10 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                                
+
 								<div class="tab-pane fade show" id="holding" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
-                                        <!--begin::Card header-->
-                                        <div class="card-header border-0 pt-6">
-                                           
-                                        </div>
-                                        <!--end::Card header-->
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
@@ -222,7 +211,7 @@
 														</tr>
 													</thead>
 													<tbody class="text-gray-600 fw-bold" id="activeCallTable">
-													
+
 													</tbody>
                                                 </table>
                                             </div>
@@ -232,7 +221,7 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                                
+
 								<div class="tab-pane fade show" id="all" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
@@ -249,7 +238,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-toolbar">
-                                                
+
                                             </div>
                                         </div>
                                         <!--end::Card header-->
@@ -270,7 +259,7 @@
 														</tr>
 													</thead>
 													<tbody class="text-gray-600 fw-bold" id="activeCallTable">
-													
+
 													</tbody>
                                                 </table>
                                             </div>
@@ -280,15 +269,10 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                               
+
 								<div class="tab-pane fade show" id="trader" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
-                                        <!--begin::Card header-->
-                                        <div class="card-header border-0 pt-6">
-                                            
-                                        </div>
-                                        <!--end::Card header-->
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
@@ -307,7 +291,7 @@
 														</tr>
 													</thead>
 													<tbody class="text-gray-600 fw-bold" id="activeCallTable">
-													
+
 													</tbody>
                                                 </table>
                                             </div>
@@ -317,15 +301,10 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                                
+
 								<div class="tab-pane fade show" id="freelancer" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
-                                        <!--begin::Card header-->
-                                        <div class="card-header border-0 pt-6">
-										
-                                        </div>
-                                        <!--end::Card header-->
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
@@ -343,7 +322,7 @@
 														</tr>
 													</thead>
 													<tbody class="text-gray-600 fw-bold" id="activeCallTable">
-													
+
 													</tbody>
                                                 </table>
                                             </div>
@@ -353,15 +332,10 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                                
+
 								<div class="tab-pane fade show" id="unallotted" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
-                                        <!--begin::Card header-->
-                                        <div class="card-header border-0 pt-6">
-										
-                                        </div>
-                                        <!--end::Card header-->
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <div class="table-responsive">
@@ -378,7 +352,7 @@
 														</tr>
 													</thead>
 													<tbody class="text-gray-600 fw-bold" id="activeCallTable">
-													
+
 													</tbody>
                                                 </table>
                                             </div>
@@ -388,7 +362,7 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                            
+
 							</div>
                         </div>
                         <!--end::Container-->
@@ -874,7 +848,7 @@
                         KTMenu.createInstances();
                     }
                 });
-                
+
                 normal_acc_table = $('#normal_acc_table').DataTable({
                     processing: true,
                     serverSide: true,
@@ -904,7 +878,7 @@
                         KTMenu.createInstances();
                     }
                 });
-                
+
                 holding_table = $('#holding_table').DataTable({
                     processing: true,
                     serverSide: true,
@@ -929,7 +903,7 @@
                         KTMenu.createInstances();
                     }
                 });
-                
+
                 all_table = $('#all_table').DataTable({
                     processing: true,
                     serverSide: true,
@@ -959,7 +933,7 @@
                         KTMenu.createInstances();
                     }
                 });
-                
+
                 trader_table = $('#trader_table').DataTable({
                     processing: true,
                     serverSide: true,
@@ -984,7 +958,7 @@
                         KTMenu.createInstances();
                     }
                 });
-                
+
                 freelancer_table = $('#freelancer_table').DataTable({
                     processing: true,
                     serverSide: true,
@@ -1009,7 +983,7 @@
                         KTMenu.createInstances();
                     }
                 });
-                
+
                 unallotted_table = $('#unallotted_table').DataTable({
                     processing: true,
                     serverSide: true,
@@ -1032,16 +1006,16 @@
                         KTMenu.createInstances();
                     }
                 });
-                
+
                 $(document).on('change','#service_type',function(){
                     normal_acc_table.draw();
                 });
-                
+
                 $(document).on('change','#allotment_type',function(){
                     all_table.draw();
                 });
             });
-    
+
             $(document).on("click",'.viewDematHolding',function(e){
                 const id = e.target.getAttribute("data-id");
                 const holderName = e.target.getAttribute("data-holder");

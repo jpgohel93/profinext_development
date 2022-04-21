@@ -27,11 +27,11 @@
                     <!--begin::Toolbar-->
                     <div class="toolbar" id="kt_toolbar">
                         <!--begin::Container-->
-                        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+                        <div id="kt_toolbar_container" class="container-fluid mx-7 d-flex flex-stack">
                             <!--begin::Page title-->
                             <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                                 <!--begin::Title-->
-                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Finance Management</h1>
+                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Banks</h1>
                                 <!--end::Title-->
                                 <!--begin::Separator-->
                                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -49,7 +49,7 @@
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
-                                    <li class="breadcrumb-item text-dark">Banks</li>
+                                    <li class="breadcrumb-item text-dark">Finance management</li>
                                     <!--end::Item-->
                                 </ul>
                                 <!--end::Breadcrumb-->
@@ -74,7 +74,7 @@
                         <!--begin::Container-->
                         <div id="kt_content_container" class="container-xxl">
                             <!--begin:::Tabs-->
-                            <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
+                            <ul class="mx-9 nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
@@ -312,7 +312,7 @@
         </div>
         <!--end::Page-->
     </div>
-    
+
     <div class="modal fade" id="add_bank_modal" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <div class="modal-dialog modal-lg">
@@ -361,7 +361,7 @@
                                         <option value="2" {{old('type') && old("type")==2?"selected":""}}>For Salary</option>
                                     </select>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="d-flex align-items-center fs-6 fw-bold">
                                         <span class="required">Bank Title:</span>
@@ -370,7 +370,7 @@
                                     <!--end::Label-->
                                     <input type="text" value="{{old('title')}}" name="title" class="form-control form-control-solid" />
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="d-flex align-items-center fs-6 fw-bold">
                                         <span class="required">Account Type:</span>
@@ -379,7 +379,7 @@
                                     <!--end::Label-->
                                     <input type="text" value="{{old('account_type')}}" name="account_type" class="form-control form-control-solid" />
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="d-flex align-items-center fs-6 fw-bold">
                                         <span class="required">IFSC Code:</span>
@@ -480,7 +480,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-end">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -545,7 +545,7 @@
                                     <option value="2">For Salary</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="d-flex align-items-center fs-6 fw-bold">
                                     <span class="required">Bank Title:</span>
@@ -553,7 +553,7 @@
                                 <!--end::Label-->
                                 <input type="text" value="" id="view_title" class="form-control form-control-solid" />
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="d-flex align-items-center fs-6 fw-bold">
                                     <span class="required">Account Type:</span>
@@ -561,7 +561,7 @@
                                 <!--end::Label-->
                                 <input type="text" value="" id="view_account_type" class="form-control form-control-solid" />
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="d-flex align-items-center fs-6 fw-bold">
                                     <span class="required">IFSC Code:</span>
@@ -571,7 +571,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="d-flex align-items-center fs-6 fw-bold">
-                                    <span class="required">Primary Bank:</span>                                    
+                                    <span class="required">Primary Bank:</span>
                                 </label>
                                 <select class="form-select form-select-solid" data-control="select2" data-placeholder="add as primary bank?" id="view_is_primary" required>
                                     <option value=""></option>
@@ -600,7 +600,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="d-flex align-items-center fs-6 fw-bold">
-                                        <span class="required">Limit Utilize:</span>                                        
+                                        <span class="required">Limit Utilize:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" value="" id="view_limit_utilize" class="form-control form-control-solid" />
@@ -638,7 +638,7 @@
                         <!--end::Col-->
                     </div>
                     <!--end::Input group-->
-                    
+
                     <!--begin::Actions-->
                     <div class="text-end">
                         <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -698,7 +698,7 @@
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
-                        
+
                         <!--begin::Actions-->
                         <div class="text-end">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
@@ -766,7 +766,7 @@
                             $("#viewForSalaryFields").hide();
                         }else{
                             $("#viewForSalaryFields").show();
-                            $("#viewForIncomeFields").hide();                            
+                            $("#viewForIncomeFields").hide();
                         }
                         $("#view_title").val(data.title).prop("readonly",true);
                         $("#view_account_type").val(data.account_type).prop("readonly",true);
