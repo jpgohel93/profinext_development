@@ -23,7 +23,7 @@
 					@endif
 					@can("user-read")
 					<!--begin::Content-->
-					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+					    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 						<!--begin::Toolbar-->
 						<div class="toolbar" id="kt_toolbar">
 							<!--begin::Container-->
@@ -57,7 +57,7 @@
 								<!--end::Page title-->
 								@can("user-create")
 									<div class="d-flex align-items-center py-1">
-										<a href="{{route('createUserForm')}}" class="btn btn-sm btn-primary">
+										<a href="{{route('createUserForm')}}" class="btn btn-sm btn-primary" target="_blank">
 											<span class="svg-icon svg-icon-2">
 											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 												<rect x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
@@ -72,57 +72,331 @@
 						</div>
 						<!--end::Toolbar-->
 						<!--begin::Row-->
-						<div class="row mx-4">
-                            @forelse ($users as $user)
-                                <div class="col-md-6 col-xxl-3">
-                                <!--begin::Card-->
-                                <div class="card border border-2 border-gray-300">
-                                    <!--begin::Card body-->
-                                    <div class="card-body d-flex flex-center flex-column p-1">
-                                        <!--begin::Avatar-->
-                                        <div class="symbol symbol-65px symbol-circle mb-5" style="background: #009ef7;">
-                                            <span class="symbol-label fs-2x fw-bold text-primary bg-light-primary"><?php echo ucwords($user->name[0]); ?></span>
-                                        </div>
-                                        <!--end::Avatar-->
-                                        <!--begin::Name-->
-                                        <a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bolder mb-0">{{$user->name}}</a>
-                                        <!--end::Name-->
-                                        <!--begin::Position-->
-                                        <div class="fw-bold text-gray-400 mb-6">
-                                            <span class="badge badge-light-primary fw-bolder me-auto px-4 py-3 mx-2">{{$user->role}}</span>
-                                        </div>
-                                        <!--end::Position-->
-                                        <!--begin::Info-->
-                                        <div class="d-flex flex-center flex-wrap mb-5">
-                                            <!--begin::Stats-->
-                                            @can("user-write")
-                                                <div class="d-flex align-items-left py-1" style="margin-right:10px;">
-                                                    <a href="{{url('/user/edit',$user->id)}}" target="_blank" class="btn btn-sm btn-primary">
-                                                        Edit User
-                                                    </a>
+                        <div class="post d-flex flex-column-fluid" id="kt_post">
+                            <!--begin::Container-->
+                            <div id="kt_content_container" class="container-xxl">
+
+                                <!--begin:::Tabs-->
+                                <ul class="mx-9 nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8 bg-light navpad">
+
+                                    <!--begin:::Tab item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link text-active-primary pb-1 active" data-bs-toggle="tab"
+                                           href="#partner">Partner</a>
+                                    </li>
+                                    <!--end:::Tab item-->
+
+                                    <!--begin:::Tab item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
+                                           href="#employee">Employee</a>
+                                    </li>
+                                    <!--end:::Tab item-->
+
+                                    <!--begin:::Tab item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
+                                           href="#channelpartner">Channel Partner</a>
+                                    </li>
+                                    <!--end:::Tab item-->
+
+                                    <!--begin:::Tab item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
+                                           href="#freelancerams">Freelancer AMS</a>
+                                    </li>
+                                    <!--end:::Tab item-->
+
+                                    <!--begin:::Tab item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
+                                           href="#freelancerprime">Freelancer Prime</a>
+                                    </li>
+                                    <!--end:::Tab item-->
+
+                                </ul>
+                                <!--end:::Tabs-->
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="partner" aria-labelledby="active-tab"
+                                         role="tabpanel">
+                                        <!--begin::Card-->
+                                        <div class="card">
+                                            <!--begin::Card body-->
+                                            <div class="card-body pt-0">
+                                                <div class="table-responsive">
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">User Name</th>
+                                                            <th class="min-w-75px">Role</th>
+                                                            <th class="min-w-75px">Joining Date</th>
+                                                            <th class="text-center min-w-100px">Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                            @forelse ($partner as $user)
+                                                                <tr>
+                                                                    <td>{{$loop->iteration}}</td>
+                                                                    <td class="role-value-td">{{$user->name}}</td>
+                                                                    <td class="role-value-td">{{$user->role}}</td>
+                                                                    <td class="role-value-td">{{date("Y-m-d",strtotime($user->joining_date))}}</td>
+                                                                    <td class="">
+                                                                        <div class="d-flex justify-content-center align-items-center">
+                                                                            @can("user-write")
+                                                                                <div class="menu-item px-2">
+                                                                                    <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                        Edit
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endcan
+                                                                            @can("user-read")
+                                                                                <div class="menu-item px-2">
+                                                                                    <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                        View More
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endcan
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <!--end::Table body-->
+                                                    </table>
                                                 </div>
-                                            @endcan
-                                            <!--end::Stats-->
-                                            <!--begin::Stats-->
-
-                                            <div class="d-flex align-items-right py-1">
-                                                <a href="{{route('viewUser',$user->id)}}" target="_blank"
-                                                   class="btn btn-sm btn-primary">View More</a>
+                                                <!--end::Table-->
                                             </div>
-                                            <!--end::Stats-->
+                                            <!--end::Card body-->
                                         </div>
-                                        <!--end::Info-->
-
-
+                                        <!--end::Card-->
                                     </div>
-                                    <!--begin::Card body-->
+                                    <div class="tab-pane fade show" id="employee" aria-labelledby="active-tab" role="tabpanel">
+                                        <!--begin::Card-->
+                                        <div class="card">
+                                            <!--begin::Card body-->
+                                            <div class="card-body pt-0">
+                                                <div class="table-responsive">
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">User Name</th>
+                                                            <th class="min-w-75px">Role</th>
+                                                            <th class="min-w-75px">Joining Date</th>
+                                                            <th class="text-center min-w-100px">Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse ($employee as $user)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td class="role-value-td">{{$user->name}}</td>
+                                                                <td class="role-value-td">{{$user->role}}</td>
+                                                                <td class="role-value-td">{{date("Y-m-d",strtotime($user->joining_date))}}</td>
+                                                                <td class="">
+                                                                    <div class="d-flex justify-content-center align-items-center">
+                                                                        @can("user-write")
+                                                                            <div class="menu-item px-2">
+                                                                                <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                    Edit
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
+                                                                        @can("user-read")
+                                                                            <div class="menu-item px-2">
+                                                                                <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                    View More
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <!--end::Table body-->
+                                                    </table>
+
+                                                </div>
+                                                <!--end::Table-->
+                                            </div>
+                                            <!--end::Card body-->
+                                        </div>
+                                        <!--end::Card-->
+                                    </div>
+                                    <div class="tab-pane fade show" id="channelpartner" aria-labelledby="active-tab" role="tabpanel">
+                                        <!--begin::Card-->
+                                        <div class="card">
+                                            <!--begin::Card body-->
+                                            <div class="card-body pt-0">
+                                                <div class="table-responsive">
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">User Name</th>
+                                                            <th class="min-w-75px">Role</th>
+                                                            <th class="min-w-75px">Joining Date</th>
+                                                            <th class="text-center min-w-100px">Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse ($channelPartner as $user)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td class="role-value-td">{{$user->name}}</td>
+                                                                <td class="role-value-td">{{$user->role}}</td>
+                                                                <td class="role-value-td">{{date("Y-m-d",strtotime($user->joining_date))}}</td>
+                                                                <td class="">
+                                                                    <div class="d-flex justify-content-center align-items-center">
+                                                                        @can("user-write")
+                                                                            <div class="menu-item px-2">
+                                                                                <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                    Edit
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
+                                                                        @can("user-read")
+                                                                            <div class="menu-item px-2">
+                                                                                <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                    View More
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <!--end::Table body-->
+                                                    </table>
+
+                                                </div>
+                                                <!--end::Table-->
+                                            </div>
+                                            <!--end::Card body-->
+                                        </div>
+                                        <!--end::Card-->
+                                    </div>
+                                    <div class="tab-pane fade show" id="freelancerams" aria-labelledby="active-tab" role="tabpanel">
+                                        <!--begin::Card-->
+                                        <div class="card">
+                                            <!--begin::Card body-->
+                                            <div class="card-body pt-0">
+                                                <div class="table-responsive">
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">User Name</th>
+                                                            <th class="min-w-75px">Role</th>
+                                                            <th class="min-w-75px">Joining Date</th>
+                                                            <th class="text-center min-w-100px">Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse ($freelancerAMS as $user)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td class="role-value-td">{{$user->name}}</td>
+                                                                <td class="role-value-td">{{$user->role}}</td>
+                                                                <td class="role-value-td">{{date("Y-m-d",strtotime($user->joining_date))}}</td>
+                                                                <td class="">
+                                                                    <div class="d-flex justify-content-center align-items-center">
+                                                                        @can("user-write")
+                                                                            <div class="menu-item px-2">
+                                                                                <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                    Edit
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
+                                                                        @can("user-read")
+                                                                            <div class="menu-item px-2">
+                                                                                <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                    View More
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <!--end::Table body-->
+                                                    </table>
+
+                                                </div>
+                                                <!--end::Table-->
+                                            </div>
+                                            <!--end::Card body-->
+                                        </div>
+                                        <!--end::Card-->
+                                    </div>
+                                    <div class="tab-pane fade show" id="freelancerprime" aria-labelledby="active-tab" role="tabpanel">
+                                        <!--begin::Card-->
+                                        <div class="card">
+                                            <!--begin::Card body-->
+                                            <div class="card-body pt-0">
+                                                <div class="table-responsive">
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">User Name</th>
+                                                            <th class="min-w-75px">Role</th>
+                                                            <th class="min-w-75px">Joining Date</th>
+                                                            <th class="text-center min-w-100px">Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse ($freelancerPrime as $user)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td class="role-value-td">{{$user->name}}</td>
+                                                                <td class="role-value-td">{{$user->role}}</td>
+                                                                <td class="role-value-td">{{date("Y-m-d",strtotime($user->joining_date))}}</td>
+                                                                <td class="">
+                                                                    <div class="d-flex justify-content-center align-items-center">
+                                                                        @can("user-write")
+                                                                            <div class="menu-item px-2">
+                                                                                <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                    Edit
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
+                                                                        @can("user-read")
+                                                                            <div class="menu-item px-2">
+                                                                                <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                    View More
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <!--end::Table body-->
+                                                    </table>
+
+                                                </div>
+                                                <!--end::Table-->
+                                            </div>
+                                            <!--end::Card body-->
+                                        </div>
+                                        <!--end::Card-->
+                                    </div>
                                 </div>
-                                <!--begin::Card-->
                             </div>
-                            @empty
-                                <h1>No Users</h1>
-                            @endforelse
-						</div>
+                            <!--end::Container-->
+                        </div>
 						<!-- Row Ends -->
 					</div>
 					@else

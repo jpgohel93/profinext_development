@@ -161,6 +161,21 @@
                                                 <!--end::Input group-->
                                             </div>
 
+                                            <div class="row">
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 col-sm-12 mb-5">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span>Date Of Birth</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="date" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{$user->dob}}" name="dob" placeholder="" readonly/>
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+
                                         </div>
                                     </div>
                                     <!--end::Step 1-->

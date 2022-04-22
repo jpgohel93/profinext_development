@@ -59,7 +59,7 @@
                         </div>
                         <!--end::Page title-->
                         <!--begin::Actions-->
-                        @can("calls-create")
+{{--                        @can("calls-create")--}}
 {{--                            <div class="d-flex align-items-center py-1">--}}
 {{--                                <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"--}}
 {{--                                    data-bs-target="#call_modal">--}}
@@ -72,13 +72,12 @@
 {{--                                    Add Trade--}}
 {{--                                </a>--}}
 {{--                            </div>--}}
-                        @endcan
+{{--                        @endcan--}}
                         <!--end::Actions-->
                     </div>
                     <!--end::Container-->
                 </div>
                 <!--end::Toolbar-->
-                @can("calls-read")
                     <!--begin::Post-->
                     <div class="post d-flex flex-column-fluid" id="kt_post">
                         <!--begin::Container-->
@@ -211,9 +210,6 @@
                         <!--end::Container-->
                     </div>
                     <!--end::Post-->
-                @else
-                    <h1>Unauthorised</h1>
-                @endcan
             </div>
             <!--end::Content-->
             <!--begin::Footer-->

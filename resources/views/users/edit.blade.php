@@ -243,6 +243,21 @@
                                                         <!--end::Input group-->
                                                     </div>
 
+                                                    <div class="row">
+                                                        <!--begin::Input group-->
+                                                        <div class="col-md-6 col-sm-12 mb-5">
+                                                            <!--begin::Label-->
+                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                <span>Date Of Birth</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="date" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{($user->dob != '') ? date("d-m-Y",strtotime($user->dob)) : ''}}" name="dob" placeholder=""  />
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <!--end::Step 1-->
@@ -404,7 +419,7 @@
                                                         <!--end::Col-->
                                                     </div>
 
-                                                    <div id="partnerDiv" class="row {{(old('user_type')=="1"?"d-flex":($user->user_type=="1" && null===old('user_type'))?"d-flex":"d-none")}};">
+                                                    <div id="partnerDiv" class="{{(old('user_type')=="1"?"d-flex":($user->user_type=="1" && null===old('user_type'))?"d-flex":"d-none")}};">
                                                         <div class="col-md-2 mb-4 fv-row">
                                                             <label class="d-flex flex-stack cursor-pointer mb-5">
                                                                 <!--begin::Label-->
@@ -441,7 +456,7 @@
                                                             <div id="profit_company_1" class="{{old("company_1")=="1"?"d-block":""}}">
                                                                 <!--begin::Label-->
                                                                 <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                    <span class="required">Profit Percentage</span>
+                                                                    <span class="required">Smart Trader Profit Percentage</span>
                                                                 </label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
@@ -475,7 +490,7 @@
                                                             <div id="profit_company_2" class="{{old("company_2")=="1"?"d-block":""}}">
                                                                 <!--begin::Label-->
                                                                 <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                    <span class="required">Profit Percentage</span>
+                                                                    <span class="required">ProfiNext Profit Percentage</span>
                                                                 </label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->

@@ -16,10 +16,10 @@ class BlogAdminServices{
         foreach ($users as $userData){
             $permission = json_decode($userData->permission,true);
             if(!empty($permission)) {
-                if (in_array("blog-read", $permission) ||
-                    in_array("blog-write", $permission) ||
-                    in_array("blog-create", $permission) ||
-                    in_array("blog-delete", $permission)) {
+                if (in_array("blog-user-read", $permission) ||
+                    in_array("blog-user-write", $permission) ||
+                    in_array("blog-user-create", $permission) ||
+                    in_array("blog-user-delete", $permission)) {
                     $userIdArray[] = $userData->id;
                 }
             }

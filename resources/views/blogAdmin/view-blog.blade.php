@@ -46,7 +46,7 @@
                                      <li class="breadcrumb-item text-muted">
                                          <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
                                      </li>
-                                     <!--end::Item-->  
+                                     <!--end::Item-->
                                      <!--begin::Item-->
                                      <li class="breadcrumb-item">
                                          <span class="bullet bg-gray-200 w-5px h-2px"></span>
@@ -60,8 +60,8 @@
                              </div>
                              <!--end::Page title-->
                              <!--begin::Actions-->
-                             <div class="d-flex align-items-center py-1"> 
-                                 @can("blog-create")
+                             <div class="d-flex align-items-center py-1">
+                                 @can("blog-user-create")
                                  <!--begin::Button-->
                                  <a href="javascript:void(0)" class="btn btn-sm btn-primary" id="addArticleBtn">
                                      <span class="svg-icon svg-icon-2">
@@ -70,10 +70,10 @@
                                              <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                                          </svg>
                                      </span>Add Article
-                                 </a> 
+                                 </a>
                                  @endcan
                              </div>
-                             <!--end::Actions--> 
+                             <!--end::Actions-->
                          </div>
                          <!--end::Container-->
                      </div>
@@ -108,7 +108,7 @@
                                             <!--begin::Card body-->
                                             <div class="card-body pt-0">
                                                 <div class="table-responsive">
-                                                    @can("blog-read")
+                                                    @can("blog-user-read")
                                                         @php
                                                             $blogs =array();
                                                             $key = array_keys(array_column($user['target'], 'tab_id'),$user['target'][$target_index]['tab_id']);
@@ -121,56 +121,56 @@
                                                                     <th class="min-w-75px">Date</th>
                                                                     <th class="min-w-75px">Title</th>
                                                                     <th class="min-w-100px">Link</th>
-                                                                    @can("blog-write")
+                                                                    @can("blog-user-write")
                                                                         <th class="text-end min-w-100px">Action</th>
                                                                     @endcan
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-gray-600 fw-bold">
                                                                 @forelse ($user['target'][$target_index]['tab_blogs'][$user['target'][$target_index]['tab_id']] as $blog_index => $blog)
-                                                                    <tr> 
+                                                                    <tr>
                                                                         <td>{{$loop->iteration}}</td>
-                                                                        <td class="role-value-td">{{date("Y-m-d",strtotime($blog['date']))}}</td> 
-                                                                        <td class="role-value-td">{{$blog['title']}}</td> 
-                                                                        <td class="role-value-td"><a href="{{$blog['link']}}" target="_blank">{{$blog['link']}}</a></td> 
-                                                                        @can("blog-write")
+                                                                        <td class="role-value-td">{{date("Y-m-d",strtotime($blog['date']))}}</td>
+                                                                        <td class="role-value-td">{{$blog['title']}}</td>
+                                                                        <td class="role-value-td"><a href="{{$blog['link']}}" target="_blank">{{$blog['link']}}</a></td>
+                                                                        @can("blog-user-write")
                                                                             <td class="text-end">
                                                                                 <div class="d-flex justify-content-end align-items-end">
-                                                                                    <div class="menu-item">  
+                                                                                    <div class="menu-item">
                                                                                         <a href="{{route('approveBlog',$blog['id'])}}" data-id="{{$blog['id']}}" class="menu-link px-3">
                                                                                             @if($blog['is_approve'])
                                                                                                 Approved
                                                                                             @else
                                                                                                 Approve
                                                                                             @endif
-                                                                                        </a> 
+                                                                                        </a>
                                                                                     </div>
-                                                                                    <div class="menu-item">  
+                                                                                    <div class="menu-item">
                                                                                         <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 addNotes">
                                                                                             Add Notes
-                                                                                        </a> 
+                                                                                        </a>
                                                                                     </div>
                                                                                 {{-- @can("blog-delete")
-                                                                                        <div class="menu-item">  
+                                                                                        <div class="menu-item">
                                                                                             <a href="{{route('removeBlog')}}" data-id="{{$blog['id']}}" class="menu-link px-2 removeRole">
                                                                                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#009ef7"><path d="M74.53333,17.2c-1.53406,-0.02082 -3.01249,0.574 -4.10468,1.65146c-1.09219,1.07746 -1.70703,2.54767 -1.70704,4.08187h-34.32161c-2.06765,-0.02924 -3.99087,1.05709 -5.03322,2.843c-1.04236,1.78592 -1.04236,3.99474 0,5.78066c1.04236,1.78592 2.96558,2.87225 5.03322,2.843h103.2c2.06765,0.02924 3.99087,-1.05709 5.03322,-2.843c1.04236,-1.78592 1.04236,-3.99474 0,-5.78066c-1.04236,-1.78592 -2.96558,-2.87225 -5.03322,-2.843h-34.32161c-0.00001,-1.53421 -0.61486,-3.00442 -1.70704,-4.08187c-1.09219,-1.07746 -2.57061,-1.67228 -4.10468,-1.65146zM34.4,45.86667v91.73333c0,6.33533 5.13133,11.46667 11.46667,11.46667h80.26667c6.33533,0 11.46667,-5.13133 11.46667,-11.46667v-91.73333z"></path></g></g></svg>
                                                                                             </a>
                                                                                         </div>
                                                                                     @endcan --}}
                                                                                 </div>
-                                                                            </td> 
+                                                                            </td>
                                                                         @endcan
-                                                                    </tr> 
+                                                                    </tr>
                                                                 @empty
                                                                     {{-- empty --}}
                                                                 @endforelse
                                                             <!--end::Table row-->
                                                             </tbody>
                                                             <!--end::Table body-->
-                                                        </table> 
+                                                        </table>
                                                     @else
                                                         <h1>Unauthorised</h1>
-                                                    @endcan													
+                                                    @endcan
                                                 </div>
                                                 <!--end::Table-->
                                             </div>
@@ -182,7 +182,7 @@
                                         <h1>0 target assigned</h1>
                                 @endforelse
                             </div>
-                             
+
                          </div>
                          <!--end::Container-->
                      </div>

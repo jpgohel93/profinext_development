@@ -20,8 +20,13 @@ class UserController extends Controller
         $this->middleware('permission:user-delete', ['only' => ['delete']]);
     }
     public function all(){
+        $partner  = UserServices::getByType(1);
+        $employee = UserServices::getByType(2);
+        $channelPartner = UserServices::getByType(3);
+        $freelancerAMS = UserServices::getByType(4);
+        $freelancerPrime = UserServices::getByType(5);
         $users = UserServices::all();
-        return view("users.list",compact('users'));
+        return view("users.list",compact('users','partner','employee','channelPartner','freelancerAMS','freelancerPrime'));
     }
     public function create(Request $request){
         UserServices::create($request);
@@ -89,4 +94,5 @@ class UserController extends Controller
         UserServices::delete($id);
         return Redirect::route("users")->with("info","User Terminated!");
     }
+
 }

@@ -112,7 +112,7 @@ class UserServices
         ],[
             "role.*.required" =>"Role is required",
         ]);
-        
+
         $user_data = $request->all();
         $user_data['password'] = Hash::make($request->password);
         $user_data['created_by'] = Auth::id();
@@ -128,6 +128,7 @@ class UserServices
         $user_data['prime_renewal_client_percentage'] = isset($request->prime_renewal_client_percentage) ? $request->prime_renewal_client_percentage : null;
         $user_data['ams_limit'] = isset($request->limit) ? $request->limit : null;
         $user_data['fees_percentage'] = isset($request->fees_percentage) ? $request->fees_percentage : null;
+        $user_data['dob'] = isset($request->dob) ? date("Y-m-d",strtotime($request->dob)) : null;
 
         // check permissions
         $direct_permissions=[];
@@ -248,6 +249,8 @@ class UserServices
         $request['ams_limit'] = isset($request->limit) ? $request->limit : null;
         $request['fees_percentage'] = isset($request->fees_percentage) ? $request->fees_percentage : null;
         $request['job_description'] = isset($request->job_description) ? $request->job_description : null;
+        $request['dob'] = isset($request->dob) ? date("Y-m-d",strtotime($request->dob)) : null;
+
         if (isset($request->password) && $request->password != '') {
             $request['password'] = Hash::make($request->password);
         } else {
@@ -294,7 +297,7 @@ class UserServices
         $user = User::find($id);
         // add account type
         keywordAccountTypeServices::create($request->account_type);
-        
+
         return UserServices::user($id);
     }
     public static function delete($id){
