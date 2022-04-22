@@ -417,7 +417,7 @@
                                             <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                         </label>
                                         <!--end::Label-->
-                                        <input type="text" value="{{old('available_balance')}}" name="available_balance" class="form-control form-control-solid" />
+                                        <input type="number" value="{{old('available_balance')}}" name="available_balance" class="form-control form-control-solid" />
                                     </div>
                                     <div class="form-group">
                                         <label class="d-flex align-items-center fs-6 fw-bold">
@@ -596,7 +596,7 @@
                                         <span class="required">Available Balance:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" value="" id="view_available_balance" class="form-control form-control-solid" />
+                                    <input type="number" value="" id="view_available_balance" class="form-control form-control-solid" />
                                 </div>
                                 <div class="form-group">
                                     <label class="d-flex align-items-center fs-6 fw-bold">

@@ -94,7 +94,7 @@
                                                 <option value="2" {{old('type') && old("type")==2?"selected":($bank->type==2?"selected":"")}}>For Salary</option>
                                             </select>
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label class="d-flex align-items-center fs-6 fw-bold">
                                                 <span class="required">Bank Title:</span>
@@ -102,7 +102,7 @@
                                             <!--end::Label-->
                                             <input type="text" value="{{old('title')?old('title'):$bank->title}}" name="title" class="form-control form-control-solid" />
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label class="d-flex align-items-center fs-6 fw-bold">
                                                 <span class="required">Account Type:</span>
@@ -110,7 +110,7 @@
                                             <!--end::Label-->
                                             <input type="text" value="{{old('account_type')?old('account_type'):$bank->account_type}}" name="account_type" class="form-control form-control-solid" />
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label class="d-flex align-items-center fs-6 fw-bold">
                                                 <span class="required">IFSC Code:</span>
@@ -144,7 +144,7 @@
                                                     <span class="required">Available Balance:</span>
                                                 </label>
                                                 <!--end::Label-->
-                                                <input type="text" value="{{old('available_balance')?old('available_balance'):$bank->available_balance}}" name="available_balance" class="form-control form-control-solid" />
+                                                <input type="number" value="{{old('available_balance')?old('available_balance'):$bank->available_balance}}" name="available_balance" class="form-control form-control-solid" />
                                             </div>
                                             <div class="form-group">
                                                 <label class="d-flex align-items-center fs-6 fw-bold">
@@ -200,7 +200,7 @@
                                     <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
-                                
+
                                 <!--begin::Actions-->
                                 <div class="text-end">
                                     <button type="reset" class="btn btn-light me-3" onclick="window.close()">Cancel</button>

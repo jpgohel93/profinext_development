@@ -185,7 +185,7 @@
                             <label class="col-3 col-form-label">Select Blogger</label>
                             <select name="blogger" class="form-control" data-control="select2" data-placeholder="Select blogger">
                                 @forelse ($bloggers as $blogger)
-                                    <option value="{{$blogger['id']}}" {{old('blogger')==$blog['id']?"selected":""}}>{{$blogger['name']}}</option>
+                                    <option value="{{$blogger['id']}}" {{old('blogger')==$blogger['id']?"selected":""}}>{{$blogger['name']}}</option>
                                 @empty
                                     {{-- empty --}}
                                 @endforelse

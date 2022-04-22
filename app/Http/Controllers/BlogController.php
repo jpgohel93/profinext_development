@@ -16,6 +16,7 @@ class BlogController extends Controller
         $blogs = BlogAdminServices::index();
         $tabs = blogTabs::get();
         $bloggers = BlogAdminServices::getAllBloggers();
+
         return view("blogAdmin.index",compact("blogs","tabs","bloggers"));
     }
     public function getBlogByUser(){
