@@ -49,6 +49,10 @@ class financeManagementTransferServices
         }
         $transfer['narration'] = $request->narration;
         $transfer['created_by'] = auth()->user()->id;
+        if(isset($request->id)){
+            $transfer['updated_by'] = auth()->user()->id;
+            return financeManagementTransferModel::where("id",$request->id)->update($transfer);
+        }
         return financeManagementTransferModel::create($transfer);
     }
     public static function financeManagementRemoveTransfer($id){
@@ -65,10 +69,10 @@ class financeManagementTransferServices
         if($request->purpose== "Distribution" || $request->purpose== "distribution"){
             return User::where("user_type",1)->whereNotNull("bank_name")->select('bank_name','id','created_at as user')->get()->toArray();
         }elseif($request->purpose == "Cash Conversion" || $request->purpose== "cash conversion"){
-            $banks = User::whereNotNull("bank_name")->get()->select('bank_name','id','created_at as user')->toArray();
-            $forSalaryBanks = BankModel::where("type",2)->whereNotNull("title")->select('bank_name','id','created_at as bank')->get()->toArray();
+            $banks = User::whereNotNull("bank_name")->select('bank_name','id','created_at as user')->get()->toArray();
+            $forSalaryBanks = BankModel::where("type",2)->whereNotNull("title")->select('title as bank_name','id','created_at as bank')->get()->toArray();
             return array_merge($banks,$forSalaryBanks);
         }
-        return BankModel::where("type", 2)->whereNotNull("title")->get()->select('title','id','created_at as bank')->toArray();
+        return BankModel::where("type", 2)->whereNotNull("title")->select('title','id','created_at as bank')->get()->toArray();
     }
 }

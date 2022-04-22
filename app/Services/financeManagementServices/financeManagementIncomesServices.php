@@ -43,6 +43,7 @@ class financeManagementIncomesServices{
             throw $error;
         }
         $income['text_box']=$request->text_box;
+        $income['narration']=$request->narration;
         if(isset($request->id)){
             $income['updated_by']= auth()->user()->id;
             return financeManagementIncomesModel::where("id",$request->id)->update($income);

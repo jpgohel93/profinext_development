@@ -45,7 +45,12 @@ class financeManagementExpensesServices
             throw $error;
         }
         $expense['text_box'] = $request->text_box;
+        $expense['narration'] = $request->narration;
         $expense['created_by'] = auth()->user()->id;
+        if(isset($request->id)){
+            $expense['updated_by'] = $request->updated_by;
+            return financeManagementExpensesModel::where("id",$request->id)->update($expense);
+        }
         return financeManagementExpensesModel::create($expense);
     }
     public static function financeManagementRemoveExpense($id){

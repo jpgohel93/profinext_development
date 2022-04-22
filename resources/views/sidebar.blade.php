@@ -225,7 +225,7 @@
                                         <span class="menu-bullet">
                                             <i class="fas fa-solid fa-file-chart-column"></i>
                                         </span>
-                                        <span class="menu-title">Report</span>
+                                        <span class="menu-title">Reports</span>
                                     </a>
                                 </div>
                             @endcan
@@ -368,7 +368,7 @@
                                         <span class="menu-bullet">
                                             <i class="fas fa-solid fa-chart-simple"></i>
                                         </span>
-                                        <span class="menu-title">Report</span>
+                                        <span class="menu-title">Reports</span>
                                     </a>
                                 </div>
                             @endcan
@@ -453,7 +453,7 @@
                                         <span class="menu-bullet">
                                             <i class="fas fa-address-card"></i>
                                         </span>
-                                        <span class="menu-title">Pan card</span>
+                                        <span class="menu-title">Pan cards</span>
                                     </a>
                                 </div>
                             @endcan
@@ -463,7 +463,7 @@
                                         <span class="menu-bullet">
                                             <i class="fas fa-desktop-alt"></i>
                                         </span>
-                                        <span class="menu-title">Screenshot</span>
+                                        <span class="menu-title">Screenshots</span>
                                     </a>
                                 </div>
                             @endcan

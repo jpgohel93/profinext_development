@@ -56,6 +56,9 @@ class AccountingController extends Controller
     // income
     public function financeManagementAddIncome(Request $request){
         financeManagementIncomesServices::financeManagementAddIncome($request);
+        if(isset($request->id)){
+            return Redirect::back()->with("info","Income updated");
+        }
         return Redirect::route("financeManagementAccounting")->with("info", "new income recorded");
     }
     public function financeManagementRemoveIncome($id){
@@ -65,6 +68,9 @@ class AccountingController extends Controller
     // expenses
     public function financeManagementAddExpense(Request $request){
         financeManagementExpensesServices::financeManagementAddExpense($request);
+        if(isset($request->id)){
+            return Redirect::back()->with("info","Expense updated");
+        }
         return Redirect::route("financeManagementAccounting")->with("info", "new Expense recorded");
     }
     public function financeManagementRemoveExpense($id){
@@ -74,6 +80,9 @@ class AccountingController extends Controller
     // transfer
     public function financeManagementAddTransfer(Request $request){
         financeManagementTransferServices::financeManagementAddTransfer($request);
+        if(isset($request->id)){
+            return Redirect::back()->with("info","Transfer record updated");
+        }
         return Redirect::route("financeManagementAccounting")->with("info", "new Transfer recorded");
     }
     public function financeManagementRemoveTransfer($id){

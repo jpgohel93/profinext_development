@@ -1067,6 +1067,7 @@
                     <form method="POST" id="transferForm" action="{{route('accounting.transfer')}}" class="form">
                         @csrf
                         <div class="row mb-8">
+                            <div id="transferEditIdContainer"></div>
                             <!--begin::Col-->
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -1172,11 +1173,7 @@
                         <!--begin::Actions-->
                         <div class="text-left">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">
-                                <span class="indicator-label">Add</span>
-                                <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                         <!--end::Actions-->
                     </form>
@@ -1669,6 +1666,7 @@
                             $("#incomeForm").find("#text_box").val(data.text_box);
                             $("#incomeForm").find("#st_amount").val(data.st_amount);
                             $("#incomeForm").find("#sg_amount").val(data.sg_amount);
+                            $("#incomeForm").find("#narration").val(data.narration);
                             $("#incomeForm").find("[togglepaymentmode]").val(data.mode);
                             if(data.mode==1){
                                 $("#incomeForm").find("[togglepaymentmode]").prop("checked",true);
@@ -1698,6 +1696,7 @@
                             $("#expenseForm").find("[name='text_box']").val(data.text_box);
                             $("#expenseForm").find("[name='st_amount']").val(data.st_amount);
                             $("#expenseForm").find("[name='sg_amount']").val(data.sg_amount);
+                            $("#expenseForm").find("[name='narration']").val(data.narration);
                             $("#expenseForm").find("[togglepaymentmode]").val(data.mode);
                             if(data.mode==1){
                                 $("#expenseForm").find("[togglepaymentmode]").prop("checked",true);
@@ -1748,7 +1747,8 @@
                             $("#transferForm").find("[name='sg_amount']").val(data.sg_amount);
                             $("#transferForm").find("[name='amount']").val(data.amount);
                             $("#transferForm").find("[name='income_form']").val(data.income_form).change();
-                            $("#transferForm").find("#expenseEditIdContainer").html(`<input type='hidden' name='id' value='${data.id}'>`);
+                            $("#transferForm").find("[name='narration']").val(data.narration).change();
+                            $("#transferForm").find("#transferEditIdContainer").html(`<input type='hidden' name='id' value='${data.id}'>`);
                             $("#transferModel").modal("show");
                         })
                         .fail((err)=>{
