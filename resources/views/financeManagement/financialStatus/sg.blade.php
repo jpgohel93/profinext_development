@@ -161,7 +161,7 @@
                                             <!--begin::Stats-->
                                             <div class="d-flex flex-wrap">
                                                 <!--begin::Stat-->
-                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 counterDiv">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
                                                         <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['day']}}">0</div>
@@ -175,7 +175,7 @@
                                                 </div>
                                                 <!--end::Stat-->
                                                 <!--begin::Stat-->
-                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 counterDiv">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
                                                         <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$expense['day']}}">0</div>
@@ -189,7 +189,7 @@
                                                 </div>
                                                 <!--end::Stat-->
                                                 <!--begin::Stat-->
-                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 counterDiv">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
                                                         <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['day']-$expense['day']}}">0</div>
@@ -200,6 +200,41 @@
                                                         <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['month']-$expense['month']}}">0</div>
                                                     </div>
                                                     <!--end::Label-->
+                                                </div>
+                                                <!--end::Stat-->
+                                                <div id="loanDiv">
+                                                    <div class="d-flex flex-wrap">
+                                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 counterDiv">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="fs-2 fw-bolder">Total</div>
+                                                            </div>
+                                                            <!--begin::Label-->
+                                                            <div class="fw-bold fs-6 text-gray-400">
+                                                                <div class="fs-2 fw-bolder" id="totalLoan" data-kt-countup="true" data-kt-countup-value="{{$income['month']-$expense['month']}}">0</div>
+                                                            </div>
+                                                            <!--end::Label-->
+                                                        </div>
+                                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 counterDiv">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="fs-2 fw-bolder">Paid</div>
+                                                            </div>
+                                                            <!--begin::Label-->
+                                                            <div class="fw-bold fs-6 text-gray-400">
+                                                                <div class="fs-2 fw-bolder" id="paidLoan" data-kt-countup="true" data-kt-countup-value="{{$income['month']-$expense['month']}}">0</div>
+                                                            </div>
+                                                            <!--end::Label-->
+                                                        </div>
+                                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 counterDiv">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="fs-2 fw-bolder">Remaining</div>
+                                                            </div>
+                                                            <!--begin::Label-->
+                                                            <div class="fw-bold fs-6 text-gray-400">
+                                                                <div class="fs-2 fw-bolder" id="remainingLoan" data-kt-countup="true" data-kt-countup-value="{{$income['month']-$expense['month']}}">0</div>
+                                                            </div>
+                                                            <!--end::Label-->
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <!--end::Stat-->
                                             </div>
@@ -228,37 +263,37 @@
                                 <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap">
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#overview">Overview</a>
+                                        <a class="nav-link text-active-primary tab-link me-6" data-bs-toggle="tab" href="#overview">Overview</a>
                                     </li>
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6 active" data-bs-toggle="tab" href="#services">Services</a>
+                                        <a class="nav-link text-active-primary tab-link me-6 active" data-bs-toggle="tab" href="#services">Services</a>
                                     </li>
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#demat">Demat</a>
+                                        <a class="nav-link text-active-primary tab-link me-6" data-bs-toggle="tab" href="#demat">Demat</a>
                                     </li>
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#pl">P & L</a>
+                                        <a class="nav-link text-active-primary tab-link me-6" data-bs-toggle="tab" href="#pl">P & L</a>
                                     </li>
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#distribution">Distribution</a>
+                                        <a class="nav-link text-active-primary tab-link me-6" data-bs-toggle="tab" href="#distribution">Distribution</a>
                                     </li>
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#loan">Loan</a>
+                                        <a class="nav-link text-active-primary tab-link me-6" data-bs-toggle="tab" href="#loan">Loan</a>
                                     </li>
                                     <!--end::Nav item-->
                                     <!--begin::Nav item-->
                                     <li class="nav-item">
-                                        <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#bank">Bank</a>
+                                        <a class="nav-link text-active-primary tab-link me-6" data-bs-toggle="tab" href="#bank">Bank</a>
                                     </li>
                                     <!--end::Nav item-->
                                 </ul>
@@ -356,7 +391,6 @@
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
                                                     </tbody>
-                                                
                                                 <!--end::Table body-->
                                                 </table>
                                                 {{-- @if (isset($demat['accounts']))
@@ -757,7 +791,7 @@
                         request.length = requestLength*conf.pages;
 
                         // Provide the same `data` options as DataTables.
-                        if ( typeof conf.data === 'function' ) {
+                        if (typeof conf.data === 'function' ) {
                             // As a function it is executed with the data object as an arg
                             // for manipulation. If an object is returned, it is used as the
                             // data object to submit
@@ -778,6 +812,13 @@
                             "dataType": "json",
                             "cache":    false,
                             "success":  function ( json ) {
+                                let data = {};
+                                if(typeof json.loanGiven != "undefined"){
+                                    data['loanAmountPaidByUser'] = json.loanAmountPaidByUser;
+                                    data['loanGiven']= json.loanGiven;
+                                    data['loanRemaining']= json.loanRemaining;
+                                    window.loanData = JSON.stringify(data);
+                                }
                                 cacheLastJson = $.extend(true, {}, json);
 
                                 if ( cacheLower != drawStart ) {
@@ -895,6 +936,51 @@
                     } )
                 } );
             });
+            const counterAnim = (qSelector, start = 0, end, duration = 1000) => {
+                const target = document.querySelector(qSelector);
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    target.innerText = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+            $(document).on("click",'[data-bs-toggle="tab"]',function(e){
+                // alert('reached');
+                $("#totalLoan").text(0);
+                const tab = e?.target?.getAttribute("href");
+                if(tab.substr(1,tab.length)=="loan"){
+                    $(".counterDiv").hide();
+                    $("#loanDiv").show();
+                    $("#loanDiv").find('.counterDiv').show();
+                    const data = JSON.parse(window.loanData);
+                    if(data.loanGiven>0){
+                        counterAnim("#totalLoan", 0, data.loanGiven, 3000);
+                    }else{
+                        $("#totalLoan").text(0);
+                    }
+                    if(data.loanAmountPaidByUser>0){
+                        counterAnim("#paidLoan", 0, data.loanAmountPaidByUser, 3000);
+                    }else{
+                        $("#paidLoan").text(0);
+                    }
+                    if(data.loanRemaining>0){
+                        counterAnim("#remainingLoan", 0, data.loanRemaining, 3000);
+                    }else{
+                        $("#remainingLoan").text(0);
+                    }
+                }else{
+                    $("#loanDiv").hide();
+                    $(".counterDiv").show();
+                }
+            })
+            $("#loanDiv").hide();
+            $(".counterDiv").show();
+
         })
     </script>
     @section('jscript')

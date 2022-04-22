@@ -4,6 +4,7 @@ namespace App\Http\Controllers\financeManagementControllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Services\UserServices;
 use App\Services\financeManagementServices\financialStatusServices;
 class FinancialStatusController extends Controller
 {
@@ -86,9 +87,10 @@ class FinancialStatusController extends Controller
     public function transactionDetailsFinancialStatus(Request $request){
         $transactions = financialStatusServices::transactionDetailsFinancialStatus($request);
         $user_id = $request->user_id;
+        $user = UserServices::user($user_id);
         if($request->ajax()){
             return response($transactions,200, ["Content-Type" => "Application/json"]);
         }
-        return view("financeManagement.financialStatus.user",compact("transactions","user_id"));
+        return view("financeManagement.financialStatus.user2",compact("transactions","user_id","user"));
     }
 }

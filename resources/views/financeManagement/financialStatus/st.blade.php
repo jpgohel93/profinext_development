@@ -161,7 +161,7 @@
                                             <!--begin::Stats-->
                                             <div class="d-flex flex-wrap">
                                                 <!--begin::Stat-->
-                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 counterDiv">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
                                                         <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['day']}}">0</div>
@@ -175,7 +175,7 @@
                                                 </div>
                                                 <!--end::Stat-->
                                                 <!--begin::Stat-->
-                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 counterDiv">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
                                                         <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$expense['day']}}">0</div>
@@ -189,7 +189,7 @@
                                                 </div>
                                                 <!--end::Stat-->
                                                 <!--begin::Stat-->
-                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 counterDiv">
                                                     <!--begin::Number-->
                                                     <div class="d-flex align-items-center">
                                                         <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['day']-$expense['day']}}">0</div>
@@ -200,6 +200,42 @@
                                                         <div class="fs-2 fw-bolder" data-kt-countup="true" data-kt-countup-value="{{$income['month']-$expense['month']}}">0</div>
                                                     </div>
                                                     <!--end::Label-->
+                                                </div>
+                                                <!--end::Stat-->
+                                                <!--end::Stat-->
+                                                <div id="loanDiv">
+                                                    <div class="d-flex flex-wrap">
+                                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 counterDiv">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="fs-2 fw-bolder">Total</div>
+                                                            </div>
+                                                            <!--begin::Label-->
+                                                            <div class="fw-bold fs-6 text-gray-400">
+                                                                <div class="fs-2 fw-bolder" id="totalLoan" data-kt-countup="true" data-kt-countup-value="{{$income['month']-$expense['month']}}">0</div>
+                                                            </div>
+                                                            <!--end::Label-->
+                                                        </div>
+                                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 counterDiv">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="fs-2 fw-bolder">Paid</div>
+                                                            </div>
+                                                            <!--begin::Label-->
+                                                            <div class="fw-bold fs-6 text-gray-400">
+                                                                <div class="fs-2 fw-bolder" id="paidLoan" data-kt-countup="true" data-kt-countup-value="{{$income['month']-$expense['month']}}">0</div>
+                                                            </div>
+                                                            <!--end::Label-->
+                                                        </div>
+                                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 counterDiv">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="fs-2 fw-bolder">Remaining</div>
+                                                            </div>
+                                                            <!--begin::Label-->
+                                                            <div class="fw-bold fs-6 text-gray-400">
+                                                                <div class="fs-2 fw-bolder" id="remainingLoan" data-kt-countup="true" data-kt-countup-value="{{$income['month']-$expense['month']}}">0</div>
+                                                            </div>
+                                                            <!--end::Label-->
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <!--end::Stat-->
                                             </div>
@@ -326,7 +362,7 @@
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold">
                                                     </tbody>
-                                                
+
                                                 <!--end::Table body-->
                                                 </table>
                                                 {{-- @if (isset($demat['accounts']))
@@ -677,20 +713,20 @@
                                 // matching how `ajax.data` works in DataTables
                     method: 'POST' // Ajax HTTP method
                 }, opts );
-            
+
                 // Private variables for storing the cache
                 var cacheLower = -1;
                 var cacheUpper = null;
                 var cacheLastRequest = null;
                 var cacheLastJson = null;
-            
+
                 return function ( request, drawCallback, settings ) {
                     var ajax          = false;
                     var requestStart  = request.start;
                     var drawStart     = request.start;
                     var requestLength = request.length;
                     var requestEnd    = requestStart + requestLength;
-                    
+
                     if ( settings.clearCache ) {
                         // API requested that the cache be cleared
                         ajax = true;
@@ -707,26 +743,26 @@
                         // properties changed (ordering, columns, searching)
                         ajax = true;
                     }
-                    
+
                     // Store the request for checking next time around
                     cacheLastRequest = $.extend( true, {}, request );
-            
+
                     if ( ajax ) {
                         // Need data from the server
                         if ( requestStart < cacheLower ) {
                             requestStart = requestStart - (requestLength*(conf.pages-1));
-            
+
                             if ( requestStart < 0 ) {
                                 requestStart = 0;
                             }
                         }
-                        
+
                         cacheLower = requestStart;
                         cacheUpper = requestStart + (requestLength * conf.pages);
-            
+
                         request.start = requestStart;
                         request.length = requestLength*conf.pages;
-            
+
                         // Provide the same `data` options as DataTables.
                         if ( typeof conf.data === 'function' ) {
                             // As a function it is executed with the data object as an arg
@@ -741,7 +777,7 @@
                             // As an object, the data given extends the default
                             $.extend( request, conf.data );
                         }
-            
+
                         return $.ajax( {
                             "type":     conf.method,
                             "url":      conf.url,
@@ -749,15 +785,22 @@
                             "dataType": "json",
                             "cache":    false,
                             "success":  function ( json ) {
+                                let data = {};
+                                if(typeof json.loanGiven != "undefined"){
+                                    data['loanAmountPaidByUser'] = json.loanAmountPaidByUser;
+                                    data['loanGiven']= json.loanGiven;
+                                    data['loanRemaining']= json.loanRemaining;
+                                    window.loanData = JSON.stringify(data);
+                                }
                                 cacheLastJson = $.extend(true, {}, json);
-            
+
                                 if ( cacheLower != drawStart ) {
                                     json.data.splice( 0, drawStart-cacheLower );
                                 }
                                 if ( requestLength >= -1 ) {
                                     json.data.splice( requestLength, json.data.length );
                                 }
-                                
+
                                 drawCallback( json );
                             }
                         } );
@@ -767,12 +810,12 @@
                         json.draw = request.draw; // Update the echo for each response
                         json.data.splice( 0, requestStart-cacheLower );
                         json.data.splice( requestLength, json.data.length );
-            
+
                         drawCallback(json);
                     }
                 }
             };
-            
+
             // Register an API method that will empty the pipelined data, forcing an Ajax
             // fetch on the next draw (i.e. `table.clearPipeline().draw()`)
             $.fn.dataTable.Api.register( 'clearPipeline()', function () {
@@ -780,8 +823,8 @@
                     settings.clearCache = true;
                 } );
             } );
-            
-            
+
+
             //
             // DataTables initialisation
             //
@@ -861,6 +904,49 @@
                     } )
                 } );
             });
+            const counterAnim = (qSelector, start = 0, end, duration = 1000) => {
+                const target = document.querySelector(qSelector);
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    target.innerText = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+            $(document).on("click",'[data-bs-toggle="tab"]',function(e){
+                const tab = e?.target?.getAttribute("href");
+                if(tab.substr(1,tab.length)=="loan"){
+                    $(".counterDiv").hide();
+                    $("#loanDiv").show();
+                    $("#loanDiv").find('.counterDiv').show();
+                    const data = JSON.parse(window.loanData);
+                    if(data.loanGiven>0){
+                        counterAnim("#totalLoan", 0, data.loanGiven, 3000);
+                    }else{
+                        $("#totalLoan").text(0);
+                    }
+                    if(data.loanAmountPaidByUser>0){
+                        counterAnim("#paidLoan", 0, data.loanAmountPaidByUser, 3000);
+                    }else{
+                        $("#paidLoan").text(0);
+                    }
+                    if(data.loanRemaining>0){
+                        counterAnim("#remainingLoan", 0, data.loanRemaining, 3000);
+                    }else{
+                        $("#remainingLoan").text(0);
+                    }
+                }else{
+                    $("#loanDiv").hide();
+                    $(".counterDiv").show();
+                }
+            })
+            $("#loanDiv").hide();
+            $(".counterDiv").show();
+
         })
     </script>
     @section('jscript')

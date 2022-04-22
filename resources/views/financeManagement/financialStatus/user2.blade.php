@@ -1,0 +1,1873 @@
+@extends('layout')
+@section("page-title","View User - Finance Management")
+@section("finance_management.financialStatus","active")
+@section("finance_management.accordion","hover show")
+@section("content")
+<!--begin::Main-->
+<!--begin::Root-->
+<div class="d-flex flex-column flex-root">
+    <!--begin::Page-->
+    <div class="page d-flex flex-row flex-column-fluid">
+        @include("sidebar")
+        <!--end::Aside-->
+        <!--begin::Wrapper-->
+        <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+            @include("header")
+            @can("user-read")
+                <!--begin::Content-->
+                <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                    @if($errors->any())
+                    <div class="container">
+                        <h5 class="alert alert-danger">{{$errors->first()}}</h5>
+                    </div>
+                    @elseif(session("info"))
+                    <div class="container">
+                        <h5 class="alert alert-info">{{session("info")}}</h5>
+                    </div>
+                    @endif
+                    <!--begin::Toolbar-->
+                    <div class="toolbar" id="kt_toolbar">
+                        <!--begin::Container-->
+                        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+                            <!--begin::Page title-->
+                            <div data-kt-swapper="true" data-kt-swapper-mode="prepend"
+                                data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
+                                class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                                <!--begin::Title-->
+                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">View User Details</h1>
+                                <!--end::Title-->
+                                <!--begin::Separator-->
+                                <span class="h-20px border-gray-200 border-start mx-4"></span>
+                                <!--end::Separator-->
+                                <!--begin::Breadcrumb-->
+                                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">Finance Management</li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                </ul>
+                                <!--end::Breadcrumb-->
+                            </div>
+                            <!--end::Page title-->
+                            <!--begin::Actions-->
+                            <div class="d-flex align-items-center py-1">
+                                <!--begin::Wrapper-->
+                                <div class="me-4">
+                                    <!--begin::Menu-->
+                                    {{-- <a href="#" class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
+                                        <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <path
+                                                    d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z"
+                                                    fill="black" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->Filter</a> --}}
+                                    <!--begin::Menu 1-->
+                                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
+                                        id="kt_menu_61484c5675eda">
+                                        <!--begin::Header-->
+                                        <div class="px-7 py-5">
+                                            <div class="fs-5 text-dark fw-bolder">Filter Options</div>
+                                        </div>
+                                        <!--end::Header-->
+                                        <!--begin::Menu separator-->
+                                        <div class="separator border-gray-200"></div>
+                                        <!--end::Menu separator-->
+                                        <!--begin::Form-->
+                                        <div class="px-7 py-5">
+                                            <!--begin::Input group-->
+                                            <div class="mb-10">
+                                                <!--begin::Label-->
+                                                <label class="form-label fw-bold">Status:</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <div>
+                                                    <select class="form-select form-select-solid" data-kt-select2="true"
+                                                        data-placeholder="Select option"
+                                                        data-dropdown-parent="#kt_menu_61484c5675eda"
+                                                        data-allow-clear="true">
+                                                        <option></option>
+                                                        <option value="1">Approved</option>
+                                                        <option value="2">Pending</option>
+                                                        <option value="2">In Process</option>
+                                                        <option value="2">Rejected</option>
+                                                    </select>
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="mb-10">
+                                                <!--begin::Label-->
+                                                <label class="form-label fw-bold">Member Type:</label>
+                                                <!--end::Label-->
+                                                <!--begin::Options-->
+                                                <div class="d-flex">
+                                                    <!--begin::Options-->
+                                                    <label
+                                                        class="form-check form-check-sm form-check-custom form-check-solid me-5">
+                                                        <input class="form-check-input" type="checkbox" value="1" />
+                                                        <span class="form-check-label">Author</span>
+                                                    </label>
+                                                    <!--end::Options-->
+                                                    <!--begin::Options-->
+                                                    <label
+                                                        class="form-check form-check-sm form-check-custom form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="2"
+                                                            checked="checked" />
+                                                        <span class="form-check-label">Customer</span>
+                                                    </label>
+                                                    <!--end::Options-->
+                                                </div>
+                                                <!--end::Options-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="mb-10">
+                                                <!--begin::Label-->
+                                                <label class="form-label fw-bold">Notifications:</label>
+                                                <!--end::Label-->
+                                                <!--begin::Switch-->
+                                                <div
+                                                    class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        name="notifications" checked="checked" />
+                                                    <label class="form-check-label">Enabled</label>
+                                                </div>
+                                                <!--end::Switch-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Actions-->
+                                            <div class="d-flex justify-content-end">
+                                                <button type="reset"
+                                                    class="btn btn-sm btn-light btn-active-light-primary me-2"
+                                                    data-kt-menu-dismiss="true">Reset</button>
+                                                <button type="submit" class="btn btn-sm btn-primary"
+                                                    data-kt-menu-dismiss="true">Apply</button>
+                                            </div>
+                                            <!--end::Actions-->
+                                        </div>
+                                        <!--end::Form-->
+                                    </div>
+                                    <!--end::Menu 1-->
+                                    <!--end::Menu-->
+                                </div>
+                                <!--end::Wrapper-->
+                                <!--begin::Button-->
+                                {{-- <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">Create</a> --}}
+                                <!--end::Button-->
+                            </div>
+                            <!--end::Actions-->
+                        </div>
+                        <!--end::Container-->
+                    </div>
+                    <!--end::Toolbar-->
+                    <!--begin::Post-->
+                    <div class="post d-flex flex-column-fluid" id="kt_post">
+                        <!--begin::Container-->
+                        <div id="kt_content_container" class="container-xxl">
+                            <!--begin::Layout-->
+                            <div class="d-flex flex-column flex-xl-row">
+                                <!--begin::Sidebar-->
+                                <div class="flex-column flex-lg-row-auto w-100 w-xl-350px mb-10">
+                                    <!--begin::Card-->
+                                    <div class="card mb-5 mb-xl-8">
+                                        <!--begin::Card body-->
+                                        <div class="card-body">
+                                            <!--begin::Summary-->
+                                            <!--begin::User Info-->
+                                            <div class="d-flex flex-center flex-column py-5">
+                                                <!--begin::Avatar-->
+                                                <div class="symbol symbol-100px symbol-circle mb-7">
+                                                    <img src="{{asset("assets/media/avatars/150-1.jpg")}}" alt="image" />
+                                                </div>
+                                                <!--end::Avatar-->
+                                                <!--begin::Name-->
+                                                <a href="#"
+                                                    class="fs-3 text-gray-800 text-hover-primary fw-bolder mb-3">{{$user->name}}</a>
+                                                <!--end::Name-->
+                                                <!--begin::Position-->
+                                                <div class="mb-9">
+                                                    <!--begin::Badge-->
+                                                    <div class="badge badge-lg badge-light-primary d-inline">{{$user->role}}
+                                                    </div>
+                                                    <!--begin::Badge-->
+                                                </div>
+                                                <!--end::Position-->
+                                            </div>
+                                            <!--end::User Info-->
+                                            <!--end::Summary-->
+                                            <!--begin::Details toggle-->
+                                            <div class="d-flex flex-stack fs-4 py-3">
+                                                <div class="fw-bolder rotate collapsible" data-bs-toggle="collapse"
+                                                    href="#kt_user_view_details" role="button" aria-expanded="false"
+                                                    aria-controls="kt_user_view_details">Details
+                                                    <span class="ms-2 rotate-180">
+                                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                                        <span class="svg-icon svg-icon-3">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                                viewBox="0 0 24 24" fill="none">
+                                                                <path
+                                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                    fill="black" />
+                                                            </svg>
+                                                        </span>
+                                                        <!--end::Svg Icon-->
+                                                    </span></div>
+                                                <span data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                    title="Edit customer details">
+                                                    <a href="{{route('updateUserForm',$user->id)}}" class="btn btn-sm btn-light-primary" target="_blank">Edit</a>
+                                                </span>
+                                            </div>
+                                            <!--end::Details toggle-->
+                                            <div class="separator"></div>
+                                            <!--begin::Details content-->
+                                            <div id="kt_user_view_details" class="collapse show">
+                                                <div class="pb-5 fs-6">
+                                                    <!--begin::Details item-->
+                                                    <div class="fw-bolder mt-5">Email</div>
+                                                    <div class="text-gray-600">
+                                                        <a href="javascript:void(0)" class="text-gray-600 text-hover-primary">{{$user->email?$user->email:"-"}}</a>
+                                                    </div>
+                                                    <!--begin::Details item-->
+                                                    <!--begin::Details item-->
+                                                    <div class="fw-bolder mt-5">DOB</div>
+                                                    <div class="text-gray-600">
+                                                        <a href="javascript:void(0)" class="text-gray-600 text-hover-primary">{{($user->dob)?date("d M Y",strtotime($user->dob)):"-"}}</a>
+                                                    </div>
+                                                    <!--begin::Details item-->
+                                                    <!--begin::Details item-->
+                                                    <div class="fw-bolder mt-5">User type</div>
+                                                    <div class="text-gray-600">
+                                                        <a href="javascript:void(0)" class="text-gray-600 text-hover-primary">{{$user->user_type?config()->get("constants.USERS_TYPE")[$user->user_type]:"-"}}</a>
+                                                    </div>
+                                                    <!--begin::Details item-->
+                                                    <!--begin::Details item-->
+                                                    <div class="fw-bolder mt-5">Status</div>
+                                                    <div class="text-gray-600">{{($user->status && $user->status==1?"Active":"Deactivated")}}</div>
+                                                    <!--begin::Details item-->
+                                                    <!--begin::Details item-->
+                                                    <div class="fw-bolder mt-5">Joining date</div>
+                                                    <div class="text-gray-600">{{$user->joining_date?date("d M Y",strtotime($user->joining_date)):"-"}}</div>
+                                                    <!--begin::Details item-->
+                                                </div>
+                                            </div>
+                                            <!--end::Details content-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card-->
+                                    <!--begin::Connected Accounts-->
+                                    <div class="card mb-5 mb-xl-8">
+                                        <!--begin::Card header-->
+                                        <div class="card-header border-0">
+                                            <div class="card-title">
+                                                <h3 class="fw-bolder m-0">Connected Accounts</h3>
+                                            </div>
+                                        </div>
+                                        <!--end::Card header-->
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-2">
+                                            <!--begin::Notice-->
+                                            <div
+                                                class="notice d-flex bg-light-primary rounded border-primary border border-dashed mb-9 p-6">
+                                                <!--begin::Icon-->
+                                                <!--begin::Svg Icon | path: icons/duotune/art/art006.svg-->
+                                                <span class="svg-icon svg-icon-2tx svg-icon-primary me-4">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <path opacity="0.3"
+                                                            d="M22 19V17C22 16.4 21.6 16 21 16H8V3C8 2.4 7.6 2 7 2H5C4.4 2 4 2.4 4 3V19C4 19.6 4.4 20 5 20H21C21.6 20 22 19.6 22 19Z"
+                                                            fill="black" />
+                                                        <path
+                                                            d="M20 5V21C20 21.6 19.6 22 19 22H17C16.4 22 16 21.6 16 21V8H8V4H19C19.6 4 20 4.4 20 5ZM3 8H4V4H3C2.4 4 2 4.4 2 5V7C2 7.6 2.4 8 3 8Z"
+                                                            fill="black" />
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                                <!--end::Icon-->
+                                                <!--begin::Wrapper-->
+                                                <div class="d-flex flex-stack flex-grow-1">
+                                                    <!--begin::Content-->
+                                                    <div class="fw-bold">
+                                                        <div class="fs-6 text-gray-700">By connecting an account, you hereby
+                                                            agree to our
+                                                            <a href="#" class="me-1">privacy policy</a>and
+                                                            <a href="#">terms of use</a>.</div>
+                                                    </div>
+                                                    <!--end::Content-->
+                                                </div>
+                                                <!--end::Wrapper-->
+                                            </div>
+                                            <!--end::Notice-->
+                                            <!--begin::Items-->
+                                            <div class="py-2">
+                                                <!--begin::Item-->
+                                                <div class="d-flex flex-stack">
+                                                    <div class="d-flex">
+                                                        <img src="{{asset("assets/media/svg/brand-logos/google-icon.svg")}}"
+                                                            class="w-30px me-6" alt="" />
+                                                        <div class="d-flex flex-column">
+                                                            <a href="#"
+                                                                class="fs-5 text-dark text-hover-primary fw-bolder">Google</a>
+                                                            <div class="fs-6 fw-bold text-muted">Plan properly your workflow
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-end">
+                                                        <!--begin::Switch-->
+                                                        <label
+                                                            class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                                            <!--begin::Input-->
+                                                            <input class="form-check-input" name="google" type="checkbox"
+                                                                value="1" id="kt_modal_connected_accounts_google"
+                                                                checked="checked" />
+                                                            <!--end::Input-->
+                                                            <!--begin::Label-->
+                                                            <span class="form-check-label fw-bold text-muted"
+                                                                for="kt_modal_connected_accounts_google"></span>
+                                                            <!--end::Label-->
+                                                        </label>
+                                                        <!--end::Switch-->
+                                                    </div>
+                                                </div>
+                                                <!--end::Item-->
+                                                <div class="separator separator-dashed my-5"></div>
+                                                <!--begin::Item-->
+                                                <div class="d-flex flex-stack">
+                                                    <div class="d-flex">
+                                                        <img src="{{asset("assets/media/svg/brand-logos/github.svg")}}"
+                                                            class="w-30px me-6" alt="" />
+                                                        <div class="d-flex flex-column">
+                                                            <a href="#"
+                                                                class="fs-5 text-dark text-hover-primary fw-bolder">Github</a>
+                                                            <div class="fs-6 fw-bold text-muted">Keep eye on on your
+                                                                Repositories</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-end">
+                                                        <!--begin::Switch-->
+                                                        <label
+                                                            class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                                            <!--begin::Input-->
+                                                            <input class="form-check-input" name="github" type="checkbox"
+                                                                value="1" id="kt_modal_connected_accounts_github"
+                                                                checked="checked" />
+                                                            <!--end::Input-->
+                                                            <!--begin::Label-->
+                                                            <span class="form-check-label fw-bold text-muted"
+                                                                for="kt_modal_connected_accounts_github"></span>
+                                                            <!--end::Label-->
+                                                        </label>
+                                                        <!--end::Switch-->
+                                                    </div>
+                                                </div>
+                                                <!--end::Item-->
+                                                <div class="separator separator-dashed my-5"></div>
+                                                <!--begin::Item-->
+                                                <div class="d-flex flex-stack">
+                                                    <div class="d-flex">
+                                                        <img src="{{asset("assets/media/svg/brand-logos/slack-icon.svg")}}"
+                                                            class="w-30px me-6" alt="" />
+                                                        <div class="d-flex flex-column">
+                                                            <a href="#"
+                                                                class="fs-5 text-dark text-hover-primary fw-bolder">Slack</a>
+                                                            <div class="fs-6 fw-bold text-muted">Integrate Projects
+                                                                Discussions</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-end">
+                                                        <!--begin::Switch-->
+                                                        <label
+                                                            class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                                            <!--begin::Input-->
+                                                            <input class="form-check-input" name="slack" type="checkbox"
+                                                                value="1" id="kt_modal_connected_accounts_slack" />
+                                                            <!--end::Input-->
+                                                            <!--begin::Label-->
+                                                            <span class="form-check-label fw-bold text-muted"
+                                                                for="kt_modal_connected_accounts_slack"></span>
+                                                            <!--end::Label-->
+                                                        </label>
+                                                        <!--end::Switch-->
+                                                    </div>
+                                                </div>
+                                                <!--end::Item-->
+                                            </div>
+                                            <!--end::Items-->
+                                        </div>
+                                        <!--end::Card body-->
+                                        <!--begin::Card footer-->
+                                        <div class="card-footer border-0 d-flex justify-content-center pt-0">
+                                            <button class="btn btn-sm btn-light-primary">Save Changes</button>
+                                        </div>
+                                        <!--end::Card footer-->
+                                    </div>
+                                    <!--end::Connected Accounts-->
+                                </div>
+                                <!--end::Sidebar-->
+                                <!--begin::Content-->
+                                <div class="flex-lg-row-fluid ms-lg-15">
+                                    <!--begin:::Tabs-->
+                                    <ul
+                                        class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8">
+                                        <!--begin:::Tab item-->
+                                        <li class="nav-item">
+                                            <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
+                                                href="#kt_user_view_overview_tab">Overview</a>
+                                        </li>
+                                        <!--end:::Tab item-->
+                                        <!--begin:::Tab item-->
+                                        <li class="nav-item">
+                                            <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true"
+                                                data-bs-toggle="tab" href="#kt_user_view_overview_security">Security</a>
+                                        </li>
+                                        <!--end:::Tab item-->
+                                        <!--begin:::Tab item-->
+                                        <li class="nav-item">
+                                            <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                                                href="#kt_user_view_overview_events_and_logs_tab">Events &amp; Logs</a>
+                                        </li>
+                                        <!--end:::Tab item-->
+                                        <!--begin:::Tab item-->
+                                        <li class="nav-item ms-auto">
+                                            <!--begin::Action menu-->
+                                            <a href="#" class="btn btn-primary ps-7" data-kt-menu-trigger="click"
+                                                data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">Actions
+                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                                <span class="svg-icon svg-icon-2 me-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <path
+                                                            d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                            fill="black" />
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon--></a>
+                                            <!--begin::Menu-->
+                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold py-4 w-250px fs-6"
+                                                data-kt-menu="true">
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-5">
+                                                    <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">
+                                                        Payments</div>
+                                                </div>
+                                                <!--end::Menu item-->
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-5">
+                                                    <a href="#" class="menu-link px-5">Create invoice</a>
+                                                </div>
+                                                <!--end::Menu item-->
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-5">
+                                                    <a href="#" class="menu-link flex-stack px-5">Create payments
+                                                        <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                            data-bs-toggle="tooltip"
+                                                            title="Specify a target name for future usage and reference"></i></a>
+                                                </div>
+                                                <!--end::Menu item-->
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-5" data-kt-menu-trigger="hover"
+                                                    data-kt-menu-placement="left-start">
+                                                    <a href="#" class="menu-link px-5">
+                                                        <span class="menu-title">Subscription</span>
+                                                        <span class="menu-arrow"></span>
+                                                    </a>
+                                                    <!--begin::Menu sub-->
+                                                    <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                        <!--begin::Menu item-->
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-5">Apps</a>
+                                                        </div>
+                                                        <!--end::Menu item-->
+                                                        <!--begin::Menu item-->
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-5">Billing</a>
+                                                        </div>
+                                                        <!--end::Menu item-->
+                                                        <!--begin::Menu item-->
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-5">Statements</a>
+                                                        </div>
+                                                        <!--end::Menu item-->
+                                                        <!--begin::Menu separator-->
+                                                        <div class="separator my-2"></div>
+                                                        <!--end::Menu separator-->
+                                                        <!--begin::Menu item-->
+                                                        <div class="menu-item px-3">
+                                                            <div class="menu-content px-3">
+                                                                <label
+                                                                    class="form-check form-switch form-check-custom form-check-solid">
+                                                                    <input class="form-check-input w-30px h-20px"
+                                                                        type="checkbox" value="" name="notifications"
+                                                                        checked="checked" id="kt_user_menu_notifications" />
+                                                                    <span class="form-check-label text-muted fs-6"
+                                                                        for="kt_user_menu_notifications">Notifications</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Menu item-->
+                                                    </div>
+                                                    <!--end::Menu sub-->
+                                                </div>
+                                                <!--end::Menu item-->
+                                                <!--begin::Menu separator-->
+                                                <div class="separator my-3"></div>
+                                                <!--end::Menu separator-->
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-5">
+                                                    <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">
+                                                        Account</div>
+                                                </div>
+                                                <!--end::Menu item-->
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-5">
+                                                    <a href="#" class="menu-link px-5">Reports</a>
+                                                </div>
+                                                <!--end::Menu item-->
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-5 my-1">
+                                                    <a href="#" class="menu-link px-5">Account Settings</a>
+                                                </div>
+                                                <!--end::Menu item-->
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-5">
+                                                    <a href="#" class="menu-link text-danger px-5">Delete customer</a>
+                                                </div>
+                                                <!--end::Menu item-->
+                                            </div>
+                                            <!--end::Menu-->
+                                            <!--end::Menu-->
+                                        </li>
+                                        <!--end:::Tab item-->
+                                    </ul>
+                                    <!--end:::Tabs-->
+                                    <!--begin:::Tab content-->
+                                    <div class="tab-content" id="myTabContent">
+                                        <!--begin:::Tab pane-->
+                                        <div class="tab-pane fade show active" id="kt_user_view_overview_tab"
+                                            role="tabpanel">
+                                            <!--begin::Card-->
+                                            <div class="card card-flush mb-6 mb-xl-9">
+                                                <!--begin::Card header-->
+                                                <div class="card-header mt-6">
+                                                    <!--begin::Card title-->
+                                                    <div class="card-title flex-column">
+                                                        <h2 class="mb-1">User's Schedule</h2>
+                                                        <div class="fs-6 fw-bold text-muted">2 upcoming meetings</div>
+                                                    </div>
+                                                    <!--end::Card title-->
+                                                    <!--begin::Card toolbar-->
+                                                    <div class="card-toolbar">
+                                                        <button type="button" class="btn btn-light-primary btn-sm"
+                                                            data-bs-toggle="modal" data-bs-target="#kt_modal_add_schedule">
+                                                            <!--SVG file not found: media/icons/duotune/art/art008.svg-->
+                                                            Add Schedule</button>
+                                                    </div>
+                                                    <!--end::Card toolbar-->
+                                                </div>
+                                                <!--end::Card header-->
+                                                <!--begin::Card body-->
+                                                <div class="card-body p-9 pt-4">
+                                                    <!--begin::Dates-->
+                                                    <ul class="nav nav-pills d-flex flex-nowrap hover-scroll-x py-2">
+                                                        <!--begin::Date-->
+                                                        <li class="nav-item me-1">
+                                                            <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-40px me-2 py-4 btn-active-primary active"
+                                                                data-bs-toggle="tab" href="#kt_schedule_day_0">
+                                                                <span class="opacity-50 fs-7 fw-bold">Su</span>
+                                                                <span class="fs-6 fw-boldest">21</span>
+                                                            </a>
+                                                        </li>
+                                                        <!--end::Date-->
+                                                    </ul>
+                                                    <!--end::Dates-->
+                                                    <!--begin::Tab Content-->
+                                                    <div class="tab-content">
+                                                        <!--begin::Day-->
+                                                        <div id="kt_schedule_day_0" class="tab-pane fade show active">
+                                                            <!--begin::Time-->
+                                                            <div class="d-flex flex-stack position-relative mt-6">
+                                                                <!--begin::Bar-->
+                                                                <div
+                                                                    class="position-absolute h-100 w-4px bg-secondary rounded top-0 start-0">
+                                                                </div>
+                                                                <!--end::Bar-->
+                                                                <!--begin::Info-->
+                                                                <div class="fw-bold ms-5">
+                                                                    <!--begin::Time-->
+                                                                    <div class="fs-7 mb-1">12:00 - 13:00
+                                                                        <span
+                                                                            class="fs-7 text-muted text-uppercase">pm</span>
+                                                                    </div>
+                                                                    <!--end::Time-->
+                                                                    <!--begin::Title-->
+                                                                    <a href="#"
+                                                                        class="fs-5 fw-bolder text-dark text-hover-primary mb-2">Sales
+                                                                        Pitch Proposal</a>
+                                                                    <!--end::Title-->
+                                                                    <!--begin::User-->
+                                                                    <div class="fs-7 text-muted">Lead by
+                                                                        <a href="#">Naomi Hayabusa</a></div>
+                                                                    <!--end::User-->
+                                                                </div>
+                                                                <!--end::Info-->
+                                                                <!--begin::Action-->
+                                                                <a href="#"
+                                                                    class="btn btn-light bnt-active-light-primary btn-sm">View</a>
+                                                                <!--end::Action-->
+                                                            </div>
+                                                            <!--end::Time-->
+                                                            <!--begin::Time-->
+                                                            <div class="d-flex flex-stack position-relative mt-6">
+                                                                <!--begin::Bar-->
+                                                                <div
+                                                                    class="position-absolute h-100 w-4px bg-secondary rounded top-0 start-0">
+                                                                </div>
+                                                                <!--end::Bar-->
+                                                                <!--begin::Info-->
+                                                                <div class="fw-bold ms-5">
+                                                                    <!--begin::Time-->
+                                                                    <div class="fs-7 mb-1">12:00 - 13:00
+                                                                        <span
+                                                                            class="fs-7 text-muted text-uppercase">pm</span>
+                                                                    </div>
+                                                                    <!--end::Time-->
+                                                                    <!--begin::Title-->
+                                                                    <a href="#"
+                                                                        class="fs-5 fw-bolder text-dark text-hover-primary mb-2">Sales
+                                                                        Pitch Proposal</a>
+                                                                    <!--end::Title-->
+                                                                    <!--begin::User-->
+                                                                    <div class="fs-7 text-muted">Lead by
+                                                                        <a href="#">Naomi Hayabusa</a></div>
+                                                                    <!--end::User-->
+                                                                </div>
+                                                                <!--end::Info-->
+                                                                <!--begin::Action-->
+                                                                <a href="#"
+                                                                    class="btn btn-light bnt-active-light-primary btn-sm">View</a>
+                                                                <!--end::Action-->
+                                                            </div>
+                                                            <!--end::Time-->
+                                                            <!--begin::Time-->
+                                                            <div class="d-flex flex-stack position-relative mt-6">
+                                                                <!--begin::Bar-->
+                                                                <div
+                                                                    class="position-absolute h-100 w-4px bg-secondary rounded top-0 start-0">
+                                                                </div>
+                                                                <!--end::Bar-->
+                                                                <!--begin::Info-->
+                                                                <div class="fw-bold ms-5">
+                                                                    <!--begin::Time-->
+                                                                    <div class="fs-7 mb-1">13:00 - 14:00
+                                                                        <span
+                                                                            class="fs-7 text-muted text-uppercase">pm</span>
+                                                                    </div>
+                                                                    <!--end::Time-->
+                                                                    <!--begin::Title-->
+                                                                    <a href="#"
+                                                                        class="fs-5 fw-bolder text-dark text-hover-primary mb-2">Committee
+                                                                        Review Approvals</a>
+                                                                    <!--end::Title-->
+                                                                    <!--begin::User-->
+                                                                    <div class="fs-7 text-muted">Lead by
+                                                                        <a href="#">Naomi Hayabusa</a></div>
+                                                                    <!--end::User-->
+                                                                </div>
+                                                                <!--end::Info-->
+                                                                <!--begin::Action-->
+                                                                <a href="#"
+                                                                    class="btn btn-light bnt-active-light-primary btn-sm">View</a>
+                                                                <!--end::Action-->
+                                                            </div>
+                                                            <!--end::Time-->
+                                                        </div>
+                                                        <!--end::Day-->
+                                                    </div>
+                                                    <!--end::Tab Content-->
+                                                </div>
+                                                <!--end::Card body-->
+                                            </div>
+                                            <!--end::Card-->
+                                            <!--begin::Tasks-->
+                                            <div class="card card-flush mb-6 mb-xl-9">
+                                                <!--begin::Card header-->
+                                                <div class="card-header mt-6">
+                                                    <!--begin::Card title-->
+                                                    <div class="card-title flex-column">
+                                                        <h2 class="mb-1">User's Tasks</h2>
+                                                    </div>
+                                                    <!--end::Card title-->
+                                                    <!--begin::Card toolbar-->
+                                                    {{-- <div class="card-toolbar">
+                                                        <button type="button" class="btn btn-light-primary btn-sm"
+                                                            data-bs-toggle="modal" data-bs-target="#kt_modal_add_task">
+                                                            <!--begin::Svg Icon | path: icons/duotune/files/fil005.svg-->
+                                                            <span class="svg-icon svg-icon-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path opacity="0.3"
+                                                                        d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM16 13H13V10C13 9.4 12.6 9 12 9C11.4 9 11 9.4 11 10V13H8C7.4 13 7 13.4 7 14C7 14.6 7.4 15 8 15H11V18C11 18.6 11.4 19 12 19C12.6 19 13 18.6 13 18V15H16C16.6 15 17 14.6 17 14C17 13.4 16.6 13 16 13Z"
+                                                                        fill="black" />
+                                                                    <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->Add Task</button>
+                                                    </div> --}}
+                                                    <!--end::Card toolbar-->
+                                                </div>
+                                                <!--end::Card header-->
+                                                <!--begin::Card body-->
+                                                <div class="card-body d-flex flex-column pt-0">
+                                                    <div class="table-responsive">
+                                                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="transactionTable">
+                                                            <thead>
+                                                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                                    <th class="min-w-10px">Sr. No</th>
+                                                                    <th class="min-w-75px">Date</th>
+                                                                    <th class="min-w-75px">From</th>
+                                                                    <th class="min-w-75px">To</th>
+                                                                    <th class="min-w-75px">Particular</th>
+                                                                    <th class="min-w-75px">Mode</th>
+                                                                    <th class="min-w-75px">Amount</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-gray-600 fw-bold"></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <!--end::Card body-->
+                                            </div>
+                                            <!--end::Tasks-->
+                                        </div>
+                                        <!--end:::Tab pane-->
+                                        <!--begin:::Tab pane-->
+                                        <div class="tab-pane fade" id="kt_user_view_overview_security" role="tabpanel">
+                                            <!--begin::Card-->
+                                            <div class="card pt-4 mb-6 mb-xl-9">
+                                                <!--begin::Card header-->
+                                                <div class="card-header border-0">
+                                                    <!--begin::Card title-->
+                                                    <div class="card-title">
+                                                        <h2>Profile</h2>
+                                                    </div>
+                                                    <!--end::Card title-->
+                                                </div>
+                                                <!--end::Card header-->
+                                                <!--begin::Card body-->
+                                                <div class="card-body pt-0 pb-5">
+                                                    <!--begin::Table wrapper-->
+                                                    <div class="table-responsive">
+                                                        <!--begin::Table-->
+                                                        <table class="table align-middle table-row-dashed gy-5"
+                                                            id="kt_table_users_login_session">
+                                                            <!--begin::Table body-->
+                                                            <tbody class="fs-6 fw-bold text-gray-600">
+                                                                <tr>
+                                                                    <td>Email</td>
+                                                                    <td>e.smith@kpmg.com.au</td>
+                                                                    <td class="text-end">
+                                                                        <button type="button"
+                                                                            class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#kt_modal_update_email">
+                                                                            <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
+                                                                            <span class="svg-icon svg-icon-3">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="24" height="24"
+                                                                                    viewBox="0 0 24 24" fill="none">
+                                                                                    <path opacity="0.3"
+                                                                                        d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
+                                                                                        fill="black" />
+                                                                                    <path
+                                                                                        d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
+                                                                                        fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                            <!--end::Svg Icon-->
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Password</td>
+                                                                    <td>******</td>
+                                                                    <td class="text-end">
+                                                                        <button type="button"
+                                                                            class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#kt_modal_update_password">
+                                                                            <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
+                                                                            <span class="svg-icon svg-icon-3">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="24" height="24"
+                                                                                    viewBox="0 0 24 24" fill="none">
+                                                                                    <path opacity="0.3"
+                                                                                        d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
+                                                                                        fill="black" />
+                                                                                    <path
+                                                                                        d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
+                                                                                        fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                            <!--end::Svg Icon-->
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Role</td>
+                                                                    <td>Administrator</td>
+                                                                    <td class="text-end">
+                                                                        <button type="button"
+                                                                            class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#kt_modal_update_role">
+                                                                            <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
+                                                                            <span class="svg-icon svg-icon-3">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="24" height="24"
+                                                                                    viewBox="0 0 24 24" fill="none">
+                                                                                    <path opacity="0.3"
+                                                                                        d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
+                                                                                        fill="black" />
+                                                                                    <path
+                                                                                        d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
+                                                                                        fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                            <!--end::Svg Icon-->
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <!--end::Table body-->
+                                                        </table>
+                                                        <!--end::Table-->
+                                                    </div>
+                                                    <!--end::Table wrapper-->
+                                                </div>
+                                                <!--end::Card body-->
+                                            </div>
+                                            <!--end::Card-->
+                                            <!--begin::Card-->
+                                            <div class="card pt-4 mb-6 mb-xl-9">
+                                                <!--begin::Card header-->
+                                                <div class="card-header border-0">
+                                                    <!--begin::Card title-->
+                                                    <div class="card-title flex-column">
+                                                        <h2 class="mb-1">Two Step Authentication</h2>
+                                                        <div class="fs-6 fw-bold text-muted">Keep your account extra secure
+                                                            with a second authentication step.</div>
+                                                    </div>
+                                                    <!--end::Card title-->
+                                                    <!--begin::Card toolbar-->
+                                                    <div class="card-toolbar">
+                                                        <!--begin::Add-->
+                                                        <button type="button" class="btn btn-light-primary btn-sm"
+                                                            data-kt-menu-trigger="click"
+                                                            data-kt-menu-placement="bottom-end">
+                                                            <!--begin::Svg Icon | path: icons/duotune/technology/teh004.svg-->
+                                                            <span class="svg-icon svg-icon-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path opacity="0.3"
+                                                                        d="M21 10.7192H3C2.4 10.7192 2 11.1192 2 11.7192C2 12.3192 2.4 12.7192 3 12.7192H6V14.7192C6 18.0192 8.7 20.7192 12 20.7192C15.3 20.7192 18 18.0192 18 14.7192V12.7192H21C21.6 12.7192 22 12.3192 22 11.7192C22 11.1192 21.6 10.7192 21 10.7192Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M11.6 21.9192C11.4 21.9192 11.2 21.8192 11 21.7192C10.6 21.4192 10.5 20.7191 10.8 20.3191C11.7 19.1191 12.3 17.8191 12.7 16.3191C12.8 15.8191 13.4 15.4192 13.9 15.6192C14.4 15.7192 14.8 16.3191 14.6 16.8191C14.2 18.5191 13.4 20.1192 12.4 21.5192C12.2 21.7192 11.9 21.9192 11.6 21.9192ZM8.7 19.7192C10.2 18.1192 11 15.9192 11 13.7192V8.71917C11 8.11917 11.4 7.71917 12 7.71917C12.6 7.71917 13 8.11917 13 8.71917V13.0192C13 13.6192 13.4 14.0192 14 14.0192C14.6 14.0192 15 13.6192 15 13.0192V8.71917C15 7.01917 13.7 5.71917 12 5.71917C10.3 5.71917 9 7.01917 9 8.71917V13.7192C9 15.4192 8.4 17.1191 7.2 18.3191C6.8 18.7191 6.9 19.3192 7.3 19.7192C7.5 19.9192 7.7 20.0192 8 20.0192C8.3 20.0192 8.5 19.9192 8.7 19.7192ZM6 16.7192C6.5 16.7192 7 16.2192 7 15.7192V8.71917C7 8.11917 7.1 7.51918 7.3 6.91918C7.5 6.41918 7.2 5.8192 6.7 5.6192C6.2 5.4192 5.59999 5.71917 5.39999 6.21917C5.09999 7.01917 5 7.81917 5 8.71917V15.7192V15.8191C5 16.3191 5.5 16.7192 6 16.7192ZM9 4.71917C9.5 4.31917 10.1 4.11918 10.7 3.91918C11.2 3.81918 11.5 3.21917 11.4 2.71917C11.3 2.21917 10.7 1.91916 10.2 2.01916C9.4 2.21916 8.59999 2.6192 7.89999 3.1192C7.49999 3.4192 7.4 4.11916 7.7 4.51916C7.9 4.81916 8.2 4.91918 8.5 4.91918C8.6 4.91918 8.8 4.81917 9 4.71917ZM18.2 18.9192C18.7 17.2192 19 15.5192 19 13.7192V8.71917C19 5.71917 17.1 3.1192 14.3 2.1192C13.8 1.9192 13.2 2.21917 13 2.71917C12.8 3.21917 13.1 3.81916 13.6 4.01916C15.6 4.71916 17 6.61917 17 8.71917V13.7192C17 15.3192 16.8 16.8191 16.3 18.3191C16.1 18.8191 16.4 19.4192 16.9 19.6192C17 19.6192 17.1 19.6192 17.2 19.6192C17.7 19.6192 18 19.3192 18.2 18.9192Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->Add Authentication Step</button>
+                                                        <!--begin::Menu-->
+                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-6 w-200px py-4"
+                                                            data-kt-menu="true">
+                                                            <!--begin::Menu item-->
+                                                            <div class="menu-item px-3">
+                                                                <a href="#" class="menu-link px-3" data-bs-toggle="modal"
+                                                                    data-bs-target="#kt_modal_add_auth_app">Use
+                                                                    authenticator app</a>
+                                                            </div>
+                                                            <!--end::Menu item-->
+                                                            <!--begin::Menu item-->
+                                                            <div class="menu-item px-3">
+                                                                <a href="#" class="menu-link px-3" data-bs-toggle="modal"
+                                                                    data-bs-target="#kt_modal_add_one_time_password">Enable
+                                                                    one-time password</a>
+                                                            </div>
+                                                            <!--end::Menu item-->
+                                                        </div>
+                                                        <!--end::Menu-->
+                                                        <!--end::Add-->
+                                                    </div>
+                                                    <!--end::Card toolbar-->
+                                                </div>
+                                                <!--end::Card header-->
+                                                <!--begin::Card body-->
+                                                <div class="card-body pb-5">
+                                                    <!--begin::Item-->
+                                                    <div class="d-flex flex-stack">
+                                                        <!--begin::Content-->
+                                                        <div class="d-flex flex-column">
+                                                            <span>SMS</span>
+                                                            <span class="text-muted fs-6">+61 412 345 678</span>
+                                                        </div>
+                                                        <!--end::Content-->
+                                                        <!--begin::Action-->
+                                                        <div class="d-flex justify-content-end align-items-center">
+                                                            <!--begin::Button-->
+                                                            <button type="button"
+                                                                class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto me-5"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#kt_modal_add_one_time_password">
+                                                                <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
+                                                                <span class="svg-icon svg-icon-3">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                        height="24" viewBox="0 0 24 24" fill="none">
+                                                                        <path opacity="0.3"
+                                                                            d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
+                                                                            fill="black" />
+                                                                        <path
+                                                                            d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
+                                                                            fill="black" />
+                                                                    </svg>
+                                                                </span>
+                                                                <!--end::Svg Icon-->
+                                                            </button>
+                                                            <!--end::Button-->
+                                                            <!--begin::Button-->
+                                                            <button type="button"
+                                                                class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto"
+                                                                id="kt_users_delete_two_step">
+                                                                <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
+                                                                <span class="svg-icon svg-icon-3">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                        height="24" viewBox="0 0 24 24" fill="none">
+                                                                        <path
+                                                                            d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+                                                                            fill="black" />
+                                                                        <path opacity="0.5"
+                                                                            d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+                                                                            fill="black" />
+                                                                        <path opacity="0.5"
+                                                                            d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+                                                                            fill="black" />
+                                                                    </svg>
+                                                                </span>
+                                                                <!--end::Svg Icon-->
+                                                            </button>
+                                                            <!--end::Button-->
+                                                        </div>
+                                                        <!--end::Action-->
+                                                    </div>
+                                                    <!--end::Item-->
+                                                    <!--begin:Separator-->
+                                                    <div class="separator separator-dashed my-5"></div>
+                                                    <!--end:Separator-->
+                                                    <!--begin::Disclaimer-->
+                                                    <div class="text-gray-600">If you lose your mobile device or security
+                                                        key, you can
+                                                        <a href='#' class="me-1">generate a backup code</a>to sign in to
+                                                        your account.</div>
+                                                    <!--end::Disclaimer-->
+                                                </div>
+                                                <!--end::Card body-->
+                                            </div>
+                                            <!--end::Card-->
+                                            <!--begin::Card-->
+                                            <div class="card pt-4 mb-6 mb-xl-9">
+                                                <!--begin::Card header-->
+                                                <div class="card-header border-0">
+                                                    <!--begin::Card title-->
+                                                    <div class="card-title flex-column">
+                                                        <h2>Email Notifications</h2>
+                                                        <div class="fs-6 fw-bold text-muted">Choose what messages you’d like
+                                                            to receive for each of your accounts.</div>
+                                                    </div>
+                                                    <!--end::Card title-->
+                                                </div>
+                                                <!--end::Card header-->
+                                                <!--begin::Card body-->
+                                                <div class="card-body">
+                                                    <!--begin::Form-->
+                                                    <form class="form" id="kt_users_email_notification_form">
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex">
+                                                            <!--begin::Checkbox-->
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <!--begin::Input-->
+                                                                <input class="form-check-input me-3"
+                                                                    name="email_notification_0" type="checkbox" value="0"
+                                                                    id="kt_modal_update_email_notification_0"
+                                                                    checked='checked' />
+                                                                <!--end::Input-->
+                                                                <!--begin::Label-->
+                                                                <label class="form-check-label"
+                                                                    for="kt_modal_update_email_notification_0">
+                                                                    <div class="fw-bolder">Successful Payments</div>
+                                                                    <div class="text-gray-600">Receive a notification for
+                                                                        every successful payment.</div>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                            </div>
+                                                            <!--end::Checkbox-->
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <div class='separator separator-dashed my-5'></div>
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex">
+                                                            <!--begin::Checkbox-->
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <!--begin::Input-->
+                                                                <input class="form-check-input me-3"
+                                                                    name="email_notification_1" type="checkbox" value="1"
+                                                                    id="kt_modal_update_email_notification_1" />
+                                                                <!--end::Input-->
+                                                                <!--begin::Label-->
+                                                                <label class="form-check-label"
+                                                                    for="kt_modal_update_email_notification_1">
+                                                                    <div class="fw-bolder">Payouts</div>
+                                                                    <div class="text-gray-600">Receive a notification for
+                                                                        every initiated payout.</div>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                            </div>
+                                                            <!--end::Checkbox-->
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <div class='separator separator-dashed my-5'></div>
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex">
+                                                            <!--begin::Checkbox-->
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <!--begin::Input-->
+                                                                <input class="form-check-input me-3"
+                                                                    name="email_notification_2" type="checkbox" value="2"
+                                                                    id="kt_modal_update_email_notification_2" />
+                                                                <!--end::Input-->
+                                                                <!--begin::Label-->
+                                                                <label class="form-check-label"
+                                                                    for="kt_modal_update_email_notification_2">
+                                                                    <div class="fw-bolder">Application fees</div>
+                                                                    <div class="text-gray-600">Receive a notification each
+                                                                        time you collect a fee from an account.</div>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                            </div>
+                                                            <!--end::Checkbox-->
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <div class='separator separator-dashed my-5'></div>
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex">
+                                                            <!--begin::Checkbox-->
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <!--begin::Input-->
+                                                                <input class="form-check-input me-3"
+                                                                    name="email_notification_3" type="checkbox" value="3"
+                                                                    id="kt_modal_update_email_notification_3"
+                                                                    checked='checked' />
+                                                                <!--end::Input-->
+                                                                <!--begin::Label-->
+                                                                <label class="form-check-label"
+                                                                    for="kt_modal_update_email_notification_3">
+                                                                    <div class="fw-bolder">Disputes</div>
+                                                                    <div class="text-gray-600">Receive a notification if a
+                                                                        payment is disputed by a customer and for dispute
+                                                                        resolutions.</div>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                            </div>
+                                                            <!--end::Checkbox-->
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <div class='separator separator-dashed my-5'></div>
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex">
+                                                            <!--begin::Checkbox-->
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <!--begin::Input-->
+                                                                <input class="form-check-input me-3"
+                                                                    name="email_notification_4" type="checkbox" value="4"
+                                                                    id="kt_modal_update_email_notification_4"
+                                                                    checked='checked' />
+                                                                <!--end::Input-->
+                                                                <!--begin::Label-->
+                                                                <label class="form-check-label"
+                                                                    for="kt_modal_update_email_notification_4">
+                                                                    <div class="fw-bolder">Payment reviews</div>
+                                                                    <div class="text-gray-600">Receive a notification if a
+                                                                        payment is marked as an elevated risk.</div>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                            </div>
+                                                            <!--end::Checkbox-->
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <div class='separator separator-dashed my-5'></div>
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex">
+                                                            <!--begin::Checkbox-->
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <!--begin::Input-->
+                                                                <input class="form-check-input me-3"
+                                                                    name="email_notification_5" type="checkbox" value="5"
+                                                                    id="kt_modal_update_email_notification_5" />
+                                                                <!--end::Input-->
+                                                                <!--begin::Label-->
+                                                                <label class="form-check-label"
+                                                                    for="kt_modal_update_email_notification_5">
+                                                                    <div class="fw-bolder">Mentions</div>
+                                                                    <div class="text-gray-600">Receive a notification if a
+                                                                        teammate mentions you in a note.</div>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                            </div>
+                                                            <!--end::Checkbox-->
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <div class='separator separator-dashed my-5'></div>
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex">
+                                                            <!--begin::Checkbox-->
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <!--begin::Input-->
+                                                                <input class="form-check-input me-3"
+                                                                    name="email_notification_6" type="checkbox" value="6"
+                                                                    id="kt_modal_update_email_notification_6" />
+                                                                <!--end::Input-->
+                                                                <!--begin::Label-->
+                                                                <label class="form-check-label"
+                                                                    for="kt_modal_update_email_notification_6">
+                                                                    <div class="fw-bolder">Invoice Mispayments</div>
+                                                                    <div class="text-gray-600">Receive a notification if a
+                                                                        customer sends an incorrect amount to pay their
+                                                                        invoice.</div>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                            </div>
+                                                            <!--end::Checkbox-->
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <div class='separator separator-dashed my-5'></div>
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex">
+                                                            <!--begin::Checkbox-->
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <!--begin::Input-->
+                                                                <input class="form-check-input me-3"
+                                                                    name="email_notification_7" type="checkbox" value="7"
+                                                                    id="kt_modal_update_email_notification_7" />
+                                                                <!--end::Input-->
+                                                                <!--begin::Label-->
+                                                                <label class="form-check-label"
+                                                                    for="kt_modal_update_email_notification_7">
+                                                                    <div class="fw-bolder">Webhooks</div>
+                                                                    <div class="text-gray-600">Receive notifications about
+                                                                        consistently failing webhook endpoints.</div>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                            </div>
+                                                            <!--end::Checkbox-->
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <div class='separator separator-dashed my-5'></div>
+                                                        <!--begin::Item-->
+                                                        <div class="d-flex">
+                                                            <!--begin::Checkbox-->
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <!--begin::Input-->
+                                                                <input class="form-check-input me-3"
+                                                                    name="email_notification_8" type="checkbox" value="8"
+                                                                    id="kt_modal_update_email_notification_8" />
+                                                                <!--end::Input-->
+                                                                <!--begin::Label-->
+                                                                <label class="form-check-label"
+                                                                    for="kt_modal_update_email_notification_8">
+                                                                    <div class="fw-bolder">Trial</div>
+                                                                    <div class="text-gray-600">Receive helpful tips when you
+                                                                        try out our products.</div>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                            </div>
+                                                            <!--end::Checkbox-->
+                                                        </div>
+                                                        <!--end::Item-->
+                                                        <!--begin::Action buttons-->
+                                                        <div class="d-flex justify-content-end align-items-center mt-12">
+                                                            <!--begin::Button-->
+                                                            <button type="button" class="btn btn-light me-5"
+                                                                id="kt_users_email_notification_cancel">Cancel</button>
+                                                            <!--end::Button-->
+                                                            <!--begin::Button-->
+                                                            <button type="button" class="btn btn-primary"
+                                                                id="kt_users_email_notification_submit">
+                                                                <span class="indicator-label">Save</span>
+                                                                <span class="indicator-progress">Please wait...
+                                                                    <span
+                                                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                            </button>
+                                                            <!--end::Button-->
+                                                        </div>
+                                                        <!--begin::Action buttons-->
+                                                    </form>
+                                                    <!--end::Form-->
+                                                </div>
+                                                <!--end::Card body-->
+                                                <!--begin::Card footer-->
+                                                <!--end::Card footer-->
+                                            </div>
+                                            <!--end::Card-->
+                                        </div>
+                                        <!--end:::Tab pane-->
+                                        <!--begin:::Tab pane-->
+                                        <div class="tab-pane fade" id="kt_user_view_overview_events_and_logs_tab"
+                                            role="tabpanel">
+                                            <!--begin::Card-->
+                                            <div class="card pt-4 mb-6 mb-xl-9">
+                                                <!--begin::Card header-->
+                                                <div class="card-header border-0">
+                                                    <!--begin::Card title-->
+                                                    <div class="card-title">
+                                                        <h2>Login Sessions</h2>
+                                                    </div>
+                                                    <!--end::Card title-->
+                                                    <!--begin::Card toolbar-->
+                                                    <div class="card-toolbar">
+                                                        <!--begin::Filter-->
+                                                        <button type="button" class="btn btn-sm btn-flex btn-light-primary"
+                                                            id="kt_modal_sign_out_sesions">
+                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr077.svg-->
+                                                            <span class="svg-icon svg-icon-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <rect opacity="0.3" x="4" y="11" width="12" height="2"
+                                                                        rx="1" fill="black" />
+                                                                    <path
+                                                                        d="M5.86875 11.6927L7.62435 10.2297C8.09457 9.83785 8.12683 9.12683 7.69401 8.69401C7.3043 8.3043 6.67836 8.28591 6.26643 8.65206L3.34084 11.2526C2.89332 11.6504 2.89332 12.3496 3.34084 12.7474L6.26643 15.3479C6.67836 15.7141 7.3043 15.6957 7.69401 15.306C8.12683 14.8732 8.09458 14.1621 7.62435 13.7703L5.86875 12.3073C5.67684 12.1474 5.67684 11.8526 5.86875 11.6927Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M8 5V6C8 6.55228 8.44772 7 9 7C9.55228 7 10 6.55228 10 6C10 5.44772 10.4477 5 11 5H18C18.5523 5 19 5.44772 19 6V18C19 18.5523 18.5523 19 18 19H11C10.4477 19 10 18.5523 10 18C10 17.4477 9.55228 17 9 17C8.44772 17 8 17.4477 8 18V19C8 20.1046 8.89543 21 10 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3H10C8.89543 3 8 3.89543 8 5Z"
+                                                                        fill="#C4C4C4" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->Sign out all sessions</button>
+                                                        <!--end::Filter-->
+                                                    </div>
+                                                    <!--end::Card toolbar-->
+                                                </div>
+                                                <!--end::Card header-->
+                                                <!--begin::Card body-->
+                                                <div class="card-body pt-0 pb-5">
+                                                    <!--begin::Table wrapper-->
+                                                    <div class="table-responsive">
+                                                        <!--begin::Table-->
+                                                        <table class="table align-middle table-row-dashed gy-5"
+                                                            id="kt_table_users_login_session">
+                                                            <!--begin::Table head-->
+                                                            <thead class="border-bottom border-gray-200 fs-7 fw-bolder">
+                                                                <!--begin::Table row-->
+                                                                <tr class="text-start text-muted text-uppercase gs-0">
+                                                                    <th class="min-w-100px">Location</th>
+                                                                    <th>Device</th>
+                                                                    <th>IP Address</th>
+                                                                    <th class="min-w-125px">Time</th>
+                                                                    <th class="min-w-70px">Actions</th>
+                                                                </tr>
+                                                                <!--end::Table row-->
+                                                            </thead>
+                                                            <!--end::Table head-->
+                                                            <!--begin::Table body-->
+                                                            <tbody class="fs-6 fw-bold text-gray-600">
+                                                                <tr>
+                                                                    <!--begin::Invoice=-->
+                                                                    <td>Australia</td>
+                                                                    <!--end::Invoice=-->
+                                                                    <!--begin::Status=-->
+                                                                    <td>Chome - Windows</td>
+                                                                    <!--end::Status=-->
+                                                                    <!--begin::Amount=-->
+                                                                    <td>207.41.32.376</td>
+                                                                    <!--end::Amount=-->
+                                                                    <!--begin::Date=-->
+                                                                    <td>23 seconds ago</td>
+                                                                    <!--end::Date=-->
+                                                                    <!--begin::Action=-->
+                                                                    <td>Current session</td>
+                                                                    <!--end::Action=-->
+                                                                </tr>
+                                                                <tr>
+                                                                    <!--begin::Invoice=-->
+                                                                    <td>Australia</td>
+                                                                    <!--end::Invoice=-->
+                                                                    <!--begin::Status=-->
+                                                                    <td>Safari - iOS</td>
+                                                                    <!--end::Status=-->
+                                                                    <!--begin::Amount=-->
+                                                                    <td>207.38.29.296</td>
+                                                                    <!--end::Amount=-->
+                                                                    <!--begin::Date=-->
+                                                                    <td>3 days ago</td>
+                                                                    <!--end::Date=-->
+                                                                    <!--begin::Action=-->
+                                                                    <td>
+                                                                        <a href="#"
+                                                                            data-kt-users-sign-out="single_user">Sign
+                                                                            out</a>
+                                                                    </td>
+                                                                    <!--end::Action=-->
+                                                                </tr>
+                                                                <tr>
+                                                                    <!--begin::Invoice=-->
+                                                                    <td>Australia</td>
+                                                                    <!--end::Invoice=-->
+                                                                    <!--begin::Status=-->
+                                                                    <td>Chrome - Windows</td>
+                                                                    <!--end::Status=-->
+                                                                    <!--begin::Amount=-->
+                                                                    <td>207.35.12.234</td>
+                                                                    <!--end::Amount=-->
+                                                                    <!--begin::Date=-->
+                                                                    <td>last week</td>
+                                                                    <!--end::Date=-->
+                                                                    <!--begin::Action=-->
+                                                                    <td>Expired</td>
+                                                                    <!--end::Action=-->
+                                                                </tr>
+                                                            </tbody>
+                                                            <!--end::Table body-->
+                                                        </table>
+                                                        <!--end::Table-->
+                                                    </div>
+                                                    <!--end::Table wrapper-->
+                                                </div>
+                                                <!--end::Card body-->
+                                            </div>
+                                            <!--end::Card-->
+                                            <!--begin::Card-->
+                                            <div class="card pt-4 mb-6 mb-xl-9">
+                                                <!--begin::Card header-->
+                                                <div class="card-header border-0">
+                                                    <!--begin::Card title-->
+                                                    <div class="card-title">
+                                                        <h2>Logs</h2>
+                                                    </div>
+                                                    <!--end::Card title-->
+                                                    <!--begin::Card toolbar-->
+                                                    <div class="card-toolbar">
+                                                        <!--begin::Button-->
+                                                        <button type="button" class="btn btn-sm btn-light-primary">
+                                                            <!--begin::Svg Icon | path: icons/duotune/files/fil021.svg-->
+                                                            <span class="svg-icon svg-icon-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path opacity="0.3"
+                                                                        d="M19 15C20.7 15 22 13.7 22 12C22 10.3 20.7 9 19 9C18.9 9 18.9 9 18.8 9C18.9 8.7 19 8.3 19 8C19 6.3 17.7 5 16 5C15.4 5 14.8 5.2 14.3 5.5C13.4 4 11.8 3 10 3C7.2 3 5 5.2 5 8C5 8.3 5 8.7 5.1 9H5C3.3 9 2 10.3 2 12C2 13.7 3.3 15 5 15H19Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M13 17.4V12C13 11.4 12.6 11 12 11C11.4 11 11 11.4 11 12V17.4H13Z"
+                                                                        fill="black" />
+                                                                    <path opacity="0.3"
+                                                                        d="M8 17.4H16L12.7 20.7C12.3 21.1 11.7 21.1 11.3 20.7L8 17.4Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->Download Report</button>
+                                                        <!--end::Button-->
+                                                    </div>
+                                                    <!--end::Card toolbar-->
+                                                </div>
+                                                <!--end::Card header-->
+                                                <!--begin::Card body-->
+                                                <div class="card-body py-0">
+                                                    <!--begin::Table wrapper-->
+                                                    <div class="table-responsive">
+                                                        <!--begin::Table-->
+                                                        <table
+                                                            class="table align-middle table-row-dashed fw-bold text-gray-600 fs-6 gy-5"
+                                                            id="kt_table_users_logs">
+                                                            <!--begin::Table body-->
+                                                            <tbody>
+                                                                <!--begin::Table row-->
+                                                                <tr>
+                                                                    <!--begin::Badge=-->
+                                                                    <td class="min-w-70px">
+                                                                        <div class="badge badge-light-danger">500 ERR</div>
+                                                                    </td>
+                                                                    <!--end::Badge=-->
+                                                                    <!--begin::Status=-->
+                                                                    <td>POST /v1/invoice/in_5553_9089/invalid</td>
+                                                                    <!--end::Status=-->
+                                                                    <!--begin::Timestamp=-->
+                                                                    <td class="pe-0 text-end min-w-200px">22 Sep 2021, 11:30
+                                                                        am</td>
+                                                                    <!--end::Timestamp=-->
+                                                                </tr>
+                                                                <!--end::Table row-->
+                                                                <!--begin::Table row-->
+                                                                <tr>
+                                                                    <!--begin::Badge=-->
+                                                                    <td class="min-w-70px">
+                                                                        <div class="badge badge-light-success">200 OK</div>
+                                                                    </td>
+                                                                    <!--end::Badge=-->
+                                                                    <!--begin::Status=-->
+                                                                    <td>POST /v1/invoices/in_7048_9002/payment</td>
+                                                                    <!--end::Status=-->
+                                                                    <!--begin::Timestamp=-->
+                                                                    <td class="pe-0 text-end min-w-200px">21 Feb 2021, 11:05
+                                                                        am</td>
+                                                                    <!--end::Timestamp=-->
+                                                                </tr>
+                                                                <!--end::Table row-->
+                                                                <!--begin::Table row-->
+                                                                <tr>
+                                                                    <!--begin::Badge=-->
+                                                                    <td class="min-w-70px">
+                                                                        <div class="badge badge-light-warning">404 WRN</div>
+                                                                    </td>
+                                                                    <!--end::Badge=-->
+                                                                    <!--begin::Status=-->
+                                                                    <td>POST /v1/customer/c_61484c567ae93/not_found</td>
+                                                                    <!--end::Status=-->
+                                                                    <!--begin::Timestamp=-->
+                                                                    <td class="pe-0 text-end min-w-200px">21 Feb 2021, 2:40
+                                                                        pm</td>
+                                                                    <!--end::Timestamp=-->
+                                                                </tr>
+                                                                <!--end::Table row-->
+                                                                <!--begin::Table row-->
+                                                                <tr>
+                                                                    <!--begin::Badge=-->
+                                                                    <td class="min-w-70px">
+                                                                        <div class="badge badge-light-danger">500 ERR</div>
+                                                                    </td>
+                                                                    <!--end::Badge=-->
+                                                                    <!--begin::Status=-->
+                                                                    <td>POST /v1/invoice/in_9172_7968/invalid</td>
+                                                                    <!--end::Status=-->
+                                                                    <!--begin::Timestamp=-->
+                                                                    <td class="pe-0 text-end min-w-200px">20 Dec 2021, 11:30
+                                                                        am</td>
+                                                                    <!--end::Timestamp=-->
+                                                                </tr>
+                                                                <!--end::Table row-->
+                                                                <!--begin::Table row-->
+                                                                <tr>
+                                                                    <!--begin::Badge=-->
+                                                                    <td class="min-w-70px">
+                                                                        <div class="badge badge-light-success">200 OK</div>
+                                                                    </td>
+                                                                    <!--end::Badge=-->
+                                                                    <!--begin::Status=-->
+                                                                    <td>POST /v1/invoices/in_9719_3276/payment</td>
+                                                                    <!--end::Status=-->
+                                                                    <!--begin::Timestamp=-->
+                                                                    <td class="pe-0 text-end min-w-200px">21 Feb 2021, 11:30
+                                                                        am</td>
+                                                                    <!--end::Timestamp=-->
+                                                                </tr>
+                                                                <!--end::Table row-->
+                                                            </tbody>
+                                                            <!--end::Table body-->
+                                                        </table>
+                                                        <!--end::Table-->
+                                                    </div>
+                                                    <!--end::Table wrapper-->
+                                                </div>
+                                                <!--end::Card body-->
+                                            </div>
+                                            <!--end::Card-->
+                                            <!--begin::Card-->
+                                            <div class="card pt-4 mb-6 mb-xl-9">
+                                                <!--begin::Card header-->
+                                                <div class="card-header border-0">
+                                                    <!--begin::Card title-->
+                                                    <div class="card-title">
+                                                        <h2>Events</h2>
+                                                    </div>
+                                                    <!--end::Card title-->
+                                                    <!--begin::Card toolbar-->
+                                                    <div class="card-toolbar">
+                                                        <!--begin::Button-->
+                                                        <button type="button" class="btn btn-sm btn-light-primary">
+                                                            <!--begin::Svg Icon | path: icons/duotune/files/fil021.svg-->
+                                                            <span class="svg-icon svg-icon-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path opacity="0.3"
+                                                                        d="M19 15C20.7 15 22 13.7 22 12C22 10.3 20.7 9 19 9C18.9 9 18.9 9 18.8 9C18.9 8.7 19 8.3 19 8C19 6.3 17.7 5 16 5C15.4 5 14.8 5.2 14.3 5.5C13.4 4 11.8 3 10 3C7.2 3 5 5.2 5 8C5 8.3 5 8.7 5.1 9H5C3.3 9 2 10.3 2 12C2 13.7 3.3 15 5 15H19Z"
+                                                                        fill="black" />
+                                                                    <path
+                                                                        d="M13 17.4V12C13 11.4 12.6 11 12 11C11.4 11 11 11.4 11 12V17.4H13Z"
+                                                                        fill="black" />
+                                                                    <path opacity="0.3"
+                                                                        d="M8 17.4H16L12.7 20.7C12.3 21.1 11.7 21.1 11.3 20.7L8 17.4Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->Download Report</button>
+                                                        <!--end::Button-->
+                                                    </div>
+                                                    <!--end::Card toolbar-->
+                                                </div>
+                                                <!--end::Card header-->
+                                                <!--begin::Card body-->
+                                                <div class="card-body py-0">
+                                                    <!--begin::Table-->
+                                                    <table
+                                                        class="table align-middle table-row-dashed fs-6 text-gray-600 fw-bold gy-5"
+                                                        id="kt_table_customers_events">
+                                                        <!--begin::Table body-->
+                                                        <tbody>
+                                                            <!--begin::Table row-->
+                                                            <tr>
+                                                                <!--begin::Event=-->
+                                                                <td class="min-w-400px">Invoice
+                                                                    <a href="#"
+                                                                        class="fw-bolder text-gray-900 text-hover-primary me-1">#KIO-45656</a>status
+                                                                    has changed from
+                                                                    <span class="badge badge-light-succees me-1">In
+                                                                        Transit</span>to
+                                                                    <span class="badge badge-light-success">Approved</span>
+                                                                </td>
+                                                                <!--end::Event=-->
+                                                                <!--begin::Timestamp=-->
+                                                                <td class="pe-0 text-gray-600 text-end min-w-200px">05 May
+                                                                    2021, 10:30 am</td>
+                                                                <!--end::Timestamp=-->
+                                                            </tr>
+                                                            <!--end::Table row-->
+                                                            <!--begin::Table row-->
+                                                            <tr>
+                                                                <!--begin::Event=-->
+                                                                <td class="min-w-400px">
+                                                                    <a href="#"
+                                                                        class="text-gray-600 text-hover-primary me-1">Brian
+                                                                        Cox</a>has made payment to
+                                                                    <a href="#"
+                                                                        class="fw-bolder text-gray-900 text-hover-primary">#OLP-45690</a>
+                                                                </td>
+                                                                <!--end::Event=-->
+                                                                <!--begin::Timestamp=-->
+                                                                <td class="pe-0 text-gray-600 text-end min-w-200px">25 Jul
+                                                                    2021, 6:05 pm</td>
+                                                                <!--end::Timestamp=-->
+                                                            </tr>
+                                                            <!--end::Table row-->
+                                                            <!--begin::Table row-->
+                                                            <tr>
+                                                                <!--begin::Event=-->
+                                                                <td class="min-w-400px">Invoice
+                                                                    <a href="#"
+                                                                        class="fw-bolder text-gray-900 text-hover-primary me-1">#LOP-45640</a>has
+                                                                    been
+                                                                    <span class="badge badge-light-danger">Declined</span>
+                                                                </td>
+                                                                <!--end::Event=-->
+                                                                <!--begin::Timestamp=-->
+                                                                <td class="pe-0 text-gray-600 text-end min-w-200px">15 Apr
+                                                                    2021, 6:05 pm</td>
+                                                                <!--end::Timestamp=-->
+                                                            </tr>
+                                                            <!--end::Table row-->
+                                                            <!--begin::Table row-->
+                                                            <tr>
+                                                                <!--begin::Event=-->
+                                                                <td class="min-w-400px">Invoice
+                                                                    <a href="#"
+                                                                        class="fw-bolder text-gray-900 text-hover-primary me-1">#LOP-45640</a>has
+                                                                    been
+                                                                    <span class="badge badge-light-danger">Declined</span>
+                                                                </td>
+                                                                <!--end::Event=-->
+                                                                <!--begin::Timestamp=-->
+                                                                <td class="pe-0 text-gray-600 text-end min-w-200px">20 Dec
+                                                                    2021, 10:30 am</td>
+                                                                <!--end::Timestamp=-->
+                                                            </tr>
+                                                            <!--end::Table row-->
+                                                            <!--begin::Table row-->
+                                                            <tr>
+                                                                <!--begin::Event=-->
+                                                                <td class="min-w-400px">
+                                                                    <a href="#"
+                                                                        class="text-gray-600 text-hover-primary me-1">Melody
+                                                                        Macy</a>has made payment to
+                                                                    <a href="#"
+                                                                        class="fw-bolder text-gray-900 text-hover-primary">#XRS-45670</a>
+                                                                </td>
+                                                                <!--end::Event=-->
+                                                                <!--begin::Timestamp=-->
+                                                                <td class="pe-0 text-gray-600 text-end min-w-200px">24 Jun
+                                                                    2021, 6:05 pm</td>
+                                                                <!--end::Timestamp=-->
+                                                            </tr>
+                                                            <!--end::Table row-->
+                                                            <!--begin::Table row-->
+                                                            <tr>
+                                                                <!--begin::Event=-->
+                                                                <td class="min-w-400px">Invoice
+                                                                    <a href="#"
+                                                                        class="fw-bolder text-gray-900 text-hover-primary me-1">#WER-45670</a>is
+                                                                    <span class="badge badge-light-info">In Progress</span>
+                                                                </td>
+                                                                <!--end::Event=-->
+                                                                <!--begin::Timestamp=-->
+                                                                <td class="pe-0 text-gray-600 text-end min-w-200px">15 Apr
+                                                                    2021, 5:20 pm</td>
+                                                                <!--end::Timestamp=-->
+                                                            </tr>
+                                                            <!--end::Table row-->
+                                                            <!--begin::Table row-->
+                                                            <tr>
+                                                                <!--begin::Event=-->
+                                                                <td class="min-w-400px">
+                                                                    <a href="#"
+                                                                        class="text-gray-600 text-hover-primary me-1">Max
+                                                                        Smith</a>has made payment to
+                                                                    <a href="#"
+                                                                        class="fw-bolder text-gray-900 text-hover-primary">#SDK-45670</a>
+                                                                </td>
+                                                                <!--end::Event=-->
+                                                                <!--begin::Timestamp=-->
+                                                                <td class="pe-0 text-gray-600 text-end min-w-200px">22 Sep
+                                                                    2021, 10:30 am</td>
+                                                                <!--end::Timestamp=-->
+                                                            </tr>
+                                                            <!--end::Table row-->
+                                                            <!--begin::Table row-->
+                                                            <tr>
+                                                                <!--begin::Event=-->
+                                                                <td class="min-w-400px">Invoice
+                                                                    <a href="#"
+                                                                        class="fw-bolder text-gray-900 text-hover-primary me-1">#DER-45645</a>status
+                                                                    has changed from
+                                                                    <span class="badge badge-light-info me-1">In
+                                                                        Progress</span>to
+                                                                    <span class="badge badge-light-primary">In
+                                                                        Transit</span></td>
+                                                                <!--end::Event=-->
+                                                                <!--begin::Timestamp=-->
+                                                                <td class="pe-0 text-gray-600 text-end min-w-200px">05 May
+                                                                    2021, 11:05 am</td>
+                                                                <!--end::Timestamp=-->
+                                                            </tr>
+                                                            <!--end::Table row-->
+                                                            <!--begin::Table row-->
+                                                            <tr>
+                                                                <!--begin::Event=-->
+                                                                <td class="min-w-400px">Invoice
+                                                                    <a href="#"
+                                                                        class="fw-bolder text-gray-900 text-hover-primary me-1">#DER-45645</a>status
+                                                                    has changed from
+                                                                    <span class="badge badge-light-info me-1">In
+                                                                        Progress</span>to
+                                                                    <span class="badge badge-light-primary">In
+                                                                        Transit</span></td>
+                                                                <!--end::Event=-->
+                                                                <!--begin::Timestamp=-->
+                                                                <td class="pe-0 text-gray-600 text-end min-w-200px">20 Jun
+                                                                    2021, 6:43 am</td>
+                                                                <!--end::Timestamp=-->
+                                                            </tr>
+                                                            <!--end::Table row-->
+                                                            <!--begin::Table row-->
+                                                            <tr>
+                                                                <!--begin::Event=-->
+                                                                <td class="min-w-400px">
+                                                                    <a href="#"
+                                                                        class="text-gray-600 text-hover-primary me-1">Melody
+                                                                        Macy</a>has made payment to
+                                                                    <a href="#"
+                                                                        class="fw-bolder text-gray-900 text-hover-primary">#XRS-45670</a>
+                                                                </td>
+                                                                <!--end::Event=-->
+                                                                <!--begin::Timestamp=-->
+                                                                <td class="pe-0 text-gray-600 text-end min-w-200px">15 Apr
+                                                                    2021, 6:05 pm</td>
+                                                                <!--end::Timestamp=-->
+                                                            </tr>
+                                                            <!--end::Table row-->
+                                                        </tbody>
+                                                        <!--end::Table body-->
+                                                    </table>
+                                                    <!--end::Table-->
+                                                </div>
+                                                <!--end::Card body-->
+                                            </div>
+                                            <!--end::Card-->
+                                        </div>
+                                        <!--end:::Tab pane-->
+                                    </div>
+                                    <!--end:::Tab content-->
+                                </div>
+                                <!--end::Content-->
+                            </div>
+                            <!--end::Layout-->
+                            <!--end::Modals-->
+                        </div>
+                        <!--end::Container-->
+                    </div>
+                    <!--end::Post-->
+                </div>
+                <!--end::Content-->
+            @else
+                <h1 class="w-100 d-block text-center alert alert-info">Unauthorised</h1>
+            @endcan
+            <!--begin::Footer-->
+            @include("footer")
+            <!--end::Footer-->
+        </div>
+        <!--end::Wrapper-->
+    </div>
+    <!--end::Page-->
+</div>
+<script>
+    window.addEventListener("DOMContentLoaded",function(){
+        $(()=>{
+             // Pipelining function for DataTables. To be used to the `ajax` option of DataTables
+             $.fn.dataTable.pipeline = function ( opts ) {
+                // Configuration options
+                var conf = $.extend( {
+                    pages: 5,     // number of pages to cache
+                    url: '',      // script url
+                    data: null,   // function or object with parameters to send to the server
+                                // matching how `ajax.data` works in DataTables
+                    method: 'POST' // Ajax HTTP method
+                }, opts );
+
+                // Private variables for storing the cache
+                var cacheLower = -1;
+                var cacheUpper = null;
+                var cacheLastRequest = null;
+                var cacheLastJson = null;
+
+                return function ( request, drawCallback, settings ) {
+                    var ajax          = false;
+                    var requestStart  = request.start;
+                    var drawStart     = request.start;
+                    var requestLength = request.length;
+                    var requestEnd    = requestStart + requestLength;
+
+                    if ( settings.clearCache ) {
+                        // API requested that the cache be cleared
+                        ajax = true;
+                        settings.clearCache = false;
+                    }
+                    else if ( cacheLower < 0 || requestStart < cacheLower || requestEnd > cacheUpper ) {
+                        // outside cached data - need to make a request
+                        ajax = true;
+                    }
+                    else if ( JSON.stringify( request.order )   !== JSON.stringify( cacheLastRequest.order ) ||
+                            JSON.stringify( request.columns ) !== JSON.stringify( cacheLastRequest.columns ) ||
+                            JSON.stringify( request.search )  !== JSON.stringify( cacheLastRequest.search )
+                    ) {
+                        // properties changed (ordering, columns, searching)
+                        ajax = true;
+                    }
+
+                    // Store the request for checking next time around
+                    cacheLastRequest = $.extend( true, {}, request );
+
+                    if ( ajax ) {
+                        // Need data from the server
+                        if ( requestStart < cacheLower ) {
+                            requestStart = requestStart - (requestLength*(conf.pages-1));
+
+                            if ( requestStart < 0 ) {
+                                requestStart = 0;
+                            }
+                        }
+
+                        cacheLower = requestStart;
+                        cacheUpper = requestStart + (requestLength * conf.pages);
+
+                        request.start = requestStart;
+                        request.length = requestLength*conf.pages;
+
+                        // Provide the same `data` options as DataTables.
+                        if ( typeof conf.data === 'function' ) {
+                            // As a function it is executed with the data object as an arg
+                            // for manipulation. If an object is returned, it is used as the
+                            // data object to submit
+                            var d = conf.data( request );
+                            if ( d ) {
+                                $.extend( request, d );
+                            }
+                        }
+                        else if ( $.isPlainObject( conf.data ) ) {
+                            // As an object, the data given extends the default
+                            $.extend( request, conf.data );
+                        }
+
+                        return $.ajax( {
+                            "type":     conf.method,
+                            "url":      conf.url,
+                            "data":     request,
+                            "dataType": "json",
+                            "cache":    false,
+                            "success":  function ( json ) {
+                                cacheLastJson = $.extend(true, {}, json);
+
+                                if ( cacheLower != drawStart ) {
+                                    json.data.splice( 0, drawStart-cacheLower );
+                                }
+                                if ( requestLength >= -1 ) {
+                                    json.data.splice( requestLength, json.data.length );
+                                }
+
+                                drawCallback( json );
+                            }
+                        } );
+                    }
+                    else {
+                        json = $.extend( true, {}, cacheLastJson );
+                        json.draw = request.draw; // Update the echo for each response
+                        json.data.splice( 0, requestStart-cacheLower );
+                        json.data.splice( requestLength, json.data.length );
+
+                        drawCallback(json);
+                    }
+                }
+            };
+
+            // Register an API method that will empty the pipelined data, forcing an Ajax
+            // fetch on the next draw (i.e. `table.clearPipeline().draw()`)
+            $.fn.dataTable.Api.register( 'clearPipeline()', function () {
+                return this.iterator( 'table', function ( settings ) {
+                    settings.clearCache = true;
+                } );
+            } );
+
+            $('#transactionTable').DataTable( {
+                "processing": true,
+                "serverSide": true,
+                "ajax": $.fn.dataTable.pipeline( {
+                    url: '{{route("transactionDetailsFinancialStatus",$user_id)}}',
+                    pages: 5,
+                    data:{
+                        income_form:"all"
+                    },
+                    method:"get"
+                } )
+            } );
+        },jQuery)
+    })
+</script>
+@endsection

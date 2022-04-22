@@ -21,6 +21,7 @@ class financeManagementLoanModel extends Model
         "sg_amount",
         "amount",
         "user",
+        "interest",
         "created_by",
         "updated_by",
         "deleted_by",

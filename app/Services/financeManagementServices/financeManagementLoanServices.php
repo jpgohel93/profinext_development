@@ -15,6 +15,12 @@ class financeManagementLoanServices{
             "user" => "required",
             "income_form" => "required"
         ]);
+        if($loan['sub_heading']=="Loan Taken" || $loan['sub_heading']=="loan taken" || $loan['sub_heading']=="loantaken"){
+            $loan['amount'] = $loan['amount'];
+        }else{
+            // add interest to amount
+            $loan['amount'] += round($loan['amount']*((float)$loan['interest'])/100,2);
+        }
         if (isset($request->mode) && $request->mode == 1) {
             $request->validate([
                 "bank" => "required|exists:finance_management_banks,id",

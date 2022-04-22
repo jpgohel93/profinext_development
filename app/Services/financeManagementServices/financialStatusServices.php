@@ -454,13 +454,21 @@ class financialStatusServices
         return $demat;
     }
     public static function loanDetailsFinancialStatus($request){
-        $demat['data']= array();
-
+        $loanDetails['data']= array();
+        // default current logged user
+        $user_id = auth()->user()->id;
+        // current financial year
+        $startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
+        $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
         if(isset($request->startDate) && $request->startDate!="" && isset($request->endDate) && $request->endDate != ""){
-            $accounts = financeManagementLoanModel::where("income_form",$request->income_form)->where("date",">=",$request->startDate)->whereDate("date","<=",$request->endDate)->get();
-        }else{
-            $accounts = financeManagementLoanModel::where("income_form",$request->income_form)->get();
+            $startDate = $request->startDate;
+            $endDate = $request->endDate;
         }
+        if(isset($request->user_id) && (ctype_digit($request->user_id))===true){
+            $user_id = $request->user_id;
+        }
+
+        $accounts = financeManagementLoanModel::where('user',$user_id)->where("income_form","LIKE",$request->income_form)->where("date",">=",$startDate)->whereDate("date","<=",$endDate)->get();
 
         $i=0;
         foreach($accounts as $account){
@@ -471,11 +479,18 @@ class financialStatusServices
             array_push($arr,$account->narration);
             array_push($arr,($account->mode==0)?"Cash":"Bank");
             array_push($arr,$account->amount);
-            array_push($demat['data'],$arr);
+            array_push($loanDetails['data'],$arr);
         }
-        $demat["recordsTotal"]=$i;
-        $demat["recordsFiltered"]=$i;
-        return $demat;
+        $loanDetails["recordsTotal"]=$i;
+        $loanDetails["recordsFiltered"]=$i;
+
+        // figure calculations
+        $loanDetails['loanGiven'] = financeManagementLoanModel::where('user',$user_id)->where("income_form","LIKE",$request->income_form)->where("sub_heading","like","loan given")->where("date",">=",$startDate)->whereDate("date","<=",$endDate)->sum("amount");
+
+        $loanDetails['loanAmountPaidByUser'] = financeManagementLoanModel::where('user',$user_id)->where("income_form","LIKE",$request->income_form)->where("sub_heading","like","loan taken")->where("date",">=",$startDate)->whereDate("date","<=",$endDate)->sum("amount");
+
+        $loanDetails['loanRemaining'] =(int)$loanDetails['loanGiven']-(int)$loanDetails['loanAmountPaidByUser'];
+        return $loanDetails;
     }
     public static function bankDetailsFinancialStatus($request){
         $demat['data']= array();

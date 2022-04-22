@@ -1421,7 +1421,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" value="" />
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->
@@ -1437,7 +1437,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="password" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
+                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->

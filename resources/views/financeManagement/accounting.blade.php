@@ -204,7 +204,7 @@
                                                         @forelse($incomeRecords as $incomeRecord)
                                                             <tr>
                                                                 <td>{{$i++}}</td>
-                                                                <td data-sort="{{date("Ymdhis",strtotime($incomeRecord->created_at))}}">{{$incomeRecord->date}}</td>
+                                                                <td data-order="{{date("Ymdhis",strtotime($incomeRecord->date))}}">{{$incomeRecord->date}}</td>
                                                                 <td>Income</td>
                                                                 <td>{{$incomeRecord->sub_heading}}</td>
                                                                 <td>{{$incomeRecord->text_box}}</td>
@@ -248,7 +248,7 @@
                                                         @forelse($expensRecords as $expense)
                                                             <tr>
                                                                 <td>{{$i++}}</td>
-                                                                <td data-sort="{{date("Ymdhis",strtotime($expense->created_at))}}">{{$expense->date}}</td>
+                                                                <td data-order="{{date("Ymdhis",strtotime($expense->date))}}">{{$expense->date}}</td>
                                                                 <td>Expense</td>
                                                                 <td>{{$expense->sub_heading}}</td>
                                                                 <td>{{$expense->text_box}}</td>
@@ -282,7 +282,7 @@
                                                         @forelse($transferRecords as $transfer)
                                                             <tr>
                                                                 <td>{{$i++}}</td>
-                                                                <td data-sort="{{date("Ymdhis",strtotime($transfer->created_at))}}">{{$transfer->date}}</td>
+                                                                <td data-order="{{date("Ymdhis",strtotime($transfer->date))}}">{{$transfer->date}}</td>
                                                                 <td>Transfer</td>
                                                                 <td>{{$transfer->purpose}}</td>
                                                                 <td>{{$transfer->narration}}</td>
@@ -316,7 +316,7 @@
                                                         @forelse($loanRecords as $loan)
                                                             <tr>
                                                                 <td>{{$i++}}</td>
-                                                                <td data-sort="{{date("Ymdhis",strtotime($loan->created_at))}}">{{$loan->date}}</td>
+                                                                <td data-order="{{date("Ymdhis",strtotime($loan->date))}}">{{$loan->date}}</td>
                                                                 <td>Loan</td>
                                                                 <td>{{$loan->sub_heading}}</td>
                                                                 <td>{{$loan->narration}}</td>
@@ -662,7 +662,6 @@
                                                             <th class="min-w-75px">Mode</th>
                                                             <th class="min-w-75px">Interest</th>
                                                             <th class="min-w-75px">Amount</th>
-                                                            <th class="min-w-75px">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
@@ -676,32 +675,6 @@
                                                                 <td>{{($loan->mode==0)?"Cash":(isset($loan->bank_name)?$loan->bank_name->title:"")}}</td>
                                                                 <td>{{$loan->interest}}</td>
                                                                 <td style="color:#f4c20d">{{$loan->amount}}</td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                        <span class="svg-icon svg-icon-5 m-0">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                            </svg>
-                                                                        </span>
-                                                                    </a>
-                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id="{{$loan->id}}" class='menu-link px-3 loan edit'>
-                                                                                Edit
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id="{{$loan->id}}" class='menu-link px-3 loan delete'>
-                                                                                Delete
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id="{{$loan->id}}" class='menu-link px-3 loan invoice'>
-                                                                                View invoice
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
                                                             </tr>
                                                         @empty
                                                             {{-- empty --}}
@@ -1235,11 +1208,12 @@
                                         <span class="required">Sub Heading:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <select class="form-select form-select-solid" name="sub_heading" data-control="select2" data-placeholder="Select sub heading">
-                                        @forelse ($headings['loan'] as $loan)
-                                            <option value="{{$loan->sub_heading}}">{{$loan->sub_heading}}</option>
+                                    <select class="form-select form-select-solid" name="sub_heading" data-control="select2">
+                                        <option value="">Select option</option>
+                                        @forelse ($headings['income'] as $income)
+                                            <option value="{{$income->sub_heading}}">{{$income->sub_heading}}</option>
                                         @empty
-                                            <option value="">Select option</option>
+
                                         @endforelse
                                     </select>
                                 </div>
@@ -1358,7 +1332,8 @@
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
                 $("select").select2();
-                var table = $("table.datatable").DataTable();
+                var table = $("table.datatable:not(#allTable)").DataTable();
+
                 $("#income_smartId").select2();
                 $("#expense_smartId").select2();
                 $("#transfer_smartId").select2();
@@ -1761,6 +1736,17 @@
                     if(!window.confirm("Are you sure you want to delete this record?")){
                         e.preventDefault();
                     }
+                })
+                // hide interest field for loan taken
+                $("#loanModel").find("[name='sub_heading']").on("change",function(e){
+                    const val = e.target.value;
+                    if(val=="Loan Taken" || val=="loan taken" || val=="loantaken" || val=="loanTaken"){
+                        $("#loanModel").find("[name='interest']").parents(".form-group").hide();
+                    }
+                })
+                // sorting table
+                $("#allTable").dataTable({
+                    "order": [[ 1, "DESC" ]]
                 })
             },jQuery)
         })

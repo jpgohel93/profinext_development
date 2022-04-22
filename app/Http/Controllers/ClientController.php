@@ -122,6 +122,12 @@ class ClientController extends Controller
 		}
 
         $client =  ClientServices::get($id);
+        if(!$client){
+            if($request->ajax()){
+                return CommonService::ajaxResponse(false,[],"Client not found");
+            }
+            return Redirect::route('clients')->with("info","client not found");
+        }
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = bankServices::getForIncomeAccounts();
         $brokers = BrokerServices::view(['id', 'broker']);

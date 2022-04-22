@@ -272,7 +272,7 @@ class ClientServices
     }
     public static function get($id){
         $client = Client::where("id",$id)->with(['clientDemat','clientPayment','clientPayment.Screenshots', 'clientDemat.Pancards'])->first();
-        return $client?$client : CommonService::throwError("Client not found");
+        return $client;
     }
     public static function update($request,$id){
         $request->session()->put("password", $request->password);
