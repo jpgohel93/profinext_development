@@ -1587,6 +1587,9 @@
                         } );
                     }
                 })
+                $(document).on("click",'.dropdown-toggle',function(e){
+                   $(e.target).next(".dropdown-menu").toggleClass("d-block");
+                });
                 // preview image
                 function readURL(input,id) {
                     if (input.files && input.files[0]) {

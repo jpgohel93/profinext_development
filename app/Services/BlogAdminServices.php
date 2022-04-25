@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\blogTabs;
 use App\Models\blogTarget;
 class BlogAdminServices{
-    function __construct(){
-
-    }
     public static function index(){
         $users = User::get();
         $userIdArray = [];
@@ -38,7 +35,7 @@ class BlogAdminServices{
         return $users;
     }
     public static function getBlogByUser(){
-        $user = Auth::user()->toArray();
+        $user = User::where("id",auth()->user()->id)->first()->toArray();
         $tg = blogTarget::where(["user_id"=>$user['id']])->get(["tab_id","target"])->toArray();
         $user['target'] = $tg;
         foreach($tg as $tab_index => $tab_id){
@@ -65,7 +62,13 @@ class BlogAdminServices{
         return $user;
     }
     public static function approveBlog($id){
-        return Blog::where("id",$id)->update(["is_approve"=>1]);
+        $user_name = auth()->user()->name;
+        $id = Blog::where("id",$id)->update(["is_approve"=>1]);
+        if($id){
+            LogServices::logEvent(["desc"=>"Blog $id Approved by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to Approved Blog $id by $user_name"]);
+        }
     }
     public static function addTab($request){
         $tab = $request->validate([
@@ -74,7 +77,13 @@ class BlogAdminServices{
             "name.required"=>"Tab name is required"
         ]);
         $tab['created_by']=auth()->user()->id;
+        $user_name = auth()->user()->name;
         $tab_id = blogTabs::create($tab);
+        if($tab_id){
+            LogServices::logEvent(["desc"=>"Blog Tab $tab_id->id Created by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to create Blog Tab by $user_name"]);
+        }
         if($request->blogger!=""){
             $request->validate([
                 "blogger"=>"exists:users,id"
@@ -89,15 +98,21 @@ class BlogAdminServices{
         return $tab_id;
     }
     public static function setTarget($request){
+        $user_name = auth()->user()->name;
         $user = $request->validate([
             "target"=>"required|numeric",
             "user_id"=>"exists:users,id|required",
             "tab_id"=>"exists:blog_tabs,id|required"
         ]);
-        // if tab exists update target
-        return blogTarget::create($user);
+        $id = blogTarget::create($user);
+        if($id){
+            return LogServices::logEvent(["desc"=>"Tab $request->tab_id for User ID $request->user_id traget $request->target Assign by $user_name"]);
+        }else{
+            return LogServices::logEvent(["desc"=>"Unable to assign target for Tab $request->tab_id and User ID $request->user_id by $user_name"]);
+        }
     }
     public static function addBlog($request){
+        $user_name = auth()->user()->name;
         $blog = $request->validate([
             "tab_id"=>"required|exists:blog_tabs,id",
             "date"=>"required|date",
@@ -113,14 +128,25 @@ class BlogAdminServices{
         }
         $blog['srno']=$last_sr;
         $blog['blogger']=auth()->user()->id;
-        return Blog::create($blog);
+        $id = Blog::create($blog);
+        if($id){
+            return LogServices::logEvent(["desc"=>"new Blog $id->id Created by $user_name"]);
+        }else{
+            return LogServices::logEvent(["desc"=>"Unable to create new Blog by $user_name"]);
+        }
     }
     public static function addNoteFrm($request){
+        $user_name = auth()->user()->name;
         $request->validate([
             "notes"=>"required",
             "blog_id"=>"required|exists:blogs,id"
         ]);
-        return Blog::where("id", $request->blog_id)->update(["notes"=>$request->notes,"is_approve"=>0]);
+        $status = Blog::where("id", $request->blog_id)->update(["notes"=>$request->notes,"is_approve"=>0]);
+        if($status){
+            return LogServices::logEvent(["desc"=>"Note added for blog $request->blog_id by $user_name"]);
+        }else{
+            return LogServices::logEvent(["desc"=>"Unable to Add Notes for blog $request->blog_id by $user_name"]);
+        }
     }
     public static function getNoteFrm($id){
         return Blog::where("id", $id)->first("notes");
@@ -129,20 +155,27 @@ class BlogAdminServices{
         return Blog::where("id", $id)->first();
     }
     public static function updateBlog($request){
-        $blog = $request->validate([
+        $user_name = auth()->user()->name;
+        $request->validate([
             "blog_id"=> "required|exists:blogs,id",
             "tab_id"=>"required|exists:blog_tabs,id",
             "link"=>"required",
             "title"=>"required",
             "date"=>"required"
         ]);
-        return Blog::where("id", $blog['blog_id'])->update([
+        $blog_id = $request['blog_id'];
+        $id = Blog::where("id", $blog_id)->update([
             "tab_id"=>$request->tab_id,
             "title"=>$request->title,
             "date"=>$request->date,
             "link"=>$request->link,
             "notes"=>null
         ]);
+        if($id){
+            return LogServices::logEvent(["desc"=>"Blog $blog_id Updated by $user_name"]);
+        }else{
+            return LogServices::logEvent(["desc"=>"Unable to update Blog $blog_id by $user_name"]);
+        }
     }
     public static function getAllBloggers(){
         $users = User::get();

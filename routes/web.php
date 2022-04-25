@@ -93,6 +93,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get("/loginInfo/{id?}", [ClientController::class, "getLoginInfo"])->name("getLoginInfo");
     // users
     Route::get("/users",[UserController::class,"all"])->name("users");
+    Route::get("/users/role/{role?}",[UserController::class,"all"])->name("usersByRole");
+
     // view users
     Route::get("/user/view/{id}",[UserController::class,"view"])->name("viewUser");
     // create user

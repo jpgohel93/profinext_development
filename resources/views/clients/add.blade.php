@@ -1771,6 +1771,11 @@
                     $(e.target).parent(".col-md-6").next(".sipTimeFrame").hide();
                 }
             })
+            const resetMutualFundCounter = ()=>{
+                $(".mutualFundDivClone").each((i,v)=>{
+                    $(v).find(".divCounter").text(i+2);
+                })
+            }
             // add more for mutual fund Investment
             $("#mutualFundAddMore").on("click",function(e){
                 $("[data-control='select2']").select2("destroy");
@@ -1784,9 +1789,11 @@
                 })
                 $("[data-control='select2']").select2();
                 $("#mutualFundDivAppend").children().last().show();
+                resetMutualFundCounter();
             })
             $(document).on("click",".removeMutualFundDiv",function(e){
                 $(e.target).closest('.mutualFundDivClone').remove();
+                resetMutualFundCounter();
             })
         })
     </script>

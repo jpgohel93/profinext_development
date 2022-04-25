@@ -252,7 +252,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="date" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{($user->dob != '') ? date("d-m-Y",strtotime($user->dob)) : ''}}" name="dob" placeholder=""  />
+                                                            <input type="date" class="form-control form-control-lg form-control-solid bdr-ccc" max="{{date("Y-m-d")}}" value="{{($user->dob != '') ? date("Y-m-d",strtotime($user->dob)) : ''}}" name="dob" placeholder=""  />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->

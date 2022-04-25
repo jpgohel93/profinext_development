@@ -38,7 +38,7 @@ class RolesController extends Controller
     }
     public function editRole(Request $request,$id){
         RoleServices::update($request,$id);
-        return Redirect::route('editRoleForm',$id)->with("info","Role updated successfully");
+        return Redirect::route('roles')->with("info","Role Updates successfully");
     }
     public function removeRole($id){
         RoleServices::remove($id);

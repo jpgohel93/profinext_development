@@ -277,7 +277,7 @@
 												</label>
 												<!--end::Label-->
 												<!--begin::Input-->
-												<input type="date" class="form-control form-control-lg form-control-solid bdr-ccc" value="{{old("dob")}}" name="dob" placeholder=""  />
+												<input type="date" class="form-control form-control-lg form-control-solid bdr-ccc" max="{{date("Y-m-d")}}" value="{{old("dob")}}" name="dob" placeholder=""  />
 												<!--end::Input-->
 											</div>
 											<!--end::Input group-->

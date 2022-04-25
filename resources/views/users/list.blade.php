@@ -114,12 +114,18 @@
                                     </li>
                                     <!--end:::Tab item-->
 
+                                    <!--begin:::Tab item-->
+                                    <li class="nav-item">
+                                        <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
+                                           href="#terminated">Terminated</a>
+                                    </li>
+                                    <!--end:::Tab item-->
+
                                 </ul>
                                 <!--end:::Tabs-->
 
                                 <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="partner" aria-labelledby="active-tab"
-                                         role="tabpanel">
+                                    <div class="tab-pane fade show active" id="partner" aria-labelledby="active-tab" role="tabpanel">
                                         <!--begin::Card-->
                                         <div class="card">
                                             <!--begin::Card body-->
@@ -144,22 +150,31 @@
                                                                     <td class="role-value-td">{{$user->role}}</td>
                                                                     <td class="role-value-td">{{date("Y-m-d",strtotime($user->joining_date))}}</td>
                                                                     <td class="">
-                                                                        <div class="d-flex justify-content-center align-items-center">
-                                                                            @can("user-write")
-                                                                                <div class="menu-item px-2">
-                                                                                    <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
-                                                                                        Edit
-                                                                                    </a>
-                                                                                </div>
-                                                                            @endcan
-                                                                            @can("user-read")
-                                                                                <div class="menu-item px-2">
-                                                                                    <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
-                                                                                        View More
-                                                                                    </a>
-                                                                                </div>
-                                                                            @endcan
-                                                                        </div>
+                                                                        @canany(["user-write","user-read"])
+                                                                            <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                                <span class="svg-icon svg-icon-5 m-0">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                        <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                    </svg>
+                                                                                </span>
+                                                                            </a>
+                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                                @can("user-write")
+                                                                                    <div class="menu-item px-2">
+                                                                                        <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                            Edit
+                                                                                        </a>
+                                                                                    </div>
+                                                                                @endcan
+                                                                                @can("user-read")
+                                                                                    <div class="menu-item px-2">
+                                                                                        <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                            View More
+                                                                                        </a>
+                                                                                    </div>
+                                                                                @endcan
+                                                                            </div>
+                                                                        @endcan
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -198,22 +213,31 @@
                                                                 <td class="role-value-td">{{$user->role}}</td>
                                                                 <td class="role-value-td">{{date("Y-m-d",strtotime($user->joining_date))}}</td>
                                                                 <td class="">
-                                                                    <div class="d-flex justify-content-center align-items-center">
-                                                                        @can("user-write")
-                                                                            <div class="menu-item px-2">
-                                                                                <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
-                                                                                    Edit
-                                                                                </a>
-                                                                            </div>
-                                                                        @endcan
-                                                                        @can("user-read")
-                                                                            <div class="menu-item px-2">
-                                                                                <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
-                                                                                    View More
-                                                                                </a>
-                                                                            </div>
-                                                                        @endcan
-                                                                    </div>
+                                                                    @canany(["user-write","user-read"])
+                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </a>
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                            @can("user-write")
+                                                                                <div class="menu-item px-2">
+                                                                                    <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                        Edit
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endcan
+                                                                            @can("user-read")
+                                                                                <div class="menu-item px-2">
+                                                                                    <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                        View More
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endcan
+                                                                        </div>
+                                                                    @endcan
                                                                 </td>
                                                             </tr>
                                                             @endforeach
@@ -253,22 +277,31 @@
                                                                 <td class="role-value-td">{{$user->role}}</td>
                                                                 <td class="role-value-td">{{date("Y-m-d",strtotime($user->joining_date))}}</td>
                                                                 <td class="">
-                                                                    <div class="d-flex justify-content-center align-items-center">
-                                                                        @can("user-write")
-                                                                            <div class="menu-item px-2">
-                                                                                <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
-                                                                                    Edit
-                                                                                </a>
-                                                                            </div>
-                                                                        @endcan
-                                                                        @can("user-read")
-                                                                            <div class="menu-item px-2">
-                                                                                <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
-                                                                                    View More
-                                                                                </a>
-                                                                            </div>
-                                                                        @endcan
-                                                                    </div>
+                                                                    @canany(["user-write","user-read"])
+                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </a>
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                            @can("user-write")
+                                                                                <div class="menu-item px-2">
+                                                                                    <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                        Edit
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endcan
+                                                                            @can("user-read")
+                                                                                <div class="menu-item px-2">
+                                                                                    <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                        View More
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endcan
+                                                                        </div>
+                                                                    @endcan
                                                                 </td>
                                                             </tr>
                                                             @endforeach
@@ -308,22 +341,31 @@
                                                                 <td class="role-value-td">{{$user->role}}</td>
                                                                 <td class="role-value-td">{{date("Y-m-d",strtotime($user->joining_date))}}</td>
                                                                 <td class="">
-                                                                    <div class="d-flex justify-content-center align-items-center">
-                                                                        @can("user-write")
-                                                                            <div class="menu-item px-2">
-                                                                                <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
-                                                                                    Edit
-                                                                                </a>
-                                                                            </div>
-                                                                        @endcan
-                                                                        @can("user-read")
-                                                                            <div class="menu-item px-2">
-                                                                                <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
-                                                                                    View More
-                                                                                </a>
-                                                                            </div>
-                                                                        @endcan
-                                                                    </div>
+                                                                    @canany(["user-write","user-read"])
+                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </a>
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                            @can("user-write")
+                                                                                <div class="menu-item px-2">
+                                                                                    <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                        Edit
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endcan
+                                                                            @can("user-read")
+                                                                                <div class="menu-item px-2">
+                                                                                    <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                        View More
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endcan
+                                                                        </div>
+                                                                    @endcan
                                                                 </td>
                                                             </tr>
                                                             @endforeach
@@ -363,22 +405,97 @@
                                                                 <td class="role-value-td">{{$user->role}}</td>
                                                                 <td class="role-value-td">{{date("Y-m-d",strtotime($user->joining_date))}}</td>
                                                                 <td class="">
-                                                                    <div class="d-flex justify-content-center align-items-center">
-                                                                        @can("user-write")
-                                                                            <div class="menu-item px-2">
-                                                                                <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
-                                                                                    Edit
-                                                                                </a>
-                                                                            </div>
-                                                                        @endcan
-                                                                        @can("user-read")
-                                                                            <div class="menu-item px-2">
-                                                                                <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
-                                                                                    View More
-                                                                                </a>
-                                                                            </div>
-                                                                        @endcan
-                                                                    </div>
+                                                                    @canany(["user-write","user-read"])
+                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </a>
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                            @can("user-write")
+                                                                                <div class="menu-item px-2">
+                                                                                    <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                        Edit
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endcan
+                                                                            @can("user-read")
+                                                                                <div class="menu-item px-2">
+                                                                                    <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                        View More
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endcan
+                                                                        </div>
+                                                                    @endcan
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <!--end::Table body-->
+                                                    </table>
+
+                                                </div>
+                                                <!--end::Table-->
+                                            </div>
+                                            <!--end::Card body-->
+                                        </div>
+                                        <!--end::Card-->
+                                    </div>
+                                    <div class="tab-pane fade show" id="terminated" aria-labelledby="active-tab" role="tabpanel">
+                                        <!--begin::Card-->
+                                        <div class="card">
+                                            <!--begin::Card body-->
+                                            <div class="card-body pt-0">
+                                                <div class="table-responsive">
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">User Name</th>
+                                                            <th class="min-w-75px">Role</th>
+                                                            <th class="min-w-75px">Joining Date</th>
+                                                            <th class="min-w-75px">Terminated Date</th>
+                                                            <th class="text-center min-w-100px">Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold">
+                                                        @forelse ($terminated as $user)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td class="role-value-td">{{$user->name}}</td>
+                                                                <td class="role-value-td">{{$user->role}}</td>
+                                                                <td class="role-value-td">{{date("Y-m-d",strtotime($user->joining_date))}}</td>
+                                                                <td class="role-value-td">{{date("Y-m-d",strtotime($user->deleted_at))}}</td>
+                                                                <td class="">
+                                                                    @canany(["user-write","user-read"])
+                                                                        <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </a>
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                            @can("user-write")
+                                                                                <div class="menu-item px-2">
+                                                                                    <a href="{{url('/user/edit',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                        Edit
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endcan
+                                                                            @can("user-read")
+                                                                                <div class="menu-item px-2">
+                                                                                    <a href="{{route('viewUser',$user->id)}}"  class="menu-link px-2"  target="_blank">
+                                                                                        View More
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endcan
+                                                                        </div>
+                                                                    @endcan
                                                                 </td>
                                                             </tr>
                                                             @endforeach
@@ -430,6 +547,7 @@
 		@section("jscript")
 			<script>
 				$(document).ready(function(){
+                    $(".datatable").dataTable();
 					const url = {!! json_encode(route('deleteUser',"")) !!};
 					$('.not_active').click(function() {
 					$(this).toggleClass('text-dark');

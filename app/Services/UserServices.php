@@ -22,7 +22,10 @@ class UserServices
     public static function activeClients(){
         return User::where("status","1")->get();
     }
-    public static function all(){
+    public static function all($role=null){
+        if($role!==null){
+            return User::where("role","LIKE",$role)->get();
+        }
         return User::get();
     }
     public static function validateUsersData($data){
@@ -300,6 +303,12 @@ class UserServices
 
         return UserServices::user($id);
     }
+    public static function terminatedUsers($role=null){
+        if($role!==null){
+            return User::withTrashed()->where("role","LIKE",$role)->whereNotNull("deleted_at")->get();
+        }
+        return User::withTrashed()->whereNotNull("deleted_at")->get();
+    }
     public static function delete($id){
         return User::where("id",$id)->delete();
     }
@@ -310,8 +319,11 @@ class UserServices
         }
         return $user;
     }
-    public static function getByType($type)
+    public static function getByType($type,$role= null)
     {
+        if($role!==null){
+            return User::where("role","LIKE",$role)->where("user_type",$type)->get();
+        }
         return User::where("user_type",$type)->get();
     }
 

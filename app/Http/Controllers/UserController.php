@@ -19,14 +19,15 @@ class UserController extends Controller
         $this->middleware('permission:user-read', ['only' => ['all', 'view']]);
         $this->middleware('permission:user-delete', ['only' => ['delete']]);
     }
-    public function all(){
-        $partner  = UserServices::getByType(1);
-        $employee = UserServices::getByType(2);
-        $channelPartner = UserServices::getByType(3);
-        $freelancerAMS = UserServices::getByType(4);
-        $freelancerPrime = UserServices::getByType(5);
-        $users = UserServices::all();
-        return view("users.list",compact('users','partner','employee','channelPartner','freelancerAMS','freelancerPrime'));
+    public function all($role=null){
+        $partner  = UserServices::getByType(1,$role);
+        $employee = UserServices::getByType(2,$role);
+        $channelPartner = UserServices::getByType(3,$role);
+        $freelancerAMS = UserServices::getByType(4,$role);
+        $freelancerPrime = UserServices::getByType(5,$role);
+        $terminated = UserServices::terminatedUsers($role);
+        $users = UserServices::all($role);
+        return view("users.list",compact('users','partner','employee','channelPartner','freelancerAMS','freelancerPrime',"terminated"));
     }
     public function create(Request $request){
         UserServices::create($request);

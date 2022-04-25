@@ -5,6 +5,7 @@ use App\Models\Analyst;
 use App\Models\AnalystNumbers;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CommonService;
+use App\Services\LogServices;
 class AnalystServices{
     public static function all(){
         $analyst = [];
@@ -51,6 +52,7 @@ class AnalystServices{
             $analyst['website'] = $web['website'];
         }
         $analyst['created_by'] = Auth::id();
+        $user_name = auth()->user()->name;
         try {
             $analyst_id = Analyst::create($analyst);
             // insert numbers
@@ -64,8 +66,10 @@ class AnalystServices{
                     }
                 }
             }
+            LogServices::logEvent(["desc"=>"Analyst created $analyst_id->id by ".$user_name]);
             return $analyst_id->id;
         } catch (\Throwable $th) {
+            LogServices::logEvent(["desc"=>"Unable to create Analyst by ".$user_name]);
             CommonService::throwError("Unable to create Analyst");
         }
     }
@@ -73,15 +77,26 @@ class AnalystServices{
         return Analyst::where("id",$id)->first(["id", "total_calls", "accuracy", "trading_capacity","analyst","status","assign_user_id"]);
     }
     public static function update($request){
+        $user_name = auth()->user()->name;
         if($request->status!= "Terminated"){
             $analyst = $request->validate([
                 "analyst"=>"required",
                 "status"=>"required"
             ]);
             $analyst['assign_user_id'] = $request->assign_user_id;
-            return Analyst::where("id", $request->analyst_id)->update($analyst);
+            try {
+                Analyst::where("id", $request->analyst_id)->update($analyst);
+                return LogServices::logEvent(["desc"=>"Analyst $request->analyst_id Status $request->status updated by ".$user_name]);
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         }
-        return Analyst::where("id", $request->analyst_id)->update(["status"=> "Terminated"]);
+        $id = Analyst::where("id", $request->analyst_id)->update(["status"=> "Terminated"]);
+        if($id){
+            return LogServices::logEvent(["desc"=>"Analyst $request->analyst_id Status $request->status updated by ".$user_name]);
+        }else{
+            return LogServices::logEvent(["desc"=>"Unable to update Analyst $request->analyst_id Status $request->status by ".$user_name]);
+        }
     }
 
     public static function allUserAssignAnalysts($id){
@@ -118,7 +133,13 @@ class AnalystServices{
             "analyst" => "required",
             "assign_user_id" => "required"
         ]);
-        return Analyst::where("id", $request->analyst_id)->update($analyst);
+        $user_name = auth()->user()->name;
+        $id = Analyst::where("id", $request->analyst_id)->update($analyst);
+        if($id){
+            return LogServices::logEvent(["desc"=>"Analyst $request->analyst_id Assign to $request->assign_user_id by ".$user_name]);
+        }else{
+            return LogServices::logEvent(["desc"=>"Analyst $request->analyst_id Assign to $request->assign_user_id by ".$user_name]);
+        }
     }
 
 }

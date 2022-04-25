@@ -72,20 +72,20 @@
 												<select class="form-select form-select-solid" id='freelancer_type' data-control="select2" data-hide-search="true" data-placeholder="Select Freelancer" style="margin-left: 10px;">
 													<option value="">Select freelancer</option>
 													@forelse ($freelancerAms as $freelancer)
-														<option value="{{$freelancer->id}}" @if($filter_type == 'freelancer' && $filter_id == $freelancer->id) selected @endif >{{$freelancer->name}}</option>
+														<option value="{{$freelancer->id}}" {{(isset($filter_type) && $filter_type == 'freelancer' && $filter_id == $freelancer->id)?"selected":""}} >{{$freelancer->name}}</option>
 													@empty
 													@endforelse
 
 													@forelse ($freelancerPrime as $freelancer)
-														<option value="{{$freelancer->id}}" @if($filter_type == 'freelancer' && $filter_id == $freelancer->id) selected @endif >{{$freelancer->name}}</option>
+														<option value="{{$freelancer->id}}" {{(isset($filter_type) && $filter_type == 'freelancer' && $filter_id == $freelancer->id)?"selected":""}} >{{$freelancer->name}}</option>
 													@empty
 													@endforelse
 												</select>
 
-												<select class="form-select form-select-solid" id='trader_id' data-control="select2" data-hide-search="true" data-placeholder="Select Trader">
+												<select class="form-select form-select-solid" id='trader_id' data-control="select2" data-placeholder="Select Trader" >
 													<option value="">Select Trader</option>
 													@forelse ($traders as $trader)
-														<option value="{{$trader->id}}" @if($filter_type == 'trader' && $filter_id == (isset($dematAccount[0])?$dematAccount[0]->id:0)) selected @endif >{{$trader->name}} - {{$trader->count->count()}} &nbsp; Client</option>
+														<option value="{{$trader->id}}" {{(isset($filter_type) && $filter_type == 'trader' && $filter_id == $trader->id)?"selected":""}}>{{$trader->name}} - {{$trader->count->count()}} &nbsp; Client</option>
 													@empty
 													@endforelse
 												</select>
@@ -364,6 +364,7 @@
                 $(document).on("click",'.clear_filter',function(e){
                     window.location.href = "{{ route('clientDematAccount') }}";
                 });
+
 
                 $(document).on("click",'.assignFreelancer',function(e){
                     const id = e.target.getAttribute("data-id");
