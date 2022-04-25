@@ -93,6 +93,12 @@
                                     <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" href="#cash">Cash</a>
                                 </li>
                                 <!--end:::Tab item-->
+
+                                <!--begin:::Tab item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" href="#blockamount">Block Amount </a>
+                                </li>
+                                <!--end:::Tab item-->
                             </ul>
                             <!--end:::Tabs-->
                             <div class="tab-content">
@@ -110,6 +116,7 @@
                                                             <th class="min-w-75px">Bank Title</th>
                                                             <th class="min-w-75px">Available Balance</th>
                                                             <th class="min-w-75px">Limit Utilize</th>
+                                                            <th class="min-w-75px">Block Amount</th>
                                                             <th class="min-w-75px">Action</th>
                                                         </tr>
                                                     </thead>
@@ -119,7 +126,17 @@
                                                                 <td>{{$loop->iteration}}</td>
                                                                 <td>{{$forIncome->title}}</td>
                                                                 <td>{{$forIncome->available_balance}}</td>
-                                                                <td>{{$forIncome->limit_utilize}}</td>
+                                                                <td class="text-end">
+                                                                    <div class="d-flex flex-column w-100 me-2">
+                                                                        <div class="d-flex flex-stack mb-2">
+                                                                            <span class="text-muted me-2 fs-7 fw-bold">{{$forIncome->per_limit_utilize}}%({{$forIncome->limit_utilize}})</span>
+                                                                        </div>
+                                                                        <div class="progress h-6px w-100">
+                                                                            <div class="progress-bar bg-primary" role="progressbar" style="width: {{$forIncome->per_limit_utilize}}%" aria-valuenow="{{$forIncome->per_limit_utilize}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>{{$forIncome->block_amount}}</td>
                                                                 <td>
                                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                         <span class="svg-icon svg-icon-5 m-0">
@@ -297,6 +314,45 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
+                                <div class="tab-pane fade show" id="blockamount" aria-labelledby="active-tab" role="tabpanel">
+                                    <!--begin::Card-->
+                                    <div class="card">
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Bank Title</th>
+                                                            <th class="min-w-75px">Client Name</th>
+                                                            <th class="min-w-75px">Received By</th>
+                                                            <th class="min-w-75px">Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold">
+                                                        @forelse($blockAmountlist as $block_amount)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td>{{$block_amount['title']}}</td>
+                                                                <td>{{$block_amount['st_sg']." - ".$block_amount['serial_number']."  ".$block_amount['name']}}</td>
+                                                                <td>{{$block_amount['name']}}</td>
+                                                                <td>{{$block_amount['final_amount']}}</td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty  --}}
+                                                        @endforelse
+                                                    </tbody>
+                                                <!--end::Table body-->
+                                                </table>
+                                            </div>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card-->
+                                </div>
                             </div>
                         </div>
                         <!--end::Container-->
@@ -419,14 +475,14 @@
                                         <!--end::Label-->
                                         <input type="number" value="{{old('available_balance')}}" name="available_balance" class="form-control form-control-solid" />
                                     </div>
-                                    <div class="form-group">
+                                   <!--  <div class="form-group">
                                         <label class="d-flex align-items-center fs-6 fw-bold">
                                             <span class="required">Limit Utilize:</span>
                                             <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
                                         </label>
                                         <!--end::Label-->
-                                        <input type="text" value="{{old('limit_utilize')}}" name="limit_utilize" class="form-control form-control-solid" />
-                                    </div>
+                                        <!-- <input type="text" value="{{old('limit_utilize')}}" name="limit_utilize" class="form-control form-control-solid" />
+                                    </div> -->
                                     <div class="form-group">
                                         <label class="d-flex align-items-center fs-6 fw-bold">
                                             <span class="required">Target:</span>

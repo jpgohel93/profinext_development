@@ -89,7 +89,29 @@ class ClientDemateServices{
     }
 
     public static function renewAccountList($bank_id,$startDate,$endDate){
-         return RenewDemat::where("bank_id",$bank_id)->where("status","to_renew")->where("created_at",">=","'".$startDate."'")->where("created_at","<=","'".$endDate."'")->with(["bank_name"])->get()->toArray();
+         $data = RenewDemat::leftJoin('finance_management_banks', 'renewal_account.bank_id', '=', 'finance_management_banks.id')-> select('renewal_account.*','finance_management_banks.ifsc_code','finance_management_banks.account_no','finance_management_banks.pan_number','finance_management_banks.account_name','finance_management_banks.title')->where("bank_id",$bank_id)->where("renewal_account.status","to_renew")->where("renewal_account.created_at",">=",$startDate)->where("renewal_account.created_at","<=",$endDate)->get();
+
+         if(!empty($data)){
+            $data = $data->toArray();
+          }
+
+          return $data;
+
+    }
+
+    public static function blockAmountList($startDate,$endDate){
+
+          $data = RenewDemat::leftJoin('finance_management_banks', 'renewal_account.bank_id', '=', 'finance_management_banks.id')-> 
+        leftJoin('client_demat', 'renewal_account.client_demat_id', '=', 'client_demat.id')->
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        leftJoin('users', 'renewal_account.created_by', '=', 'users.id')->
+          select('renewal_account.*','finance_management_banks.ifsc_code','finance_management_banks.account_no','finance_management_banks.pan_number','finance_management_banks.account_name','finance_management_banks.title','clients.name','client_demat.serial_number','client_demat.st_sg','users.name')->where("renewal_account.status","to_renew")->where("renewal_account.created_at",">=",$startDate)->where("renewal_account.created_at","<=",$endDate)->get();
+
+          if(!empty($data)){
+            $data = $data->toArray();
+          }
+
+          return $data;
 
     }
 

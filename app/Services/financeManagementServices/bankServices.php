@@ -28,14 +28,12 @@ class bankServices{
         if($request->type==1){
             // for income
             $forIncome = $request->validate([
-                "available_balance"=> "required",
-                "limit_utilize"=> "required"
+                "available_balance"=> "required"
             ],[
-                "available_balance.required" =>"For income Available balance is required",
-                "limit_utilize.required" => "For income limit utilize is required"
+                "available_balance.required" =>"For income Available balance is required"
             ]);
             $bank['available_balance'] = $forIncome['available_balance'];
-            $bank['limit_utilize'] = $forIncome['limit_utilize'];
+            $bank['limit_utilize'] = 0;
         }elseif($request->type==2){
             // for salary
             $forSalary = $request->validate([
