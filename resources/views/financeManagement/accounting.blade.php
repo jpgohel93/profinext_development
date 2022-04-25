@@ -715,7 +715,7 @@
                     <!--begin::Heading-->
                         <div class="">
                             <!--begin::Title-->
-                            <h3 class="mb-3">Income:</h3>
+                            <h3 class="mb-3">Income</h3>
                             <!--end::Title-->
                         </div>
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -743,7 +743,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Date:</span>
+                                        <span class="required">Date</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="date" value="{{old('date')}}" id='date' name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
@@ -752,7 +752,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Sub Heading:</span>
+                                        <span class="required">Sub Heading</span>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" id="sub_heading" name="sub_heading" data-control="select2" data-placeholder="Select sub heading">
@@ -767,7 +767,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Text Box:</span>
+                                        <span class="required">Text Box</span>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" id="text_box" name='text_box'></textarea>
                                 </div>
@@ -781,7 +781,7 @@
                                 <div class="form-group incomeBankDropDown" style="display:none">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Bank:</span>
+                                        <span class="required">Bank</span>
                                     </label>
                                     <select class="form-select form-select-solid" id="bank" name="bank" data-control="select2">
                                         @forelse ($incomeBanks as $bank)
@@ -794,7 +794,7 @@
                                 <div class="form-group transactionFormDropDown">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Income form:</span>
+                                        <span class="required">Income form</span>
                                         <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select form of income"></i>
                                     </label>
                                     <select class="form-select form-select-solid transactionForm" id="income_form" name="income_form" id="income_smartId" data-control="select2">
@@ -807,7 +807,7 @@
                                     <div class="form-group">
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                           <span class="required">ST:</span>
+                                           <span class="required">ST</span>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('st_amount')}}" id="st_amount" name="st_amount" class="form-control form-control-solid" value=""/>
@@ -815,7 +815,7 @@
                                     <div class="form-group">
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                           <span class="required">SG:</span>
+                                           <span class="required">SG</span>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('sg_amount')}}" id="sg_amount" name="sg_amount" class="form-control form-control-solid" value=""/>
@@ -824,7 +824,7 @@
                                 <div class="form-group mainAmount">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Amount:</span>
+                                        <span class="required">Amount</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" value="{{old('amount')}}" name="amount" id="incomeAmount" class="form-control form-control-solid" value=""/>
@@ -832,7 +832,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Narration:</span>
+                                        <span class="required">Narration</span>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" id="narration" name='narration'></textarea   tarea>
                                 </div>
@@ -867,7 +867,7 @@
                     <!--begin::Heading-->
                         <div class="">
                             <!--begin::Title-->
-                            <h3 class="mb-3">Expenses:</h3>
+                            <h3 class="mb-3">Expenses</h3>
                             <!--end::Title-->
                         </div>
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -895,7 +895,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Date:</span>
+                                        <span class="required">Date</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
@@ -904,7 +904,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Sub Heading:</span>
+                                        <span class="required">Sub Heading</span>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="sub_heading" data-control="select2" data-placeholder="Select sub heading">
@@ -918,7 +918,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Text Box:</span>
+                                        <span class="required">Text Box</span>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='text_box'></textarea>
                                 </div>
@@ -932,7 +932,7 @@
                                 <div class="form-group incomeBankDropDown" style="display:none">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Bank:</span>
+                                        <span class="required">Bank</span>
                                     </label>
                                     <select class="form-select form-select-solid" name="bank" data-control="select2">
                                         @forelse ($incomeBanks as $bank)
@@ -945,7 +945,7 @@
                                 <div class="form-group transactionFormDropDown">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Income form:</span>
+                                        <span class="required">Income form</span>
                                         <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select form of income"></i>
                                     </label>
                                     <select class="form-select form-select-solid transactionForm" name="income_form" id="expense_smartId" data-control="select2">
@@ -958,7 +958,7 @@
                                     <div class="form-group">
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                           <span class="required">ST:</span>
+                                           <span class="required">ST</span>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('st_amount')}}" name="st_amount" class="form-control form-control-solid" value=""/>
@@ -966,7 +966,7 @@
                                     <div class="form-group">
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                           <span class="required">SG:</span>
+                                           <span class="required">SG</span>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('sg_amount')}}" name="sg_amount" class="form-control form-control-solid" value=""/>
@@ -975,7 +975,7 @@
                                 <div class="form-group mainAmount">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Amount:</span>
+                                        <span class="required">Amount</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" value="{{old('amount')}}" name="amount" class="form-control form-control-solid" value=""/>
@@ -983,7 +983,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Narration:</span>
+                                        <span class="required">Narration</span>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='narration'></textarea   tarea>
                                 </div>
@@ -1018,7 +1018,7 @@
                     <!--begin::Heading-->
                     <div class="">
                         <!--begin::Title-->
-                        <h3 class="mb-3">Transfer:</h3>
+                        <h3 class="mb-3">Transfer</h3>
                         <!--end::Title-->
                     </div>
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -1046,7 +1046,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Date:</span>
+                                        <span class="required">Date</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
@@ -1055,7 +1055,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">From:</span>
+                                        <span class="required">From</span>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="from" id="transferFrom" data-control="select2">
@@ -1072,12 +1072,12 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Purpose:</span>
+                                        <span class="required">Purpose</span>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="purpose" id="transferPurpose" data-control="select2">
                                         <option value="">Select Purpose</option>
-                                        @forelse ($headings['income'] as $heading)
+                                        @forelse ($headings['transfer'] as $heading)
                                             <option value="{{$heading->sub_heading}}">{{$heading->sub_heading}}</option>
                                         @empty
 
@@ -1088,7 +1088,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">To:</span>
+                                        <span class="required">To</span>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="to" id="transferTo" data-control="select2" data-placeholder="Select Bank"></select>
@@ -1096,7 +1096,7 @@
                                 <div class="form-group transactionFormDropDown">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Income form:</span>
+                                        <span class="required">Income form</span>
                                         <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select form of income"></i>
                                     </label>
                                     <select class="form-select form-select-solid transactionForm" name="income_form" id="transfer_smartID" data-control="select2">
@@ -1109,7 +1109,7 @@
                                     <div class="form-group">
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                           <span class="required">ST:</span>
+                                           <span class="required">ST</span>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('st_amount')}}" name="st_amount" class="form-control form-control-solid" value=""/>
@@ -1117,7 +1117,7 @@
                                     <div class="form-group">
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                           <span class="required">SG:</span>
+                                           <span class="required">SG</span>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('sg_amount')}}" name="sg_amount" class="form-control form-control-solid" value=""/>
@@ -1126,7 +1126,7 @@
                                 <div class="form-group mainAmount">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Amount:</span>
+                                        <span class="required">Amount</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" value="{{old('amount')}}" name="amount" class="form-control form-control-solid" value=""/>
@@ -1134,7 +1134,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Narration:</span>
+                                        <span class="required">Narration</span>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='narration'></textarea>
                                 </div>
@@ -1169,7 +1169,7 @@
                     <!--begin::Heading-->
                         <div class="">
                             <!--begin::Title-->
-                            <h3 class="mb-3">Loan:</h3>
+                            <h3 class="mb-3">Loan</h3>
                             <!--end::Title-->
                         </div>
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -1196,7 +1196,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Date:</span>
+                                        <span class="required">Date</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="date" value="{{old('date')}}" name="date" class="form-control form-control-solid" value="{{date("Y/m/d")}}"/>
@@ -1205,12 +1205,12 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Sub Heading:</span>
+                                        <span class="required">Sub Heading</span>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="sub_heading" data-control="select2">
                                         <option value="">Select option</option>
-                                        @forelse ($headings['income'] as $income)
+                                        @forelse ($headings['loan'] as $income)
                                             <option value="{{$income->sub_heading}}">{{$income->sub_heading}}</option>
                                         @empty
 
@@ -1221,7 +1221,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Users:</span>
+                                        <span class="required">Users</span>
                                     </label>
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="user" data-control="select2" data-placeholder="Select sub heading">
@@ -1242,7 +1242,7 @@
                                 <div class="form-group incomeBankDropDown" style="display:none">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Bank:</span>
+                                        <span class="required">Bank</span>
                                     </label>
                                     <select class="form-select form-select-solid" name="bank" data-control="select2">
                                         @forelse ($incomeBanks as $bank)
@@ -1255,7 +1255,7 @@
                                 <div class="form-group transactionFormDropDown">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Income form:</span>
+                                        <span class="required">Income form</span>
                                     </label>
                                     <select class="form-select form-select-solid transactionForm" name="income_form" id="loan_smartId" data-control="select2">
                                         <option value="st" selected>ST</option>
@@ -1267,7 +1267,7 @@
                                     <div class="form-group">
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                           <span class="required">ST:</span>
+                                           <span class="required">ST</span>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('st_amount')}}" name="st_amount" class="form-control form-control-solid" value=""/>
@@ -1275,7 +1275,7 @@
                                     <div class="form-group">
                                         <!--begin::Label-->
                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                           <span class="required">SG:</span>
+                                           <span class="required">SG</span>
                                        </label>
                                        <!--end::Label-->
                                        <input type="text" value="{{old('sg_amount')}}" name="sg_amount" class="form-control form-control-solid" value=""/>
@@ -1284,7 +1284,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Interest:</span>
+                                        <span class="required">Interest</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" value="{{old('interest')}}" name="interest" class="form-control form-control-solid" value=""/>
@@ -1292,7 +1292,7 @@
                                 <div class="form-group mainAmount">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Amount:</span>
+                                        <span class="required">Amount</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" value="{{old('amount')}}" name="amount" class="form-control form-control-solid" value=""/>
@@ -1300,7 +1300,7 @@
                                 <div class="form-group">
                                      <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Narration:</span>
+                                        <span class="required">Narration</span>
                                     </label>
                                     <textarea type="text" class="form-control mx-3" name='narration'></textarea>
                                 </div>
