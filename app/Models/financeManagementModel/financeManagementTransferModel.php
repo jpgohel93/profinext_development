@@ -24,6 +24,8 @@ class financeManagementTransferModel extends Model
         "updated_by",
         "deleted_by",
         "deleted_at",
+        "transfer_type",
+        "from_bank_id"
     ];
     public function withBank(){
         return $this->hasOne(BankModel::class, "id", "from")->latest();

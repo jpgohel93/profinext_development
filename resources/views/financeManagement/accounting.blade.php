@@ -1060,9 +1060,9 @@
                                     <!--end::Label-->
                                     <select class="form-select form-select-solid" name="from" id="transferFrom" data-control="select2">
                                         <option value="">Select option</option>
+                                        <option value="cash">Cash</option>
                                         @forelse ($incomeBanks as $bank)
-                                            <option value="cash">Cash</option>
-                                            <option value="{{$bank->title}}">{{$bank->title}}</option>
+                                            <option value="{{$bank->title."_".$bank->id}}">{{$bank->title}}</option>
                                         @empty
 
                                         @endforelse
@@ -1708,7 +1708,7 @@
                                 let options = `<option value="">Select option</option>`;
                                 if(x.length > 0){
                                     $.each(x,(i,v)=>{
-                                        options+=`<option value='${v}'>${v}</option>`;
+                                        options+=`<option value='${v['id']}'>${v['bank_name']}</option>`;
                                     })
                                 }
                                 $("#transferTo").html(options);
@@ -1717,13 +1717,15 @@
                             .fail((err)=>{
                                 // window.alert("Unable to get bank details");
                             })
-                            $("#transferForm").find("[name='income_form']").val(data.income_form).change();
+                            $("#transferForm").find("[name='form'] option:selected").val(data.from+"_"+data.from_bank_id).change();
+                            $("#transferForm").find("[name='purpose']").val(data.purpose).trigger("change");
                             $("#transferForm").find("[name='st_amount']").val(data.st_amount);
                             $("#transferForm").find("[name='sg_amount']").val(data.sg_amount);
                             $("#transferForm").find("[name='amount']").val(data.amount);
                             $("#transferForm").find("[name='income_form']").val(data.income_form).change();
-                            $("#transferForm").find("[name='narration']").val(data.narration).change();
+                            $("#transferForm").find("[name='narration']").val(data.narration);
                             $("#transferForm").find("#transferEditIdContainer").html(`<input type='hidden' name='id' value='${data.id}'>`);
+                            $("#transferForm").find("[name='to']").val(data.to).trigger("change");
                             $("#transferModel").modal("show");
                         })
                         .fail((err)=>{

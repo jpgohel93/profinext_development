@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\financeManagementServices\bankServices;
 use App\Services\financeManagementServices\financeManagementIncomesServices;
+use App\Services\financeManagementServices\financeManagementTransferServices;
 use  App\Services\ClientDemateServices;
 use Illuminate\Support\Facades\Redirect;
 class BankControllers extends Controller
@@ -32,7 +33,6 @@ class BankControllers extends Controller
             $incomeRecordsBlockAmount = ClientDemateServices::renewAccountList($data->id,$startDate,$endDate);
             $bankData = bankServices::getBankAccountById($data->id);
 
-
             $sumOfIncome = !empty($incomeRecords) ? array_sum(array_column($incomeRecords, 'amount')) : 0;
             $sumOfBlockIncome = !empty($incomeRecordsBlockAmount) ? array_sum(array_column($incomeRecordsBlockAmount, 'final_amount')) : 0;
 
@@ -44,9 +44,13 @@ class BankControllers extends Controller
                 $per_limit_utilize = number_format($per_limit_utilize,0);
             }
 
-           $forIncomes[$key]['per_limit_utilize'] = $per_limit_utilize; 
-           $forIncomes[$key]['limit_utilize'] = ($sumOfIncome+$sumOfBlockIncome); 
-           $forIncomes[$key]['block_amount'] = $sumOfBlockIncome; 
+            $transferRecords = financeManagementTransferServices::getAllTransferRowsByPurpose("Reserve Balance",$data->id);
+            $sumOfReserveBalance = !empty($transferRecords) ? array_sum(array_column($transferRecords, 'amount')) : 0;
+
+           $forIncomes[$key]['per_limit_utilize'] = $per_limit_utilize;
+           $forIncomes[$key]['limit_utilize'] = ($sumOfIncome+$sumOfBlockIncome);
+           $forIncomes[$key]['block_amount'] = $sumOfBlockIncome;
+           $forIncomes[$key]['available_balance'] = $data['available_balance'] - $sumOfReserveBalance;
 
         }
 
@@ -79,10 +83,10 @@ class BankControllers extends Controller
     }
     public function setPrimaryFinanceManagementBank(Request $request){
         bankServices::setPrimaryFinanceManagementBank($request);
-        return response(["info"=> "Primary bank updated"],200,["Content-Type"=>"Application/json"]);        
+        return response(["info"=> "Primary bank updated"],200,["Content-Type"=>"Application/json"]);
     }
     public function activateDeactivateAccountFinanceManagementBank(Request $request){
         $status = bankServices::activateDeactivateAccountFinanceManagementBank($request);
-        return response(["info" => "Bank account ". $status], 200, ["Content-Type" => "Application/json"]);        
+        return response(["info" => "Bank account ". $status], 200, ["Content-Type" => "Application/json"]);
     }
 }

@@ -9,6 +9,8 @@ use App\Services\financeManagementServices\financeManagementIncomesServices;
 use App\Services\financeManagementServices\financeManagementExpensesServices;
 use App\Services\financeManagementServices\financeManagementTransferServices;
 use App\Services\financeManagementServices\financeManagementLoanServices;
+use App\Services\financeManagementServices\bankServices;
+use App\Models\financeManagementModel\BankModel;
 use App\Services\UserServices;
 use Illuminate\Support\Facades\Redirect;
 class AccountingController extends Controller
@@ -80,8 +82,27 @@ class AccountingController extends Controller
     // transfer
     public function financeManagementAddTransfer(Request $request){
         financeManagementTransferServices::financeManagementAddTransfer($request);
+
         if(isset($request->id)){
             return Redirect::back()->with("info","Transfer record updated");
+        }else{
+            $from = explode("_", $request['from']);
+            $to = explode("_", $request['to']);
+
+            if($from[1] != $to[1]) {
+                $toBankData = bankServices::getBankAccountById($from[1]);
+                $bankData = bankServices::getBankAccountById($to[1]);
+
+                if (!empty($toBankData)) {
+                    $data['available_balance'] = $toBankData['available_balance'] -  $request->amount;
+                    BankModel::where("id", $from[1])->update($data);
+                }
+
+                if (!empty($bankData)) {
+                    $data['available_balance'] = $bankData['available_balance'] + $request->amount;
+                    BankModel::where("id", $to[1])->update($data);
+                }
+            }
         }
         return Redirect::route("financeManagementAccounting")->with("info", "new Transfer recorded");
     }

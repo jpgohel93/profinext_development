@@ -181,7 +181,7 @@
                                                             <td>Income</td>
                                                             <td>{{$banksTab['income']+0}}</td>
                                                             <td>{{$banksTab['income']}}</td>
-                                                            <td>0</td>
+                                                            <td>{{$reserveBalance['income']}}</td>
                                                             <td>{{$firmTab['st']['income'].','.$firmTab['sg']['income']}}</td>
                                                             <td>
                                                                 <a href="{{route('viewMoreIncome')}}">
@@ -193,7 +193,7 @@
                                                             <td>Salary</td>
                                                             <td>{{$banksTab['salary']+0}}</td>
                                                             <td>{{$banksTab['salary']}}</td>
-                                                            <td>0</td>
+                                                            <td>{{$reserveBalance['salary']}}</td>
                                                             <td>{{$banksTab['st']['salary'].','.$banksTab['sg']['salary']}}</td>
                                                             <td>
                                                                 <a href="{{route('viewMoreSalary')}}">

@@ -47,6 +47,17 @@ class financeManagementTransferServices
             ]);
             throw $error;
         }
+
+        $from = explode("_",$transfer['from']);
+        $transfer['from'] = $from[0];
+        $transfer['from_bank_id'] = $from[1];
+
+        if($transfer['to'] == $from[1]){
+            $transfer['transfer_type'] = "no transfer";
+        }else{
+            $transfer['transfer_type'] = "transfer";
+        }
+
         $transfer['narration'] = $request->narration;
         $transfer['created_by'] = auth()->user()->id;
         if(isset($request->id)){
@@ -67,12 +78,49 @@ class financeManagementTransferServices
     }
     public static function getTransferBanks($request){
         if($request->purpose== "Distribution" || $request->purpose== "distribution"){
-            return User::where("user_type",1)->whereNotNull("bank_name")->select('bank_name','id','created_at as user')->get()->toArray();
+            $banks = User::where("user_type",1)->whereNotNull("bank_name")->select('bank_name','id','created_at as user')->get()->toArray();
+            if(!empty($banks)){
+                $banks =  $banks->toArray();
+            }
+            return $banks;
         }elseif($request->purpose == "Cash Conversion" || $request->purpose== "cash conversion"){
             $banks = User::whereNotNull("bank_name")->select('bank_name','id','created_at as user')->get()->toArray();
             $forSalaryBanks = BankModel::where("type",2)->whereNotNull("title")->select('title as bank_name','id','created_at as bank')->get()->toArray();
+
+            if(!empty($forSalaryBanks)){
+                $forSalaryBanks =  $forSalaryBanks->toArray();
+            }
+
+            if(!empty($banks)){
+                $banks =  $banks->toArray();
+            }
+
             return array_merge($banks,$forSalaryBanks);
+        }elseif($request->purpose == "Reserve Balance" || $request->purpose== "reserve balance"){
+            $banks = BankModel::whereNotNull("title")->select('title as bank_name','id','created_at as bank')->get();
+            if(!empty($banks)){
+                $banks =  $banks->toArray();
+            }
+            return $banks;
         }
         return BankModel::where("type", 2)->whereNotNull("title")->select('title','id','created_at as bank')->get()->toArray();
+    }
+
+    public static function getAllTransferRowsByPurpose($purpose,$bank_id)
+    {
+        $banks = financeManagementTransferModel::where("to",$bank_id)->where('purpose',$purpose)->orderBy('id', 'DESC')->get();
+        if(!empty($banks)){
+            $banks =  $banks->toArray();
+        }
+        return $banks;
+    }
+
+    public static function getAllTransferByPurpose($purpose,$idArray)
+    {
+        $banks = financeManagementTransferModel::whereIn('to', $idArray)->where('purpose',$purpose)->orderBy('id', 'DESC')->get();
+        if(!empty($banks)){
+            $banks =  $banks->toArray();
+        }
+        return $banks;
     }
 }

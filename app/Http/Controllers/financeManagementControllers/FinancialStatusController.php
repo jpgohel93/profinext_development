@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\UserServices;
 use App\Services\financeManagementServices\financialStatusServices;
+use App\Services\financeManagementServices\financeManagementTransferServices;
+use App\Services\financeManagementServices\bankServices;
 class FinancialStatusController extends Controller
 {
     public function financialStatus(){
@@ -17,7 +19,22 @@ class FinancialStatusController extends Controller
         $servicesTab = financialStatusServices::getServicesDetails();
         // balancetab
         $balanceTab = financialStatusServices::getBalanceDetails();
-        return view("financeManagement.financialStatus.index",compact("firmTab","banksTab",  "servicesTab", "balanceTab"));
+
+        $incomeBankData = bankServices::getBankAccounts(1);
+        $salaryBankData = bankServices::getBankAccounts(2);
+
+        $incomeBankIdArray = !empty($incomeBankData) ? array_column($incomeBankData, 'id') : array();
+        $salaryBankIdArray = !empty($salaryBankData) ? array_column($salaryBankData, 'id') : array();
+
+
+        $income = financeManagementTransferServices::getAllTransferByPurpose("Reserve Balance",$incomeBankIdArray);
+        $reserveBalance['income'] = !empty($income) ? array_sum(array_column($income, 'amount')) : 0;
+
+        $salary = financeManagementTransferServices::getAllTransferByPurpose("Reserve Balance",$salaryBankIdArray);
+        $reserveBalance['salary'] = !empty($salary) ? array_sum(array_column($salary, 'amount')) : 0;
+
+
+        return view("financeManagement.financialStatus.index",compact("firmTab","banksTab",  "servicesTab", "balanceTab","reserveBalance"));
     }
     public function usersTab(Request $request){
         // usertab
