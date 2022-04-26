@@ -2,6 +2,7 @@
 
 namespace App\Services\financeManagementServices;
 use App\Models\financeManagementModel\financeManagementIncomesModel;
+use App\Services\LogServices;
 class financeManagementIncomesServices{
 
     public static function financeManagementAddIncome($request){
@@ -44,16 +45,37 @@ class financeManagementIncomesServices{
         }
         $income['text_box']=$request->text_box;
         $income['narration']=$request->narration;
+        $user_name = auth()->user()->name;
         if(isset($request->id)){
             $income['updated_by']= auth()->user()->id;
-            return financeManagementIncomesModel::where("id",$request->id)->update($income);
+            $data = financeManagementIncomesModel::where("id",$request->id)->first();
+            $status = financeManagementIncomesModel::where("id",$request->id)->update($income);
+            if($status){
+                LogServices::logEvent(["desc"=>"Income $request->id updated by $user_name","data"=>$data]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to update Income $request->id by $user_name","data"=>$income]);
+            }
+            return $status;
         }else{
             $income['created_by']= auth()->user()->id;
-            return financeManagementIncomesModel::create($income);
+            $id = financeManagementIncomesModel::create($income);
+            if($id){
+                LogServices::logEvent(["desc"=>"Income $id->id created by $user_name"]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to create Income by $user_name",$income]);
+            }
+            return $id;
         }
     }
     public static function financeManagementRemoveIncome($id){
-        return financeManagementIncomesModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
+        $user_name = auth()->user()->name;
+        $status = financeManagementIncomesModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
+        if($status){
+            LogServices::logEvent(["desc"=>"Income $id deleted by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to delete Income $id by $user_name"]);
+        }
+        return $status;
     }
     public static function getAllIncomeRows(){
         return financeManagementIncomesModel::with(["bank_name"])->orderBy('id', 'DESC')->get();

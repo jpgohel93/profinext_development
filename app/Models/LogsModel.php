@@ -14,6 +14,7 @@ class LogsModel extends Model
         "user_id",
         "client_id",
         "demat_id",
+        "data",
         "created_at",
         "updated_at",
         "deleted_at",

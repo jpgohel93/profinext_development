@@ -2,6 +2,8 @@
 namespace App\Services\financeManagementServices;
 use App\Models\financeManagementModel\BankModel;
 use App\Models\ClientPayment;
+use App\Services\LogServices;
+
 class bankServices{
     public static function addFinanceManagementBank($request){
         // main fields
@@ -51,7 +53,12 @@ class bankServices{
         $bank['invoice_code'] = $request->invoice_code;
         $bank['pan_number'] = $request->pan_number;
         $bank['created_by'] = auth()->user()->id;
-        return BankModel::create($bank);
+        $id = BankModel::create($bank);
+        if($id){
+            LogServices::logEvent(["desc"=>"Bank $id->id created by"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to create Bank created by"]);
+        }
     }
     public static function editFinanceManagementBank($request){
         $request->validate([
@@ -110,7 +117,14 @@ class bankServices{
         $bank['pan_number'] = $request->pan_number;
 
         $bank['updated_by'] = auth()->user()->id;
-        return BankModel::where("id", $request->id)->update($bank);
+        $data = BankModel::where("id", $request->id)->first();
+        $status = BankModel::where("id", $request->id)->update($bank);
+        $user_name = auth()->user()->name;
+        if($status){
+            LogServices::logEvent(["desc"=>"Bank $request->id updated by $user_name","data"=>$data]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to updare Bank $request->id by $user_name","data"=>$data]);
+        }
     }
     public static function getForIncomeAccounts(){
         return BankModel::where(["type"=>1])->get();
@@ -139,7 +153,14 @@ class bankServices{
         ]);
         $bank['target'] = $request->target;
         $bank['updated_by'] = auth()->user()->id;
-        return BankModel::where("id", $request->id)->update($bank);
+        $data = BankModel::where("id", $request->id)->first();
+        $user_name = auth()->user()->name;
+        $status = BankModel::where("id", $request->id)->update($bank);
+        if($status){
+            logServices::logEvent(["desc"=>"Bank $request->id updated by $user_name","data"=>$data]);
+        }else{
+            logServices::logEvent(["desc"=>"Unable to update Bank $request->id by $user_name","data"=>$bank]);
+        }
     }
     public static function setPrimaryFinanceManagementBank($request){
         $request->validate([
@@ -150,6 +171,8 @@ class bankServices{
         ]);
         // for safty store currenty primary account if query faild rollback changes
         $currentPrimaryAccountId = BankModel::where("is_primary",1)->first(['id']);
+        $data = BankModel::where("is_primary",1)->first();
+        $user_name = auth()->user()->name;
         $bank['updated_by'] = auth()->user()->id;
         $bank['is_primary'] = 1;
         if($currentPrimaryAccountId){
@@ -162,9 +185,11 @@ class bankServices{
         }else{
             $query = BankModel::where("id", $request->id)->update($bank);
         }
+        LogServices::logEvent(["desc"=>"Primary bank changed by $user_name","data"=>$data]);
         return $query;
     }
     public static function activateDeactivateAccountFinanceManagementBank($request){
+        $user_name = auth()->user()->name;
         $request->validate([
             "id" => "required|exists:finance_management_banks,id|numeric",
             "status" => "required|min:0|max:1|numeric",
@@ -177,12 +202,15 @@ class bankServices{
             "status.max" => "Invalid account status",
             "status.numeric" => "Invalid account status",
         ]);
+        $data = BankModel::where("id", $request->id)->first();
         $status = BankModel::where("id", $request->id)->update(["is_active"=>$request->status,"updated_by"=>auth()->user()->id]);
         if($status){
             if($request->status){
+                LogServices::logEvent(["desc"=>"Bank $request->id activated by $user_name","data"=>$data]);
                 return "Activated";
             }
         }
+        LogServices::logEvent(["desc"=>"Bank $request->id deactivated by $user_name","data"=>$data]);
         return "Deactivated";
     }
     public static function getPrimaryBankAccounts($type){

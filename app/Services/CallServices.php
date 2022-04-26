@@ -6,7 +6,7 @@ use App\Models\Calls;
 use App\Models\Analyst;
 use App\Models\ClientDemat;
 use Illuminate\Support\Facades\Auth;
-
+use App\Services\LogServices;
 class CallServices
 {
     public static function view(){
@@ -43,7 +43,9 @@ class CallServices
             "quantity"=> "required|numeric",
         ]);
         $margin_value = 0;
+        $user_name = auth()->user()->name;
         $demat = ClientDemat::where("id", $request->client_demate_id)->first(["available_balance", "capital"])->toArray();
+        $ab = $demat['available_balance'];
         if($request->options=='future'){
             $request->validate([
                 "margin_value" =>"required"
@@ -63,14 +65,27 @@ class CallServices
                     ]);
                     throw $error;
                 }else{
-                    ClientDemat::where("id",$request->client_demate_id)->update([
-                        "available_balance"=> $demat['capital']-$margin_value
-                    ]);
+                    $ab_new = $demat['capital']-$margin_value;
+                    $data = ClientDemat::where("id",$request->client_demate_id)->first();
+                    $dt = ["available_balance"=> $ab_new];
+                    $status = ClientDemat::where("id",$request->client_demate_id)->update($dt);
+                    if($status){
+                        LogServices::logEvent(["desc"=>"Demat  $request->client_demate_id updated $request->client_demate_id By $user_name","data"=>$data]);
+                    }else{
+                        LogServices::logEvent(["desc"=>"Unable to Update Demat $request->client_demate_id By $user_name","data"=>$dt]);
+                    }
                 }
             }else{
-                ClientDemat::where("id", $request->client_demate_id)->update([
-                    "available_balance" => $demat['available_balance'] - $margin_value
-                ]);
+                $ab_new = $demat['available_balance'] - $margin_value;
+
+                $data = ClientDemat::where("id", $request->client_demate_id)->first();
+                $dt = ["available_balance" => $ab_new];
+                $status = ClientDemat::where("id", $request->client_demate_id)->update($dt);
+                if($status){
+                    LogServices::logEvent(["desc"=>"Demat $request->client_demate_id Updated By $user_name","data"=>$data]);
+                }else{
+                    LogServices::logEvent(["desc"=>"Unable to Update Demat $request->client_demate_id By $user_name","data"=>$dt]);
+                }
             }
         }else{
             $total = $request->entry_price* $request->quantity;
@@ -81,18 +96,36 @@ class CallServices
                     ]);
                     throw $error;
                 }else{
-                    ClientDemat::where("id", $request->client_demate_id)->update([
-                        "available_balance" => $demat['capital'] - $total
-                    ]);
+                    $ab_new = $demat['capital'] - $total;
+                    $data = ClientDemat::where("id", $request->client_demate_id)->first();
+                    $dt = ["available_balance" => $demat['capital'] - $total];
+                    $status = ClientDemat::where("id", $request->client_demate_id)->update($dt);
+                    if($status){
+                        LogServices::logEvent(["desc"=>"Demat $request->client_demate_id Updated By $user_name","data"=>$data]);
+                    }else{
+                        LogServices::logEvent(["desc"=>"Unable to Update Demat $request->client_demate_id By $user_name","data"=>$dt]);
+                    }
                 }
             }else{
-                ClientDemat::where("id", $request->client_demate_id)->update([
-                    "available_balance" => $demat['available_balance'] - $total
-                ]);
+                $ab_new = $demat['available_balance'] - $total;
+                $data = ClientDemat::where("id", $request->client_demate_id)->first();
+                $dt = ["available_balance" => $demat['available_balance'] - $total];
+                $status = ClientDemat::where("id", $request->client_demate_id)->update($dt);
+                if($status){
+                    LogServices::logEvent(["desc"=>"Demat $request->client_demate_id Updated By $user_name","data"=>$data]);
+                }else{
+                    LogServices::logEvent(["desc"=>"Unable to Update Demat $request->client_demate_id By $user_name","data"=>$dt]);
+                }
             }
         }
         $call['created_by']= Auth::id();
-        return Calls::create($call);
+        $id = Calls::create($call);
+        if($id){
+            LogServices::logEvent(["desc"=>"Call $id->id created By $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to create Call By $user_name"]);
+        }
+        return $id;
     }
     public static function squareOff($request){
         $trade = $request->validate([
@@ -104,9 +137,17 @@ class CallServices
         ]);
         $demat = ClientDemat::where("id", $request->demat_id)->first(["available_balance", "capital"])->toArray();
         $total = $request->price*$request->qty;
-        ClientDemat::where("id", $request->demat_id)->update([
-            "available_balance" => $demat["available_balance"]+$total
+        $user_name = auth()->user()->name;
+        $ab_new = $demat["available_balance"]+$total;
+        $ab = $demat["available_balance"];
+        $status = ClientDemat::where("id", $request->demat_id)->update([
+            "available_balance" => $ab_new
         ]);
+        if($status){
+            LogServices::logEvent(["desc"=>"Demat ID $request->demat_id available balance updated from $ab to $ab_new By $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Update Demat ID $request->demat_id available balance from $ab to $ab_new was failed By $user_name"]);
+        }
 
         $calls = Calls::where("client_demate_id", $request->demat_id)->where("script_name","like",$trade['trade'])->get();
         $scripts = array();
@@ -138,8 +179,6 @@ class CallServices
         $qty[$trade['trade']] -= $request->qty;
         $total[$trade['trade']] -= $request->price*$request->qty;
 
-        // return response(["demat_id" => $demat_id, "analyst" => $analyst, "script_name" => $scripts, "qty" => $qty, "entry_price" => $entry_price, "total" => $total], 200, ["Content-Type" => "Application/json"]);
-
         Calls::where("client_demate_id",$request->demat_id)->where("analyst_id",$request->analyst_id)->where("script_name","like",$trade['trade'])->delete();
 
         $newCall =array();
@@ -153,7 +192,13 @@ class CallServices
         return Calls::create($newCall);
     }
     public static function remove($request){
-        return Calls::where("id", $request->id)->delete();
+        $status = Calls::where("id", $request->id)->delete();
+        $user_name = auth()->user->name;
+        if($status){
+            return LogServices::logEvent(["desc"=>"Call ID $request->id deleted By $user_name"]);
+        }else{
+            return LogServices::logEvent(["desc"=>"Unable to delete Call ID $request->id By $user_name"]);
+        }
     }
     public static function get($id){
         return Calls::with(["analyst:id,analyst"])->where("id", $id)->first(['analyst_id', "script_name", "entry_price", "target_price", "stop_loss"]);
@@ -174,7 +219,13 @@ class CallServices
                 "analyst_id.exists" => "Invalid analyst",
                 "analyst_id.numeric" => "Invalid analyst",
             ]);
-            return Calls::where("id",$request->call_id)->update($call);
+            $status = Calls::where("id",$request->call_id)->update($call);
+            $user_name = auth()->user()->name;
+            if($status){
+                return LogServices::logEvent(["desc"=>"Call ID $request->id Updated By $user_name"]);
+            }else{
+                return LogServices::logEvent(["desc"=>"Unable to update Call ID $request->id By $user_name"]);
+            }
         } catch (\Throwable $th) {
             CommonService::throwError("Unable to update this call");
         }

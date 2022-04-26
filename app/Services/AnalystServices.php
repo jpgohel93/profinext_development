@@ -59,14 +59,23 @@ class AnalystServices{
             if(isset($request->numbers) && is_array($request->numbers) && !empty($request->numbers)){
                 foreach($request->numbers as $number){
                     if($number){
-                        AnalystNumbers::create([
+                        $id = AnalystNumbers::create([
                             "number"=>$number,
                             "analyst_id"=>$analyst_id->id
                         ]);
+                        if($id){
+                            LogServices::logEvent(["desc"=>"Analyst $analyst_id->id updated by ".$user_name]);
+                        }else{
+                            LogServices::logEvent(["desc"=>"Unable to add number for Analyst $analyst_id->id by ".$user_name,"data"=>$number]);
+                        }
                     }
                 }
             }
-            LogServices::logEvent(["desc"=>"Analyst created $analyst_id->id by ".$user_name]);
+            if($analyst_id){
+                LogServices::logEvent(["desc"=>"Analyst created $analyst_id->id by ".$user_name]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to create Analyst $analyst_id->id by ".$user_name,"data"=>$analyst]);
+            }
             return $analyst_id->id;
         } catch (\Throwable $th) {
             LogServices::logEvent(["desc"=>"Unable to create Analyst by ".$user_name]);
@@ -85,18 +94,27 @@ class AnalystServices{
             ]);
             $analyst['assign_user_id'] = $request->assign_user_id;
             try {
-                Analyst::where("id", $request->analyst_id)->update($analyst);
-                return LogServices::logEvent(["desc"=>"Analyst $request->analyst_id Status $request->status updated by ".$user_name]);
+                $data = Analyst::where("id", $request->analyst_id)->first();
+                $status = Analyst::where("id", $request->analyst_id)->update($analyst);
+                if($status){
+                    LogServices::logEvent(["desc"=>"Analyst $request->analyst_id updated by ".$user_name,"data"=>$data]);
+                }else{
+                    LogServices::logEvent(["desc"=>"Analyst $request->analyst_id updated by ".$user_name,"data"=>$analyst]);
+                }
+                return $status;
             } catch (\Throwable $th) {
-                //throw $th;
+                return LogServices::logEvent(["desc"=>"Analyst $request->analyst_id updated by ".$user_name,"data"=>$analyst]);
             }
         }
-        $id = Analyst::where("id", $request->analyst_id)->update(["status"=> "Terminated"]);
-        if($id){
-            return LogServices::logEvent(["desc"=>"Analyst $request->analyst_id Status $request->status updated by ".$user_name]);
+        $dt = ["status"=> "Terminated"];
+        $data = Analyst::where("id", $request->analyst_id)->first();
+        $status = Analyst::where("id", $request->analyst_id)->update($dt);
+        if($status){
+            LogServices::logEvent(["desc"=>"Analyst $request->analyst_id Status $request->status updated by ".$user_name,"data"=>$data]);
         }else{
-            return LogServices::logEvent(["desc"=>"Unable to update Analyst $request->analyst_id Status $request->status by ".$user_name]);
+            LogServices::logEvent(["desc"=>"Unable to update Analyst $request->analyst_id Status $request->status by ".$user_name,"data"=>$dt]);
         }
+        return $status;
     }
 
     public static function allUserAssignAnalysts($id){
@@ -134,12 +152,14 @@ class AnalystServices{
             "assign_user_id" => "required"
         ]);
         $user_name = auth()->user()->name;
-        $id = Analyst::where("id", $request->analyst_id)->update($analyst);
-        if($id){
-            return LogServices::logEvent(["desc"=>"Analyst $request->analyst_id Assign to $request->assign_user_id by ".$user_name]);
+        $data = Analyst::where("id", $request->analyst_id)->first();
+        $status = Analyst::where("id", $request->analyst_id)->update($analyst);
+        if($status){
+            LogServices::logEvent(["desc"=>"Analyst $request->analyst_id updated by ".$user_name,"data"=>$data]);
         }else{
-            return LogServices::logEvent(["desc"=>"Analyst $request->analyst_id Assign to $request->assign_user_id by ".$user_name]);
+            LogServices::logEvent(["desc"=>"Unable to update Analyst $request->analyst_id by ".$user_name,"data"=>$analyst]);
         }
+        return $status;
     }
 
 }

@@ -2,21 +2,15 @@
 
 namespace App\Services;
 
-use App\Models\Client;
 use App\Models\ClientDemat;
-use App\Models\ClientPayment;
 use App\Models\financeManagementModel\financeManagementIncomesModel;
 use App\Models\renewalAccountImagesModal;
-use App\Models\Screenshots;
 use App\Models\RenewDemat;
 use App\Models\RenewExpensesModal;
 use App\Models\User;
 use App\Services\financeManagementServices\bankServices;
 
 class ClientDemateServices{
-    function __construct(){
-
-    }
     public static function active(){
         return ClientDemat::where("account_status","normal")->whereNull("problem")->with(["withClient"])->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->select('client_demat.*', 'clients.name')->get();
     }
@@ -101,7 +95,7 @@ class ClientDemateServices{
 
     public static function blockAmountList($startDate,$endDate){
 
-          $data = RenewDemat::leftJoin('finance_management_banks', 'renewal_account.bank_id', '=', 'finance_management_banks.id')-> 
+          $data = RenewDemat::leftJoin('finance_management_banks', 'renewal_account.bank_id', '=', 'finance_management_banks.id')->
         leftJoin('client_demat', 'renewal_account.client_demat_id', '=', 'client_demat.id')->
         leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
         leftJoin('users', 'renewal_account.created_by', '=', 'users.id')->

@@ -20,20 +20,23 @@ class BankDetailsServices
         $id = BankDetailsModal::create($bank);
         $user_name = auth()->user()->name;
         if($id){
-            return LogServices::logEvent(["desc"=>"Bank $id->id created by $user_name"]);
+            LogServices::logEvent(["desc"=>"Bank $id->id created by $user_name"]);
         }else{
-            return LogServices::logEvent(["desc"=>"Unable to create Bank by $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to create Bank by $user_name","data"=>$bank]);
         }
+        return $id;
     }
     public static function remove($id)
     {
         $user_name = auth()->user()->name;
+        $data = BankDetailsModal::where("id", $id)->first();
         $status = BankDetailsModal::where("id", $id)->forceDelete();
         if($status){
-            return LogServices::logEvent(["desc"=>"Bank $id deleted by $user_name"]);
+            LogServices::logEvent(["desc"=>"Bank $id deleted by $user_name","data"=>$data]);
         }else{
-            return LogServices::logEvent(["desc"=>"Unable to delete Bank by $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to delete Bank $id by $user_name"]);
         }
+        return $status;
     }
     public static function get($id)
     {
@@ -45,11 +48,13 @@ class BankDetailsServices
         $bank = $request->validate([
             "bank" => "required|alpha_spaces|unique:client_banks,bank"
         ]);
+        $data = BankDetailsModal::where("id", $request->id)->first();
         $status = BankDetailsModal::where("id", $request->id)->update($bank);
         if($status){
-            return LogServices::logEvent(["desc"=>"Bank $request->id updated by $user_name"]);
+            LogServices::logEvent(["desc"=>"Bank $request->id updated by $user_name","data"=>$data]);
         }else{
-            return LogServices::logEvent(["desc"=>"Unable to update Bank $request->id by $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to update Bank $request->id by $user_name","data"=>$bank]);
         }
+        return $status;
     }
 }

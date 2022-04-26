@@ -5,6 +5,7 @@ use App\Models\financeManagementModel\HeadingsModel;
 use App\Models\financeManagementModel\BankModel;
 use App\Models\financeManagementModel\financeManagementTransferModel;
 use Illuminate\Support\Facades\Config;
+use App\Services\LogServices;
 class accountingServices
 {
     public static function financeManagementHeadings(){
@@ -54,7 +55,13 @@ class accountingServices
             throw $error;
         }
         $heading['created_by'] = auth()->user()->id;
-        return HeadingsModel::create($heading);
+        $id = HeadingsModel::create($heading);
+        $user_name = auth()->user()->name;
+        if($id){
+            return LogServices::logEvent(["desc"=>"Heading $id->id created by $user_name"]);
+        }else{
+            return LogServices::logEvent(["desc"=>"Unable to create Heading by $user_name"]);
+        }
     }
     public static function financeManagementEditHeadings($request){
         $heading = $request->validate([
@@ -74,7 +81,12 @@ class accountingServices
             throw $error;
         }
         $heading['updated_by'] = auth()->user()->id;
-        return HeadingsModel::where("id",$request->id)->update($heading);
+        $data = HeadingsModel::where("id",$request->id)->first();
+        $user_name = auth()->user()->name;
+        $status = HeadingsModel::where("id",$request->id)->update($heading);
+        if($status){
+            LogServices::logEvent(["desc"=>"Heading $request->id updated by $user_name","data"=>$data]);
+        }
     }
     public static function activateDeactivateHeadingFinanceManagementAccounting($request){
         $request->validate([
@@ -89,7 +101,10 @@ class accountingServices
             "status.max" => "Invalid Request",
             "status.numeric" => "Invalid Request",
         ]);
+        $data = HeadingsModel::where("id", $request->id)->first();
+        $user_name= auth()->user()->name;
         $status = HeadingsModel::where("id", $request->id)->update(["is_active" => $request->status, "updated_by" => auth()->user()->id]);
+        LogServices::logEvent(["desc"=>"Heading updated by $user_name","data"=>$data]);
         if ($status) {
             if ($request->status) {
                 return "Activated";

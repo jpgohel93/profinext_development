@@ -5,6 +5,8 @@ use App\Models\documentManagement\documentManagementModel;
 use App\Models\documentManagement\ImageModel;
 use App\Models\PancardImageModel;
 use App\Models\renewalAccountImagesModal;
+use App\Services\LogServices;
+use PDO;
 
 class documentServices{
     // documents
@@ -26,11 +28,8 @@ class documentServices{
             throw $error;
         }
         if($request->hasFile("document")){
-
             $destinationPath = public_path('documents/');
-
             $imageData = documentManagementModel::where("id",$request->id)->first();
-
             if(!empty($imageData)) {
                 if ($imageData->document != '') {
                     if(file_exists($destinationPath.$imageData->document)){
@@ -38,22 +37,39 @@ class documentServices{
                     }
                 }
             }
-
             $filename = $request->file('document')->hashName();
             $request->document->move($destinationPath, $filename);
             $document['document'] = $filename;
         }
         $document['notes'] = $request->notes;
+        $user_name = auth()->user()->name;
         if($request->id){
             $document['updated_by'] = auth()->user()->id;
-            documentManagementModel::where("id",$request->id)->update($document);
+            $data = self::getData($request->id);
+            $status = documentManagementModel::where("id",$request->id)->update($document);
+            if($status){
+                LogServices::logEvent(["desc"=>"Document $request->id updated by $user_name","data"=>$data]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to update Document $request->id by $user_name"]);
+            }
         }else{
             $document['created_by'] = auth()->user()->id;
-            documentManagementModel::create($document);
+            $id = documentManagementModel::create($document);
+            if($id){
+                LogServices::logEvent(["desc"=>"Document $id->id created by $user_name"]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to create Document by $user_name"]);
+            }
         }
     }
     public static function remove($id){
-        return documentManagementModel::where("id",$id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
+        $status = documentManagementModel::where("id",$id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
+        $user_name = auth()->user()->name;
+        if($status){
+            return LogServices::logEvent(["desc"=>"Document $id deleted by $user_name"]);
+        }else{
+            return LogServices::logEvent(["desc"=>"Unable to delete Document $id by $user_name"]);
+        }
     }
     // pan cards
     public static function panCards(){
@@ -73,6 +89,7 @@ class documentServices{
     }
 
     public static function editPanCardData($request){
+        $user_name = auth()->user()->name;
         $document = $request->validate([
             "id"=> "required"
         ]);
@@ -101,11 +118,23 @@ class documentServices{
         }
         if($request->id){
             $document['updated_at'] = date('Y-m-d');
-            PancardImageModel::where("id",$request->id)->update($document);
+            $data = PancardImageModel::where("id",$request->id)->first();
+            $status = PancardImageModel::where("id",$request->id)->update($document);
+            if($status){
+                return LogServices::logEvent(["desc"=>"Pan card $request->id updated by $user_name","data"=>$data]);
+            }else{
+                return LogServices::logEvent(["desc"=>"Unable to update Pan card $request->id by $user_name"]);
+            }
         }
     }
     public static function removePanCard($id){
-        return PancardImageModel::where("id",$id)->delete();
+        $status = PancardImageModel::where("id",$id)->delete();
+        $user_name = auth()->user()->name;
+        if($status){
+            return LogServices::logEvent(["desc"=>"Pan card $id deleted by $user_name"]);
+        }else{
+            return LogServices::logEvent(["desc"=>"Unable to delete Pan card $id by $user_name"]);
+        }
     }
 
     public static function screenshots(){
@@ -128,6 +157,7 @@ class documentServices{
     }
 
     public static function editScreenshotsData($request){
+        $user_name = auth()->user()->name;
         $document = $request->validate([
             "id"=> "required"
         ]);
@@ -157,11 +187,23 @@ class documentServices{
         if($request->id){
             $document['updated_at'] = date('Y-m-d');
             $document['title'] = $request->title;
-            renewalAccountImagesModal::where("id",$request->id)->update($document);
+            $data = renewalAccountImagesModal::where("id",$request->id)->first();
+            $status = renewalAccountImagesModal::where("id",$request->id)->update($document);
+            if($status){
+                return LogServices::logEvent(["desc"=>"Renewal account image $request->id updated by $user_name","data"=>$data]);
+            }else{
+                return LogServices::logEvent(["desc"=>"Unable to update Renewal account image $request->id by $user_name"]);
+            }
         }
     }
     public static function removeScreenshots($id){
-        return renewalAccountImagesModal::where("id",$id)->delete();
+        $status = renewalAccountImagesModal::where("id",$id)->delete();
+        $user_name = auth()->user()->id;
+        if($status){
+            return LogServices::logEvent(["desc"=>"Renewal account image $id deleted by $user_name"]);
+        }else{
+            return LogServices::logEvent(["desc"=>"Unable to delete Renewal account image $id by $user_name"]);
+        }
     }
 
     public static function images(){
@@ -172,6 +214,7 @@ class documentServices{
         return ImageModel::where("id",$id)->first();
     }
     public static function addImage($request){
+        $user_name = auth()->user()->id;
         $document = $request->validate([
             "date"=> "required",
             "title"=> "required",
@@ -202,10 +245,16 @@ class documentServices{
         $document['notes'] = $request->notes;
         if($request->id){
             $document['updated_by'] = auth()->user()->id;
-            ImageModel::where("id",$request->id)->update($document);
+            $data = ImageModel::where("id",$request->id)->first();
+            $status = ImageModel::where("id",$request->id)->update($document);
+            if($status){
+                return LogServices::logEvent(["desc"=>"Image $request->id updated by $user_name","data"=>$data]);
+            }else{
+                return LogServices::logEvent(["desc"=>"Unable to update Image $request->id by $user_name"]);
+            }
         }else{
             $document['created_by'] = auth()->user()->id;
-            ImageModel::create($document);
+            $id = ImageModel::create($document);
         }
     }
     public static function removeImage($id){

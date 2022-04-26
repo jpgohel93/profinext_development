@@ -7,8 +7,8 @@ use App\Models\ClientDemat;
 use App\Models\RenewDemat;
 use App\Services\CommonService;
 use Illuminate\Support\Facades\Auth;
-use \App\Services\financeManagementServices\bankServices;
-
+use App\Services\financeManagementServices\bankServices;
+use App\Services\LogServices;
 class renewalStatusService
 {
     public static function view()
@@ -51,29 +51,7 @@ class renewalStatusService
     {
         return ClientDemat::where("is_new",1)->orWhere("is_new",2)->whereNull("mark_as_problem")->get();
     }
-    public static function create($request)
-    {
-        $type = $request->validate([
-            "account_type" => "required|alpha_spaces|unique:user_account_types,account_type"
-        ]);
-        $type['created_by'] = Auth::id();
-        return AccountTypesModel::create($type);
-    }
-    public static function remove($id)
-    {
-        return AccountTypesModel::where("id", $id)->delete();
-    }
-    public static function get($id)
-    {
-        return AccountTypesModel::where("id", $id)->first(["id", "account_type"]);
-    }
-    public static function edit($request)
-    {
-        $type = $request->validate([
-            "account_type" => "required|alpha_spaces|unique:user_account_types,account_type"
-        ]);
-        return AccountTypesModel::where("id", $request->id)->update($type);
-    }
+
     public static function createRenewal($request){
         $forIncomes = bankServices::getBankAccountById($request->payment_bank_id);
 
@@ -129,9 +107,15 @@ class renewalStatusService
             $request_data['final_amount'] = $request->total_payment;
         }
         try {
-            RenewDemat::create($request_data);
-            return true;
+            $id = RenewDemat::create($request_data);
+            $user_name = auth()->user()->name;
+            if($id){
+                LogServices::logEvent(["desc"=>"renewal $id->id created by $user_name"]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to create renewal by $user_name","data"=>$request_data]);
+            }
         } catch (\Throwable $th) {
+            LogServices::logEvent(["desc"=>"Unable to create renewal by $user_name","data"=>$request_data]);
             CommonService::throwError("Unable to create renew demat datass".$th);
         }
     }

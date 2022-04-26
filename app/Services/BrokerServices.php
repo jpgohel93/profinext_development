@@ -22,20 +22,23 @@ class BrokerServices
             $broker['created_by'] = Auth::id();
             $id = BrokerModal::create($broker);
             LogServices::logEvent(["desc"=>"Broker $id->id created by $user_name"]);
+            return $id;
         } catch (\Throwable $th) {
-            LogServices::logEvent(["desc"=>"Unable to create Broker $user_name"]);
-            CommonService::throwError("Unable to create Broker");
+            LogServices::logEvent(["desc"=>"Unable to create Broker $user_name","data"=>$broker]);
+            return CommonService::throwError("Unable to create Broker");
         }
     }
     public static function remove($id)
     {
         $user_name = auth()->user()->name;
+        $data = BrokerModal::where("id", $id)->first();
         $id = BrokerModal::where("id", $id)->forceDelete();
         if($id){
-            LogServices::logEvent(["desc"=>"Broker $id removed by $user_name"]);
+            LogServices::logEvent(["desc"=>"Broker $id removed by $user_name","data"=>$data]);
         }else{
             LogServices::logEvent(["desc"=>"Unable to remove Broker $id by $user_name"]);
         }
+        return $id;
     }
     public static function get($id)
     {
@@ -49,10 +52,16 @@ class BrokerServices
             "broker" => "required|alpha_spaces|unique:client_brokers,broker"
         ]);
         try {
-            BrokerModal::where("id", $request->id)->update($broker);
-            return LogServices::logEvent(["desc"=>"Broker $request->id updated by $user_name"]);
+            $data = BrokerModal::where("id", $request->id)->first();
+            $status = BrokerModal::where("id", $request->id)->update($broker);
+            if($status){
+                LogServices::logEvent(["desc"=>"Broker $request->id updated by $user_name","data"=>$data]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to update Broker $request->id by $user_name","data"=>$broker]);
+            }
+            return $status;
         } catch (\Throwable $th) {
-            LogServices::logEvent(["desc"=>"Unable to update Broker $request->id by $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to update Broker $request->id by $user_name","data"=>$broker]);
             return CommonService::throwError("Unable to create Broker");
         }
     }

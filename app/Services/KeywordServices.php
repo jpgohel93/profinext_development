@@ -18,7 +18,7 @@ class KeywordServices
         if($id){
             return LogServices::logEvent(["desc"=>"Keyword $id->id created by $user_name"]);
         }else{
-            return LogServices::logEvent(["desc"=>"Unable to create Keyword by $user_name"]);
+            return LogServices::logEvent(["desc"=>"Unable to create Keyword by $user_name","data"=>$keyword]);
         }
     }
     public static function remove($id){

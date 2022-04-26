@@ -5,6 +5,7 @@ namespace App\Services\financeManagementServices;
 use App\Models\financeManagementModel\financeManagementTransferModel;
 use App\Models\User;
 use App\Models\financeManagementModel\BankModel;
+use App\Services\LogServices;
 class financeManagementTransferServices
 {
     public static function financeManagementAddTransfer($request)
@@ -60,14 +61,34 @@ class financeManagementTransferServices
 
         $transfer['narration'] = $request->narration;
         $transfer['created_by'] = auth()->user()->id;
+        $user_name = auth()->user()->name;
         if(isset($request->id)){
             $transfer['updated_by'] = auth()->user()->id;
-            return financeManagementTransferModel::where("id",$request->id)->update($transfer);
+            $data = financeManagementTransferModel::where("id",$request->id)->first();
+            $status = financeManagementTransferModel::where("id",$request->id)->update($transfer);
+            if($status){
+                LogServices::logEvent(["desc"=>"Transfer $request->id updated by $user_name","data"=>$data]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to update Transfer $request->id by $user_name","data"=>$transfer]);
+            }
         }
-        return financeManagementTransferModel::create($transfer);
+        $id = financeManagementTransferModel::create($transfer);
+        if($id){
+            LogServices::logEvent(["desc"=>"Transfer $id->id created by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to create Transfer by $user_name","data"=>$transfer]);
+        }
+        return $id;
     }
     public static function financeManagementRemoveTransfer($id){
-        return financeManagementTransferModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
+        $user_name = auth()->user()->name;
+        $status = financeManagementTransferModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
+        if($status){
+            LogServices::logEvent(["desc"=>"Transfer $id deleted by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to delete Transfer $id by $user_name"]);
+        }
+        return $status;
     }
     public static function getRowById($id){
         return financeManagementTransferModel::where("id", $id)->first();

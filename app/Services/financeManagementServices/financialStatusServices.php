@@ -543,7 +543,6 @@ class financialStatusServices
             $filter = $request->filter;
             if($filter=="quarterly"){
                 $days= CommonService::getQuarterDay(date('n'), date('j'), date('Y'));
-                dd($days);
             }
             else if($filter==100){
                 // current month

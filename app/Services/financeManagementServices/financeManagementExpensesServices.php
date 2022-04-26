@@ -2,6 +2,7 @@
 
 namespace App\Services\financeManagementServices;
 use App\Models\financeManagementModel\financeManagementExpensesModel;
+use App\Services\LogServices;
 class financeManagementExpensesServices
 {
     public static function financeManagementAddExpense($request)
@@ -47,14 +48,34 @@ class financeManagementExpensesServices
         $expense['text_box'] = $request->text_box;
         $expense['narration'] = $request->narration;
         $expense['created_by'] = auth()->user()->id;
+        $user_name = auth()->user()->name;
         if(isset($request->id)){
             $expense['updated_by'] = $request->updated_by;
-            return financeManagementExpensesModel::where("id",$request->id)->update($expense);
+            $data = financeManagementExpensesModel::where("id",$request->id)->first();
+            $status = financeManagementExpensesModel::where("id",$request->id)->update($expense);
+            if($status){
+                LogServices::logEvent(["desc"=>"Expense $request->id updated by $user_name","data"=>$data]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to update Expense $request->id by $user_name","data"=>$expense]);
+            }
         }
-        return financeManagementExpensesModel::create($expense);
+        $id = financeManagementExpensesModel::create($expense);
+        if($id){
+            LogServices::logEvent(["desc"=>"Expense $id->id created by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to create Expense by $user_name","data"=>$expense]);
+        }
+        return $id;
     }
     public static function financeManagementRemoveExpense($id){
-        return financeManagementExpensesModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
+        $user_name = auth()->user()->name;
+        $data = financeManagementExpensesModel::where("id", $id)->first();
+        $status = financeManagementExpensesModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
+        if($status){
+            LogServices::logEvent(["desc"=>"Expense $id deleted by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to delete Expense $id by $user_name"]);
+        }
     }
     public static function getRowById($id){
         return financeManagementExpensesModel::where("id", $id)->with(["bank_name"])->first();

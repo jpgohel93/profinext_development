@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Redirect;
 use App\Services\TermsAndConditionsServices;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
-use App\Models\RenewDemat;
 class renewalStatusController extends Controller
 {
     public function view(){
@@ -279,13 +278,11 @@ class renewalStatusController extends Controller
                 });
                 return response(["info" =>"email sent"], 200, ["Content-Type" => "Application/json"]);
             } catch (\Throwable $e) {
-                dd($e->getMessage());
                 return response(["error" =>"Unable to sent mail",$e], 200, ["Content-Type" => "Application/json"]);
             }
         }else{
             return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title',"terms","type","id"));
         }
-        // return view("financeManagement.fees_invoice",compact("renewData","message",'total','grand_total','title',"terms","type"));
     }
 
     public function profitSharingPayment(Request $request,$pdf= false){
@@ -322,7 +319,6 @@ class renewalStatusController extends Controller
                 });
                 return response(["info" =>"email sent"], 200, ["Content-Type" => "Application/json"]);
             } catch (\Throwable $e) {
-                dd($e->getMessage());
                 return response(["error" =>"Unable to sent mail",$e], 200, ["Content-Type" => "Application/json"]);
             }
         }else{
@@ -389,7 +385,6 @@ class renewalStatusController extends Controller
                 });
                 return response(["info" =>"email sent"], 200, ["Content-Type" => "Application/json"]);
             } catch (\Throwable $e) {
-                dd($e->getMessage());
                 return response(["error" =>"Unable to sent mail",$e], 200, ["Content-Type" => "Application/json"]);
             }
         }else{
