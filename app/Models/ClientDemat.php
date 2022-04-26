@@ -27,12 +27,12 @@ class ClientDemat extends Model
     {
         return $this->hasMany(PancardImageModel::class);
     }
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('created_by', function (\Illuminate\Database\Eloquent\Builder $builder) {
-            $builder->where($builder->getModel()->getTable() . '.created_by', auth()->user()->id);
-        });
-    }
+//    protected static function boot()
+//    {
+//        parent::boot();
+//
+//        static::addGlobalScope('created_by', function (\Illuminate\Database\Eloquent\Builder $builder) {
+//            $builder->where($builder->getModel()->getTable() . '.created_by', auth()->user()->id);
+//        });
+//    }
 }

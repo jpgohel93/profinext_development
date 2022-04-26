@@ -20,8 +20,15 @@ class accountingServices
         $demat['data']= array();
 
         // current financial year
-        $start = date("Y-m-d", strtotime(date("Y") . "-04-01"));
-        $end = date("Y-m-d", strtotime((date("Y") + 1) . "-03-31"));
+        if(date("m") >= 4){
+            $start = date("Y-m-d",strtotime(date("Y")."-04-01"));
+            $end = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }else{
+            $start = date("Y-m-d",strtotime((date("Y") - 1)."-04-01"));
+            $end = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }
+       // $start = date("Y-m-d", strtotime(date("Y") . "-04-01"));
+        //$end = date("Y-m-d", strtotime((date("Y") + 1) . "-03-31"));
 
         $salaries = financeManagementTransferModel::select("finance_management_transfers.bank_type","finance_management_transfers.to","finance_management_transfers.amount","users.name","finance_management_transfers.date")
         ->whereDate('finance_management_transfers.date',">=",$start)->whereDate("finance_management_transfers.date","<=",$end)->where("finance_management_transfers.bank_type","user")->leftJoin("users","finance_management_transfers.to","=","users.id")

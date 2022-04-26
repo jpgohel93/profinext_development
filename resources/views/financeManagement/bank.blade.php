@@ -491,6 +491,15 @@
                                         <!--end::Label-->
                                         <input type="text" value="{{old('target')}}" name="target" class="form-control form-control-solid" />
                                     </div>
+
+                                    <div class="form-group">
+                                        <label class="d-flex align-items-center fs-6 fw-bold">
+                                            <span class="required">Invoice Code:</span>
+                                            <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="text" value="{{old('invoice_code')}}" name="invoice_code" class="form-control form-control-solid" />
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="d-flex align-items-center fs-6 fw-bold">
@@ -516,14 +525,7 @@
                                     <!--end::Label-->
                                     <input type="text" value="{{old('account_no')}}" name="account_no" class="form-control form-control-solid" />
                                 </div>
-                                <div class="form-group">
-                                    <label class="d-flex align-items-center fs-6 fw-bold">
-                                        <span class="required">Invoice Code:</span>
-                                        <i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter bank name"></i>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" value="{{old('invoice_code')}}" name="invoice_code" class="form-control form-control-solid" />
-                                </div>
+
                                 <div class="form-group">
                                     <label class="d-flex align-items-center fs-6 fw-bold">
                                         <span class="required">PAN Number:</span>
@@ -654,13 +656,13 @@
                                     <!--end::Label-->
                                     <input type="number" value="" id="view_available_balance" class="form-control form-control-solid" />
                                 </div>
-                                <div class="form-group">
-                                    <label class="d-flex align-items-center fs-6 fw-bold">
-                                        <span class="required">Limit Utilize:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" value="" id="view_limit_utilize" class="form-control form-control-solid" />
-                                </div>
+{{--                                <div class="form-group">--}}
+{{--                                    <label class="d-flex align-items-center fs-6 fw-bold">--}}
+{{--                                        <span class="required">Limit Utilize:</span>--}}
+{{--                                    </label>--}}
+{{--                                    <!--end::Label-->--}}
+{{--                                    <input type="text" value="" id="view_limit_utilize" class="form-control form-control-solid" />--}}
+{{--                                </div>--}}
                                 <div class="form-group">
                                     <label class="d-flex align-items-center fs-6 fw-bold">
                                         <span class="required">Target:</span>

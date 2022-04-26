@@ -29,29 +29,29 @@ class bankServices{
         ]);
         if($request->type==1){
             // for income
-            $forIncome = $request->validate([
-                "available_balance"=> "required"
-            ],[
-                "available_balance.required" =>"For income Available balance is required"
-            ]);
-            $bank['available_balance'] = $forIncome['available_balance'];
+//            $forIncome = $request->validate([
+//                "available_balance"=> "required"
+//            ],[
+//                "available_balance.required" =>"For income Available balance is required"
+//            ]);
+            $bank['available_balance'] = $request->available_balance;
             $bank['limit_utilize'] = 0;
         }elseif($request->type==2){
             // for salary
-            $forSalary = $request->validate([
-                "reserve_balance" => "required"
-            ],[
-                "reserve_balance.required" =>"For Salary reserve balance is required"
-            ]);
-            $bank['reserve_balance'] = $forSalary['reserve_balance'];
+//            $forSalary = $request->validate([
+//                "reserve_balance" => "required"
+//            ],[
+//                "reserve_balance.required" =>"For Salary reserve balance is required"
+//            ]);
+            $bank['reserve_balance'] = $request->reserve_balance;
         }else{
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 'type' => ['Invalid Account type'],
             ]);
-            throw $error;;
+            throw $error;
         }
         $bank['invoice_code'] = $request->invoice_code;
-        $bank['pan_number'] = $request->pan_number;
+        $bank['pan_number'] = (isset($request->pan_number) && $request->pan_number != '')  ? strtoupper($request->pan_number) : '';
         $bank['created_by'] = auth()->user()->id;
         $id = BankModel::create($bank);
         if($id){
@@ -90,23 +90,22 @@ class bankServices{
         ]);
         if ($request->type == 1) {
             // for income
-            $forIncome = $request->validate([
-                "available_balance" => "required",
-                "limit_utilize" => "required"
-            ], [
-                "available_balance.required" => "For income Available balance is required",
-                "limit_utilize.required" => "For income limit utilize is required"
-            ]);
-            $bank['available_balance'] = $forIncome['available_balance'];
-            $bank['limit_utilize'] = $forIncome['limit_utilize'];
+//            $forIncome = $request->validate([
+//                "available_balance" => "required",
+//                "limit_utilize" => "required"
+//            ], [
+//                "available_balance.required" => "For income Available balance is required",
+//                "limit_utilize.required" => "For income limit utilize is required"
+//            ]);
+            $bank['available_balance'] = $request->available_balance;
         } elseif ($request->type == 2) {
             // for salary
-            $forSalary = $request->validate([
-                "reserve_balance" => "required"
-            ], [
-                "reserve_balance.required" => "For Salary reserve balance is required"
-            ]);
-            $bank['reserve_balance'] = $forSalary['reserve_balance'];
+//            $forSalary = $request->validate([
+//                "reserve_balance" => "required"
+//            ], [
+//                "reserve_balance.required" => "For Salary reserve balance is required"
+//            ]);
+            $bank['reserve_balance'] = $request->reserve_balance;
         } else {
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 'type' => ['Invalid Account type'],
@@ -114,7 +113,8 @@ class bankServices{
             throw $error;;
         }
         $bank['invoice_code'] = $request->invoice_code;
-        $bank['pan_number'] = $request->pan_number;
+        $bank['pan_number'] = (isset($request->pan_number) && $request->pan_number != '')  ? strtoupper($request->pan_number) : '';
+
 
         $bank['updated_by'] = auth()->user()->id;
         $data = BankModel::where("id", $request->id)->first();
@@ -235,5 +235,19 @@ class bankServices{
             return $bank->toArray();
         }
         return $bank;
+    }
+    public static function financeManagementGetBankByInvoiceCode($code){
+        $bank = BankModel::where("invoice_code",$code)->first();
+        if(!$bank){
+            return null;
+        }
+        return $bank->toJson();
+    }
+    public static function financeManagementGetBankByAccountNo($account_no,$type){
+        $bank = BankModel::where("account_no",$account_no)->where("type",$type)->first();
+        if(!$bank){
+            return null;
+        }
+        return $bank->toJson();
     }
 }

@@ -16,8 +16,15 @@ class financialStatusServices
 {
     public static function getFirmsDetails(){
         // current financial year
-        $start = date("Y-m-d", strtotime(date("Y") . "-04-01"));
-        $end = date("Y-m-d", strtotime((date("Y") + 1) . "-03-31"));
+        if(date("m") >= 4){
+            $start = date("Y-m-d",strtotime(date("Y")."-04-01"));
+            $end = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }else{
+            $start = date("Y-m-d",strtotime((date("Y") - 1)."-04-01"));
+            $end = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }
+        //$start = date("Y-m-d", strtotime(date("Y") . "-04-01"));
+        //$end = date("Y-m-d", strtotime((date("Y") + 1) . "-03-31"));
 
         // st
         $firmTab['st']['income'] = financeManagementIncomesModel::where("income_form","st")->whereDate("date",">=",$start)->whereDate("date", "<=", $end)->sum("amount");
@@ -49,9 +56,19 @@ class financialStatusServices
     }
     public static function getBanksDetails(){
         $bank = array();
+
         // current financial year
-        $start = date("Y-m-d",strtotime(date("Y")."-04-01"));
-        $end = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        if(date("m") >= 4){
+            $start = date("Y-m-d",strtotime(date("Y")."-04-01"));
+            $end = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }else{
+           $start = date("Y-m-d",strtotime((date("Y") - 1)."-04-01"));
+            $end = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }
+
+
+        //$start = date("Y-m-d",strtotime(date("Y")."-04-01"));
+        //$end = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
 
         $bank['salary'] = financeManagementTransferModel::leftJoin("finance_management_banks", "finance_management_transfers.to","like", "finance_management_banks.title")->where("finance_management_banks.type",2)->whereDate("finance_management_transfers.date",">=",$start)->whereDate("finance_management_transfers.date", "<=", $end)->sum("finance_management_transfers.amount");
 
@@ -95,8 +112,15 @@ class financialStatusServices
             $endDate = date("Y-m-t");
         }
         // current financial year
-        $start = date("Y-m-d", strtotime(date("Y") . "-04-01"));
-        $end = date("Y-m-d", strtotime((date("Y") + 1) . "-03-31"));
+        if(date("m") >= 4){
+            $start = date("Y-m-d",strtotime(date("Y")."-04-01"));
+            $end = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }else{
+            $start = date("Y-m-d",strtotime((date("Y") - 1)."-04-01"));
+            $end = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }
+        //$start = date("Y-m-d", strtotime(date("Y") . "-04-01"));
+        //$end = date("Y-m-d", strtotime((date("Y") + 1) . "-03-31"));
 
 
         $users_data = User::whereDate("joining_date",">=",$startDate)->whereDate("joining_date","<=",$endDate)->select('name',"user_type","id as user_id","company_first","company_second","profit_percentage_first","profit_percentage_second")->get();
@@ -247,8 +271,15 @@ class financialStatusServices
             $endDate = date("Y-m-d",strtotime($request->endDate));
         }else{
             // current financial year
-            $startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
-            $endDate = date("Y-m-d",strtotime(date("Y")."-03-31"));
+            if(date("m") >= 4){
+                $startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
+                $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+            }else{
+                $startDate = date("Y-m-d",strtotime((date("Y") - 1)."-04-01"));
+                $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+            }
+            //$startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
+            //$endDate = date("Y-m-d",strtotime(date("Y")."-03-31"));
         }
 
         $bank = array();
@@ -323,8 +354,16 @@ class financialStatusServices
     }
     public static function incomeExpenseDetailsFinancialStatus($request){
         $demat['data']= array();
-        $startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
-        $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        // current financial year
+        if(date("m") >= 4){
+            $startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
+            $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }else{
+            $startDate = date("Y-m-d",strtotime((date("Y") - 1)."-04-01"));
+            $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }
+        //$startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
+        //$endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
         if(isset($startDate) && $startDate!="" && isset($endDate) && $endDate != ""){
             $income = collect(financeManagementIncomesModel::where("mode",0)->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->select("*","id as income")->get());
 
@@ -352,8 +391,17 @@ class financialStatusServices
     }
     public static function cashConversionDetailsFinancialStatus($request){
         $demat['data']= array();
-        $startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
-        $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+
+        // current financial year
+        if(date("m") >= 4){
+            $startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
+            $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }else{
+            $startDate = date("Y-m-d",strtotime((date("Y") - 1)."-04-01"));
+            $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }
+        //$startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
+        //$endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
         if(isset($startDate) && $startDate!="" && isset($endDate) && $endDate != ""){
             $accounts = financeManagementTransferModel::where("purpose","like","Cash Conversion")->whereDate("date",">=",$startDate)->whereDate("date","<=",$endDate)->get();
 
@@ -458,8 +506,15 @@ class financialStatusServices
         // default current logged user
         $user_id = auth()->user()->id;
         // current financial year
-        $startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
-        $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        if(date("m") >= 4){
+            $startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
+            $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }else{
+            $startDate = date("Y-m-d",strtotime((date("Y") - 1)."-04-01"));
+            $endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
+        }
+        //$startDate = date("Y-m-d",strtotime(date("Y")."-04-01"));
+        //$endDate = date("Y-m-d",strtotime((date("Y")+1)."-03-31"));
         if(isset($request->startDate) && $request->startDate!="" && isset($request->endDate) && $request->endDate != ""){
             $startDate = $request->startDate;
             $endDate = $request->endDate;

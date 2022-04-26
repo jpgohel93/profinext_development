@@ -84,6 +84,7 @@ class renewalStatusController extends Controller
                 $sumOfIncome = !empty($incomeRecords) ? array_sum(array_column($incomeRecords, 'amount')) : 0;
                 $sumOfBlockIncome = !empty($incomeRecordsBlockAmount) ? array_sum(array_column($incomeRecordsBlockAmount, 'final_amount')) : 0;
 
+
                 if (count($forIncomes) <= $length) {
                     $forIncomes[$key]['remain_limit'] = $incomeBank['target'] - ($sumOfIncome+$sumOfBlockIncome);
                     $forIncomes[$key]['last_transaction_day'] = $days;

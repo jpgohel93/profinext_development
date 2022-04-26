@@ -179,8 +179,8 @@
                                                     <tbody class="text-gray-600 fw-bold">
                                                         <tr>
                                                             <td>Income</td>
-                                                            <td>{{$banksTab['income']+0}}</td>
-                                                            <td>{{$banksTab['income']}}</td>
+                                                            <td>{{$availableBalance['income_total']+0}}</td>
+                                                            <td>{{$availableBalance['income']}}</td>
                                                             <td>{{$reserveBalance['income']}}</td>
                                                             <td>{{$firmTab['st']['income'].','.$firmTab['sg']['income']}}</td>
                                                             <td>
@@ -191,8 +191,8 @@
                                                         </tr>
                                                         <tr>
                                                             <td>Salary</td>
-                                                            <td>{{$banksTab['salary']+0}}</td>
-                                                            <td>{{$banksTab['salary']}}</td>
+                                                            <td>{{$availableBalance['salary_total']+0}}</td>
+                                                            <td>{{$availableBalance['salary']}}</td>
                                                             <td>{{$reserveBalance['salary']}}</td>
                                                             <td>{{$banksTab['st']['salary'].','.$banksTab['sg']['salary']}}</td>
                                                             <td>

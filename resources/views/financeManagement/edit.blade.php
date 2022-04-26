@@ -146,19 +146,26 @@
                                                 <!--end::Label-->
                                                 <input type="number" value="{{old('available_balance')?old('available_balance'):$bank->available_balance}}" name="available_balance" class="form-control form-control-solid" />
                                             </div>
-                                            <div class="form-group">
-                                                <label class="d-flex align-items-center fs-6 fw-bold">
-                                                    <span class="required">Limit Utilize:</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <input type="text" value="{{old('limit_utilize')?old('limit_utilize'):$bank->limit_utilize}}" name="limit_utilize" class="form-control form-control-solid" />
-                                            </div>
+{{--                                            <div class="form-group">--}}
+{{--                                                <label class="d-flex align-items-center fs-6 fw-bold">--}}
+{{--                                                    <span class="required">Limit Utilize:</span>--}}
+{{--                                                </label>--}}
+{{--                                                <!--end::Label-->--}}
+{{--                                                <input type="text" value="{{old('limit_utilize')?old('limit_utilize'):$bank->limit_utilize}}" name="limit_utilize" class="form-control form-control-solid" />--}}
+{{--                                            </div>--}}
                                             <div class="form-group">
                                                 <label class="d-flex align-items-center fs-6 fw-bold">
                                                     <span class="required">Target:</span>
                                                 </label>
                                                 <!--end::Label-->
                                                 <input type="text" value="{{old('target')?old('target'):$bank->target}}" name="target" class="form-control form-control-solid" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="d-flex align-items-center fs-6 fw-bold">
+                                                    <span class="required">Invoice code:</span>
+                                                </label>
+                                                <!--end::Label-->
+                                                <input type="text" value="{{old('invoice_code')?old('invoice_code'):$bank->invoice_code}}" name="invoice_code" class="form-control form-control-solid" />
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -181,13 +188,6 @@
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" value="{{old('account_no')?old('account_no'):$bank->account_no}}" name="account_no" class="form-control form-control-solid" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="d-flex align-items-center fs-6 fw-bold">
-                                                <span class="required">Invoice code:</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="text" value="{{old('invoice_code')?old('invoice_code'):$bank->invoice_code}}" name="invoice_code" class="form-control form-control-solid" />
                                         </div>
                                         <div class="form-group">
                                             <label class="d-flex align-items-center fs-6 fw-bold">

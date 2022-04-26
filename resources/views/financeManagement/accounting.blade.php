@@ -1748,7 +1748,14 @@
                 })
                 // sorting table
                 $("#allTable").dataTable({
-                    "order": [[ 1, "DESC" ]]
+                    "order": [[ 1, "DESC" ]],
+                    "columnDefs": [
+                        {
+                            "targets": [ 0 ],
+                            "visible": false,
+                            "searchable": false
+                        }
+                    ]
                 })
             },jQuery)
         })

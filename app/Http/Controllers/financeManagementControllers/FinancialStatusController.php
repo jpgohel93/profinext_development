@@ -26,15 +26,21 @@ class FinancialStatusController extends Controller
         $incomeBankIdArray = !empty($incomeBankData) ? array_column($incomeBankData, 'id') : array();
         $salaryBankIdArray = !empty($salaryBankData) ? array_column($salaryBankData, 'id') : array();
 
-
         $income = financeManagementTransferServices::getAllTransferByPurpose("Reserve Balance",$incomeBankIdArray);
         $reserveBalance['income'] = !empty($income) ? array_sum(array_column($income, 'amount')) : 0;
-
         $salary = financeManagementTransferServices::getAllTransferByPurpose("Reserve Balance",$salaryBankIdArray);
         $reserveBalance['salary'] = !empty($salary) ? array_sum(array_column($salary, 'amount')) : 0;
 
+        $availableBalance['income'] = !empty($incomeBankData) ? array_sum(array_column($incomeBankData, 'available_balance')) : 0;
+        $availableBalance['salary'] = !empty($salaryBankData) ? array_sum(array_column($salaryBankData, 'available_balance')) : 0;
+        $availableBalance['income_total'] = !empty($incomeBankData) ? array_sum(array_column($incomeBankData, 'available_balance')) : 0;
+        $availableBalance['salary_total'] = !empty($salaryBankData) ? array_sum(array_column($salaryBankData, 'available_balance')) : 0;
 
-        return view("financeManagement.financialStatus.index",compact("firmTab","banksTab",  "servicesTab", "balanceTab","reserveBalance"));
+        $availableBalance['income'] = $availableBalance['income'] - $reserveBalance['income'];
+        $availableBalance['salary'] = $availableBalance['salary'] - $reserveBalance['salary'];
+
+
+        return view("financeManagement.financialStatus.index",compact("firmTab","banksTab",  "servicesTab", "balanceTab","reserveBalance","availableBalance"));
     }
     public function usersTab(Request $request){
         // usertab

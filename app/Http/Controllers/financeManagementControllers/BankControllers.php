@@ -59,8 +59,24 @@ class BankControllers extends Controller
         return view("financeManagement.bank",compact("forIncomes", "forSalaries", "forCashes","blockAmountlist"));
     }
     public function addFinanceManagementBank(Request $request){
-        bankServices::addFinanceManagementBank($request);
-        return Redirect::route("financeManagementBank")->with("info", "New Bank Added");
+        $incomeBank = array();
+        $bank = array();
+        if($request->type == 2) {
+            $incomeBank = bankServices::financeManagementGetBankByAccountNo($request->account_no, 1);
+        }
+        if($request->type == 1){
+            $bank = bankServices::financeManagementGetBankByInvoiceCode($request->invoice_code);
+        }
+        if(empty($bank)) {
+            if((empty($incomeBank))) {
+                bankServices::addFinanceManagementBank($request);
+                return Redirect::route("financeManagementBank")->with("info", "New Bank Added");
+            }else{
+                return Redirect::route("financeManagementBank")->with("info", "Account number is already exit in income bank");
+            }
+        }else{
+            return Redirect::route("financeManagementBank")->with("info", "Invoice code is already exit");
+        }
     }
     public function financeManagementGetBank(Request $request){
         $bank = bankServices::financeManagementGetBank($request);
