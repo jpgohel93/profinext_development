@@ -145,7 +145,6 @@
                                                     <div class="menu-item px-3 my-1">
                                                         <a href="#" class="menu-link px-3">Settings</a>
                                                     </div>
-                                                    <!--end::Menu item-->
                                                 </div>
                                                 <!--end::Menu 3-->
                                             </div>
@@ -390,8 +389,8 @@
             $('#dematrange').on('apply.daterangepicker', function(ev, picker) {
                 let startDate="";
                 let endDate="";
-                
-                if(picker.startDate=="Invalid date" && picker.endDate=="Invalid date"){ 
+
+                if(picker.startDate=="Invalid date" && picker.endDate=="Invalid date"){
                     startDate = "all";
                     endDate = "all";
                 }else{
