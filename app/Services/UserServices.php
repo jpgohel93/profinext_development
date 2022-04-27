@@ -319,12 +319,24 @@ class UserServices
         }
         return $user;
     }
-    public static function getByType($type,$role= null)
+    public static function getByType($type,$role= null,$byUser = null)
     {
-        if($role!==null){
-            return User::where("role","LIKE",$role)->where("user_type",$type)->get();
+        $query = "";
+        if($byUser!==null){
+            $query .="created_by = ".$byUser;
         }
-        return User::where("user_type",$type)->get();
+        if($role!==null){
+            if($query==""){
+                $query.=" role LIKE ".$role;
+            }else{
+                $query.=" AND role LIKE ".$role;
+            }
+        }
+        if($query!=""){
+            return User::where("user_type",$type)->whereRaw($query)->get();
+        }else{
+            return User::where("user_type",$type)->get();
+        }
     }
 
     public static function getFreelancerData()

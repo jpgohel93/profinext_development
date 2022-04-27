@@ -20,12 +20,12 @@ class UserController extends Controller
         $this->middleware('permission:user-delete', ['only' => ['delete']]);
     }
     public function all($role=null){
-        $partner  = UserServices::getByType(1,$role);
-        $employee = UserServices::getByType(2,$role);
-        $channelPartner = UserServices::getByType(3,$role);
-        $freelancerAMS = UserServices::getByType(4,$role);
-        $freelancerPrime = UserServices::getByType(5,$role);
-        $terminated = UserServices::terminatedUsers($role);
+        $partner  = UserServices::getByType(1,$role,(auth()->user()->role!="super-admin")?auth()->user()->id:null);
+        $employee = UserServices::getByType(2,$role,(auth()->user()->role!="super-admin")?auth()->user()->id:null);
+        $channelPartner = UserServices::getByType(3,$role,(auth()->user()->role!="super-admin")?auth()->user()->id:null);
+        $freelancerAMS = UserServices::getByType(4,$role,(auth()->user()->role!="super-admin")?auth()->user()->id:null);
+        $freelancerPrime = UserServices::getByType(5,$role,(auth()->user()->role!="super-admin")?auth()->user()->id:null);
+        $terminated = UserServices::terminatedUsers($role,(auth()->user()->role!="super-admin")?auth()->user()->id:null);
         $users = UserServices::all($role);
         return view("users.list",compact('users','partner','employee','channelPartner','freelancerAMS','freelancerPrime',"terminated"));
     }

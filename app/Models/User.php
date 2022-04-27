@@ -8,7 +8,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,HasRoles,SoftDeletes;
@@ -49,7 +48,7 @@ class User extends Authenticatable
     // {
     //     parent::boot();
     //     if(Auth::check()){
-    //         if(auth()->user()->hasRole("super-admin")){
+    //         if(Auth::user()->role=="super-admin"){
     //             static::addGlobalScope('created_by', function (\Illuminate\Database\Eloquent\Builder $builder) {
     //                 $builder->where($builder->getModel()->getTable() . '.created_by', "LIKE","%%");
     //             });
