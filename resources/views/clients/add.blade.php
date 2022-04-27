@@ -370,12 +370,30 @@
                                                 if(old("client_type")==2){
 
                                                 }else{
+                                                    // $cols = ["serial_number","service_type","pan_number_text","holder_name","address","email_id","mobile","broker","user_id","password","mpin","capital","mode","bank","joining_date","fees","pending_payment"];
+                                                    // foreach ($cols as $key => $value) {
+                                                    //     $data = [];
+                                                    //     if(isset(session("_old_input")[$value])){
+                                                    //         if(is_array(session("_old_input")[$value])){
+                                                    //             foreach(session("_old_input")[$value] as $val){
+                                                    //                 if(!array_key_exists($value,$data)){
+                                                    //                     $data[$value] = array();
+                                                    //                     array_push($data[$value],$val);
+                                                    //                 }else{
+                                                    //                     array_push($data[$value],$val);
+                                                    //                 }
+                                                    //             }
+                                                    //         }
+                                                    //     }
+                                                    //     array_push($main,$data);
+                                                    // }
                                                     foreach(session("_old_input") as $k => $v){
                                                         if(is_array($v)){
                                                             $data = array();
                                                             $index=0;
                                                             foreach(session("_old_input") as $k2 => $v2){
-                                                                if(is_array($v2) && isset(session("_old_input")[$k][$i])){
+                                                                if(is_array($v2) && isset(session("_old_input")[$k][$index])){
+                                                                    // dd(session("_old_input")[$k],$index);
                                                                     if(isset($v2[$i])){
                                                                         $data[$k2]= $v2[$i];
                                                                     }
@@ -383,12 +401,15 @@
                                                             }
                                                             $index++;
                                                             if(!empty($data)){
-                                                                $main[$i]=$data;
+                                                                // $main[$i]=$data;
+                                                                array_push($main,$data);
                                                             }
                                                             $i++;
                                                         }
                                                     }
+
                                                 }
+                                                // dd($main);
                                             }
                                         @endphp
                                         @if (empty($main))
@@ -399,6 +420,11 @@
                                                     <div class="w-100">
                                                         <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                             <h3 class="stepper-title text-primary">Demate Details</h3>
+                                                            <div id="addMoreDiv">
+                                                                <div class="stepper-label d-flex justify-content-between mt-0" style="float: right;margin-top:30px;margin-bottom:20px;">
+                                                                    <button type="button" class="btn btn-primary addmore">Add More</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="row mb-8">
                                                             <div class="col-md-6 mb-4 fv-row">
@@ -406,10 +432,10 @@
                                                                     <span class="required">Smart ID</span>
                                                                 </label>
                                                                 <div class="position-relative">
-                                                                    <select name="st_sg[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
+                                                                    <select name="st_sg[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" disabled>
                                                                         <option value="">Select ID</option>
                                                                         <option value="ST">ST</option>
-                                                                        <option value="SG">SG</option>
+                                                                        <option value="SG" selected>SG</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -418,7 +444,7 @@
                                                                     <span class="required">Serial Number</span>
                                                                 </label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control form-control-solid bdr-ccc" value="" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
+                                                                    <input type="text" class="form-control form-control-solid bdr-ccc" value="<?php echo $newSGNo;?>" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -747,7 +773,12 @@
                                                     </div>
                                                 </div>
                                             @else
-                                                @foreach($main as $key => $demate_account)
+                                                <div class="d-flex justify-content-end">
+                                                    <div class="stepper-label d-flex justify-content-between mt-0" style="float: right;margin-top:30px;margin-bottom:20px;">
+                                                        <button type="button" class="btn btn-primary addmore">Add More</button>
+                                                    </div>
+                                                </div>
+                                                @foreach($main as $key => $demat_account)
                                                     <!--end::Step 1-->
                                                     <div class="cloningSec">
                                                         <!--begin::Step 2-->
@@ -776,10 +807,10 @@
                                                                         <!--begin::Input wrapper-->
                                                                         <div class="position-relative">
                                                                             <!--begin::Input-->
-                                                                            <select name="st_sg[]" class="form-select form-select-solid">
+                                                                            <select name="st_sg[]" class="form-select form-select-solid" disabled>
                                                                                 <option></option>
-                                                                                <option value="ST" {{$demate_account['st_sg']=="ST"?"selected":""}}>ST</option>
-                                                                                <option value="SG" {{$demate_account['st_sg']=="SG"?"selected":""}}>SG</option>
+                                                                                <option value="ST" {{isset($demat_account['st_sg'])?($demat_account['st_sg']=="ST"?"selected":""):""}}>ST</option>
+                                                                                <option value="SG" {{isset($demat_account['st_sg'])?($demat_account['st_sg']=="SG"?"selected":""):""}}>SG</option>
                                                                             </select>
                                                                         </div>
                                                                         <!--end::Input wrapper-->
@@ -795,7 +826,7 @@
                                                                         <!--begin::Input wrapper-->
                                                                         <div class="position-relative">
                                                                             <!--begin::Input-->
-                                                                            <input type="text" class="form-control form-control-solid bdr-ccc" value="{{(old('serial_number'))?old('serial_number')[$key]:$demate_account['serial_number']}}" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
+                                                                            <input type="text" class="form-control form-control-solid bdr-ccc" value="{{(old('serial_number'))?old('serial_number')[$key]:(isset($demat_account['serial_number'])?$demat_account['serial_number']:"")}}" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input wrapper-->
@@ -825,8 +856,8 @@
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
                                                                             <span class="form-check form-check-custom form-check-solid">
-                                                                                <input class="form-check-input" type="radio" data-service_type {{$demate_account['service_type']=="1"?"checked":""}} value="1" />
-                                                                                <input class="form-check-input" type="hidden" name="service_type[]" value="{{$demate_account['service_type']=="1"?"1":"2"}}" />
+                                                                                <input class="form-check-input" type="radio" data-service_type {{isset($demat_account['service_type'])?($demat_account['service_type']=="1"?"checked":""):""}} value="1" />
+                                                                                <input class="form-check-input" type="hidden" name="service_type[]" value="{{isset($demat_account['service_type'])?($demat_account['service_type']=="1"?"1":"2"):""}}" />
                                                                             </span>
                                                                             <!--end::Input-->
                                                                         </label>
@@ -849,7 +880,7 @@
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
                                                                             <span class="form-check form-check-custom form-check-solid">
-                                                                                <input class="form-check-input" type="radio" data-service_type {{$demate_account['service_type']=="2"?"checked":""}} value="2" />
+                                                                                <input class="form-check-input" type="radio" data-service_type {{isset($demat_account['service_type'])?($demat_account['service_type']=="2"?"checked":""):""}} value="2" />
                                                                             </span>
                                                                             <!--end::Input-->
                                                                         </label>
@@ -872,7 +903,7 @@
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
                                                                             <span class="form-check form-check-custom form-check-solid">
-                                                                                <input class="form-check-input" type="radio" data-service_type {{$demate_account['service_type']=="3"?"checked":""}} value="3" />
+                                                                                <input class="form-check-input" type="radio" data-service_type {{isset($demat_account['service_type'])?($demat_account['service_type']=="3"?"checked":""):""}} value="3" />
                                                                             </span>
                                                                             <!--end::Input-->
                                                                         </label>
@@ -902,7 +933,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="{{$demate_account['pan_number_text']}}" />
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="{{isset($demat_account['pan_number_text'])?$demat_account['pan_number_text']:""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
@@ -914,7 +945,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="holder_name[]" placeholder="" value="{{$demate_account['holder_name']}}" />
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="holder_name[]" placeholder="" value="{{isset($demat_account['holder_name'])?$demat_account['holder_name']:""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
@@ -926,7 +957,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="address[]" placeholder="City, District, State, Pin code" value="{{$demate_account['address']}}" />
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="address[]" placeholder="City, District, State, Pin code" value="{{isset($demat_account['address'])?$demat_account['address']:""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
@@ -938,7 +969,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="email_id[]" placeholder="Demat Holder’s Email ID" value="{{$demate_account['email_id']}}" />
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="email_id[]" placeholder="Demat Holder’s Email ID" value="{{isset($demat_account['email_id'])?$demat_account['email_id']:""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
@@ -950,7 +981,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mobile[]" placeholder="Demat Holder’s Mobile Number" value="{{$demate_account['mobile']}}" />
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mobile[]" placeholder="Demat Holder’s Mobile Number" value="{{isset($demat_account['mobile'])?$demat_account['mobile']:""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
@@ -966,7 +997,7 @@
                                                                     <select name="broker[]" class="form-select form-select-solid">
                                                                         <option></option>
                                                                         @forelse ($brokers as $broker)
-                                                                            <option value="{{$broker->broker}}" {{($demate_account['broker']==$broker->broker)?"selected":""}}>{{$broker->broker}}</option>
+                                                                            <option value="{{$broker->broker}}" {{isset($demat_account['broker'])?(($demat_account['broker']==$broker->broker)?"selected":""):""}}>{{$broker->broker}}</option>
                                                                         @empty
                                                                             <option>Selecte Broker</option>
                                                                         @endforelse
@@ -984,7 +1015,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="user_id[]" value="{{$demate_account['user_id']}}" />
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="user_id[]" value="{{isset($demat_account['user_id'])?$demat_account['user_id']:""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
@@ -996,7 +1027,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="password[]" value="{{(session('password')[$key])?session('password')[$key]:""}}" />
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="password[]" value="{{(null!==session('password'))?session('password')[$key]:""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
@@ -1012,7 +1043,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{$demate_account['mpin']}}" />
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="" name="mpin[]" value="{{isset($demat_account['mpin'])?$demat_account['mpin']:""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
@@ -1024,7 +1055,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="{{$demate_account['capital']}}" />
+                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="{{isset($demat_account['capital'])?$demat_account['capital']:""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Col-->
@@ -1050,8 +1081,8 @@
                                                                         <div class="col-md-6">
                                                                             <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                                                 <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
-                                                                                <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" {{$demate_account['mode']=="2"?"checked":""}} />
-                                                                                <input class="form-check-input" type="hidden" name="mode[]" value="{{$demate_account['mode']=="2"?"2":"1"}}" />
+                                                                                <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" {{isset($demat_account['mode'])?($demat_account['mode']=="2"?"checked":""):""}} />
+                                                                                <input class="form-check-input" type="hidden" name="mode[]" value="{{isset($demat_account['mode'])?($demat_account['mode']=="2"?"2":"1"):""}}" />
 
                                                                                 <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
                                                                             </label>
@@ -1060,9 +1091,9 @@
                                                                     </div>
                                                                 </div>
                                                                 <!--end::Input group-->
-                                                                <div class="row mb-4 PaymentSection joining_date" style="display:{{$demate_account['mode']=="2"?"block":"none"}};" id="BankDiv">
+                                                                <div class="row mb-4 PaymentSection joining_date" style="display:{{isset($demat_account['mode'])?($demat_account['mode']=="2"?"block":"none"):"none"}};" id="BankDiv">
                                                                     <!--begin::Col-->
-                                                                    <div class="col-md-5 fv-row mb-4 hideonpending" style="display:{{$demate_account['pending_payment']=="1"?"none":""}};">
+                                                                    <div class="col-md-5 fv-row mb-4 hideonpending" style="display:{{isset($demat_account['pending_payment'])?($demat_account['pending_payment']=="1"?"none":""):"none"}};">
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-6 fw-bold form-label mb-2">Bank Details</label>
                                                                         <!--end::Label-->
@@ -1071,7 +1102,7 @@
                                                                             <!--begin::Input-->
                                                                             <select name="bank[]" class="form-select form-select-solid" >
                                                                                 @forelse ($banks as $bank)
-                                                                                    <option value="{{$bank->bank}}" {{$demate_account['bank']==$bank->bank?"selected":""}}>{{$bank->bank}}</option>
+                                                                                    <option value="{{$bank->bank}}" {{$demat_account['bank']==$bank->bank?"selected":""}}>{{$bank->bank}}</option>
                                                                                 @empty
                                                                                     <option>Selecte Bank</option>
                                                                                 @endforelse
@@ -1088,24 +1119,24 @@
                                                                         <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="date" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{$demate_account['mode']=="2"?($demate_account['joining_date']==""?"":date("Y-m-d",strtotime($demate_account['joining_date']))):""}}"/>
+                                                                        <input type="date" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{isset($demat_account['mode'])?($demat_account['mode']=="2"?($demat_account['joining_date']==""?"":date("Y-m-d",strtotime($demat_account['joining_date']))):""):""}}"/>
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
                                                                     <!--begin::Input group-->
-                                                                    <div class="col-md-6 mb-4 hideonpending" id="FeesDiv" style="display:{{$demate_account['pending_payment']=="1"?"none":""}};">
+                                                                    <div class="col-md-6 mb-4 hideonpending" id="FeesDiv" style="display:{{isset($demat_account['pending_payment'])?($demat_account['pending_payment']=="1"?"none":""):"none"}};">
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-5 fw-bold mb-2">Fees</label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="{{$demate_account['mode']=="2"?$demate_account['fees']:""}}" />
+                                                                        <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="{{isset($demat_account['mode'])?($demat_account['mode']=="2"?$demat_account['fees']:""):""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
                                                                     </div>
                                                                     <div class="row mb-8 " id="UploadDiv">
                                                                         <!--begin::Input group-->
-                                                                    <div class="col-md-6 mb-4 hideonpending" style="display:{{$demate_account['pending_payment']=="1"?"none":""}};">
+                                                                    <div class="col-md-6 mb-4 hideonpending" style="display:{{isset($demat_account['pending_payment'])?($demat_account['pending_payment']=="1"?"none":""):""}};">
                                                                         <!--begin::Label-->
                                                                         <label class="required fs-5 fw-bold mb-2">Upload Screenshot</label>
                                                                         <!--end::Label-->
@@ -1123,8 +1154,8 @@
                                                                         <div>
                                                                             <!--begin::Checkbox-->
                                                                             <label class="form-check form-check-custom form-check-solid me-10">
-                                                                                <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" {{$demate_account['pending_payment']=="1"?"checked":""}} value="1">
-                                                                                <input type="hidden" name="pending_payment[]" value="{{$demate_account['pending_payment']=="1"?1:0}}">
+                                                                                <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" {{isset($demat_account['pending_payment'])?($demat_account['pending_payment']=="1"?"checked":""):""}} value="1">
+                                                                                <input type="hidden" name="pending_payment[]" value="{{isset($demat_account['pending_payment'])?($demat_account['pending_payment']=="1"?1:0):""}}">
                                                                                 <span class="form-check-label fw-bold">Pending</span>
                                                                             </label>
                                                                             <!--end::Checkbox-->
@@ -1152,11 +1183,6 @@
                                             @endif
                                         </div>
                                         <div id="appendDiv1"></div>
-                                            <div id="addMoreDiv">
-                                                <div class="stepper-label d-flex justify-content-between mt-0" style="float: right;margin-top:30px;margin-bottom:20px;">
-                                                    <button type="button" class="btn btn-primary addmore">Add More</button>
-                                                </div>
-                                            </div>
                                         <!--begin::Wrapper-->
                                         <div id="submitSmsButton">
                                             <button type="submit" class="btn btn-lg btn-primary">
@@ -1184,7 +1210,7 @@
                                                 <div class="w-100">
                                                     <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                         <h3 class="stepper-title text-primary">Demate Detail</h3>
-                                                        <button type="button" class="btn btn-primary addmore">Add More</button>
+                                                        <button type="button" class="btn btn-primary removeClone">Remove</button>
                                                     </div>
                                                     <!--begin::Input group-->
                                                     <div class="row mb-8">
@@ -1201,10 +1227,10 @@
                                                             <!--begin::Input wrapper-->
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
-                                                                <select name="st_sg[]" class="form-select form-select-solid">
+                                                                <select name="st_sg[]" class="form-select form-select-solid" disabled>
                                                                     <option></option>
                                                                     <option value="ST">ST</option>
-                                                                    <option value="SG">SG</option>
+                                                                    <option value="SG" selected>SG</option>
                                                                 </select>
                                                             </div>
                                                             <!--end::Input wrapper-->
@@ -1598,6 +1624,7 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $("select").select2();
+            window.lastSGNo = parseInt("<?php echo $newSGNo;?>");;
 			$(document).on("change","[name='st_sg[]']",function() {
 				var lastSGNo = parseInt("<?php echo $newSGNo;?>");
 				var string = "000";
@@ -1605,7 +1632,8 @@
 				$("[name='st_sg[]']").each( function(index){
 					var vl = $(this).val();
 					if(vl != "") {
-                        lastSGNo = (parseInt(lastSGNo) + 1);
+                        lastSGNo = (parseInt(window.lastSGNo) + 1);
+                        window.lastSGNo = lastSGNo;
 						var len = lastSGNo.toString().length;
 						var prefix = string.substring(len);
 						var newNo = prefix+''+lastSGNo;
@@ -1617,6 +1645,7 @@
 			$(document).on("click",".addmore",function() {
                 $("select").select2("destroy");
 				// var newcomp1 = $('#hiddenaddmore').html();
+                window.lastSGNo = (parseInt(window.lastSGNo)+1);
 				var clone = $('#hiddenaddmore > .cloningSec').clone();
 				var rem = clone.find('#addmore');
 				$(rem).removeAttr('id');
@@ -1624,9 +1653,18 @@
 				$(rem).text('Remove');
                 $('#appendDiv1').append("<hr>");
 				$('#appendDiv1').append(clone);
+                $("#appendDiv1").find("[name*='serial_number']:last").val(String(window.lastSGNo).padStart(3,"0"));
                 $("select").select2();
 				resetCounter();
 			});
+            $(document).on("click",".removeClone",function(e){
+                if(window.confirm("remove this demat account?")){
+                    $(e.target).parents(".cloningSec").prev("hr").remove();
+                    window.lastSGNo = (parseInt(window.lastSGNo)-1);
+                    $("body").find("[name='serial_number[]']:last").val(String(window.lastSGNo).padStart(3,"0"));
+                    $(e.target).parents(".cloningSec").remove();
+                }
+            })
 			// service type this is required else some values are not available server side
 			$(document).on("click","input[data-service_type]",function(e){
 				if(e.target.value==1){
@@ -1724,7 +1762,7 @@
                 $("#accountHandlingDetail").show();
                 $("#submitSmsButton").show();
                 $("#channelPartnerDiv").show();
-                $("#paymentDetailsDiv").hide();
+                $("#paymentDetailsDiv").show();
                 $("#addMoreDiv").hide();
             }
 
