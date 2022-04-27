@@ -323,13 +323,13 @@ class UserServices
     {
         $query = "";
         if($byUser!==null){
-            $query .="created_by = ".$byUser;
+            $query .="created_by = '$byUser'";
         }
         if($role!==null){
             if($query==""){
-                $query.=" role LIKE ".$role;
+                $query.=" role LIKE '$role'";
             }else{
-                $query.=" AND role LIKE ".$role;
+                $query.=" AND role LIKE '$role'";
             }
         }
         if($query!=""){
