@@ -5,13 +5,13 @@ use App\Models\MonitorData;
 use App\Models\Analyst;
 use App\Services\CommonService;
 use Illuminate\Support\Facades\Auth;
-
+use App\Services\LogServices;
 class MonitorDataServices{
     public static function all($id, $filterDate = null)
 	{
 		$auth_user = Auth::user();
 		$explRole = explode(",", $auth_user->role);
-		
+
 		if($filterDate != "") {
 			$dates = explode("-", $filterDate);
 			$st_dt = str_replace("/","-", $dates[0]);
@@ -38,7 +38,7 @@ class MonitorDataServices{
 				$monitorData['close'] = MonitorData::where("monitor_id", $id)->where("status", "close")->orderBy('exit_date', 'DESC')->get();
 				$monitorData['analyst'] = Analyst::where("assign_user_id", $id)->where('status', '!=' , "Terminated")->get();
 			}
-		}	
+		}
 		return $monitorData;
     }
     public static function create($request){
@@ -58,8 +58,15 @@ class MonitorDataServices{
         $monitor['created_by'] = Auth::id();
         try {
             $analyst_id = MonitorData::create($monitor);
+            $user_name = auth()->user()->name;
+            if($analyst_id){
+                LogServices::logEvent(["desc"=>"Monitor data $analyst_id->id created by $user_name"]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to create Monitor data by $user_name","data"=>$monitor]);
+            }
             return $analyst_id->id;
         } catch (\Throwable $th) {
+            LogServices::logEvent(["desc"=>"Unable to create Monitor data by $user_name","data"=>$monitor]);
             CommonService::throwError("Unable to create Analyst".$th);
         }
     }
@@ -88,7 +95,15 @@ class MonitorDataServices{
         $monitor['exit_time'] = $request['exit_time'];
         $monitor['sl_status'] = $request['sl_status'];
 
-        return MonitorData::where("id", $request->monitor_data_id)->update($monitor);
+        $data = MonitorData::where("id", $request->monitor_data_id)->first();
+        $user_name = auth()->user()->name;
+        $status = MonitorData::where("id", $request->monitor_data_id)->update($monitor);
+        if($status){
+            LogServices::logEvent(["desc"=>"Monitor data $request->monitor_data_id Updated by $user_name","data"=>$data]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to update Monitor data $request->monitor_data_id by $user_name","data"=>$monitor]);
+        }
+        return $status;
     }
 
     public static function getMonitorData($id){
@@ -116,7 +131,13 @@ class MonitorDataServices{
     }
 
     public static function remove($id){
-        return MonitorData::where("id",$id)->delete();
+        $status = MonitorData::where("id",$id)->delete();
+        $user_name = auth()->user()->name;
+        if($status){
+            LogServices::logEvent(["desc"=>"Monitor data $id Deleted by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to delete Monitor data $id by $user_name"]);
+        }
     }
     public static function close($request){
         $request->validate([
@@ -128,6 +149,13 @@ class MonitorDataServices{
         ]);
         $call = $request->except(["call_id","_token"]);
         $call['sl_status'] = $request['sl_status'];
-        return MonitorData::where("id",$request->call_id)->update($call);
+        $data = MonitorData::where("id",$request->call_id)->first();
+        $user_name = auth()->user()->name;
+        $status = MonitorData::where("id",$request->call_id)->update($call);
+        if($status){
+            LogServices::logEvent(["desc"=>"Monitor data $request->call_id updated by $user_name","data"=>$data]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to update Monitor data $request->call_id by $user_name","data"=>$call]);
+        }
     }
 }

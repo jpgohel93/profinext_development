@@ -22,13 +22,18 @@ class ClientPayment extends Model
     public function withDemat(){
         return $this->hasOne(ClientDemat::class,"id", "demat_id");
     }
-//    protected static function boot()
-//    {
-//        parent::boot();
-//
-//        static::addGlobalScope('created_by', function (\Illuminate\Database\Eloquent\Builder $builder) {
-//            $builder->where($builder->getModel()->getTable() . '.created_by', auth()->user()->id);
-//        });
-//    }
+    protected static function boot()
+    {
+        parent::boot();
+        if(auth()->user()->hasRole("super-admin")){
+            static::addGlobalScope('created_by', function (\Illuminate\Database\Eloquent\Builder $builder) {
+                $builder->where($builder->getModel()->getTable() . '.created_by', "LIKE","%%");
+            });
+        }else{
+            static::addGlobalScope('created_by', function (\Illuminate\Database\Eloquent\Builder $builder) {
+                $builder->where($builder->getModel()->getTable() . '.created_by', auth()->user()->id);
+            });
+        }
+    }
 
 }

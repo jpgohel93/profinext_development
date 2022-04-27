@@ -15,10 +15,12 @@ use App\Services\CommonService;
 use App\Services\financeManagementServices\financeManagementIncomesServices;
 use App\Services\financeManagementServices\financeManagementExpensesServices;
 use App\Services\ClientInvestmentServices;
+use App\Services\LogServices;
 class ClientServices
 {
     public static function create($request)
     {
+        $user_name = auth()->user()->name;
         $client = $request->validate([
             "name"=>"required|alpha_spaces",
             "number"=>"required",
@@ -232,30 +234,51 @@ class ClientServices
             }
             // create client
             $client = Client::create($client);
-            foreach ($demat_ids as $key => $demat_id){
-                // update pancard and payment screenshot id
-                foreach ($demat_ids[$key]['pan'] as $index => $panCardId) {
-                    PancardImageModel::where("id", $panCardId)->update(["client_demat_id" => $demat_ids[$key]['demat']]);
+            if($client){
+                LogServices::logEvent(["desc"=>"Client $client->id created by $user_name"]);
+                foreach ($demat_ids as $key => $demat_id){
+                    // update pancard and payment screenshot id
+                    foreach ($demat_ids[$key]['pan'] as $index => $panCardId) {
+                        PancardImageModel::where("id", $panCardId)->update(["client_demat_id" => $demat_ids[$key]['demat']]);
+                    }
+                    foreach($demat_ids[$key]['ss'] as $index => $screenshotId) {
+                        Screenshots::where("id", $screenshotId)->update(["client_payment_id" => $demat_ids[$key]['payment']]);
+                    }
+                    // update client id to demat id
+                    ClientDemat::where("id", $demat_ids[$key]['demat'])->update(["client_id" => $client->id]);
+                    // update demat id to payment id
+                    ClientPayment::where("id", $demat_ids[$key]['payment'])->update(["demat_id" => $demat_ids[$key]['demat'], "client_id" => $client->id]);
                 }
-                foreach($demat_ids[$key]['ss'] as $index => $screenshotId) {
-                    Screenshots::where("id", $screenshotId)->update(["client_payment_id" => $demat_ids[$key]['payment']]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to create Client by $user_name","data"=>["client"]]);
+                foreach ($demat_ids as $key => $demat_id){
+                    // delete pancard and payment screenshot id
+                    foreach ($demat_ids[$key]['pan'] as $index => $panCardId) {
+                        PancardImageModel::where("id", $panCardId)->delete();
+                    }
+                    foreach($demat_ids[$key]['ss'] as $index => $screenshotId) {
+                        Screenshots::where("id", $screenshotId)->delete();
+                    }
+                    // delete client id to demat id
+                    ClientDemat::where("id", $demat_ids[$key]['demat'])->delete();
+                    // delete demat id to payment id
+                    ClientPayment::where("id", $demat_ids[$key]['payment'])->delete();
                 }
-                // update client id to demat id
-                ClientDemat::where("id", $demat_ids[$key]['demat'])->update(["client_id" => $client->id]);
-                // update demat id to payment id
-                ClientPayment::where("id", $demat_ids[$key]['payment'])->update(["demat_id" => $demat_ids[$key]['demat'], "client_id" => $client->id]);
             }
+
         }else{
             // investment details
             $ids = ClientInvestmentServices::create($request);
             // create client
             $client = Client::create($client);
             if($client){
+                LogServices::logEvent(["desc"=>"Client investment $client->id created by $user_name"]);
                 foreach ($ids as $id){
                     // update client id
                     ClientInvestmentServices::update(["client_id" => $client->id],$id);
                 }
             }else{
+                LogServices::logEvent(["desc"=>"Unable to create Client investment  by $user_name","data"=>$request]);
                 foreach ($ids as $id) {
                     // investment details
                     ClientInvestmentServices::forceDelete($id);
@@ -549,7 +572,7 @@ class ClientServices
                             array_push($screenshots, $screenshotId->id);
                         }
                     }
-                    // // create demat
+                    // create demat
                     $demat_id = ClientDemat::create($array);
                     array_push($demat_ids, ["ss" => $screenshots, "pan" => $panCards, "demat" => $demat_id->id, "payment" => $payment_id->id]);
                 }

@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use App\Services\LogServices;
 class RoleServices
 {
     public static function create($request)
@@ -16,11 +16,17 @@ class RoleServices
         $permissions = $request->validate([
             'permission' => 'required|array'
         ]);
-
+        $user_name = auth()->user()->name;
         try {
-            $role = Role::create(['name' => isset($role['role']) ? $role['role'] : '']);
+            $role = Role::create(['name' => $role]);
+            if($role){
+                LogServices::logEvent(["desc"=>"Role $role->name created by $user_name"]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to create Role $role->name by $user_name","data"=>$role]);
+            }
             return $role->syncPermissions($permissions);
         } catch (\Throwable $th) {
+            LogServices::logEvent(["desc"=>"Unable to create Role $role->name by $user_name","data"=>$role]);
             CommonService::throwError("Unable to create Role");
         }
     }
@@ -85,7 +91,7 @@ class RoleServices
     }
     public static function clearPermissionCache($fallback){
         if($fallback){
-            return self::permissionsFallBack();    
+            return self::permissionsFallBack();
         }
         $permissions = Role::findByName("super-admin")->permissions->pluck("name")->first();
         return Role::findByName("super-admin")->givePermissionTo($permissions);

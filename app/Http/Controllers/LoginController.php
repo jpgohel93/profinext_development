@@ -10,8 +10,6 @@ class LoginController extends Controller
     public static function login(Request $request)   {
         LoginServices::login($request);
         return Redirect::route('dashboard')->with('success','Login successfully');
-//        $data = "Dashboard Data";
-//        return view("dashboard", compact('data'));
     }
     public function logout(Request $request)
     {

@@ -6,7 +6,6 @@ use App\Services\CommonService;
 use Illuminate\Support\Facades\Crypt;
 class RenewalAccountImagesServices{
 
-
     public static function get($id){
         $images = renewalAccountImagesModal::where("renewal_account_id",$id)->get(["image_url", "mimeType", "id","title"]);
         $html = "";
@@ -36,6 +35,12 @@ class RenewalAccountImagesServices{
         $image['mimeType']= $newName['data']['mimeType'];
         $image['ext']= $newName['data']['extension'];
         $image['image_url']= $newName['data']['filename'];
-        return renewalAccountImagesModal::create($image)   ;
+        $id = renewalAccountImagesModal::create($image);
+        $user_name = auth()->user()->name;
+        if($id){
+            LogServices::logEvent(["desc"=>"Renewal account image uploaded By $user_name","data"=>$image]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to upload Renewal account image $user_name","data"=>$image]);
+        }
     }
 }
