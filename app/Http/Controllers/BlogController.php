@@ -41,7 +41,7 @@ class BlogController extends Controller
             BlogAdminServices::setTarget($request);
             return Redirect::route("blogAdmin")->with("info","New Target Assign!");
         }else{
-            BlogAdminServices::setTarget($request,"update");
+            BlogAdminServices::setTarget($request,true);
             return Redirect::route("blogAdmin")->with("info","Tab target updated");
         }
 

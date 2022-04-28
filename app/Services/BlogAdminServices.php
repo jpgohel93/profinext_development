@@ -36,13 +36,15 @@ class BlogAdminServices{
     }
     public static function getBlogByUser(){
         $user = User::where("id",auth()->user()->id)->first()->toArray();
-        $tg = blogTarget::where(["user_id"=>$user['id']])->get(["tab_id","target"])->toArray();
+        $tg = blogTarget::where(["user_id"=>$user['id']])->get(["tab_id","target","schedule"])->toArray();
         $user['target'] = $tg;
         foreach($tg as $tab_index => $tab_id){
             // total post in this tab
             $achivement = Blog::where(["blogger"=>$user['id'],"tab_id"=>$tab_id['tab_id']])->count();
             // tab name
             $user['target'][$tab_index]['tab_name'] = blogTabs::where("id",$tab_id['tab_id'])->pluck("name")->first();
+            // schedule
+            $user['target'][$tab_index]['schedule'] = $tg[$tab_index]['schedule'];
             $user['target'][$tab_index]['total_blogs'] = $achivement;
             $user['target'][$tab_index]['tab_blogs'][$tab_id['tab_id']] = Blog::where(["blogger"=>$user['id'],"tab_id"=>$tab_id['tab_id']])->with(["withBlogger"])->get()->toArray();
         }
@@ -112,10 +114,10 @@ class BlogAdminServices{
             "user_id"=>"exists:users,id|required",
             "tab_id"=>"exists:blog_tabs,id|required"
         ]);
+        $user['schedule'] = $request->schedule;
         if($update){
-            $blogData = BlogAdminServices::getBlogByTabId($request->tab_id,$request->user_id);
             $data = blogTarget::where("tab_id", $request->tab_id)->where("user_id", $request->user_id)->first();
-            $id = blogTarget::where("tab_id", $request->tab_id)->where("user_id", $request->user_id)->update(["target"=>$request->target]);
+            $id = blogTarget::where("tab_id", $request->tab_id)->where("user_id", $request->user_id)->update($user);
             if($id){
                 LogServices::logEvent(["desc"=>"Blogger $request->user_id target updated by $user_name","user_id"=>$request->user_id,"data"=>$data,"user_id"=>$request->user_id]);
             }else{
@@ -124,7 +126,7 @@ class BlogAdminServices{
         }else{
             $id = blogTarget::create($user);
             if($id){
-                LogServices::logEvent(["desc"=>"Blogger $request->user_id target updated by $user_name","user_id"=>$request->user_id]);
+                LogServices::logEvent(["desc"=>"Blogger $request->user_id target created by $user_name","user_id"=>$request->user_id]);
             }else{
                 LogServices::logEvent(["desc"=>"Unable to update target for Tab $request->tab_id and User ID $request->user_id by $user_name","data"=>$user,"user_id"=>$request->user_id]);
             }
