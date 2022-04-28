@@ -639,10 +639,17 @@ class ClientServices
     }
 
     public static function allClientTypeWise(){
-        $client['account_handling'] = Client::where("client_type",1)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
-        $client['mutual_fund'] = Client::where("client_type",2)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
-        $client['unlisted_shares'] = Client::where("client_type",3)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
-        $client['insurance'] = Client::where("client_type",4)->orderBy('created_at', 'DESC')->get();
+        if(auth()->user()->user_type!="3"){
+            $client['account_handling'] = Client::where("client_type",1)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
+            $client['mutual_fund'] = Client::where("client_type",2)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
+            $client['unlisted_shares'] = Client::where("client_type",3)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
+            $client['insurance'] = Client::where("client_type",4)->orderBy('created_at', 'DESC')->get();
+        }else{
+            $client['account_handling'] = Client::where("created_by",auth()->user()->id)->where("client_type",1)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
+            $client['mutual_fund'] = Client::where("created_by",auth()->user()->id)->where("client_type",2)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
+            $client['unlisted_shares'] = Client::where("created_by",auth()->user()->id)->where("client_type",3)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
+            $client['insurance'] = Client::where("created_by",auth()->user()->id)->where("client_type",4)->orderBy('created_at', 'DESC')->get();
+        }
         return $client;
     }
 
