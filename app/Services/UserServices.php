@@ -279,8 +279,8 @@ class UserServices
                 array_push($param, $permission);
             }
         }
-        $user->syncPermissions($param);
         $user->syncRoles($request->role);
+        $user->syncPermissions($param);
         $user_data = $request->except(['_token',"number","permissions"]);
         // remove old numbers
         UserNumbers::where("user_id",$id)->delete();
@@ -293,6 +293,7 @@ class UserServices
 
         $userRoles = implode(",", $request->role);
         $user_data['role'] = $userRoles;
+
         $user_data['updated_by'] = Auth::id();
         $user_data['permission'] = json_encode($request->permission);
         User::where("id",$id)->update($user_data);

@@ -58,7 +58,7 @@
                              <!--end::Page title-->
                              <!--begin::Actions-->
                              <div class="d-flex align-items-center py-1">
-                                 @can("blog-user-create")
+                                @can("blog-user-create")
                                     <!--begin::Button-->
                                     <a href="javascript:void(0)" class="btn btn-sm btn-primary" id="addArticleBtn">
                                         <span class="svg-icon svg-icon-2">
@@ -68,7 +68,7 @@
                                             </svg>
                                         </span>Add Article
                                     </a>
-                                 @endcan
+                                @endcan
                              </div>
                              <!--end::Actions-->
                          </div>
@@ -126,7 +126,7 @@
                                                                         <td>{{$loop->iteration}}</td>
                                                                         <td class="role-value-td">{{date("Y-m-d",strtotime($blog['date']))}}</td>
                                                                         <td class="role-value-td">{{$blog['title']}}</td>
-                                                                        <td class="role-value-td"><a href="{{$blog['link']}}" target="_blank">{{$blog['link']}}</a></td>
+                                                                        <td class="role-value-td"><a href="{{$blog['link']}}" title="{{$blog['link']}}" target="_blank">View</a></td>
                                                                         <td class="text-end">
                                                                             <div class="d-flex justify-content-end align-items-end">
                                                                                 @can("blog-user-write")

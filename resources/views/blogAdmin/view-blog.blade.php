@@ -132,7 +132,7 @@
                                                                         <td>{{$loop->iteration}}</td>
                                                                         <td class="role-value-td">{{date("Y-m-d",strtotime($blog['date']))}}</td>
                                                                         <td class="role-value-td">{{$blog['title']}}</td>
-                                                                        <td class="role-value-td"><a href="{{$blog['link']}}" target="_blank">{{$blog['link']}}</a></td>
+                                                                        <td class="role-value-td"><a href="{{$blog['link']}}" title="{{$blog['link']}}" target="_blank">View</a></td>
                                                                         @can("blog-user-write")
                                                                             <td class="text-end">
                                                                                 <div class="d-flex justify-content-end align-items-end">

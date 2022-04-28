@@ -63,6 +63,7 @@
                         @csrf
                         <input type='hidden' name='id' id="id" value='{{$demateDetails->id}}'>
                         <input type='hidden' name='page_type' id="page_type" value='{{$type}}'>
+                        <input type='hidden' name='service_type' value='{{$demateDetails->service_type}}'>
                         <!--begin::Post-->
                         <div class="post d-flex flex-column-fluid" id="kt_post">
                             <!--begin::Container-->

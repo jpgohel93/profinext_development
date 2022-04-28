@@ -53,7 +53,7 @@
                                                 </li>
                                                 <!--end::Item-->
                                                 <!--begin::Item-->
-                                                <li class="breadcrumb-item text-dark">Channel Partner</li>
+                                                <li class="breadcrumb-item text-dark">{{isset($formType) && $formType=="channelPartner" ? "Channel Partner" : 'Client Management'}}</li>
                                                 <!--end::Item-->
                                             </ul>
                                             <!--end::Breadcrumb-->
@@ -432,7 +432,7 @@
                                                                     <span class="required">Smart ID</span>
                                                                 </label>
                                                                 <div class="position-relative">
-                                                                    <select name="st_sg[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" disabled>
+                                                                    <select name="st_sg[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" {{isset($formType) && $formType == "channelPartner"?"disabled":""}}>
                                                                         <option value="">Select ID</option>
                                                                         <option value="ST">ST</option>
                                                                         <option value="SG" selected>SG</option>
@@ -444,7 +444,7 @@
                                                                     <span class="required">Serial Number</span>
                                                                 </label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control form-control-solid bdr-ccc" value="<?php echo $newSGNo;?>" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
+                                                                    <input type="text" class="form-control form-control-solid bdr-ccc" value="<?php echo $newSGNo; ?>" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" readonly/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -665,7 +665,7 @@
                                                     <!--end::Step 2-->
                                                     <!--begin::Step 3-->
                                                     <div id="paymentDetailsDiv">
-                                                        <div class="d-block card p-7 my-5 payment_details" data-kt-stepper-element="content">
+                                                        <div class="d-block card p-7 my-5 payment_details {{(isset($formType) && $formType=="channelPartner")?"d-none":""}}" data-kt-stepper-element="content">
                                                             <div class="w-100">
                                                                 <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                                     <h3 class="stepper-title text-primary">Payment Details</h3>
@@ -807,7 +807,7 @@
                                                                         <!--begin::Input wrapper-->
                                                                         <div class="position-relative">
                                                                             <!--begin::Input-->
-                                                                            <select name="st_sg[]" class="form-select form-select-solid" disabled>
+                                                                            <select name="st_sg[]" class="form-select form-select-solid"  {{isset($formType) && $formType == "channelPartner"?"disabled":""}}>
                                                                                 <option></option>
                                                                                 <option value="ST" {{isset($demat_account['st_sg'])?($demat_account['st_sg']=="ST"?"selected":""):""}}>ST</option>
                                                                                 <option value="SG" {{isset($demat_account['st_sg'])?($demat_account['st_sg']=="SG"?"selected":""):""}}>SG</option>
@@ -826,7 +826,7 @@
                                                                         <!--begin::Input wrapper-->
                                                                         <div class="position-relative">
                                                                             <!--begin::Input-->
-                                                                            <input type="text" class="form-control form-control-solid bdr-ccc" value="{{(old('serial_number'))?old('serial_number')[$key]:(isset($demat_account['serial_number'])?$demat_account['serial_number']:"")}}" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
+                                                                            <input type="text" class="form-control form-control-solid bdr-ccc" value="{{isset($demat_account['serial_number'])?$demat_account['serial_number']:""}}" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" readonly/>
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input wrapper-->
@@ -1065,7 +1065,7 @@
                                                         </div>
                                                         <!--end::Step 2-->
                                                         <!--begin::Step 3-->
-                                                        <div class="d-block card p-7 my-5 payment_details" data-kt-stepper-element="content">
+                                                        <div class="d-block card p-7 my-5 payment_details {{$formType=="channelPartner"?"d-none":""}}" data-kt-stepper-element="content">
                                                             <div class="w-100">
                                                                 <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                                     <h3 class="stepper-title text-primary">Payment Details</h3>
@@ -1185,6 +1185,16 @@
                                         <div id="appendDiv1"></div>
                                         <!--begin::Wrapper-->
                                         <div id="submitSmsButton">
+                                            @if(!isset($formType) || $formType!="channelPartner")
+                                                @hasanyrole("super-admin|accountant")
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <input class="form-check-input" type="checkbox" value="{{isset($client->status)?($client->status==1?"1":"0"):"0"}}" onclick="this.value = (this.value==1?0:1)" {{isset($client->status)?($client->status==1?"checked":""):""}} name="payment_verified" id="paymentVerified"/>
+                                                            <label for="paymentVerified" class="h3">is payment Verified?</label>
+                                                        </div>
+                                                    </div>
+                                                @endhasanyrole
+                                            @endif
                                             <button type="submit" class="btn btn-lg btn-primary">
                                                 <span class="indicator-label">Submit
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
@@ -1227,7 +1237,7 @@
                                                             <!--begin::Input wrapper-->
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
-                                                                <select name="st_sg[]" class="form-select form-select-solid" disabled>
+                                                                <select name="st_sg[]" class="form-select form-select-solid"  {{isset($formType) && $formType == "channelPartner"?"disabled":""}}>
                                                                     <option></option>
                                                                     <option value="ST">ST</option>
                                                                     <option value="SG" selected>SG</option>
@@ -1246,7 +1256,7 @@
                                                             <!--begin::Input wrapper-->
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-solid bdr-ccc" value="" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
+                                                                <input type="text" class="form-control form-control-solid bdr-ccc" value="" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" readonly/>
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Input wrapper-->
@@ -1485,7 +1495,7 @@
                                             </div>
                                             <!--end::Step 2-->
                                             <!--begin::Step 3-->
-                                            <div class="d-block card p-7 my-5 payment_details" data-kt-stepper-element="content">
+                                            <div class="d-block card p-7 my-5 payment_details {{(isset($formType) && $formType=="channelPartner")?"d-none":""}}" data-kt-stepper-element="content">
                                                 <div class="w-100">
                                                     <div class="stepper-label d-flex justify-content-between mt-0" style="margin-top:30px;margin-bottom:20px;">
                                                         <h3 class="stepper-title text-primary">Payment Details</h3>
@@ -1624,23 +1634,23 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $("select").select2();
-            window.lastSGNo = parseInt("<?php echo $newSGNo;?>");;
-			$(document).on("change","[name='st_sg[]']",function() {
-				var lastSGNo = parseInt("<?php echo $newSGNo;?>");
-				var string = "000";
+            window.lastSGNo = parseInt("<?php echo $newSGNo;?>");
+			// $(document).on("change","[name='st_sg[]']",function() {
+			// 	var lastSGNo = parseInt("<?php echo $newSGNo;?>");
+			// 	var string = "000";
 
-				$("[name='st_sg[]']").each( function(index){
-					var vl = $(this).val();
-					if(vl != "") {
-                        lastSGNo = (parseInt(window.lastSGNo) + 1);
-                        window.lastSGNo = lastSGNo;
-						var len = lastSGNo.toString().length;
-						var prefix = string.substring(len);
-						var newNo = prefix+''+lastSGNo;
-						$("[name='serial_number[]']").eq(index).val(newNo);
-					}
-				});
-			});
+			// 	$("[name='st_sg[]']").each( function(index){
+			// 		var vl = $(this).val();
+			// 		if(vl != "") {
+            //             lastSGNo = (parseInt(window.lastSGNo));
+            //             window.lastSGNo = lastSGNo;
+			// 			var len = lastSGNo.toString().length;
+			// 			var prefix = string.substring(len);
+			// 			var newNo = prefix+''+lastSGNo;
+			// 			$("[name='serial_number[]']").eq(index).val(newNo);
+			// 		}
+			// 	});
+			// });
 
 			$(document).on("click",".addmore",function() {
                 $("select").select2("destroy");
@@ -1762,7 +1772,7 @@
                 $("#accountHandlingDetail").show();
                 $("#submitSmsButton").show();
                 $("#channelPartnerDiv").show();
-                $("#paymentDetailsDiv").show();
+                $("#paymentDetailsDiv").hide();
                 $("#addMoreDiv").hide();
             }
 

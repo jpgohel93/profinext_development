@@ -57,21 +57,20 @@ class ClientController extends Controller
 	}
     // create client form
     public function createClientForm(){
-        $getLastSGNo = ClientDemat::where("st_sg","LIKE","sg")->orderBy("id", "DESC")->select("serial_number")->first();
+        $getLastSGNo = ClientDemat::orderBy("serial_number", "DESC")->select("serial_number")->first();
+        if(!empty($getLastSGNo)) {
+            $newSGNo = $getLastSGNo->serial_number;
+        } else {
+            $newSGNo = "001";
+        }
 
-		if(!empty($getLastSGNo)) {
-			$newSGNo = $getLastSGNo->serial_number;
-		} else {
-			$newSGNo = "000";
-		}
+        $getLastSTNo = ClientDemat::orderBy("serial_number", "DESC")->select("serial_number")->first();
 
-		$getLastSTNo = ClientDemat::where("st_sg","LIKE","st")->orderBy("id", "DESC")->select("serial_number")->first();
-
-		if(!empty($getLastSTNo)) {
-			$newSTNo = $getLastSTNo->serial_number;
-		} else {
-			$newSTNo = "000";
-		}
+        if(!empty($getLastSTNo)) {
+            $newSTNo = $getLastSTNo->serial_number;
+        } else {
+            $newSTNo = "000";
+        }
 
         $professions = ProfessionServices::view(['id', 'profession']);
         $banks = bankServices::getForIncomeAccounts();
@@ -105,21 +104,21 @@ class ClientController extends Controller
     }
     // edit client
     public function updateForm(Request $request,$id){
-		$getLastSGNo = ClientDemat::select("serial_number")->orderBy("id", "DESC")->first();
+        $getLastSGNo = ClientDemat::orderBy("serial_number", "DESC")->select("serial_number")->first();
+        if(!empty($getLastSGNo)) {
+            $newSGNo = $getLastSGNo->serial_number;
+        } else {
+            $newSGNo = "001";
+        }
 
-		if (!empty($getLastSGNo)) {
-			$newSGNo = $getLastSGNo->serial_number;
-		} else {
-			$newSGNo = "000";
-		}
+        $getLastSTNo = ClientDemat::orderBy("serial_number", "DESC")->select("serial_number")->first();
 
-		$getLastSTNo = ClientDemat::select("serial_number")->orderBy("id", "DESC")->first();
+        if(!empty($getLastSTNo)) {
+            $newSTNo = $getLastSTNo->serial_number;
+        } else {
+            $newSTNo = "000";
+        }
 
-		if (!empty($getLastSTNo)) {
-			$newSTNo = $getLastSTNo->serial_number;
-		} else {
-			$newSTNo = "000";
-		}
 
         $client =  ClientServices::get($id);
         if(!$client){
@@ -894,14 +893,14 @@ class ClientController extends Controller
     public function channelPartnerClientForm(){
 
         $auth_user = Auth::user();
-        $getLastSGNo = ClientDemat::where("st_sg","LIKE", "sg")->orderBy("id", "DESC")->select("serial_number")->first();
+        $getLastSGNo = ClientDemat::orderBy("serial_number", "DESC")->select("serial_number")->first();
         if(!empty($getLastSGNo)) {
             $newSGNo = $getLastSGNo->serial_number;
         } else {
             $newSGNo = "001";
         }
 
-        $getLastSTNo = ClientDemat::where("st_sg","LIKE", "st")->orderBy("id", "DESC")->select("serial_number")->first();
+        $getLastSTNo = ClientDemat::orderBy("serial_number", "DESC")->select("serial_number")->first();
 
         if(!empty($getLastSTNo)) {
             $newSTNo = $getLastSTNo->serial_number;

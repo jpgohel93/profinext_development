@@ -385,7 +385,7 @@
                                                                             <!--begin::Input wrapper-->
                                                                             <div class="position-relative">
                                                                                 <!--begin::Input-->
-                                                                                <input type="text" class="form-control form-control-solid bdr-ccc" value="{{(old('serial_number'))?old('serial_number')[$key]:$demate_account['serial_number']}}" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
+                                                                                <input type="text" class="form-control form-control-solid bdr-ccc" value="{{$demate_account['serial_number']}}" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" readonly/>
                                                                                 <!--end::Input-->
                                                                             </div>
                                                                             <!--end::Input wrapper-->
@@ -832,7 +832,7 @@
                                                                 <!--begin::Input wrapper-->
                                                                 <div class="position-relative">
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-solid bdr-ccc" value="" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" />
+                                                                    <input type="text" class="form-control form-control-solid bdr-ccc" value="" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" readonly/>
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Input wrapper-->
@@ -1212,8 +1212,10 @@
     </div>
     <script>
         window.addEventListener("DOMContentLoaded",function(){
-            $(document).on("click","#addmore",function() {
+                window.lastSGNo = parseInt("<?php echo $newSGNo;?>");
+                $(document).on("click","#addmore",function() {
                     $("select[data-control='select2']").select2('destroy');
+                    window.lastSGNo = (parseInt(window.lastSGNo)+1);
 					// var newcomp1 = $('#hiddenaddmore').html();
 					var clone = $('#hiddenaddmore > .cloningSec').clone();
 					var rem = clone.find('#addmore');
@@ -1221,6 +1223,7 @@
 					$(rem).addClass('btn-pink remove-btn');
 					$(rem).text('Remove');
 					$('#appendDiv1').append(clone);
+                    $("#appendDiv1").find("[name*='serial_number']:last").val(String(window.lastSGNo).padStart(3,"0"));
                     $("select[data-control='select2']").select2();
 					resetCounter();
    		 		});
@@ -1470,28 +1473,19 @@
                     $(e.target).closest(".row").next(".row").last(".col-md-6").find(".wp").val($(this).val());
                 }
             });
-            window.sg = "<?php echo $newSGNo;?>";
-            window.st = "<?php echo $newSTNo;?>";
-            $(document).on("change","[name='st_sg[]']",function(e) {
-                var lastSGNo =000;
-                if(e.target.value=="ST"){
-                    lastSGNo = parseInt(window.st);
-                }else{
-                    lastSGNo = parseInt(window.sg);
-                }
-				var string = "000";
+            // $(document).on("change","[name='st_sg[]']",function(e) {
 
-				$("[name='st_sg[]']").each( function(index){
-					var vl = $(this).val();
-					if(vl != "") {
-                        lastSGNo = (parseInt(lastSGNo) + 1);
-						var len = lastSGNo.toString().length;
-						var prefix = string.substring(len);
-						var newNo = prefix+''+lastSGNo;
-						$("[name='serial_number[]']").eq(index).val(newNo);
-					}
-				});
-			});
+			// 	$("[name='st_sg[]']").each( function(index){
+			// 		var vl = $(this).val();
+			// 		if(vl != "") {
+			// 			var len = lastSGNo.toString().length;
+			// 			var prefix = string.substring(len);
+			// 			var newNo = prefix+''+lastSGNo;
+            //             window.lastSGNo = (parseInt(window.lastSGNo)+1);
+			// 			$("[name='serial_number[]']").eq(index).val(window.lastSGNo);
+			// 		}
+			// 	});
+			// });
 
         })
     </script>
