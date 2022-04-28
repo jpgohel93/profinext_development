@@ -52,13 +52,15 @@ class BlogAdminServices{
     }
     public static function editBlogForm($id){
         $user = User::where("id",$id)->first()->toArray();
-        $tg = blogTarget::where(["user_id"=>$user['id']])->get(["tab_id","target"])->toArray();
+        $tg = blogTarget::where(["user_id"=>$user['id']])->get(["tab_id","target","schedule"])->toArray();
         $user['target'] = $tg;
         foreach($tg as $tab_index => $tab_id){
             // total post in this tab
             $achivement = Blog::where(["blogger"=>$user['id'],"tab_id"=>$tab_id['tab_id']])->count();
             $user['target'][$tab_index]['total_blogs'] = $achivement;
             $user['target'][$tab_index]['tab_name'] = blogTabs::where("id", $tab_id['tab_id'])->pluck("name")->first();
+            // schedule
+            $user['target'][$tab_index]['schedule'] = $tg[$tab_index]['schedule'];
             $user['target'][$tab_index]['tab_blogs'][$tab_id['tab_id']] = Blog::where(["blogger"=>$user['id'],"tab_id"=>$tab_id['tab_id']])->with(["withBlogger"])->get()->toArray();
         }
         return $user;
