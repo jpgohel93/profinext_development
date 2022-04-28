@@ -59,7 +59,7 @@ class ClientController extends Controller
     public function createClientForm(){
         $getLastSGNo = ClientDemat::orderBy("serial_number", "DESC")->select("serial_number")->first();
         if(!empty($getLastSGNo)) {
-            $newSGNo = $getLastSGNo->serial_number;
+            $newSGNo = sprintf("%03d",$getLastSGNo->serial_number + 1);
         } else {
             $newSGNo = "001";
         }
@@ -67,7 +67,7 @@ class ClientController extends Controller
         $getLastSTNo = ClientDemat::orderBy("serial_number", "DESC")->select("serial_number")->first();
 
         if(!empty($getLastSTNo)) {
-            $newSTNo = $getLastSTNo->serial_number;
+            $newSTNo = sprintf("%03d",$getLastSTNo->serial_number + 1);
         } else {
             $newSTNo = "000";
         }
@@ -106,7 +106,7 @@ class ClientController extends Controller
     public function updateForm(Request $request,$id){
         $getLastSGNo = ClientDemat::orderBy("serial_number", "DESC")->select("serial_number")->first();
         if(!empty($getLastSGNo)) {
-            $newSGNo = $getLastSGNo->serial_number;
+            $newSGNo = sprintf("%03d",$getLastSGNo->serial_number + 1);
         } else {
             $newSGNo = "001";
         }
@@ -114,7 +114,7 @@ class ClientController extends Controller
         $getLastSTNo = ClientDemat::orderBy("serial_number", "DESC")->select("serial_number")->first();
 
         if(!empty($getLastSTNo)) {
-            $newSTNo = $getLastSTNo->serial_number;
+            $newSTNo = sprintf("%03d",$getLastSTNo->serial_number + 1);
         } else {
             $newSTNo = "000";
         }
@@ -895,7 +895,7 @@ class ClientController extends Controller
         $auth_user = Auth::user();
         $getLastSGNo = ClientDemat::orderBy("serial_number", "DESC")->select("serial_number")->first();
         if(!empty($getLastSGNo)) {
-            $newSGNo = $getLastSGNo->serial_number;
+            $newSGNo = sprintf("%03d",$getLastSGNo->serial_number + 1);
         } else {
             $newSGNo = "001";
         }
@@ -903,7 +903,7 @@ class ClientController extends Controller
         $getLastSTNo = ClientDemat::orderBy("serial_number", "DESC")->select("serial_number")->first();
 
         if(!empty($getLastSTNo)) {
-            $newSTNo = $getLastSTNo->serial_number;
+            $newSTNo = sprintf("%03d",$getLastSTNo->serial_number + 1);
         } else {
             $newSTNo = "000";
         }
