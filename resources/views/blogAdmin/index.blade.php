@@ -93,7 +93,9 @@
                                                         <th class="min-w-75px">Blogger name</th>
                                                         <th class="min-w-75px">Achievement</th>
                                                         <th class="min-w-100px">Target</th>
-                                                        <th class="text-end min-w-100px">Action</th>
+                                                        @canany(["blog-user-read","blog-user-write"])
+                                                            <th class="text-end min-w-100px">Action</th>
+                                                        @endcan
                                                     </tr>
                                                 </thead>
                                                 <tbody class="text-gray-600 fw-bold">
@@ -115,32 +117,58 @@
                                                             @endphp
                                                             <td class="role-value-td">{{($total_achieve=="")?"-":$total_achieve}}</td>
                                                             <td class="role-value-td">{{$total_tabs}}</td>
-                                                            <td class="text-end">
-                                                                <div class="d-flex justify-content-end align-items-end">
-                                                                    @can("blog-user-read")
-                                                                        <div class="menu-item">
-                                                                            <a href="{{route('editBlogForm',$blog['id'])}}" data-id="{{$blog['id']}}" target="_blank" class="menu-link px-3">
-                                                                                <i class='fas fa-eye fa-xl' title="View Blogger"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                    @endcan
+                                                            @canany(["blog-user-read","blog-user-write"])
+                                                                <td class="text-end">
+                                                                    {{-- <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        @can("blog-user-read")
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="{{route('editBlogForm',$blog['id'])}}" data-id="{{$blog['id']}}" target="_blank" class="menu-link px-3">
+                                                                                    Edit
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
+                                                                        @can("blog-user-write")
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 setTargetUrl">
+                                                                                    Set Target
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
+                                                                    </div> --}}
+                                                                    <div class="d-flex justify-content-end align-items-end">
+                                                                        @can("blog-user-read")
+                                                                            <div class="menu-item">
+                                                                                <a href="{{route('editBlogForm',$blog['id'])}}" data-id="{{$blog['id']}}" target="_blank" class="menu-link px-3">
+                                                                                    <i class='fas fa-eye fa-xl' title="View Blogger"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
 
-                                                                    @can("blog-user-write")
-                                                                        <div class="menu-item">
-                                                                            <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 setTargetUrl">
-                                                                                <i class="fas fa-pen fa-xl" title="Set target"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                    @endcan
-                                                                    {{-- @can("blog-delete")
-                                                                        <div class="menu-item">
-                                                                            <a href="{{route('removeBlog')}}" data-id="{{$blog['id']}}" class="menu-link px-2 removeRole">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#009ef7"><path d="M74.53333,17.2c-1.53406,-0.02082 -3.01249,0.574 -4.10468,1.65146c-1.09219,1.07746 -1.70703,2.54767 -1.70704,4.08187h-34.32161c-2.06765,-0.02924 -3.99087,1.05709 -5.03322,2.843c-1.04236,1.78592 -1.04236,3.99474 0,5.78066c1.04236,1.78592 2.96558,2.87225 5.03322,2.843h103.2c2.06765,0.02924 3.99087,-1.05709 5.03322,-2.843c1.04236,-1.78592 1.04236,-3.99474 0,-5.78066c-1.04236,-1.78592 -2.96558,-2.87225 -5.03322,-2.843h-34.32161c-0.00001,-1.53421 -0.61486,-3.00442 -1.70704,-4.08187c-1.09219,-1.07746 -2.57061,-1.67228 -4.10468,-1.65146zM34.4,45.86667v91.73333c0,6.33533 5.13133,11.46667 11.46667,11.46667h80.26667c6.33533,0 11.46667,-5.13133 11.46667,-11.46667v-91.73333z"></path></g></g></svg>
-                                                                            </a>
-                                                                        </div>
-                                                                    @endcan --}}
-                                                                </div>
-                                                            </td>
+                                                                        @can("blog-user-write")
+                                                                            <div class="menu-item">
+                                                                                <a href="javascript:void(0)" data-id="{{$blog['id']}}" class="menu-link px-3 setTargetUrl">
+                                                                                    {{-- icon change --}}
+                                                                                    <i class="fa fa-solid fa-bullseye-arrow fa-xl" title="Set target"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan
+                                                                        {{-- @can("blog-delete")
+                                                                            <div class="menu-item">
+                                                                                <a href="{{route('removeBlog')}}" data-id="{{$blog['id']}}" class="menu-link px-2 removeRole">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#009ef7"><path d="M74.53333,17.2c-1.53406,-0.02082 -3.01249,0.574 -4.10468,1.65146c-1.09219,1.07746 -1.70703,2.54767 -1.70704,4.08187h-34.32161c-2.06765,-0.02924 -3.99087,1.05709 -5.03322,2.843c-1.04236,1.78592 -1.04236,3.99474 0,5.78066c1.04236,1.78592 2.96558,2.87225 5.03322,2.843h103.2c2.06765,0.02924 3.99087,-1.05709 5.03322,-2.843c1.04236,-1.78592 1.04236,-3.99474 0,-5.78066c-1.04236,-1.78592 -2.96558,-2.87225 -5.03322,-2.843h-34.32161c-0.00001,-1.53421 -0.61486,-3.00442 -1.70704,-4.08187c-1.09219,-1.07746 -2.57061,-1.67228 -4.10468,-1.65146zM34.4,45.86667v91.73333c0,6.33533 5.13133,11.46667 11.46667,11.46667h80.26667c6.33533,0 11.46667,-5.13133 11.46667,-11.46667v-91.73333z"></path></g></g></svg>
+                                                                                </a>
+                                                                            </div>
+                                                                        @endcan --}}
+                                                                    </div>
+                                                                </td>
+                                                            @endcan
                                                         </tr>
                                                     @empty
                                                         {{-- empty --}}
@@ -262,6 +290,7 @@
         window.addEventListener("DOMContentLoaded",function(){
             $(()=>{
                 $(".datatable").DataTable();
+                // change
                 $("#select2").select2();
                 $("#addTabBtn").on("click",function(){
                     $("#addTabModal").modal("show");
