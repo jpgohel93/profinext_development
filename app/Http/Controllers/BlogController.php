@@ -37,6 +37,7 @@ class BlogController extends Controller
     public function setTargetFrm(Request $request){
         $blogData = BlogAdminServices::getBlogByTabId($request->tab_id,$request->user_id);
         if(empty( $blogData)){
+            // set target
             BlogAdminServices::setTarget($request);
             return Redirect::route("blogAdmin")->with("info","New Target Assign!");
         }else{

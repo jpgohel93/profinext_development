@@ -80,6 +80,7 @@ class BlogAdminServices{
         ]);
         $tab['created_by']=auth()->user()->id;
         $user_name = auth()->user()->name;
+        // blog tab added
         $tab_id = blogTabs::create($tab);
         if($tab_id){
             LogServices::logEvent(["desc"=>"Blog Tab $tab_id->id Created by $user_name"]);
@@ -139,6 +140,7 @@ class BlogAdminServices{
             "link"=>"required"
         ]);
         $blog['blogger']=auth()->user()->id;
+        // create blog
         $id = Blog::create($blog);
         if($id){
             LogServices::logEvent(["desc"=>"Blog $id->id Created by $user_name"]);
