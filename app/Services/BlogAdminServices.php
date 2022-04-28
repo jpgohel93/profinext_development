@@ -104,18 +104,29 @@ class BlogAdminServices{
         }
         return $tab_id;
     }
-    public static function setTarget($request){
+    public static function setTarget($request,$update=false){
         $user_name = auth()->user()->name;
         $user = $request->validate([
             "target"=>"required|numeric",
             "user_id"=>"exists:users,id|required",
             "tab_id"=>"exists:blog_tabs,id|required"
         ]);
-        $id = blogTarget::create($user);
-        if($id){
-            LogServices::logEvent(["desc"=>"Blogger $request->user_id target updated by $user_name"]);
+        if($update){
+            $blogData = BlogAdminServices::getBlogByTabId($request->tab_id,$request->user_id);
+            $data = blogTarget::where("tab_id", $request->tab_id)->where("user_id", $request->user_id)->first();
+            $id = blogTarget::where("tab_id", $request->tab_id)->where("user_id", $request->user_id)->update(["target"=>$request->target]);
+            if($id){
+                LogServices::logEvent(["desc"=>"Blogger $request->user_id target updated by $user_name","user_id"=>$request->user_id,"data"=>$data,"user_id"=>$request->user_id]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to update target for Tab $request->tab_id and User ID $request->user_id by $user_name","data"=>$user,"user_id"=>$request->user_id]);
+            }
         }else{
-            LogServices::logEvent(["desc"=>"Unable to update target for Tab $request->tab_id and User ID $request->user_id by $user_name","data"=>$user]);
+            $id = blogTarget::create($user);
+            if($id){
+                LogServices::logEvent(["desc"=>"Blogger $request->user_id target updated by $user_name","user_id"=>$request->user_id]);
+            }else{
+                LogServices::logEvent(["desc"=>"Unable to update target for Tab $request->tab_id and User ID $request->user_id by $user_name","data"=>$user,"user_id"=>$request->user_id]);
+            }
         }
         return $id;
     }
@@ -127,14 +138,6 @@ class BlogAdminServices{
             "title"=>"required",
             "link"=>"required"
         ]);
-        // srno
-        $last = blog::latest()->first("srno")->toArray();
-        if(isset($last['srno'])){
-            $last_sr = sprintf("%04d", (Int)$last['srno']+1);
-        }else{
-            $last_sr = sprintf("%04d", 1);
-        }
-        $blog['srno']=$last_sr;
         $blog['blogger']=auth()->user()->id;
         $id = Blog::create($blog);
         if($id){
