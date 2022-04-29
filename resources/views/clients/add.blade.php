@@ -64,7 +64,7 @@
                                 </div>
                                 <!--end::Toolbar-->
                                 <!--begin::Form-->
-                                <form class="form" novalidate="novalidate" id="kt_modal_create_app_form" action="{{route('clientCreate')}}" enctype="multipart/form-data" method="POST">
+                                <form class="form" novalidate="novalidate" id="addUserForm" action="{{route('clientCreate')}}" enctype="multipart/form-data" method="POST">
                                     @csrf
                                     <!--begin::Step 1-->
                                     <div class="current d-block card p-7" data-kt-stepper-element="content">
@@ -80,11 +80,11 @@
                                                     <!--begin::Input-->
                                                     <input type="hidden" name="form_type" value="{{isset($formType) && $formType ? $formType : ''}}" >
                                                     @if(isset($formType) && $formType == "channelPartner")
-                                                        <select name="client_type" id="client_type" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
+                                                        <select name="client_type" id="client_type" class="form-select form-select-solid" data-control="select2" data-hide-search="true" required>
                                                             <option value="1">Account Handling</option>
                                                         </select>
                                                     @else
-                                                        <select name="client_type" id="client_type" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Client Type">
+                                                        <select name="client_type" id="client_type" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Client Type" required>
                                                             <option></option>
                                                             <option value="1" {{old('client_type') && old('client_type')==1?"selected":""}}>Account Handling</option>
                                                             <option value="2" {{old('client_type') && old('client_type')==2?"selected":""}}>Mutual Fund</option>
@@ -108,7 +108,7 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="name" placeholder="" value="{{old('name')}}" />
+                                                        <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="name" id="name" placeholder="" value="{{old('name')}}" />
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -120,7 +120,7 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc client-mobile" name="number" placeholder="" value="{{old('number')}}" />
+                                                        <input type="tel" required class="form-control form-control-lg form-control-solid bdr-ccc client-mobile" name="number" placeholder="" value="{{old('number')}}" />
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -132,7 +132,7 @@
                                                         <label class="d-md-flex align-items-center fs-5 fw-bold mb-2">
                                                             <span class="required">WhatsApp No.</span>
                                                             <div class="form-check form-check-custom form-check-solid small" style="margin-left: auto;">
-                                                                <input class="form-check-input wpsameascontact" type="checkbox" value="1" {{(old('wpsameascontact')?"checked":"")}} name="wpsameascontact" id="flexCheckDefault"/>
+                                                                <input required class="form-check-input wpsameascontact" type="checkbox" value="1" {{(old('wpsameascontact')?"checked":"")}} name="wpsameascontact" id="flexCheckDefault"/>
                                                                 <label class="form-check-label" for="flexCheckDefault" style="font-size: x-small;">
                                                                     (Select if WhatsApp No. is same as Mobile No.)
                                                                 </label>
@@ -140,7 +140,7 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="tel" class="form-control form-control-lg form-control-solid bdr-ccc wp" name="wp_number" placeholder="" value="{{old('wp_number')}}" />
+                                                        <input type="tel" required class="form-control form-control-lg form-control-solid bdr-ccc wp" name="wp_number" placeholder="" value="{{old('wp_number')}}" />
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -152,7 +152,7 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <select name="profession" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Profession">
+                                                        <select name="profession" required class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Profession">
                                                             @forelse ($professions as $profession)
                                                                 <option value="{{$profession->profession}}" {{(old('profession') && old('profession')==$profession->profession)?"selected":""}}>{{$profession->profession}}</option>
                                                             @empty
@@ -173,11 +173,11 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         @if(isset($formType) && $formType == "channelPartner")
-                                                            <select name="channel_partner_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
+                                                            <select name="channel_partner_id" required class="form-select form-select-solid" data-control="select2" data-hide-search="true">
                                                                 <option value="{{$channelPartner->id}}" >{{$channelPartner->name}}</option>
                                                             </select>
                                                         @else
-                                                            <select name="channel_partner_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Channel Partner">
+                                                            <select name="channel_partner_id" required class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Channel Partner">
                                                                 <option></option>
                                                                 @forelse ($channelPartner as $partner)
                                                                     <option value="{{$partner->id}}" >{{$partner->name}}</option>
@@ -444,7 +444,7 @@
                                                                     <span class="required">Smart ID</span>
                                                                 </label>
                                                                 <div class="position-relative">
-                                                                    <select name="st_sg[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" {{isset($formType) && $formType == "channelPartner"?"disabled":""}}>
+                                                                    <select name="st_sg[]" required class="form-select form-select-solid" data-control="select2" data-hide-search="true" {{isset($formType) && $formType == "channelPartner"?"disabled":""}}>
                                                                         <option value="">Select ID</option>
                                                                         <option value="ST">ST</option>
                                                                         <option value="SG" selected>SG</option>
@@ -456,7 +456,7 @@
                                                                     <span class="required">Serial Number</span>
                                                                 </label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control form-control-solid bdr-ccc" value="<?php echo $newSGNo; ?>" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" readonly/>
+                                                                    <input type="text" required class="form-control form-control-solid bdr-ccc" value="<?php echo $newSGNo; ?>" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" readonly/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -473,7 +473,7 @@
                                                                         </span>
                                                                     </span>
                                                                     <span class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input" type="radio" data-service_type checked="checked" value="1" />
+                                                                        <input class="form-check-input" required type="radio" data-service_type checked="checked" value="1" />
                                                                         <input class="form-check-input" type="hidden" name="service_type[]" value="1" />
                                                                     </span>
                                                                 </label>
@@ -493,7 +493,7 @@
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
                                                                     <span class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input" type="radio" data-service_type value="2" />
+                                                                        <input class="form-check-input" required type="radio" data-service_type value="2" />
                                                                     </span>
                                                                     <!--end::Input-->
                                                                 </label>
@@ -515,7 +515,7 @@
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
                                                                     <span class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input" type="radio" data-service_type value="3" />
+                                                                        <input class="form-check-input" required type="radio" data-service_type value="3" />
                                                                     </span>
                                                                     <!--end::Input-->
                                                                 </label>
@@ -533,7 +533,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[0][]" multiple placeholder="" />
+                                                                    <input type="file" required class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[0][]" multiple placeholder="" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Input group-->
@@ -544,7 +544,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="" />
+                                                                    <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Input group-->
@@ -556,7 +556,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="holder_name[]" placeholder="" value="" />
+                                                                    <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="holder_name[]" placeholder="" value="" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Input group-->
@@ -568,7 +568,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="address[]" placeholder="City, District, State, Pin code" value="" />
+                                                                    <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="address[]" placeholder="City, District, State, Pin code" value="" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Input group-->
@@ -580,7 +580,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="email_id[]" placeholder="Demat Holder’s Email ID" value="" />
+                                                                    <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="email_id[]" placeholder="Demat Holder’s Email ID" value="" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Input group-->
@@ -592,7 +592,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mobile[]" placeholder="Demat Holder’s Mobile Number" value="" />
+                                                                    <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="mobile[]" placeholder="Demat Holder’s Mobile Number" value="" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Input group-->
@@ -605,7 +605,7 @@
                                                                 </label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
-                                                                <select name="broker[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
+                                                                <select name="broker[]" required class="form-select form-select-solid" data-control="select2" data-hide-search="true">
                                                                     <option></option>
                                                                     @forelse ($brokers as $broker)
                                                                         <option value="{{$broker->broker}}">{{$broker->broker}}</option>
@@ -626,7 +626,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="user_id[]" placeholder="" autocomplete="off"/>
+                                                                    <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="user_id[]" placeholder="" autocomplete="off"/>
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Col-->
@@ -638,7 +638,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" autocomplete="off"/>
+                                                                    <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" autocomplete="off"/>
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Col-->
@@ -654,7 +654,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
+                                                                    <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Col-->
@@ -666,7 +666,7 @@
                                                                     </label>
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
-                                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="" />
+                                                                    <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="" />
                                                                     <!--end::Input-->
                                                                 </div>
                                                                 <!--end::Col-->
@@ -714,7 +714,7 @@
                                                                         <!--begin::Input wrapper-->
                                                                         <div class="position-relative">
                                                                             <!--begin::Input-->
-                                                                            <select name="bank[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
+                                                                            <select name="bank[]" required class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
                                                                                 <option></option>
                                                                                 @forelse ($banks as $bank)
                                                                                     <option value="{{$bank->id}}" {{(old('bank') && old('bank')==$bank->title)?"selected":""}}>{{$bank->title}}</option>
@@ -819,7 +819,7 @@
                                                                         <!--begin::Input wrapper-->
                                                                         <div class="position-relative">
                                                                             <!--begin::Input-->
-                                                                            <select name="st_sg[]" class="form-select form-select-solid"  {{isset($formType) && $formType == "channelPartner"?"disabled":""}}>
+                                                                            <select name="st_sg[]" required class="form-select form-select-solid"  {{isset($formType) && $formType == "channelPartner"?"disabled":""}}>
                                                                                 <option></option>
                                                                                 <option value="ST" {{isset($demat_account['st_sg'])?($demat_account['st_sg']=="ST"?"selected":""):""}}>ST</option>
                                                                                 <option value="SG" {{isset($demat_account['st_sg'])?($demat_account['st_sg']=="SG"?"selected":""):""}}>SG</option>
@@ -945,7 +945,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="{{isset($demat_account['pan_number_text'])?$demat_account['pan_number_text']:""}}" />
+                                                                        <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="{{isset($demat_account['pan_number_text'])?$demat_account['pan_number_text']:""}}" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
@@ -1112,7 +1112,7 @@
                                                                         <!--begin::Input wrapper-->
                                                                         <div class="position-relative">
                                                                             <!--begin::Input-->
-                                                                            <select name="bank[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
+                                                                            <select name="bank[]" required class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
                                                                                 <option></option>
                                                                                 @forelse ($banks as $bank)
                                                                                     <option value="{{$bank->id}}" {{$demat_account['id']==$bank->id?"selected":""}}>{{$bank->title}}</option>
@@ -1208,7 +1208,7 @@
                                                     </div>
                                                 @endhasanyrole
                                             @endif
-                                            <button type="submit" class="btn btn-lg btn-primary">
+                                            <button type="submit" id="submit" class="btn btn-lg btn-primary">
                                                 <span class="indicator-label">Submit
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                                                 <span class="svg-icon svg-icon-3 ms-2 me-0">
@@ -1250,7 +1250,7 @@
                                                             <!--begin::Input wrapper-->
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
-                                                                <select name="st_sg[]" class="form-select form-select-solid"  {{isset($formType) && $formType == "channelPartner"?"disabled":""}}>
+                                                                <select name="st_sg[]" required class="form-select form-select-solid"  {{isset($formType) && $formType == "channelPartner"?"disabled":""}}>
                                                                     <option></option>
                                                                     <option value="ST">ST</option>
                                                                     <option value="SG" selected>SG</option>
@@ -1269,7 +1269,7 @@
                                                             <!--begin::Input wrapper-->
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-solid bdr-ccc" value="" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" readonly/>
+                                                                <input type="text" required class="form-control form-control-solid bdr-ccc" value="" minlength="8" maxlength="10" placeholder="Serial No" name="serial_number[]" readonly/>
                                                                 <!--end::Input-->
                                                             </div>
                                                             <!--end::Input wrapper-->
@@ -1299,7 +1299,7 @@
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
                                                                 <span class="form-check form-check-custom form-check-solid">
-                                                                    <input class="form-check-input" type="radio" data-service_type checked="checked" value="1" />
+                                                                    <input class="form-check-input" required type="radio" data-service_type checked="checked" value="1" />
                                                                     <input class="form-check-input" type="hidden" name="service_type[]" value="1" />
                                                                 </span>
                                                                 <!--end::Input-->
@@ -1323,7 +1323,7 @@
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
                                                                 <span class="form-check form-check-custom form-check-solid">
-                                                                    <input class="form-check-input" type="radio" data-service_type value="2" />
+                                                                    <input class="form-check-input" required type="radio" data-service_type value="2" />
                                                                 </span>
                                                                 <!--end::Input-->
                                                             </label>
@@ -1346,7 +1346,7 @@
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
                                                                 <span class="form-check form-check-custom form-check-solid">
-                                                                    <input class="form-check-input" type="radio" data-service_type value="3" />
+                                                                    <input class="form-check-input" required type="radio" data-service_type value="3" />
                                                                 </span>
                                                                 <!--end::Input-->
                                                             </label>
@@ -1364,7 +1364,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[2][]" placeholder="" value="" />
+                                                            <input type="file" required class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[2][]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->
@@ -1376,7 +1376,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="" />
+                                                            <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="pan_number_text[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->
@@ -1388,7 +1388,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="holder_name[]" placeholder="" value="" />
+                                                            <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="holder_name[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->
@@ -1400,7 +1400,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="address[]" placeholder="City, District, State, Pin code" value="" />
+                                                            <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="address[]" placeholder="City, District, State, Pin code" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->
@@ -1412,7 +1412,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="email_id[]" placeholder="Demat Holder’s Email ID" value="" />
+                                                            <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="email_id[]" placeholder="Demat Holder’s Email ID" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->
@@ -1424,7 +1424,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mobile[]" placeholder="Demat Holder’s Mobile Number" value="" />
+                                                            <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="mobile[]" placeholder="Demat Holder’s Mobile Number" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->
@@ -1437,7 +1437,7 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <select name="broker[]" class="form-select form-select-solid">
+                                                        <select name="broker[]" required class="form-select form-select-solid">
                                                             <option></option>
                                                             @forelse ($brokers as $broker)
                                                                 <option value="{{$broker->broker}}">{{$broker->broker}}</option>
@@ -1458,7 +1458,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="user_id[]" placeholder="" value="" />
+                                                            <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="user_id[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->
@@ -1470,7 +1470,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" value="" />
+                                                            <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="password[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->
@@ -1486,7 +1486,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
+                                                            <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="mpin[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->
@@ -1498,7 +1498,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="" />
+                                                            <input type="text" required class="form-control form-control-lg form-control-solid bdr-ccc" name="capital[]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Col-->
@@ -1545,7 +1545,7 @@
                                                             <!--begin::Input wrapper-->
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
-                                                                <select name="bank[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
+                                                                <select name="bank[]" required class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
                                                                     <option></option>
                                                                     @forelse ($banks as $bank)
                                                                         <option value="{{$bank->id}}">{{$bank->title}}</option>
@@ -1648,6 +1648,34 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
             $("select").select2();
+            function scroll(elem){
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $(elem).offset().top
+                }, 500);
+            }
+            $("#submit").on("click",function(e){
+                $.each($("[required]"),(i,v)=>{
+                    if($(v).val()==""){
+                        if($(v).next(".error").length>0){
+                            $(v).next(".error").show();
+                            $('html, body').animate({
+                            scrollTop: $(v).offset().top
+                            }, 500);
+                            e.preventDefault();
+                            return false;
+                        }else{
+                            $(v).after(`<span class="text-danger error">This field is required</span>`);
+                            $('html, body').animate({
+                            scrollTop: $(v).offset().top
+                            }, 500);
+                            e.preventDefault();
+                            return false;
+                        }
+                    }else{
+                        $(v).next(".error").hide();
+                    }
+                })
+            })
             window.lastSGNo = parseInt("<?php echo $newSGNo;?>");
 			// $(document).on("change","[name='st_sg[]']",function() {
 			// 	var lastSGNo = parseInt("<?php echo $newSGNo;?>");
@@ -1861,5 +1889,6 @@
     </script>
     @section('jscript')
 		<script src="{{asset('assets/js/custom/modals/create-app.js')}}"></script>
+		<script src="{{asset('js/validate.js')}}"></script>
     @endsection
 @endsection
