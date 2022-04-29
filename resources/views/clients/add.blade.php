@@ -1201,7 +1201,7 @@
                                                 @hasanyrole("super-admin|accountant")
                                                     <div class="row">
                                                         <div class="form-group">
-                                                            <input class="form-check-input" type="checkbox" value="{{isset($client->status)?($client->status==1?"1":"0"):"0"}}" onclick="this.value = (this.value==1?0:1)" {{isset($client->status)?($client->status==1?"checked":""):""}} name="payment_verified" id="paymentVerified"/>
+                                                            <input class="form-check-input" type="checkbox" value="0" onclick="this.value = (this.value==0?2:0)" name="payment_verified" id="paymentVerified"/>
                                                             <label for="paymentVerified" class="h3">is payment Verified?</label>
                                                         </div>
                                                     </div>

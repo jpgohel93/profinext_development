@@ -143,7 +143,7 @@
                                                                 </td>
                                                                 <td>{{$client->number}}</td>
                                                                 <td>{{ $client->clientDemat->count()}}</td>
-                                                                <td>{{ ($client->status)?"Verified":"unverified"}}</td>
+                                                                <td>{{ ($client->status=="2")?"Verified":"Unverified"}}</td>
                                                                 <td class="text-end">
                                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                                                         <span class="svg-icon svg-icon-5 m-0">

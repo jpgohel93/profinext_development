@@ -116,23 +116,7 @@ class renewalStatusService
         }
         try {
             $id = RenewDemat::create($request_data);
-            //channel Partner FEES
-            // if ($demat['service_type'][$key] == 2 && $request->channel_partner_id != '') {
-            //     $channelPartnerData = User::where("id",$request->channel_partner_id)->first();
-            //     $serviceData = servicesTypeModel::where("name","AMS")->first();
 
-            //     $channelPartnerAmount = $channelPartnerData->ams_new_client_percentage*$serviceData->renewal_amount/100;
-            //     $expensesData['percentage'] = $channelPartnerData->ams_new_client_percentage;
-            //     $expensesData['user_id'] = $request->channel_partner_id;
-            //     $expensesData['renewal_account_id'] = 0;
-            //     $expensesData['amount'] =$channelPartnerAmount;
-            //     $expensesData['firm'] =$demat['st_sg'][$key];
-            //     $expensesData['created_by']=auth()->user()->id;
-            //     $expensesData['date'] = date("Y-m-d");
-            //     $expensesData['description'] = "JOINING FEES";
-            //     $expensesData['total_amount'] = $serviceData->renewal_amount;
-            //     RenewExpensesModal::create($expensesData);
-            // }
             $user_name = auth()->user()->name;
             if($id){
                 LogServices::logEvent(["desc"=>"renewal $id->id created by $user_name"]);

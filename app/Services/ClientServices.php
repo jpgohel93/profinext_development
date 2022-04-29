@@ -43,6 +43,12 @@ class ClientServices
         $client['communication_with_contact_number'] = $request->communication_with_contact_number;
         $client['created_by'] = Auth::id();
         $client['channel_partner_id'] = ($request->channel_partner_id != '') ? $request->channel_partner_id : 0;
+        if($client['channel_partner_id']!="0"){
+            $auth_user = Auth::user();
+            if($auth_user->hasRole(['super-admin','accountant'])){
+                $client['status'] = $request->payment_verified;
+            }
+        }
 
         if ($request->client_type == 1) {
             $demat = $request->validate(
@@ -210,10 +216,29 @@ class ClientServices
                         array_push($screenshots, $screenshotId->id);
                     }
                 }
+                $RenewExpensesId = "0";
+                //channel Partner FEES
+                if ($array['service_type'] == "2" && $request->channel_partner_id != '' && $request->payment_verified=="2") {
+                    $expensesData = array();
+                    $channelPartnerData = User::where("id",$request->channel_partner_id)->first();
+                    $serviceData = servicesTypeModel::where("name","AMS")->first();
+
+                    $channelPartnerAmount = $channelPartnerData->ams_new_client_percentage*$serviceData->renewal_amount/100;
+                    $expensesData['percentage'] = $channelPartnerData->ams_new_client_percentage;
+                    $expensesData['user_id'] = $request->channel_partner_id;
+                    $expensesData['renewal_account_id'] = 0;
+                    $expensesData['amount'] =$channelPartnerAmount;
+                    $expensesData['firm'] =$array['st_sg'];
+                    $expensesData['created_by']=auth()->user()->id;
+                    $expensesData['date'] = date("Y-m-d");
+                    $expensesData['description'] = "JOINING FEES";
+                    $expensesData['total_amount'] = $serviceData->renewal_amount;
+                    $RenewExpensesId = RenewExpensesModal::create($expensesData);
+                }
                 // create demat
                 $demat_id = ClientDemat::create($array);
 
-                array_push($demat_ids,["ss"=>$screenshots,"pan"=>$panCards,"demat"=>$demat_id->id,"payment"=> $payment_id->id]);
+                array_push($demat_ids,["ss"=>$screenshots,"pan"=>$panCards,"demat"=>$demat_id->id,"payment"=> $payment_id->id,"RenewExpensesId"=>(isset($RenewExpensesId->id))?$RenewExpensesId->id:"0"]);
             }
             // create client
             $client = Client::create($client);
@@ -246,6 +271,8 @@ class ClientServices
                     ClientDemat::where("id", $demat_ids[$key]['demat'])->delete();
                     // delete demat id to payment id
                     ClientPayment::where("id", $demat_ids[$key]['payment'])->delete();
+                    // delete RenewExpensesId
+                    RenewExpensesModal::where("id",$demat_ids[$key]['RenewExpensesId']);
                 }
             }
 
@@ -304,12 +331,18 @@ class ClientServices
         $client['updated_by'] = Auth::id();
         $client['status'] = 0;
         $client['channel_partner_id'] = ($request->channel_partner_id != '') ? $request->channel_partner_id : 0;
-        if(isset($request->payment_verified) && $request->payment_verified=="1"){
+        if($client['channel_partner_id']==0){
             $auth_user = Auth::user();
-            if($auth_user->hasRole([8,1])){
-                $client['status']=1;
+            if($auth_user->hasRole(['super-admin','accountant'])){
+                if(isset($request->payment_verified) && ($request->payment_verified=="1" || $request->payment_verified=="0")){
+                    $client['status']=1;
+                }
+                else if(isset($request->payment_verified) && $request->payment_verified=="2"){
+                    $client['status'] = 2;
+                }
             }
         }
+        $client_current_status = Client::where("id",$id)->first(['status']);
         Client::where("id",$id)->update($client);
         if ($request->client_type == 1) {
 
@@ -379,6 +412,25 @@ class ClientServices
 
                 if(isset($request->demate_id[$key])){
                     ClientDemat::where("id", $request->demate_id[$key])->update($array);
+                    $RenewExpensesId = "0";
+                    //channel Partner FEES
+                    if ($array['service_type'] == "2" && isset($request->channel_partner_id) && $request->channel_partner_id != '' && $client_current_status['status']=="0") {
+                        $expensesData = array();
+                        $channelPartnerData = User::where("id",$request->channel_partner_id)->first();
+                        $serviceData = servicesTypeModel::where("name","AMS")->first();
+
+                        $channelPartnerAmount = $channelPartnerData->ams_new_client_percentage*$serviceData->renewal_amount/100;
+                        $expensesData['percentage'] = $channelPartnerData->ams_new_client_percentage;
+                        $expensesData['user_id'] = $request->channel_partner_id;
+                        $expensesData['renewal_account_id'] = 0;
+                        $expensesData['amount'] =$channelPartnerAmount;
+                        $expensesData['firm'] =$array['st_sg'];
+                        $expensesData['created_by']=auth()->user()->id;
+                        $expensesData['date'] = date("Y-m-d");
+                        $expensesData['description'] = "JOINING FEES";
+                        $expensesData['total_amount'] = $serviceData->renewal_amount;
+                        $RenewExpensesId = RenewExpensesModal::create($expensesData);
+                    }
                     $demate_id = $request->demate_id[$key];
                     if ($request->mode[$key] == "2") {
                         $request->validate(
