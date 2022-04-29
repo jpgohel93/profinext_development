@@ -214,7 +214,7 @@
                                                             <?php $joining_date = !empty($demat->joining_date) && isset($demat->joining_date) ? $demat->joining_date : $demat->created_at;?>
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                <td>{{$demat->st_sg}}</td>
+                                                                <td>{{$demat->st_sg."-".$demat->serial_number}}</td>
                                                                 <td>{{$demat->holder_name}}</td>
                                                                 <td>{{$demat->available_balance}}</td>
                                                                 <td>{{$demat->pl}}</td>
@@ -285,7 +285,7 @@
                                                             <?php $joining_date = !empty($preRenewAccount->joining_date) && isset($preRenewAccount->joining_date) ? $preRenewAccount->joining_date : $preRenewAccount->created_at;?>
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                <td>{{$preRenewAccount->st_sg}}</td>
+                                                                <td>{{$preRenewAccount->st_sg."-".$preRenewAccount->serial_number}}</td>
                                                                 <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
                                                                 <td>{{$preRenewAccount->holder_name}}</td>
                                                                 <td>{{$preRenewAccount->available_balance}}</td>
