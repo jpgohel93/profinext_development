@@ -248,6 +248,7 @@ class renewalStatusController extends Controller
     public function feesPayment(Request $request,$pdf = false){
         ClientDemateServices::demateFeesPayment($request);
         $renewData = ClientDemateServices::renewDataById($request->fees_payment_id);
+        $id = $request->fees_payment_id;
         if($renewData->service_type == 2){
             $message[0]['heading'] = "AMS Fees";
             $message[0]['description'] = 'Commission Income';
@@ -289,6 +290,8 @@ class renewalStatusController extends Controller
     public function profitSharingPayment(Request $request,$pdf= false){
         ClientDemateServices::demateProfitSharing($request);
         $renewData = ClientDemateServices::renewDataById($request->profit_sharing_payment_id);
+        $id= $request->profit_sharing_payment_id;
+
         if($renewData->service_type == 2){
             $message[0]['heading'] = "AMS Profit Sharing";
             $message[0]['description'] = 'Commission Income on Access Profit';
@@ -342,6 +345,7 @@ class renewalStatusController extends Controller
     public function fullPayment(Request $request,$pdf = false){
         ClientDemateServices::fullPayment($request);
        $renewData = ClientDemateServices::renewDataById($request->full_payment_id);
+       $id= $request->full_payment_id;
 
         if($renewData->service_type == 2){
             $message[0]['heading'] = "AMS Fees";

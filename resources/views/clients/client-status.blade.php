@@ -148,6 +148,7 @@
                                                             <th class="min-w-10px">Sr No.</th>
                                                             <th class="min-w-75px">Client Name</th>
                                                             <th class="min-w-75px">Contact No</th>
+                                                            <th class="min-w-75px">Communication With</th>
                                                             <th class="min-w-75px">No. of Demat</th>
                                                             <th class="min-w-75px">Action</th>
                                                         </tr>
@@ -158,6 +159,7 @@
                                                                 <td>{{$loop->iteration}}</td>
                                                                 <td>{{$active->name}}</td>
                                                                 <td>{{$active->number}}</td>
+                                                                <td>{{$active->communication_with_contact_number != '' ? $active->communication_with_contact_number : '-'}}</td>
                                                                 <td>{{$active->clientDemat->count()}}</td>
                                                                 <td>
                                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions

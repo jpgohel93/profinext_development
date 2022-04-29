@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\ClientDemat;
+use App\Models\financeManagementModel\BankModel;
 use App\Models\financeManagementModel\financeManagementIncomesModel;
 use App\Models\renewalAccountImagesModal;
 use App\Models\RenewDemat;
@@ -179,6 +180,16 @@ class ClientDemateServices{
 
         $totalPayment = $renewData['part_payment'] + $request->fees_amount;
 
+        // add balance in available balance
+        if($request->fees_bank_id != '') {
+            $toBankData = bankServices::getBankAccountById($request->fees_bank_id);
+
+            if (!empty($toBankData)) {
+                $addBalance['available_balance'] = $toBankData['available_balance'] +  $request->fees_amount;
+                BankModel::where("id", $request->fees_bank_id)->update($addBalance);
+            }
+        }
+
         //channel Partner
         if ($clientDematData['service_type'] == 2 && isset($clientDematData['channel_partner_id']) && $clientDematData['channel_partner_id'] != '' && $clientDematData['channel_partner_id'] != 0) {
             $channelPartnerData = User::where("id",$clientDematData['channel_partner_id'])->first();
@@ -284,6 +295,16 @@ class ClientDemateServices{
         financeManagementIncomesModel::create($income);
 
         $totalPayment = $renewData['part_payment'] + $request->profit_amount;
+
+        // add balance in available balance
+        if($request->profit_bank_id != '') {
+            $toBankData = bankServices::getBankAccountById($request->profit_bank_id);
+
+            if (!empty($toBankData)) {
+                $addBalance['available_balance'] = $toBankData['available_balance'] +  $request->profit_amount;
+                BankModel::where("id", $request->profit_bank_id)->update($addBalance);
+            }
+        }
 
         if (($clientDematData['service_type'] == 1 || $clientDematData['service_type'] == 3) && isset($clientDematData['channel_partner_id']) && $clientDematData['channel_partner_id'] != '' && $clientDematData['channel_partner_id'] != 0) {
             $channelPartnerData = User::where("id",$clientDematData['channel_partner_id'])->first();
@@ -405,6 +426,17 @@ class ClientDemateServices{
         financeManagementIncomesModel::create($income);
 
         $totalPayment = $renewData['part_payment'] + $request->part_amount;
+
+        // add balance in available balance
+        if($request->part_bank_id != '') {
+            $toBankData = bankServices::getBankAccountById($request->part_bank_id);
+
+            if (!empty($toBankData)) {
+                $addBalance['available_balance'] = $toBankData['available_balance'] +  $request->part_amount;
+                BankModel::where("id", $request->part_bank_id)->update($addBalance);
+            }
+        }
+
         if($renewData['final_amount'] <= $totalPayment){
 
             //channel Partner Renewal Fees
@@ -572,6 +604,7 @@ class ClientDemateServices{
 
         financeManagementIncomesModel::create($income);
 
+
         //channel Partner Renewal Fees
         if ($clientDematData['service_type'] == 2 && isset($clientDematData['channel_partner_id']) && $clientDematData['channel_partner_id'] != '' && $clientDematData['channel_partner_id'] != 0) {
             $channelPartnerData = User::where("id",$clientDematData['channel_partner_id'])->first();
@@ -657,6 +690,16 @@ class ClientDemateServices{
                 $expensesData['total_amount'] = $renewData['profit_sharing'];
                 $expensesData['percentage'] = $freelancerData->percentage;
                 RenewExpensesModal::create($expensesData);
+            }
+        }
+
+        // add balance in available balance
+        if($request->full_bank_id != '') {
+            $toBankData = bankServices::getBankAccountById($request->full_bank_id);
+
+            if (!empty($toBankData)) {
+                $addBalance['available_balance'] = $toBankData['available_balance'] +  $request->full_amount;
+                BankModel::where("id", $request->full_bank_id)->update($addBalance);
             }
         }
 

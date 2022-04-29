@@ -142,6 +142,20 @@
                                                     <!--begin::Input group-->
                                                     <div class="col-md-6 mb-4">
                                                         <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span>Communication with contact number</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with_contact_number" placeholder="" value="{{old('communication_with_contact_number')}}" />
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+                                                <div class="row">
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
                                                         <label class="d-md-flex align-items-center fs-5 fw-bold mb-2">
                                                             <span class="required">WhatsApp No.</span>
                                                             <div class="form-check form-check-custom form-check-solid small" style="margin-left: auto;">
@@ -157,8 +171,6 @@
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
-                                                </div>
-                                                <div class="row">
                                                     <!--begin::Input group-->
                                                     <div class="col-md-6 mb-4">
                                                         <!--begin::Label-->

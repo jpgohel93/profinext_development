@@ -79,18 +79,32 @@
                                             </div>
                                             <div class="row">
 
-                                            <!--begin::Input group-->
-                                            <div class="col-md-6 mb-4">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span>Communication with</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with" readonly value="{{$client->communication_with}}" />
-                                                <!--end::Input-->
+                                                <!--begin::Input group-->
+                                                <div class="col-md-6 mb-4">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span>Communication with</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with" readonly value="{{$client->communication_with}}" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
+                                                <!--end::Input group-->
+                                                <div class="col-md-6 mb-4">
+                                                    <!--begin::Label-->
+                                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                        <span>Communication with contact number</span>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with_contact_number" placeholder="" value="{{$client->communication_with_contact_number}}" />
+                                                    <!--end::Input-->
+                                                </div>
+                                                <!--end::Input group-->
                                             </div>
-                                            <!--end::Input group-->
+                                            <div class="row">
                                             <!--begin::Input group-->
                                             <div class="col-md-6 mb-4">
                                                 <!--begin::Label-->
@@ -109,7 +123,7 @@
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
-                                            </div>
+
                                             <!--begin::Input group-->
                                             <div class="col-md-6 mb-4">
                                                 <!--begin::Label-->
@@ -120,6 +134,7 @@
                                                 <!--begin::Input-->
                                                 <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" readonly value="{{$client->profession}}" />
                                                 <!--end::Input-->
+                                            </div>
                                             </div>
 
                                             <!--end::Input group-->
@@ -498,9 +513,11 @@
                                                             </div>
                                                             <div class="row">
                                                                 @if($client->clientPayment->isNotEmpty())
-                                                                    @foreach($client->clientPayment[$key]->Screenshots as $ss)
-                                                                        <img style="height: 100px;width:auto" loading="lazy" class="m-3" src="{{url('common/displayFile/'.Crypt::encryptString($ss->id).'/'.Crypt::encryptString('screenshots').'/'.$ss->file)}}" >
-                                                                    @endforeach
+                                                                    @if(isset($client->clientPayment[$key]->Screenshots))
+                                                                        @foreach($client->clientPayment[$key]->Screenshots as $ss)
+                                                                                <img style="height: 100px;width:auto" loading="lazy" class="m-3" src="{{url('common/displayFile/'.Crypt::encryptString($ss->id).'/'.Crypt::encryptString('screenshots').'/'.$ss->file)}}" >
+                                                                        @endforeach
+                                                                    @endif
                                                                 @else
                                                                     <h6>Screenshot not found</h6>
                                                                 @endif

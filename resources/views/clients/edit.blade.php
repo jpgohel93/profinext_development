@@ -103,38 +103,50 @@
                                                         </div>
                                                         <div class="row">
 
-                                                        <!--begin::Input group-->
-                                                        <div class="col-md-6 mb-4">
-                                                            <!--begin::Label-->
-                                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                <span>Communication with</span>
-                                                            </label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with" placeholder="" value="{{$client->communication_with}}" />
-                                                            <!--end::Input-->
-                                                        </div>
-                                                        <!--end::Input group-->
-                                                        <!--begin::Input group-->
-                                                        <div class="col-md-6 mb-4">
-                                                            <!--begin::Label-->
-                                                            <label class="d-md-flex align-items-center fs-5 fw-bold mb-2">
-                                                                <span class="required">WhatsApp No.</span>
-                                                                <div class="form-check form-check-custom form-check-solid small" style="margin-left: auto;">
-                                                                    <input class="form-check-input wpsameascontact" type="checkbox" value="1" name="wpsameascontact" id="flexCheckDefault"/>
-                                                                    <label class="form-check-label" for="flexCheckDefault" style="font-size: x-small;">
-                                                                        (Select if WhatsApp No. is same as Mobile No.)
-                                                                    </label>
-                                                                </div>
-                                                            </label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc wp" name="wp_number" placeholder="" value="{{$client->wp_number}}" />
-                                                            <!--end::Input-->
-                                                        </div>
-                                                        <!--end::Input group-->
+                                                            <!--begin::Input group-->
+                                                            <div class="col-md-6 mb-4">
+                                                                <!--begin::Label-->
+                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                    <span>Communication with</span>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with" placeholder="" value="{{$client->communication_with}}" />
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                            <div class="col-md-6 mb-4">
+                                                                <!--begin::Label-->
+                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                    <span>Communication with contact number</span>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with_contact_number" placeholder="" value="{{$client->communication_with_contact_number}}" />
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
                                                         </div>
                                                         <div class="row">
+                                                            <!--begin::Input group-->
+                                                            <div class="col-md-6 mb-4">
+                                                                <!--begin::Label-->
+                                                                <label class="d-md-flex align-items-center fs-5 fw-bold mb-2">
+                                                                    <span class="required">WhatsApp No.</span>
+                                                                    <div class="form-check form-check-custom form-check-solid small" style="margin-left: auto;">
+                                                                        <input class="form-check-input wpsameascontact" type="checkbox" value="1" name="wpsameascontact" id="flexCheckDefault"/>
+                                                                        <label class="form-check-label" for="flexCheckDefault" style="font-size: x-small;">
+                                                                            (Select if WhatsApp No. is same as Mobile No.)
+                                                                        </label>
+                                                                    </div>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc wp" name="wp_number" placeholder="" value="{{$client->wp_number}}" />
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
                                                             <!--begin::Input group-->
                                                             <div class="col-md-6 mb-4">
                                                                 <!--begin::Label-->
