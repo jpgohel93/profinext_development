@@ -273,7 +273,11 @@ class ClientServices
         return Client::with('clientDemat')->get();
     }
     public static function active(){
-        return Client::where("created_by",auth()->user()->id)->where("status", "1")->with('clientDemat')->get();
+        $user = Auth::user();
+        if($user->user_type=="3"){
+            return Client::where("created_by",$user->id)->where("status", "1")->with('clientDemat')->get();
+        }
+        return Client::where("status", "1")->with('clientDemat')->get();
     }
     public static function get($id){
         $client = Client::where("id",$id)->with(['clientDemat','clientPayment','clientPayment.Screenshots', 'clientDemat.Pancards'])->first();
