@@ -281,8 +281,7 @@ class UserServices
             }
         }
         $user->syncPermissions($param);
-        // $user->syncPermissions($direct_permissions);
-        // dd($user->getDirectPermissions());
+        $user->revokePermissionTo($direct_permissions);
         $user_data = $request->except(['_token',"number","permissions"]);
         // remove old numbers
         UserNumbers::where("user_id",$id)->delete();
