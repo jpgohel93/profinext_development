@@ -102,32 +102,6 @@
                                                             <!--end::Input group-->
                                                         </div>
                                                         <div class="row">
-
-                                                            <!--begin::Input group-->
-                                                            <div class="col-md-6 mb-4">
-                                                                <!--begin::Label-->
-                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                    <span>Communication with</span>
-                                                                </label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with" placeholder="" value="{{$client->communication_with}}" />
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <div class="col-md-6 mb-4">
-                                                                <!--begin::Label-->
-                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                                    <span>Communication with contact number</span>
-                                                                </label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Input-->
-                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with_contact_number" placeholder="" value="{{$client->communication_with_contact_number}}" />
-                                                                <!--end::Input-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                        </div>
-                                                        <div class="row">
                                                             <!--begin::Input group-->
                                                             <div class="col-md-6 mb-4">
                                                                 <!--begin::Label-->
@@ -159,7 +133,7 @@
                                                                     @forelse ($professions as $profession)
                                                                         <option value="{{$profession->profession}}" {{(old('profession') && old('profession')==$profession->profession)?"selected":($client->profession==$profession->profession?"selected":"")}}>{{$profession->profession}}</option>
                                                                     @empty
-                                                                        <option>Selecte Bank</option>
+                                                                        <option>Select Profession</option>
                                                                     @endforelse
                                                                 </select>
                                                                 <!--end::Input-->
@@ -188,6 +162,32 @@
                                                                 </select>
                                                                 <!--end::Input-->
                                                             </div>
+                                                        </div>
+                                                        <div class="row">
+
+                                                            <!--begin::Input group-->
+                                                            <div class="col-md-6 mb-4">
+                                                                <!--begin::Label-->
+                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                    <span>Communication with</span>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with" placeholder="" value="{{$client->communication_with}}" />
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                            <div class="col-md-6 mb-4">
+                                                                <!--begin::Label-->
+                                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                                    <span>Communication with contact number</span>
+                                                                </label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with_contact_number" placeholder="" value="{{$client->communication_with_contact_number}}" />
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -583,7 +583,7 @@
                                                                             @forelse ($brokers as $broker)
                                                                                 <option value="{{$broker->broker}}" {{(old('broker') && old('broker')[$key]==$broker->broker)?"selected":($demate_account['broker']==$broker->broker?"selected":"")}}>{{$broker->broker}}</option>
                                                                             @empty
-                                                                                <option>Selecte Bank</option>
+                                                                                <option>Select Broker</option>
                                                                             @endforelse
                                                                         </select>
                                                                         <!--end::Input-->
@@ -690,9 +690,9 @@
                                                                                 <select name="bank[]" class="form-select form-select-solid" data-control="select2">
                                                                                     <option></option>
                                                                                     @forelse ($banks as $bank)
-                                                                                        <option value="{{$bank->title}}" {{(old('bank') && old('bank')[$key]==$bank->title)?"selected":(isset($client->clientPayment[$key])?$client->clientPayment[$key]->bank:""==$bank->title?"selected":"")}}>{{$bank->title}}</option>
+                                                                                        <option value="{{$bank->id}}" {{(old('bank') && old('bank')[$key]==$bank->title)?"selected":(isset($client->clientPayment[$key])?$client->clientPayment[$key]->bank:""==$bank->title?"selected":"")}}>{{$bank->title}}</option>
                                                                                     @empty
-                                                                                        <option>Selecte Bank</option>
+                                                                                        <option>Select Bank</option>
                                                                                     @endforelse
 
                                                                                 </select>
@@ -1122,9 +1122,9 @@
                                                                     <select name="bank[]" class="form-select form-select-solid" data-control="select2" data-placeholder="Select bank">
                                                                         <option></option>
                                                                         @forelse ($banks as $bank)
-                                                                            <option value="{{$bank->title}}">{{$bank->title}}</option>
+                                                                            <option value="{{$bank->id}}">{{$bank->title}}</option>
                                                                         @empty
-                                                                            <option>Selecte Bank</option>
+                                                                            <option>Select Bank</option>
                                                                         @endforelse
                                                                     </select>
                                                                 </div>

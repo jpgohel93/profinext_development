@@ -126,33 +126,6 @@
                                                     <!--end::Input group-->
                                                 </div>
                                                 <div class="row">
-
-                                                    <!--begin::Input group-->
-                                                    <div class="col-md-6 mb-4">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span>Communication with</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with" placeholder="" value="{{old('communication_with')}}" />
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Input group-->
-                                                    <!--begin::Input group-->
-                                                    <div class="col-md-6 mb-4">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                            <span>Communication with contact number</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Input-->
-                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with_contact_number" placeholder="" value="{{old('communication_with_contact_number')}}" />
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <!--end::Input group-->
-                                                </div>
-                                                <div class="row">
                                                     <!--begin::Input group-->
                                                     <div class="col-md-6 mb-4">
                                                         <!--begin::Label-->
@@ -204,18 +177,45 @@
                                                                 <option value="{{$channelPartner->id}}" >{{$channelPartner->name}}</option>
                                                             </select>
                                                         @else
-                                                        <select name="channel_partner_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Channel Partner">
-                                                            <option></option>
-                                                            @forelse ($channelPartner as $partner)
-                                                                <option value="{{$partner->id}}" >{{$partner->name}}</option>
-                                                            @empty
+                                                            <select name="channel_partner_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Channel Partner">
+                                                                <option></option>
+                                                                @forelse ($channelPartner as $partner)
+                                                                    <option value="{{$partner->id}}" >{{$partner->name}}</option>
+                                                                @empty
 
-                                                            @endforelse
-                                                        </select>
+                                                                @endforelse
+                                                            </select>
                                                         @endif
                                                         <!--end::Input-->
                                                     </div>
 
+                                                    <!--end::Input group-->
+                                                </div>
+                                                <div class="row">
+
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span>Communication with</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with" placeholder="" value="{{old('communication_with')}}" />
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                    <!--begin::Input group-->
+                                                    <div class="col-md-6 mb-4">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                            <span>Communication with contact number</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <input type="text" class="form-control form-control-lg form-control-solid bdr-ccc" name="communication_with_contact_number" placeholder="" value="{{old('communication_with_contact_number')}}" />
+                                                        <!--end::Input-->
+                                                    </div>
                                                     <!--end::Input group-->
                                                 </div>
                                             </div>
@@ -717,9 +717,9 @@
                                                                             <select name="bank[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
                                                                                 <option></option>
                                                                                 @forelse ($banks as $bank)
-                                                                                    <option value="{{$bank->title}}" {{(old('bank') && old('bank')==$bank->title)?"selected":""}}>{{$bank->title}}</option>
+                                                                                    <option value="{{$bank->id}}" {{(old('bank') && old('bank')==$bank->title)?"selected":""}}>{{$bank->title}}</option>
                                                                                 @empty
-                                                                                    <option>Selecte Bank</option>
+                                                                                    <option>Select Bank</option>
                                                                                 @endforelse
                                                                             </select>
                                                                         </div>
@@ -1112,11 +1112,12 @@
                                                                         <!--begin::Input wrapper-->
                                                                         <div class="position-relative">
                                                                             <!--begin::Input-->
-                                                                            <select name="bank[]" class="form-select form-select-solid" >
+                                                                            <select name="bank[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
+                                                                                <option></option>
                                                                                 @forelse ($banks as $bank)
-                                                                                    <option value="{{$bank->bank}}" {{$demat_account['bank']==$bank->bank?"selected":""}}>{{$bank->bank}}</option>
+                                                                                    <option value="{{$bank->id}}" {{$demat_account['id']==$bank->id?"selected":""}}>{{$bank->title}}</option>
                                                                                 @empty
-                                                                                    <option>Selecte Bank</option>
+                                                                                    <option>Select Bank</option>
                                                                                 @endforelse
                                                                             </select>
                                                                         </div>
@@ -1544,11 +1545,12 @@
                                                             <!--begin::Input wrapper-->
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
-                                                                <select name="bank[]" class="form-select form-select-solid" >
+                                                                <select name="bank[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Bank">
+                                                                    <option></option>
                                                                     @forelse ($banks as $bank)
-                                                                        <option value="{{$bank->bank}}">{{$bank->bank}}</option>
+                                                                        <option value="{{$bank->id}}">{{$bank->title}}</option>
                                                                     @empty
-                                                                        <option>Selecte Bank</option>
+                                                                        <option>Select Bank</option>
                                                                     @endforelse
                                                                 </select>
                                                             </div>

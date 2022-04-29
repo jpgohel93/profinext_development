@@ -10,12 +10,14 @@ use App\Models\servicesTypeModel;
 use App\Models\PancardImageModel;
 use App\Models\User;
 use App\Models\RenewExpensesModal;
+use App\Models\financeManagementModel\BankModel;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CommonService;
 use App\Services\financeManagementServices\financeManagementIncomesServices;
 use App\Services\financeManagementServices\financeManagementExpensesServices;
 use App\Services\ClientInvestmentServices;
 use App\Services\LogServices;
+use App\Services\financeManagementServices\bankServices;
 class ClientServices
 {
     public static function create($request)
@@ -104,7 +106,7 @@ class ClientServices
                 $array['st_sg'] = $demat['st_sg'][$key];
                 $array['serial_number'] = $demat['serial_number'][$key];
                 $array['service_type'] = $demat['service_type'][$key];
-                $array['pan_number_text'] = $demat['pan_number_text'][$key];
+                $array['pan_number_text'] = strtoupper($demat['pan_number_text'][$key]);
                 $array['address'] = $demat['address'][$key];
                 $array['email_id'] = $demat['email_id'][$key];
                 $array['mobile'] = $demat['mobile'][$key];
@@ -128,13 +130,13 @@ class ClientServices
                 if ($request->mode[$key] == "2") {
                     $payment = $request->validate(
                         [
-                            "bank.*" => "required|alpha_spaces",
+                            "bank" => "required",
                             "mode.*" => "required|numeric",
                             "joining_date" => "required",
                             "pending_payment.*" => "required|numeric",
                         ],
                         [
-                            "bank.*.alpha_spaces" => "Invalid Bank",
+                            "bank.required" => "Select Bank",
                             "bank.*.required" => "Payment bank is required",
                             "joining_date.required" => "Joining Date is Required",
                             "pending_payment.*.numeric" => "Invalid Pending Payment Mark",
@@ -217,11 +219,25 @@ class ClientServices
                     }
                 }
                 $RenewExpensesId = "0";
+
+                if($request->payment_verified=="2") {
+                    // add balance in available balance
+                    if (isset($request->bank[$key]) && $request->bank[$key] != '') {
+                        $toBankData = bankServices::getBankAccountById($request->bank[$key]);
+
+                        if (!empty($toBankData)) {
+                            $addBalance['available_balance'] = $toBankData['available_balance'] + $request->fees[$key];
+                            BankModel::where('id',$request->bank[$key])->update($addBalance);
+                        }
+                    }
+                }
                 //channel Partner FEES
                 if ($array['service_type'] == "2" && $request->channel_partner_id != '' && $request->payment_verified=="2") {
                     $expensesData = array();
                     $channelPartnerData = User::where("id",$request->channel_partner_id)->first();
                     $serviceData = servicesTypeModel::where("name","AMS")->first();
+
+
 
                     $channelPartnerAmount = $channelPartnerData->ams_new_client_percentage*$serviceData->renewal_amount/100;
                     $expensesData['percentage'] = $channelPartnerData->ams_new_client_percentage;
@@ -392,7 +408,7 @@ class ClientServices
                 $array['st_sg'] = $demat['st_sg'][$key];
                 $array['serial_number'] = $demat['serial_number'][$key];
                 $array['service_type'] = $demat['service_type'][$key];
-                $array['pan_number_text'] = $demat['pan_number_text'][$key];
+                $array['pan_number_text'] = strtoupper($demat['pan_number_text'][$key]);
                 $array['address'] = $demat['address'][$key];
                 $array['email_id'] = $demat['email_id'][$key];
                 $array['mobile'] = $demat['mobile'][$key];
@@ -418,6 +434,16 @@ class ClientServices
                         $expensesData = array();
                         $channelPartnerData = User::where("id",$request->channel_partner_id)->first();
                         $serviceData = servicesTypeModel::where("name","AMS")->first();
+
+                        // add balance in available balance
+                        if(isset($request->bank[$key]) && $request->bank[$key] != '') {
+                            $toBankData = bankServices::getBankAccountById($request->bank[$key]);
+
+                            if (!empty($toBankData)) {
+                                $addBalance['available_balance'] = $toBankData['available_balance'] +  $serviceData->renewal_amount;
+                                BankModel::where('id',$request->bank[$key])->update($addBalance);
+                            }
+                        }
 
                         $channelPartnerAmount = $channelPartnerData->ams_new_client_percentage*$serviceData->renewal_amount/100;
                         $expensesData['percentage'] = $channelPartnerData->ams_new_client_percentage;
@@ -524,13 +550,13 @@ class ClientServices
                     if ($request->mode[$key] == "2") {
                         $payment = $request->validate(
                             [
-                                "bank.*" => "required|alpha_spaces",
+                                "bank" => "required",
                                 "mode.*" => "required|numeric",
                                 "joining_date" => "required",
                                 "pending_payment.*" => "required|numeric",
                             ],
                             [
-                                "bank.*.alpha_spaces" => "Invalid Bank",
+                                "bank.required" => "Select Bank",
                                 "bank.*.required" => "Payment bank is required",
                                 "joining_date.required" => "Joining Date is Required",
                                 "pending_payment.*.numeric" => "Invalid Pending Payment Mark",
