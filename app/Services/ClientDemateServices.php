@@ -9,27 +9,48 @@ use App\Models\RenewDemat;
 use App\Models\RenewExpensesModal;
 use App\Models\User;
 use App\Services\financeManagementServices\bankServices;
+use Illuminate\Support\Facades\Auth;
 
 class ClientDemateServices{
     public static function active(){
-        return ClientDemat::where("account_status","normal")->whereNull("problem")->with(["withClient"])->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->select('client_demat.*', 'clients.name')->get();
+        $demates = ClientDemat::where("account_status","normal")->whereNull("problem")->with(["withClient"])->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id');
+        $user = Auth::user();
+        if($user->user_type=="3"){
+            $demates->where("client_demat.created_by",$user->id);
+        }
+        return $demates->select('client_demat.*', 'clients.name')->get();
     }
     public static function toRenews(){
-       return RenewDemat::
+       $demats = RenewDemat::
         leftJoin('client_demat', 'renewal_account.client_demat_id', '=', 'client_demat.id')->
         leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
-        where("renewal_account.status", "to_renew")->
-        select('clients.name','clients.number','client_demat.serial_number','client_demat.st_sg','client_demat.client_id','client_demat.holder_name','client_demat.available_balance','renewal_account.*')
-            ->get();
+        where("renewal_account.status", "to_renew");
+        $user = Auth::user();
+        if($user->user_type=="3"){
+            $demats->where("client_demat.created_by",$user->id);
+        }
+        return $demats->select('clients.name','clients.number','client_demat.serial_number','client_demat.st_sg','client_demat.client_id','client_demat.holder_name','client_demat.available_balance','renewal_account.*')
+        ->get();
     }
     public static function problemAccounts(){
-        return ClientDemat::whereNotNull("problem")->where('account_status','!=','terminated')->with(["withClient"])->get();
+        $demats = ClientDemat::whereNotNull("problem")->where('account_status','!=','terminated');
+        $user = Auth::user();
+        if($user->user_type=="3"){
+            $demats->where("created_by",$user->id);
+        }
+        return $demats->with(["withClient"])->get();
     }
     public static function allAccounts(){
-        $clients = ClientDemat::where("trader_id",auth()->user()->id)->leftJoin('clients as c', function ($join) {
+        $clients = ClientDemat::leftJoin('clients as c', function ($join) {
             $join->on('client_demat.client_id', '=', 'c.id')
                 ->where('c.client_type', '=', 1);
-        })->select('client_demat.*', 'c.name', 'c.number','c.deleted_at')->whereNull("c.deleted_at")->get();
+        });
+        $user = Auth::user();
+        if($user->user_type=="3"){
+            $clients->where("client_demat.created_by",Auth::id());
+        }
+        $clients = $clients->select('client_demat.*', 'c.name', 'c.number','c.deleted_at')->get();
+
         // count demat accounts
         $client_id =[];
         foreach ($clients as $key => $client){

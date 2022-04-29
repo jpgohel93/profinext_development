@@ -20,7 +20,12 @@ class renewalStatusService
     }
     public static function preRenewAccounts()
     {
-        return ClientDemat::where("account_status", "renew")->get();
+        $demats = ClientDemat::where("account_status", "renew");
+        $user = Auth::user();
+        if($user->user_type=="3"){
+            $demats->where("created_by",$user->id);
+        }
+        return $demats->get();
     }
     public static function toRenewAccounts()
     {
