@@ -93,31 +93,31 @@
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1 active" data-bs-toggle="tab" data-id='clients' href="#clients">Clients</a>
+                                    <a class="nav-link text-active-primary pb-1 active" data-bs-toggle="tab" data-id='clients' href="#clients">Clients ({{count($actives)}})</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="demat" href="#demat">Demat</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="demat" href="#demat">Demat ({{count($demats)}})</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="preRenew" href="#preRenew">Pre Renew</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="preRenew" href="#preRenew">Pre Renew ({{count($preRenewAccounts)}})</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="toRenew" href="#toRenew">To Renew</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="toRenew" href="#toRenew">To Renew ({{count($toRenews)}})</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="problem" href="#problem">Problem</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="problem" href="#problem">Problem ({{count($problemAccounts)}})</a>
                                 </li>
                                 <!--end:::Tab item-->
 
@@ -129,7 +129,7 @@
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="all" href="#all">All</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="all" href="#all">All ({{count($allAccounts)}})</a>
                                 </li>
                                 <!--end:::Tab item-->
                             </ul>

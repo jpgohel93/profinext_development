@@ -85,14 +85,14 @@
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary pb-1 active" data-bs-toggle="tab"
-                                       href="#accountHandling">Account Handling</a>
+                                       href="#accountHandling">Account Handling ({{$clients['account_handling']['count']}})</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#mutualFund">Mutual Fund</a>
+                                       href="#mutualFund">Mutual Fund ({{$clients['mutual_fund']['count']}})</a>
                                 </li>
                                 <!--end:::Tab item-->
 
@@ -100,13 +100,13 @@
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#unlistedShares">Unlisted Shares</a>
+                                       href="#unlistedShares">Unlisted Shares ({{$clients['unlisted_shares']['count']}})</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" href="#insurance">Insurance</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" href="#insurance">Insurance ({{$clients['insurance']['count']}})</a>
                                 </li>
                                 <!--end:::Tab item-->
                             </ul>
@@ -133,47 +133,49 @@
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
                                                         @forelse($clients['account_handling'] as $client)
-                                                            <tr>
-                                                                <td>{{$loop->iteration}}</td>
-                                                                <td class="d-flex align-items-center">
-                                                                    <div class="d-flex flex-column">
-                                                                        <a href="javascript:void(0)" class="text-gray-800 text-hover-primary mb-1">{{$client->name}}</a>
-                                                                        <span>{{$client->email}}</span>
-                                                                    </div>
-                                                                </td>
-                                                                <td>{{$client->number}}</td>
-                                                                <td>{{ $client->clientDemat->count()}}</td>
-                                                                <td>{{ ($client->status=="2")?"Verified":"Unverified"}}</td>
-                                                                <td class="text-end">
-                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                        <span class="svg-icon svg-icon-5 m-0">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                            </svg>
-                                                                        </span>
-                                                                    </a>
-                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @can("client-read")
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('clientView',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">View</a>
-                                                                            </div>
-                                                                        @endcan
-                                                                        @can("client-write")
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('updateClientForm',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Edit</a>
-                                                                            </div>
-                                                                        @endcan
-                                                                        <!--div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$client->id}}' data-name='{{$client->name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
-                                                                        </div-->
-                                                                        @can("client-delete")
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3 removeClient">Remove</a>
-                                                                            </div>
-                                                                        @endcan
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+                                                            @if (isset($client->id))
+                                                                <tr>
+                                                                    <td>{{$loop->iteration}}</td>
+                                                                    <td class="d-flex align-items-center">
+                                                                        <div class="d-flex flex-column">
+                                                                            <a href="javascript:void(0)" class="text-gray-800 text-hover-primary mb-1">{{(isset($client->name))?$client->name:""}}</a>
+                                                                            <span>{{isset($client->email)?$client->email:""}}</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>{{isset($client->number)?$client->number:""}}</td>
+                                                                    <td>{{ isset($client->clientDemat)?$client->clientDemat->count():""}}</td>
+                                                                    <td>{{ ($client->status=="2")?"Verified":"Unverified"}}</td>
+                                                                    <td class="text-end">
+                                                                        <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </a>
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                            @can("client-read")
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="{{route('clientView',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">View</a>
+                                                                                </div>
+                                                                            @endcan
+                                                                            @can("client-write")
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="{{route('updateClientForm',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Edit</a>
+                                                                                </div>
+                                                                            @endcan
+                                                                            <!--div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$client->id}}' data-name='{{$client->name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
+                                                                            </div-->
+                                                                            @can("client-delete")
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3 removeClient">Remove</a>
+                                                                                </div>
+                                                                            @endcan
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
                                                         @empty
                                                             {{-- empty --}}
                                                         @endforelse
@@ -206,29 +208,31 @@
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
                                                         @forelse($clients['mutual_fund'] as $client)
-                                                            <tr>
-                                                                <td>{{$loop->iteration}}</td>
-                                                                <td>{{$client->name}}</td>
-                                                                <td>{{ $client->clientDemat->count()}}</td>
-                                                                <td>{{ ($client->status)?"Verified":"unverified"}}</td>
-                                                                <td>
-                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                        <span class="svg-icon svg-icon-5 m-0">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                            </svg>
-                                                                        </span>
-                                                                    </a>
-                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$client->id}}' class="menu-link px-3">View Investments</a>
+                                                            @if (isset($client->id))
+                                                                <tr>
+                                                                    <td>{{$loop->iteration}}</td>
+                                                                    <td>{{$client->name}}</td>
+                                                                    <td>{{ $client->clientDemat->count()}}</td>
+                                                                    <td>{{ ($client->status)?"Verified":"unverified"}}</td>
+                                                                    <td>
+                                                                        <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </a>
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$client->id}}' class="menu-link px-3">View Investments</a>
+                                                                            </div>
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$client->id}}' class="menu-link px-3">Terminate</a>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$client->id}}' class="menu-link px-3">Terminate</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
                                                         @empty
                                                             {{-- empty --}}
                                                         @endforelse
@@ -262,47 +266,49 @@
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
                                                         @forelse($clients['unlisted_shares'] as $client)
-                                                            <tr>
-                                                                <td>{{$loop->iteration}}</td>
-                                                                <td class="d-flex align-items-center">
-                                                                    <div class="d-flex flex-column">
-                                                                        <a href="#" class="text-gray-800 text-hover-primary mb-1">{{$client->name}}</a>
-                                                                        <span>{{$client->email}}</span>
-                                                                    </div>
-                                                                </td>
-                                                                <td>{{$client->number}}</td>
-                                                                <td>{{ $client->clientDemat->count()}}</td>
-                                                                <td>{{ ($client->status)?"Verified":"unverified"}}</td>
-                                                                <td class="text-end">
-                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                        <span class="svg-icon svg-icon-5 m-0">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                            </svg>
-                                                                        </span>
-                                                                    </a>
-                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @can("client-read")
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('clientView',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">View</a>
-                                                                            </div>
-                                                                        @endcan
-                                                                        @can("client-write")
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('updateClientForm',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Edit</a>
-                                                                            </div>
-                                                                        @endcan
-                                                                        <!--div class="menu-item px-3">
-                                                                            <a href="javascript:void(0)" data-id='{{$client->id}}' data-name='{{$client->name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
-                                                                        </div-->
-                                                                        @can("client-delete")
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3 removeClient">Remove</a>
-                                                                            </div>
-                                                                        @endcan
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+                                                            @if (isset($client->id))
+                                                                <tr>
+                                                                    <td>{{$loop->iteration}}</td>
+                                                                    <td class="d-flex align-items-center">
+                                                                        <div class="d-flex flex-column">
+                                                                            <a href="#" class="text-gray-800 text-hover-primary mb-1">{{$client->name}}</a>
+                                                                            <span>{{$client->email}}</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>{{$client->number}}</td>
+                                                                    <td>{{ $client->clientDemat->count()}}</td>
+                                                                    <td>{{ ($client->status)?"Verified":"unverified"}}</td>
+                                                                    <td class="text-end">
+                                                                        <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </a>
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                            @can("client-read")
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="{{route('clientView',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">View</a>
+                                                                                </div>
+                                                                            @endcan
+                                                                            @can("client-write")
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="{{route('updateClientForm',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Edit</a>
+                                                                                </div>
+                                                                            @endcan
+                                                                            <!--div class="menu-item px-3">
+                                                                                <a href="javascript:void(0)" data-id='{{$client->id}}' data-name='{{$client->name}}' class="menu-link px-3 assignTrader">Assign Trader</a>
+                                                                            </div-->
+                                                                            @can("client-delete")
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3 removeClient">Remove</a>
+                                                                                </div>
+                                                                            @endcan
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
                                                         @empty
                                                             {{-- empty --}}
                                                         @endforelse
@@ -336,44 +342,46 @@
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
                                                         @forelse($clients['insurance'] as $client)
-                                                            <tr>
-                                                                <td>{{$loop->iteration}}</td>
-                                                                <td class="d-flex align-items-center">
-                                                                    <div class="d-flex flex-column">
-                                                                        <a href="#" class="text-gray-800 text-hover-primary mb-1">{{$client->name}}</a>
-                                                                        <span>{{$client->email}}</span>
-                                                                    </div>
-                                                                </td>
-                                                                <td>{{$client->number}}</td>
-                                                                <td>{{ $client->clientDemat->count()}}</td>
-                                                                <td>{{ ($client->status)?"Verified":"unverified"}}</td>
-                                                                <td class="text-end">
-                                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                        <span class="svg-icon svg-icon-5 m-0">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                            </svg>
-                                                                        </span>
-                                                                    </a>
-                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
-                                                                        @can("client-read")
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('clientView',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">View</a>
-                                                                            </div>
-                                                                        @endcan
-                                                                        @can("client-write")
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('updateClientForm',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Edit</a>
-                                                                            </div>
-                                                                        @endcan
-                                                                        @can("client-delete")
-                                                                            <div class="menu-item px-3">
-                                                                                <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3 removeClient">Remove</a>
-                                                                            </div>
-                                                                        @endcan
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+                                                            @if (isset($client->id))
+                                                                <tr>
+                                                                    <td>{{$loop->iteration}}</td>
+                                                                    <td class="d-flex align-items-center">
+                                                                        <div class="d-flex flex-column">
+                                                                            <a href="#" class="text-gray-800 text-hover-primary mb-1">{{$client->name}}</a>
+                                                                            <span>{{$client->email}}</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>{{$client->number}}</td>
+                                                                    <td>{{ $client->clientDemat->count()}}</td>
+                                                                    <td>{{ ($client->status)?"Verified":"unverified"}}</td>
+                                                                    <td class="text-end">
+                                                                        <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                            <span class="svg-icon svg-icon-5 m-0">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </a>
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                            @can("client-read")
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="{{route('clientView',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">View</a>
+                                                                                </div>
+                                                                            @endcan
+                                                                            @can("client-write")
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="{{route('updateClientForm',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3">Edit</a>
+                                                                                </div>
+                                                                            @endcan
+                                                                            @can("client-delete")
+                                                                                <div class="menu-item px-3">
+                                                                                    <a href="{{route('removeClient',$client->id)}}" data-id='{{$client->id}}' class="menu-link px-3 removeClient">Remove</a>
+                                                                                </div>
+                                                                            @endcan
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
                                                         @empty
                                                             {{-- empty --}}
                                                         @endforelse

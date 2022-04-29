@@ -274,13 +274,14 @@ class UserServices
         // revoke permissions
         $user = UserServices::user($id);
         $param = array();
+        $user->syncRoles($request->role);
         foreach ($role_permissions as $permission) {
             if (!in_array($permission, $direct_permissions)) {
                 array_push($param, $permission);
             }
         }
-        $user->syncRoles($request->role);
         $user->syncPermissions($param);
+        $user->revokePermissionTo($direct_permissions);
         $user_data = $request->except(['_token',"number","permissions"]);
         // remove old numbers
         UserNumbers::where("user_id",$id)->delete();

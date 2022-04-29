@@ -699,8 +699,11 @@ class ClientServices
     public static function allClientTypeWise(){
         if(auth()->user()->user_type!="3"){
             $client['account_handling'] = Client::where("client_type",1)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
+
             $client['mutual_fund'] = Client::where("client_type",2)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
+
             $client['unlisted_shares'] = Client::where("client_type",3)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
+
             $client['insurance'] = Client::where("client_type",4)->orderBy('created_at', 'DESC')->get();
         }else{
             $client['account_handling'] = Client::where("created_by",auth()->user()->id)->where("client_type",1)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
@@ -708,6 +711,10 @@ class ClientServices
             $client['unlisted_shares'] = Client::where("created_by",auth()->user()->id)->where("client_type",3)->with('clientDemat')->orderBy('created_at', 'DESC')->get();
             $client['insurance'] = Client::where("created_by",auth()->user()->id)->where("client_type",4)->orderBy('created_at', 'DESC')->get();
         }
+        $client['account_handling']['count'] = count($client['account_handling']);
+        $client['mutual_fund']['count'] = count($client['mutual_fund']);
+        $client['unlisted_shares']['count'] = count($client['unlisted_shares']);
+        $client['insurance']['count'] = count($client['insurance']);
         return $client;
     }
 
