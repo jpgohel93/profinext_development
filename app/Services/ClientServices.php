@@ -350,17 +350,22 @@ class ClientServices
         $client['communication_with'] = $request->communication_with;
         $client['communication_with_contact_number'] = $request->communication_with_contact_number;
         $client['updated_by'] = Auth::id();
-        $client['status'] = 0;
         $client['channel_partner_id'] = ($request->channel_partner_id != '') ? $request->channel_partner_id : 0;
+        $clientData = Client::where("id",$id)->first();
+        if($clientData->status != 2){
+            if(isset($request->payment_verified) && $request->payment_verified=="2"){
+                $client['status'] = 2;
+            }
+        }
        // if($client['channel_partner_id']==0){
             $auth_user = Auth::user();
             //if($auth_user->hasRole(['super-admin','accountant'])){
-                if(isset($request->payment_verified) && ($request->payment_verified=="1" || $request->payment_verified=="0")){
-                    $client['status']=1;
-                }
-                else if(isset($request->payment_verified) && $request->payment_verified=="2"){
-                    $client['status'] = 2;
-                }
+//                if(isset($request->payment_verified) && ($request->payment_verified=="1" || $request->payment_verified=="0")){
+//                    $client['status']=1;
+//                }
+//                elseif(isset($request->payment_verified) && $request->payment_verified=="2"){
+//                    $client['status'] = 2;
+//                }
             //}
         //}
         $client_current_status = Client::where("id",$id)->first(['status']);
