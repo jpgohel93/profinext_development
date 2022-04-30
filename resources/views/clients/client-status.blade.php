@@ -123,7 +123,7 @@
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="terminated" href="#terminated">Terminated</a>
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab" data-id="terminated" href="#terminated">Terminated({{count($terminatedAccounts)}})</a>
                                 </li>
                                 <!--end:::Tab item-->
 
