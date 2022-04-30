@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services\financeManagementServices;
+use App\Models\financeManagementModel\BankModel;
 use App\Models\financeManagementModel\financeManagementIncomesModel;
 use App\Services\LogServices;
 class financeManagementIncomesServices{
@@ -46,6 +47,7 @@ class financeManagementIncomesServices{
         $income['text_box']=$request->text_box;
         $income['narration']=$request->narration;
         $user_name = auth()->user()->name;
+
         if(isset($request->id)){
             $income['updated_by']= auth()->user()->id;
             $data = financeManagementIncomesModel::where("id",$request->id)->first();
@@ -57,6 +59,17 @@ class financeManagementIncomesServices{
             }
             return $status;
         }else{
+            if(isset($request->mode) && $request->mode==1) {
+                // add balance in available balance
+                if (isset($request->bank) && $request->bank != '') {
+                    $toBankData = bankServices::getBankAccountById($request->bank);
+
+                    if (!empty($toBankData)) {
+                        $addBalance['available_balance'] = $toBankData['available_balance'] + $request->amount;
+                        BankModel::where('id', $request->bank)->update($addBalance);
+                    }
+                }
+            }
             $income['created_by']= auth()->user()->id;
             $id = financeManagementIncomesModel::create($income);
             if($id){

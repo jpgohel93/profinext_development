@@ -237,8 +237,6 @@ class ClientServices
                     $channelPartnerData = User::where("id",$request->channel_partner_id)->first();
                     $serviceData = servicesTypeModel::where("name","AMS")->first();
 
-
-
                     $channelPartnerAmount = $channelPartnerData->ams_new_client_percentage*$serviceData->renewal_amount/100;
                     $expensesData['percentage'] = $channelPartnerData->ams_new_client_percentage;
                     $expensesData['user_id'] = $request->channel_partner_id;
