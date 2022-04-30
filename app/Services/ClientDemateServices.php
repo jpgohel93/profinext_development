@@ -34,7 +34,10 @@ class ClientDemateServices{
         ->get();
     }
     public static function problemAccounts(){
-        $demats = ClientDemat::whereNotNull("problem")->where('account_status','!=','terminated');
+        $demats = ClientDemat::where(function($q) {
+                $q->whereNotNull("problem")
+                ->orWhere('account_status','=','problem');
+        })->where('account_status','!=','terminated');
         $user = Auth::user();
         if($user->user_type=="3"){
             $demats->where("created_by",$user->id);
