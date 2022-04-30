@@ -322,14 +322,13 @@
 									</div>
 									<!--end::Col-->
 									<!--begin::Col-->
-									<div class="col-xxl-4">
+									<div class="col-xxl-8">
 										<!--begin::List Widget 5-->
 										<div class="card card-xxl-stretch">
 											<!--begin::Header-->
 											<div class="card-header align-items-center border-0 mt-4">
 												<h3 class="card-title align-items-start flex-column">
 													<span class="fw-bolder mb-2 text-dark">Activities</span>
-													<span class="text-muted fw-bold fs-7">890,344 Sales</span>
 												</h3>
 												<div class="card-toolbar">
 													<!--begin::Menu-->
@@ -430,183 +429,34 @@
 											<!--begin::Body-->
 											<div class="card-body pt-5">
 												<!--begin::Timeline-->
-												<div class="timeline-label">
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">08:42</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-warning fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Text-->
-														<div class="fw-mormal timeline-content text-muted ps-3">Outlines keep you honest. And keep structure</div>
-														<!--end::Text-->
-													</div>
-													<!--end::Item-->
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">10:00</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-success fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Content-->
-														<div class="timeline-content d-flex">
-															<span class="fw-bolder text-gray-800 ps-3">AEOL meeting</span>
-														</div>
-														<!--end::Content-->
-													</div>
-													<!--end::Item-->
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">14:37</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-danger fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Desc-->
-														<div class="timeline-content fw-bolder text-gray-800 ps-3">Make deposit
-														<a href="#" class="text-primary">USD 700</a>. to ESL</div>
-														<!--end::Desc-->
-													</div>
-													<!--end::Item-->
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">16:50</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-primary fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Text-->
-														<div class="timeline-content fw-mormal text-muted ps-3">Indulging in poorly driving and keep structure keep great</div>
-														<!--end::Text-->
-													</div>
-													<!--end::Item-->
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">21:03</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-danger fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Desc-->
-														<div class="timeline-content fw-bold text-gray-800 ps-3">New order placed
-														<a href="#" class="text-primary">#XF-2356</a>.</div>
-														<!--end::Desc-->
-													</div>
-													<!--end::Item-->
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">16:50</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-primary fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Text-->
-														<div class="timeline-content fw-mormal text-muted ps-3">Indulging in poorly driving and keep structure keep great</div>
-														<!--end::Text-->
-													</div>
-													<!--end::Item-->
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">21:03</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-danger fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Desc-->
-														<div class="timeline-content fw-bold text-gray-800 ps-3">New order placed
-														<a href="#" class="text-primary">#XF-2356</a>.</div>
-														<!--end::Desc-->
-													</div>
-													<!--end::Item-->
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">10:30</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-success fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Text-->
-														<div class="timeline-content fw-mormal text-muted ps-3">Finance KPI Mobile app launch preparion meeting</div>
-														<!--end::Text-->
-													</div>
-													<!--end::Item-->
-												</div>
+                                                <div class="table-responsive">
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                        <tr
+                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-75px">Date/Time</th>
+                                                            <th class="min-w-75px">Description</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($activity as $data)
+                                                            <tr>
+                                                                <td>{{$data->created_at}}</td>
+                                                                <td> {{$data->description}} </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                        </tbody>
+                                                        <!--end::Table body-->
+                                                    </table>
+                                                </div>
 												<!--end::Timeline-->
 											</div>
 											<!--end: Card Body-->
 										</div>
 										<!--end: List Widget 5-->
-									</div>
-									<!--end::Col-->
-									<!--begin::Col-->
-									<div class="col-xxl-4">
-										<!--begin::Mixed Widget 7-->
-										<div class="card card-xxl-stretch-50 mb-5 mb-xl-8">
-											<!--begin::Body-->
-											<div class="card-body d-flex flex-column p-0">
-												<!--begin::Stats-->
-												<div class="flex-grow-1 card-p pb-0">
-													<div class="d-flex flex-stack flex-wrap">
-														<div class="me-2">
-															<a href="#" class="text-dark text-hover-primary fw-bolder fs-3">Generate Reports</a>
-															<div class="text-muted fs-7 fw-bold">Finance and accounting reports</div>
-														</div>
-														<div class="fw-bolder fs-3 text-primary">$24,500</div>
-													</div>
-												</div>
-												<!--end::Stats-->
-												<!--begin::Chart-->
-												<div class="mixed-widget-7-chart card-rounded-bottom" data-kt-chart-color="primary" style="height: 150px"></div>
-												<!--end::Chart-->
-											</div>
-											<!--end::Body-->
-										</div>
-										<!--end::Mixed Widget 7-->
-										<!--begin::Mixed Widget 10-->
-										<div class="card card-xxl-stretch-50 mb-5 mb-xl-8">
-											<!--begin::Body-->
-											<div class="card-body p-0 d-flex justify-content-between flex-column overflow-hidden">
-												<!--begin::Hidden-->
-												<div class="d-flex flex-stack flex-wrap flex-grow-1 px-9 pt-9 pb-3">
-													<div class="me-2">
-														<span class="fw-bolder text-gray-800 d-block fs-3">Sales</span>
-														<span class="text-gray-400 fw-bold">Oct 8 - Oct 26 21</span>
-													</div>
-													<div class="fw-bolder fs-3 text-primary">$15,300</div>
-												</div>
-												<!--end::Hidden-->
-												<!--begin::Chart-->
-												<div class="mixed-widget-10-chart" data-kt-color="primary" style="height: 175px"></div>
-												<!--end::Chart-->
-											</div>
-										</div>
-										<!--end::Mixed Widget 10-->
 									</div>
 									<!--end::Col-->
 								</div>
@@ -5974,4 +5824,12 @@
 		</div>
 		<!--end::Scrolltop-->
 		<!--end::Main-->
+
+        <script>
+            window.addEventListener("DOMContentLoaded",function(){
+                $(()=>{
+                    $(".datatable").DataTable();
+                },jQuery)
+            })
+        </script>
 @endsection

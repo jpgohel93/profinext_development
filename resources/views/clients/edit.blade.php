@@ -692,7 +692,7 @@
                                                                                 <select name="bank[]" class="form-select form-select-solid" data-control="select2">
                                                                                     <option></option>
                                                                                     @forelse ($banks as $bank)
-                                                                                        <option value="{{$bank->id}}" {{(isset($client->clientPayment[$key])?$client->clientPayment[$key]->bank:""==$bank->title?"selected":"")}}>{{$bank->title}}</option>
+                                                                                        <option value="{{$bank->id}}" {{(isset($client->clientPayment[$key])?$client->clientPayment[$key]->bank:"")==$bank->id?"selected":""}}>{{$bank->title}}</option>
                                                                                     @empty
                                                                                         <option>Select Bank</option>
                                                                                     @endforelse

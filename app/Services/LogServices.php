@@ -41,4 +41,12 @@ class LogServices{
             LogsModel::create(["description"=>"Unable to create logs. ".$e->getMessage(),"data"=>json_encode($arr)]);
         }
     }
+
+    public function getActivity(){
+        return LogsModel::orderBy("id","DESC")->get();
+    }
+
+    public function getActivityById($id){
+        return LogsModel::where("created_by",$id)->orderBy("id","DESC")->get();
+    }
 }

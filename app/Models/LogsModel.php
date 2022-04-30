@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 class LogsModel extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
     protected $table = "tbl_logs";
     protected $fillable = [
         "description",
