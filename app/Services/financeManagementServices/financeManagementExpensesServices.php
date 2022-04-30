@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services\financeManagementServices;
+use App\Models\financeManagementModel\BankModel;
 use App\Models\financeManagementModel\financeManagementExpensesModel;
 use App\Services\LogServices;
 class financeManagementExpensesServices
@@ -58,8 +59,20 @@ class financeManagementExpensesServices
             }else{
                 LogServices::logEvent(["desc"=>"Unable to update Expense $request->id by $user_name","data"=>$expense]);
             }
+        }else {
+            $id = financeManagementExpensesModel::create($expense);
+            if(isset($request->mode) && $request->mode==1) {
+                // add balance in available balance
+                if (isset($request->bank) && $request->bank != '') {
+                    $toBankData = bankServices::getBankAccountById($request->bank);
+
+                    if (!empty($toBankData)) {
+                        $addBalance['available_balance'] = $toBankData['available_balance'] - $request->amount;
+                        BankModel::where('id', $request->bank)->update($addBalance);
+                    }
+                }
+            }
         }
-        $id = financeManagementExpensesModel::create($expense);
         if($id){
             LogServices::logEvent(["desc"=>"Expense $id->id created by $user_name"]);
         }else{
@@ -71,6 +84,17 @@ class financeManagementExpensesServices
         $user_name = auth()->user()->name;
         $data = financeManagementExpensesModel::where("id", $id)->first();
         $status = financeManagementExpensesModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
+        if(isset($data->mode) && $data->mode==1) {
+            // add balance in available balance
+            if (isset($data->bank) && $data->bank != '') {
+                $toBankData = bankServices::getBankAccountById($data->bank);
+
+                if (!empty($toBankData)) {
+                    $addBalance['available_balance'] = $toBankData['available_balance'] + $data->amount;
+                    BankModel::where('id', $data->bank)->update($addBalance);
+                }
+            }
+        }
         if($status){
             LogServices::logEvent(["desc"=>"Expense $id deleted by $user_name"]);
         }else{

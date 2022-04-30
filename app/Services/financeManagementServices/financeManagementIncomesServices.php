@@ -82,7 +82,20 @@ class financeManagementIncomesServices{
     }
     public static function financeManagementRemoveIncome($id){
         $user_name = auth()->user()->name;
+        $data = financeManagementIncomesModel::where("id", $id)->first();
+        if(isset($data->mode) && $data->mode==1) {
+            // add balance in available balance
+            if (isset($data->bank) && $data->bank != '') {
+                $toBankData = bankServices::getBankAccountById($data->bank);
+
+                if (!empty($toBankData)) {
+                    $addBalance['available_balance'] = $toBankData['available_balance'] - $data->amount;
+                    BankModel::where('id', $data->bank)->update($addBalance);
+                }
+            }
+        }
         $status = financeManagementIncomesModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
+
         if($status){
             LogServices::logEvent(["desc"=>"Income $id deleted by $user_name"]);
         }else{
