@@ -277,7 +277,9 @@
                                                             {{-- <img style="max-height: 200px;height:100%;width:auto" loading="lazy" class="m-3 d-block" src="{{url('common/displayFile/'.Crypt::encryptString($demate_account->id).'/'.Crypt::encryptString('pancard').'/image')}}" > --}}
                                                             @if($client->clientDemat[$key]->Pancards)
                                                                 @foreach($client->clientDemat[$key]->Pancards as $pancard)
-                                                                    <img style="height: 100px;width:auto" loading="lazy" class="m-3 pancardImage" src="{{url('common/displayFile/'.Crypt::encryptString($pancard->id).'/'.Crypt::encryptString('pancard').'/'.$pancard->file)}}" >
+                                                                    @if(file_exists(config()->get('constants.UPLOADS.PANCARDS').$pancard->file))
+                                                                        <img style="height: 100px;width:auto" loading="lazy" class="m-3 pancardImage" src="{{url('common/displayFile/'.Crypt::encryptString($pancard->id).'/'.Crypt::encryptString('pancard').'/'.$pancard->file)}}" >
+                                                                    @endif
                                                                 @endforeach
                                                             @else
                                                                 <h6>Image not found</h6>

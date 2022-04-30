@@ -10,7 +10,7 @@ class Client extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = "clients";
-    protected $fillable = ["client_type","name","number","communication_with","wp_number","profession","updated_by","created_by","channel_partner_id","freelancer_id","communication_with_contact_number"];
+    protected $fillable = ["client_type","name","number","communication_with","wp_number","profession","updated_by","created_by","channel_partner_id","freelancer_id","communication_with_contact_number","status"];
 
     public function clientDemat()
     {

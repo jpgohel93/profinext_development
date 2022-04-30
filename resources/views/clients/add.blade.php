@@ -942,7 +942,7 @@
                                                                         </label>
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
-                                                                        <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" multiple name="pan_number[]" placeholder="" />
+                                                                        <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" multiple name="pan_number[][]" placeholder="" />
                                                                         <!--end::Input-->
                                                                     </div>
                                                                     <!--end::Input group-->
@@ -1377,7 +1377,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[2][]" placeholder="" value="" />
+                                                            <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[][]" placeholder="" value="" />
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->

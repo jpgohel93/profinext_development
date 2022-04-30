@@ -498,9 +498,11 @@
                                                                                     @forelse($demate_account->Pancards as $pancard)
                                                                                         <div style="width:max-content">
                                                                                             <label class="h4 mt-3 removePancard" id="{{$pancard->id}}">Remove</label>
-                                                                                            <div>
-                                                                                                <img style="height: 100px;width:auto" loading="lazy" class="m-3 pancardImage" src="{{url('common/displayFile/'.Crypt::encryptString($pancard->id).'/'.Crypt::encryptString('pancard').'/'.$pancard->file)}}" >
-                                                                                            </div>
+                                                                                            @if(file_exists(config()->get('constants.UPLOADS.PANCARDS').$pancard->file))
+                                                                                                <div>
+                                                                                                    <img style="height: 100px;width:auto" loading="lazy" class="m-3 pancardImage" src="{{url('common/displayFile/'.Crypt::encryptString($pancard->id).'/'.Crypt::encryptString('pancard').'/'.$pancard->file)}}" >
+                                                                                                </div>
+                                                                                            @endif
                                                                                         </div>
                                                                                     @empty
                                                                                         {{-- <h6>Image not found</h6> --}}
@@ -667,7 +669,7 @@
                                                                                 <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                                                     <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Cash</span>
                                                                                     <input class="form-check-input" id="togglePaymentMode" togglePaymentMode type="checkbox" value="1" {{(isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?"checked":""}} />
-                                                                                    <input class="form-check-input" type="hidden" name="mode[]" value="{{((old('mode') && isset(old('mode')[$key]))?old('mode')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?"2":"1"}}" />
+                                                                                    <input class="form-check-input" type="hidden" name="mode[]" value="{{(isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?"2":"1"}}" />
 
                                                                                     <span class="form-check-label text-gray-700 fs-6 fw-bold ms-0 px-2 me-2" style="min-width: max-content;">By Bank</span>
                                                                                 </label>
@@ -678,7 +680,7 @@
                                                                     <!--end::Input group-->
 
 
-                                                                    <div class="row mb-4 PaymentSection joining_date" style="display:{{(old('mode')?old('mode')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?"block":"none"}};" id="BankDiv">
+                                                                    <div class="row mb-4 PaymentSection joining_date" style="display:{{(isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?"block":"none"}};" id="BankDiv">
                                                                         <!--begin::Col-->
                                                                         <div class="col-md-5 fv-row mb-4 hideonpending" style="display:{{(old('pending_payment')?old('pending_payment')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->pending_payment:"")=="1"?"none":""}};">
                                                                             <!--begin::Label-->
@@ -690,7 +692,7 @@
                                                                                 <select name="bank[]" class="form-select form-select-solid" data-control="select2">
                                                                                     <option></option>
                                                                                     @forelse ($banks as $bank)
-                                                                                        <option value="{{$bank->id}}" {{(old('bank') && old('bank')[$key]==$bank->title)?"selected":(isset($client->clientPayment[$key])?$client->clientPayment[$key]->bank:""==$bank->title?"selected":"")}}>{{$bank->title}}</option>
+                                                                                        <option value="{{$bank->id}}" {{(isset($client->clientPayment[$key])?$client->clientPayment[$key]->bank:""==$bank->title?"selected":"")}}>{{$bank->title}}</option>
                                                                                     @empty
                                                                                         <option>Select Bank</option>
                                                                                     @endforelse
@@ -708,7 +710,7 @@
                                                                             <label class="required fs-5 fw-bold mb-2">Joining Date</label>
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
-                                                                            <input type="date" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{(old('joining_date')?old('joining_date')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?(isset($client->clientPayment[$key])?date("Y-m-d",strtotime($client->clientPayment[$key]->joining_date)):date("Y-m-d")):date("Y-m-d")}}"/>
+                                                                            <input type="date" name="joining_date[]" class="form-control form-control-lg form-control-solid bdr-ccc c-date" placeholder="Select date" value="{{(isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?(isset($client->clientPayment[$key])?date("Y-m-d",strtotime($client->clientPayment[$key]->joining_date)):date("Y-m-d")):date("Y-m-d")}}"/>
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input group-->
@@ -718,7 +720,7 @@
                                                                             <label class="required fs-5 fw-bold mb-2">Fees</label>
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
-                                                                            <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="{{(old('mode')?old('mode')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?(old('fees')?old('fees')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->fees:""):""}}" />
+                                                                            <input type="text" name="fees[]" class="form-control form-control-lg form-control-solid bdr-ccc" placeholder="Select Fee" value="{{(isset($client->clientPayment[$key])?$client->clientPayment[$key]->mode:"")=="2"?(old('fees')?old('fees')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->fees:""):""}}" />
                                                                             <!--end::Input-->
                                                                         </div>
                                                                         <!--end::Input group-->
@@ -743,8 +745,8 @@
                                                                             <div>
                                                                                 <!--begin::Checkbox-->
                                                                                 <label class="form-check form-check-custom form-check-solid me-10">
-                                                                                    <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" {{(old('pending_payment')?old('pending_payment')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->pending_payment:"")=="1"?"checked":""}} value="1">
-                                                                                    <input type="hidden" name="pending_payment[]" value="{{(old('pending_payment')?old('pending_payment')[$key]:isset($client->clientPayment[$key])?$client->clientPayment[$key]->pending_payment:"")=="1"?1:0}}">
+                                                                                    <input class="form-check-input h-20px w-20px PendingMark" data-pending_payment type="checkbox" {{(isset($client->clientPayment[$key])?$client->clientPayment[$key]->pending_payment:"")=="1"?"checked":""}} value="1">
+                                                                                    <input type="hidden" name="pending_payment[]" value="{{(isset($client->clientPayment[$key])?$client->clientPayment[$key]->pending_payment:"")=="1"?1:0}}">
                                                                                     <span class="form-check-label fw-bold">Pending</span>
                                                                                 </label>
                                                                                 <!--end::Checkbox-->
@@ -939,7 +941,7 @@
                                                                     <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                                         <span class="required">Upload Demat Holder’s PAN Card</span>
                                                                     </label>
-                                                                    <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[2][]" multiple placeholder="" />
+                                                                    <input type="file" class="form-control form-control-lg form-control-solid bdr-ccc" accept="image/*" name="pan_number[][]" multiple placeholder="" />
                                                                     <!--end::Label-->
                                                                     <!--begin::Input-->
                                                                 </div>
