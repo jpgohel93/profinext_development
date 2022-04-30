@@ -61,6 +61,7 @@ class financeManagementExpensesServices
             }
         }else {
             $id = financeManagementExpensesModel::create($expense);
+
             if(isset($request->mode) && $request->mode==1) {
                 // add balance in available balance
                 if (isset($request->bank) && $request->bank != '') {
@@ -68,7 +69,14 @@ class financeManagementExpensesServices
 
                     if (!empty($toBankData)) {
                         $addBalance['available_balance'] = $toBankData['available_balance'] - $request->amount;
-                        BankModel::where('id', $request->bank)->update($addBalance);
+                        $logStatus = BankModel::where('id', $request->bank)->update($addBalance);
+
+                        $user_name = auth()->user()->name;
+                        if($logStatus){
+                            LogServices::logEvent(["desc"=>"Add balance in".$toBankData['title']." by $user_name","data"=>$addBalance]);
+                        }else{
+                            LogServices::logEvent(["desc"=>"Unable to update the balance by $user_name in ".$toBankData['title']." bank","data"=>$addBalance]);
+                        }
                     }
                 }
             }

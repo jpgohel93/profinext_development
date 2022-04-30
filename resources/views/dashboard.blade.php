@@ -430,20 +430,22 @@
 											<div class="card-body pt-5">
 												<!--begin::Timeline-->
                                                 <div class="table-responsive">
-                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <table class="table align-middle table-row-dashed fs-6 gy-5 activity_datatable">
                                                         <!--begin::Table head-->
                                                         <thead>
                                                         <tr
                                                             class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-75px">Id</th>
                                                             <th class="min-w-75px">Date/Time</th>
                                                             <th class="min-w-75px">Description</th>
                                                         </tr>
                                                         </thead>
-                                                        <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        <tbody class="text-gray-600 fw-bold">
                                                         @forelse($activity as $data)
                                                             <tr>
+                                                                <td>{{$data->id}}</td>
                                                                 <td>{{$data->created_at}}</td>
-                                                                <td> {{$data->description}} </td>
+                                                                <td>{{$data->description}} </td>
                                                             </tr>
                                                         @empty
                                                             {{-- empty --}}
@@ -5827,8 +5829,18 @@
 
         <script>
             window.addEventListener("DOMContentLoaded",function(){
-                $(()=>{
-                    $(".datatable").DataTable();
+               $(()=>{
+                    // sorting table
+                    $(".activity_datatable").dataTable({
+                        "order": [[ 0, "DESC" ]],
+                        "columnDefs": [
+                            {
+                                "targets": [ 0 ],
+                                "visible": false,
+                                "searchable": false
+                            }
+                        ]
+                    })
                 },jQuery)
             })
         </script>
