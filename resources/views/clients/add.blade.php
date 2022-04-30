@@ -444,10 +444,14 @@
                                                                     <span class="required">Smart ID</span>
                                                                 </label>
                                                                 <div class="position-relative">
-                                                                    <select name="st_sg[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true" {{isset($formType) && $formType == "channelPartner"?"disabled":""}}>
-                                                                        <option value="">Select ID</option>
-                                                                        <option value="ST">ST</option>
-                                                                        <option value="SG" selected>SG</option>
+                                                                    <select name="st_sg[]" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
+                                                                        @if(isset($formType) && $formType = "channelPartner")
+                                                                            <option value="SG" selected>SG</option>
+                                                                        @else
+                                                                            <option value="">Select ID</option>
+                                                                            <option value="ST">ST</option>
+                                                                            <option value="SG" selected>SG</option>
+                                                                        @endif
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -819,10 +823,15 @@
                                                                         <!--begin::Input wrapper-->
                                                                         <div class="position-relative">
                                                                             <!--begin::Input-->
-                                                                            <select name="st_sg[]" class="form-select form-select-solid"  {{isset($formType) && $formType == "channelPartner"?"disabled":""}}>
-                                                                                <option></option>
-                                                                                <option value="ST" {{isset($demat_account['st_sg'])?($demat_account['st_sg']=="ST"?"selected":""):""}}>ST</option>
-                                                                                <option value="SG" {{isset($demat_account['st_sg'])?($demat_account['st_sg']=="SG"?"selected":""):""}}>SG</option>
+                                                                            <select name="st_sg[]" class="form-select form-select-solid">
+                                                                                @if(isset($formType) && $formType = "channelPartner")
+                                                                                   <option value="SG" {{isset($demat_account['st_sg'])?($demat_account['st_sg']=="SG"?"selected":""):""}}>SG</option>
+                                                                                @else
+                                                                                    <option></option>
+                                                                                    <option value="ST" {{isset($demat_account['st_sg'])?($demat_account['st_sg']=="ST"?"selected":""):""}}>ST</option>
+                                                                                    <option value="SG" {{isset($demat_account['st_sg'])?($demat_account['st_sg']=="SG"?"selected":""):""}}>SG</option>
+                                                                                @endif
+
                                                                             </select>
                                                                         </div>
                                                                         <!--end::Input wrapper-->
@@ -1250,10 +1259,14 @@
                                                             <!--begin::Input wrapper-->
                                                             <div class="position-relative">
                                                                 <!--begin::Input-->
-                                                                <select name="st_sg[]" class="form-select form-select-solid"  {{isset($formType) && $formType == "channelPartner"?"disabled":""}}>
-                                                                    <option></option>
-                                                                    <option value="ST">ST</option>
-                                                                    <option value="SG" selected>SG</option>
+                                                                <select name="st_sg[]" class="form-select form-select-solid">
+                                                                    @if(isset($formType) && $formType = "channelPartner")
+                                                                        <option value="SG" selected>SG</option>
+                                                                    @else
+                                                                        <option></option>
+                                                                        <option value="ST">ST</option>
+                                                                        <option value="SG" selected>SG</option>
+                                                                    @endif
                                                                 </select>
                                                             </div>
                                                             <!--end::Input wrapper-->
