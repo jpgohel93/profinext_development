@@ -748,4 +748,39 @@ class ClientDemateServices{
     public static function remove($id){
         return ClientDemat::where("id",$id)->delete();
     }
+
+    public static function activeDematByChanelPartner(){
+        $demates = ClientDemat::where("account_status","normal")->whereNull("problem")->with(["withClient"])->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id');
+        $user = Auth::user();
+        $demates->where("clients.channel_partner_id",$user->id);
+        return $demates->select('client_demat.*', 'clients.name')->get();
+    }
+
+    public static function toRenewsByChanelPartner(){
+        $demats = RenewDemat::
+        leftJoin('client_demat', 'renewal_account.client_demat_id', '=', 'client_demat.id')->
+        leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')->
+        where("renewal_account.status", "to_renew");
+        $user = Auth::user();
+        $demats->where("clients.channel_partner_id",$user->id);
+
+        return $demats->select('clients.name','clients.number','client_demat.serial_number','client_demat.st_sg','client_demat.client_id','client_demat.holder_name','client_demat.available_balance','renewal_account.*')
+            ->get();
+    }
+
+    public static function problemAccountsByChanelPartner(){
+        $demats = ClientDemat::where(function($q) {
+            $q->whereNotNull("problem")
+                ->orWhere('account_status','=','problem');
+        })->where('account_status','!=','terminated')->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id');
+        $user = Auth::user();
+        $demats->where("clients.channel_partner_id",$user->id);
+        return $demats->with(["withClient"])->get();
+    }
+
+    public static function terminatedAccountsByChanelPartner(){
+        $user = Auth::user();
+        return ClientDemat::where("account_status","terminated")->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')
+            ->with(["withClient"])->where("clients.channel_partner_id",$user->id)->withTrashed()->get();
+    }
 }

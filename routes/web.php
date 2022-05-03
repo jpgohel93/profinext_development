@@ -58,7 +58,7 @@ Route::get("/logout", [LoginController::class, "logout"])->name("logout");
 
 Route::group(['middleware' => ['auth']], function() {
     // dashboard
-    Route::get("/");
+    Route::get("/",[LoginController::class,"dashboardData"])->name("dashboard");
     Route::get("/dashboard",[LoginController::class,"dashboardData"])->name("dashboard");
 
     // clients

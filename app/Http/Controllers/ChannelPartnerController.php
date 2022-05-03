@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ClientDemateServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ClientServices;
@@ -28,7 +29,13 @@ class ChannelPartnerController extends Controller
     public function channelPartnerUserData(){
         $auth_user = Auth::user();
         $channelPartnerClient = ClientServices::channelPartnerClientList($auth_user->id);
-        return view("channelPartner.channel_partner_user_client", compact('channelPartnerClient'));
+
+        $demats = ClientDemateServices::activeDematByChanelPartner();
+        $toRenews = ClientDemateServices::toRenewsByChanelPartner();
+        $problemAccounts = ClientDemateServices::problemAccountsByChanelPartner();
+        $terminatedAccounts = ClientDemateServices::terminatedAccountsByChanelPartner();
+
+        return view("channelPartner.channel_partner_user_client", compact('channelPartnerClient','demats','toRenews','problemAccounts','terminatedAccounts'));
     }
 
 }
