@@ -896,7 +896,7 @@ class ClientServices
         if($request->status=="true"){
             $status =[
                 "account_status"=>"terminated",
-                "deleted_at"=> date("Y-m-d")
+                "deleted_at"=> date("Y-m-d h:i:s")
             ];
         }else{
             $status = [

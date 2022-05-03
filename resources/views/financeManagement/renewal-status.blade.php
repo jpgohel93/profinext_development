@@ -265,34 +265,54 @@
                                                             <th class="min-w-10px">Sr No.</th>
                                                             <th class="min-w-75px">Smart Id</th>
                                                             <th class="min-w-75px">Joining Date</th>
-                                                            <th class="min-w-75px">Demat Holder Name</th>
-                                                            <th class="min-w-75px">Joining Capital</th>
-                                                            <th class="min-w-75px">Available Fund</th>
-                                                            <th class="min-w-75px">P / L</th>
+                                                            <th class="min-w-75px">Client Name</th>
+                                                            <th class="min-w-75px">Demat Name</th>
+                                                            <th class="min-w-75px">Service Type</th>
+                                                            <th class="min-w-75px">Status</th>
                                                             <th class="min-w-75px">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
                                                         @forelse($newAccounts as $newAccount)
                                                             <?php $joining_date = !empty($newAccount->joining_date) && isset($newAccount->joining_date) ? $newAccount->joining_date : $newAccount->created_at;?>
+                                                            @php
+                                                                $service_type = "";
+                                                                if($newAccount->service_type==1){
+                                                                    $service_type = "Prime";
+                                                                }else if($newAccount->service_type==2){
+                                                                    $service_type = "AMS";
+                                                                }else if($newAccount->service_type==3){
+                                                                    $service_type = "Prime Next";
+                                                                }
+                                                            @endphp
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                <td>{{$newAccount->st_sg}}-{{$newAccount->serial_number}}</td>
+                                                                <td>{{Str::upper($newAccount->st_sg)}}-{{$newAccount->serial_number}}</td>
                                                                 <td>{{date("Y-m-d",strtotime($joining_date))}}</td>
+                                                                <td>{{$newAccount->withClient->name}}</td>
                                                                 <td>{{$newAccount->holder_name}}</td>
-                                                                <td>{{$newAccount->capital}}</td>
-                                                                <td>{{$newAccount->available_balance}}</td>
-                                                                <td>{{$newAccount->pl}}</td>
+                                                                <td>{{$service_type}}</td>
+                                                                <td>{{$newAccount->withClient->status==2?"Verified":"Pending"}}</td>
                                                                 <td>
-                                                                    <a href="{{route('clientDematView',$newAccount->id)}}" target="_blank" class='newGenerateInvoice'>
-                                                                        <i class="fas fa-file text-primary fa-lg" data-id="{{$newAccount->id}}"></i>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
                                                                     </a>
-                                                                    <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
-                                                                        <i class="fas fa-exclamation-circle text-warning fa-lg" data-id="{{$newAccount->id}}"></i>
-                                                                    </a>
-                                                                    <a href="javascript:void(0)" data-id="{{$newAccount->id}}" class='mark_as_problem'>
-                                                                        <i class="fas fa-trash text-danger fa-lg" data-id="{{$newAccount->id}}"></i>
-                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-2">
+                                                                            <a href="{{route('editRoleForm',$newAccount->id)}}" class="menu-link" data-id="{{$newAccount->id}}">
+                                                                                Verify
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-2">
+                                                                            <a href="{{route('editRoleForm',$newAccount->id)}}" class="menu-link" data-id="{{$newAccount->id}}">
+                                                                                Delete
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         @empty

@@ -87,28 +87,35 @@
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary pb-1 active" data-bs-toggle="tab"
-                                       href="#freelancerams">Channel Partner Clients AMS</a>
+                                       href="#activeTab">Active</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#freelancerprivate">Channel Partner Clients Prime</a>
+                                       href="#problebTab">Problem</a>
                                 </li>
                                 <!--end:::Tab item-->
 
                                 <!--begin:::Tab item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
-                                       href="#freelancerprimenext">Channel Partner Clients Prime Next</a>
+                                       href="#renewTab">Renew</a>
+                                </li>
+                                <!--end:::Tab item-->
+
+                                <!--begin:::Tab item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary pb-1" data-bs-toggle="tab"
+                                       href="#terminatedTab">Terminate</a>
                                 </li>
                                 <!--end:::Tab item-->
                             </ul>
                             <!--end:::Tabs-->
 
                             <div class="tab-content">
-                                <div class="tab-pane fade show active" id="freelancerams" aria-labelledby="active-tab"
+                                <div class="tab-pane fade show active" id="activeTab" aria-labelledby="active-tab"
                                      role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
@@ -121,23 +128,49 @@
                                                         <tr
                                                             class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Sr No.</th>
-                                                            <th class="min-w-75px">Client Name</th>
-                                                            <th class="min-w-75px">Number</th>
-                                                            <th class="min-w-75px">Whatsapp Number</th>
+                                                            <th class="min-w-75px">Client</th>
+                                                            <th class="min-w-75px">Demat</th>
+                                                            <th class="min-w-75px">Capital</th>
+                                                            <th class="min-w-75px">P / L</th>
+                                                            <th class="min-w-75px">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        @forelse($channelPartnerClient['ams'] as $client)
+                                                        @forelse($demats as $client)
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
                                                                 <td class="d-flex align-items-center">
-                                                                    {{$client->name}}
+                                                                    {{$client->withClient->name}}
                                                                 </td>
                                                                 <td>
-                                                                    {{$client->number}}
+                                                                    {{$client->holder_name}}
                                                                 </td>
                                                                 <td>
-                                                                    {{$client->wp_number}}
+                                                                    {{$client->capital}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$client->pl}}
+                                                                </td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-2">
+                                                                            <a href="{{route('editRoleForm',$client->id)}}" class="menu-link" data-id="{{$client->id}}">
+                                                                                Edit
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-2">
+                                                                            <a href="javascript:void(0)" data-id="{{$client->id}}" class="removeRole menu-link">
+                                                                                Delete
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         @empty
@@ -152,7 +185,7 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                                <div class="tab-pane fade show" id="freelancerprivate" aria-labelledby="active-tab" role="tabpanel">
+                                <div class="tab-pane fade show" id="problebTab" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
                                         <!--begin::Card body-->
@@ -164,23 +197,49 @@
                                                         <tr
                                                             class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Sr No.</th>
-                                                            <th class="min-w-75px">Client Name</th>
-                                                            <th class="min-w-75px">Number</th>
-                                                            <th class="min-w-75px">Whatsapp Number</th>
+                                                            <th class="min-w-75px">Client</th>
+                                                            <th class="min-w-75px">Mobile</th>
+                                                            <th class="min-w-75px">Demat</th>
+                                                            <th class="min-w-75px">Problem</th>
+                                                            <th class="min-w-75px">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        @forelse($channelPartnerClient['prime'] as $client)
+                                                        @forelse($problemAccounts as $client)
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
                                                                 <td class="d-flex align-items-center">
-                                                                    {{$client->name}}
+                                                                    {{$client->withClient->name}}
                                                                 </td>
                                                                 <td>
-                                                                    {{$client->number}}
+                                                                    {{$client->withClient->number}}
                                                                 </td>
                                                                 <td>
-                                                                    {{$client->wp_number}}
+                                                                    {{$client->holder_name}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$client->problem}}
+                                                                </td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-2">
+                                                                            <a href="{{route('editRoleForm',$client->id)}}" class="menu-link" data-id="{{$client->id}}">
+                                                                                View Problem
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="menu-item px-2">
+                                                                            <a href="javascript:void(0)" data-id="{{$client->id}}" class="removeRole menu-link">
+                                                                                Terminate
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         @empty
@@ -196,7 +255,7 @@
                                     </div>
                                     <!--end::Card-->
                                 </div>
-                                <div class="tab-pane fade show" id="freelancerprimenext" aria-labelledby="active-tab" role="tabpanel">
+                                <div class="tab-pane fade show" id="renewTab" aria-labelledby="active-tab" role="tabpanel">
                                     <!--begin::Card-->
                                     <div class="card">
                                         <!--begin::Card body-->
@@ -208,23 +267,96 @@
                                                         <tr
                                                             class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                             <th class="min-w-10px">Sr No.</th>
-                                                            <th class="min-w-75px">Client Name</th>
-                                                            <th class="min-w-75px">Number</th>
-                                                            <th class="min-w-75px">Whatsapp Number</th>
+                                                            <th class="min-w-75px">Client</th>
+                                                            <th class="min-w-75px">Demat</th>
+                                                            <th class="min-w-75px">Capital</th>
+                                                            <th class="min-w-75px">P / L</th>
+                                                            <th class="min-w-75px">Payment</th>
+                                                            <th class="min-w-75px">Status</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="text-gray-600 fw-bold" id="activeCallTable">
-                                                        @forelse($channelPartnerClient['prime_next'] as $client)
+                                                        @forelse($toRenews as $client)
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
-                                                                <td class="d-flex align-items-center">
+                                                                <td>
                                                                     {{$client->name}}
+                                                                </td>
+                                                                <td class="d-flex align-items-center">
+                                                                    {{$client->holder_name}}
                                                                 </td>
                                                                 <td>
                                                                     {{$client->number}}
                                                                 </td>
                                                                 <td>
-                                                                    {{$client->wp_number}}
+                                                                    {{$client->pl}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$client->total_payment}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$client->status=="to_renew"?"Pending":"Renewed"}}
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            {{-- empty --}}
+                                                        @endforelse
+                                                    </tbody>
+                                                <!--end::Table body-->
+                                                </table>
+                                            </div>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card-->
+                                </div>
+                                <div class="tab-pane fade show" id="terminatedTab" aria-labelledby="active-tab" role="tabpanel">
+                                    <!--begin::Card-->
+                                    <div class="card">
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 datatable">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr
+                                                            class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                                            <th class="min-w-10px">Sr No.</th>
+                                                            <th class="min-w-75px">Client</th>
+                                                            <th class="min-w-75px">Demat</th>
+                                                            <th class="min-w-75px">Terminate on</th>
+                                                            <th class="min-w-75px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="text-gray-600 fw-bold" id="activeCallTable">
+                                                        @forelse($terminatedAccounts as $client)
+                                                            <tr>
+                                                                <td>{{$loop->iteration}}</td>
+                                                                <td class="d-flex align-items-center">
+                                                                    {{$client->client_name}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$client->holder_name}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$client->terminated_at}}
+                                                                </td>
+                                                                <td>
+                                                                    <a href="javascript:;" class="dropdown-toggle1 btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                                        <span class="svg-icon svg-icon-5 m-0">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </a>
+                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-auto py-4 min-w-125px" data-kt-menu="true">
+                                                                        <div class="menu-item px-2">
+                                                                            <a href="{{route('editRoleForm',$client->client_id)}}" class="menu-link" data-id="{{$client->id}}">
+                                                                                Active
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         @empty

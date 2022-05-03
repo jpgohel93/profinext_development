@@ -11,6 +11,7 @@ use App\Models\RenewExpensesModal;
 use App\Models\User;
 use App\Services\financeManagementServices\bankServices;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ClientDemateServices{
     public static function active(){
@@ -73,7 +74,7 @@ class ClientDemateServices{
         return ClientDemat::where("id",$id)->with(["withClient", "withPayment"])->first();
     }
     public static function terminateAccountByDemateId($id){
-        return ClientDemat::where("id",$id)->update(["account_status"=>"terminated"]);
+        return ClientDemat::where("id",$id)->update(["account_status"=>"terminated","deleted_at"=>date("Y-m-d h:i:s")]);
     }
     public static function updatePL($request){
         $pl['account_status']="to_renew";
@@ -780,7 +781,7 @@ class ClientDemateServices{
 
     public static function terminatedAccountsByChanelPartner(){
         $user = Auth::user();
-        return ClientDemat::where("account_status","terminated")->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')
-            ->with(["withClient"])->where("clients.channel_partner_id",$user->id)->withTrashed()->get();
+        return ClientDemat::where("client_demat.account_status","terminated")->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id')
+            ->with(["withClient"])->where("clients.channel_partner_id",$user->id)->withTrashed()->select("clients.name as client_name","client_demat.holder_name",DB::raw("DATE_FORMAT(client_demat.deleted_at,'%d %b %Y %l:%i %p') as terminated_at"),"clients.id as client_id","client_demat.id as demat_id")->get();
     }
 }
