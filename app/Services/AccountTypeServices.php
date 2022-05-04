@@ -17,23 +17,24 @@ class AccountTypeServices{
         $user_name = auth()->user()->name;
         $id = AccountTypesModel::create($type);
         if($id){
-            LogServices::logEvent(["desc"=>"Account type $id->id created by $user_name"]);
+            LogServices::logEvent(["desc"=>"Account type $type->account_type created by $user_name"]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to create Account type by $user_name",$type]);
+            LogServices::logEvent(["desc"=>"Unable to create Account type by $user_name",$type->account_type]);
         }
         return $id;
     }
     public static function remove($id){
         $user_name = auth()->user()->name;
         try {
+            $type = AccountTypesModel::where("id",$id)->first();
             $status = AccountTypesModel::where("id",$id)->delete();
             if($status){
-                LogServices::logEvent(["desc"=>"Account type $id Removed by $user_name"]);
+                LogServices::logEvent(["desc"=>"Account type $type->account_type Removed by $user_name"]);
             }else{
-                LogServices::logEvent(["desc"=>"Unable to remove Account type $id by $user_name"]);
+                LogServices::logEvent(["desc"=>"Unable to remove Account type $type->account_type by $user_name"]);
             }
         } catch (\Throwable $th) {
-            return LogServices::logEvent(["desc"=>"Unable to remove Account type $id by $user_name"]);
+            return LogServices::logEvent(["desc"=>"Unable to remove Account type $type->account_type by $user_name"]);
         }
     }
     public static function get($id){
@@ -45,15 +46,15 @@ class AccountTypeServices{
         ]);
         $user_name = auth()->user()->name;
         try {
-            $data = AccountTypesModel::where("id",$request->id)->first();
+            $type = AccountTypesModel::where("id",$request->id)->first();
             $status = AccountTypesModel::where("id",$request->id)->update($type);
             if($status){
-                LogServices::logEvent(["desc"=>"Account type $request->id Updated by $user_name","data"=>$data]);
+                LogServices::logEvent(["desc"=>"Account type $type->account_type Updated by $user_name","data"=>$type]);
             }else{
-                LogServices::logEvent(["desc"=>"Unable to update Account type $request->id by $user_name","data"=>$data]);
+                LogServices::logEvent(["desc"=>"Unable to update Account type $type->account_type by $user_name","data"=>$type]);
             }
         } catch (\Throwable $th) {
-            LogServices::logEvent(["desc"=>"Unable to update Account type $request->id by $user_name","data"=>$data]);
+            LogServices::logEvent(["desc"=>"Unable to update Account type $type->account_type by $user_name","data"=>$type]);
         }
     }
 }

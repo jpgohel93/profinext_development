@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-
+use App\Services\LogServices;
 class Handler extends ExceptionHandler
 {
     /**
@@ -35,7 +35,12 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+            if($e instanceof \PDOException){
+                if($e->getCode()==2002){
+                    LogServices::logEvent(["desc"=>"Server Connection Failed"]);
+                    abort(500,"Server Connection Failed");
+                }
+            }
         });
     }
 }

@@ -18,7 +18,7 @@ class ProfessionServices{
         $type['created_by'] = Auth::id();
         $id = ProfessionModal::create($type);
         if($id){
-            LogServices::logEvent(["desc"=>"Profession $id->id created by $user_name"]);
+            LogServices::logEvent(["desc"=>"Profession $request->profession created by $user_name"]);
         }else{
             LogServices::logEvent(["desc"=>"Unable to create Profession by $user_name","data"=>$type]);
         }
@@ -30,9 +30,9 @@ class ProfessionServices{
         $data = ProfessionModal::where("id", $id)->first();
         $status = ProfessionModal::where("id", $id)->forceDelete();
         if($status){
-            LogServices::logEvent(["desc"=>"Profession $id deleted by $user_name","data"=>$data]);
+            LogServices::logEvent(["desc"=>"Profession $data->profession deleted by $user_name","data"=>$data]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to delete Profession $id by $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to delete Profession by $user_name"]);
         }
         return $status;
     }
@@ -49,9 +49,9 @@ class ProfessionServices{
         $data = ProfessionModal::where("id", $request->id)->first();
         $status = ProfessionModal::where("id", $request->id)->update($type);
         if($status){
-            LogServices::logEvent(["desc"=>"Profession $request->id updated by $user_name","data"=>$data]);
+            LogServices::logEvent(["desc"=>"Profession $request->profession updated by $user_name","data"=>$data]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to update Profession $request->id by $user_name","data"=>$type]);
+            LogServices::logEvent(["desc"=>"Unable to update Profession by $user_name","data"=>$type]);
         }
         return $status;
     }

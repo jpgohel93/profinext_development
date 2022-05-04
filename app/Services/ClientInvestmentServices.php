@@ -50,9 +50,9 @@ class ClientInvestmentServices {
 
             $investment = ClientInvestmentModel::create($investment);
             if($investment){
-                LogServices::logEvent(["desc"=>"Investment $investment->id created by $user_name"]);
+                LogServices::logEvent(["desc"=>"Investment ".$investment['amc']." created by $user_name"]);
             }else{
-                LogServices::logEvent(["desc"=>"Unable to create Investment by $user_name","data"=>$investment]);
+                LogServices::logEvent(["desc"=>"Unable to create Investment ".$investment['amc']." by $user_name","data"=>$investment]);
             }
             array_push($ids,$investment->id);
         }
@@ -63,9 +63,9 @@ class ClientInvestmentServices {
         $data = ClientInvestmentModel::where("id",$id)->first();
         $status = ClientInvestmentModel::where("id",$id)->update($request);
         if($status){
-            LogServices::logEvent(["desc"=>"Investment $id updated by $user_name","data"=>$data]);
+            LogServices::logEvent(["desc"=>"Investment ".$data['amc']." updated by $user_name","data"=>$data]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to update Investment $id by $user_name","data"=>$request]);
+            LogServices::logEvent(["desc"=>"Unable to update Investment ".$data['amc']." by $user_name","data"=>$request]);
         }
         return $status;
     }
@@ -74,9 +74,9 @@ class ClientInvestmentServices {
         $data = ClientInvestmentModel::where("id", $id)->first();
         $status = ClientInvestmentModel::where("id", $id)->forceDelete();
         if($status){
-            LogServices::logEvent(["desc"=>"Investment $id deleted by $user_name","data"=>$data]);
+            LogServices::logEvent(["desc"=>"Investment ".$data['amc']." deleted by $user_name","data"=>$data]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to delete Investment $id by $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to delete Investment ".$data['amc']." by $user_name"]);
         }
         return $status;
     }

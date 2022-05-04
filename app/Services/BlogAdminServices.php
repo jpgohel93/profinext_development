@@ -71,9 +71,9 @@ class BlogAdminServices{
         $dt = ["is_approve"=>1];
         $status = Blog::where("id",$id)->update($dt);
         if($status){
-            LogServices::logEvent(["desc"=>"Blog $id updated by $user_name","data"=>$data]);
+            LogServices::logEvent(["desc"=>"Blog $data->title updated by $user_name","data"=>$data]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to Update Blog $id by $user_name","data"=>$dt]);
+            LogServices::logEvent(["desc"=>"Unable to Update Blog $data->title by $user_name","data"=>$dt]);
         }
     }
     public static function addTab($request){
@@ -87,9 +87,9 @@ class BlogAdminServices{
         // blog tab added
         $tab_id = blogTabs::create($tab);
         if($tab_id){
-            LogServices::logEvent(["desc"=>"Blog Tab $tab_id->id Created by $user_name"]);
+            LogServices::logEvent(["desc"=>"Blog Tab $request->name Created by $user_name"]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to create Blog Tab by $user_name","data"=>$tab]);
+            LogServices::logEvent(["desc"=>"Unable to create Blog Tab $request->name by $user_name","data"=>$tab]);
         }
         if($request->blogger!=""){
             $request->validate([
@@ -101,8 +101,10 @@ class BlogAdminServices{
                 "target"=>0
             ];
             $target = blogTarget::create($tg);
+            // get blogger
+            $blogger = User::where("id",$request->user_id)->first();
             if($target){
-                LogServices::logEvent(["desc"=>"Blogger $request->blogger target updated by $user_name"]);
+                LogServices::logEvent(["desc"=>"Blogger $blogger->name target updated by $user_name"]);
             }else{
                 LogServices::logEvent(["desc"=>"Unable to update Blogger $request->blogger target by $user_name","data"=>$target]);
             }
@@ -117,20 +119,24 @@ class BlogAdminServices{
             "tab_id"=>"exists:blog_tabs,id|required"
         ]);
         $user['schedule'] = $request->schedule;
+        // get blogger
+        $blogger = User::where("id",$request->user_id)->first();
+        // get tab
+        $tab = blogTabs::where("id",$request->tab_id)->pluck("name")->first();
+        $data = blogTarget::where("tab_id", $request->tab_id)->where("user_id", $request->user_id)->first();
         if($update){
-            $data = blogTarget::where("tab_id", $request->tab_id)->where("user_id", $request->user_id)->first();
             $id = blogTarget::where("tab_id", $request->tab_id)->where("user_id", $request->user_id)->update($user);
             if($id){
-                LogServices::logEvent(["desc"=>"Blogger $request->user_id target updated by $user_name","user_id"=>$request->user_id,"data"=>$data,"user_id"=>$request->user_id]);
+                LogServices::logEvent(["desc"=>"Blogger $blogger->name target updated by $user_name","user_id"=>$request->user_id,"data"=>$data,"user_id"=>$request->user_id]);
             }else{
-                LogServices::logEvent(["desc"=>"Unable to update target for Tab $request->tab_id and User ID $request->user_id by $user_name","data"=>$user,"user_id"=>$request->user_id]);
+                LogServices::logEvent(["desc"=>"Unable to update target for Tab $tab and Blogger $blogger->name by $user_name","data"=>$user,"user_id"=>$request->user_id]);
             }
         }else{
             $id = blogTarget::create($user);
             if($id){
-                LogServices::logEvent(["desc"=>"Blogger $request->user_id target created by $user_name","user_id"=>$request->user_id]);
+                LogServices::logEvent(["desc"=>"Blogger $blogger->name target updated by $user_name","user_id"=>$request->user_id,"data"=>$data,"user_id"=>$request->user_id]);
             }else{
-                LogServices::logEvent(["desc"=>"Unable to update target for Tab $request->tab_id and User ID $request->user_id by $user_name","data"=>$user,"user_id"=>$request->user_id]);
+                LogServices::logEvent(["desc"=>"Unable to update target for Tab $tab and Blogger $blogger->name by $user_name","data"=>$user,"user_id"=>$request->user_id]);
             }
         }
         return $id;
@@ -147,9 +153,9 @@ class BlogAdminServices{
         // create blog
         $id = Blog::create($blog);
         if($id){
-            LogServices::logEvent(["desc"=>"Blog $id->id Created by $user_name"]);
+            LogServices::logEvent(["desc"=>"Blog $request->title Created by $user_name"]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to create Blog by $user_name","data"=>$blog]);
+            LogServices::logEvent(["desc"=>"Unable to create Blog $request->title by $user_name","data"=>$blog]);
         }
         return $id;
     }
@@ -163,9 +169,9 @@ class BlogAdminServices{
         $dt = ["notes"=>$request->notes,"is_approve"=>0];
         $status = Blog::where("id", $request->blog_id)->update($dt);
         if($status){
-            LogServices::logEvent(["desc"=>"Note added for blog $request->blog_id by $user_name","data"=>$data]);
+            LogServices::logEvent(["desc"=>"Notess added for blog $data->title by $user_name"]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to Add Notes for blog $request->blog_id by $user_name","data"=>$dt]);
+            LogServices::logEvent(["desc"=>"Unable to Add Notes for blog $data->title by $user_name","data"=>$dt]);
         }
     }
     public static function getNoteFrm($id){
@@ -194,9 +200,9 @@ class BlogAdminServices{
         ];
         $id = Blog::where("id", $blog_id)->update($dt);
         if($id){
-            LogServices::logEvent(["desc"=>"Blog $blog_id Updated by $user_name","data"=>$data]);
+            LogServices::logEvent(["desc"=>"Blog $data->title Updated by $user_name","data"=>$data]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to update Blog $blog_id by $user_name","data"=>$dt]);
+            LogServices::logEvent(["desc"=>"Unable to update Blog $data->title by $user_name","data"=>$dt]);
         }
         return $id;
     }

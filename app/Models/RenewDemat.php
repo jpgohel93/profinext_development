@@ -24,5 +24,8 @@ class RenewDemat extends Model
             });
         }
     }
+    public function withDemat(){
+        return $this->belongsTo(ClientDemat::class,"id","client_demat_id");
+    }
 
 }

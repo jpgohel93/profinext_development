@@ -12,7 +12,14 @@ class servicesTypeServices
     }
     public static function remove($id)
     {
-        return servicesTypeModel::where("id", $id)->delete();
+        $user_name = auth()->user()->name;
+        $service =servicesTypeModel::where("id", $id)->first();
+        $status = servicesTypeModel::where("id", $id)->delete();
+        if($status){
+            LogServices::logEvent(["desc"=>"Client service $service->name deleted by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to delete Client service $service->name by $user_name"]);
+        }
     }
     public static function get($request)
     {
@@ -44,11 +51,18 @@ class servicesTypeServices
             ]);
             $service['gst_rate'] = $request->gst_rate;
         }
-        return servicesTypeModel::where("id", $request->id)->update($service);
+        $data = servicesTypeModel::where("id", $request->id)->first();
+        $user_name = auth()->user()->name;
+        $status = servicesTypeModel::where("id", $request->id)->update($service);
+        if($status){
+            LogServices::logEvent(["desc"=>"Client Service $data->name updated by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to update Client Service $data->name by $user_name"]);
+        }
     }
     public static function add($request){
         $service = $request->validate([
-            "name" => "required|",
+            "name" => "required",
             "renewal_amount" => "required",
             "sharing" => "required",
             "is_gst_applicable" => "required",
@@ -68,7 +82,13 @@ class servicesTypeServices
             ]);
             $service['gst_rate'] = $request->gst_rate;
         }
-        return servicesTypeModel::create($service);
+        $status = servicesTypeModel::create($service);
+        $user_name = auth()->user()->name;
+        if($status){
+            LogServices::logEvent(["desc"=>"Client service $request->name created by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to create Client service $request->name by $user_name"]);
+        }
     }
     public static function getById($id){
         return servicesTypeModel::where("id", $id)->first();

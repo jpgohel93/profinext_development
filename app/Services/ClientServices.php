@@ -261,7 +261,7 @@ class ClientServices
             // create client
             $client = Client::create($client);
             if($client){
-                LogServices::logEvent(["desc"=>"Client $client->id created by $user_name"]);
+                LogServices::logEvent(["desc"=>"Client $client->name created by $user_name"]);
                 foreach ($demat_ids as $key => $demat_id){
                     // update pancard and payment screenshot id
                     foreach ($demat_ids[$key]['pan'] as $index => $panCardId) {
@@ -272,6 +272,9 @@ class ClientServices
                     }
                     // update client id to demat id
                     ClientDemat::where("id", $demat_ids[$key]['demat'])->update(["client_id" => $client->id]);
+                    // get demat holder name
+                    $client_demat = ClientDemat::where("id",$demat_ids[$key]['demat'])->first();
+                    LogServices::logEvent(["desc"=>"Demat account $client_demat->holder_name created_by $user_name"]);
                     // update demat id to payment id
                     ClientPayment::where("id", $demat_ids[$key]['payment'])->update(["demat_id" => $demat_ids[$key]['demat'], "client_id" => $client->id]);
                 }
@@ -287,6 +290,8 @@ class ClientServices
                     }
                     // delete client id to demat id
                     ClientDemat::where("id", $demat_ids[$key]['demat'])->delete();
+                    LogServices::logEvent(["desc"=>"Unable to create demat account by $user_name"]);
+                    LogServices::logEvent(["desc"=>"Unable to create client by $user_name"]);
                     // delete demat id to payment id
                     ClientPayment::where("id", $demat_ids[$key]['payment'])->delete();
                     // delete RenewExpensesId
@@ -298,12 +303,12 @@ class ClientServices
             // investment details
             $ids = ClientInvestmentServices::create($request);
             // create client
-            $client = Client::create($client);
-            if($client){
-                LogServices::logEvent(["desc"=>"Client investment $client->id created by $user_name"]);
+            $client_status = Client::create($client);
+            if($client_status){
+                LogServices::logEvent(["desc"=>"Client investment $client->name created by $user_name"]);
                 foreach ($ids as $id){
                     // update client id
-                    ClientInvestmentServices::update(["client_id" => $client->id],$id);
+                    ClientInvestmentServices::update(["client_id" => $client_status->id],$id);
                 }
             }else{
                 LogServices::logEvent(["desc"=>"Unable to create Client investment  by $user_name","data"=>$request]);
@@ -333,6 +338,7 @@ class ClientServices
         return $client;
     }
     public static function update($request,$id){
+        $user_name =  auth()->user()->name;
         $request->session()->put("password", $request->password);
         $client = $request->validate([
             "name"=>"required|alpha_spaces",
@@ -663,6 +669,9 @@ class ClientServices
                 }
                 // update client id to demat id
                 ClientDemat::where("id", $demat_ids[$key]['demat'])->update(["client_id" => $id]);
+                // get demat holder name
+                $client_demat = ClientDemat::where("id",$demat_ids[$key]['demat'])->first();
+                LogServices::logEvent(["desc"=>"demat account $client_demat->holder_name updated by $user_name"]);
                 // update demat id to payment id
                 ClientPayment::where("id", $demat_ids[$key]['payment'])->update(["demat_id" => $demat_ids[$key]['demat'], "client_id" => $id]);
             }
@@ -671,11 +680,12 @@ class ClientServices
             // investment details
             $ids = ClientInvestmentServices::create($request);
             // create client
-            $client = Client::create($client);
-            if ($client) {
+            $client_status = Client::create($client);
+            if ($client_status) {
+                LogServices::logEvent(["desc"=>"Client investment $client->holder_name updated by $user_name"]);
                 foreach ($ids as $id) {
                     // update client id
-                    ClientInvestmentServices::update(["client_id" => $client->id], $id);
+                    ClientInvestmentServices::update(["client_id" => $client_status->id], $id);
                 }
             } else {
                 foreach ($ids as $id) {
@@ -699,7 +709,14 @@ class ClientServices
 
     public static function updateAssignTo($id,$request)
     {
-        return ClientDemat::where("id", $id)->update($request);
+        $demat = ClientDemat::where("id", $id)->first();
+        $status = ClientDemat::where("id", $id)->update($request);
+        if($status){
+            LogServices::logEvent(["desc"=>"Freelancer assign to client demat account $demat->holder_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to assign Freelancer to client demat account $demat->holder_name"]);
+        }
+        return $status;
     }
 
     public static function updateClientDematAccount($id,$request)
@@ -877,7 +894,14 @@ class ClientServices
             "mark_as_problem"=>null,
             "account_status"=>"normal"
         ];
-        return ClientDemat::where("id", $id)->update($status);
+        $demat = ClientDemat::where("id", $id)->first();
+        $status = ClientDemat::where("id", $id)->update($status);
+        $user_name = auth()->user()->name;
+        if($status){
+            LogServices::logEvent(["desc"=>"Demat account $demat->holder_name restored by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to change status of Demat account $demat->holder_name to normal by $user_name"]);
+        }
     }
     // activate demate account
     public static function clientDematActivated($id){
@@ -889,7 +913,15 @@ class ClientServices
             "trader_id"=>0,
             "deleted_at"=>null
         ];
-        return ClientDemat::withTrashed()->where("id", $id)->update($status);
+        $demat = ClientDemat::withTrashed()->where("id", $id)->first();
+        $status = ClientDemat::withTrashed()->where("id", $id)->update($status);
+        $user_name =  auth()->user()->name;
+        if($status){
+            LogServices::logEvent(["desc"=>"Demat account $demat->holder_name status changed to normal by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to change status of Demat account $demat->holder_name to normal by $user_name"]);
+        }
+        return $status;
     }
     // terminate client
     public static function terminateClient($request){
@@ -903,7 +935,14 @@ class ClientServices
                 "account_status" => "terminated",
             ];
         }
-        return ClientDemat::where("id", $request->id)->update($status);
+        $demat = ClientDemat::where("id", $request->id)->first();
+        $status = ClientDemat::where("id", $request->id)->update($status);
+        $user_name =  auth()->user()->name;
+        if($status){
+            LogServices::logEvent(["desc"=>"Demat account $demat->holder_name terminated by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to terminate Demat account $demat->holder_name by $user_name"]);
+        }
     }
 
     public static function getClientForSetUp(){

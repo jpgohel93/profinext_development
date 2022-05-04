@@ -17,11 +17,12 @@ class keywordAccountTypeServices
     public static function remove($id)
     {
         $user_name = auth()->user()->name;
+        $keyword = keywordAccountTypeModel::where("id", $id)->first();
         $status = keywordAccountTypeModel::where("id", $id)->delete();
         if($status){
-            LogServices::logEvent(["Keyword $id deleted by $user_name"]);
+            LogServices::logEvent(["Keyword $keyword->name deleted by $user_name"]);
         }else{
-            LogServices::logEvent(["Unable to delete Keyword $id deleted by $user_name"]);
+            LogServices::logEvent(["Unable to delete Keyword $keyword->name deleted by $user_name"]);
         }
     }
     public static function create($type)
@@ -29,7 +30,7 @@ class keywordAccountTypeServices
         $user_name = auth()->user()->name;
         $id = keywordAccountTypeModel::firstOrCreate(["name" => $type]);
         if($id){
-            LogServices::logEvent(["desc"=>"Keyword $id created by $user_name"]);
+            LogServices::logEvent(["desc"=>"Keyword $type created by $user_name"]);
         }
         return $id;
     }

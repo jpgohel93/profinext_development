@@ -37,7 +37,14 @@ class RoleServices
 
     public static function remove($id)
     {
-        return Role::where("id", $id)->forcedelete();
+        $user_name = auth()->user()->name;
+        $role = Role::where("id", $id)->first();
+        $status = Role::where("id", $id)->forcedelete();
+        if($status){
+            LogServices::logEvent(['desc'=>"Role $role->role deleted by $user_name"]);
+        }else{
+            LogServices::logEvent(['desc'=>"Unable to delete Role $role->role by $user_name"]);
+        }
     }
     public static function roles(){
         $roles = Role::orderBy('id','DESC')->get();
@@ -68,8 +75,10 @@ class RoleServices
             ["permission.required" => "Please select atleast one permission to edit or create role"]
         );
         try {
+            $user_name = auth()->user()->name;
             $roleName['name'] = $request->role;
             Role::where("id",$id)->update($roleName);
+            LogServices::logEvent(["desc"=>"Role $request->role updated by $user_name"]);
 
             $role = RoleServices::get($id);
             if(!$role)

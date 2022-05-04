@@ -60,7 +60,7 @@ class MonitorDataServices{
             $analyst_id = MonitorData::create($monitor);
             $user_name = auth()->user()->name;
             if($analyst_id){
-                LogServices::logEvent(["desc"=>"Monitor data $analyst_id->id created by $user_name"]);
+                LogServices::logEvent(["desc"=>"Monitor data ".$monitor['script_name']." created by $user_name"]);
             }else{
                 LogServices::logEvent(["desc"=>"Unable to create Monitor data by $user_name","data"=>$monitor]);
             }
@@ -99,9 +99,9 @@ class MonitorDataServices{
         $user_name = auth()->user()->name;
         $status = MonitorData::where("id", $request->monitor_data_id)->update($monitor);
         if($status){
-            LogServices::logEvent(["desc"=>"Monitor data $request->monitor_data_id Updated by $user_name","data"=>$data]);
+            LogServices::logEvent(["desc"=>"Monitor data ".$monitor['script_name']." Updated by $user_name","data"=>$data]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to update Monitor data $request->monitor_data_id by $user_name","data"=>$monitor]);
+            LogServices::logEvent(["desc"=>"Unable to update Monitor data by $user_name","data"=>$monitor]);
         }
         return $status;
     }
@@ -131,12 +131,13 @@ class MonitorDataServices{
     }
 
     public static function remove($id){
+        $data = MonitorData::where("id",$id)->firstt();
         $status = MonitorData::where("id",$id)->delete();
         $user_name = auth()->user()->name;
         if($status){
-            LogServices::logEvent(["desc"=>"Monitor data $id Deleted by $user_name"]);
+            LogServices::logEvent(["desc"=>"Monitor data $data->script_name Deleted by $user_name"]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to delete Monitor data $id by $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to delete Monitor data $data->script_name by $user_name"]);
         }
     }
     public static function close($request){
@@ -153,9 +154,9 @@ class MonitorDataServices{
         $user_name = auth()->user()->name;
         $status = MonitorData::where("id",$request->call_id)->update($call);
         if($status){
-            LogServices::logEvent(["desc"=>"Monitor data $request->call_id updated by $user_name","data"=>$data]);
+            LogServices::logEvent(["desc"=>"Monitor data $data->script_name updated by $user_name","data"=>$data]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to update Monitor data $request->call_id by $user_name","data"=>$call]);
+            LogServices::logEvent(["desc"=>"Unable to update Monitor data by $user_name","data"=>$call]);
         }
     }
 }

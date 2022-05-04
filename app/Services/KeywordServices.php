@@ -16,20 +16,20 @@ class KeywordServices
         $keyword['created_by']= Auth::id();
         $id = Keyword::create($keyword);
         if($id){
-            LogServices::logEvent(["desc"=>"Keyword $id->id created by $user_name"]);
+            LogServices::logEvent(["desc"=>"Keyword ".$keyword['name']." created by $user_name"]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to create Keyword by $user_name","data"=>$keyword]);
+            LogServices::logEvent(["desc"=>"Unable to create Keyword ".$keyword['name']." by $user_name","data"=>$keyword]);
         }
         return $id;
     }
     public static function remove($id){
         $user_name = auth()->user()->name;
-
+        $keyword = Keyword::where("id",$id)->first();
         $status = Keyword::where("id",$id)->delete();
         if($status){
-            LogServices::logEvent(["desc"=>"Keyword $id deleted by $user_name"]);
+            LogServices::logEvent(["desc"=>"Keyword $keyword->name deleted by $user_name"]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to delete Keyword $id by $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to delete Keyword $keyword->name by $user_name"]);
         }
         return $status;
     }
@@ -42,15 +42,16 @@ class KeywordServices
             $keyword = $request->validate([
                 "name"=> "required",
             ]);
+            $data = Keyword::where("id",$request->keyword_id)->first();
             $status = Keyword::where("id",$request->keyword_id)->update($keyword);
             if($status){
-                LogServices::logEvent(["desc"=>"Keyword $request->id updated by $user_name"]);
+                LogServices::logEvent(["desc"=>"Keyword $data->name updated by $user_name","data"=>$data]);
             }else{
-                LogServices::logEvent(["desc"=>"Unable to updated Keyword $request->id by $user_name"]);
+                LogServices::logEvent(["desc"=>"Unable to updated Keyword $keyword->name by $user_name","data"=>$data]);
             }
             return $status;
         } catch (\Throwable $th) {
-            LogServices::logEvent(["desc"=>"Unable to updated Keyword $request->id by $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to updated Keyword $request->name by $user_name"]);
             return CommonService::throwError("Unable to update this keyword");
         }
     }

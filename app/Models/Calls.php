@@ -29,4 +29,7 @@ class Calls extends Model
     {
         return $this->belongsTo(Analyst::class,'analyst_id','id');
     }
+    public function withDemat(){
+        return $this->belongsTo(ClientDemat::class,"client_demate_id","id");
+    }
 }

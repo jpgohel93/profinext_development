@@ -38,7 +38,7 @@ class RenewalAccountImagesServices{
         $id = renewalAccountImagesModal::create($image);
         $user_name = auth()->user()->name;
         if($id){
-            LogServices::logEvent(["desc"=>"Renewal account image uploaded By $user_name","data"=>$image]);
+            LogServices::logEvent(["desc"=>"Renewal account image $request->title uploaded By $user_name","data"=>$image]);
         }else{
             LogServices::logEvent(["desc"=>"Unable to upload Renewal account image $user_name","data"=>$image]);
         }

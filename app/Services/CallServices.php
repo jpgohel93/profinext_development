@@ -44,7 +44,7 @@ class CallServices
         ]);
         $margin_value = 0;
         $user_name = auth()->user()->name;
-        $demat = ClientDemat::where("id", $request->client_demate_id)->first(["available_balance", "capital"])->toArray();
+        $demat = ClientDemat::where("id", $request->client_demate_id)->first()->toArray();
         $ab = $demat['available_balance'];
         if($request->options=='future'){
             $request->validate([
@@ -70,9 +70,9 @@ class CallServices
                     $dt = ["available_balance"=> $ab_new];
                     $status = ClientDemat::where("id",$request->client_demate_id)->update($dt);
                     if($status){
-                        LogServices::logEvent(["desc"=>"Demat  $request->client_demate_id updated $request->client_demate_id By $user_name","data"=>$data]);
+                        LogServices::logEvent(["desc"=>"Demat ".$demat['holder_name']." updated By $user_name","data"=>$data]);
                     }else{
-                        LogServices::logEvent(["desc"=>"Unable to Update Demat $request->client_demate_id By $user_name","data"=>$dt]);
+                        LogServices::logEvent(["desc"=>"Unable to Update Demat ".$demat['holder_name']." By $user_name","data"=>$dt]);
                     }
                 }
             }else{
@@ -82,9 +82,9 @@ class CallServices
                 $dt = ["available_balance" => $ab_new];
                 $status = ClientDemat::where("id", $request->client_demate_id)->update($dt);
                 if($status){
-                    LogServices::logEvent(["desc"=>"Demat $request->client_demate_id Updated By $user_name","data"=>$data]);
+                    LogServices::logEvent(["desc"=>"Demat ".$demat['holder_name']." Updated By $user_name","data"=>$data]);
                 }else{
-                    LogServices::logEvent(["desc"=>"Unable to Update Demat $request->client_demate_id By $user_name","data"=>$dt]);
+                    LogServices::logEvent(["desc"=>"Unable to Update Demat ".$demat['holder_name']." By $user_name","data"=>$dt]);
                 }
             }
         }else{
@@ -101,9 +101,9 @@ class CallServices
                     $dt = ["available_balance" => $demat['capital'] - $total];
                     $status = ClientDemat::where("id", $request->client_demate_id)->update($dt);
                     if($status){
-                        LogServices::logEvent(["desc"=>"Demat $request->client_demate_id Updated By $user_name","data"=>$data]);
+                        LogServices::logEvent(["desc"=>"Demat ".$demat['holder_name']." Updated By $user_name","data"=>$data]);
                     }else{
-                        LogServices::logEvent(["desc"=>"Unable to Update Demat $request->client_demate_id By $user_name","data"=>$dt]);
+                        LogServices::logEvent(["desc"=>"Unable to Update Demat ".$demat['holder_name']." By $user_name","data"=>$dt]);
                     }
                 }
             }else{
@@ -112,18 +112,18 @@ class CallServices
                 $dt = ["available_balance" => $demat['available_balance'] - $total];
                 $status = ClientDemat::where("id", $request->client_demate_id)->update($dt);
                 if($status){
-                    LogServices::logEvent(["desc"=>"Demat $request->client_demate_id Updated By $user_name","data"=>$data]);
+                    LogServices::logEvent(["desc"=>"Demat ".$demat['holder_name']." Updated By $user_name","data"=>$data]);
                 }else{
-                    LogServices::logEvent(["desc"=>"Unable to Update Demat $request->client_demate_id By $user_name","data"=>$dt]);
+                    LogServices::logEvent(["desc"=>"Unable to Update Demat ".$demat['holder_name']." By $user_name","data"=>$dt]);
                 }
             }
         }
         $call['created_by']= Auth::id();
         $id = Calls::create($call);
         if($id){
-            LogServices::logEvent(["desc"=>"Call $id->id created By $user_name"]);
+            LogServices::logEvent(["desc"=>"Call ".$call['script_name']." created By $user_name"]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to create Call By $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to create Call ".$call['script_name']." By $user_name"]);
         }
         return $id;
     }
@@ -135,7 +135,7 @@ class CallServices
             "price"=>"required|numeric",
             "qty"=> "required|numeric"
         ]);
-        $demat = ClientDemat::where("id", $request->demat_id)->first(["available_balance", "capital"])->toArray();
+        $demat = ClientDemat::where("id", $request->demat_id)->first()->toArray();
         $total = $request->price*$request->qty;
         $user_name = auth()->user()->name;
         $ab_new = $demat["available_balance"]+$total;
@@ -144,9 +144,9 @@ class CallServices
             "available_balance" => $ab_new
         ]);
         if($status){
-            LogServices::logEvent(["desc"=>"Demat ID $request->demat_id available balance updated from $ab to $ab_new By $user_name"]);
+            LogServices::logEvent(["desc"=>"Demat ".$demat['holder_name']." Updated By $user_name","data"=>$demat]);
         }else{
-            LogServices::logEvent(["desc"=>"Update Demat ID $request->demat_id available balance from $ab to $ab_new was failed By $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to Update Demat ".$demat['holder_name']." By $user_name","data"=>["available_balance" => $ab_new]]);
         }
 
         $calls = Calls::where("client_demate_id", $request->demat_id)->where("script_name","like",$trade['trade'])->get();
@@ -192,12 +192,13 @@ class CallServices
         return Calls::create($newCall);
     }
     public static function remove($request){
+        $call = Calls::with("withDemat")->where("id", $request->id)->first();
         $status = Calls::where("id", $request->id)->delete();
         $user_name = auth()->user->name;
         if($status){
-            return LogServices::logEvent(["desc"=>"Call ID $request->id deleted By $user_name"]);
+            return LogServices::logEvent(["desc"=>"Call ID $call->script_name deleted for demat ".$call->withDemat->holder_name." By $user_name"]);
         }else{
-            return LogServices::logEvent(["desc"=>"Unable to delete Call ID $request->id By $user_name"]);
+            return LogServices::logEvent(["desc"=>"Unable to delete Call ID ".$call->withDemat->holder_name." By $user_name"]);
         }
     }
     public static function get($id){
@@ -219,12 +220,13 @@ class CallServices
                 "analyst_id.exists" => "Invalid analyst",
                 "analyst_id.numeric" => "Invalid analyst",
             ]);
+            $call = Calls::where("id",$request->call_id)->first();
             $status = Calls::where("id",$request->call_id)->update($call);
             $user_name = auth()->user()->name;
             if($status){
-                return LogServices::logEvent(["desc"=>"Call ID $request->id Updated By $user_name"]);
+                return LogServices::logEvent(["desc"=>"Call ID $call->script_name Updated By $user_name","data"=>$call]);
             }else{
-                return LogServices::logEvent(["desc"=>"Unable to update Call ID $request->id By $user_name"]);
+                return LogServices::logEvent(["desc"=>"Unable to update Call ID $call->script_name By $user_name"]);
             }
         } catch (\Throwable $th) {
             CommonService::throwError("Unable to update this call");

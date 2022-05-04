@@ -10,7 +10,13 @@ class TermsAndConditionsServices
             "description"=> "required"
         ]);
         $terms['created_by'] = auth()->user()->id;
-        return TermsAndConditionsModel::create($terms);
+        $status = TermsAndConditionsModel::create($terms);
+        $user_name = auth()->user()->name;
+        if($status){
+            LogServices::logEvent(["desc"=>"Terms and conditions $request->title created by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to create Terms and conditions $request->title by $user_name"]);
+        }
     }
     public static function update($request)
     {
@@ -23,7 +29,14 @@ class TermsAndConditionsServices
             "id.exists" =>"Terms and conditions not exists"
         ]);
         $terms['updated_by'] = auth()->user()->id;
-        return TermsAndConditionsModel::where("id",$request->id)->update($terms);
+        $data = TermsAndConditionsModel::where("id",$request->id)->first();
+        $user_name = auth()->user()->name;
+        $status = TermsAndConditionsModel::where("id",$request->id)->update($terms);
+        if($status){
+            LogServices::logEvent(["desc"=>"Terms and conditions $request->title updated by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to update Terms and conditions $request->title by $user_name"]);
+        }
     }
     public static function all($active = false){
         if($active){
@@ -39,6 +52,13 @@ class TermsAndConditionsServices
     {
         $terms['deleted_by'] = auth()->user()->id;
         $terms['deleted_at'] = date('Y-m-d H:i:s');
-        return TermsAndConditionsModel::where("id", $id)->update($terms);
+        $user_name = auth()->user()->name;
+        $data = TermsAndConditionsModel::where("id", $id)->first();
+        $status = TermsAndConditionsModel::where("id", $id)->update($terms);
+        if($status){
+            LogServices::logEvent(["desc"=>"Terms and conditions $data->title deleted by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to delete Terms and conditions $data->title by $user_name"]);
+        }
     }
 }

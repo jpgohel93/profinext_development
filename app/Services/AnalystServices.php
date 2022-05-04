@@ -64,7 +64,7 @@ class AnalystServices{
                             "analyst_id"=>$analyst_id->id
                         ]);
                         if($id){
-                            LogServices::logEvent(["desc"=>"Analyst $analyst_id->id updated by ".$user_name]);
+                            LogServices::logEvent(["desc"=>"Analyst $analyst->analyst updated by ".$user_name]);
                         }else{
                             LogServices::logEvent(["desc"=>"Unable to add number for Analyst $analyst_id->id by ".$user_name,"data"=>$number]);
                         }
@@ -72,13 +72,13 @@ class AnalystServices{
                 }
             }
             if($analyst_id){
-                LogServices::logEvent(["desc"=>"Analyst created $analyst_id->id by ".$user_name]);
+                LogServices::logEvent(["desc"=>"Analyst created $analyst->analyst by ".$user_name]);
             }else{
-                LogServices::logEvent(["desc"=>"Unable to create Analyst $analyst_id->id by ".$user_name,"data"=>$analyst]);
+                LogServices::logEvent(["desc"=>"Unable to create Analyst $analyst->analyst by ".$user_name,"data"=>$analyst]);
             }
             return $analyst_id->id;
         } catch (\Throwable $th) {
-            LogServices::logEvent(["desc"=>"Unable to create Analyst by ".$user_name]);
+            LogServices::logEvent(["desc"=>"Unable to create Analyst by ".$user_name,"data"=>$analyst]);
             CommonService::throwError("Unable to create Analyst");
         }
     }
@@ -97,22 +97,22 @@ class AnalystServices{
                 $data = Analyst::where("id", $request->analyst_id)->first();
                 $status = Analyst::where("id", $request->analyst_id)->update($analyst);
                 if($status){
-                    LogServices::logEvent(["desc"=>"Analyst $request->analyst_id updated by ".$user_name,"data"=>$data]);
+                    LogServices::logEvent(["desc"=>"Analyst $data->analyst updated by ".$user_name,"data"=>$data]);
                 }else{
-                    LogServices::logEvent(["desc"=>"Analyst $request->analyst_id updated by ".$user_name,"data"=>$analyst]);
+                    LogServices::logEvent(["desc"=>"Analyst $data->analyst updated by ".$user_name,"data"=>$analyst]);
                 }
                 return $status;
             } catch (\Throwable $th) {
-                return LogServices::logEvent(["desc"=>"Analyst $request->analyst_id updated by ".$user_name,"data"=>$analyst]);
+                return LogServices::logEvent(["desc"=>"Analyst $data->analyst updated by ".$user_name,"data"=>$analyst]);
             }
         }
         $dt = ["status"=> "Terminated"];
         $data = Analyst::where("id", $request->analyst_id)->first();
         $status = Analyst::where("id", $request->analyst_id)->update($dt);
         if($status){
-            LogServices::logEvent(["desc"=>"Analyst $request->analyst_id Status $request->status updated by ".$user_name,"data"=>$data]);
+            LogServices::logEvent(["desc"=>"Analyst $data->analyst Status updated by ".$user_name,"data"=>$data]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to update Analyst $request->analyst_id Status $request->status by ".$user_name,"data"=>$dt]);
+            LogServices::logEvent(["desc"=>"Unable to update Analyst $data->analyst Status updated by ".$user_name,"data"=>$dt]);
         }
         return $status;
     }
@@ -155,9 +155,9 @@ class AnalystServices{
         $data = Analyst::where("id", $request->analyst_id)->first();
         $status = Analyst::where("id", $request->analyst_id)->update($analyst);
         if($status){
-            LogServices::logEvent(["desc"=>"Analyst $request->analyst_id updated by ".$user_name,"data"=>$data]);
+            LogServices::logEvent(["desc"=>"Analyst $data->analyst updated by ".$user_name,"data"=>$data]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to update Analyst $request->analyst_id by ".$user_name,"data"=>$analyst]);
+            LogServices::logEvent(["desc"=>"Unable to update Analyst $data->analyst by ".$user_name,"data"=>$analyst]);
         }
         return $status;
     }

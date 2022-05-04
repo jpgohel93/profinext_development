@@ -12,7 +12,7 @@ use App\Models\User;
 use App\Services\financeManagementServices\bankServices;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use App\Services\LogServices;
 class ClientDemateServices{
     public static function active(){
         $demates = ClientDemat::where("account_status","normal")->whereNull("problem")->with(["withClient"])->leftJoin('clients', 'client_demat.client_id', '=', 'clients.id');
@@ -81,7 +81,15 @@ class ClientDemateServices{
         $pl['pl']=$request->pl;
         $pl['final_pl']=$request->total_profit;
         $pl['end_date']=date('Y-m-d');
-        return ClientDemat::where("id",$request->id)->update($pl);
+        $demat = ClientDemat::where("id",$request->id)->first();
+        $status = ClientDemat::where("id",$request->id)->update($pl);
+        $user_name = auth()->user()->name;
+        if($status){
+            LogServices::logEvent(["desc"=>"PL updated for demat $demat->holder_name by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to update PL for demat $demat->holder_name by $user_name","data"=>$pl]);
+        }
+        return $status;
     }
     public static function markAsProblem($request){
         $request->validate([
@@ -91,9 +99,17 @@ class ClientDemateServices{
             "demat_id.exists" =>"Demat account not found",
         ]);
         $json = json_encode($request->except(["_token", "demat_id"]));
-        return ClientDemat::where("id", $request->demat_id)->update(["mark_as_problem"=>$json]);
+        $demat = ClientDemat::where("id", $request->demat_id)->first();
+        $status = ClientDemat::where("id", $request->demat_id)->update(["mark_as_problem"=>$json]);
+        $user_name = auth()->user()->name;
+        if($status){
+            LogServices::logEvent(["desc"=>"Demat account $demat->holder_name marked as problem by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to mark problem for Demat account $demat->holder_name by $user_name","data"=>$json]);
+        }
     }
     public static function ProblemSolved($request){
+        $user_name = auth()->user()->name;
         $request->validate([
             "demat_id"=>"required|exists:client_demat,id"
         ],[
@@ -101,11 +117,18 @@ class ClientDemateServices{
             "demat_id.exists" =>"Demat account not found",
         ]);
         $json = json_encode($request->except(["_token", "demat_id"]));
+        $demat = ClientDemat::where("id", $request->demat_id)->first();
         if($request->has("problem") && ($request->problem!='' || $request->problem!=null)){
-            return ClientDemat::where("id", $request->demat_id)->update(["problem" => $request->problem]);
+            $status = ClientDemat::where("id", $request->demat_id)->update(["problem" => $request->problem]);
         }else{
-            return ClientDemat::where("id", $request->demat_id)->update(["mark_as_problem"=>$json]);
+            $status = ClientDemat::where("id", $request->demat_id)->update(["mark_as_problem"=>$json]);
         }
+        if($status){
+            LogServices::logEvent(["desc"=>"Demat account $demat->holder_name mark as problem by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to mark problem on Demat account $demat->holder_name by $user_name"]);
+        }
+        return $status;
     }
 
     public static function renewAccountList($bank_id,$startDate,$endDate){
@@ -149,6 +172,7 @@ class ClientDemateServices{
     }
 
     public static function demateFeesPayment($request){
+        $user_name= auth()->user()->name;
 
         $request->validate([
             "renew_fees_date" => "required|date",
@@ -181,7 +205,7 @@ class ClientDemateServices{
         $income['created_by']=auth()->user()->id;
 
         financeManagementIncomesModel::create($income);
-
+        LogServices::logEvent(["desc"=>$income['sub_heading']." income created by $user_name"]);
         $totalPayment = $renewData['part_payment'] + $request->fees_amount;
 
         // add balance in available balance
@@ -191,6 +215,7 @@ class ClientDemateServices{
             if (!empty($toBankData)) {
                 $addBalance['available_balance'] = $toBankData['available_balance'] +  $request->fees_amount;
                 BankModel::where("id", $request->fees_bank_id)->update($addBalance);
+                LogServices::logEvent(["desc"=>"Bank ".$toBankData['title']." Balance updated by $user_name","data"=>$toBankData['available_balance']]);
             }
         }
 
@@ -210,6 +235,8 @@ class ClientDemateServices{
             $expensesData['description'] = "RENEWAL FEES";
             $expensesData['total_amount'] = $renewData['renewal_fees'];
             RenewExpensesModal::create($expensesData);
+
+            LogServices::logEvent(["desc"=>"Renewal Expense ".$expensesData['description']." created by $user_name"]);
         }
 
         //freelancer
@@ -226,6 +253,8 @@ class ClientDemateServices{
             $expensesData['total_amount'] = $renewData['renewal_fees'];
             $expensesData['percentage'] = $freelancerData->fees_percentage;
             RenewExpensesModal::create($expensesData);
+
+            LogServices::logEvent(["desc"=>"Renewal Expense ".$expensesData['description']." created by $user_name"]);
         }
 
 
@@ -238,7 +267,9 @@ class ClientDemateServices{
             $clientDemat['account_status'] = "normal";
             $clientDemat['is_new'] = 3;
             $clientDemat['joining_date'] = date('Y-m-d');
+            $demat = ClientDemat::where("id", $renewData['client_demat_id'])->first();
             ClientDemat::where("id", $renewData['client_demat_id'])->update($clientDemat);
+            LogServices::logEvent(["desc"=>"Demat account ".$demat->holder_name." updated by $user_name","data"=>$demat]);
 
             //after renew account remove the screenshots
             $imageData = renewalAccountImagesModal::where("renewal_account_id",$request->fees_payment_id)->get();
@@ -295,8 +326,9 @@ class ClientDemateServices{
         $income['amount']=$request->profit_amount;
         $income['renewal_account_id']=$request->profit_sharing_payment_id;
         $income['created_by']=auth()->user()->id;
-
+        $user_name = auth()->user()->name;
         financeManagementIncomesModel::create($income);
+        LogServices::logEvent(['desc'=>$income['sub_heading']." income created by $user_name"]);
 
         $totalPayment = $renewData['part_payment'] + $request->profit_amount;
 
@@ -307,6 +339,7 @@ class ClientDemateServices{
             if (!empty($toBankData)) {
                 $addBalance['available_balance'] = $toBankData['available_balance'] +  $request->profit_amount;
                 BankModel::where("id", $request->profit_bank_id)->update($addBalance);
+                LogServices::logEvent(['desc'=>"Bank ". $toBankData." Balance updated by $user_name"]);
             }
         }
 
@@ -328,6 +361,7 @@ class ClientDemateServices{
             $expensesData['description'] = "PROFIT SHARING";
             $expensesData['total_amount'] = $renewData['profit_sharing'];
             RenewExpensesModal::create($expensesData);
+            LogServices::logEvent(['desc'=>"Renewal Expense Channel partner ". $expensesData['description'] ." Created by $user_name"]);
         }
 
         if (isset($clientDematData['freelancer_id']) && $clientDematData['freelancer_id'] != '' && $clientDematData['freelancer_id'] != 0) {
@@ -346,6 +380,7 @@ class ClientDemateServices{
                     $expensesData['total_amount'] = $countAmount;
                     $expensesData['percentage'] = $freelancerData->fees_percentage;
                     RenewExpensesModal::create($expensesData);
+                    LogServices::logEvent(['desc'=>"Renewal Expense freelancer ". $expensesData['description'] ." Created by $user_name"]);
                 }
             }elseif ($clientDematData['service_type'] == 1 || $clientDematData['service_type'] == 3){
                 $freelancerAmount = $freelancerData->percentage * $renewData['profit_sharing'] / 100;
@@ -359,6 +394,7 @@ class ClientDemateServices{
                 $expensesData['total_amount'] = $renewData['profit_sharing'];
                 $expensesData['percentage'] = $freelancerData->percentage;
                 RenewExpensesModal::create($expensesData);
+                LogServices::logEvent(['desc'=>"Renewal Expense freelancer ". $expensesData['description'] ." Created by $user_name"]);
             }
         }
 
@@ -389,10 +425,12 @@ class ClientDemateServices{
             $data['part_payment']=$totalPayment;
         }
 
+        LogServices::logEvent(['desc'=>"Renew demat ". $expensesData['description'] ." Created by $user_name"]);
         return RenewDemat::where("id",$request->profit_sharing_payment_id)->update($data);
     }
 
     public static function partPayment($request){
+        $user_name = auth()->user()->name;
         $request->validate([
             "part_amount" => "required",
             "part_bank_id" => "required"
@@ -544,6 +582,7 @@ class ClientDemateServices{
             $clientDemat['account_status'] = "normal";
             $clientDemat['is_new'] = 3;
             $clientDemat['joining_date'] = date('Y-m-d');
+            $client_demat = ClientDemat::where("id", $renewData['client_demat_id'])->first();
             ClientDemat::where("id", $renewData['client_demat_id'])->update($clientDemat);
 
             //after renew account remove the screenshots
@@ -561,7 +600,7 @@ class ClientDemateServices{
         }else{
             $data['part_payment']=$totalPayment;
         }
-
+        LogServices::logEvent(["desc"=>"Demat account ".$client_demat['holder_name']." updated by $user_name"]);
         return RenewDemat::where("id",$request->part_payment_id)->update($data);
     }
 
@@ -607,7 +646,8 @@ class ClientDemateServices{
         $income['created_by']=auth()->user()->id;
 
         financeManagementIncomesModel::create($income);
-
+        $user_name = auth()->user()->name;
+        LogServices::logEvent(["desc"=>"income ".$income['sub_heading']." created by $user_name"]);
 
         //channel Partner Renewal Fees
         if ($clientDematData['service_type'] == 2 && isset($clientDematData['channel_partner_id']) && $clientDematData['channel_partner_id'] != '' && $clientDematData['channel_partner_id'] != 0) {
@@ -625,6 +665,7 @@ class ClientDemateServices{
             $expensesData['description'] = "RENEWAL FEES";
             $expensesData['total_amount'] = $renewData['renewal_fees'];
             RenewExpensesModal::create($expensesData);
+            LogServices::logEvent(["desc"=>"channel partner Renewal fees ".$expensesData['description']." created by $user_name"]);
         }
 
         //freelancer Renewal Fees
@@ -641,6 +682,7 @@ class ClientDemateServices{
             $expensesData['total_amount'] = $renewData['renewal_fees'];
             $expensesData['percentage'] = $freelancerData->fees_percentage;
             RenewExpensesModal::create($expensesData);
+            LogServices::logEvent(["desc"=>"freelancer Renewal Fees ".$expensesData['description']." created by $user_name"]);
         }
 
         //channel Partner Profit sharing
@@ -662,6 +704,7 @@ class ClientDemateServices{
             $expensesData['description'] = "PROFIT SHARING";
             $expensesData['total_amount'] = $renewData['profit_sharing'];
             RenewExpensesModal::create($expensesData);
+            LogServices::logEvent(["desc"=>"channel partner Profit sharing ".$expensesData['description']." created by $user_name"]);
         }
 
         //freelancer profit sharing
@@ -681,6 +724,7 @@ class ClientDemateServices{
                     $expensesData['total_amount'] = $countAmount;
                     $expensesData['percentage'] = $freelancerData->fees_percentage;
                     RenewExpensesModal::create($expensesData);
+                    LogServices::logEvent(["desc"=>"freelancer Profit sharing ".$expensesData['description']." created by $user_name"]);
                 }
             }elseif ($clientDematData['service_type'] == 1 || $clientDematData['service_type'] == 3){
                 $freelancerAmount = $freelancerData->percentage * $renewData['profit_sharing'] / 100;
@@ -694,6 +738,7 @@ class ClientDemateServices{
                 $expensesData['total_amount'] = $renewData['profit_sharing'];
                 $expensesData['percentage'] = $freelancerData->percentage;
                 RenewExpensesModal::create($expensesData);
+                LogServices::logEvent(["desc"=>"freelancer Profit sharing ".$expensesData['description']." created by $user_name"]);
             }
         }
 
@@ -704,6 +749,7 @@ class ClientDemateServices{
             if (!empty($toBankData)) {
                 $addBalance['available_balance'] = $toBankData['available_balance'] +  $request->full_amount;
                 BankModel::where("id", $request->full_bank_id)->update($addBalance);
+                LogServices::logEvent(["desc"=>"Bank ".$toBankData['title']." Balance Updated by $user_name"]);
             }
         }
 
@@ -738,16 +784,27 @@ class ClientDemateServices{
         $request->validate([
             "reminder_date" => "required|date"
         ]);
-
+        $user_name = auth()->user()->name;
         $data['reminder_date']=date("Y-m-d",strtotime($request->reminder_date));
-        return RenewDemat::where("id",$request->part_payment_reminder_id)->update($data);
+        $demat = RenewDemat::with("withDemat")->where("id",$request->part_payment_reminder_id)->first();
+        $status = RenewDemat::where("id",$request->part_payment_reminder_id)->update($data);
+        if($status){
+            LogServices::logEvent(["desc"=>"Renewal Reminder ".$demat->withDemat->holder_name." created by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to create Renewal Reminder ".$demat->withDemat->holder_name." by $user_name"]);
+        }
     }
 
     public static function viewPartPaymentHistory($id){
         return financeManagementIncomesModel::where("renewal_account_id",$id)->get()->toArray();
     }
     public static function remove($id){
-        return ClientDemat::where("id",$id)->delete();
+        $demat = ClientDemat::where("id",$id)->first();
+        $status = ClientDemat::where("id",$id)->delete();
+        $user_name = auth()->user()->name;
+        if($status){
+            LogServices::logEvent(["desc"=>"Demat account $demat->holder_name deleted by $user_name"]);
+        }
     }
 
     public static function activeDematByChanelPartner(){
