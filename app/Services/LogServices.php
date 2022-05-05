@@ -30,10 +30,11 @@ class LogServices{
             if(is_array($log['data'])){
                 $log['data'] = json_encode($log['data']);
             }
+            $user_id = (auth()->user()===null)?"":auth()->user()->id;
             $log['created_at'] = array_key_exists("created_at",$arr)?$arr['created_at']:date("Y-m-d h:s:i");
             $log['updated_at'] = array_key_exists("updated_at",$arr)?$arr['updated_at']:date("Y-m-d h:s:i");
             $log['deleted_at'] = array_key_exists("updated_at",$arr)?$arr['updated_at']:date("Y-m-d h:s:i");
-            $log['created_by'] = array_key_exists("created_by",$arr)?$arr['created_by']:auth()->user()->id;
+            $log['created_by'] = array_key_exists("created_by",$arr)?$arr['created_by']:$user_id;
             $log['updated_by'] = array_key_exists("updated_by",$arr)?$arr['updated_by']:null;
             $log['deleted_by'] = array_key_exists("deleted_by",$arr)?$arr['deleted_by']:null;
             LogsModel::create($log);
