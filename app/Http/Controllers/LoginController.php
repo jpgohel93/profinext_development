@@ -33,9 +33,9 @@ class LoginController extends Controller
     public function history(Request $request){
         $userData = auth()->user();
         if($userData->role == "super-admin"){
-            $activity = LogServices::getActivity();
+            $activity = LogServices::getActivity(true);
         }else{
-            $activity = LogServices::getActivityById($userData->id);
+            $activity = LogServices::getActivityById($userData->id,true);
         }
         if($request->ajax()){
             // search
