@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\ClientDemat;
 use App\Models\financeManagementModel\BankModel;
 use App\Models\financeManagementModel\financeManagementIncomesModel;
+use App\Models\PancardImageModel;
 use App\Models\renewalAccountImagesModal;
 use App\Models\RenewDemat;
 use App\Models\RenewExpensesModal;
@@ -801,6 +802,8 @@ class ClientDemateServices{
     public static function remove($id){
         $demat = ClientDemat::where("id",$id)->first();
         $status = ClientDemat::where("id",$id)->delete();
+        // delete pan cards
+        PancardImageModel::where('client_demat_id',$id)->delete();
         $user_name = auth()->user()->name;
         if($status){
             LogServices::logEvent(["desc"=>"Demat account $demat->holder_name deleted by $user_name"]);

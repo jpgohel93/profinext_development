@@ -42,11 +42,18 @@ class LogServices{
         }
     }
 
-    public static function getActivity(){
-        return LogsModel::orderBy("id","DESC")->get();
+    public static function getActivity($all=false){
+        if($all){
+            return LogsModel::orderBy("id","DESC")->get();
+        }
+        return LogsModel::orderBy("id","DESC")->limit(10)->get();
     }
 
-    public static function getActivityById($id){
-        return LogsModel::where("created_by",$id)->orderBy("id","DESC")->get();
+    public static function getActivityById($id,$all=false){
+        if($all){
+            return LogsModel::where("created_by",$id)->orderBy("id","DESC")->get();
+        }else{
+            return LogsModel::where("created_by",$id)->orderBy("id","DESC")->limit(10)->get();
+        }
     }
 }

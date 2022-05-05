@@ -58,18 +58,19 @@ class financeManagementLoanServices{
         $id = financeManagementLoanModel::create($loan);
         $user_name = auth()->user()->name;
         if($id){
-            LogServices::logEvent(["desc"=>"Loan $id->id created by $user_name"]);
+            LogServices::logEvent(["desc"=>"Loan $request->loan created by $user_name"]);
         }else{
             LogServices::logEvent(["desc"=>"Unable to create Loan by $user_name","data"=>$loan]);
         }
     }
     public static function financeManagementRemoveLoan($id){
+        $loan = financeManagementLoanModel::where("id", $id)->firest();
         $status = financeManagementLoanModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
         $user_name = auth()->user()->name;
         if($status){
-            LogServices::logEvent(["desc"=>"Loan $id deleted by $user_name"]);
+            LogServices::logEvent(["desc"=>"Loan $loan->sub_heading deleted by $user_name"]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to delete Loan $id by $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to delete Loan $loan->sub_heading by $user_name"]);
         }
     }
     public static function getAllLoanRows()

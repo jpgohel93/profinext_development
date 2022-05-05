@@ -67,14 +67,14 @@ class financeManagementTransferServices
             $data = financeManagementTransferModel::where("id",$request->id)->first();
             $status = financeManagementTransferModel::where("id",$request->id)->update($transfer);
             if($status){
-                LogServices::logEvent(["desc"=>"Transfer $request->id updated by $user_name","data"=>$data]);
+                LogServices::logEvent(["desc"=>"Transfer $request->purpose updated by $user_name","data"=>$data]);
             }else{
-                LogServices::logEvent(["desc"=>"Unable to update Transfer $request->id by $user_name","data"=>$transfer]);
+                LogServices::logEvent(["desc"=>"Unable to update Transfer $request->purpose by $user_name","data"=>$transfer]);
             }
         }
         $id = financeManagementTransferModel::create($transfer);
         if($id){
-            LogServices::logEvent(["desc"=>"Transfer $id->id created by $user_name"]);
+            LogServices::logEvent(["desc"=>"Transfer $request->purpose created by $user_name"]);
         }else{
             LogServices::logEvent(["desc"=>"Unable to create Transfer by $user_name","data"=>$transfer]);
         }
@@ -82,11 +82,12 @@ class financeManagementTransferServices
     }
     public static function financeManagementRemoveTransfer($id){
         $user_name = auth()->user()->name;
+        $transfer = financeManagementTransferModel::where("id", $id)->first();
         $status = financeManagementTransferModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
         if($status){
-            LogServices::logEvent(["desc"=>"Transfer $id deleted by $user_name"]);
+            LogServices::logEvent(["desc"=>"Transfer $transfer->purpose deleted by $user_name"]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to delete Transfer $id by $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to delete Transfer $transfer->purpose by $user_name"]);
         }
         return $status;
     }

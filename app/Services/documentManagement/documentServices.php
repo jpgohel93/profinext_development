@@ -48,27 +48,28 @@ class documentServices{
             $data = self::getData($request->id);
             $status = documentManagementModel::where("id",$request->id)->update($document);
             if($status){
-                LogServices::logEvent(["desc"=>"Document $request->id updated by $user_name","data"=>$data]);
+                LogServices::logEvent(["desc"=>"Document $request->title updated by $user_name","data"=>$data]);
             }else{
-                LogServices::logEvent(["desc"=>"Unable to update Document $request->id by $user_name"]);
+                LogServices::logEvent(["desc"=>"Unable to update Document $request->title by $user_name"]);
             }
         }else{
             $document['created_by'] = auth()->user()->id;
             $id = documentManagementModel::create($document);
             if($id){
-                LogServices::logEvent(["desc"=>"Document $id->id created by $user_name"]);
+                LogServices::logEvent(["desc"=>"Document $request->title created by $user_name"]);
             }else{
                 LogServices::logEvent(["desc"=>"Unable to create Document by $user_name"]);
             }
         }
     }
     public static function remove($id){
+        $doc = documentManagementModel::where("id",$id)->first();
         $status = documentManagementModel::where("id",$id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
         $user_name = auth()->user()->name;
         if($status){
-            return LogServices::logEvent(["desc"=>"Document $id deleted by $user_name"]);
+            return LogServices::logEvent(["desc"=>"Document $doc->title deleted by $user_name"]);
         }else{
-            return LogServices::logEvent(["desc"=>"Unable to delete Document $id by $user_name"]);
+            return LogServices::logEvent(["desc"=>"Unable to delete Document $doc->title by $user_name"]);
         }
     }
     // pan cards
@@ -118,12 +119,13 @@ class documentServices{
         }
         if($request->id){
             $document['updated_at'] = date('Y-m-d');
-            $data = PancardImageModel::where("id",$request->id)->first();
+            $data = PancardImageModel::with("withDemat")->where("id",$request->id)->first();
             $status = PancardImageModel::where("id",$request->id)->update($document);
+            $demat_holder = (null===$data->withDemat)?"":$data->withDemat->holder_name;
             if($status){
-                return LogServices::logEvent(["desc"=>"Pan card $request->id updated by $user_name","data"=>$data]);
+                return LogServices::logEvent(["desc"=>"Pan card ".$demat_holder." updated by $user_name","data"=>$data]);
             }else{
-                return LogServices::logEvent(["desc"=>"Unable to update Pan card $request->id by $user_name"]);
+                return LogServices::logEvent(["desc"=>"Unable to update Pan card by $user_name"]);
             }
         }
     }

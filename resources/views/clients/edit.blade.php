@@ -1231,7 +1231,7 @@
                 window.lastSGNo = parseInt("<?php echo $newSGNo;?>");
                 $(document).on("click","#addmore",function() {
                     $("select[data-control='select2']").select2('destroy');
-                    window.lastSGNo = (parseInt(window.lastSGNo)+1);
+                    window.lastSGNo = (parseInt(window.lastSGNo));
 					// var newcomp1 = $('#hiddenaddmore').html();
 					var clone = $('#hiddenaddmore > .cloningSec').clone();
 					var rem = clone.find('#addmore');

@@ -65,7 +65,7 @@ class accountingServices
         $id = HeadingsModel::create($heading);
         $user_name = auth()->user()->name;
         if($id){
-            return LogServices::logEvent(["desc"=>"Heading $id->id created by $user_name"]);
+            return LogServices::logEvent(["desc"=>"Heading $request->sub_heading created by $user_name"]);
         }else{
             return LogServices::logEvent(["desc"=>"Unable to create Heading by $user_name"]);
         }
@@ -92,7 +92,9 @@ class accountingServices
         $user_name = auth()->user()->name;
         $status = HeadingsModel::where("id",$request->id)->update($heading);
         if($status){
-            LogServices::logEvent(["desc"=>"Heading $request->id updated by $user_name","data"=>$data]);
+            LogServices::logEvent(["desc"=>"Heading $request->sub_heading updated by $user_name","data"=>$data]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to update Heading $request->sub_heading by $user_name","data"=>$heading]);
         }
     }
     public static function activateDeactivateHeadingFinanceManagementAccounting($request){
@@ -111,12 +113,13 @@ class accountingServices
         $data = HeadingsModel::where("id", $request->id)->first();
         $user_name= auth()->user()->name;
         $status = HeadingsModel::where("id", $request->id)->update(["is_active" => $request->status, "updated_by" => auth()->user()->id]);
-        LogServices::logEvent(["desc"=>"Heading updated by $user_name","data"=>$data]);
         if ($status) {
             if ($request->status) {
+                LogServices::logEvent(["desc"=>"Heading $data->sub_heading Activated by $user_name","data"=>$data]);
                 return "Activated";
             }
         }
+        LogServices::logEvent(["desc"=>"Heading $data->sub_heading Deactivated by $user_name","data"=>$data]);
         return "Deactivated";
     }
     public static function getHeadingById($id){

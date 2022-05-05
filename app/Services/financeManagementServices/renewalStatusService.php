@@ -62,7 +62,7 @@ class renewalStatusService
 
     public static function createRenewal($request){
         $forIncomes = bankServices::getBankAccountById($request->payment_bank_id);
-
+        $demat = ClientDemat::where('id',$request->id)->first();
         if(date("m") >= 4){
             $currentYear = date("y");
             $lastYear = (date("y")+1);
@@ -119,7 +119,7 @@ class renewalStatusService
 
             $user_name = auth()->user()->name;
             if($id){
-                LogServices::logEvent(["desc"=>"renewal $id->id created by $user_name"]);
+                LogServices::logEvent(["desc"=>"renewal ".isset($demat->holder_name)?$demat->holder_name:""." created by $user_name"]);
             }else{
                 LogServices::logEvent(["desc"=>"Unable to create renewal by $user_name","data"=>$request_data]);
             }

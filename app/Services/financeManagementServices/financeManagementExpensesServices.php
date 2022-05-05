@@ -55,9 +55,9 @@ class financeManagementExpensesServices
             $data = financeManagementExpensesModel::where("id",$request->id)->first();
             $status = financeManagementExpensesModel::where("id",$request->id)->update($expense);
             if($status){
-                LogServices::logEvent(["desc"=>"Expense $request->id updated by $user_name","data"=>$data]);
+                LogServices::logEvent(["desc"=>"Expense $request->sub_heading updated by $user_name","data"=>$data]);
             }else{
-                LogServices::logEvent(["desc"=>"Unable to update Expense $request->id by $user_name","data"=>$expense]);
+                LogServices::logEvent(["desc"=>"Unable to update Expense $request->sub_heading by $user_name","data"=>$expense]);
             }
         }else {
             $id = financeManagementExpensesModel::create($expense);
@@ -82,9 +82,9 @@ class financeManagementExpensesServices
             }
         }
         if($id){
-            LogServices::logEvent(["desc"=>"Expense $id->id created by $user_name"]);
+            LogServices::logEvent(["desc"=>"Expense $request->sub_heading created by $user_name"]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to create Expense by $user_name","data"=>$expense]);
+            LogServices::logEvent(["desc"=>"Unable to create Expense $request->sub_heading by $user_name","data"=>$expense]);
         }
         return $id;
     }
@@ -104,9 +104,9 @@ class financeManagementExpensesServices
             }
         }
         if($status){
-            LogServices::logEvent(["desc"=>"Expense $id deleted by $user_name"]);
+            LogServices::logEvent(["desc"=>"Expense $data->sub_heading deleted by $user_name","data"=>$data]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to delete Expense $id by $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to delete Expense $data->sub_heading by $user_name"]);
         }
     }
     public static function getRowById($id){

@@ -53,9 +53,9 @@ class financeManagementIncomesServices{
             $data = financeManagementIncomesModel::where("id",$request->id)->first();
             $status = financeManagementIncomesModel::where("id",$request->id)->update($income);
             if($status){
-                LogServices::logEvent(["desc"=>"Income $request->id updated by $user_name","data"=>$data]);
+                LogServices::logEvent(["desc"=>"Income $request->sub_heading updated by $user_name","data"=>$data]);
             }else{
-                LogServices::logEvent(["desc"=>"Unable to update Income $request->id by $user_name","data"=>$income]);
+                LogServices::logEvent(["desc"=>"Unable to update Income $request->sub_heading by $user_name","data"=>$income]);
             }
             return $status;
         }else{
@@ -73,9 +73,9 @@ class financeManagementIncomesServices{
             $income['created_by']= auth()->user()->id;
             $id = financeManagementIncomesModel::create($income);
             if($id){
-                LogServices::logEvent(["desc"=>"Income $id->id created by $user_name"]);
+                LogServices::logEvent(["desc"=>"Income $request->sub_heading created by $user_name"]);
             }else{
-                LogServices::logEvent(["desc"=>"Unable to create Income by $user_name",$income]);
+                LogServices::logEvent(["desc"=>"Unable to create Income $request->sub_heading by $user_name","data"=>$income]);
             }
             return $id;
         }
@@ -97,9 +97,9 @@ class financeManagementIncomesServices{
         $status = financeManagementIncomesModel::where("id", $id)->update(["deleted_by"=>auth()->user()->id,"deleted_at"=>date("Y-m-d H:i:s")]);
 
         if($status){
-            LogServices::logEvent(["desc"=>"Income $id deleted by $user_name"]);
+            LogServices::logEvent(["desc"=>"Income $data->sub_heading deleted by $user_name"]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to delete Income $id by $user_name"]);
+            LogServices::logEvent(["desc"=>"Unable to delete Income by $user_name"]);
         }
         return $status;
     }

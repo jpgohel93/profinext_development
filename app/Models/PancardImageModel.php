@@ -10,4 +10,8 @@ class PancardImageModel extends Model
     use HasFactory, SoftDeletes;
     protected $table = "tbl_pancards";
     protected $fillable = ["client_demat_id", "file", "mime_type", "deleted_by","deleted_at"];
+
+    public function withDemat() {
+        return $this->belongsTo(ClientDemat::class,"client_demat_id","id");
+    }
 }

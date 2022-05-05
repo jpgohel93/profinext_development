@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Services\keywordAccountTypeServices;
 use App\Services\RoleServices;
+use App\Services\LogServices;
 class UserServices
 {
     public static function clients()
@@ -149,6 +150,8 @@ class UserServices
         }
         $user_data['permission'] = json_encode($param);
         $user = User::create($user_data);
+        $user_name= auth()->user()->name;
+        LogServices::logEvent(["desc"=>"User $request->name created by $user_name"]);
         $user->syncPermissions($param);
         $user->syncRoles($request->role);
         $numbers = $request->number;
@@ -297,7 +300,10 @@ class UserServices
 
         $user_data['updated_by'] = Auth::id();
         $user_data['permission'] = json_encode($request->permission);
+        $data = User::with("withNumber")->where("id",$id)->first();
         User::where("id",$id)->update($user_data);
+        $user_name = auth()->user()->name;
+        LogServices::logEvent(["desc"=>"User $request->name updated by $user_name","data"=>$data]);
         // update role
         $user = User::find($id);
         // add account type
@@ -312,7 +318,14 @@ class UserServices
         return User::withTrashed()->whereNotNull("deleted_at")->get();
     }
     public static function delete($id){
-        return User::where("id",$id)->delete();
+        $user = User::where("id",$id)->first();
+        $status = User::where("id",$id)->delete();
+        $user_name = auth()->user()->name;
+        if($status){
+            LogServices::logEvent(["desc"=>"User $user->name deleted by $user_name"]);
+        }else{
+            LogServices::logEvent(["desc"=>"Unable to delete User $user->name by $user_name","data"=>$id]);
+        }
     }
     public static function getByRole(String $role=""){
         $user = User::with(['count'])->where("role",$role)->get();

@@ -54,10 +54,11 @@ class bankServices{
         $bank['pan_number'] = (isset($request->pan_number) && $request->pan_number != '')  ? strtoupper($request->pan_number) : '';
         $bank['created_by'] = auth()->user()->id;
         $id = BankModel::create($bank);
+        $user_name = auth()->user()->name;
         if($id){
-            LogServices::logEvent(["desc"=>"Bank $id->id created by"]);
+            LogServices::logEvent(["desc"=>"Bank $request->title created by $user_name"]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to create Bank created by"]);
+            LogServices::logEvent(["desc"=>"Unable to create Bank $request->title by $user_name"]);
         }
     }
     public static function editFinanceManagementBank($request){
@@ -121,9 +122,9 @@ class bankServices{
         $status = BankModel::where("id", $request->id)->update($bank);
         $user_name = auth()->user()->name;
         if($status){
-            LogServices::logEvent(["desc"=>"Bank $request->id updated by $user_name","data"=>$data]);
+            LogServices::logEvent(["desc"=>"Bank $request->title updated by $user_name","data"=>$data]);
         }else{
-            LogServices::logEvent(["desc"=>"Unable to updare Bank $request->id by $user_name","data"=>$data]);
+            LogServices::logEvent(["desc"=>"Unable to update Bank $data->title by $user_name","data"=>$bank]);
         }
     }
     public static function getForIncomeAccounts(){
@@ -157,10 +158,11 @@ class bankServices{
         $user_name = auth()->user()->name;
         $status = BankModel::where("id", $request->id)->update($bank);
         if($status){
-            logServices::logEvent(["desc"=>"Bank $request->id updated by $user_name","data"=>$data]);
+            logServices::logEvent(["desc"=>"Target for Bank $data->title updated by $user_name","data"=>$data]);
         }else{
-            logServices::logEvent(["desc"=>"Unable to update Bank $request->id by $user_name","data"=>$bank]);
+            logServices::logEvent(["desc"=>"Unable to update target for Bank $data->title by $user_name","data"=>$bank]);
         }
+        return $status;
     }
     public static function setPrimaryFinanceManagementBank($request){
         $request->validate([
@@ -206,11 +208,11 @@ class bankServices{
         $status = BankModel::where("id", $request->id)->update(["is_active"=>$request->status,"updated_by"=>auth()->user()->id]);
         if($status){
             if($request->status){
-                LogServices::logEvent(["desc"=>"Bank $request->id activated by $user_name","data"=>$data]);
+                LogServices::logEvent(["desc"=>"Bank $data->title activated by $user_name"]);
                 return "Activated";
             }
         }
-        LogServices::logEvent(["desc"=>"Bank $request->id deactivated by $user_name","data"=>$data]);
+        LogServices::logEvent(["desc"=>"Bank $data->title Deactivated by $user_name"]);
         return "Deactivated";
     }
     public static function getPrimaryBankAccounts($type){

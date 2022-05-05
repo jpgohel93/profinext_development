@@ -444,6 +444,7 @@ class ClientServices
 
                 if(isset($request->demate_id[$key])){
                     ClientDemat::where("id", $request->demate_id[$key])->update($array);
+                    LogServices::logEvent(["desc"=>"client demat ".$array['holder_name']." updated by $user_name"]);
                     $RenewExpensesId = "0";
                     //channel Partner FEES
                     if ($array['service_type'] == "2" && isset($request->channel_partner_id) && $request->channel_partner_id != '' && $client_current_status['status']=="0") {
@@ -538,6 +539,7 @@ class ClientServices
                                 }
                             }
                         }
+                        LogServices::logEvent(["desc"=>"client demat ".$array['holder_name']." Pan card uploaded by $user_name"]);
                     }
 
                     // file upload
@@ -557,6 +559,7 @@ class ClientServices
                                 }
                             }
                         }
+                        LogServices::logEvent(["desc"=>"client demat ".$array['holder_name']." Screenshot uploaded by $user_name"]);
                     }
                 }
                 else{
