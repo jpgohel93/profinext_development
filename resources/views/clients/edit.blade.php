@@ -47,7 +47,7 @@
                                 <!--begin::Content-->
                                 <div class="flex-row-fluid px-lg-15">
                                         <!--begin::Form-->
-                                        <form class="form" novalidate="novalidate" enctype="multipart/form-data" id="kt_modal_create_app_form" action="{{route('updateClient',$client->id)}}" method="POST">
+                                        <form class="form" enctype="multipart/form-data" id="kt_modal_create_app_form" action="{{route('updateClient',$client->id)}}" method="POST">
                                             @csrf
                                             <!--begin::Step 1-->
                                             <div class="current d-block card p-7 my-5" data-kt-stepper-element="content">
@@ -148,7 +148,7 @@
                                                                 </label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
-                                                                <select name="channel_partner_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Profession">
+                                                                <select name="channel_partner_id" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Select Channel Partner ">
                                                                     <option></option>
                                                                     @forelse ($channelPartner as $partner)
                                                                         @if($client->channel_partner_id == $partner->id)
@@ -1229,6 +1229,12 @@
     <script>
         window.addEventListener("DOMContentLoaded",function(){
                 window.lastSGNo = parseInt("<?php echo $newSGNo;?>");
+                let count = 1;
+                $.each($(".cloningSec"),(i,v)=>{
+                    $(v).attr("data-count",count);
+                    count++;
+                })
+                // count = $(".cloningSec").length;
                 $(document).on("click","#addmore",function() {
                     $("select[data-control='select2']").select2('destroy');
                     window.lastSGNo = (parseInt(window.lastSGNo));
@@ -1240,6 +1246,11 @@
 					$(rem).text('Remove');
 					$('#appendDiv1').append(clone);
                     $("#appendDiv1").find("[name*='serial_number']:last").val(String(window.lastSGNo).padStart(3,"0"));
+                    let count = 1;
+                    $.each($(".cloningSec"),(i,v)=>{
+                        $(v).attr("data-count",count);
+                        count++;
+                    })
                     $("select[data-control='select2']").select2();
 					resetCounter();
    		 		});
@@ -1289,6 +1300,11 @@
                         }
                     }
 					$(this).closest(".cloningSec").remove();
+                    let count = 1;
+                    $.each($(".cloningSec"),(i,v)=>{
+                        $(v).attr("data-count",count);
+                        count++;
+                    })
 					resetCounter();
 				})
 
@@ -1489,20 +1505,48 @@
                     $(e.target).closest(".row").next(".row").last(".col-md-6").find(".wp").val($(this).val());
                 }
             });
-            // $(document).on("change","[name='st_sg[]']",function(e) {
-
-			// 	$("[name='st_sg[]']").each( function(index){
-			// 		var vl = $(this).val();
-			// 		if(vl != "") {
-			// 			var len = lastSGNo.toString().length;
-			// 			var prefix = string.substring(len);
-			// 			var newNo = prefix+''+lastSGNo;
-            //             window.lastSGNo = (parseInt(window.lastSGNo)+1);
-			// 			$("[name='serial_number[]']").eq(index).val(window.lastSGNo);
-			// 		}
-			// 	});
-			// });
-
+            const addError = (elem,error)=>{
+                // if select2
+                if($(elem).hasClass("select2-hidden-accessible")){
+                    if($(elem).next("span").next(".error").length>0){
+                        $(elem).next("span").next(".error").remove();
+                    }
+                    $(elem).next("span").after(`<p class='text-danger h5 error' my-2>${error}</p>`);
+                }else{
+                    if($(elem).next(".error").length>0){
+                        $(elem).next(".error").remove();
+                    }
+                    $(elem).after(`<p class='text-danger h5 error'>${error}</p>`);
+                }
+                $('html, body').animate({
+                    scrollTop: $(elem).offset().top
+                }, 200);
+            }
+            const removeError = (elem)=>{
+                $(elem).next(".error").remove();
+            }
+            const validateField = (e,event)=>{
+                if($(e).val()==""){
+                    addError(e,required);
+                    event.preventDefault();
+                    return false;
+                }else{
+                    removeError(e);
+                    return true;
+                }
+            }
+            // error msg
+            let required = "This field is required";
+            $("#submitSmsButton").find("button[type='submit']").first().on("click",function(e){
+                // validate personalDetails
+                let field = [];
+                field.push($("#personalDetail").find("input[name='name']"));
+                field.push($("#personalDetail").find("input[name='number']"));
+                field.push($("#personalDetail").find("input[name='wp_number']"));
+                field.push($("#personalDetail").find("select[name='profession']"));
+                // field.push($("#personalDetail").find("select[name='channel_partner_id']"));
+                field.map((e)=>validateField(e,event));
+            })
         })
     </script>
     @section('jscript')
