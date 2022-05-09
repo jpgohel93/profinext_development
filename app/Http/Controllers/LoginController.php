@@ -63,7 +63,7 @@ class LoginController extends Controller
                         }
                     }
                     array_push($arr,++$i);
-                    array_push($arr,date('d M-Y h:i A',strtotime((string)$date)));
+                    array_push($arr,date('Y-m-d h:i:s',strtotime((string)$date)));
                     array_push($arr,$log->description);
                     array_push($logs['data'],$arr);
                 }

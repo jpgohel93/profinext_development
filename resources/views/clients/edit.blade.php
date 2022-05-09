@@ -1505,7 +1505,7 @@
                     $(e.target).closest(".row").next(".row").last(".col-md-6").find(".wp").val($(this).val());
                 }
             });
-            const addError = (elem,error)=>{
+            const addError = (elem,error,index=null)=>{
                 // if select2
                 if($(elem).hasClass("select2-hidden-accessible")){
                     if($(elem).next("span").next(".error").length>0){
@@ -1518,9 +1518,11 @@
                     }
                     $(elem).after(`<p class='text-danger h5 error'>${error}</p>`);
                 }
+                let element = $(elem).parents(".cloningSec").find('input[name*="pan_number_text"]')[0];
                 $('html, body').animate({
-                    scrollTop: $(elem).offset().top
+                    scrollTop: $(element).offset().top
                 }, 200);
+                console.log();
             }
             const removeError = (elem)=>{
                 $(elem).next(".error").remove();
@@ -1528,6 +1530,17 @@
             const validateField = (e,event)=>{
                 if($(e).val()==""){
                     addError(e,required);
+                    event.preventDefault();
+                    return false;
+                }else{
+                    removeError(e);
+                    return true;
+                }
+            }
+            const validateAccountHandlingField = (e,event)=>{
+                if($(e).val()==""){
+                    let id = $($(e).parents('.cloningSec')).index(e);
+                    addError(e,required,id);
                     event.preventDefault();
                     return false;
                 }else{
@@ -1545,7 +1558,12 @@
                 field.push($("#personalDetail").find("input[name='wp_number']"));
                 field.push($("#personalDetail").find("select[name='profession']"));
                 // field.push($("#personalDetail").find("select[name='channel_partner_id']"));
-                field.map((e)=>validateField(e,event));
+                field.map((elem)=>validateField(elem,e));
+                field = [];
+                // accountHandlingDetail
+                field.push($("#accountHandlingDetail").find("input[name*='pan_number_text']"));
+                field.map((elem)=>validateAccountHandlingField(elem,e));
+
             })
         })
     </script>
