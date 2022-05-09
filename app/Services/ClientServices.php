@@ -48,7 +48,7 @@ class ClientServices
 
         $form_type = (isset($request->form_type) && $request->form_type == "channelPartner") ? "channelPartner" : "user";
         if($form_type == "user"){
-           $client['status'] = $request->payment_verified;
+           $client['status'] = ($request->payment_verified===null)?0:$request->payment_verified;
         }else{
             $client['status'] = 0;
         }
@@ -180,7 +180,7 @@ class ClientServices
                     $payment_id = ClientPayment::create($payment);
                 }
 
-                if (null !== $request->pan_number[$key]) {
+                if (null !== $request->pan_number && isset($request->pan_number[$key])) {
                     // pan card image upload
                     foreach ($request->pan_number[$key] as $index => $file) {
                         if (is_array($file)) {

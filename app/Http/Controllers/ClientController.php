@@ -92,6 +92,18 @@ class ClientController extends Controller
             CommonService::throwError("Account is already exits with this mobile number");
         }
     }
+    public function checkClientNumber(Request $request){
+        if($request->ajax()){
+            $clientData = ClientServices::getClientUsingMobileNo($request->number,$request->client_type);
+            if(!empty($clientData)) {
+                return response(["err"=>true],200,["Content-Type","Application/json"]);
+            }
+            else{
+                return response(["err"=>false],200,["Content-Type","Application/json"]);
+            }
+        }
+        abort(403);
+    }
     // read client
     public function get(Request $request,$id){
         $client =  ClientServices::get($id);
@@ -134,20 +146,32 @@ class ClientController extends Controller
         return view("clients.edit", compact('client',"newSGNo","newSTNo",'professions', 'banks', 'brokers','channelPartner'));
     }
     public function update(Request $request,$id){
-        ClientServices::update($request,$id);
+        $client = ClientServices::update($request,$id);
+        if(!$client){
+            return Redirect::route('clients')->with("info","client not found");
+        }
         return Redirect::route("clients")->with("info","Client have been updated");
     }
     // remove client
     public function remove(Request $request){
-        ClientServices::remove($request->id);
+        $client = ClientServices::remove($request->id);
+        if(!$client){
+            return Redirect::route('clients')->with("info","client not found");
+        }
         return Redirect::route("clients")->with("info","Client Removed");
     }
     // remove client demat
     public function removeDemat(Request $request){
-        ClientDemateServices::remove($request->id);
-		if($request->ajax()){
-			return response(["info" => "Client Demat Removed"], 200, ["Content-Type" => "Application/json"]);
-		}
+        $status = ClientDemateServices::remove($request->id);
+        if(!$status){
+            if($request->ajax()){
+                return response(["info" => "Unable to remove Client Demat"], 200, ["Content-Type" => "Application/json"]);
+            }
+            return Redirect::route("clients")->with("info","Unable to remove Client Demat");
+        }
+        if($request->ajax()){
+            return response(["info" => "Client Demat Removed"], 200, ["Content-Type" => "Application/json"]);
+        }
         return Redirect::route("clients")->with("info","Client Demat Removed");
     }
     // remove client screenshot
@@ -190,7 +214,6 @@ class ClientController extends Controller
             }
         }
         $traders = User::wherein('id',$userIdArray)->get();
-
         return view("clients.client_demat",compact('dematAccount','freelancerAms','freelancerPrime','traders','filter_type','filter_id'));
     }
 

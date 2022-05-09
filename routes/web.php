@@ -80,6 +80,7 @@ Route::group(['middleware' => ['auth']], function() {
     // create client
     Route::get("/client/add",[ClientController::class,"createClientForm"])->name("createClientForm");
     Route::post("/clients/add",[ClientController::class,"create"])->name("clientCreate");
+    Route::post("/clients/number/check",[ClientController::class,"checkClientNumber"])->name("checkClientNumber");
     // edit client
     Route::get("/client/edit/{id}",[ClientController::class,"updateForm"])->name("updateClientForm");
     Route::POST("/client/update/{id}",[ClientController::class,"update"])->name("updateClient");

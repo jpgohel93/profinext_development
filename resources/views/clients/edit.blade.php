@@ -378,8 +378,8 @@
                                                                             <!--begin::Input wrapper-->
                                                                             <div class="position-relative">
                                                                                 <!--begin::Input-->
-                                                                                <select name="st_sg[]" class="form-select form-select-solid" data-control="select2" data-placeholder="Select smart id">
-                                                                                    <option></option>
+                                                                                <select name="st_sg[]" class="form-select form-select-solid" data-control="select2">
+                                                                                    <option value="" selected>Select smart id</option>
                                                                                     <option value="ST" {{$demate_account['st_sg']=="ST"?"selected":""}}>ST</option>
                                                                                     <option value="SG" {{$demate_account['st_sg']=="SG"?"selected":""}}>SG</option>
                                                                                 </select>
@@ -582,6 +582,7 @@
                                                                         <!--end::Label-->
                                                                         <!--begin::Input-->
                                                                         <select name="broker[]" class="form-select form-select-solid" data-control="select2">
+                                                                            <option value="" selected>Select Broker</option>
                                                                             @forelse ($brokers as $broker)
                                                                                 <option value="{{$broker->broker}}" {{(old('broker') && old('broker')[$key]==$broker->broker)?"selected":($demate_account['broker']==$broker->broker?"selected":"")}}>{{$broker->broker}}</option>
                                                                             @empty
@@ -829,8 +830,8 @@
                                                                 <!--begin::Input wrapper-->
                                                                 <div class="position-relative">
                                                                     <!--begin::Input-->
-                                                                    <select name="st_sg[]" class="form-select form-select-solid" data-control="select2" data-placeholder="Select smart id">
-                                                                        <option></option>
+                                                                    <select name="st_sg[]" class="form-select form-select-solid" data-control="select2">
+                                                                        <option value="" selected>Select smart id</option>
                                                                         <option value="ST">ST</option>
                                                                         <option value="SG">SG</option>
                                                                     </select>
@@ -1013,8 +1014,8 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <select name="broker[]" class="form-select form-select-solid" data-control="select2" data-placeholder="Select broker">
-                                                                <option value=""></option>
+                                                            <select name="broker[]" class="form-select form-select-solid" data-control="select2">
+                                                                <option value="" selected>Select Broker</option>
                                                                 @forelse ($brokers as $broker)
                                                                     <option value="{{$broker->broker}}">{{$broker->broker}}</option>
                                                                 @empty
@@ -1231,6 +1232,12 @@
                 window.lastSGNo = parseInt("<?php echo $newSGNo;?>");
                 let count = 1;
                 $.each($(".cloningSec"),(i,v)=>{
+                    $(v).find('input').each((index,elem)=>{
+                        $(elem).attr('field-id',count);
+                    })
+                    $(v).find('select').each((index,elem)=>{
+                        $(elem).attr('field-id',count);
+                    })
                     $(v).attr("data-count",count);
                     count++;
                 })
@@ -1248,8 +1255,17 @@
                     $("#appendDiv1").find("[name*='serial_number']:last").val(String(window.lastSGNo).padStart(3,"0"));
                     let count = 1;
                     $.each($(".cloningSec"),(i,v)=>{
+                        // $(v).find('input').each((index,elem)=>{
+                        //     $(elem).attr('field-id',count);
+                        // })
                         $(v).attr("data-count",count);
                         count++;
+                    })
+                    $("#appendDiv1 div.cloningSec:last").find("input").each((i,v)=>{
+                        $(v).attr('field-id',count);
+                    })
+                    $("#appendDiv1 div.cloningSec:last").find("select").each((i,v)=>{
+                        $(v).attr('field-id',count);
                     })
                     $("select[data-control='select2']").select2();
 					resetCounter();
@@ -1505,7 +1521,9 @@
                     $(e.target).closest(".row").next(".row").last(".col-md-6").find(".wp").val($(this).val());
                 }
             });
-            const addError = (elem,error,index=null)=>{
+            // error msg
+            let required = "This field is required";
+            const addError = (elem,error)=>{
                 // if select2
                 if($(elem).hasClass("select2-hidden-accessible")){
                     if($(elem).next("span").next(".error").length>0){
@@ -1518,14 +1536,18 @@
                     }
                     $(elem).after(`<p class='text-danger h5 error'>${error}</p>`);
                 }
-                let element = $(elem).parents(".cloningSec").find('input[name*="pan_number_text"]')[0];
                 $('html, body').animate({
-                    scrollTop: $(element).offset().top
+                    scrollTop: $(elem).offset().top
                 }, 200);
-                console.log();
             }
             const removeError = (elem)=>{
-                $(elem).next(".error").remove();
+                if($(elem).hasClass("select2-hidden-accessible")){
+                    if($(elem).next("span").next(".error").length>0){
+                        $(elem).next("span").next(".error").remove();
+                    }
+                }else{
+                    $(elem).next(".error").remove();
+                }
             }
             const validateField = (e,event)=>{
                 if($(e).val()==""){
@@ -1537,20 +1559,99 @@
                     return true;
                 }
             }
-            const validateAccountHandlingField = (e,event)=>{
-                if($(e).val()==""){
-                    let id = $($(e).parents('.cloningSec')).index(e);
-                    addError(e,required,id);
-                    event.preventDefault();
-                    return false;
+            const accountHandlingValidate = (elem,event)=>{
+                let name =$(elem).attr("name");
+                if($(elem).val()=="" || name=="mode[]"){
+                    if(name=="mode[]"){
+                        if($(elem).val()=="2"){
+                            // bank
+                            if($(elem).parents("div.payment_details").find("[name*='bank']").first().val()==""){
+                                if($(elem).parents("div.payment_details").find("[name*='bank']").first().hasClass("select2-hidden-accessible")){
+                                    if($(elem).parents("div.payment_details").find("[name*='bank']").first().next("span").next(".error").length>0){
+                                        $(elem).parents("div.payment_details").find("[name*='bank']").first().next("span").next(".error").remove();
+                                    }
+                                    $(elem).parents("div.payment_details").find("[name*='bank']").first().next("span").after(`<p class='text-danger h5 error' my-2>${required}</p>`);
+                                }else{
+                                    $(elem).parents("div.payment_details").find("[name*='bank']").first().next(".error").remove();
+                                    $(elem).parents("div.payment_details").find("[name*='bank']").first().after(`<p class='text-danger h5 error'>${required}</p>`);
+                                }
+                                event.preventDefault();
+                            }else{
+                                $(elem).parents("div.payment_details").find("[name*='bank']").first().next("span").next(".error").remove();
+                            }
+                            // joining date
+                            if($(elem).parents("div.payment_details").find("[name*='joining_date']").first().val()==""){
+                                if($(elem).parents("div.payment_details").find("[name*='joining_date']").first().hasClass("select2-hidden-accessible")){
+                                    if($(elem).parents("div.payment_details").find("[name*='joining_date']").first().next("span").next(".error").length>0){
+                                        $(elem).parents("div.payment_details").find("[name*='joining_date']").first().next("span").next(".error").remove();
+                                    }
+                                    $(elem).parents("div.payment_details").find("[name*='joining_date']").first().next("span").after(`<p class='text-danger h5 error' my-2>${required}</p>`);
+                                }else{
+                                    $(elem).parents("div.payment_details").find("[name*='joining_date']").first().next(".error").remove();
+                                    $(elem).parents("div.payment_details").find("[name*='joining_date']").first().after(`<p class='text-danger h5 error'>${required}</p>`);
+                                }
+                                event.preventDefault();
+                            }else{
+                                $(elem).parents("div.payment_details").find("[name*='joining_date']").first().next(".error").remove();
+                            }
+                            // fees
+                            if($(elem).parents("div.payment_details").find("[name*='fees']").first().val()=="" && $(elem).parents("div.payment_details").find("[name*='pending_payment']").first().val()=="0"){
+                                if($(elem).parents("div.payment_details").find("[name*='fees']").first().hasClass("select2-hidden-accessible")){
+                                    if($(elem).parents("div.payment_details").find("[name*='fees']").first().next("span").next(".error").length>0){
+                                        $(elem).parents("div.payment_details").find("[name*='fees']").first().next("span").next(".error").remove();
+                                    }
+                                    $(elem).parents("div.payment_details").find("[name*='fees']").first().next("span").after(`<p class='text-danger h5 error' my-2>${required}</p>`);
+                                }else{
+                                    $(elem).parents("div.payment_details").find("[name*='fees']").first().next(".error").remove();
+                                    $(elem).parents("div.payment_details").find("[name*='fees']").first().after(`<p class='text-danger h5 error'>${required}</p>`);
+                                }
+                                event.preventDefault();
+                            }else{
+                                $(elem).parents("div.payment_details").find("[name*='fees']").first().next(".error").remove();
+                            }
+                        }else{
+                            if($(elem).hasClass("select2-hidden-accessible")){
+                                if($(elem).next("span").next(".error").length>0){
+                                    $(elem).next("span").next(".error").remove();
+                                }
+                            }else{
+                                $(elem).next(".error").remove();
+                            }
+                        }
+                    }else{
+                        // if select2
+                        if($(elem).hasClass("select2-hidden-accessible")){
+                            if($(elem).next("span").next(".error").length>0){
+                                $(elem).next("span").next(".error").remove();
+                            }
+                            $(elem).next("span").after(`<p class='text-danger h5 error' my-2>${required}</p>`);
+                        }else{
+                            if($(elem).next(".error").length>0){
+                                $(elem).next(".error").remove();
+                            }
+                            $(elem).after(`<p class='text-danger h5 error'>${required}</p>`);
+                        }
+                    }
                 }else{
-                    removeError(e);
-                    return true;
+                    removeError(elem);
                 }
             }
-            // error msg
-            let required = "This field is required";
-            $("#submitSmsButton").find("button[type='submit']").first().on("click",function(e){
+            const validateByName = nm=>{
+                $("#accountHandlingDetail").find("[name*='"+nm+"']").each((i,v)=>{
+                    let val = accountHandlingValidate(v,event);
+                    if($(v).val()=="" || $(v).attr("name")=="mode[]"){
+                        let id = $(v).attr("field-id");
+                        let name = $(v).attr("name");
+                        if(id){
+                            let element = document.querySelector("[name*='"+name+"'][field-id='"+id+"']");
+                            if(element.getAttribute('type')!="file"){
+                                element.closest("div").scrollIntoView();
+                            }
+                        }
+                    }
+                })
+            }
+            $("#submitSmsButton").find("button[type='submit']").first().on("click",function(event){
                 // validate personalDetails
                 let field = [];
                 field.push($("#personalDetail").find("input[name='name']"));
@@ -1558,12 +1659,11 @@
                 field.push($("#personalDetail").find("input[name='wp_number']"));
                 field.push($("#personalDetail").find("select[name='profession']"));
                 // field.push($("#personalDetail").find("select[name='channel_partner_id']"));
-                field.map((elem)=>validateField(elem,e));
-                field = [];
-                // accountHandlingDetail
-                field.push($("#accountHandlingDetail").find("input[name*='pan_number_text']"));
-                field.map((elem)=>validateAccountHandlingField(elem,e));
-
+                field.map((e)=>validateField(e,event));
+                if($("#client_type").val()=="1"){
+                    field = ["st_sg","pan_number_text","holder_name","address","email_id","mobile","broker","user_id","password","mpin","capital","mode"];
+                    field.map((e)=>validateByName(e));
+                }
             })
         })
     </script>

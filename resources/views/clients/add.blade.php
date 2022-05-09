@@ -1870,6 +1870,211 @@
                 $(e.target).closest('.mutualFundDivClone').remove();
                 resetMutualFundCounter();
             })
+            // error msg
+            let required = "This field is required";
+            const addError = (elem,error)=>{
+                // if select2
+                if($(elem).hasClass("select2-hidden-accessible")){
+                    if($(elem).next("span").next(".error").length>0){
+                        $(elem).next("span").next(".error").remove();
+                    }
+                    $(elem).next("span").after(`<p class='text-danger h5 error' my-2>${error}</p>`);
+                }else{
+                    if($(elem).next(".error").length>0){
+                        $(elem).next(".error").remove();
+                    }
+                    $(elem).after(`<p class='text-danger h5 error'>${error}</p>`);
+                }
+                $('html, body').animate({
+                    scrollTop: $(elem).offset().top
+                }, 200);
+            }
+            const removeError = (elem)=>{
+                if($(elem).hasClass("select2-hidden-accessible")){
+                    if($(elem).next("span").next(".error").length>0){
+                        $(elem).next("span").next(".error").remove();
+                    }
+                }else{
+                    $(elem).next(".error").remove();
+                }
+            }
+            const validateField = (e,event)=>{
+                if($(e).val()==""){
+                    addError(e,required);
+                    event.preventDefault();
+                    return false;
+                }else{
+                    removeError(e);
+                    return true;
+                }
+            }
+            const accountHandlingValidate = (elem,event)=>{
+                let name =$(elem).attr("name");
+                if($(elem).val()=="" || name=="mode[]"){
+                    if(name=="mode[]"){
+                        if($(elem).val()=="2"){
+                            // bank
+                            if($(elem).parents("div.payment_details").find("[name*='bank']").first().val()==""){
+                                if($(elem).parents("div.payment_details").find("[name*='bank']").first().hasClass("select2-hidden-accessible")){
+                                    if($(elem).parents("div.payment_details").find("[name*='bank']").first().next("span").next(".error").length>0){
+                                        $(elem).parents("div.payment_details").find("[name*='bank']").first().next("span").next(".error").remove();
+                                    }
+                                    $(elem).parents("div.payment_details").find("[name*='bank']").first().next("span").after(`<p class='text-danger h5 error' my-2>${required}</p>`);
+                                }else{
+                                    $(elem).parents("div.payment_details").find("[name*='bank']").first().next(".error").remove();
+                                    $(elem).parents("div.payment_details").find("[name*='bank']").first().after(`<p class='text-danger h5 error'>${required}</p>`);
+                                }
+                                event.preventDefault();
+                            }else{
+                                $(elem).parents("div.payment_details").find("[name*='bank']").first().next("span").next(".error").remove();
+                            }
+                            // joining date
+                            if($(elem).parents("div.payment_details").find("[name*='joining_date']").first().val()==""){
+                                if($(elem).parents("div.payment_details").find("[name*='joining_date']").first().hasClass("select2-hidden-accessible")){
+                                    if($(elem).parents("div.payment_details").find("[name*='joining_date']").first().next("span").next(".error").length>0){
+                                        $(elem).parents("div.payment_details").find("[name*='joining_date']").first().next("span").next(".error").remove();
+                                    }
+                                    $(elem).parents("div.payment_details").find("[name*='joining_date']").first().next("span").after(`<p class='text-danger h5 error' my-2>${required}</p>`);
+                                }else{
+                                    $(elem).parents("div.payment_details").find("[name*='joining_date']").first().next(".error").remove();
+                                    $(elem).parents("div.payment_details").find("[name*='joining_date']").first().after(`<p class='text-danger h5 error'>${required}</p>`);
+                                }
+                                event.preventDefault();
+                            }else{
+                                $(elem).parents("div.payment_details").find("[name*='joining_date']").first().next(".error").remove();
+                            }
+                            // fees
+                            if($(elem).parents("div.payment_details").find("[name*='fees']").first().val()=="" && $(elem).parents("div.payment_details").find("[name*='pending_payment']").first().val()=="0"){
+                                if($(elem).parents("div.payment_details").find("[name*='fees']").first().hasClass("select2-hidden-accessible")){
+                                    if($(elem).parents("div.payment_details").find("[name*='fees']").first().next("span").next(".error").length>0){
+                                        $(elem).parents("div.payment_details").find("[name*='fees']").first().next("span").next(".error").remove();
+                                    }
+                                    $(elem).parents("div.payment_details").find("[name*='fees']").first().next("span").after(`<p class='text-danger h5 error' my-2>${required}</p>`);
+                                }else{
+                                    $(elem).parents("div.payment_details").find("[name*='fees']").first().next(".error").remove();
+                                    $(elem).parents("div.payment_details").find("[name*='fees']").first().after(`<p class='text-danger h5 error'>${required}</p>`);
+                                }
+                                event.preventDefault();
+                            }else{
+                                $(elem).parents("div.payment_details").find("[name*='fees']").first().next(".error").remove();
+                            }
+                            $('html, body').animate({
+                                scrollTop: $(elem).offset().top
+                            }, 200);
+                        }else{
+                            if($(elem).hasClass("select2-hidden-accessible")){
+                                if($(elem).next("span").next(".error").length>0){
+                                    $(elem).next("span").next(".error").remove();
+                                }
+                            }else{
+                                $(elem).next(".error").remove();
+                            }
+                        }
+                    }else if(name=="investmentType[]"){
+                        if($(elem).val()=="sip"){
+                            // bank
+                            if($(elem).parents("div").next(".sipTimeFrame").find("select").val()==""){
+                                if($(elem).parents("div").next(".sipTimeFrame").find("select").hasClass("select2-hidden-accessible")){
+                                    $(elem).parents("div").next(".sipTimeFrame").find("select").next("span").next(".error").remove();
+                                    $(elem).parents("div").next(".sipTimeFrame").find("select").next("span").after(`<p class='text-danger h5 error' my-2>${required}</p>`);
+                                }else{
+                                    $(elem).parents("div.payment_details").find("[name*='bank']").first().next(".error").remove();
+                                    $(elem).parents("div.payment_details").find("[name*='bank']").first().after(`<p class='text-danger h5 error'>${required}</p>`);
+                                }
+                                event.preventDefault();
+                            }else{
+                                $(elem).parents("div.payment_details").find("[name*='bank']").first().next("span").next(".error").remove();
+                            }
+                        }
+                    }else{
+                        // if select2
+                        if($(elem).hasClass("select2-hidden-accessible")){
+                            if($(elem).next("span").next(".error").length>0){
+                                $(elem).next("span").next(".error").remove();
+                            }
+                            $(elem).next("span").after(`<p class='text-danger h5 error' my-2>${required}</p>`);
+                        }else{
+                            if($(elem).next(".error").length>0){
+                                $(elem).next(".error").remove();
+                            }
+                            $(elem).after(`<p class='text-danger h5 error'>${required}</p>`);
+                        }
+                        $('html, body').animate({
+                            scrollTop: $(elem).offset().top
+                        }, 0);
+                    }
+                }else{
+                    removeError(elem);
+                }
+            }
+            const validateByName = (nm,type) =>{
+                if(type==1){
+                    $("#accountHandlingDetail,#appendDiv1").find("[name*='"+nm+"']").each((i,v)=>{
+                        let val = accountHandlingValidate(v,event);
+                        if($(v).val()=="" || $(v).attr("name")=="mode[]"){
+                            let id = $(v).attr("field-id");
+                            let name = $(v).attr("name");
+                            if(id){
+                                let element = document.querySelector("[name*='"+name+"'][field-id='"+id+"']");
+                                if(element.getAttribute('type')!="file"){
+                                    element.closest("div").scrollIntoView();
+                                }
+                            }
+                        }
+                    })
+                }
+                if(type==2){
+                    $("#mutualFundDiv,#mutualFundDivAppend").find("[name*='"+nm+"']").each((i,v)=>{
+                        let val = accountHandlingValidate(v,event);
+                        if($(v).val()=="" || $(v).attr("name")=="mode[]"){
+                            let id = $(v).attr("field-id");
+                            let name = $(v).attr("name");
+                            if(id){
+                                let element = document.querySelector("[name*='"+name+"'][field-id='"+id+"']");
+                                if(element.getAttribute('type')!="file"){
+                                    element.closest("div").scrollIntoView();
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+            $("#submitSmsButton").find("button[type='submit']").first().on("click",function(event){
+                // validate personalDetails
+                let field = [];
+                field.push($("#personalDetail").find("input[name='name']"));
+                field.push($("#personalDetail").find("input[name='number']"));
+                field.push($("#personalDetail").find("input[name='wp_number']"));
+                field.push($("#personalDetail").find("select[name='profession']"));
+                // field.push($("#personalDetail").find("select[name='channel_partner_id']"));
+                field.map((e)=>validateField(e,event));
+                if($("#client_type").val()=="1"){
+                    field = ["st_sg","pan_number_text","holder_name","address","email_id","mobile","broker","user_id","password","mpin","capital","mode"];
+                    field.map((e)=>validateByName(e,1));
+                }
+                if($("#client_type").val()=="2"){
+                    field = ["amc","fund","amount","investmentType"];
+                    field.map((e)=>validateByName(e,2));
+                }
+            })
+            // check if client number already exists
+            $("#personalDetail").find('[name="number"]').first().on("input",function(e){
+                const val = e.target.value.replace(/[^\d]/g, "");
+                $(e.target).val(val);
+                $.ajax("{{route('checkClientNumber')}}",{
+                    type:"POST",
+                    data:{
+                        number:val,
+                        client_type:$("#client_type").val()
+                    }
+                })
+                .done(data=>{
+                    $(e.target).next(".error").remove();
+                    if(data.err==true){
+                        $(e.target).after(`<p class="text-danger error h5">Account is already exists with this number</p>`);
+                    }
+                })
+            })
         })
     </script>
     @section('jscript')
