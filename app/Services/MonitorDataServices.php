@@ -12,7 +12,7 @@ class MonitorDataServices{
 		$auth_user = Auth::user();
 		$explRole = explode(",", $auth_user->role);
 
-		if($filterDate != "") {
+		if($filterDate != "" && $filterDate != null) {
 			$dates = explode("-", $filterDate);
 			$st_dt = str_replace("/","-", $dates[0]);
 			$en_dt = str_replace("/","-", $dates[1]);
