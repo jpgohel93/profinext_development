@@ -19,13 +19,13 @@ class AnalystController extends Controller
 {
     function __construct()
     {
-//        $this->middleware('permission:analyst-create', ['only' => ['createForm', 'create']]);
-//        $this->middleware('permission:analyst-write', ['only' => ['editAnalyst']]);
-//        $this->middleware('permission:analyst-read', ['only' => ['view', 'getAnalyst']]);
-//        $this->middleware('permission:analyst-delete', ['only' => ['editAnalyst']]);
-//        $this->middleware('permission:monitor-read', ['only' => ['viewMonitorData']]);
-//        $this->middleware('permission:monitor-data-read', ['only' => ['viewMonitor']]);
-//        $this->middleware('permission:monitor-data-delete', ['only' => ['deleteMonitorData']]);
+        $this->middleware('permission:analyst-create', ['only' => ['createForm', 'create']]);
+        $this->middleware('permission:analyst-write', ['only' => ['editAnalyst']]);
+        $this->middleware('permission:analyst-read', ['only' => ['view', 'getAnalyst']]);
+        $this->middleware('permission:analyst-delete', ['only' => ['editAnalyst']]);
+        $this->middleware('permission:monitor-read', ['only' => ['viewMonitorData']]);
+        $this->middleware('permission:monitor-data-read', ['only' => ['viewMonitor']]);
+        $this->middleware('permission:monitor-data-delete', ['only' => ['deleteMonitorData']]);
     }
     public function view(Request $request){
         $auth_user = Auth::user();
