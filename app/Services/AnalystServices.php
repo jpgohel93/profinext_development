@@ -38,6 +38,7 @@ class AnalystServices{
         return $analyst;
     }
     public static function create($request){
+
         $analyst = $request->validate([
             "analyst"=>"required",
             "telegram_id"=>"required",
@@ -64,17 +65,18 @@ class AnalystServices{
                             "analyst_id"=>$analyst_id->id
                         ]);
                         if($id){
-                            LogServices::logEvent(["desc"=>"Analyst $analyst->analyst updated by ".$user_name]);
+                           LogServices::logEvent(["desc"=>"Analyst $analyst_id->analyst updated by ".$user_name]);
                         }else{
                             LogServices::logEvent(["desc"=>"Unable to add number for Analyst $analyst_id->id by ".$user_name,"data"=>$number]);
                         }
                     }
                 }
             }
+
             if($analyst_id){
-                LogServices::logEvent(["desc"=>"Analyst created $analyst->analyst by ".$user_name]);
+                LogServices::logEvent(["desc"=>"Analyst created $analyst_id->analyst by ".$user_name]);
             }else{
-                LogServices::logEvent(["desc"=>"Unable to create Analyst $analyst->analyst by ".$user_name,"data"=>$analyst]);
+                LogServices::logEvent(["desc"=>"Unable to create Analyst $analyst_id->analyst by ".$user_name,"data"=>$analyst_id]);
             }
             return $analyst_id->id;
         } catch (\Throwable $th) {

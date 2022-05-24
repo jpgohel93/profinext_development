@@ -272,7 +272,7 @@ class AnalystController extends Controller
     public function viewMonitorData(Request $request){
         $auth_user = Auth::user();
 
-		$analysts = Analyst::get();
+		$analysts = AnalystServices::allUserAnalysts($auth_user->id);
 		$keywords = KeywordServices::all();
         /* $monitorData = MonitorDataServices::all($auth_user->id);
         if(isset($monitorData['analyst']) && !empty($monitorData['analyst'])) {
