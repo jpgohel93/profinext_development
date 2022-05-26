@@ -729,7 +729,8 @@
                                                                         </thead>
                                                                         <tbody role="rowgroup" id="permissionsContainer">
                                                                             @php
-                                                                                $user_permissions = json_decode($user->permission);
+                                                                                // $user_permissions = json_decode($user->permission);
+                                                                                $user_permissions = $permissions;
                                                                                 // here we'll get all modules name
                                                                                 $permissions_constant = Config::get("constants.Permissions");
                                                                                 // each modules has 4 permissions

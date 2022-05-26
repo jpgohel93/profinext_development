@@ -33,6 +33,7 @@ class RolesController extends Controller
         $role = RoleServices::get($id);
         $permissions = RoleServices::permissionsByRole($id);
         $auth_user = Auth::user();
+
         $userRole = $auth_user->role;
         return view("roles.edit", ["role" => $role,"rolePermissions" => $permissions,"permissions"=>RoleServices::permissions(),"userRole" => $userRole]);
     }
@@ -50,7 +51,7 @@ class RolesController extends Controller
         return CommonService::ajaxResponse(200,["permissions"=>$permissions,"all_permissions"=>$allPermissions->toArray()],"success");
     }
     public function clearPermissionCache($fallback=false){
-        RoleServices::clearPermissionCache($fallback);
+        RoleServices::permissionsFallBack($fallback);
         return Redirect::route("roles")->with("info","Permissions Cache Has been Cleared");
     }
 }

@@ -58,7 +58,7 @@
                              <!--end::Page title-->
                              <!--begin::Actions-->
                              <div class="d-flex align-items-center py-1">
-                                 @can("blog-user-write")
+                                 @can("blog-admin-create")
                                     <!--begin::Button-->
                                     <a href="javascript:void(0)" class="btn btn-sm btn-primary" id="addTabBtn">
                                         <span class="svg-icon svg-icon-2">

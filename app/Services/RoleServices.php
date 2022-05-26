@@ -74,39 +74,41 @@ class RoleServices
         ],
             ["permission.required" => "Please select atleast one permission to edit or create role"]
         );
-        try {
-            $user_name = auth()->user()->name;
-            $roleName['name'] = $request->role;
-            Role::where("id",$id)->update($roleName);
-            LogServices::logEvent(["desc"=>"Role $request->role updated by $user_name"]);
+        $user_name = auth()->user()->name;
+        $roleName['name'] = $request->role;
+        Role::where("id",$id)->update($roleName);
+        LogServices::logEvent(["desc"=>"Role $request->role updated by $user_name"]);
 
-            $role = RoleServices::get($id);
-            if(!$role)
-                return false;
-            // revoke permissions
-            $role->revokePermissionTo($role->permissions);
-            // grant permissions
-            foreach($permissions as $permission){
-                $role->givePermissionTo($permission);
-            }
-        } catch (\Throwable $th) {
-            CommonService::throwError("Unable to update this role");
-        }
+        $role = RoleServices::get($id);
+        if(!$role)
+            return false;
+        return $role->syncPermissions($permissions);
+        // revoke permissions
+        // $role->revokePermissionTo($role->permissions);
+        // grant permissions
+        // foreach($permissions as $permission){
+            // $role->givePermissionTo($permission);
+            // }
+        // try {
+        // } catch (\Throwable $th) {
+        //     CommonService::throwError("Unable to update this role");
+        // }
 
     }
     public static function getPermissions($role){
         $permissions = Role::findByName($role)->permissions->pluck("name");
         return $permissions->toArray();
     }
-    public static function clearPermissionCache($fallback){
-        if($fallback){
-            return self::permissionsFallBack();
-        }
-        $permissions = Role::findByName("super-admin")->permissions->pluck("name")->first();
-        return Role::findByName("super-admin")->givePermissionTo($permissions);
-    }
+    // public static function clearPermissionCache($fallback){
+    //     if($fallback){
+    //         return self::permissionsFallBack();
+    //     }
+    //     $permissions = Role::findByName("super-admin")->permissions->pluck("name")->first();
+    //     return Role::findByName("super-admin")->givePermissionTo($permissions);
+    // }
     public static function permissionsFallBack()
     {
-        return auth()->user()->syncPermissions(Permission::get());
+        $user = User::find(auth()->user()->id);
+        return $user->syncPermissions(Permission::get());
     }
 }

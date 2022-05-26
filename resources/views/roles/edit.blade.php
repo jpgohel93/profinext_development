@@ -129,25 +129,25 @@
 																		<td aria-colindex="1" role="cell" class=""> {{$permissions_constant[$module_counter]}} </td>
 																		<td aria-colindex="2" role="cell" class="">
 																			<div class="form-check form-check-custom form-check-solid">
-																				<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$permissions[$i]->name}}" {{(in_array($permissions[$i+1]->id,$rolePermissions))? 'checked':""}} id="__BVID__675">
+																				<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$permissions[$i]->name ?? ""}}" {{(in_array(($permissions[$i]->id ?? ""),$rolePermissions))? 'checked':""}} id="__BVID__675">
 																				<label class="custom-control-label" for="__BVID__675"></label>
 																			</div>
 																		</td>
 																		<td aria-colindex="2" role="cell" class="">
 																			<div class="form-check form-check-custom form-check-solid">
-																				<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$permissions[$i+1]->name}}" {{(in_array($permissions[$i+2]->id,$rolePermissions))? 'checked':""}} id="__BVID__675">
+																				<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$permissions[$i+1]->name ?? ""}}" {{(in_array(($permissions[$i+1]->id ?? ""),$rolePermissions))? 'checked':""}} id="__BVID__675">
 																				<label class="custom-control-label" for="__BVID__675"></label>
 																			</div>
 																		</td>
 																		<td aria-colindex="2" role="cell" class="">
 																			<div class="form-check form-check-custom form-check-solid">
-																				<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$permissions[$i+2]->name}}" {{(in_array($permissions[$i+1]->id,$rolePermissions))? 'checked':""}} id="__BVID__675">
+																				<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$permissions[$i+2]->name ?? ""}}" {{(in_array(($permissions[$i+2]->id ?? ""),$rolePermissions))? 'checked':""}} id="__BVID__675">
 																				<label class="custom-control-label" for="__BVID__675"></label>
 																			</div>
 																		</td>
 																		<td aria-colindex="2" role="cell" class="">
 																			<div class="form-check form-check-custom form-check-solid">
-																				<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$permissions[$i+3]->name}}" {{(in_array($permissions[$i+1]->id,$rolePermissions))? 'checked':""}} id="__BVID__675">
+																				<input type="checkbox" class="form-check-input permissionCheckBox" name='permission[]' value="{{$permissions[$i+3]->name ?? ""}}" {{(in_array(($permissions[$i+3]->id ?? ""),$rolePermissions))? 'checked':""}} id="__BVID__675">
 																				<label class="custom-control-label" for="__BVID__675"></label>
 																			</div>
 																		</td>

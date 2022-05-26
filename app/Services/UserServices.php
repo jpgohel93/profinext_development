@@ -135,24 +135,24 @@ class UserServices
         $user_data['dob'] = isset($request->dob) ? date("Y-m-d",strtotime($request->dob)) : null;
 
         // check permissions
-        $direct_permissions=[];
-        $role_permissions = [];
-        if(isset($request->role) && trim($request->role[0])!="" && isset($request->permission)){
-            $role_permissions = RoleServices::permissions()->pluck("name")->toArray();
-            $direct_permissions = array_diff($role_permissions,$request->permission);
-        }
-        // revoke permissions
-        $param = array();
-        foreach($role_permissions as $permission){
-            if(!in_array($permission,$direct_permissions)){
-                array_push($param,$permission);
-            }
-        }
-        $user_data['permission'] = json_encode($param);
+        // $direct_permissions=[];
+        // $role_permissions = [];
+        // if(isset($request->role) && trim($request->role[0])!="" && isset($request->permission)){
+        //     $role_permissions = RoleServices::permissions()->pluck("name")->toArray();
+        //     $direct_permissions = array_diff($role_permissions,$request->permission);
+        // }
+        // // revoke permissions
+        // $param = array();
+        // foreach($role_permissions as $permission){
+        //     if(!in_array($permission,$direct_permissions)){
+        //         array_push($param,$permission);
+        //     }
+        // }
+        // $user_data['permission'] = json_encode($param);
         $user = User::create($user_data);
         $user_name= auth()->user()->name;
         LogServices::logEvent(["desc"=>"User $request->name created by $user_name"]);
-        $user->syncPermissions($param);
+        $user->syncPermissions($request->permission);
         $user->syncRoles($request->role);
         $numbers = $request->number;
         foreach($numbers as $number){
@@ -268,23 +268,23 @@ class UserServices
         unset($request["company_2"]);
         unset($request["limit"]);
         // check permissions
-        $direct_permissions = [];
-        $role_permissions = [];
-        if (isset($request->role) && trim($request->role[0]) != "" && isset($request->permission)) {
-            $role_permissions = RoleServices::permissions()->pluck("name")->toArray();
-            $direct_permissions = array_diff($role_permissions, $request->permission);
-        }
+        // $direct_permissions = [];
+        // $role_permissions = [];
+        // if (isset($request->role) && trim($request->role[0]) != "" && isset($request->permission)) {
+        //     $role_permissions = RoleServices::permissions()->pluck("name")->toArray();
+        //     $direct_permissions = array_diff($role_permissions, $request->permission);
+        // }
         // revoke permissions
         $user = UserServices::user($id);
-        $param = array();
+        // $param = array();
         $user->syncRoles($request->role);
-        foreach ($role_permissions as $permission) {
-            if (!in_array($permission, $direct_permissions)) {
-                array_push($param, $permission);
-            }
-        }
-        $user->syncPermissions($param);
-        $user->revokePermissionTo($direct_permissions);
+        // foreach ($role_permissions as $permission) {
+        //     if (!in_array($permission, $direct_permissions)) {
+        //         array_push($param, $permission);
+        //     }
+        // }
+        // $user->revokePermissionTo($direct_permissions);
+        $user->syncPermissions($request->permission);
         $user_data = $request->except(['_token',"number","permissions"]);
         // remove old numbers
         UserNumbers::where("user_id",$id)->delete();
@@ -299,7 +299,7 @@ class UserServices
         $user_data['role'] = $userRoles;
 
         $user_data['updated_by'] = Auth::id();
-        $user_data['permission'] = json_encode($request->permission);
+        // $user_data['permission'] = json_encode($request->permission);
         $data = User::with("withNumber")->where("id",$id)->first();
         User::where("id",$id)->update($user_data);
         $user_name = auth()->user()->name;
